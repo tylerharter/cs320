@@ -61,6 +61,7 @@ $100 credits
 18. Install some Vagrant extensions with the following:
 
 ```
+vagrant plugin install fog-aws
 vagrant plugin install vagrant-aws
 ```
 
@@ -68,7 +69,7 @@ vagrant plugin install vagrant-aws
 
 19. Paste the following and run it: `wget https://raw.githubusercontent.com/tylerharter/cs320/master/s20/lab1/Vagrantfile -o Vagrantfile`.  The `wget` program lets you download things from the Internet with a simple command (no need to use a web browser).  Run `ls` to see the new file.
 
-20. While still in the "vm" directory, run `vagrant up`.  This creates a new virtual machine in Amazon's cloud and installs Jupyter, pandas, and other tools.  This will probably take a few minutes.
+20. While still in the "vm" directory, run `vagrant up`.  This creates a new virtual machine in Amazon's cloud and installs Jupyter, pandas, and other tools.  This will probably take a few minutes.  Note that there are a couple warnings that show up, even when everything works fine (such as "Warning! The AWS provider doesn't support any of the Vagrant high-level network configurations" and "Warning! Vagrant might not be able to SSH into the instance").
 
 ## Jupyter
 
