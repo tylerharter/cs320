@@ -11,14 +11,7 @@ reconstruct a similar virtual machine on their computer (with the same
 operating system and programs installed), they're more likely to be
 produce the same results by running your code.
 
-
 TODO: link to video
-
-
-
-https://stackoverflow.com/questions/50053255/virtualbox-raw-mode-is-unavailable-courtesy-of-hyper-v-windows-10
-
-https://www.awseducate.com/registration#INFO-Student
 
 $100 credits
 
@@ -58,3 +51,15 @@ $100 credits
 14. Now navigate to "Security Groups" on the left, and click "Create Security Group"
 
 15. Enter "cs320" for both the "Security group name" and "Description".  Under "Inbound", click "Add Rule".  For the rule, select "All traffic" for the "Type" and select "Anywhere" for the "Source".  This basically disables the firewall -- not a good idea to do in a high-stakes environment, but it's ok to sacrifice some security for convenience in a class.  Click "Create".
+
+## Vagrant
+
+16. Download and install the 64-bit Vagrant version for your laptop: https://www.vagrantup.com/downloads.html.  Vagrant helps you create virtual machines (on AWS and other places) with specific software installed.  You can use the defaults when installing Vagrant.
+
+17. Open your terminal (on Windows, go to the start menu and search for PowerShell; on Mac, search for the Terminal app).
+
+18. Use `cd` to navigate to the "vm" directory you created in step 10.
+
+19. Paste the following and run it: `wget https://raw.githubusercontent.com/tylerharter/cs320/master/s20/lab1/Vagrantfile`.  The `wget` program lets you download things from the Internet with a simple command (no need to use a web browser).
+
+## Jupyter
