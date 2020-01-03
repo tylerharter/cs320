@@ -1,0 +1,36 @@
+require 'vagrant-aws'
+require 'csv'
+
+Vagrant.configure('2') do |config|
+
+  # Use dummy AWS box
+  config.vm.box = 'aws-dummy'
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+  # Specify AWS provider configuration
+  config.vm.provider 'aws' do |aws, override|
+    # AWS keys
+    aws_keys = CSV.read("accessKeys.csv")
+    aws.access_key_id = aws_keys[1][0]
+    aws.secret_access_key = aws_keys[1][1]
+
+    # VM location, image, and ports
+    aws.region = 'us-east-2'
+    aws.ami = 'ami-059d836af932792c3'
+    aws.instance_type = 't2.micro'
+    aws.security_groups = ['cs320']
+
+    # login
+    override.ssh.username = 'ubuntu'
+    aws.keypair_name = 'cs320'
+    override.ssh.private_key_path = 'cs320.pem'
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    apt-get upgrade
+    apt-get install -y python3-pip
+    apt-get install -y emacs25-nox
+    pip3 install jupyter==1.0.0 pandas==0.25.3
+  SHELL
+end
