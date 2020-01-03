@@ -1,4 +1,3 @@
-# wisc-ds-projects.github.io
-# wisc-ds-projects.github.io
-# cs320
-# didactic-octo-tribble
+# CS 320 Semesters
+
+* [Spring 2020](https://github.com/tylerharter/cs320/tree/master/s20)

@@ -1,20 +1,44 @@
-# Computer Setup
+# Computer Setup for CS 320
 
-In CS 320, we'll be using virtual machines for all projects and labs.
-A virtual machine lets you run another operating system, in this case
-Ubuntu Linux, without overwriting your existing operating system (such
-as Mac or Windows).
+In CS 320, you'll be writing your code and testing it on Linux --
+Linux is a popular free operating system.  A big advantage of this is
+that we auto-grade you on a Linux machine.  By using Linux yourself,
+you'll usually know sooner if `test.py` is going to fail when we run
+it.  Also, we can give you the exact steps we followed to install
+various software on our Linux system, so you can do the same.
 
-Using virtual machines makes your analysis more *reproducible* -- if
-your code works in your virtual machine, and other people know how to
+Of course, you probably already have Mac or Windows on your ~~laptop~~
+machine, and we won't ask you to give that in up.  Instead, you'll be
+running Linux on a "virtual machine".  You can think of a virtual
+machine as a "fake" computer that you can install another operating
+system on, like Windows or Linux.  The advantage is that you can have
+multiple virtual machines on you ~~real computer~~ physical machine.
+So you could in theory be running Mac, Window, and Linux programs on
+your computer at the same time if you have the right virtual machines
+setup!
+
+Knowing how to create virtual machines is an important data-science
+skill because it makes your analysis more *reproducible* -- if your
+code works in your virtual machine, and other people know how to
 reconstruct a similar virtual machine on their computer (with the same
 operating system and programs installed), they're more likely to be
 produce the same results by running your code.
 
-TODO: link to video
-
-$100 credits
-
+Although you could install virtual machine software on your computer,
+in this class we'll be renting virtual machines in Amazon's cloud
+(called AWS) -- this generally isn't expensive (depending on which
+type of virtual machine you choose, you could keep this under
+$10/month).  You can sign up as a student for $100 of free credits, so
+you'll probably end up paying nothing if you're careful not to create
+lots of virtual machines.  Although you generally need to give Amazon
+a credit card to create an account, you could get low-values Visa
+credit card to protect yourself from accidentally signing up for
+expensive services not covered by your free credit.  Using AWS instead
+of installing virtual-machine software on your own computer will
+simplify things a bit, but it will still probably take you a couple
+hours to set this up, and many of you will likely need some help.  We
+recommend getting as far as you can at home, then coming to the first
+lab for help with any issues you encounter.
 
 ## AWS (Amazon Cloud Services) Account
 
@@ -52,7 +76,7 @@ $100 credits
 
 15. Enter "cs320" for both the "Security group name" and "Description".  Under "Inbound", click "Add Rule".  For the rule, select "All traffic" for the "Type" and select "Anywhere" for the "Source".  This basically disables the firewall -- not a good idea to do in a high-stakes environment, but it's ok to sacrifice some security for convenience in a class.  Click "Create".
 
-## Vagrant
+## Vagrant: Making a VM
 
 16. Download and install the 64-bit Vagrant version for your laptop: https://www.vagrantup.com/downloads.html.  Vagrant helps you create virtual machines (on AWS and other places) with specific software installed.  You can use the defaults when installing Vagrant.
 
@@ -65,11 +89,18 @@ vagrant plugin install fog-aws
 vagrant plugin install vagrant-aws
 ```
 
-18. Use `cd` to navigate to the "vm" directory you created in step 10.
+19. Use `cd` to navigate to the "vm" directory you created in step 10.
 
-19. Paste the following and run it: `wget https://raw.githubusercontent.com/tylerharter/cs320/master/s20/lab1/Vagrantfile -o Vagrantfile`.  The `wget` program lets you download things from the Internet with a simple command (no need to use a web browser).  Run `ls` to see the new file.
+20. Paste the following and run it: `wget https://raw.githubusercontent.com/tylerharter/cs320/master/s20/lab1/Vagrantfile -o Vagrantfile`.  The `wget` program lets you download things from the Internet with a simple command (no need to use a web browser).  Run `ls` to see the new file.
 
-20. While still in the "vm" directory, run `vagrant up`.  This creates a new virtual machine in Amazon's cloud and installs Jupyter, pandas, and other tools.  This will probably take a few minutes.  Note that there are a couple warnings that show up, even when everything works fine (such as "Warning! The AWS provider doesn't support any of the Vagrant high-level network configurations" and "Warning! Vagrant might not be able to SSH into the instance").
+21. While still in the "vm" directory, run `vagrant up`.  This creates a new virtual machine in Amazon's cloud and installs Jupyter, pandas, and other tools.  This will probably take a few minutes.  Note that there are a couple warnings that show up, even when everything works fine (such as "Warning! The AWS provider doesn't support any of the Vagrant high-level network configurations" and "Warning! Vagrant might not be able to SSH into the instance").  The end is not too exciting -- you just get a lack of an error message at the end.
 
-## Jupyter
+## Vagrant: Connecting to the VM
 
+22. from inside the "vm" directory in the terminal, run `vagrant ssh`.  This should connect you to the Linux virtual machine.
+
+23. run `lsb_release -a`.  If all is well, you'll see that you're running Ubuntu (a flavor of Linux), version 18.04.
+
+24. to exit, type `CONTROL` and `D`
+
+25. [OPTIONAL] if you want to kill the virtual machine (e.g., to conserve free AWS credits), you could run `vagrant destroy`.  Of course, if you do this later in the semester, make sure you've saved any work on the virtual machine first.  Keeping this one virtual machine running throughout the semester is not a bad idea.
