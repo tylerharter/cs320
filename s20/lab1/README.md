@@ -58,7 +58,11 @@ $100 credits
 
 17. Open your terminal (on Windows, go to the start menu and search for PowerShell; on Mac, search for the Terminal app).
 
-TODO: install vagrant packages
+18. Install some Vagrant extensions with the following:
+
+```
+vagrant plugin install vagrant-aws
+```
 
 18. Use `cd` to navigate to the "vm" directory you created in step 10.
 
