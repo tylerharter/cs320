@@ -115,6 +115,7 @@ lab for help with any issues you encounter.
 19. Install some Vagrant extensions with the following:
 
 ```
+vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 vagrant plugin install fog-aws
 vagrant plugin install vagrant-aws
 ```
