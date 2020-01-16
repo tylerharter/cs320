@@ -116,7 +116,7 @@ lab for help with any issues you encounter.
 
 ```
 vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
-vagrant plugin install fog-aws
+vagrant plugin install --plugin-version 1.0.1 fog-ovirt
 vagrant plugin install vagrant-aws
 ```
 
