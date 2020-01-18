@@ -95,7 +95,7 @@ Now it's time to actually create your virtual machine!  Follow [these steps](lau
 
 ## Step 5a: Connecting with SSH from your terminal
 
-If you were able to configure the SSH Key properly in Step 3, follow
+If you were able to configure the SSH key properly in Step 3, follow
 [these directions](connect.md).
 
 ## Step 5b [Alternative]: Connecting without SSH
@@ -104,3 +104,7 @@ If you couldn't configure the SSH key, follow [these
 directions](connect-alt.md) instead.
 
 ## Step 6: Setting up Jupyter
+
+Now lets get Jupyter and some other software installed.  Follow [these
+directions](jupyter.md).
+

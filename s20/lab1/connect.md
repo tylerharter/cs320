@@ -15,3 +15,6 @@ should show you what version of Ubuntu you're running (hopefully
 Congrats, you've created your first virtual machine with Linux
 installed!  This is no small feat, and being able to do so in the
 future in an invaluable career skill.
+
+Note: you can type "exit" or `CTRL-D` to exit the SSH connection and
+run commands on your own computer again.

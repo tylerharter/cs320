@@ -36,3 +36,5 @@ so it's a waste of money (or hopefully credits) to have more running
 than necessary.
 
 <img src="img/23.png" width=600>
+
+8. Make a note of the "External IP" -- you'll be using it again.
