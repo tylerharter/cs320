@@ -9,7 +9,8 @@ where we need to paste a key, which we haven't generated yet.
 
 <img src="img/14.png" width=600>
 
-3. Open your terminal, and run the command `ssh-keygen`.  It looks
+3. Open your terminal, and run the command `ssh-keygen`.  You should be able
+to just use the defaults by hitting enter a few times. It looks
 like the following on a Mac, but should work the same on Windows.  If
 `ssh-keygen` isn't found, then you should skip the rest of this
 section and go back to the next steps on the [main page](README.md)
@@ -29,3 +30,5 @@ username that appears to the left of the box (in this case "trh") --
 you'll need it later.
 
 <img src="img/17.png" width=600>
+
+6. Then click "Save".
