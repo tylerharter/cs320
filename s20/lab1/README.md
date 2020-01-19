@@ -1,4 +1,4 @@
-# Computer Setup for CS 320
+# Lab 1: Computer Setup for CS 320
 
 In CS 320, you'll be writing your code and testing it on Linux --
 Linux is a popular free operating system.  A big advantage of this is
