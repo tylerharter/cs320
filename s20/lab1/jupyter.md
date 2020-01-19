@@ -4,7 +4,11 @@
 
 2. Before we install Jupyter, let's get pip.  Run the following, and enter "Y" when prompted:
 
-`sudo apt install python3-pip`
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install python3-pip
+```
 
 The `apt` program lets you install software on an Ubuntu system; think
 of it like `pip`, for more general (you can install stuff not related
@@ -25,7 +29,7 @@ able to take over your VM!  Run the following:
 
 5. Now let's start Jupyter.  Run the following:
 
-`python3 -m notebook --ip=0.0.0.0 --port=2020`
+`python3 -m notebook --no-browser --ip=0.0.0.0 --port=2020`
 
 6. Now, open up a new browser window, and type `IP:2020` for the URL
 (IP should be the External IP of the virtual machine).  You can enter
