@@ -25,7 +25,10 @@ installing tools and other tasks.
 password for connecting to it.  Make it a good one, or anybody will be
 able to take over your VM!  Run the following:
 
-`python3 -m notebook password`
+```
+mkdir -p ~/.jupyter
+python3 -m notebook password
+```
 
 5. Now let's start Jupyter.  Run the following:
 
