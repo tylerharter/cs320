@@ -463,6 +463,10 @@ Expectations:
 * `print(c)` should look like printing a `dict` where all keys are upper case
 * `c.max_keys()` should return a list of keys that map to the highest value (it returns a list rather than a single key string, as there may be ties -- in which case the keys should be in ascending order alphabetically)
 
+Note: There is a built in Counter class that comes with python. It is generally 
+extremely useful but the one we ask you to implement here is slightly different. 
+See: https://docs.python.org/2/library/collections.html#collections.Counter
+
 Your class will need to implement the following special methods:
 * https://docs.python.org/3/reference/datamodel.html#object.__setitem__
 * https://docs.python.org/3/reference/datamodel.html#object.__getitem__
