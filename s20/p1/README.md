@@ -210,6 +210,8 @@ https://gitpython.readthedocs.io/en/stable/tutorial.html#the-commit-object.
 
 #### Q2: How many commits were there by each author?
 
+Answer with a dictionary. 
+
 #### Q3 [PLOT]: How many commits did each developer contribute?
 
 It should look like this:
@@ -254,13 +256,13 @@ and run the code again.  Does it come out right?
 
 There are lots of useful methods for datetime object so we encourage you to check them out, like this one: https://docs.python.org/3/library/datetime.html#datetime.datetime.weekday
 
-#### Q5 [TABLE]: how has the size of the wc.py code grown over time?
+#### Q5 [TABLE]: How has the size of the wc.py code grown over time?
 
 Expected:
 
 <img src="img/q5.png">
 
-#### Q6 [PLOT]: how has the size of the wc.py code grown over time?
+#### Q6 [PLOT]: How has the size of the wc.py code grown over time?
 
 Expected:
 
@@ -272,7 +274,7 @@ In CS 301 (now called CS 220) you were not required to write functions that
 met certain criteria. Going further, we will require you to do so more and more as 
 it provides us with a standard way to grade, but also forces you to write useful functions. 
 When asked to implement a function, we will provide you with a **function prototype** which 
-is essentially the blueprint of that function, what it should be called, how it should behave, 
+is essentially the blueprint of that function, what it should be called, how it should behave, and 
 what inputs and outputs it should produce. 
 
 Note that you should remove the 
@@ -310,9 +312,9 @@ a c
 """
 ```
 
-#### Q7: what does `run_wc(test1)` return?
+#### Q7: What does `run_wc(test1)` return?
 
-#### Q8: what does `run_wc(test3)` return?
+#### Q8: What does `run_wc(test3)` return?
 
 ---
 
@@ -335,19 +337,19 @@ Specifications:
 
 ---
 
-#### Q9: what does `test_table(test1, {'X': 1, 'Y': 1, 'Z': 1})` return?
+#### Q9: What does `test_table(test1, {'X': 1, 'Y': 1, 'Z': 1})` return?
 
 Expected:
 
 <img src="img/q9.png">
 
-#### Q10: what does `test_table(test2, {'A': 2, 'B': 1, 'C': 1})` return?
+#### Q10: What does `test_table(test2, {'A': 2, 'B': 1, 'C': 1})` return?
 
 Expected:
 
 <img src="img/q10.png">
 
-#### Q11: what does `test_table(test3, {'A': 2, 'B': 1, 'C': 1})` return?
+#### Q11: What does `test_table(test3, {'A': 2, 'B': 1, 'C': 1})` return?
 
 Expected:
 
@@ -373,10 +375,10 @@ Specifications:
 * `commit`: what version of `wc.py` to run on the random input
 * **return value**: how many seconds it took to run `wc.py` (not counting the time to generate the input file)
 
-Hint: Try taking a look a the random module's `choice` function...
+Hint: Try taking a look at the random module's `choice` function...
 
 For the following questions, we'll be measuring the performance of
-`wc.py`.  We're only interested in version that are passing the tests,
+`wc.py`.  We're only interested in versions that are passing the tests,
 and we've given these versions nicer names.  For your convenience,
 paste the following dictionary into your notebook:
 
@@ -389,7 +391,7 @@ versions = {
 }
 ```
 
-#### Q12: how long does each version take for 5000-word inputs consisting of 100 unique words?
+#### Q12: How long does each version take for 5000-word inputs consisting of 100 unique words?
 
 Answer with a compact, horizontal, log-scale plot, like this:
 
@@ -397,7 +399,7 @@ Answer with a compact, horizontal, log-scale plot, like this:
 
 Note: Your function should return the runtime in seconds, but we expect the graph to be in milliseconds. 
 
-#### Q13: how long does each version take for 5000-word inputs consisting of 1 unique word?
+#### Q13: How long does each version take for 5000-word inputs consisting of 1 unique word?
 
 Expected:
 
@@ -421,13 +423,13 @@ corresponds to an run where there were 10000 total words consisting of
 100 unique words (1% of 10000) -- it took 0.0851483 seconds to run
 `wc.py` in this scenario.
 
-#### Q14 [PLOT]: how does the number of total words and unique percent affect the performance of versions 3 and 4?
+#### Q14 [PLOT]: How does the number of total words and unique percent affect the performance of versions 3 and 4?
 
 Expected:
 
 <img src="img/q14.png">
 
-#### Q15 [PLOT]: same question as Q14.
+#### Q15 [PLOT]: Same question as Q14.
 
 In this and the previous experiment, we want to understand how time
 depends on three variables: total, unique, and version.  For Q14, we
@@ -437,7 +439,7 @@ respectively.
 For Q15, let's mix it up and use x-axis for unique and line color for
 total.
 
-Hint: when plotting a DataFrame in Pandas, each column is a line,
+Hint: When plotting a DataFrame in Pandas, each column is a line,
 and the index corresponds to the x-axis.  So swapping line color with
 x-axis position can be accomplished by transposing the DataFrame
 before plotting (something like `df.T.plot.line(...)`).
@@ -504,11 +506,11 @@ c = Counter()
 
 Expectations:
 * `c["KEY"]` is the same as `c["key"]`
-* `c["KEY"]` should default to 0 a value hasn't already been set for "KEY"
+* `c["KEY"]` should default to 0 if a value hasn't already been set for "KEY"
 * `print(c)` should look like printing a `dict` where all keys are upper case
-* `c.max_keys()` should return a list of keys that map to the highest value (it returns a list rather than a single key string, as there may be ties -- in which case the keys should be in ascending order alphabetically)
+* `c.max_keys()` should return a list of key(s) that map to the highest value (it returns a list rather than a single key string, as there may be ties -- in which case the keys should be in ascending order alphabetically)
 
-Note: There is a built in Counter class that comes with python. It is generally 
+Note: There is a built in Counter class that comes with Python. It is generally 
 extremely useful but the one we ask you to implement here is slightly different. 
 See: https://docs.python.org/2/library/collections.html#collections.Counter
 
@@ -519,9 +521,9 @@ Your class will need to implement the following special methods:
 
 After you get the Counter class working, you can just paste our
 provided code for the following questions as a way to test that
-Counter behaves as expected.
+Counter behaves as expected. (So for Part 5, your Counter class is the only code you should need to write.)
 
-#### Q17: what does the following code produce?
+#### Q17: What does the following code produce?
 
 Code:
 
@@ -536,7 +538,7 @@ Expected:
 0
 ```
 
-#### Q18: what does the following code produce?
+#### Q18: What does the following code produce?
 
 Code:
 
@@ -555,7 +557,7 @@ Expected:
 2
 ```
 
-#### Q19: what does the following code produce?
+#### Q19: What does the following code produce?
 
 Code:
 
@@ -569,7 +571,7 @@ Expected:
 {'APPLE': 1, 'BANANA': 2, 'KIWI': 2}
 ```
 
-#### Q20: what does the following code produce?
+#### Q20: What does the following code produce?
 
 Code:
 
