@@ -13,6 +13,14 @@ Fortunately, they have all been making contributions to a shared git
 repository, so you can see who did what, and evaluate the improvements
 to the code.
 
+## Background
+
+Git is an integral part of any modern software development. It is a program that 
+enables it's users to collaborate on code, track changes to files, see who wrote what 
+and so forth. In this project we will be exploring the git repo(sitory) containing 
+the WC source code that has been provided as `repo.zip`.
+ 
+
 ## Setup
 
 You'll need to install a few pip packages, if you don't already have them (connect to your VM with SSH to do the installs):
@@ -30,14 +38,14 @@ virtual machine where you'll do your work.  Download the following to your `p1` 
 * https://github.com/tylerharter/cs320/raw/master/s20/p1/repo.zip
 
 An easy way to download a file on Linux is to `cd` to the directory
-you want and run `wget <URL>` there.  For example, aftering cd'ing to
+you want and run `wget <URL>` there.  For example, after `cd`'ing to
 the `p1` directory, you could download the first file with this:
 
 ```
-https://github.com/tylerharter/cs320/blob/master/s20/p1/test.py
+wget https://github.com/tylerharter/cs320/blob/master/s20/p1/test.py
 ```
-
-You can unzip your `repo.zip` file from the terminal with this command:
+Once you've done this for all the required files, 
+you can unzip your `repo.zip` file from the terminal with this command:
 
 ```
 unzip repo.zip
@@ -49,13 +57,31 @@ If you don't have the `unzip` program, you might need to install it first with `
 sudo apt install unzip
 ```
 
-Check that the repo has been correctly extracted, using the `git` command:
+Check that the repo has been correctly extracted.
+If you `cd repo` and then list the files in that directory with `ls -a` 
+you should see four entries as follows:
 
 ```
-cd repo
+.  ..  .git  wc.py 
+```
+
+By convention, folders that start with `.` are hidden. This is why we had 
+to run `ls` with the `-a` flag, it shows all. The first and second 
+directories, namely `.` and `..` are special. They represent the current directory
+(repo/) and it's parent (p1/ in this case) respectively.
+
+The `.git` directory is managed by git and contains a lot of metadata about the code 
+and it's changes through time. We will never be using this directly, but just know that 
+what makes a directory a git repository is this hidden folder.
+
+Try using the following `git` command:
+
+```
 git log
 ```
 
+This will print every commit that has occurred. You can use the up/down 
+keys to scroll through them all if needed. To exit this view, press `q`.
 You should see eight commits, like this:
 
 ```
@@ -150,16 +176,18 @@ nano.  Let's see how the file has changed over time.
 
 Run `git checkout 6d7beafb8e79b7a92fed8e67673a33bb7f607dbe`.  The
 "6d7...dbe" part was the first commit you should have seen when you
-ran the `git log` earlier.
+ran the `git log` command earlier. This will revert back to the original 
+state of the WC project as it was back then, but don't worry, you will 
+not lose the current state as it was also saved in a commit.
 
 Note: the git tool will say "You are in 'detached HEAD' state" -- don't
-worry, it's not as gruesome as it sounds. :)
+worry, it's not as gruesome as it sounds :)
 
 Now run `nano wc.py`.  This is the first version of `wc.py` -- you
 should see it is very different than that latest version that we
 looked at first.
 
-For the questions, start a new Python notebook.  When answering
+For the questions, start a new Python notebook in the `p1` directory.  When answering
 question 1, start with a `#q1` comment, and so on.  You'll be
 switching between commits more, but you'll be using the `git` module
 to do it with Python code rather than running the commands yourself.
@@ -210,10 +238,12 @@ If you haven't created plots in Python for a while, you can review the CS 220/30
 
 Answer with a Python set.  If you have a `Commit` object `c` (say from `.iter_commits()`), you can get its date with `c.authored_date`.
 
-Dates and times are often represented as integer *timestamps* that count the number of seconds since Jan 1, 1970.  You can convert these to a `datetime` object in Python that's easier to work with.  For example, try running this in a cell:
+Dates and times are often represented as integer *timestamps* that count the number of seconds since Jan 1, 1970 
+(this is known as UNIX timestamp, and is widely used because it's simpler 
+than dealing with timezones/leap years/etc). You can convert these to a `datetime` object in Python that's easier to work with.  For example, try running this in a cell:
 
 ```python
-from datetime import datetime # yes, both the module are type are named datetime
+from datetime import datetime # yes, both the module and type are named datetime
 dt = datetime.fromtimestamp(1579744630)
 print(type(dt), dt)
 ```
@@ -222,7 +252,7 @@ Try copy/pasting the current timestamp (from
 https://www.unixtimestamp.com/) to replace the integer value above,
 and run the code again.  Does it come out right?
 
-There are lots of useful methods for datetime object, like this one: https://docs.python.org/3/library/datetime.html#datetime.datetime.weekday
+There are lots of useful methods for datetime object so we encourage you to check them out, like this one: https://docs.python.org/3/library/datetime.html#datetime.datetime.weekday
 
 #### Q5 [TABLE]: how has the size of the wc.py code grown over time?
 
@@ -237,6 +267,16 @@ Expected:
 <img src="img/q6.png">
 
 ## Part 2: Testing
+
+In CS 301 (now called CS 220) you were not required to write functions that 
+met certain criteria. Going further, we will require you to do so more and more as 
+it provides us with a standard way to grade, but also forces you to write useful functions. 
+When asked to implement a function, we will provide you with a **function prototype** which 
+is essentially the blueprint of that function, what it should be called, how it should behave, 
+what inputs and outputs it should produce. 
+
+Note that you should remove the 
+`pass` statement as it will have no effect once you write the function.
 
 Complete the following function:
 
@@ -333,6 +373,8 @@ Specifications:
 * `commit`: what version of `wc.py` to run on the random input
 * **return value**: how many seconds it took to run `wc.py` (not counting the time to generate the input file)
 
+Hint: Try taking a look a the random module's `choice` function...
+
 For the following questions, we'll be measuring the performance of
 `wc.py`.  We're only interested in version that are passing the tests,
 and we've given these versions nicer names.  For your convenience,
@@ -352,6 +394,8 @@ versions = {
 Answer with a compact, horizontal, log-scale plot, like this:
 
 <img src="img/q12.png">
+
+Note: Your function should return the runtime in seconds, but we expect the graph to be un milliseconds. 
 
 #### Q13: how long does each version take for 5000-word inputs consisting of 1 unique word?
 
@@ -405,8 +449,9 @@ Expected:
 **To get full points**, write a short comment about whether Q14 or Q15
   more clearly shows performance trends.
 
-#### Q16 [PLOT]: how does v4 scale with more words, keeping unique
-     percent at 10?  Show standard deviation around the line.
+#### Q16 [PLOT]: how does v4 scale with more words, keeping unique percent at 10?  
+
+Show standard deviation around the line.
 
 Computing and plotting standard deviation based on trials is a bit
 involved, so we'll give you some helper code (finish it):
@@ -537,3 +582,8 @@ Expected:
 ```
 ['BANANA', 'KIWI']
 ```
+
+---
+
+Congrats! You've just implemented your first class. Can you se why having 
+this class might be helpful for the development of the WC project?
