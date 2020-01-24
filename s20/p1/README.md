@@ -395,7 +395,7 @@ Answer with a compact, horizontal, log-scale plot, like this:
 
 <img src="img/q12.png">
 
-Note: Your function should return the runtime in seconds, but we expect the graph to be un milliseconds. 
+Note: Your function should return the runtime in seconds, but we expect the graph to be in milliseconds. 
 
 #### Q13: how long does each version take for 5000-word inputs consisting of 1 unique word?
 
@@ -411,7 +411,7 @@ Expected:
 We want to explore the performance of `wc.py` for different
 combinations of `total_words` and `uniq_words`.  Write a function that
 can perform measurements to produce a DataFrame something like the
-following (this is for your own convience -- we aren't picky about the
+following (this is for your own convenience -- we aren't picky about the
 details for this function).
 
 <img src="img/part4.png">
@@ -491,7 +491,7 @@ It should look something like this:
 
 <img src="img/q16b.png">
 
-## Part 5: Couter Class
+## Part 5: Counter Class
 
 You're going to make a new class named `Counter` that acts like a
 dictionary, but makes it easier to count unique words.  Keys are
@@ -585,5 +585,5 @@ Expected:
 
 ---
 
-Congrats! You've just implemented your first class. Can you se why having 
+Congrats! You've just implemented your first class. Can you see why having 
 this class might be helpful for the development of the WC project?
