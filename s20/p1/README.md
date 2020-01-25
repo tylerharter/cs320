@@ -152,9 +152,9 @@ file with `echo`, and try a few examples with both modes:
 
 ```
 echo "A A A B C C" > example.txt
-python3 example.txt A
-python3 example.txt B
-python3 example.txt ALL
+python3 wc.py exampl.txt A
+python3 wc.py example.txt B
+python3 wc.py example.txt ALL
 ```
 
 Echo is good for short examples, but you can use an in-terminal editor
@@ -220,9 +220,9 @@ It should look like this:
 
 Important details:
 * y-axis label
-* larger font than the the default
+* larger font than the default
 * figure should be compact (shrink with `figsize`)
-* don't box the data in on the top and right
+* don't box the data on the top and right
 
 Here's a useful function you might use for getting AxesSubplot objects without the top/right borders:
 
@@ -356,7 +356,7 @@ Expected:
 <img src="img/q11.png">
 
 **To get full points**, write a short comment here about which of the three
-  test inputs in most useful for evaluating the wc.py program.
+  test inputs is most useful for evaluating the wc.py program.
 
 ## Part 3: Benchmarking
 
