@@ -1,4 +1,4 @@
-# Project 1 (don't start yet, under revision!!!!): 
+# Project 1: Counting Fast
 
 ## Corrections/Clarifications
 
@@ -13,13 +13,11 @@ Fortunately, they have all been making contributions to a shared git
 repository, so you can see who did what, and evaluate the improvements
 to the code.
 
-## Background
-
-Git is an integral part of any modern software development. It is a program that 
-enables it's users to collaborate on code, track changes to files, see who wrote what 
-and so forth. In this project we will be exploring the git repo(sitory) containing 
-the WC source code that has been provided as `repo.zip`.
- 
+Git is an integral part of any modern software development. It is a
+program that enables it's users to collaborate on code, track changes
+to files, see who wrote what and so forth. In this project we will be
+exploring the git repo(sitory) containing the WC source code that has
+been provided as `repo.zip`.
 
 ## Setup
 
@@ -152,7 +150,7 @@ file with `echo`, and try a few examples with both modes:
 
 ```
 echo "A A A B C C" > example.txt
-python3 wc.py exampl.txt A
+python3 wc.py example.txt A
 python3 wc.py example.txt B
 python3 wc.py example.txt ALL
 ```
