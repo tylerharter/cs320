@@ -30,8 +30,8 @@ pip3 install pylint beautifulsoup4 pandas matplotlib gitpython
 You should create a directory/folder named `p1` somewhere on your
 virtual machine where you'll do your work.  Download the following to your `p1` directory:
 
-* https://github.com/tylerharter/cs320/blob/master/s20/p1/test.py
-* https://github.com/tylerharter/cs320/blob/master/s20/p1/expected.html
+* https://github.com/tylerharter/cs320/raw/master/s20/p1/test.py
+* https://github.com/tylerharter/cs320/raw/master/s20/p1/expected.html
 * https://github.com/tylerharter/cs320/raw/master/linter/lint.py
 * https://github.com/tylerharter/cs320/raw/master/s20/p1/repo.zip
 
@@ -40,7 +40,7 @@ you want and run `wget <URL>` there.  For example, after `cd`'ing to
 the `p1` directory, you could download the first file with this:
 
 ```
-wget https://github.com/tylerharter/cs320/blob/master/s20/p1/test.py
+wget https://github.com/tylerharter/cs320/raw/master/s20/p1/test.py
 ```
 Once you've done this for all the required files, 
 you can unzip your `repo.zip` file from the terminal with this command:
