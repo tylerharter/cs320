@@ -1,7 +1,7 @@
 # Lab 2: Git Practice
 
 In this lab, you'll practice using git and GitHub.  Git is a
-collaborative tool, so make sure you form a group of 2-3 people to do
+collaborative tool, so make sure you **form a group of 2-3 people** to do
 this lab together.
 
 You can do this lab on your virtual machine, which should already have
@@ -44,13 +44,64 @@ with a third merge commit.
 
 ## Step 2: Create GitHub Account
 
+Everybody in your group should go to http://github.com/ and create a
+GitHub account (choose a name that wouldn't embarrass you on a
+resume):
 
+<img src="step2/1.png" width=600>
 
-## Step 3: Create and Clone a Repo
+Later, running certain git commands will make you type your GitHub
+password each time, unless you setup an SSH key to use instead of a
+password (you likely setup an SSH key during the first lab to access
+your virtual machine).  It's recommended (but not required) that you
+configure GitHub with an SSH key following [these directions](ssh.md).
 
+## Step 3: Create and Fork/Clone a Repo
 
+Identify one person to be the **team leader** -- it should be whoever
+has an upcoming birthday the soonest.
 
-## Step 4: Launching your Virtual Machine
+The **leader** should go to https://github.com/new and create a public
+repo called "cs320-lab2", initialized with a README (the other people
+working on the lab will have another role to play):
 
+<img src="step3/1.png" width=600>
 
+This should create a repo at https://github.com/tylerharter/cs320-lab2
+(with the leader's GitHub name instead of "tylerharter").  All team
+members should go there and click the "Clone or download" link:
+
+<img src="step3/2.png" width=600>
+
+The preferred option for any team member that configured their SSH
+keys is to click "Use SSH" (the HTTPS option would also work, it but
+would require frequent typing of your password later):
+
+<img src="step3/3.png" width=300>
+
+Everybody should copy that clone address, then run the command `git
+clone ADDRESS` in the shell, replacing "ADDRESS" with whatever was
+copied.  This will create a new directory to which you can `cd` and
+run `git status`.  These three steps should look something like this:
+
+<img src="step3/4.png" width=600>
+
+## Step 4: Making a Change and Pull Request
+
+We'll pretend that your group is creating some pages for a new company
+you're starting together.  **Agree on a company name now for your
+group.**
+
+**Leader Only:** you should create some initial pages (other team
+  members will later make additions.  Type `nano README.md` from in
+  the `cs320-lab2` directory.  Type in your company name and a brief
+  description.  Save the file by typing `CTRL-O` (control and "O"
+  keys at same time).
+
+<img src="step4/1.png" width=600>
+
+Exit with `CTRL-X` and edit a `team.md` file by typing `team.md`; put
+in the leader's name, and a note for others to add themselves:
+
+<img src="step4/2.png" width=600>
 
