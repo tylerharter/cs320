@@ -1,8 +1,14 @@
 # Lab 2: Git Practice
 
 In this lab, you'll practice using git and GitHub.  Git is a
-collaborative tool, so make sure you **form a group of 2-3 people** to do
-this lab together.
+collaborative tool, so make sure you **form a group of 2-3 people** to
+do this lab together.  You'll do the following:
+
+* practice merging in a Git simulator
+* create a GitHub account
+* create a GitHub repos from scratch and by forking other GitHub repos
+* push changes from a laptop repo directly to a GitHub repo
+* push changes from a loptop repo to a forked repo, before merging those changes into the main repo (this is the very important *pull request* process)
 
 You can do this lab on your virtual machine, which should already have
 git installed (and even not, installing git on Ubuntu can be done with
@@ -68,8 +74,8 @@ working on the lab will have another role to play):
 <img src="step3/1.png" width=600>
 
 This should create a repo at https://github.com/tylerharter/cs320-lab2
-(with the leader's GitHub name instead of "tylerharter").  All team
-members should go there and click the "Clone or download" link:
+(with the leader's GitHub name instead of "tylerharter").  **All team
+members** should go there and click the "Clone or download" link:
 
 <img src="step3/2.png" width=600>
 
@@ -79,14 +85,18 @@ would require frequent typing of your password later):
 
 <img src="step3/3.png" width=300>
 
-Everybody should copy that clone address, then run the command `git
-clone ADDRESS` in the shell, replacing "ADDRESS" with whatever was
-copied.  This will create a new directory to which you can `cd` and
-run `git status`.  These three steps should look something like this:
+**Everybody** should copy that clone address (from the leader's repo),
+then run the command `git clone ADDRESS` in the shell, replacing
+"ADDRESS" with whatever was copied.  This will create a new directory
+to which you can `cd` and run `git status`.  These three steps should
+look something like this:
 
 <img src="step3/4.png" width=600>
 
-## Step 4: Making a Change and Pull Request
+## Step 4 [Leader Only]: Making and Pushing a Change
+
+Everybody should read, discuss, and understand this part, but only
+the team leader will run commands in this section.
 
 We'll pretend that your group is creating some pages for a new company
 you're starting together.  **Agree on a company name now for your
@@ -105,3 +115,124 @@ in the leader's name, and a note for others to add themselves:
 
 <img src="step4/2.png" width=600>
 
+Run `git status`, and note that `README.md` and `team.md` are not staged for commit.  Run `git add README.md team.md`, then run `git status` again to note the difference:
+
+<img src="step4/3.png" width=600>
+
+Run `git commit -m "updated company name and team list"`
+
+Currently, the repo on your laptop (which was cloned from the GitHub
+repo) has been updated.  The original GitHub repo has not been updated
+yet.
+
+To sync back to the GitHub repo, run the `git push` command (you may
+be asked to configure your name/email before this will work -- just
+follow the hints git provides).
+
+Go back and visit the repo online at
+https://github.com/tylerharter/cs320-lab2 (with the leader's GitHub
+name instead of "tylerharter").  Do you see the changes?
+
+## Step 5 [Non-Leaders Only]: Making a Pull Request
+
+These steps are for everybody except the leader, but the leader should
+read and understand them too.
+
+The leader's changes are now in their laptop's repo and in the GitHub
+repo, but not in the previously cloned repos of other team members.
+Try running `git log` and confirm there is only one commit, not two.
+
+Run `git pull` from in the `cs320-lab2` directory.  This will grab the
+latest changes from the GitHub repo.  Not try running `git log` again.
+See both the commits?
+
+Now type `nano team.md` and add yourself to the list, using an alias
+if you wish:
+
+<img src="step5/1.png" width=600>
+
+Then stage your files (`git add team.md`) and commit (`git commit -m "added myself to the team"`).
+
+Getting your changes back into the leader's repo will trickier for you
+than it was for the leader.  The leader could just run `git push`, but
+you cannot push changes directly to the leader's GitHub repo because
+you aren't configured to have permission to do that.
+
+Instead, what you'll do is create your own GitHub repo that's a copy
+of the leader's repo -- such a repo copy is called a *fork*.  You can
+push whatever changes you want to your own fork.
+
+Then, you can create a *pull request*.  A pull request is a message to
+the leader that basically says: "look at these cool changes in my
+forked repo -- please consider pulling those changes back into your
+own GitHub repo."
+
+Go to the leader's GitHub page, and click "Fork" at the top:
+
+<img src="step5/2.png" width=600>
+
+You'll now see your own forked copy of the repo.  Find and copy the clone address of the fork:
+
+<img src="step5/3.png" width=600>
+
+Now, back in the terminal, run the following, replacing `PASTEHERE` with the clone address you just copied:
+
+```
+git remote add myfork git@github.com:tylerharter/cs320-lab2.git
+```
+
+We chose "myfork" as a convenient label for your fork -- you could
+have chosen any name there.
+
+Now, even though we can't push your committed changes directly to the
+leader's GitHub, you can push them to your own fork by running `git
+push REMOTE BRANCH`, replacing `REMOTE` and `BRANCH`, something like this:
+
+```
+git push myfork master
+```
+
+It should all look like this:
+
+<img src="step5/4.png" width=600>
+
+Go back and refresh the GitHub page for your fork.  Do you see the
+changes to `team.md`?  (you should!).
+
+Ok, now we want to create your pull request, to ask the leader to
+integrate your changes back to the main repo.
+
+Go to the GitHub page for the leader's repo, select the "Pull
+requests" tab, and click "New pull request":
+
+<img src="step5/5.png" width=600>
+
+Click the "compare across forks" link and configure the dropdowns so
+that the arrow points from the master branch on your GitHub repo to
+the master branch on the leader's repo:
+
+<img src="step5/6.png" width=600>
+
+Click "Create pull request", write a note, and click "Create pull request" again.
+
+## Step 6 [Leader Only]: Merging a Pull Request
+
+The leader should go back to the "Pull requests" tab on the page for
+their GitHub repo and open the new Pull Request.  To accept it (after
+browsing through the changes), click the "Merge pull request" button:
+
+<img src="step6/1.png" width=600>
+
+Confirm the merge, then go back to the main repo page and verify that
+everybody's changes are part of the main repo.
+
+If you're in a group of 3, the leader will need to repeat these steps
+twice to merge in the pull requests of both the other team members.
+
+# Conclusion
+
+Pull requests are neat -- they give you an easy way to make
+improvements and recommend them to any public project on GitHub.  Even
+amongst your own team, they provide a great way to get feedback on
+changes in a fork before those changes become part of the main
+repository.
