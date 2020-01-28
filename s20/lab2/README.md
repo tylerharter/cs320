@@ -178,7 +178,7 @@ You'll now see your own forked copy of the repo.  Find and copy the clone addres
 Now, back in the terminal, run the following, replacing `PASTEHERE` with the clone address you just copied:
 
 ```
-git remote add myfork git@github.com:tylerharter/cs320-lab2.git
+git remote add myfork PASTEHERE
 ```
 
 We chose "myfork" as a convenient label for your fork -- you could
