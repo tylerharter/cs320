@@ -449,7 +449,7 @@ Expected:
 **To get full points**, write a short comment about whether Q14 or Q15
   more clearly shows performance trends.
 
-#### Q16 [PLOT]: How does v4 scale with more words, keeping unique percent at 10?  
+#### Q16 [PLOT]: How does v3 scale with more words, keeping unique percent at 10?  
 
 Show standard deviation around the line.
 
