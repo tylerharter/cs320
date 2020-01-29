@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Jan 29: Fixed part 4 version numbers. Question was refering to version 4 which didn't exist.
 
 ## Overview
 
@@ -421,7 +421,7 @@ corresponds to an run where there were 10000 total words consisting of
 100 unique words (1% of 10000) -- it took 0.0851483 seconds to run
 `wc.py` in this scenario.
 
-#### Q14 [PLOT]: How does the number of total words and unique percent affect the performance of versions 3 and 4?
+#### Q14 [PLOT]: How does the number of total words and unique percent affect the performance of versions 2 and 3?
 
 Expected:
 
