@@ -117,7 +117,9 @@ with open("dog.json") as f:
     dog = json.loads(f) # fixme
 ```
 
-Fix this one too:
+Check that `type(dog)` is a `dict`.
+
+Now fix this one too:
 
 ```python
 data = '{"name": "Fido", "age": 1}'
