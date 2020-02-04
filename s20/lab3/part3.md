@@ -5,7 +5,7 @@ simple:
 
 1. check if the list has length < 2 -- if so, it's already sorted (base case)
 2. otherwise, split the list in two equal parts
-3. run merge sort on each half to get two smaller sorted lists
+3. run merge sort on each half to get two smaller sorted lists (recursive case)
 4. merge the two sorted lists into one bigger sorted list
 
 To get the idea, step through this visualization of the algorithm,
@@ -60,8 +60,10 @@ To better understand how the function is behaving, try adding this
 print inside the loop, after all the other code:
 
 ```python
-print(rv, " <= ", L1[idx1:], L2[idx2:])
+print("MERGE", rv, " <= ", L1[idx1:], L2[idx2:])
 ```
+
+**After you're done, remove the print you added.**
 
 ## merge_sort(L)
 
@@ -85,27 +87,31 @@ def merge_sort(L):
 Give it a try with a simple test case:
 
 ```python
-merge_sort([2, 4, 7, 8, 1, 3, 5, 6])
+merge_sort([7, 2, 4, 8, 3, 5, 1, 6])
 ```
 
-To better understand what is going on, add this print statement, right before the return in `merge_sort` (also, remove the print you added earlier to `merge`):
+To better understand what is going on, add this print statement, right
+before the return in `merge_sort`:
 
 ```python
-print(rv, " <= ", left, right)
+print("MERGESORT", left, right, " => ", rv)
 ```
+
+**After you're done, remove the print you added.**
 
 ## Complexity
 
 Merge sort has `O(N log N)` complexity.  This is actually the
 theoretical best for general sorting.  Remember that selection sort in
-class was `O(N**2)`, which is worse.
+(discussed in class) was `O(N**2)`, which is worse.
 
 Let's see what an `O(N log N)` curve looks like by counting steps
-inside the `merge(...)` function.  First, the steps variable global:
+inside the `merge(...)` function.  First, make the steps variable
+global:
 
 ```python
 def merge(L1, L2):
-    global steps
+    global steps # add this!
     ...
 ```
 
@@ -113,7 +119,7 @@ Then count steps inside the loop:
 
 ```python
     while True:
-        steps += 1
+        steps += 1 # add this!
     ...
 ```
 
@@ -139,7 +145,7 @@ ax.set_ylabel("Steps")
 
 You should see something like this:
 
-<img src="part3/1.png">
+<img src="part3/1.png" width=400>
 
 As you can see, there's a slight curve.  `O(N log N)` is worse than
 `O(N)`, but it's also MUCH better than `O(N**2)`.

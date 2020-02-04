@@ -11,9 +11,8 @@ f.write("line2")
 f.close() # you need the parentheses, even without arguments!
 ```
 
-The first `.write` should fail because the file wasn't opened in write
-mode.  Add "w" as a second positional arguments to `open`, then try
-again.
+The code fail because the file wasn't opened in write mode.  Add "w"
+as a second positional arguments to `open`, then try again.
 
 Does the above code actually produce two lines?  Open `file.txt`
 through Jupyter and check.  Try modifying the "line1" and "line2"
@@ -65,7 +64,7 @@ get the contents.  File objects are iterators, meaning that you could also loop 
 ```python
 f = open("dog.json")
 for line in f:
-    print("LINE: " + line)
+    print("LINE: " + line, end="")
 f.close()
 ```
 

@@ -32,7 +32,6 @@ def scale_ax():
     return ax
 
 def plot_func(ax, f, C=1, color="k", label="work"):
-    f = f.upper()
     start = ax.get_xlim()[0]
     width = ax.get_xlim()[1] - ax.get_xlim()[0]
     s = pd.Series()
@@ -95,6 +94,8 @@ upper_bound(ax, order="N", C=25, minN=6)
 It should look like this:
 
 <img src="part2/3.png">
+
+Great!
 
 <b>In general for all of these exercises, your job is to choose `C` and
   `minN` values so that the red line is above the black line in the
@@ -177,7 +178,7 @@ upper_bound(ax, order="log10(N)")
 
 Any `C` value that is at least `log2(10)` will work here.  In general,
 any log curve with base M is just a constant multiple of another log
-curve with base N.  Thus, it is common to just save an algorithm is
+curve with base N.  Thus, it is common to just say an algorithm is
 `O(log N)`, without bothering to specify the base.
 
 ## Exercise 6: show `ceil(log2(N))` is in `O(log N)`
@@ -205,6 +206,8 @@ upper_bound(ax, order="N * log2(N)")
 ```
 
 ## Exercise 8: show `F(N) = 0+1+2+...+(N-1)` is in `O(N**2)`
+
+Replace `????` in the following:
 
 ```python
 ax = scale_ax()
