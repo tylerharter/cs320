@@ -1,5 +1,3 @@
-# UNDER REVISION, DO NOT START YET
-
 # Lab 3: CS 220/301 Review and Complexity
 
 Start a new notebook on your virtual machine, then complete the following three parts of the lab:
