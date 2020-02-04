@@ -16,7 +16,7 @@ except ImportError:
     err_msg = """Please download lint.py and place it in this directory for 
     the tests to run correctly. If you haven't yet looked at the linting module, 
     it is designed to help you improve your code so take a look at: 
-    https://github.com/tylerharter/cs301-projects/tree/master/linter"""
+    https://github.com/tylerharter/cs320/tree/master/linter"""
     raise FileNotFoundError(err_msg)
 
 ALLOWED_LINT_ERRS = {
@@ -131,7 +131,7 @@ def extract_question_num(cell):
 
 # rerun notebook and return parsed JSON
 def rerun_notebook(orig_notebook):
-    new_notebook = 'cs-301-test.ipynb'
+    new_notebook = 'cs-320-test.ipynb'
 
     # re-execute it from the beginning
     with open(orig_notebook, encoding='utf-8') as f:
