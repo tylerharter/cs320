@@ -67,7 +67,7 @@ upper_bound(ax, order="N") # TODO: pass C and minN
 
 It should look like this:
 
-<img src="part1/1.png">
+<img src="part2/1.png">
 
 Clearly `g(N)=N` is not an upper bound on `g(N)=N+100`, but remember
 that you are allowed to do the following:
@@ -83,7 +83,7 @@ upper_bound(ax, order="N", C=25)
 
 It should look like this:
 
-<img src="part1/2.png">
+<img src="part2/2.png">
 
 Better, but now the red line is only an upper bound for large `N`
 values.  Let's set a lower bound on `N`, like this:
@@ -94,7 +94,7 @@ upper_bound(ax, order="N", C=25, minN=6)
 
 It should look like this:
 
-<img src="part1/3.png">
+<img src="part2/3.png">
 
 <b>In general for all of these exercises, your job is to choose `C` and
   `minN` values so that the red line is above the black line in the
@@ -112,7 +112,7 @@ ax.set_xlim(0, 1e6) # 1 million
 
 Looks good!
 
-<img src="part1/4.png">
+<img src="part2/4.png">
 
 ## Exercise 2: show `100*N` is in `O(N)`.
 
