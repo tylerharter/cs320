@@ -16,7 +16,7 @@ except ImportError:
     err_msg = """Please download lint.py and place it in this directory for 
     the tests to run correctly. If you haven't yet looked at the linting module, 
     it is designed to help you improve your code so take a look at: 
-    https://github.com/tylerharter/cs320/raw/master/linter/lint.py"""
+    https://github.com/tylerharter/cs320/tree/master/linter"""
     raise FileNotFoundError(err_msg)
 
 ALLOWED_LINT_ERRS = {
