@@ -3,6 +3,7 @@
 ## Corrections/Clarifications
 
 * Jan 29: Fixed part 4 version numbers. Question was refering to version 4 which didn't exist.
+* Feb 5: Added small hint for the run_wc function. Enjoy!
 
 ## Overview
 
@@ -290,6 +291,9 @@ Specifications:
 * `body`: a string that the function should write to a file named `test.txt` before running `wc.py test.txt ALL` to count the words in that text.
 * `commit`: a git commit that the function should checkout the specified version of wc.py before running it; if `commit` is `None`, use the latest commit.
 * **return value**: the function should capture the output of the `wc.py` program and parse it as JSON, returning the parsed result.  If `wc.py` crashes, return `None`.
+
+Hint: When using `check_output` you may have noticed it returned a byte-string. In order to avoid this problem, try passing in 
+the keyword argument universal_newlines=True to the `check_output` call.
 
 Paste the following test cases in a cell:
 
