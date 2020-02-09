@@ -215,4 +215,15 @@ B occurs 2 times
 D occurs 1 times
 ```
 
-Pretty cool, huh?
+We get two useful methods, `.index(...)` and `.count(...)` by only
+adding one parent class.  Pretty cool, huh?
+
+## Concluding Thoughts
+
+Although we were able to implement something that works somewhat like
+a Python list, it wouldn't be a good idea to use our version as is.
+With a regular Python list, index lookups to the last items (like
+`L[-1]`) are fast -- they have O(1) complexity.  Although
+`__getitem__` doesn't use a loop, the recursion still need to go
+through every node to find the last one, so `L[-1]` is an `O(N)`
+operation for our version of the list -- ouch.
