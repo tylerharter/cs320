@@ -23,7 +23,7 @@ virtual machine, without ever leaving your notebook.  Let's try that:
 ! wget https://github.com/tylerharter/cs320/raw/master/s20/p2/mmt_gtfs.zip
 ```
 
-After you downloaded, you probably ought to delete that cell.  It will
+After you downloaded, **you should REALLY delete that cell**.  It will
 be super SLOW to re-download every time you re-run your code.
 
 ## ZipFile
