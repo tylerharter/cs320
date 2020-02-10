@@ -4,6 +4,7 @@
 
 * Jan 29: Fixed part 4 version numbers. Question was refering to version 4 which didn't exist.
 * Feb 5: Added small hint for the run_wc function. Enjoy!
+* Feb 10: Added submission directions at the end of this doc (it's the same as in CS 301)
 
 ## Overview
 
@@ -591,3 +592,40 @@ Expected:
 
 Congrats! You've just implemented your first class. Can you see why having 
 this class might be helpful for the development of the WC project?
+
+## Submitting your Work
+
+The submission process is the same as in CS 220/301, so no need to
+read the following if you're already familiar with it.
+
+Before you can hand in the project, you need to add a few more details
+at the top of your notebook (or, in other projects, .py file).  Paste
+the following in a new cell:
+
+```python
+# project: p1
+# submitter: NETID1
+# partner: NETID2
+```
+
+Replace `NETID1` with your Net ID (usually the part before "@wisc.edu"
+in your student email address).  If you worked with a partner, replace
+`NETID2` with your partner's Net ID; otherwise, replace NETID2 with
+"none".
+
+If you worked with with a partner, there should only be one submission
+between you (please don't both submit), and make sure that `submitter`
+refers to the one actually submitting the code (not the other
+partner).
+
+To hand in the notebook, complete the following steps:
+
+1. save and run through the tests one last time (after you added your Net ID info)
+2. go to https://tyler.caraza-harter.com/cs320/s20/submission.html
+3. select "Project 1"
+4. click "Choose File" and find your main.ipynb file
+5. click "Submit"
+6. check the "Submission Status" below; it is normal to see some "info:" messages, but make sure you correct any "error:" messages
+7. click "View Submissions" to make sure your submission looks correct
+
+You'll follow the same process for future projects.
