@@ -26,7 +26,7 @@ class Database:
     def __init__(self, s3dir='./s3', cleanup=False):
         self.BUCKET = 'caraza-harter-cs301'
         self.SEMESTER = "s20"
-        self.PROFILE = 'cs301ta'
+        self.PROFILE = 'sacha'
         self.S3_DIR = os.path.abspath(s3dir)
         self.session = boto3.Session(profile_name=self.PROFILE)
         self.s3 = self.session.client('s3')
@@ -191,7 +191,7 @@ class Grader(Database):
             if not self.is_excluded(item) and not os.path.islink(item):
                 if os.path.isfile(item_path):
                     dst = os.path.join(code_dir, item)
-                    shutil.copyfile(item_path, dst)
+                    shutil.copy2(item_path, dst)
                 elif os.path.isdir(item_path):
                     dst = os.path.join(code_dir, item)
                     if not os.path.isdir(dst):
