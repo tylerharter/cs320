@@ -128,7 +128,7 @@ in Madison for a specific day.  Our tests create BusDay objects for
 Feb 21 (a Friday) and Feb 22 (a Saturday).  In general, bus
 availability is limited on weekends.
 
-Users of you're module should be able to create `BusDay` objects like this:
+Users of your module should be able to create `BusDay` objects like this:
 
 ```python
 from datetime import datetime
@@ -144,8 +144,7 @@ in the same directory.
 
 Try running the following:
 
-```
-import pandas as pd
+```import pandas as pd
 from zipfile import ZipFile
 
 with ZipFile('mmt_gtfs.zip') as zf:
@@ -214,7 +213,7 @@ loc = Location(43.076833, -89.399135)
 Stop(5, loc, True)
 ```
 
-In order, the parameters represent `stop_id`, `route_id`, and
+In order, the parameters represent `stop_id`, a Location object, and
 `wheelchair_boarding` -- the constructors should use these values to
 initialize object attributes by the same names.
 
@@ -248,7 +247,7 @@ project was determine which services are available for the given day.
 * recursively split nodes in half, for six levels.  In other words, there will be 64 = 2**6 leaf nodes, each 6 edges away from the root
 * at each split, divide the stops perfectly in half, as best you can (left child gets stops[:len(stops)//2] and right child gets others).  If many stops were to have the same coordinates, this process might mean some stops might go left while others with identical locations go right -- this is OK for this project
 * at the root level, split into East and West halves.  At the next level, split into North and South.  Keep alternating the orientation of the splits in this way
-* implement rectangle search recursively.  In the leaves, just loop over all the buses and collect those in the rectangle.  For non-leaf nodes, construct results by recursively getting results from the children.  When the search rectangle falls into just one childs area, do not recursively search both childern.  Of course, a large search rectangle may overlap multiple children.
+* implement rectangle search recursively.  In the leaves, just loop over all the buses and collect those in the rectangle.  For non-leaf nodes, construct results by recursively getting results from the children.  When the search rectangle falls into just one child's area, do not recursively search both childern.  Of course, a large search rectangle may overlap multiple children.
 
 Your `get_stops_circ` method should work by identifying the stops in a
 rectangle that bounds the circle, then make a second filtering pass to
@@ -259,7 +258,7 @@ only keep those in the circle.
 `BusDay` should have two visualization methods, both of which should
 take as `ax` parameter referring to a matplotlib `AxesSubplot` object.
 
-Calling `bd.scatter_stops(ax)` should produce add scatter points to an
+Calling `bd.scatter_stops(ax)` should produce and then add scatter points to an
 existing AxesSubplot.
 
 For testing purposes, we have a few requirements (creating the right
@@ -271,7 +270,7 @@ picture via other means may not be enough to allow you to pass):
 
 Calling `bd.draw_tree(ax)` should show the binary tree splits on the
 map.  Lines for splits nearer the root should be thicker.  The line
-color is not important.
+color is not important (but red and gray probably aren't good choices).
 
 It should be possible to use both visualizations together, like this:
 
@@ -296,7 +295,7 @@ The above creates a think, purple, vertical line.
 
 ## Conclusions
 
-This is a tricky project, and it's easy to do things inneficiently if
+This is a tricky project, and it's easy to do things inefficiently if
 you're not careful.  As a baseline, your instructor solved this
 project with 225 lines of code for bus.py, and can pass the tests in 3
 seconds.  If the project is becoming several times bigger or slower
