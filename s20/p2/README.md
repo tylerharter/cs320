@@ -10,7 +10,7 @@ In this project, your goal is to make a new module, `bus`, to help
 people analyze the Madison Metro system.  Making a module is a little
 different than making a notebook.  We won't be asking you a single
 question, but you'll need to make sure your module follows our
-spec -- it needs to have the exact classes required, and the
+spec -- it needs to have the _**EXACT**_ classes required, and the
 methods in those class will need to behave as intended.
 
 A few key features of your module:
@@ -22,6 +22,9 @@ A few key features of your module:
 
 <img src="img/scatter.png" width=400>
 
+If you haven't already, go do lab4 part2 before starting this project as 
+getting familiar with this data will help a lot!
+
 ## Setup
 
 For this one, download the following to a `p2` directory:
@@ -31,7 +34,13 @@ For this one, download the following to a `p2` directory:
 * `mmt_gtfs.zip`: contains all schedule data.  **Don't unzip it because your module is required to directly read files from inside the zip without extracting first.**  The data is a copy from here: http://transitdata.cityofmadison.com/
 * `bus.py` create this from scratch
 
-If you like, you can run `tester.py` from a terminal, or paste the following in a notebook:
+If you like, you can run `tester.py` from a terminal: 
+
+```
+python3 tester.py 
+```
+
+Or paste the following in a notebook:
 
 ```python
 %%capture --no-stdout
@@ -49,7 +58,7 @@ add it (otherwise debugging a lot of code at once will be painful).
 
 We need some coordinate system for this project.  Rather than deal
 with latitude and longitude, we'll assume the earth is flat (which
-isn't horribly innacurate for the amount of area we're dealing with).
+isn't horribly inaccurate for the amount of area we're dealing with).
 This will allow us to have x and y coordinates, which will be in miles
 relative to the capital.  For example, (1,2) refers to a point that is
 one mile to the east of the capital and two miles north.
@@ -61,7 +70,17 @@ this system:
 from math import sin, cos, asin, sqrt, pi
 
 def haversine_miles(lat1, lon1, lat2, lon2):
-    lat1, lon1, lat2, lon2 = map(lambda a: a/180*pi, [lat1, lon1, lat2, lon2])
+    """Calculates the distance between two points on earth using the
+    harversine distance (distance between points on a sphere)
+    See: https://en.wikipedia.org/wiki/Haversine_formula
+
+    :param lat1: latitude of point 1
+    :param lon1: longitude of point 1
+    :param lat2: latitude of point 2
+    :param lon2: longitude of point 2
+    :return: distance in miles between points
+    """
+    lat1, lon1, lat2, lon2 = (a/180*pi for a in [lat1, lon1, lat2, lon2])
     dlon = lon2 - lon1
     dlat = lat2 - lat1
     a = sin(dlat/2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon/2) ** 2
@@ -69,27 +88,37 @@ def haversine_miles(lat1, lon1, lat2, lon2):
     d = 3956 * c
     return d
 
+
 class Location:
+    """Location class to convert lat/lon pairs to
+    flat earth projection centered around capitol
+    """
     capital_lat = 43.074683
     capital_lon = -89.384261
 
     def __init__(self, latlon=None, xy=None):
-        if xy != None:
+        if xy is not None:
             self.x, self.y = xy
         else:
-            if latlon == None:
+            # If no latitude/longitude pair is given, use the capitol's
+            if latlon is None:
                 latlon = (Location.capital_lat, Location.capital_lon)
 
+            # Calculate the x and y distance from the capital
             self.x = haversine_miles(Location.capital_lat, Location.capital_lon,
                                      Location.capital_lat, latlon[1])
-            if latlon[1] < Location.capital_lon:
-                self.x *= -1
             self.y = haversine_miles(Location.capital_lat, Location.capital_lon,
                                      latlon[0], Location.capital_lon)
+
+            # Flip the sign of the x/y coordinates based on location
+            if latlon[1] < Location.capital_lon:
+                self.x *= -1
+
             if latlon[0] < Location.capital_lat:
                 self.y *= -1
 
     def dist(self, other):
+        """Calculate straight line distance between self and other"""
         return sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
 
     def __repr__(self):
@@ -99,8 +128,8 @@ class Location:
 Try it with a couple known locations:
 
 ```python
-memorial_union = Location(43.076833, -89.399135)
-union_south = Location(43.071821, -89.408072)
+memorial_union = Location(latlon = (43.076833, -89.399135))
+union_south = Location(latlon = (43.071821, -89.408072))
 print(memorial_union, union_south)
 print("distance:", memorial_union.dist(union_south))
 ```
@@ -121,6 +150,8 @@ Add these now, then run tester.py.  You should get 8% of the points
 just for having classes with these names in your bus.py file, even if
 they don't have any methods yet.
 
+_Note:_ These names should match **exactly**, they are case sensitive.
+
 ### BusDay Class
 
 An object of type `BusDay` desribes the bus trips and routes available
@@ -128,7 +159,7 @@ in Madison for a specific day.  Our tests create BusDay objects for
 Feb 21 (a Friday) and Feb 22 (a Saturday).  In general, bus
 availability is limited on weekends.
 
-Users of you're module should be able to create `BusDay` objects like this:
+Users of your module should be able to create `BusDay` objects like this:
 
 ```python
 from datetime import datetime
@@ -144,7 +175,7 @@ in the same directory.
 
 Try running the following:
 
-```
+```python
 import pandas as pd
 from zipfile import ZipFile
 
@@ -157,11 +188,14 @@ df.tail()
 
 You should see something like the following:
 
-<img src="img/service_ids.png" width=400>
+<img src="img/service_ids.png" width=800>
 
-A given service is offered on a given day if (a) that day is in the
-start_date/end_date range and (b) it's the right day of week,
-indicated by a 1.  You might notice some services have zeros on every
+A given service is offered on a given day if:
+
+* (a) that day is in the start_date/end_date range and 
+* (b) it's the right day of week, indicated by a 1.  
+
+You might notice some services have zeros on every
 day -- these are special cases, handled by the calendar_dates.txt
 file.  For simplicity, we'll ignore those (even if you want to handle
 the special cases for fun, make that a feature that's easy to disable,
@@ -210,11 +244,11 @@ Getting trips working should give you 18% of the grade.
 It should be possible to create a Stop object from your Stop class like this:
 
 ```python
-loc = Location(43.076833, -89.399135)
+loc = Location(latlon = (43.076833, -89.399135))
 Stop(5, loc, True)
 ```
 
-In order, the parameters represent `stop_id`, `route_id`, and
+In order, the parameters represent `stop_id`, a Location object, and
 `wheelchair_boarding` -- the constructors should use these values to
 initialize object attributes by the same names.
 
@@ -223,10 +257,10 @@ available that day:
 
 * `bd.get_stops()` should return a list of all stop objects
 * `bd.get_stops_rect((x1, x2), (y1, y2))` should return all stops in the rectangle defined by the two x and two y limits
-* `bd.get_stops_circ((x, y), radius)` should return all stops in the circle defined by the center and radius
+* `bd.get_stops_circ((x, y), radius)` should return all stops in the circle defined by the center at (x, y) and radius
 
 All units are in miles.  Remember also that x and y coordinates are
-miles to the left/right or above/below the capital building.
+miles to the East/West (left/right) or North/South (above/below) the capital building.
 
 All your methods for getting stops should sort the stops by stop_id,
 ascending.
@@ -241,14 +275,14 @@ project was determine which services are available for the given day.
 **Requirement:** although you could implement `get_stops_rect` by
   looping over every stop and checking if it is in the range, that
   would not be efficient.  Instead, you must implement a binary tree
-  to carve of the geometric space, allowing for a more efficient
+  to carve off the geometric space, allowing for a more efficient
   search.  The tree should work like this:
 
 * start with a single root node containing all stops
-* recursively split nodes in half, for six levels.  In other words, there will be 64 = 2**6 leaf nodes, each 6 edges away from the root
-* at each split, divide the stops perfectly in half, as best you can (left child gets stops[:len(stops)//2] and right child gets others).  If many stops were to have the same coordinates, this process might mean some stops might go left while others with identical locations go right -- this is OK for this project
+* _recursively_ split nodes in half, for six levels.  In other words, there will be 64 = 2**6 leaf nodes, each 6 edges away from the root
+* at each split, divide the stops perfectly in half, as best you can (left child gets `stops[:len(stops)//2]` and right child gets others).  If many stops were to have the same coordinates, this process might mean some stops might go left while others with identical locations go right -- this is OK for this project
 * at the root level, split into East and West halves.  At the next level, split into North and South.  Keep alternating the orientation of the splits in this way
-* implement rectangle search recursively.  In the leaves, just loop over all the buses and collect those in the rectangle.  For non-leaf nodes, construct results by recursively getting results from the children.  When the search rectangle falls into just one childs area, do not recursively search both childern.  Of course, a large search rectangle may overlap multiple children.
+* implement rectangle search recursively.  In the leaves, just loop over all the buses and collect those in the rectangle.  For non-leaf nodes, construct results by recursively getting results from the children.  When the search rectangle falls into just one child's area, do not recursively search both children.  Of course, a large search rectangle may overlap multiple children.
 
 Your `get_stops_circ` method should work by identifying the stops in a
 rectangle that bounds the circle, then make a second filtering pass to
@@ -259,7 +293,7 @@ only keep those in the circle.
 `BusDay` should have two visualization methods, both of which should
 take as `ax` parameter referring to a matplotlib `AxesSubplot` object.
 
-Calling `bd.scatter_stops(ax)` should produce add scatter points to an
+Calling `bd.scatter_stops(ax)` should produce and then add scatter points to an
 existing AxesSubplot.
 
 For testing purposes, we have a few requirements (creating the right
@@ -271,11 +305,12 @@ picture via other means may not be enough to allow you to pass):
 
 Calling `bd.draw_tree(ax)` should show the binary tree splits on the
 map.  Lines for splits nearer the root should be thicker.  The line
-color is not important.
+color is not important (but red and gray probably aren't good choices).
 
 It should be possible to use both visualizations together, like this:
 
 ```python
+# See examples.ipynb
 ax = get_ax()
 fri.scatter_stops(ax)
 fri.draw_tree(ax)
@@ -292,11 +327,16 @@ the `ax.plot` method, something like this:
 ax.plot((1, 1), (-8, 8), lw=5, color="purple")
 ```
 
-The above creates a think, purple, vertical line.
+The above creates a think, purple, vertical line from the point (1, -8) to the point (1, 8).
+
+_Hint:_ When plotting multiple things, some lines/points might get covered 
+by others. To deal with this issue there's a concept of "depth" when plotting. 
+This is to say what gets plotted on top of what. You can change this depth with 
+the keyword argument `zorder`. An example would be `zorder=-10`.
 
 ## Conclusions
 
-This is a tricky project, and it's easy to do things inneficiently if
+This is a tricky project, and it's easy to do things inefficiently if
 you're not careful.  As a baseline, your instructor solved this
 project with 225 lines of code for bus.py, and can pass the tests in 3
 seconds.  If the project is becoming several times bigger or slower
