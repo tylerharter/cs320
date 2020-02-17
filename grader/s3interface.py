@@ -32,9 +32,9 @@ class Database:
 
     def override_defaults(self, **kwargs):
         for key, value in kwargs.items():
-            _key = key.upper()
+            _key = key.upper().replace('-', '_')
             if _key in self.conf:
-                self.conf._key = value
+                self.conf[_key] = value
         return self.conf
 
     def get_submissions(self, project, rerun, email=None):
