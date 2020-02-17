@@ -2,4 +2,5 @@ boto3
 docker
 requests
 pandas
+easydict
 

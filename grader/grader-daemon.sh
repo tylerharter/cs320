@@ -10,7 +10,7 @@ BASE=$(git merge-base @ "$UPSTREAM")
 run_grader() {
     echo "Running Auto-grader\n"
 
-    echo "\n\nAuto-grader for P1:"
+    echo "\nAuto-grader for P1:"
     python3 autograder.py p1 ? -ff main.ipynb -c
 }
 

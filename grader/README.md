@@ -1,4 +1,4 @@
-# Notes to run autograder
+# Notes for Grading Tools
 
 This is intended for staff use only. Students should not worry about this as it 
 does not apply to them, nor is it maintained by them. As such any unauthorized pull requests 
@@ -62,6 +62,10 @@ sudo docker build -t grader .
 Now we need to add the s3 credentials for you to be able to read/write submissions.
 You should have been provided with this. You need to write it in ~/.aws/credentials.
 
+Finally, you should update `s3config.json` (or write your own!) for the 
+s3interface to work properly. You will likely just need to change the profile name.
+
+# Running the autograder
 
 You can now try to run the autograder. If you aren't familiar with it's 
 options try the following:
@@ -130,8 +134,40 @@ Score: <STUDENT'S-SCORE>
 Did not upload results, running in safe mode
 ```
 
+# Downloading submissions locally
 
-## Troubleshooting
+This can be done by using `s3interface.py`'s CLI interface. Running it with 
+the `-h` flag should give us more information about it:
+
+```
+usage: s3interface.py [-h] [-c CONFIG_PATH] [-ff FORCE_FILENAME]
+                      projects [projects ...]                        
+
+S3 Interface for CS320 
+
+positional arguments:      
+    projects              id(s) of project to download submissions for.
+
+optional arguments:    
+    -h, --help            show this help message and exit    
+    -c CONFIG_PATH, --config CONFIG_PATH                     
+                          S3 Configuration file path, default is ./s3config.json 
+    -ff FORCE_FILENAME, --force-filename FORCE_FILENAME           
+                          force submission to have this filename        
+
+TIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov 
+```
+
+Therefore we should be able to download all submissions for p1 and p2 (for example) 
+like so:
+
+```
+python3 s3interface.py p1 p2 -ff main.ipynb
+```
+
+_Note:_ This will require you to modify the config file or specify a new one. 
+
+# Troubleshooting
 
 ### Errors while running the autograder
 
@@ -161,6 +197,7 @@ container is created everytime.
 
 ## Changelog
 
+* Feb 16, 2020: Split autograding logic from s3 logic, created new `s3interface.py` file and it's config file too. 
 * Feb 11, 2020: Added README, updated requirements, fixed setup_codedir's permissions (file metadata wasn't copied), updated DockerFile.
 * Feb 10, 2020: Forked from cs301/cs220's autograder. Renamed dockerUtil to autograder.
  

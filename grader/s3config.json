@@ -1,0 +1,11 @@
+{
+  "BUCKET": "caraza-harter-cs301",
+  "SESSION_CLIENT": "s3",
+
+  "SEMESTER": "s20",
+  "PROFILE": "sacha",
+  "S3_DIR": "./s3",
+  "PREFIX": "b/projects/",
+
+  "CLEANUP": true
+}

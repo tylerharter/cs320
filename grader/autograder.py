@@ -4,108 +4,21 @@ import re
 import json
 import time
 import atexit
-import base64
 import shutil
-import string
 import fnmatch
 import logging
 import argparse
 from datetime import datetime
 
 # Third party libs
-import boto3
 import docker
 from requests.exceptions import ConnectionError, ReadTimeout
 import pandas as pd
 
+# Local imports
+from s3interface import Database
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
-
-
-class Database:
-    def __init__(self, s3dir='./s3', cleanup=False):
-        self.BUCKET = 'caraza-harter-cs301'
-        self.SEMESTER = "s20"
-        self.PROFILE = 'sacha'
-        self.S3_DIR = os.path.abspath(s3dir)
-        self.session = boto3.Session(profile_name=self.PROFILE)
-        self.s3 = self.session.client('s3')
-        self.safe_s3_chars = set(string.ascii_letters + string.digits + ".-_")
-        self.cleanup = cleanup
-
-    def get_submissions(self, project, rerun, email=None):
-        prefix = 'b/projects/' + project + '/'
-        if email:
-            if '@' not in email:
-                email += '@wisc.edu'
-            prefix += self.to_s3_key_str(email) + '/'
-        submitted = set()
-        tested = set()
-        for path in self.s3_all_keys(prefix):
-            parts = path.split('/')
-            if parts[-1] == 'submission.json':
-                submitted.add(path)
-            elif parts[-1] == 'test.json':
-                parts[-1] = 'submission.json'
-                tested.add('/'.join(parts))
-        if not rerun:
-            submitted -= tested
-        return submitted
-
-    def fetch_submission(self, s3path, file_name=None):
-        local_dir = os.path.join(self.S3_DIR, os.path.dirname(s3path))
-        if os.path.exists(local_dir):
-            shutil.rmtree(local_dir)
-        os.makedirs(local_dir)
-        response = self.s3.get_object(Bucket=self.BUCKET, Key=s3path)
-        submission = json.loads(response['Body'].read().decode('utf-8'))
-        file_contents = base64.b64decode(submission.pop('payload'))
-        file_name = file_name if file_name else submission['filename']
-        with open(os.path.join(local_dir, file_name), 'wb') as f:
-            f.write(file_contents)
-        return local_dir, file_name
-
-    def fetch_results(self, s3path):
-        s3path = s3path.replace('submission.json', 'test.json')
-        response = self.s3.get_object(Bucket=self.BUCKET, Key=s3path)
-        try:
-            submission = json.loads(response['Body'].read().decode('utf-8'))
-            logging.debug(f'Previous submission found for {s3path}')
-            return submission['score']
-        except self.s3.exceptions.NoSuchKey:
-            logging.debug(f'No previous submission found for {s3path}')
-            return 0
-
-    def put_submission(self, key, submission):
-        if type(submission) is not str:
-            submission = json.dumps(submission, indent=2)
-        self.s3.put_object(Bucket=self.BUCKET, Key=key,
-                           Body=submission.encode('utf-8'),
-                           ContentType='text/plain')
-
-    def s3_all_keys(self, prefix):
-        paginator = self.s3.get_paginator('list_objects')
-        operation_parameters = {'Bucket': self.BUCKET,
-                                'Prefix': prefix}
-        page_iterator = paginator.paginate(**operation_parameters)
-        for page in page_iterator:
-            logging.info('...list_objects...')
-            yield from [item['Key'] for item in page['Contents']]
-
-    def to_s3_key_str(self, s):
-        s3key = []
-        for c in s:
-            if c in self.safe_s3_chars:
-                s3key.append(c)
-            elif c == "@":
-                s3key.append('*at*')
-            else:
-                s3key.append('*%d*' % ord(c))
-        return "".join(s3key)
-
-    def clear_caches(self):
-        if self.cleanup and os.path.exists(self.S3_DIR):
-            shutil.rmtree(self.S3_DIR)
 
 
 class Grader(Database):
@@ -213,7 +126,7 @@ class Grader(Database):
 
                 # Setup environment
                 code_dir, submission_fname = self.fetch_submission(s3path, file_name=self.force_filename)
-                project_dir = f'../{self.SEMESTER}/{project_id}/'
+                project_dir = f'../{self.conf.SEMESTER}/{project_id}/'
                 self.setup_codedir(project_dir, code_dir)
 
                 # Run tests in docker and save results
