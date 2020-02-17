@@ -1,5 +1,3 @@
-# UNDER CONSTRUCTION, DO NOT START YET
-
 # Lab 5: BSTs, Time Formatting, and Queues
 
 Start a new notebook on your virtual machine, then complete the three parts of the lab:
