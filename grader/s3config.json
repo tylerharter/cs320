@@ -7,5 +7,8 @@
   "S3_DIR": "./s3",
   "PREFIX": "b/projects/",
 
-  "CLEANUP": true
+  "CLEANUP": true,
+  "MOSS_FORMAT": "{project_id}_{netid}_{date:%Y%m%d%H%M%S}.ipynb",
+  "MOSS_DIR": "./moss",
+  "FORCE_FILENAME": "main.ipynb"
 }

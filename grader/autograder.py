@@ -127,7 +127,7 @@ class Grader(Database):
                 logging.info(s3path)
 
                 # Setup environment
-                code_dir, submission_fname = self.fetch_submission(s3path, file_name=self.conf.FORCE_FILENAME)
+                code_dir, submission_fname = self.fetch_submission(s3path, filename=self.conf.FORCE_FILENAME)
                 project_dir = f'../{self.conf.SEMESTER}/{project_id}/'
                 self.setup_codedir(project_dir, code_dir)
 
