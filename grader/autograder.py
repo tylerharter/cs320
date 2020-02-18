@@ -22,24 +22,24 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 
 
 class Grader(Database):
-    def __init__(self, projects, netid, *args, safe=False, overwrite=False,
-                 keepbest=False, stats_file=None, exclude=None,
-                 force_filename=None, **kwargs):
-        atexit.register(self.close)
+    def __init__(self, projects, netid, *args, grader_config_path=None,
+                 s3_config_path=None, **kwargs):
+        # Merge grader's config with s3's config
+        super().__init__(*args, config_path=s3_config_path, **kwargs)
+        grader_conf = self.read_conf(grader_config_path)
+        self.conf.update(grader_conf)
+        self.conf = self.override_defaults(self.conf, **kwargs)
+        # Setup other attributes
         self.projects = projects
-        self.netid = None if netid == '?' else netid
-        self.safe = safe
-        self.overwrite = overwrite
-        self.keepbest = keepbest
-        self.stats_file = stats_file
-        self.excluded_files = ['README.md', 'main.ipynb', 'main.py'] \
-            if not exclude else exclude
+        self.netid = None if netid.strip() == '?' else netid
         self.stats = pd.DataFrame()
-        self.force_filename = force_filename
-        super().__init__(*args, **kwargs)
+        # Log what config is being used
+        logging.info('Using configuration:')
+        logging.info(json.dumps(self.conf, indent=2, ensure_ascii=True, sort_keys=True))
+        atexit.register(self.close)
 
-    def run_test_in_docker(self, code_dir, image='grader', cwd='/code', timeout=60,
-                           cmd='python3 test.py', submission_fname=None):
+    def run_test_in_docker(self, code_dir, image='grader', cwd='/code',
+                           submission_fname=None):
         """Run tests in a detached container with attached volume code_dir
         and working directory cdw. Wait timeout seconds for container, then
         save results and logs, remove container and volumes"""
@@ -49,7 +49,9 @@ class Grader(Database):
         # Run in docker container
         t0 = time.time()
         if submission_fname:
-            cmd += ' ' + submission_fname
+            cmd = self.conf.TEST_CMD + ' ' + submission_fname
+        else:
+            cmd = self.conf.TEST_CMD
 
         container = client.containers.run(image, cmd, detach=True,
                                           volumes=shared_dir,
@@ -57,7 +59,7 @@ class Grader(Database):
         logging.info(f'CONTAINER {container.id}')
 
         try:
-            container.wait(timeout=timeout)
+            container.wait(timeout=self.conf.TIMEOUT)
             logs = self.parse_logs(container.logs())
         except (ConnectionError, ReadTimeout):
             container.stop()
@@ -113,19 +115,19 @@ class Grader(Database):
 
     def is_excluded(self, item):
         """Determine which files not to copy in setup_codedir"""
-        return any(fnmatch.fnmatch(item, p) for p in self.excluded_files)
+        return any(fnmatch.fnmatch(item, p) for p in self.conf.EXCLUDED_FILES)
 
     def run_grader(self):
         """For each project and submission, setup environment, run tests
         in docker container, save results or any error/logs"""
         for project_id in self.projects:
-            submissions = self.get_submissions(project_id, rerun=self.overwrite or self.keepbest, email=self.netid)
+            submissions = self.get_submissions(project_id, rerun=self.conf.OVERWRITE or self.conf.KEEPBEST, email=self.netid)
             for s3path in sorted(submissions):
                 logging.info('========================================')
                 logging.info(s3path)
 
                 # Setup environment
-                code_dir, submission_fname = self.fetch_submission(s3path, file_name=self.force_filename)
+                code_dir, submission_fname = self.fetch_submission(s3path, file_name=self.conf.FORCE_FILENAME)
                 project_dir = f'../{self.conf.SEMESTER}/{project_id}/'
                 self.setup_codedir(project_dir, code_dir)
 
@@ -134,8 +136,8 @@ class Grader(Database):
                 new_score = result['score']
                 logging.info(f'Score: {new_score}')
                 self.collect_stats(result)
-                if not self.safe:
-                    if self.keepbest and new_score < self.fetch_results(s3path):
+                if not self.conf.SAFE:
+                    if self.conf.KEEPBEST and new_score < self.fetch_results(s3path):
                         logging.info(f'Skipped {s3path} because better grade exists')
                     else:
                         self.put_submission('/'.join(s3path.split('/')[:-1] + ['test.json']), result)
@@ -154,34 +156,50 @@ class Grader(Database):
 
     def close(self):
         self.clear_caches()
-        if self.stats_file:
+        if self.conf.STATS_FILE:
+            # Shuffle dataframe as to anonymize submissions
             self.stats = self.stats.sample(frac=1).reset_index(drop=True)
-            self.stats.to_pickle(self.stats_file)
+            self.stats.to_pickle(self.conf.STATS_FILE)
 
 
 if __name__ == '__main__':
+    # Create CLI interface with the following parameters:
     extra_help = '\nTIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov\n'
     parser = argparse.ArgumentParser(description='Auto-grader for CS320', epilog=extra_help)
+
+    # Note: default=argparse.SUPPRESS removes the kwargs from the parsed args if not set.
     parser.add_argument('projects', type=str, nargs='+',
                         help='id(s) of project to run autograder on.')
     parser.add_argument('netid', type=str,
                         help='netid of student to run autograder on, or "?" for all students.')
-    parser.add_argument('-s', '--safe', action='store_true', help='run grader without uploading results to s3.')
-    parser.add_argument('-d', '--s3dir', type=str, default='./s3',
+    parser.add_argument('-cf', '--config', type=str, dest='grader_config_path', default='./graderconfig.json',
+                        help='autograder configuration file path, default is ./graderconfig.json')
+    parser.add_argument('-cfs3', '--s3config', type=str, dest='s3_config_path', default='./s3config.json',
+                        help='s3 configuration file path, default is ./s3config.json')
+    parser.add_argument('-s', '--safe', action='store_true', default=argparse.SUPPRESS,
+                        help='run grader without uploading results to s3.')
+    parser.add_argument('-d', '--s3dir', type=str, default=argparse.SUPPRESS,
                         help='directory of local s3 caches.')
-    parser.add_argument('-c', '--cleanup', action='store_true', help='remove temporary s3 dir after execution')
+    parser.add_argument('-c', '--cleanup', action='store_true', default=argparse.SUPPRESS,
+                        help='remove temporary s3 dir after execution')
     rerun_group = parser.add_mutually_exclusive_group()
-    rerun_group.add_argument('-o', '--overwrite', action='store_true', help='rerun grader and overwrite any existing results.')
-    rerun_group.add_argument('-k', '--keepbest', action='store_true', help='rerun grader, only update result if better.')
-    parser.add_argument('-sf', '--statsfile', type=str, dest='stats_file',
+    rerun_group.add_argument('-o', '--overwrite', action='store_true', default=argparse.SUPPRESS,
+                             help='rerun grader and overwrite any existing results.')
+    rerun_group.add_argument('-k', '--keepbest', action='store_true', default=argparse.SUPPRESS,
+                             help='rerun grader, only update result if better.')
+    parser.add_argument('-sf', '--statsfile', type=str, dest='stats_file', default=argparse.SUPPRESS,
                         help='save stats to file as a pickled dataframe')
-    parser.add_argument('-x', '--exclude', type=str, nargs='*',
+    parser.add_argument('-x', '--exclude', type=str, nargs='*', default=argparse.SUPPRESS,
                         help='exclude files from being copied to codedir. '
                              'Accepts filenames or UNIX-style filename pattern'
                              ' matching. By default README.md, main.ipynb, '
                              'main.py are excluded')
-    parser.add_argument('-ff', '--force-filename', type=str, dest='force_filename',
+    parser.add_argument('-ff', '--force-filename', type=str, dest='force_filename', default=argparse.SUPPRESS,
                         help='force submission to have this filename')
+    parser.add_argument('-t', '--timeout', type=int, default=argparse.SUPPRESS,
+                        help='docker timeout in seconds')
+    parser.add_argument('-tc', '--test-cmd', type=str, default=argparse.SUPPRESS,
+                        help='command that docker runs to test code. Should create a result.json')
 
     grader_args = parser.parse_args()
     g = Grader(**vars(grader_args))

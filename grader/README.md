@@ -197,8 +197,18 @@ container is created everytime.
 
 ## Changelog
 
-* Feb 16, 2020: Split autograding logic from s3 logic, created new `s3interface.py` file and it's config file too. 
-* Feb 11, 2020: Added README, updated requirements, fixed setup_codedir's permissions (file metadata wasn't copied), updated DockerFile.
-* Feb 10, 2020: Forked from cs301/cs220's autograder. Renamed dockerUtil to autograder.
+* Feb 17, 2020: Created autograder config file `graderconfig.json`, 
+Since the `Grader` inherits from `Database` the grader config gets 
+merged with the s3 config. The grader's config takes precedence over 
+s3's config so any keys in common will be overwriten.
+
+* Feb 16, 2020: Split autograding logic from s3 logic, created 
+new `s3interface.py` file and it's config file too. 
+
+* Feb 11, 2020: Added README, updated requirements, fixed setup_codedir's 
+permissions (file metadata wasn't copied), updated DockerFile.
+
+* Feb 10, 2020: Forked from cs301/cs220's autograder. Renamed 
+dockerUtil to autograder.
  
  

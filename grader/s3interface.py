@@ -1,6 +1,7 @@
 # Standard libs
 import os
 import json
+import copy
 import base64
 import shutil
 import string
@@ -14,28 +15,26 @@ from easydict import EasyDict as edict
 
 
 class Database:
-    DEFAULT_CONF_PATH = './s3config.json'
-
     def __init__(self, config_path=None, **kwargs):
         self.conf = self.read_conf(config_path)
-        self.conf = self.override_defaults(**kwargs)
+        self.conf = self.override_defaults(self.conf, **kwargs)
         self.session = boto3.Session(profile_name=self.conf.PROFILE)
         self.s3 = self.session.client(self.conf.SESSION_CLIENT)
         self.safe_s3_chars = set(string.ascii_letters + string.digits + ".-_")
 
-    def read_conf(self, config_path):
-        if config_path is None:
-            if os.path.isfile(self.DEFAULT_CONF_PATH):
-                config_path = self.DEFAULT_CONF_PATH
+    @staticmethod
+    def read_conf(config_path):
         with open(config_path, 'r', encoding='utf-8') as f:
             return edict(json.load(f))
 
-    def override_defaults(self, **kwargs):
+    @staticmethod
+    def override_defaults(conf, **kwargs):
+        conf = copy.deepcopy(conf)
         for key, value in kwargs.items():
             _key = key.upper().replace('-', '_')
-            if _key in self.conf:
-                self.conf[_key] = value
-        return self.conf
+            if _key in conf:
+                conf[_key] = value
+        return conf
 
     def get_submissions(self, project, rerun, email=None):
         prefix = self.conf.PREFIX + project + '/'
@@ -126,11 +125,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='S3 Interface for CS320', epilog=extra_help)
     parser.add_argument('projects', type=str, nargs='+',
                         help='id(s) of project to download submissions for.')
-    parser.add_argument('-c', '--config', type=str, dest='config_path',
-                        help='S3 Configuration file path, default is ./s3config.json')
-    parser.add_argument('-ff', '--force-filename', type=str, dest='force_filename', default=None,
+    parser.add_argument('-cf', '--config', type=str, dest='config_path', default='./s3config.json',
+                        help='s3 configuration file path, default is ./s3config.json')
+    parser.add_argument('-ff', '--force-filename', type=str, dest='force_filename', default=argparse.SUPPRESS,
                         help='force submission to have this filename')
 
+    # Add unknown arguments to argument list and re-parse
+    # This allows for arbitrary arguments to be parsed.
     parsed, unknown = parser.parse_known_args()
     for arg in unknown:
         if arg.startswith(("-", "--")):
