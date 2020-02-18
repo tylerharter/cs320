@@ -26,7 +26,9 @@ ways.
 
 Read about the other codes here:
 
-https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+ - https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+
+ - [https://strftime.org/](https://strftime.org/) (slightly cleaner than the official docs)
 
 Can you modify the above strftime call to get "21 of Feb, 2020"?
 
