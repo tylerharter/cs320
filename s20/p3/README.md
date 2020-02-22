@@ -55,7 +55,7 @@ from `data.csv`.  Don't truncate the table (meaning we want to see all
 the rows).  Don't have any other tables on this page, so as not to
 confuse our tester.
 
-Hint: look into _repr_html_ for DataFrames.
+Hint: look into `_repr_html_` for DataFrames.
 
 ## API
 

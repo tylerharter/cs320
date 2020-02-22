@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Feb 22: not a correction, but there are some hints added at the [bottom of this page](#hints)
 
 ## Overview
 
@@ -348,3 +348,108 @@ your code are slow.
 Have fun with this one!  If you use your module to do any cool
 analysis beyond what is required for P2, I'll be curious to see the
 results.
+
+## Hints
+
+### Hint 1 (Feb 22)
+
+Most of the complexity/time of pulling in information should probably
+happen in the constructor of BusDay.
+
+### Hint 2 (Feb 22)
+
+A lot of people are seeing this error when they run the tester:
+
+```
+Traceback (most recent call last):
+  File "/home/trh/p2/tester.py", line 89, in run_all_tests
+    points = t.fn()
+  File "/home/trh/p2/tester.py", line 153, in service_ids
+    service_ids = sorted(bd.service_ids)
+TypeError: 'method' object is not iterable
+```
+
+You should see that this is the line that's crashing:
+
+```python
+service_ids = sorted(bd.service_ids)
+```
+
+The problem is that sorted needs something it can loop over (that is,
+something *iterable*) to produce a sorted list.
+
+Instead of getting something can loop over, it's getting a method,
+namely `service_ids`.
+
+If you check the requirements closely, `service_ids` isn't supposed to
+be a method, it's supposed to be an attribute.  So instead of a `def
+service_ids():` in your class, you need something like
+`self.service_ids = ...` in the BusDay constructor.
+
+In general, let's say you see some code like this:
+
+```python
+x = obj.something
+y = obj.another_thing()
+```
+
+What can you guess about `something` and `another_thing`?  Which one
+is an attribute?  Which one is a method?
+
+### Hint 3 (Feb 22)
+
+A lot of people are overthinking `Trip`.  The whole thing is really nothing more than the following:
+
+```python
+class Trip:
+    def __init__(self, trip_id, route_id, bikes_allowed):
+        self.trip_id = trip_id
+        self.route_id = route_id
+        self.bikes_allowed = bikes_allowed
+
+    def __repr__(self):
+        s = "Trip({}, {}, {})"
+        return s.format(repr(self.trip_id), repr(self.route_id), repr(self.bikes_allowed))
+```
+
+A common mistake was to try to read the data files in the constructor
+of Trip.
+
+You don't need to do that, because all the information needed to
+create a Trip object is passed to the constructor: `trip_id`,
+`route_id`, `bikes_allowed`.  This means it's the job of whatever code
+is creating trip objects to look up that information beforehand;
+finding information is not the job of the Trip class itself.
+
+### Hint 4 (Feb 22)
+
+To implement your binary tree, you should probably create one or more
+classes beyond the one's you're explicitly required to create (we're
+giving you a lot of flexibility to decide how to create the tree).
+
+One thing to keep in mind is that we know the list of all the stops at
+the beginning, so it's easier to create a balanced tree if we're smart
+(this is in contrast to the `add` method in class where we need to
+find a place for one value at a time, without knowing what will be
+added later).
+
+Here's some pseudocode for one way to recursively build the tree of
+stops (if you use this approach, you'll need to think about how to
+translate this to actual Python code):
+
+```
+CONSTRUCTOR METHOD FOR NODE IN TREE:
+    we have a list of stops passed in
+    if a split is necessary, then
+        1. sort stops by whatever we're splitting on (x or y)
+        2. slice sorted stops into two equally-sized lists
+        3. create two new nodes from the two halves (recursive!)
+        4. create attributes referring to these two new children
+    otherwise
+        add stops we received as an attribute to this node
+```
+
+In the recursive step 3, we'll need to let the children know (a) what
+level they're at, so they know whether to keep splitting or not, and
+(b) if they should split, whether they should do so horizontally or
+vertically.
