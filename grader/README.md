@@ -88,6 +88,8 @@ s3interface to work properly. You will likely just need to change the profile na
 
 # Running the autograder
 
+### Autograder CLI
+
 You can now try to run the autograder. If you aren't familiar with it's 
 options try the following:
 
@@ -167,15 +169,49 @@ Score: <STUDENT'S-SCORE>
 Did not upload results, running in safe mode
 ```
 
+### Autograder Crontab
+
+Running the grader periodically is often desired. The simplest 
+way of doing so it through a cronjob. 
+
+For this to work you'll need to edit the `grader-daemon.sh` script 
+in order to make sure it is running the autograder in the way you intend.
+
+Further, you will need to be able to run the daemon without sudo 
+privileges as crontabs run unprivileged and without your user. 
+To account for this you will have to follow the directions above 
+on how to run without sudo. You might also need to specify the full 
+python path to use in the daemon script.
+
+Once you have the `grader-daemon.sh` script running without sudo and 
+how you intend it, you can simply add it as a cronjob. To do this run: 
+
+```
+crontab -e
+```
+
+And add something like so:
+
+```
+0 * * * * <PATH TO THE GRADER DIRECTORY>/grader-daemon.sh > cronlog.txt 
+```
+
+The `cronlog.txt` file will simply capture the output and help you debug
+if anything goes awry. This is rather rudimentary as better logging methods exist 
+but it works for now.
+
+I highly suggest you check your crontab [here](https://crontab.guru/).
+
+
 # Downloading submissions locally
 
 This can be done by using `s3interface.py`'s CLI interface. Running it with 
 the `-h` flag should give us more information about it:
 
 ```
-usage: s3interface.py [-h] [-da | -dm] [-cf CONFIG_PATH] [-ff FORCE_FILENAME]
-                      [-mf MOSS_FORMAT]
-                      projects [projects ...]
+usage: s3interface.py [-h] [-da | -dm | -dp] [-cf CONFIG_PATH]
+                      [-ff FORCE_FILENAME] [-mf MOSS_FORMAT] [-p PREFIX]
+                      [projects [projects ...]]
 
 S3 Interface for CS320
 
@@ -188,12 +224,16 @@ optional arguments:
   -dm, --download-moss  download all submissions in same directory using
                         moss_format as filename formatter, used for moss
                         cheating detection
+  -dp, --download-prefix
+                        download all s3 files that have the given prefix
   -cf CONFIG_PATH, --config CONFIG_PATH
                         s3 configuration file path, default is ./s3config.json
   -ff FORCE_FILENAME, --force-filename FORCE_FILENAME
                         force submission to have this filename
   -mf MOSS_FORMAT, --moss-format MOSS_FORMAT
                         filename format to use when downloading for moss
+  -p PREFIX, --prefix PREFIX
+                        download prefix to use
 
 TIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov
 ```
@@ -209,6 +249,13 @@ And you'll be able to download these in a moss-compatible format like so:
 
 ```
 python3 s3interface.py -dm p1 p2
+```
+
+Finally you can download any files with `SNAP_ALLOWED_EXT` and with a 
+given prefix ('b' in the example below) like so:
+
+```
+python3 s3interface.py -dp --prefix "b"
 ```
 
 _Note:_ This will require you to modify the config file or specify a new one. 
@@ -233,7 +280,7 @@ changing branches without stashing. This happens because filemode (permissions) 
 	* Fix: run `git config --global core.filemode false`. Even with this, it might not work because it can be overwritten by the settings in `.git/config`.
 
 
-## Tips and Tricks
+# Tips and Tricks
 
 * To open an interactive shell from a docker image (named grader in this case) 
 you can run the following. Note that any changes will be discarded as a new 
@@ -243,7 +290,12 @@ container is created every time.
 	```
 
 
-## Changelog
+# Changelog
+
+* Feb 22, 2020: Added `test_cmd` and `result_file` config options to the grader.
+Started removing old stats collector code. Added p2 to the daemon script. 
+Added docs about daemonizing grader, and a prefix downloader in `s3interface.py` 
+to download the snapshot directory (used to compute final grades).
 
 * Feb 18, 2020: Updated DockerFile, added Moss download compatibility (see above).
 
@@ -261,4 +313,12 @@ permissions (file metadata wasn't copied), updated DockerFile.
 * Feb 10, 2020: Forked from cs301/cs220's autograder. Renamed 
 dockerUtil to autograder.
  
+ 
+# TODO
+
+- [ ] Cleanup through docker to avoid permission denied errors
+- [ ] Move conf over to yaml for easier configs
+- [ ] Add per project configs, run-all command
+- [ ] Add better logging (to a file)
+- [ ] Add stats collector class
  

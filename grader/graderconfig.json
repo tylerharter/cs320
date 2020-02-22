@@ -10,5 +10,6 @@
   ],
   "FORCE_FILENAME": "main.ipynb",
   "TEST_CMD": "python3 test.py",
+  "RESULT_FILE": "result.json", 
   "TIMEOUT": 180
 }

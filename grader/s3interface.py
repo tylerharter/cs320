@@ -133,6 +133,19 @@ class Database:
     def download_moss(self, projects):
         self.download_helper(projects, filename_format=self.conf.MOSS_FORMAT, directory=self.conf.MOSS_DIR)
 
+    def download_prefix(self):
+        print('Getting all s3 keys...')
+        paths = list(self.s3_all_keys(self.conf.SNAP_PREFIX))
+        print(f'Found {len(paths)} files to download with prefix {self.conf.SNAP_PREFIX}')
+        for path in tqdm(paths):
+            local = os.path.join(self.conf.SNAP_DIR, path)
+            response = self.s3.get_object(Bucket=self.conf.BUCKET, Key=path)
+            os.makedirs(os.path.dirname(local), exist_ok=True)
+            _, extension = os.path.splitext(local)
+            if extension in self.conf.SNAP_ALLOWED_EXTS:
+                with open(local, 'wb') as f:
+                    f.write(response['Body'].read())
+
     def download_helper(self, projects, filename_format=None, directory=None):
         """Main downloader method. Files will be downloaded to `directory` and be
         named with `filename_format`.
@@ -165,7 +178,7 @@ class Database:
 if __name__ == '__main__':
     extra_help = 'TIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov'
     parser = argparse.ArgumentParser(description='S3 Interface for CS320', epilog=extra_help)
-    parser.add_argument('projects', type=str, nargs='+',
+    parser.add_argument('projects', type=str, nargs='*',
                         help='id(s) of project to download submissions for.')
     download_group = parser.add_mutually_exclusive_group()
     download_group.add_argument('-da', '--download-all', action='store_true', default=False,
@@ -173,12 +186,16 @@ if __name__ == '__main__':
     download_group.add_argument('-dm', '--download-moss', action='store_true', default=False,
                                 help='download all submissions in same directory using moss_format as '
                                      'filename formatter, used for moss cheating detection')
+    download_group.add_argument('-dp', '--download-prefix', action='store_true', default=False,
+                                help='download all s3 files that have the given prefix')
     parser.add_argument('-cf', '--config', type=str, dest='config_path', default='./s3config.json',
                         help='s3 configuration file path, default is ./s3config.json')
     parser.add_argument('-ff', '--force-filename', type=str, dest='force_filename', default=argparse.SUPPRESS,
                         help='force submission to have this filename')
     parser.add_argument('-mf', '--moss-format', type=str, default=argparse.SUPPRESS,
                         help='filename format to use when downloading for moss')
+    parser.add_argument('-p', '--prefix', type=str, default=argparse.SUPPRESS,
+                        help='download prefix to use')
 
     database_args = parser.parse_args()
     d = Database(**vars(database_args))
@@ -187,4 +204,6 @@ if __name__ == '__main__':
         d.download_all(database_args.projects)
     elif database_args.download_moss:
         d.download_moss(database_args.projects)
+    elif database_args.download_prefix:
+        d.download_prefix()
 

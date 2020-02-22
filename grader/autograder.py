@@ -73,7 +73,7 @@ class Grader(Database):
 
         # Get results
         try:
-            with open(f'{code_dir}/result.json') as f:
+            with open(os.path.join(code_dir, self.conf.RESULT_FILE)) as f:
                 result = json.load(f)
         except Exception as e:
             result = {
@@ -96,6 +96,13 @@ class Grader(Database):
             return ansi_escape.sub('', logs)
         except UnicodeDecodeError as e:
             return str(e)
+
+    @staticmethod
+    def log_result(result):
+        tests = result.get('tests', [])
+        if not tests:
+            logging.error(f'Error running tests: \n'
+                          f' {json.dumps(result, indent=2)}')
 
     def setup_codedir(self, project_dir, code_dir, overwrite_existing=False):
         """Copy necessary files from project dir to code dir"""
@@ -133,9 +140,9 @@ class Grader(Database):
 
                 # Run tests in docker and save results
                 result = self.run_test_in_docker(code_dir)
+                self.log_result(result)
                 new_score = result['score']
                 logging.info(f'Score: {new_score}')
-                self.collect_stats(result)
                 if not self.conf.SAFE:
                     if self.conf.KEEPBEST and new_score < self.fetch_results(s3path):
                         logging.info(f'Skipped {s3path} because better grade exists')
@@ -144,15 +151,6 @@ class Grader(Database):
                 else:
                     logging.info(f'Did not upload results, running in safe mode')
         self.close()
-
-    def collect_stats(self, result):
-        tests = result.get('tests', [])
-        if tests:
-            row = {i: d['result'] == 'PASS' for i, d in enumerate(tests)}
-            self.stats = self.stats.append(row, ignore_index=True)
-        else:
-            logging.error(f'Error running tests: \n'
-                          f' {json.dumps(result, indent=2)}')
 
     def close(self):
         self.clear_caches()
@@ -200,6 +198,8 @@ if __name__ == '__main__':
                         help='docker timeout in seconds')
     parser.add_argument('-tc', '--test-cmd', type=str, default=argparse.SUPPRESS,
                         help='command that docker runs to test code. Should create a result.json')
+    parser.add_argument('-rf', '--result-file', type=str, default=argparse.SUPPRESS,
+                        help='name of file the testing code generates')
 
     grader_args = parser.parse_args()
     g = Grader(**vars(grader_args))
