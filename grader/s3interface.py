@@ -1,11 +1,14 @@
 # Standard libs
 import os
+import re
 import json
+import copy
 import base64
 import shutil
 import string
 import logging
 import argparse
+from datetime import datetime
 
 # Third party libs
 import boto3
@@ -14,28 +17,39 @@ from easydict import EasyDict as edict
 
 
 class Database:
-    DEFAULT_CONF_PATH = './s3config.json'
-
     def __init__(self, config_path=None, **kwargs):
         self.conf = self.read_conf(config_path)
-        self.conf = self.override_defaults(**kwargs)
+        self.conf = self.override_defaults(self.conf, **kwargs)
         self.session = boto3.Session(profile_name=self.conf.PROFILE)
         self.s3 = self.session.client(self.conf.SESSION_CLIENT)
         self.safe_s3_chars = set(string.ascii_letters + string.digits + ".-_")
 
-    def read_conf(self, config_path):
-        if config_path is None:
-            if os.path.isfile(self.DEFAULT_CONF_PATH):
-                config_path = self.DEFAULT_CONF_PATH
+    @staticmethod
+    def read_conf(config_path):
+        """Read in a json file as an easy_dict, used for configuration files"""
         with open(config_path, 'r', encoding='utf-8') as f:
             return edict(json.load(f))
 
-    def override_defaults(self, **kwargs):
+    @staticmethod
+    def override_defaults(conf, **kwargs):
+        """Given a conf dict/edict, override it's attributes from kwargs
+        only if those attributes are already in conf.
+        Keys are normalized: upper case and dashes converted to underscores"""
+        conf = copy.deepcopy(conf)
         for key, value in kwargs.items():
             _key = key.upper().replace('-', '_')
-            if _key in self.conf:
-                self.conf[_key] = value
-        return self.conf
+            if _key in conf:
+                conf[_key] = value
+        return conf
+
+    @staticmethod
+    def parse_s3path(s3path):
+        file_info = edict()
+        path = os.path.normpath(s3path)
+        *_, file_info.project_id, email, date, _ = path.split(os.sep)
+        file_info.netid, file_info.domain = re.split(r'\*at\*|@', email)
+        file_info.date = datetime.strptime(date, "%Y-%m-%d_%H-%M-%S")
+        return file_info
 
     def get_submissions(self, project, rerun, email=None):
         prefix = self.conf.PREFIX + project + '/'
@@ -56,18 +70,24 @@ class Database:
             submitted -= tested
         return submitted
 
-    def fetch_submission(self, s3path, file_name=None):
-        local_dir = os.path.join(self.conf.S3_DIR, os.path.dirname(s3path))
-        if os.path.exists(local_dir):
-            shutil.rmtree(local_dir)
-        os.makedirs(local_dir)
+    def fetch_submission(self, s3path, filename=None, directory=None):
+        # Get submission from s3
         response = self.s3.get_object(Bucket=self.conf.BUCKET, Key=s3path)
         submission = json.loads(response['Body'].read().decode('utf-8'))
         file_contents = base64.b64decode(submission.pop('payload'))
-        file_name = file_name if file_name else submission['filename']
-        with open(os.path.join(local_dir, file_name), 'wb') as f:
+        # Resolve path of file
+        if directory is None:
+            directory = os.path.join(self.conf.S3_DIR, os.path.dirname(s3path))
+        filename = filename if filename else submission['filename']
+        file_path = os.path.join(directory, filename)
+        # Create directory, remove if submission is present
+        if os.path.exists(file_path):
+            shutil.rmtree(directory)
+        os.makedirs(directory, exist_ok=True)
+        # Write file contents to disk
+        with open(file_path, 'wb') as f:
             f.write(file_contents)
-        return local_dir, file_name
+        return directory, filename
 
     def fetch_results(self, s3path):
         s3path = s3path.replace('submission.json', 'test.json')
@@ -107,14 +127,48 @@ class Database:
                 s3key.append('*%d*' % ord(c))
         return "".join(s3key)
 
-    def download(self, projects, filename=None):
+    def download_all(self, projects):
+        self.download_helper(projects, filename_format=self.conf.FORCE_FILENAME, directory=None)
+
+    def download_moss(self, projects):
+        self.download_helper(projects, filename_format=self.conf.MOSS_FORMAT, directory=self.conf.MOSS_DIR)
+
+    def download_prefix(self):
+        print('Getting all s3 keys...')
+        paths = list(self.s3_all_keys(self.conf.SNAP_PREFIX))
+        print(f'Found {len(paths)} files to download with prefix {self.conf.SNAP_PREFIX}')
+        for path in tqdm(paths):
+            local = os.path.join(self.conf.SNAP_DIR, path)
+            response = self.s3.get_object(Bucket=self.conf.BUCKET, Key=path)
+            os.makedirs(os.path.dirname(local), exist_ok=True)
+            _, extension = os.path.splitext(local)
+            if extension in self.conf.SNAP_ALLOWED_EXTS:
+                with open(local, 'wb') as f:
+                    f.write(response['Body'].read())
+
+    def download_helper(self, projects, filename_format=None, directory=None):
+        """Main downloader method. Files will be downloaded to `directory` and be
+        named with `filename_format`.
+
+        :param projects: What projects to download submissions for
+        :param filename_format: what to rename the submission to.
+                if None: don't rename
+                else: try formatting it with data from parse_s3path
+        :param directory: What directory to download them to. If None,
+                they will be downloaded to S3_DIR/s3path/
+        """
         submissions = set()
         print('Getting all s3 keys...')
         for p in projects:
             submissions |= self.get_submissions(p, rerun=True)
-        print(f'Found {len(submissions)} files to download from projects {", ".join(projects)}')
+        print(f'Found {len(submissions)} files to download from {", ".join(projects)}')
         for submission in tqdm(submissions):
-            self.fetch_submission(submission, file_name=filename)
+            if filename_format is not None:
+                file_info = self.parse_s3path(submission)
+                filename = filename_format.format(**file_info)
+            else:
+                filename = filename_format
+            self.fetch_submission(submission, filename=filename, directory=directory)
 
     def clear_caches(self):
         if self.conf.CLEANUP and os.path.exists(self.conf.S3_DIR):
@@ -124,18 +178,32 @@ class Database:
 if __name__ == '__main__':
     extra_help = 'TIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov'
     parser = argparse.ArgumentParser(description='S3 Interface for CS320', epilog=extra_help)
-    parser.add_argument('projects', type=str, nargs='+',
+    parser.add_argument('projects', type=str, nargs='*',
                         help='id(s) of project to download submissions for.')
-    parser.add_argument('-c', '--config', type=str, dest='config_path',
-                        help='S3 Configuration file path, default is ./s3config.json')
-    parser.add_argument('-ff', '--force-filename', type=str, dest='force_filename', default=None,
+    download_group = parser.add_mutually_exclusive_group()
+    download_group.add_argument('-da', '--download-all', action='store_true', default=False,
+                                help='download all submissions in an s3 file-structured way')
+    download_group.add_argument('-dm', '--download-moss', action='store_true', default=False,
+                                help='download all submissions in same directory using moss_format as '
+                                     'filename formatter, used for moss cheating detection')
+    download_group.add_argument('-dp', '--download-prefix', action='store_true', default=False,
+                                help='download all s3 files that have the given prefix')
+    parser.add_argument('-cf', '--config', type=str, dest='config_path', default='./s3config.json',
+                        help='s3 configuration file path, default is ./s3config.json')
+    parser.add_argument('-ff', '--force-filename', type=str, dest='force_filename', default=argparse.SUPPRESS,
                         help='force submission to have this filename')
+    parser.add_argument('-mf', '--moss-format', type=str, default=argparse.SUPPRESS,
+                        help='filename format to use when downloading for moss')
+    parser.add_argument('-p', '--prefix', type=str, default=argparse.SUPPRESS,
+                        help='download prefix to use')
 
-    parsed, unknown = parser.parse_known_args()
-    for arg in unknown:
-        if arg.startswith(("-", "--")):
-            parser.add_argument(arg, type=str)
     database_args = parser.parse_args()
     d = Database(**vars(database_args))
-    d.download(database_args.projects, filename=database_args.force_filename)
+
+    if database_args.download_all:
+        d.download_all(database_args.projects)
+    elif database_args.download_moss:
+        d.download_moss(database_args.projects)
+    elif database_args.download_prefix:
+        d.download_prefix()
 

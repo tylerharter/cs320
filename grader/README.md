@@ -4,6 +4,27 @@ This is intended for staff use only. Students should not worry about this as it
 does not apply to them, nor is it maintained by them. As such any unauthorized pull requests 
 regarding the autograder will be rejected. 
 
+# Overview
+
+Currently the tools consist of two files:
+* `s3interface.py`: This file contains the class `Database` which is responsible for 
+interacting with the amazon s3 bucket that stores the submissions. It can also 
+be used as a CLI to download the submissions locally for inspection and cheating detection.
+
+* `autograder.py`: This file contains the class `Grader` which is a subclass of `Database`.
+It is responsible for setting up the testing environment and directories, 
+re-run every submission, run the test/tester on it, and upload the results. It also aggregates 
+some basic statistics about the grades but this is still in the works. Finally, this can 
+also be used as a CLI to run the autograder on a specific project or student. 
+
+Both of these files use a json config file to store default configuration 
+parameters. Any of these parameters can be overwritten at runtime through the 
+CLI. 
+
+_Note on Inheritance and Configuration:_ the base class's config will be merged with 
+the subclass's config. Any parameters in the subclass will take precedence and overwrite 
+the base class's config.  
+
 # Setup
 
 Update your system:
@@ -67,6 +88,8 @@ s3interface to work properly. You will likely just need to change the profile na
 
 # Running the autograder
 
+### Autograder CLI
+
 You can now try to run the autograder. If you aren't familiar with it's 
 options try the following:
 
@@ -78,8 +101,10 @@ It should give you options like so:
 
 
 ```
-usage: autograder.py [-h] [-s] [-d S3DIR] [-c] [-o | -k] [-sf STATS_FILE]
+usage: autograder.py [-h] [-cf GRADER_CONFIG_PATH] [-cfs3 S3_CONFIG_PATH] [-s]
+                     [-d S3DIR] [-c] [-o | -k] [-sf STATS_FILE]
                      [-x [EXCLUDE [EXCLUDE ...]]] [-ff FORCE_FILENAME]
+                     [-t TIMEOUT] [-tc TEST_CMD]
                      projects [projects ...] netid
 
 Auto-grader for CS320
@@ -91,6 +116,11 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  -cf GRADER_CONFIG_PATH, --config GRADER_CONFIG_PATH
+                        autograder configuration file path, default is
+                        ./graderconfig.json
+  -cfs3 S3_CONFIG_PATH, --s3config S3_CONFIG_PATH
+                        s3 configuration file path, default is ./s3config.json
   -s, --safe            run grader without uploading results to s3.
   -d S3DIR, --s3dir S3DIR
                         directory of local s3 caches.
@@ -105,6 +135,11 @@ optional arguments:
                         default README.md, main.ipynb, main.py are excluded
   -ff FORCE_FILENAME, --force-filename FORCE_FILENAME
                         force submission to have this filename
+  -t TIMEOUT, --timeout TIMEOUT
+                        docker timeout in seconds
+  -tc TEST_CMD, --test-cmd TEST_CMD
+                        command that docker runs to test code. Should create a
+                        result.json
 
 TIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov
 ```
@@ -134,38 +169,98 @@ Score: <STUDENT'S-SCORE>
 Did not upload results, running in safe mode
 ```
 
+### Autograder Crontab
+
+Running the grader periodically is often desired. The simplest 
+way of doing so it through a cronjob. 
+
+For this to work you'll need to edit the `grader-daemon.sh` script 
+in order to make sure it is running the autograder in the way you intend.
+
+Further, you will need to be able to run the daemon without sudo 
+privileges as crontabs run unprivileged and without your user. 
+To account for this you will have to follow the directions above 
+on how to run without sudo. You might also need to specify the full 
+python path to use in the daemon script.
+
+Once you have the `grader-daemon.sh` script running without sudo and 
+how you intend it, you can simply add it as a cronjob. To do this run: 
+
+```
+crontab -e
+```
+
+And add something like so:
+
+```
+0 * * * * <PATH TO THE GRADER DIRECTORY>/grader-daemon.sh > cronlog.txt 
+```
+
+The `cronlog.txt` file will simply capture the output and help you debug
+if anything goes awry. This is rather rudimentary as better logging methods exist 
+but it works for now.
+
+I highly suggest you check your crontab [here](https://crontab.guru/).
+
+
 # Downloading submissions locally
 
 This can be done by using `s3interface.py`'s CLI interface. Running it with 
 the `-h` flag should give us more information about it:
 
 ```
-usage: s3interface.py [-h] [-c CONFIG_PATH] [-ff FORCE_FILENAME]
-                      projects [projects ...]                        
+usage: s3interface.py [-h] [-da | -dm | -dp] [-cf CONFIG_PATH]
+                      [-ff FORCE_FILENAME] [-mf MOSS_FORMAT] [-p PREFIX]
+                      [projects [projects ...]]
 
-S3 Interface for CS320 
+S3 Interface for CS320
 
-positional arguments:      
-    projects              id(s) of project to download submissions for.
+positional arguments:
+  projects              id(s) of project to download submissions for.
 
-optional arguments:    
-    -h, --help            show this help message and exit    
-    -c CONFIG_PATH, --config CONFIG_PATH                     
-                          S3 Configuration file path, default is ./s3config.json 
-    -ff FORCE_FILENAME, --force-filename FORCE_FILENAME           
-                          force submission to have this filename        
+optional arguments:
+  -h, --help            show this help message and exit
+  -da, --download-all   download all submissions in an s3 file-structured way
+  -dm, --download-moss  download all submissions in same directory using
+                        moss_format as filename formatter, used for moss
+                        cheating detection
+  -dp, --download-prefix
+                        download all s3 files that have the given prefix
+  -cf CONFIG_PATH, --config CONFIG_PATH
+                        s3 configuration file path, default is ./s3config.json
+  -ff FORCE_FILENAME, --force-filename FORCE_FILENAME
+                        force submission to have this filename
+  -mf MOSS_FORMAT, --moss-format MOSS_FORMAT
+                        filename format to use when downloading for moss
+  -p PREFIX, --prefix PREFIX
+                        download prefix to use
 
-TIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov 
+TIP: run this if time is out of sync: sudo ntpdate -s time.nist.gov
 ```
 
 Therefore we should be able to download all submissions for p1 and p2 (for example) 
 like so:
 
 ```
-python3 s3interface.py p1 p2 -ff main.ipynb
+python3 s3interface.py -da p1 p2
+```
+
+And you'll be able to download these in a moss-compatible format like so:
+
+```
+python3 s3interface.py -dm p1 p2
+```
+
+Finally you can download any files with `SNAP_ALLOWED_EXT` and with a 
+given prefix ('b' in the example below) like so:
+
+```
+python3 s3interface.py -dp --prefix "b"
 ```
 
 _Note:_ This will require you to modify the config file or specify a new one. 
+For the moss download it will download then to the `MOSS_DIR` using the `MOSS_FORMAT` 
+to name the file. This format string can take any arguments returned by `Database.parse_s3path`.
 
 # Troubleshooting
 
@@ -185,20 +280,45 @@ changing branches without stashing. This happens because filemode (permissions) 
 	* Fix: run `git config --global core.filemode false`. Even with this, it might not work because it can be overwritten by the settings in `.git/config`.
 
 
-## Tips and Tricks
+# Tips and Tricks
 
 * To open an interactive shell from a docker image (named grader in this case) 
 you can run the following. Note that any changes will be discarded as a new 
-container is created everytime.
+container is created every time.
 	```
 	sudo docker run -it grader bash
 	```
 
 
-## Changelog
+# Changelog
 
-* Feb 16, 2020: Split autograding logic from s3 logic, created new `s3interface.py` file and it's config file too. 
-* Feb 11, 2020: Added README, updated requirements, fixed setup_codedir's permissions (file metadata wasn't copied), updated DockerFile.
-* Feb 10, 2020: Forked from cs301/cs220's autograder. Renamed dockerUtil to autograder.
+* Feb 22, 2020: Added `test_cmd` and `result_file` config options to the grader.
+Started removing old stats collector code. Added p2 to the daemon script. 
+Added docs about daemonizing grader, and a prefix downloader in `s3interface.py` 
+to download the snapshot directory (used to compute final grades).
+
+* Feb 18, 2020: Updated DockerFile, added Moss download compatibility (see above).
+
+* Feb 17, 2020: Created autograder config file `graderconfig.json`, 
+Since the `Grader` inherits from `Database` the grader config gets 
+merged with the s3 config. The grader's config takes precedence over 
+s3's config so any keys in common will be overwriten.
+
+* Feb 16, 2020: Split autograding logic from s3 logic, created 
+new `s3interface.py` file and it's config file too. 
+
+* Feb 11, 2020: Added README, updated requirements, fixed setup_codedir's 
+permissions (file metadata wasn't copied), updated DockerFile.
+
+* Feb 10, 2020: Forked from cs301/cs220's autograder. Renamed 
+dockerUtil to autograder.
  
+ 
+# TODO
+
+- [ ] Cleanup through docker to avoid permission denied errors
+- [ ] Move conf over to yaml for easier configs
+- [ ] Add per project configs, run-all command
+- [ ] Add better logging (to a file)
+- [ ] Add stats collector class
  

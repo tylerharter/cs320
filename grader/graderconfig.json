@@ -1,0 +1,15 @@
+{
+  "SAFE": false,
+  "OVERWRITE": false,
+  "KEEPBEST": false,
+  "STATS_FILE": null,
+  "EXCLUDED_FILES": [
+    "README.md",
+    "main.ipynb",
+    "main.py"
+  ],
+  "FORCE_FILENAME": "main.ipynb",
+  "TEST_CMD": "python3 test.py",
+  "RESULT_FILE": "result.json", 
+  "TIMEOUT": 180
+}

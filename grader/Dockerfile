@@ -17,9 +17,10 @@ RUN apt-get install -y python3-pip
 
 # Install general packages
 RUN pip3 install jupyter pandas numpy requests matplotlib beautifulsoup4 statistics recordclass haversine sklearn 
-RUN pip3 install gitpython pylint 
+RUN pip3 install gitpython pylint graphviz
 RUN apt-get -y install zip
 RUN apt-get -y install git
+RUN apt-get -y install graphviz
 RUN git config --global core.filemode false
 
 # Install pytorch, see pytorch.org for updated command

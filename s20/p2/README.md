@@ -282,7 +282,7 @@ project was determine which services are available for the given day.
 * _recursively_ split nodes in half, for six levels.  In other words, there will be 64 = 2**6 leaf nodes, each 6 edges away from the root
 * at each split, divide the stops perfectly in half, as best you can (left child gets `stops[:len(stops)//2]` and right child gets others).  If many stops were to have the same coordinates, this process might mean some stops might go left while others with identical locations go right -- this is OK for this project
 * at the root level, split into East and West halves.  At the next level, split into North and South.  Keep alternating the orientation of the splits in this way
-* implement rectangle search recursively.  In the leaves, just loop over all the buses and collect those in the rectangle.  For non-leaf nodes, construct results by recursively getting results from the children.  When the search rectangle falls into just one child's area, do not recursively search both children.  Of course, a large search rectangle may overlap multiple children.
+* implement rectangle search recursively.  In the leaves, just loop over all the stops and collect those in the rectangle.  For non-leaf nodes, construct results by recursively getting results from the children.  When the search rectangle falls into just one child's area, do not recursively search both children.  Of course, a large search rectangle may overlap multiple children.
 
 Your `get_stops_circ` method should work by identifying the stops in a
 rectangle that bounds the circle, then make a second filtering pass to
