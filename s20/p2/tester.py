@@ -58,8 +58,8 @@ def is_expected(actual, name, histo_comp=False):
         for a, e in zip(actual, expected):
             diff += abs(a - e)
         diff /= len(expected)
-        if diff > 0.01:
-            return "average error between actual and expected was %.2f (>0.01)" % diff
+        if diff > 0.05:
+            return "average error between actual and expected was %.2f (>0.05)" % diff
 
     elif type(expected) != type(actual):
         return "expected a {} but found {} of type {}".format(expected, actual, type(actual))
@@ -109,7 +109,7 @@ def run_all_tests(mod_name="bus"):
     sec = t1-t0
     if sec > max_sec/2:
         print("WARNING!  Tests took", sec, "seconds")
-        print("Maximum is ", sec, "seconds")
+        print("Maximum is ", max_sec, "seconds")
         print("We recommend keeping runtime under half the maximum as a buffer.")
         print("Variability may cause it to run slower for us than you.")
 

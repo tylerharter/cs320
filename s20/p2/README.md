@@ -3,6 +3,7 @@
 ## Corrections/Clarifications
 
 * Feb 22: not a correction, but there are some hints added at the [bottom of this page](#hints)
+* Feb 22: increase tolerance for line placement in tester.py
 
 ## Overview
 
