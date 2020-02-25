@@ -1,4 +1,4 @@
-import importlib, sys, json, io, time, traceback, itertools
+import importlib, sys, json, io, time, traceback, itertools, re, os
 from datetime import datetime, timedelta
 from collections import namedtuple
 from matplotlib import pyplot as plt
@@ -143,18 +143,28 @@ def run_all_tests(mod_name="main"):
 ########################################
 
 # see https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface#Example_of_calling_an_application
-def app_get(path, expect_str=True, expect_errors=False):
+def app_req(path, expect_str=True, expect_errors=False, method="GET", input_body=""):
     errors = StringIO()
 
+    parts = path.split("?")
+    path = parts[0]
+    query_string = ""
+    if len(parts) > 1:
+        query_string = parts[1]
+
+    input_body = bytes(input_body, "utf-8")
+        
     environ = {
-        "REQUEST_METHOD": "GET",
+        "REQUEST_METHOD": method,
         "PATH_INFO": path,
+        "QUERY_STRING": query_string,
         'SERVER_NAME': '0.0.0.0',
         'SERVER_PORT': '3210',
         "SERVER_PROTOCOL": "HTTP/1.1",
         "wsgi.version": (1,0),
         "wsgi.url_scheme": "http",
-        "wsgi.input": StringIO(""),
+        "wsgi.input": BytesIO(input_body),
+        "CONTENT_LENGTH": len(input_body),
         "wsgi.errors": errors,
         "wsgi.multithread": False,
         "wsgi.multiprocess": False,
@@ -186,13 +196,13 @@ def app_get(path, expect_str=True, expect_errors=False):
     body = body.getvalue()
     if expect_str:
         body = str(body, "utf-8")
-    return status, headers, body
+    return status, dict(headers), body
 
 @test(points=10)
 def has_pages():
     points = 0
     for page in ["/", "browse.html", "api.html", "donate.html"]:
-        status, headers, body = app_get(page)
+        status, headers, body = app_req(page)
         if status == "200 OK":
             points += 1
             if body.lower().find("<h1>") >= 0:
@@ -202,7 +212,7 @@ def has_pages():
         else:
             print("missing page:", page)
 
-    status, headers, body = app_get("/missing.html", expect_errors=True)
+    status, headers, body = app_req("/missing.html", expect_errors=True)
     if status == "404 NOT FOUND":
         points += 2
     else:
@@ -210,20 +220,33 @@ def has_pages():
 
     return points
 
-@test(points=10)
-def test_browse():
+@test(points=6)
+def has_links():
+    status, headers, body = app_req("/")
+    links = re.findall(r"href\s*\=\s*['\"]([a-z.\?\=]+)['\"]", body)
+    links = {link.split("?")[0] for link in links}
     points = 0
-    status, headers, body = app_get("/browse.html")
+    for page in ["browse.html", "api.html", "donate.html"]:
+        if page in links:
+            points += 2
+        else:
+            print("no hyperlink to %s found on home page" % page)
+    return points
+
+@test(points=20)
+def browse():
+    points = 0
+    status, headers, body = app_req("/browse.html")
     dfs = pd.read_html(body)
     if len(dfs) == 1:
-        points += 2
+        points += 4
     else:
         print("browse.html should have exactly one table, but it had ", len(dfs))
         return 0
 
     df = dfs[0]
     if len(df) == len(main_df):
-        points += 5
+        points += 10
         eq = True
         for col in main_df.columns:
             if not col in df.columns:
@@ -243,9 +266,177 @@ def test_browse():
                 break
 
         if eq:
-            points += 3
+            points += 6
     else:
         print("the browse.html table should have {} rows, not {}".format(len(main_df), len(df)))
+    return points
+
+def ab_test_helper(click_through=[], best=0):
+    importlib.reload(main_mod)
+    points = 0
+
+    visits = 20 # how many times should we hit home page?
+    learn = 10 # how many times does it try both before deciding?
+    html = [] # HTML loaded from page for each visit
+
+    for i in range(visits):
+        status, headers, body = app_req("/")
+        links = re.findall(r"href\s*\=\s*['\"](donate.html[a-z.\?\=]+)['\"]", body)
+        if len(links) != 1:
+            print("expected exactly one link to donate, but found", links)
+            return 0
+        if status != "200 OK":
+            print("could not visit /")
+            return 0
+
+        html.append(body)
+
+        if i in click_through:
+            status, headers, body = app_req(links[0])
+            if status != "200 OK":
+                print("could not visit "+links[0])
+                return 0
+
+    # phase 1: alternate
+    for i in range(1, learn):
+        if html[i] == html[i-1]:
+            print("(a) did not alternate html in first %d visits" % learn)
+            return points
+        if i > 1 and html[i] != html[i-2]:
+            print("(b) did not alternate html in first %d visits" % learn)
+            return points
+    points += 1
+
+    # phase 2: same
+    for i in range(learn+1, visits):
+        if html[i] != html[i-1]:
+            print("did not consistently show same page after first %d visits" % learn)
+            return points
+    points += 2
+
+    # did they choose the best for phase 2?
+    if html[learn] != html[best]:
+        print("did not choose the best version")
+    else:
+        points += 2
+
+    return points
+
+@test(points=30)
+def ab_test():
+    points = 0
+    points += ab_test_helper(click_through=[0], best=0)
+    points += ab_test_helper(click_through=[1], best=1)
+    points += ab_test_helper(click_through=[0,2,4,6,8,3,5,7,9], best=0)
+    points += ab_test_helper(click_through=[2,4,6,8,1,3,5,7,9], best=1)
+    points += ab_test_helper(click_through=[2,4,6,8,5,7,9], best=0)
+    points += ab_test_helper(click_through=[0,6,8,3,5,7,9], best=1)
+    return points
+
+@test(points=20)
+def api_examples():
+    points = 0
+
+    status, headers, body = app_req("api.html")
+    if status != "200 OK":
+        print("could not visit api page")
+        return 0    
+    page = BeautifulSoup(body, "html.parser")
+
+    all_json = True
+    has_dict = False
+    has_list_of_dicts = False
+    has_short_list_of_dicts = False
+
+    examples = page.find_all("pre")
+    if len(examples) == 0:
+        print("no <pre> examples found")
+        return 0
+
+    for example in examples:
+        url = example.get_text().strip()
+        status, headers, body = app_req(url)
+        if status != "200 OK":
+            print("could not visit URL in <pre> example: " + url)
+        ctype = headers.get("Content-Type", "not-specified")
+        if ctype != "application/json":
+            all_json = False
+
+        result = json.loads(body)
+        if type(result) == dict:
+            has_dict = True
+        elif type(result) == list and len(result) > 0 and type(result[0]) == dict:
+            if len(result) == len(main_df):
+                has_list_of_dicts = True
+            elif len(result) < len(main_df):
+                has_short_list_of_dicts = True
+            else:
+                print("to many dicts in list for url: " + url)
+
+    if all_json:
+        points += 2
+    else:
+        print("make sure you return Content-Type of application/json (perhaps using jsonify in flask)")
+
+    if has_dict:
+        points += 6
+    else:
+        print("at least one API example should return a dict")
+
+    if has_list_of_dicts:
+        points += 6
+    else:
+        print("at least one API example should return a list of dicts (one per data row)")
+
+    if has_short_list_of_dicts:
+        points += 6
+    else:
+        print("at least one API example should return a filtered list of dicts (subset of all data rows)")
+
+    return points
+
+@test(points=14)
+def email():
+    emails = {
+        "user@example.com": True,
+        "userATexample.com": False,
+        "user@exampleDOTcom": False,
+        "user123@gmail.com": True,
+        "user@gmail@gmail.com": False,
+    }
+
+    if os.path.exists("emails.txt"):
+        os.remove("emails.txt")
+    
+    points = 0
+    for email, valid in emails.items():
+        status, headers, body = app_req("/email", method="POST", input_body=email)
+        if status != "200 OK":
+            print("received status %s when trying to submit email" % status)
+            return 0
+        resp = json.loads(body)
+        if valid:
+            if resp.lower().find("thank") >= 0:
+                points += 2
+            else:
+                print("response '%s' did not contain 'thank' for valid email '%s'" % (resp, email))
+        else:
+            if resp.lower().find("thank") >= 0:
+                print("response '%s' contained 'thank' for invalid email '%s'" % (resp, email))
+            else:
+                points += 2
+
+    if os.path.exists("emails.txt"):
+        with open("emails.txt") as f:
+            actual = {line.strip() for line in f}
+            expected = {k for k in emails if emails[k]}
+            if actual == expected:
+                points += 4
+            else:
+                print("found emails {} in emails.txt, but expected {}".format(actual, expected))
+    else:
+        print("no file emails.txt found")
+
     return points
 
 ########################################
