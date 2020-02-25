@@ -4,6 +4,7 @@
 
 * Feb 22: not a correction, but there are some hints added at the [bottom of this page](#hints)
 * Feb 22: increase tolerance for line placement in tester.py
+* Feb 25: added [hint 5](#hints) about how to quickly+easily filter the trips and stops
 
 ## Overview
 
@@ -454,3 +455,53 @@ In the recursive step 3, we'll need to let the children know (a) what
 level they're at, so they know whether to keep splitting or not, and
 (b) if they should split, whether they should do so horizontally or
 vertically.
+
+### Hint 5 (Feb 25)
+
+This project involves lots of filtering.  You need to filter done the
+trips based on what service IDs are offered on a given day, then you
+need to filter the stops based on what trips are offered.
+
+How can you filter most efficiently?
+
+Run this experiment to find the best approach:
+
+```python
+import pandas as pd
+from time import time
+
+M = 1000
+df = pd.DataFrame({"A": range(M), "B": ["xyz"[i%3] for i in range(M)]})
+perf = pd.DataFrame()
+
+for i in range(6):
+    N = 2**i * 1000
+    print(N)
+    search_list = list(range(M//2, N+M//2))
+    search_set = set(search_list)
+    
+    # (1) use "in" on list
+    t0 = time()
+    rows = [row for _,row in df.iterrows()
+            if row["A"] in search_list]
+    t1 = time()
+    perf.at[N, "list"] = t1-t0
+    
+    # (2) use "in" on set
+    t0 = time()
+    rows = [row for _,row in df.iterrows()
+            if row["A"] in search_set]
+    t1 = time()
+    perf.at[N, "set"] = t1-t0
+    
+    # (3) use "isin" to filter
+    t0 = time()
+    rows = df[df["A"].isin(search_list)]
+    t1 = time()
+    perf.at[N, "isin"] = t1-t0
+
+
+ax = (perf*1000).plot.line()
+ax.set_xlabel("N")
+ax.set_ylabel("Milliseconds")
+```
