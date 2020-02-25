@@ -61,7 +61,7 @@ class test_graph:
         if self.traverse_order == None:
             print("please call dfs or bfs first")
         if self.next_guess == len(self.traverse_order):
-            print("destination already reached")
+            print("no more nodes to explore")
             return
         self.colors = {}
         for n in self.traverse_order[:self.next_guess]:
@@ -181,7 +181,7 @@ The visited node should look like this:
 
 <img src="3.png" width=300>
 
-Keep making `g.visit(????)` calls until you complete the breadth first search.
+Keep making `g.visit(????)` calls until you complete the depth first search.
 
 Once the target node is reach, you'll be prompted to enter the path
 from source to destination.  Do so and type enter to check your
@@ -204,7 +204,8 @@ g.bfs(1, 3)
 
 ## Problem 3 [7-node, DFS+BFS]
 
-Paste+run the following:
+Paste+run the following (same graph structure as last time, but you'll
+visit the nodes in a different order):
 
 ```python
 g = test_graph()
