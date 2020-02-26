@@ -5,6 +5,7 @@
 * Feb 22: not a correction, but there are some hints added at the [bottom of this page](#hints)
 * Feb 22: increase tolerance for line placement in tester.py
 * Feb 25: added [hint 5](#hints) about how to quickly+easily filter the trips and stops
+* Feb 26: fixed tester error messages (it was showing misleading messages about which get_stops_rect cases were failing)
 
 ## Overview
 

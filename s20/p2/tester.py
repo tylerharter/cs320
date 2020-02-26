@@ -235,7 +235,7 @@ def get_stops_rect():
                     y2 = y1 + k/4
                     stops = bd.get_stops_rect((x1, x2), (y1, y2))
                     name = "{}: len(get_stops_rect(({}, {}), ({}, {})))"
-                    name = name.format(dayname, x1, y1, x2, y2)
+                    name = name.format(dayname, x1, x2, y1, y2)
                     err = is_expected(len(stops), name=name)
                     if err != None:
                         print("%s incorrect: %s" % (name, err))
