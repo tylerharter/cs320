@@ -44,7 +44,8 @@ Install some things:
 pip3 install Flask, lxml, html5lib
 ```
 
-Download `tester.py` -- as always, run it often!  You'll create the rest of the files from scratch.
+Download `tester.py` -- as always, run it often!  You'll create the rest of the files from scratch.  
+**Note:** Running `tester.py` locally can be very helpful and time-saving for you if you haven't already been doing so. For the most part, this will let you know how your code will perform against our tests. While we still may take points off, this is a good way to ensure nothing is very off from what we're expecting. 
 
 # Requirements
 
@@ -58,6 +59,9 @@ columns.  Feel free to drop rows/columns from your original data
 source if necessary.
 
 Leave a comment in your `main.py` about the source of your data.
+
+Two good places to check while looking for a dataset are [Kaggle](https://www.kaggle.com/datasets) and 
+Google's [Dataset Search](https://datasetsearch.research.google.com/). 
 
 ## Pages
 
@@ -114,7 +118,7 @@ trh@instance-1:~/p3$ python3 main.py
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
 
-This program runs indefinitely, until you kill it with `CTRL+C`.
+This program runs indefinitely, until you kill it with `CTRL+C` (meaning press `CTRL` and `C` at the same time).
 Unfortunately, you may need to restart each time for new changes to
 show up (unless you find a way to configure flask otherwise).
 
@@ -123,7 +127,7 @@ Open your web browser and go to `http://your-ip:5000` to see your page
 
 Requirements:
 
-* Going to `http://your-ip:port/browse.html` should returns the content for `browse.html`, and similarly for the other pages.
+* Going to `http://your-ip:port/browse.html` should return the content for `browse.html`, and similarly for the other pages.
 * The index.html page should have hyperlinks to all the other pages.
 * You should put whatever content you think makes sense on the pages.  Just make sure that they all start with an `<h1>` heading, giving the page a title.
 
@@ -152,7 +156,7 @@ For browse, instead of returning a hardcoded string, you'll need to
 generate a string containing HTML code for the table, then return that
 string.
 
-**Hint 2:** look into `_repr_html_` for DataFrames.
+**Hint 2:** look into `_repr_html_` for DataFrames (or possibly `to_html()`).
 
 ## API
 
@@ -216,7 +220,7 @@ Then, let's find out the best design for the homepage, so that people
 are most likely to click the link to the donations page.
 
 We'll do an A/B test.  Create two version of the homepage, A and B.
-The should differ in some way, perhaps trivial (e.g., maybe the link
+They should differ in some way, perhaps trivial (e.g., maybe the link
 to donations is blue in version A and red in version B).
 
 The first 10 times your homepage is visited, alternate between version
@@ -236,7 +240,8 @@ showing version A or B.
   "donate.html?from=A", and in the link on version B to
   donate.html, use "donate.html?from=B".  Then the handler for
   the "donate.html" route can keep count of how much people are
-  using the links on both versions of the home page.
+  using the links on both versions of the home page. (Hint 1 of the previous 
+  section is a good refresher for pulling A/B out of the query string.) 
 
 ## Emails
 
@@ -299,7 +304,7 @@ def email():
 ```
 
 Fill in the `????` parts in the above code so that it:
-1. use a regex determines if the email is valid
+1. use a regex that determines if the email is valid
 2. writes each valid email address on its own line in `emails.txt`
 3. sternly warns the user if they entered an invalid email address to stop being so careless (you choose the wording)
 
