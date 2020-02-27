@@ -39,7 +39,7 @@ announcement with more details.
 Install some things:
 
 ```
-pip3 install Flask, lxml, html5lib
+pip3 install Flask lxml html5lib
 ```
 
 Download `tester.py` -- as always, run it often!  You'll create the rest of the files from scratch.  
