@@ -33,6 +33,7 @@ def print(*args, **kwargs):
 # implementation, then copy actual.json to expected.json
 expected_json = None
 actual_json = {}
+EXPECTED_VERSION = 2
 
 def is_expected(actual, name, histo_comp=False):
     global expected_json
@@ -41,6 +42,10 @@ def is_expected(actual, name, histo_comp=False):
     if expected_json == None:
         with open("expected.json") as f:
             expected_json = json.load(f)
+            version = expected_json.get("version", 1)
+            if version != EXPECTED_VERSION:
+                expected_json = None
+                raise Exception("this tester.py needs version %d of expected.json, but found version %d" % (EXPECTED_VERSION, version))
 
     expected = expected_json.get(name, None)
     

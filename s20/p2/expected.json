@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "service_ids:0": [
     "88_WKD",
     "88_WKD:G",
@@ -129,19 +130,19 @@
   "get_trips_by_route:len:99": 0,
   "get_stops:len:0": 2101,
   "get_stops:repr:0": [
-    "Stop(5, Location(xy=(-1.1459349874742468, -0.2579529613805489)), True)",
-    "Stop(10, Location(xy=(-0.801564402286689, 0.08630653151111423)), True)",
-    "Stop(25, Location(xy=(-0.6396678613047901, 0.06959758701037488)), True)",
-    "Stop(39, Location(xy=(-0.6596905799387552, -0.1924980878823983)), True)",
-    "Stop(45, Location(xy=(-0.28036849670704717, 0.2623028105687797)), True)"
+    "Stop(5, Location(xy=(-1.15, -0.26)), True)",
+    "Stop(10, Location(xy=(-0.80, 0.09)), True)",
+    "Stop(25, Location(xy=(-0.64, 0.07)), True)",
+    "Stop(39, Location(xy=(-0.66, -0.19)), True)",
+    "Stop(45, Location(xy=(-0.28, 0.26)), True)"
   ],
   "get_stops:len:1": 1403,
   "get_stops:repr:1": [
-    "Stop(5, Location(xy=(-1.1459349874742468, -0.2579529613805489)), True)",
-    "Stop(10, Location(xy=(-0.801564402286689, 0.08630653151111423)), True)",
-    "Stop(25, Location(xy=(-0.6396678613047901, 0.06959758701037488)), True)",
-    "Stop(39, Location(xy=(-0.6596905799387552, -0.1924980878823983)), True)",
-    "Stop(45, Location(xy=(-0.28036849670704717, 0.2623028105687797)), True)"
+    "Stop(5, Location(xy=(-1.15, -0.26)), True)",
+    "Stop(10, Location(xy=(-0.80, 0.09)), True)",
+    "Stop(25, Location(xy=(-0.64, 0.07)), True)",
+    "Stop(39, Location(xy=(-0.66, -0.19)), True)",
+    "Stop(45, Location(xy=(-0.28, 0.26)), True)"
   ],
   "friday: len(get_stops_rect((-2, -1.75), (-2, -1.75)))": 0,
   "friday: len(get_stops_rect((-2, -1.5), (-2, -1.5)))": 0,
