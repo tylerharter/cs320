@@ -1,5 +1,3 @@
-# UNDER CONSTRUCTION (don't start yet)
-
 # Project 3: Building a Data Website
 
 ## Corrections/Clarifications
