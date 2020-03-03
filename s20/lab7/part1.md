@@ -178,7 +178,7 @@ def guess():
     return "f({}) is {}, not {}\n".format(x, actual, y)
 ```
 
-If you were to go to `http://your-ip/guess` in your browser, you'll
+If you were to go to `http://your-ip:5000/guess` in your browser, you'll
 see "Method Not Allowed", since web browsers generally use GETs (not
 POSTs) when you first visit a page.
 
