@@ -30,7 +30,7 @@ input/output).
 
 This is handy when you want a string (which you can get with
 `.getvalue()`) but you're dealing with a Python module that only works
-with file objects, as the next part.
+with file objects, as in the next part.
 
 ## SVG
 
@@ -144,7 +144,7 @@ Now, ask whoever you're doing the lab with to go to
 `http://your-ip:5000/plot.svg`, replacing `your-ip` with your VMs
 public IP address.
 
-The should see something like this:
+They should see something like this:
 
 <img src="browser.png" width=600>
 
@@ -240,7 +240,7 @@ That should dump out all the code for the SVG image.
 ## Plotting Guesses
 
 Let's record guesses then plot them in `/plot.svg`.  Import pandas and
-create a DataFrame for guesses:
+create a DataFrame for guesses (this code goes in `lab7.py`):
 
 ```python
 import pandas as pd
@@ -272,3 +272,11 @@ guesses, with `requests` or `curl`.  Then have somebody refresh the
 dots represent correct guesses):
 
 <img src="guess.png" width=600>
+
+## Optional Fun
+
+Ideas for making "Guess that Function!" even more fun:
+
+* can you randomly pick a function when the server starts?
+* can you give users scores, based on their average error?
+* can you have a way to reset the guesses?
