@@ -1,4 +1,4 @@
-# Lab 6: Web and Regex Practice
+# Lab 7: Web and Regex Practice
 
 Note, you must work in groups of 2-3 for part 1.  Ask your TA if you
 need help finding a group!
