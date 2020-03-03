@@ -257,6 +257,9 @@ def browse():
             actual = main_df[col]
             for i in range(len(expected)):
                 if expected.iat[i] != actual.iat[i]:
+                    if isinstance(expected.iat[i], float) and isinstance(actual.iat[i], float): # if they're both floats
+                        if round(expected.iat[i], 2) == round(actual.iat[i], 2): # round them and check
+                            continue
                     err = "found {} but expected {} at row {} of column {}"
                     err = err.format(actual.iat[i], expected.iat[i], i, col)
                     print(err)
