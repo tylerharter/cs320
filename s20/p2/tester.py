@@ -11,7 +11,7 @@ bus = None # bus module
 TestFunc = namedtuple("TestFunc", ["fn", "points"])
 tests = []
 
-# if @test(...) decorator is before a function, add that function to test_fucns
+# if @test(...) decorator is before a function, add that function to test_funcs
 def test(points):
     def add_test(fn):
         tests.append(TestFunc(fn, points))
