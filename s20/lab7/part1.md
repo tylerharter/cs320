@@ -126,6 +126,7 @@ def show_plot():
     html = "<html><body><h1>Guess that function</h1>{}</body></html>"
     return html.format(svg_data)
 
+# Be sure this if statement stays as the last thing in your .py!
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
 ```
