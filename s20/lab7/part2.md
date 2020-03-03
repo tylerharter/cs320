@@ -90,5 +90,5 @@ pd.Series(counts).sort_values().plot.barh(fontsize=20, color="k")
 # Optional Challenge: Making Everybody Happy
 
 Can you use `re.sub` to make all the mouths happy (i.e., `)`)?  You'll
-need to use `\g<N>` to keep the eyes and nose while replacing the
-mouths.
+need to use `\g<N>` to keep the eyes and nose the same while replacing
+the mouths.
