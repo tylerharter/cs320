@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* March 3: Fixes to tester.py for issues with rounding, nans, and strings on browse.html
 
 ## Overview
 
