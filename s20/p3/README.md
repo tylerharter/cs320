@@ -3,6 +3,7 @@
 ## Corrections/Clarifications
 
 * March 3: Fixes to tester.py for issues with rounding, nans, and strings on browse.html
+* March 5: Added note at [bottom of this page](#hints) about nesting decorators with Flask.  Note that your instructor didn't use this for the project solution, but multiple students wanted to, and it's tricky, so we're describing it
 
 ## Overview
 
@@ -309,3 +310,55 @@ Fill in the `????` parts in the above code so that it:
 ## Concluding Thoughts
 
 Get started early, test often, and above all, have fun with this one!
+
+## Hints
+
+### 1. Nested Decorators with Flask
+
+You don't need to use nested decorators to solve P3, but you may if
+you like.  There are a couple things that make this tricky.
+
+Consider this code:
+
+```python
+@decA
+@decB
+def f():
+    ....
+```
+
+The decorators are run from the inside out, so `decB` gets a chance to
+swap out the function before `decA` runs.
+
+This means that if you want Flask to call a wrapper created by your
+own decorator, you need to do it like this (`@app.route` before `@counte_me`):
+
+```python
+counts = {}
+
+def count_me(fn):
+    counts[fn.__name__] = 0
+    def wrapper():
+        counts[fn.__name__] += 1
+        print(counts)
+        return fn()
+
+    wrapper.__name__ = fn.__name__
+    return wrapper
+
+@app.route('/')
+@count_me
+def home():
+    ...
+```
+
+If you look closely at the above example, you'll notice this bit that we didn't do in any class examples:
+
+```python
+wrapper.__name__ = fn.__name__
+```
+
+Flask refuses to map different routes to multiple functions with the
+ same name, even if those functions sharing a name are different.  The
+ workaround is to give your `wrapper` function a new name (in this
+ case, the same name as decorated function).
