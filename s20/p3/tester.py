@@ -224,7 +224,7 @@ def has_pages():
 @test(points=6)
 def has_links():
     status, headers, body = app_req("/")
-    links = re.findall(r"href\s*\=\s*['\"]([w.\?\=]+)['\"]", body)
+    links = re.findall(r"href\s*\=\s*['\"]([a-zA-Z.\?\=]+)['\"]", body)
     links = {link.split("?")[0] for link in links}
     points = 0
     for page in ["browse.html", "api.html", "donate.html"]:
@@ -292,7 +292,7 @@ def ab_test_helper(click_through=[], best=0):
 
     for i in range(visits):
         status, headers, body = app_req("/")
-        links = re.findall(r"href\s*\=\s*['\"](donate.html[w.\?\=]+)['\"]", body)
+        links = re.findall(r"href\s*\=\s*['\"](donate.html[a-zA-Z.\?\=]+)['\"]", body)
         if len(links) != 1:
             print("expected exactly one link to donate, but found", links)
             return 0
