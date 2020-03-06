@@ -4,6 +4,7 @@
 
 * March 3: Fixes to tester.py for issues with rounding, nans, and strings on browse.html
 * March 5: Added note at [bottom of this page](#hints) about nesting decorators with Flask.  Note that your instructor didn't use this for the project solution, but multiple students wanted to, and it's tricky, so we're describing it
+* March 5: More fixes to tester.py for extra spaces in middle of strings and final touches on rounding
 
 ## Overview
 
