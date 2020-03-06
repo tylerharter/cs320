@@ -258,20 +258,15 @@ def browse():
             actual = main_df[col]
             for i in range(len(expected)):
                 if expected.iat[i] != actual.iat[i]:
-                    # Can definitely make this more compact later
-                    if isinstance(expected.iat[i], np.float64) and isinstance(actual.iat[i], np.float64): # first check for numpy floats
+                    if isinstance(expected.iat[i], (np.float64, np.float32, float)) and isinstance(actual.iat[i], (np.float64, np.float32, float)): 
                         if np.isnan(expected.iat[i]) and np.isnan(actual.iat[i]): # to check nans (they don't show as equal)
-                            continue
-                    elif isinstance(expected.iat[i], np.float32) and isinstance(actual.iat[i], np.float32): # first check for numpy floats
-                        if np.isnan(expected.iat[i]) and np.isnan(actual.iat[i]): # to check nans (they don't show as equal)
-                            continue
-                    elif isinstance(expected.iat[i], float) and isinstance(actual.iat[i], float): # if they're both floats
-                        if math.isnan(expected.iat[i]) and math.isnan(actual.iat[i]):
                             continue
                         elif round(expected.iat[i], 3) == round(actual.iat[i], 3): # round them and check
                             continue
-                    elif isinstance(expected.iat[i], str) and isinstance(actual.iat[i], str): # saw a piazza question where a string
-                        if expected.iat[i].strip() == actual.iat[i].strip():  # appeared to have an extra space at one end
+                    elif isinstance(expected.iat[i], str) and isinstance(actual.iat[i], str): # something seems to enjoy randomly
+                        if expected.iat[i].strip() == actual.iat[i].strip():  # adding spaces in strings
+                            continue
+                        elif expected.iat[i].replace(" ", "") == actual.iat[i].replace(" ", ""): 
                             continue
                     err = "found {} but expected {} at row {} of column {}"
                     err = err.format(actual.iat[i], expected.iat[i], i, col)
