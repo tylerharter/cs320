@@ -24,7 +24,7 @@ directly to this repo.
 
 # Student solutions
 
-* none yet
+* [Nicholas Beninato](beninato/bus.py)
 
 Send us a Pull Request with (a) your code and (b) a link to it from
 this page if you want to show others your approach to P2.
