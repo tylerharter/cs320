@@ -1,5 +1,9 @@
 # Project 2: Madison Metro
 
+## Solutions
+
+[Check them out!](solutions/README.md)
+
 ## Corrections/Clarifications
 
 * Feb 22: not a correction, but there are some hints added at the [bottom of this page](#hints)
