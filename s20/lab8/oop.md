@@ -168,7 +168,6 @@ You should also get this plot:
  * https://tyler.caraza-harter.com/cs320/s20/materials/lec-06.pdf
  * https://tyler.caraza-harter.com/cs320/s20/materials/lec-07.pdf
  * https://tyler.caraza-harter.com/cs320/s20/materials/lec-08.pdf
- * https://github.com/tylerharter/cs320/blob/master/s20/lab4/part1.md
  * http://greenteapress.com/thinkpython2/html/thinkpython2016.html
  * http://greenteapress.com/thinkpython2/html/thinkpython2018.html
  * http://greenteapress.com/thinkpython2/html/thinkpython2019.html

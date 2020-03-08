@@ -27,6 +27,6 @@ We have a couple exercises for each section of the exam to help you review:
 * [Reproducibility](reproducibility.md)
 * [Complexity](complexity.md)
 * [OOP](oop.md)
-* [Trees](trees.md)
 * [Graphs](graphs.md)
-* [Web+Regex](web.md)
+* [Trees](trees.md)
+* Web+Regex: this will be a page on the exam, but we recommend using P3 to practice that

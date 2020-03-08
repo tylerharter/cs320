@@ -199,7 +199,6 @@ print(root.is_bst()) # should be True
 root
 ```
 
-
 ## Key Concepts
  * root, leaves
  * types of trees: BSTs, binary trees
