@@ -6,6 +6,35 @@
 * March 5: Added note at [bottom of this page](#hints) about nesting decorators with Flask.  Note that your instructor didn't use this for the project solution, but multiple students wanted to, and it's tricky, so we're describing it
 * March 5: More fixes to tester.py for extra spaces in middle of strings and final touches on rounding
 * March 7: we now support upper case letters in URLs, thanks to the pull request by [vmpatil](https://github.com/vmpatil)!
+* March 8: added hand-in directions
+
+## Handin
+
+To hand in this assignment, you need to put your files in a .zip.  You
+can create this from the terminal.  Let's say you're already in a
+directory named `p3`.  You can run this to create a compressed p3.zip
+file alongside your directory:
+
+```
+zip ../p3.zip main.py main.csv *.html
+```
+
+If you haven't installed `zip` before, you might see this:
+
+```
+Command 'zip' not found, but can be installed with:
+
+apt install zip
+Please ask your administrator.
+```
+
+Follow the suggestion by running the `apt install zip` command
+suggested.  Of course, only the root user can install software with
+`apt`, so you'll need to tweak thee suggested command by adding `sudo`
+to the beginning.
+
+Once you have the .zip ready, you can download it your laptop (via
+Jupyter) then upload it to the site.
 
 ## Overview
 
