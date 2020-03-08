@@ -2,8 +2,10 @@
 
 These practice materials are a substitute for old exams this semester
 (because CS 320 is being offered the first time, and there are no old
-exams!).  You can ask questions about these during lab time, but you
-probably won't cover everything.  We recommend the following:
+exams!).
+
+You can ask questions about these during lab time, but there's way too
+much here to cover in one lab time.  We recommend the following:
 
 1. look at the questions before lab
 2. form study groups to discuss these
@@ -29,4 +31,4 @@ We have a couple exercises for each section of the exam to help you review:
 * [OOP](oop.md)
 * [Graphs](graphs.md)
 * [Trees](trees.md)
-* Web+Regex: this will be a page on the exam, but we recommend using P3 to practice that
+* Web+Regex: this will be a page on the exam, but no exercises posted currently (we recommend using P3 to practice this stuff)
