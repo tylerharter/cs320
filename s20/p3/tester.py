@@ -359,16 +359,18 @@ def api_examples():
     has_list_of_dicts = False
     has_short_list_of_dicts = False
 
-    examples = page.find_all("pre")
+    api_tags = ['pre', 'code']
+    api_tags_formated = f"{', '.join([f'<{x}>' for x in api_tags[:-1]])} or <{api_tags[-1]}>"
+    examples = page.find_all(api_tags)
     if len(examples) == 0:
-        print("no <pre> examples found")
+        print(f"no {api_tags_formated} examples found")
         return 0
 
     for example in examples:
         url = example.get_text().strip()
         status, headers, body = app_req(url)
         if status != "200 OK":
-            print("could not visit URL in <pre> example: " + url)
+            print(f"could not visit URL in <{example.name}> example: {url}")
         ctype = headers.get("Content-Type", "not-specified")
         if ctype != "application/json":
             all_json = False
