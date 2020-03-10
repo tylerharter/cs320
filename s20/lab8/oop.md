@@ -57,7 +57,7 @@ pt1.dist(pt2)
 </pre>
 </details>
 
-## Part 2: Special Methods
+## Part 3: Special Methods
 
 Add a `__lt__` method so that points will be sorted by `create_time`.  Also add a `__repr__` method.
 
@@ -96,7 +96,7 @@ def __repr__(self):
 </pre>
 </details>
 
-## Inheritance
+## Part 4: Inheritance
 
 Add+complete the following class, which should inherit from `Point`:
 

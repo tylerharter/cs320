@@ -24,7 +24,7 @@ O(N log N), where N is len(N)
 </details>
 
 If some code has two steps, the first of which is O(N), and the second
-of which is N(N**2), what is the overally complexity of the code?
+of which is O(N**2), what is the overally complexity of the code?
 
 <details>
 <summary>Answer</summary>

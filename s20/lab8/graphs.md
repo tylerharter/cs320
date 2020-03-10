@@ -141,12 +141,30 @@ You can learn a LOT by making a prediction about what will happen when
 you run some code, then comparing your predictions to what actually
 happens.
 
-1. `g.meetup("S", "T")`
-2. `g.meetup("A", "T")`
-3. `g.meetup("A", "Z")`
-4. `g.meetup("A", "N")`
-5. `g.meetup("U", "M")`
-6. `g.meetup("A", "B")`
+<details>
+    <summary> 1. <code>g.meetup("S", "T")</code></summary>
+    <code>{'S', 'T', 'U'}</code>
+</details>
+<details>
+    <summary> 2. <code>g.meetup("A", "T")</code></summary>
+    <code>{'S', 'T', 'U'}</code>
+</details>
+<details>
+    <summary> 3. <code>g.meetup("A", "Z")</code></summary>
+    <code>set()</code>
+</details>
+<details>
+    <summary> 4. <code>g.meetup("A", "N")</code></summary>
+    <code>{'M', 'N'}</code>
+</details>
+<details>
+    <summary> 5. <code>g.meetup("U", "M")</code></summary>
+    <code>set()</code>
+</details>
+<details>
+    <summary> 6. <code>g.meetup("A", "B")</code></summary>
+    <code>{'A', 'B', 'C', 'D', 'E', 'M', 'N', 'S', 'T', 'U'}</code>
+</details>
 
 ## Key Concepts
  * node, edge (directed and non-directed)
