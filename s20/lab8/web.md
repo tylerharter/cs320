@@ -55,7 +55,7 @@ request body, and will be retrieved on the server side with
 Let's try getting our value back, now:
 
 ```
-curl http://34.67.75.25:5000?key=a
+curl http://my-ip:5000?key=a
 ```
 
 Here, we should get "apple" back.  We don't specify the method, and
@@ -84,33 +84,13 @@ it up on yours.
 
 Quiz:
 
-1. if the query string is "?a=b&c=d", what will `request.args` be?
+1. if the query string is "?a=b&c=d", what will `request.args` be? <details><summary>Answer</summary><pre>{"a": "b", "c": "d"}</pre></details>
 
-<details>
-<summary>Answer</summary>
-<pre>{"a": "b", "c": "d"}</pre>
-</details>
+2. What does `request.get_data(as_text=True)` gives access to?  (a) query string, (b) request body, (c) response body <details><summary>Answer</summary>(c) response body</details>
 
-2. What does `request.get_data(as_text=True)` gives access to?  (a) query string, (b) request body, (c) response body
+3. The request was sent with `curl -X POST http://my-ip:5000?x=1&y=2&key=hello -d "world"`.  What will `request.args["key"]` be? <details><summary>Answer</summary>"hello"</details>
 
-<details>
-<summary>Answer</summary>
-(c) response body
-</details>
-
-3. The request was sent with `curl -X POST http://my-ip:5000?x=1&y=2&key=hello -d "world"`.  What will `request.args["key"]` be?
-
-<details>
-<summary>Answer</summary>
-"hello"
-</details>
-
-4. In the above request, what will `request.get_data(as_text=True)` be?
-
-<details>
-<summary>Answer</summary>
-"world"
-</details>
+4. In the above request, what will `request.get_data(as_text=True)` be? <details><summary>Answer</summary>"world"</details>
 
 ## Regex
 
@@ -125,20 +105,18 @@ def reg(regex, text):
     Prints the string with the regex match highlighted.
     """
     print(re.sub(f'({regex})', r'\033[1;30;43m\1\033[m', text))
-    
-reg(r":\)", s)
 ```
 
 1. Modify the regex so that it only matches the word "the" (or "The")
 at the beginning of a string:
 
 ```
-reg(r"[tT]he", "The quick brown fox jumped over the lazy dog.")
+reg(r"the", "the quick brown fox jumped over the lazy dog.")
 ```
 
 <details>
 <summary>Answer</summary>
-<pre>r"[tT]he"</pre>
+<pre>r"^the"</pre>
 </details>
 
 2. Modify the regex so that it only matches the last number (in this
