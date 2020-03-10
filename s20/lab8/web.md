@@ -86,7 +86,7 @@ Quiz:
 
 1. if the query string is "?a=b&c=d", what will `request.args` be? <details><summary>Answer</summary><pre>{"a": "b", "c": "d"}</pre></details>
 
-2. What does `request.get_data(as_text=True)` gives access to?  (a) query string, (b) request body, (c) response body <details><summary>Answer</summary>(c) response body</details>
+2. What does `request.get_data(as_text=True)` gives access to?  (a) query string, (b) request body, (c) response body <details><summary>Answer</summary>(b) request body</details>
 
 3. The request was sent with `curl -X POST http://my-ip:5000?x=1&y=2&key=hello -d "world"`.  What will `request.args["key"]` be? <details><summary>Answer</summary>"hello"</details>
 
