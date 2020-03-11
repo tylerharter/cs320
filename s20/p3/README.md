@@ -36,6 +36,8 @@ to the beginning.
 Once you have the .zip ready, you can download it your laptop (via
 Jupyter) then upload it to the site.
 
+**Important:** make sure your program is named `main.py` (we've been more flexible about this in the past, but naming it something else causes problems for us now that it's in a zip).
+
 ## Overview
 
 In this project, you'll build a website for sharing a dataset -- you
