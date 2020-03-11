@@ -9,6 +9,7 @@ import fnmatch
 import logging
 import argparse
 from datetime import datetime
+from zipfile import ZipFile, is_zipfile
 
 # Third party libs
 import docker
@@ -37,6 +38,32 @@ class Grader(Database):
         logging.info('Using configuration:')
         logging.info(json.dumps(self.conf, indent=2, ensure_ascii=True, sort_keys=True))
         atexit.register(self.close)
+
+    @staticmethod
+    def parse_logs(logs):
+        """Parse docker logs to make them printable.
+        See: https://stackoverflow.com/questions/14693701"""
+        try:
+            logs = logs.decode('ascii')
+            ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+            return ansi_escape.sub('', logs)
+        except UnicodeDecodeError as e:
+            return str(e)
+
+    @staticmethod
+    def log_result(result):
+        tests = result.get('tests', [])
+        if not tests:
+            logging.error(f'Error running tests: \n'
+                          f' {json.dumps(result, indent=2)}')
+
+    @staticmethod
+    def extract_if_zip(directory, submission_filename):
+        full_path = os.path.join(directory, submission_filename)
+        if is_zipfile(full_path):
+            with ZipFile(full_path, 'r') as zip_ref:
+                zip_ref.extractall(directory)
+        return directory, submission_filename
 
     def run_test_in_docker(self, code_dir, image='grader', cwd='/code',
                            submission_fname=None):
@@ -86,24 +113,6 @@ class Grader(Database):
         result['latency'] = t1 - t0
         return result
 
-    @staticmethod
-    def parse_logs(logs):
-        """Parse docker logs to make them printable.
-        See: https://stackoverflow.com/questions/14693701"""
-        try:
-            logs = logs.decode('ascii')
-            ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-            return ansi_escape.sub('', logs)
-        except UnicodeDecodeError as e:
-            return str(e)
-
-    @staticmethod
-    def log_result(result):
-        tests = result.get('tests', [])
-        if not tests:
-            logging.error(f'Error running tests: \n'
-                          f' {json.dumps(result, indent=2)}')
-
     def setup_codedir(self, project_dir, code_dir, overwrite_existing=False):
         """Copy necessary files from project dir to code dir"""
         for item in os.listdir(project_dir):
@@ -135,6 +144,7 @@ class Grader(Database):
 
                 # Setup environment
                 code_dir, submission_fname = self.fetch_submission(s3path, filename=self.conf.FORCE_FILENAME)
+                code_dir, submission_fname = self.extract_if_zip(code_dir, submission_fname)
                 project_dir = f'../{self.conf.SEMESTER}/{project_id}/'
                 self.setup_codedir(project_dir, code_dir)
 

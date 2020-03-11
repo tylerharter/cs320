@@ -62,7 +62,7 @@ python3 -V
 As well as pip3. If not install with:
 
 ```
-sudo apt install python-pip3
+sudo apt install python3-pip
 ```
 
 If you haven't yet, clone this repo and navigate to this directory.
@@ -279,6 +279,10 @@ due to a large number of issues including:
 changing branches without stashing. This happens because filemode (permissions) have changed.
 	* Fix: run `git config --global core.filemode false`. Even with this, it might not work because it can be overwritten by the settings in `.git/config`.
 
+### Crontab not running/crashing
+
+This might be due to a number of things, but I would recommend you first 
+make sure you can run the daemon script manually and without sudo. 
 
 # Tips and Tricks
 
@@ -288,9 +292,18 @@ container is created every time.
 	```
 	sudo docker run -it grader bash
 	```
+ 
+* You might want to also install the aws cli for quick debugging. 
+You can do so with:
+    ```
+    sudo apt install awscli 
+    ```
 
 
 # Changelog
+
+* March 11, 2020: Updated `Dockerfile` to include flask, html5lib, lxml.
+Aded unzip capability to the autograder, updated requirements and daemon.
 
 * Feb 22, 2020: Added `test_cmd` and `result_file` config options to the grader.
 Started removing old stats collector code. Added p2 to the daemon script. 

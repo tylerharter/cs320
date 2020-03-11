@@ -6,10 +6,12 @@
   "EXCLUDED_FILES": [
     "README.md",
     "main.ipynb",
-    "main.py"
+    "main.py",
+    "result.json",
+    "results.json"
   ],
   "FORCE_FILENAME": "main.ipynb",
-  "TEST_CMD": "python3 test.py",
-  "RESULT_FILE": "result.json", 
+  "TEST_CMD": "python3 tester.py",
+  "RESULT_FILE": "results.json",
   "TIMEOUT": 180
 }
