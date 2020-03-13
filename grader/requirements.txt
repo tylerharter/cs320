@@ -3,4 +3,6 @@ docker
 requests
 pandas
 easydict
+tqdm
+zipfile
 

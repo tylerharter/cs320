@@ -30,7 +30,7 @@ Please ask your administrator.
 
 Follow the suggestion by running the `apt install zip` command
 suggested.  Of course, only the root user can install software with
-`apt`, so you'll need to tweak thee suggested command by adding `sudo`
+`apt`, so you'll need to tweak the suggested command by adding `sudo`
 to the beginning.
 
 Once you have the .zip ready, you can download it your laptop (via

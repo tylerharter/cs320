@@ -15,11 +15,14 @@ run_grader() {
 
     echo "Running Auto-grader\n"
 
-    echo "\nAuto-grader for P2:"
-    python3 autograder.py p2 ? --test-cmd "python3 tester.py" --result-file results.json
+    echo "\nAuto-grader for P3:"
+    python3 autograder.py p3 ? -ff p3.zip
 
-    echo "\nAuto-grader for P1:"
-    python3 autograder.py p1 ?
+    # echo "\nAuto-grader for P2:"
+    # python3 autograder.py p2 ? -ff bus.py
+
+    # echo "\nAuto-grader for P1:"
+    # python3 autograder.py p1 ? --test-cmd "python3 test.py" --result-file result.json
 }
 
 ntpdate -s time.nist.gov

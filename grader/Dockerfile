@@ -17,7 +17,7 @@ RUN apt-get install -y python3-pip
 
 # Install general packages
 RUN pip3 install jupyter pandas numpy requests matplotlib beautifulsoup4 statistics recordclass haversine sklearn 
-RUN pip3 install gitpython pylint graphviz
+RUN pip3 install gitpython pylint graphviz bs4 lxml flask html5lib
 RUN apt-get -y install zip
 RUN apt-get -y install git
 RUN apt-get -y install graphviz
