@@ -2,7 +2,7 @@
 
 In this project, you'll be building a command line tool for processing
 compress EDGAR web logs.  In the US, public companies need to
-regularly file various statements reports to the SEC's (Securities and
+regularly file various statements and reports to the SEC's (Securities and
 Exchange Commission) EDGAR database.  EDGAR data is publicly available
 online; furthermore, web requests to EDGAR from around the world are
 logged and published.  The logs list the pages visited and weakly
@@ -307,6 +307,10 @@ The `geo` command will produce a similar map, with at least three improvements:
 
 You can otherwise decide the color scheme, and it can be continuous or
 discrete (for example, one color for 1000+, another for 100-999, etc).
+
+Many of the country names are identical in the IP2Location(:tm:) and
+EDGAR log datasets.  In cases where the names are slightly different,
+you don't need to worry about shading for that country.
 
 ### 5. `geohour` Command
 
