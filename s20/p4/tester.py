@@ -40,7 +40,7 @@ def print(*args, **kwargs):
 # TIP: to generate expected.json, run the tests on a good
 # implementation, then copy actual.json to expected.json
 expected_json = None
-actual_json = {}
+actual_json = {"version": 1}
 
 # return string (error) or None
 def is_expected2(actual, name, histo_comp=False):
@@ -141,6 +141,19 @@ def run_all_tests():
     print("="*40)
     print("SCORE: %.1f%% (details in results.json)" % results["score"])
 
+    # does tester.py version match expected.json version?
+    if actual_json["version"] != expected_json["version"]:
+        print("#"*80)
+        print("#"*80)
+        print("#")
+        if actual_json["version"] > expected_json["version"]:
+            print("# WARING! There's a newer version of expected.json, please re-download")
+        else:
+            print("# WARING! There's a newer version of tester.py, please re-download")
+        print("#")
+        print("#"*80)
+        print("#"*80)
+
 ########################################
 # TESTS
 ########################################
@@ -214,7 +227,7 @@ def zip_csv_iter(name):
 
 def check_zip(zname):
     rows = list(zip_csv_iter(zname))
-    errors = [is_expected(len(rows), zname+":length")]
+    errors = [is_expected(len(rows)-1, zname+":length")]
 
     for i, row in enumerate(rows):
         errors.append(is_expected(len(rows), zname+":row-%d:length" % i))
@@ -245,34 +258,74 @@ def small_samp():
 
 @test(points=10)
 def big_samp():
-    return 0
+    zname = "jan1.zip"
+    zout = "jan1-samp.zip"
+    run("sample", zname, zout, 1000)
+    err = check_zip(zout)
+    if err:
+        print(err)
+        return 0
+    return 10
 
 @test(points=10)
 def small_sort():
-    return 0
+    zname = gen(row_count=50)
+    zout = zname.replace(".zip", "_output.zip")
+    run("sort", zname, zout)
+    err = check_zip(zout)
+    if err:
+        print(err)
+        return 0
+    else:
+        return 10
 
 @test(points=10)
 def big_sort():
-    return 0
+    zname = "small.zip"
+    zout = zname.replace(".zip", "_output.zip")
+    run("sort", zname, zout)
+    err = check_zip(zout)
+    if err:
+        print(err)
+        return 0
+    return 10
 
 @test(points=10)
 def small_country():
-    return 0
+    zname = gen(row_count=50, sort=True)
+    zout = zname.replace(".zip", "_output.zip")
+    run("country", zname, zout)
+    err = check_zip(zout)
+    if err:
+        print(err)
+        return 0
+    else:
+        return 10
 
 @test(points=10)
 def big_country():
-    return 0
+    zname = "sorted.zip"
+    zout = zname.replace(".zip", "_output.zip")
+    run("sort", zname, zout)
+    err = check_zip(zout)
+    if err:
+        print(err)
+        return 0
+    return 10
 
 @test(points=20)
 def geo():
+    print("test not done yet, will be released soon!")
     return 0
 
 @test(points=10)
 def geohour():
+    print("test not done yet, will be released soon!")
     return 0
 
 @test(points=10)
 def video():
+    print("test not done yet, will be released soon!")
     return 0
 
 ########################################
@@ -293,8 +346,6 @@ def main():
             prog_name += ".py"
 
     run_all_tests()
-
-    print("\nWARNING!  Tests not done yet (finished version will be released soon)...")
 
 if __name__ == "__main__":
     main()
