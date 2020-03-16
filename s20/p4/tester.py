@@ -1,4 +1,4 @@
-import sys, json, io, time, traceback, itertools, re, os, math
+import sys, json, io, time, traceback, itertools, re, os, math, base64
 import traceback, csv, struct, socket, subprocess
 from collections import namedtuple
 from datetime import datetime, timedelta
@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 from zipfile import ZipFile, ZIP_DEFLATED
 from io import TextIOWrapper
+from xml.dom import minidom
 
 ################################nn########
 # TEST FRAMEWORK
@@ -23,6 +24,7 @@ prog_name = "main.py"
 def test(points):
     def add_test(fn):
         tests.append(TestFunc(fn, points))
+        return fn
     return add_test
 
 # override print so can also capture output for results.json
@@ -40,7 +42,7 @@ def print(*args, **kwargs):
 # TIP: to generate expected.json, run the tests on a good
 # implementation, then copy actual.json to expected.json
 expected_json = None
-actual_json = {"version": 1}
+actual_json = {"version": 2}
 
 # return string (error) or None
 def is_expected2(actual, name, histo_comp=False):
@@ -121,7 +123,7 @@ def run_all_tests():
 
     # how long did it take?
     t1 = time.time()
-    max_sec = 60
+    max_sec = 240
     sec = t1-t0
     if sec > max_sec/2:
         print("WARNING!  Tests took", sec, "seconds")
@@ -211,6 +213,36 @@ def gen(row_count=10, sort=False, name=None):
                 for row in rows:
                     writer.writerow(row)
     return zipname
+
+def svg_analyze(fname):
+    doc = minidom.parse(fname)
+
+    stats = {
+        "paths": 0,
+        "colors": set(),
+        "width": float(doc.getElementsByTagName("svg")[0].getAttribute("width").split(".")[0])
+    }
+
+    rgb = [0, 0, 0]
+    
+    for path in doc.getElementsByTagName('path'):
+        style = path.getAttribute('style')
+        m = re.match(r"fill:\#(\w+)\;", style)
+        if m:
+            color = m.group(1).lower()
+            if color == "ffffff":
+                continue
+            stats["colors"].add(color)
+            for i in range(3):
+                rgb[i] += int(color[i*2:(i+1)*2], 16)
+        else:
+            continue
+        stats["paths"] += 1
+
+    stats["colors"] = len(stats["colors"])
+    rgb = "".join([format(int(c/stats["paths"]), "x") for c in rgb])
+    stats["avg_color"] = rgb
+    return stats
 
 def run(*args):
     args = ["python3", prog_name] + [str(a) for a in args]
@@ -315,18 +347,98 @@ def big_country():
 
 @test(points=20)
 def geo():
-    print("test not done yet, will be released soon!")
-    return 0
+    zname = "countries.zip"
+    svg = "geo.svg"
+    if os.path.exists(svg):
+        os.remove(svg)
+    run("geo", zname, svg)
+    stats = svg_analyze(svg)
+    if stats["paths"] < 270 or stats["paths"] > 300:
+        print("that doesn't look like a world map")
+        return 0
+
+    points = 20
+    if stats["paths"] > 284:
+        print("ERROR: please remove Antartica")
+        points -= 5
+
+    if stats["colors"] < 3:
+        print("ERROR: use more different shades to represent traffic levels")
+        points -= 5
+
+    if stats["width"] < 450:
+        print("ERROR: make the plot wider")
+        points -= 5
+
+    return points
 
 @test(points=10)
 def geohour():
-    print("test not done yet, will be released soon!")
-    return 0
+    zname = "countries.zip"
+    avg_colors = set()
+    for hour in range(0, 24, 4):
+        svg = "geo-%d.svg" % hour
+        if os.path.exists(svg):
+            os.remove(svg)
+        run("geohour", zname, svg, hour)
+        stats = svg_analyze(svg)
+        if stats["paths"] < 270 or stats["paths"] > 300:
+            print("%s doesn't look like a world map" % svg)
+            return 0
+        avg_colors.add(stats["avg_color"])
+
+    if len(avg_colors) < 3:
+        print("colors don't seem to change much from hour to hour")
+        return 0
+
+    return 10
 
 @test(points=10)
 def video():
-    print("test not done yet, will be released soon!")
-    return 0
+    zname = "countries.zip"
+    vid_html = "test-vid.html"
+    vid_mp4 = "extract-vid.mp4"
+    for p in (vid_html, vid_mp4):
+        if os.path.exists(p):
+            os.remove(p)
+
+    run("video", zname, vid_html)
+
+    # try to extract video
+    with open(vid_html) as f:
+        html = f.read()
+    m = re.search(r'src\="([^"]+)"', html)
+    if m == None:
+        print("could not find video src embedded in HTML file")
+        return 0
+    src = m.group(1)
+    parts = src.split(",")
+    with open(vid_mp4, "wb") as f:
+        f.write(base64.b64decode(parts[1]))
+
+    print("Using ffprobe to check video (install with 'sudo apt install ffmpeg' if you don't have it)")
+    output = subprocess.check_output(["ffprobe", vid_mp4], universal_newlines=True, stderr=subprocess.STDOUT)
+
+    points = 5
+    fps = None
+    seconds = None
+    m = re.search(r"(\d+) fps", output)
+    if m:
+        fps = int(m.group(1))
+    m = re.search(r"Duration: ([\d\:\.]*)", output)
+    if m:
+        seconds = float(m.group(1).split(":")[-1])
+    if fps == None and seconds == None:
+        print(output)
+        print("had trouble finding fps*seconds: {}*{}".format(fps, seconds))
+    else:
+        frames = round(fps*seconds)
+        if frames < 22 or frames > 26:
+            print("expected 24 frames")
+        else:
+            points += 5
+
+    return points
 
 ########################################
 # RUNNER

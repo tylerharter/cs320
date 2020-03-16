@@ -25,6 +25,10 @@ generates the following:
 
 <img src="world.png">
 
+## Corrections/Clarifications
+
+* March 15: tests released (please download `tester.py` and `expected.json`)
+
 ## What's Most Challenging?
 
 There are six commands you need to implement for this project.  On
@@ -34,10 +38,6 @@ on which one here:
 https://forms.gle/1wtbgDHiKLVxhWNt7
 
 Get an early start so you know which part you want us to solve for you!
-
-## Corrections/Clarifications
-
-* none yet
 
 ## Testing
 
