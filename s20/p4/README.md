@@ -28,6 +28,7 @@ generates the following:
 ## Corrections/Clarifications
 
 * March 15: tests released (please download `tester.py` and `expected.json`)
+* March 19: remove commas in pip3 command
 
 ## What's Most Challenging?
 
@@ -106,7 +107,7 @@ pip3 install click
 And these will help you make maps:
 
 ```
-pip3 install geopandas, shapely, descartes
+pip3 install geopandas shapely descartes
 ```
 
 ## Starter Code
