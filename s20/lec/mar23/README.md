@@ -143,7 +143,7 @@ def grab_fruits():
 grab_fruits()
 ```
 
-## 3. Rate Limiting
+## 3. Matplotlib Coordinate Systems
 
 ### Watch: [13-minute video](https://youtu.be/FMOIuX94aPU)
 
