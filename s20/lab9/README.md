@@ -1,4 +1,4 @@
-# Lab 9: Zip Files and Maps
+# Lab 9: Writing Zip Files and Making Geographic Maps
 
 In this lab, you'll get practice creating files inside .zip files.
 This will require learning new ways to convert strings to bytes, and
@@ -242,8 +242,10 @@ changes.
 
 At the end of the cell, paste these calls:
 
+```python
 ax.set_xlim(-25, 45)
 ax.set_ylim(30, 80)
+```
 
 ### Step 2: Country Styling
 
