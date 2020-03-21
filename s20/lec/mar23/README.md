@@ -194,3 +194,8 @@ black dots on the right?  It ought to look like this:
 You'll need to (1) make another `.transform` call based on the `ax2`
 coordinate system, (2) make an additional call to `scatter`, and (3)
 add a parameter to `scatter` to control the `facecolor`.
+
+**Note:** after I made this lecture, I realized the scatter plots in
+  the picture weren't quite placed correctly.  I'll talk about why in
+  the next lecture.
+  
