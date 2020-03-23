@@ -1,0 +1,59 @@
+# March 30 Lecture (NOT READY YET)
+
+## 1. Animated Counter
+
+### Watch: [12-minute video](https://youtu.be/3pbk0kLkHOs)
+
+### Practice: Motion
+
+Copy/paste the following example and run it:
+
+```python
+from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
+from IPython.core.display import HTML
+from time import time
+
+fig, ax = plt.subplots(figsize=(6,6))
+
+circ = plt.Circle((0, 0), 0.1, facecolor="red", zorder=1)
+ax.add_artist(circ)
+rect = plt.Rectangle((0, 0.3), 1, 0.1, facecolor="black", zorder=2)
+ax.add_artist(rect)
+
+def draw_frame(frame_num):
+    circ.center = (frame_num*0.1, 0.5)
+
+anim = FuncAnimation(fig, draw_frame, frames=10, interval=250)
+t0 = time()
+html = anim.to_html5_video()
+t1 = time()
+print("Seconds to generate:", t1-t0)
+plt.close(fig)
+HTML(html)
+```
+
+Now attempt to make the following changes:
+1. make the ball fall from the top to the bottom of the screen (in the x,y tuple for `circ.center`, the y portion could get smaller as we advance through the frames)
+2. make the red ball appear in front of the black bar instead of behind by modifying the `zorder` of one or both shapes
+3. make the animation smoother, but not longer, by (a) increasing the frames, (b) decreasing the interval between frames, (c) changing the formula for `circ.center` so that the ball moves by less that 0.1 per frame
+
+It ought to look something like [goal.mp4](goal.mp4).
+
+After the last change, how long did it take to generate the animation?
+
+## 2. Frames, Intervals, and Debugging
+
+### Watch: [????-minute video]()
+
+### Practice: ????
+
+## 3. Matplotlib Animations
+
+### Watch: [????-minute video]()
+
+### Practice: ????
+
+
+
+Lab: social distancing
