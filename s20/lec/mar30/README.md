@@ -1,4 +1,8 @@
-# March 30 Lecture (NOT READY YET)
+# March 30 Lecture
+
+All together, there's about 74 minutes of videos here, rather than the
+usual 50.  Rather that split it up, I'll make Wed/Fri lectures shorter
+to compensate.
 
 ## 1. Animated Counter
 
@@ -100,9 +104,16 @@ on the first attempt.  Consider reducing the `fps` rate temporarily so
 you can quickly debug rough version of the video.  When it looks good,
 increase it back up to make a smoother animation.
 
-## 3. Matplotlib Animations
+## 3. Complete Example: Animated Crime Map of Madison
 
-### Watch: [????-minute video]()
+In this mini-project example, I'll create an animated map showing
+where crimes in Madison occur during a certain day.  There are three
+parts:
 
-### Practice: ????
+1. grab crime data from city, and extract date information
+2. using Google's geocoding API to convert addresses in the data to coordinates
+3. use FuncAnimation and geopandas to create an animated map with a fade-out effect
 
+### Watch A: [10-minute video](https://youtu.be/OlffsR6fHYk)
+### Watch B: [24-minute video](https://youtu.be/7t2f6dQXotI)
+### Watch C: [20-minute video](https://youtu.be/Mi4NklEE-Vw)
