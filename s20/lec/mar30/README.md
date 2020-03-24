@@ -44,9 +44,61 @@ After the last change, how long did it take to generate the animation?
 
 ## 2. Frames, Intervals, and Debugging
 
-### Watch: [????-minute video]()
+### Watch: [8-minute video](https://youtu.be/G1VWVlxWTWA)
 
-### Practice: ????
+### Practice: Percent of Time
+
+Copy/paste the following example:
+
+```python
+from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
+from IPython.core.display import HTML, display
+from time import time
+
+fig, ax = plt.subplots(figsize=(6,6))
+
+circ = plt.Circle((0, 0), 0.1, facecolor="red", zorder=3)
+ax.add_artist(circ)
+rect = plt.Rectangle((0, 0.3), 1, 0.1, facecolor="black", zorder=2)
+ax.add_artist(rect)
+
+seconds = 2
+fps = 100 # frames-per second
+frame_count = fps*seconds
+
+def draw_frame(frame_num):
+    percent = frame_num / frame_count
+    if percent < 0.5:
+        y = ????
+    else:
+        y = ????
+    circ.center = (0.5, y)
+
+debug_frame = None    
+
+if debug_frame != None:
+    draw_frame(debug_frame)
+else:
+    anim = FuncAnimation(fig, draw_frame, frames=frame_count, interval=1000/fps)
+    t0 = time()
+    html = anim.to_html5_video()
+    t1 = time()
+    print("Seconds to generate:", t1-t0)
+    plt.close(fig)
+    display(HTML(html))
+```
+
+Complete it so that:
+1. for the first half of the video, the ball is falling from the top to the bottom
+2. for the second half of the video, the ball should be bouncing from the bottom back up
+
+It ought to look something like [goal-part2.mp4](goal-part2.mp4).
+
+**Suggestion:** it can be hard to figure out the right equations for y
+on the first attempt.  Consider reducing the `fps` rate temporarily so
+you can quickly debug rough version of the video.  When it looks good,
+increase it back up to make a smoother animation.
 
 ## 3. Matplotlib Animations
 
@@ -54,6 +106,3 @@ After the last change, how long did it take to generate the animation?
 
 ### Practice: ????
 
-
-
-Lab: social distancing

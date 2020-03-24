@@ -133,7 +133,7 @@ with ZipFile("new.zip", "w") as zf:
 Go back to the terminal and verify we produced what we wanted:
 
 ```
-unzip -p new.zip inside.txt
+unzip -p new.zip inside.csv
 ```
 
 ### Compression
