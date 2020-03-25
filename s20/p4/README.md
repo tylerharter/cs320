@@ -29,6 +29,7 @@ generates the following:
 
 * March 15: tests released (please download `tester.py` and `expected.json`)
 * March 19: remove commas in pip3 command
+* March 25: `geo` solution posted [here](geo-solution.md).
 
 ## What's Most Challenging?
 
