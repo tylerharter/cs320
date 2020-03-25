@@ -261,6 +261,20 @@ StackOverflow example.  The substitution could be done with `re.sub`,
 among other ways.  The substitution should only occur for sorting, and
 the `104.197.32.ihd` should be what is written to the output zip file.
 
+**Important Note:** Whatever sorting method you choose to use should be **_stable_**. 
+A sorting algorithm is stable if, in the case of ties, it preserves the original 
+order of the entries. So, if there are two identical IPs, they will appear in the 
+same order in the sorted list as in the original list if a stable sorting algorithm 
+is used. If an unstable sorting algorithm is used then they aren't guaranteed to be in 
+the same order (although they made be by chance). This [link](https://qr.ae/pNvGYH) 
+goes a little more in-depth on stable vs unstable sorting algorithms with a nice 
+example.
+
+Python's sort and sorted methods are stable. Pandas' sort_values method isn't stable 
+by default (although it is possible to make it stable). However, you're encouraged to 
+use csv.reader and csv.writer from Python's csv module instead of Pandas 
+(as noted in section 1). 
+
 ### 3. `country` Command
 
 This one uses the IP2Location(:tm:).  The compressed output table
