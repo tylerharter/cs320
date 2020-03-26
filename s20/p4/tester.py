@@ -338,7 +338,7 @@ def small_country():
 def big_country():
     zname = "sorted.zip"
     zout = zname.replace(".zip", "_output.zip")
-    run("sort", zname, zout)
+    run("country", zname, zout)
     err = check_zip(zout)
     if err:
         print(err)
