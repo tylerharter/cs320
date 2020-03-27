@@ -40,10 +40,6 @@ https://forms.gle/1wtbgDHiKLVxhWNt7
 
 Get an early start so you know which part you want us to solve for you!
 
-## Testing
-
-We'll get you a `tester.py` soon!  (sorry for the delay)
-
 ## EDGAR Data
 
 Take a look at the list of daily zips and CSV documentation on the EDGAR site:
@@ -343,4 +339,9 @@ to create the video, then call
 [.to_html5_video(...)](https://matplotlib.org/api/_as_gen/matplotlib.animation.Animation.to_html5_video.html),
 which is why we have `.html` in the video's file name.
 
-The final thing can look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html).
+This last part needs a (non-python) package called `ffmpeg` to convert all the images into a video/animation/html file. Install it like so:
+```
+sudo apt-get install ffmpeg
+``` 
+
+The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html).
