@@ -9,6 +9,7 @@ ENV LC_ALL en_US.UTF-8
 # Update Environment
 RUN apt-get -y update
 RUN apt-get -y upgrade
+RUN apt-get -y dist-upgrade
 RUN apt-get -y autoremove
 
 # Install python
@@ -17,10 +18,11 @@ RUN apt-get install -y python3-pip
 
 # Install general packages
 RUN pip3 install jupyter pandas numpy requests matplotlib beautifulsoup4 statistics recordclass haversine sklearn 
-RUN pip3 install gitpython pylint graphviz bs4 lxml flask html5lib
+RUN pip3 install gitpython pylint graphviz bs4 lxml flask html5lib geopandas shapely descartes click
 RUN apt-get -y install zip
 RUN apt-get -y install git
 RUN apt-get -y install graphviz
+RUN apt-get -y install ffmpeg 
 RUN git config --global core.filemode false
 
 # Install pytorch, see pytorch.org for updated command
