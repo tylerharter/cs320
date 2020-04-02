@@ -1,5 +1,3 @@
-# WORK IN PROGRESS, DON'T START YET!!!
-
 # P5: Wisconsin Land Use
 
 In this project, you'll explore how land is used in Wisconsin (for
@@ -225,3 +223,22 @@ These are the city names in the dataset: madison, milwaukee, greenbay,
 kenosha, racine, appleton, waukesha, oshkosh, eauclaire, janesville.
 
 ### 4. `City.animate` method
+
+This one should take a city name, then use FuncAnimation to produce
+some HTML that can be shown in a Jupyter cell, like this:
+
+```
+from IPython.core.display import HTML
+html = c.animate("eauclaire")
+HTML(httml)
+```
+
+It should say the year somewhere on the animation.  It's OK to have
+one frame per year of data (this is slightly misleading, because the
+time elapsed between frames will sometimes be 2 year and sometimes 3,
+but we want to keep it simple).
+
+You can download an example of the video at
+[eauclaire.mp4](eauclaire.mp4]).  A screenshot of it looks like this:
+
+<img src="eauclaire.png" width=500>
