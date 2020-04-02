@@ -23,7 +23,7 @@ database, a zip file, and numpy matrices representing land use.
 
 ## Corrections/Clarifications
 
-* none yet
+* Apr 2: forgot to push the tests already in tester.py yesterday
 
 ## Dataset
 
