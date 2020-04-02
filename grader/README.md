@@ -299,11 +299,14 @@ You can do so with:
     sudo apt install awscli 
     ```
 
+* Being familiar with docker can be helpful, a good docker cheat-sheet 
+can be found [here](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
 
 # Changelog
 
+* April 2, 2020: Added catch all and skipping logic if a single submission fails.
+
 * March 11, 2020: Updated `Dockerfile` to include flask, html5lib, lxml.
-Aded unzip capability to the autograder, updated requirements and daemon.
 
 * Feb 22, 2020: Added `test_cmd` and `result_file` config options to the grader.
 Started removing old stats collector code. Added p2 to the daemon script. 
