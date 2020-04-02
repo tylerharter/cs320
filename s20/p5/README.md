@@ -35,7 +35,7 @@ Thus, we only take data for the following points in WI:
 
 <img src="wi.png" width=400>
 
-The 100 gray dots are randomly chose, and the black dots are the 10
+The 100 gray dots are randomly chosen, and the black dots are the 10
 largest cities.  There are seven years of data for each of the city
 points, but only 2016 data for the randomly sampled points.
 
@@ -83,8 +83,8 @@ table) and location (from `places` table).
 
 ## Requirements
 
-You'll need to several functions and classes to your module, which
-should be in a file named `land.py`.
+You'll need to write several functions and classes in your module,
+which should be in a file named `land.py`.
 
 ### 1. `Connection` class
 
@@ -157,7 +157,8 @@ corresponding data.  "Year" comes from the `images` table in the DB.
 
 ### 2. `Connection.lat_regression` method
 
-Use least-squares to get a formula:
+Use least-squares to get `slope` and `intercept` values for an
+equation like this:
 
 `percent = slope*lat + intercept`
 
@@ -185,10 +186,42 @@ If the `ax` value passed is not None, `lat_regression` should plot the
 computed points and fit line in that area.  For example, somebody
 might use your function like this:
 
-<img src="lat-reg.png" width=400>
+<img src="lat-reg.png" width=500>
 
-### 3. `City` class
+**Important**: only include points with names that begin with "samp",
+  like "samp5" (but not with `name="madison"`).
 
-### 4. `City.year_regression` method
+### 3. `City.year_regression` method
 
-### 5. `City.animate` method
+This is similar to `lat_regression`, but with the following differences:
+1. we'll only use data points with a name, that is passed in as the first argument
+2. the x-axis will be year instead of latitude
+3. it should be possible to pass a list of codes to list_code
+
+For example, you should be able to run this:
+
+```python
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.set_ylabel("Developed")
+ax.set_xlabel("Year")
+c.time_regression("madison", [21,22,23,24], ax)
+```
+
+And get this:
+
+<img src="developed.png" width=500>
+
+Here, we're grabbing the 7 snapshots of Madison, and counting what
+percent of the are is coded between 21 ("Developed, Open Space") and
+24 ("Developed, High Intensity").
+
+Once you have you're working, explore other trends by making more
+calls.  For example, what is happening to farming in the Madison area
+(codes 81 and 82)?  How do the development trends in Madison compare
+to those in Milwaukee?
+
+These are the city names in the dataset: madison, milwaukee, greenbay,
+kenosha, racine, appleton, waukesha, oshkosh, eauclaire, janesville.
+
+### 4. `City.animate` method
