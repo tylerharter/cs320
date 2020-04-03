@@ -142,17 +142,26 @@ class Grader(Database):
                 logging.info('========================================')
                 logging.info(s3path)
 
-                # Setup environment
-                code_dir, submission_fname = self.fetch_submission(s3path, filename=self.conf.FORCE_FILENAME)
-                code_dir, submission_fname = self.extract_if_zip(code_dir, submission_fname)
-                project_dir = f'../{self.conf.SEMESTER}/{project_id}/'
-                self.setup_codedir(project_dir, code_dir)
+                try:
+                    # Setup environment
+                    code_dir, submission_fname = self.fetch_submission(s3path, filename=self.conf.FORCE_FILENAME)
+                    code_dir, submission_fname = self.extract_if_zip(code_dir, submission_fname)
+                    project_dir = f'../{self.conf.SEMESTER}/{project_id}/'
+                    self.setup_codedir(project_dir, code_dir)
 
-                # Run tests in docker and save results
-                result = self.run_test_in_docker(code_dir)
-                self.log_result(result)
+                    # Run tests in docker and save results
+                    result = self.run_test_in_docker(code_dir)
+                    self.log_result(result)
+
+                except Exception as e:
+                    info = self.parse_s3path(s3path)
+                    logging.exception(f"FATAL: Submission from {info.netid}, dated {info.date} "
+                                      f"was skipped due to following error")
+                    result = {'score': 0, 'error': str(e)}
+
                 new_score = result['score']
                 logging.info(f'Score: {new_score}')
+
                 if not self.conf.SAFE:
                     if self.conf.KEEPBEST and new_score < self.fetch_results(s3path):
                         logging.info(f'Skipped {s3path} because better grade exists')
