@@ -25,6 +25,7 @@ database, a zip file, and numpy matrices representing land use.
 
 * Apr 2: forgot to push the tests already in tester.py yesterday
 * Apr 4: updated tester.py with tests for remaining parts
+* Apr 5: fixed some issues w/ tester.py
 
 ## Dataset
 
@@ -192,7 +193,7 @@ might use your function like this:
 
 **Important**: When using `scatter()` in this project, you need to call it like 
 `ax.scatter()` so the tester picks up the points. Otherwise tester.py may not 
-recognize the points. 
+recognize the points. Same goes for `plot()`.
 
 **Important**: only include points with names that begin with "samp",
   like "samp5" (but not with `name="madison"`) for this function.

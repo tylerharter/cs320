@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 from io import StringIO, BytesIO
 import pandas as pd
 import sqlite3, subprocess
+import numpy as np
 
 land = None # land module
 
@@ -39,7 +40,7 @@ def print(*args, **kwargs):
 # TIP: to generate expected.json, run the tests on a good
 # implementation, then copy actual.json to expected.json
 expected_json = None
-actual_json = {"version": 3}
+actual_json = {"version": 4}
 
 # return string (error) or None
 def is_expected2(actual, name, histo_comp=False):
@@ -71,7 +72,11 @@ def is_expected2(actual, name, histo_comp=False):
 
     elif type(expected) != type(actual) and expected != None and actual != None:
         return "expected a {} but found {} of type {}".format(expected, actual, type(actual))
-
+    
+    elif isinstance(expected, (np.float64, np.float32, float)) and isinstance(actual, (np.float64, np.float32, float)): 
+        if not math.isclose(expected, actual):
+            return "{} is not close to {}".format(expected, actual)
+    
     elif expected != actual:
         return "expected {} but found {}".format(expected, actual)
 
@@ -267,25 +272,14 @@ def image_load():
     return 5
 
 # adapted from P2
-# still some extra stuff
 class WrapAx:
     def __init__(self, ax):
         self.ax = ax
-        # key: color: list of vals
         self.xs = []
         self.ys = []
-        self.vlines = []
-        self.hlines = []
 
     def plot(self, *args, **kwargs):
-        # Example call: ax.plot((x, x), (y1, y2), 'y', lw=3, zorder=-10)
-        if len(args) >= 2 and isinstance(args[0], tuple) and isinstance(args[1], tuple):
-            if args[0][0] == args[0][1]:
-                # x values are the same, so it is vertical
-                self.vlines.append(args[0][0])
-            elif args[1][0] == args[1][1]:
-                # y values are the same, so it is horizontal
-                self.hlines.append(args[1][0])
+        self.ax.plot(*args, **kwargs)
 
     def scatter(self, x, y, *args, **kwargs):
         self.xs.extend(x)
@@ -308,7 +302,9 @@ def lat_regression():
         slope, intercept = c.lat_regression(usage_code, ax=ax)
         
         # Test slope and intercept
-        err = is_expected(actual=[slope, intercept], name="lat_regression:use_code:%d"%usage_code)
+        err = is_expected(actual=slope, name="lat_regression:use_code_slope:%d"%usage_code)
+        err = is_expected(actual=intercept, name="lat_regression:use_code_intercept:%d"%usage_code)
+        
         if err != None:
             print("wrong output for code {}: {}".format(usage_code, err))
         else:
@@ -343,7 +339,7 @@ def lat_regression():
             else:
                 points += 1
         else:
-            print("incorrect number of lines detected for usage_code %d" %usage_code)
+            print("incorrect number of lines (%d) detected for usage_code %d" % (len(ax.lines), usage_code))
         plt.close(fig)
             
     c.close()
@@ -370,7 +366,8 @@ def year_regression():
         ax = WrapAx(ax)
         slope, intercept = c.year_regression(params['city'], params['codes'], ax)
         
-        err = is_expected(actual=[slope, intercept], name="year_regression:city:mb:%s"%params['city'])
+        err = is_expected(actual=slope, name="year_regression:city:m:%s"%params['city'])
+        err = is_expected(actual=intercept, name="year_regression:city:b:%s"%params['city'])
         if err != None:
             print("wrong output for city {}: {}".format(params['city'], err))
         else:

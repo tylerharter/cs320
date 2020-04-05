@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "conn_cleanup:type-name": "Connection",
   "list_images": [
     "area0.npy",
@@ -7613,10 +7613,8 @@
     41,
     21
   ],
-  "lat_regression:use_code:11": [
-    0.9718914557972588,
-    -39.74004566998584
-  ],
+  "lat_regression:use_code_slope:11": 0.9718914557972588,
+  "lat_regression:use_code_intercept:11": -39.74004566998584,
   "lat_reg_plot:all_xs:11": [
     45.8419,
     42.8611,
@@ -7822,10 +7820,8 @@
     0.4072
   ],
   "lat_reg_plot_slope:11": 0.9719,
-  "lat_regression:use_code:12": [
-    -0.0,
-    0.0
-  ],
+  "lat_regression:use_code_slope:12": -0.0,
+  "lat_regression:use_code_intercept:12": 0.0,
   "lat_reg_plot:all_xs:12": [
     45.8419,
     42.8611,
@@ -8031,10 +8027,8 @@
     0.0
   ],
   "lat_reg_plot_slope:12": 0.0,
-  "lat_regression:use_code:21": [
-    -0.7018258824028496,
-    34.90338004669229
-  ],
+  "lat_regression:use_code_slope:21": -0.7018258824028496,
+  "lat_regression:use_code_intercept:21": 34.90338004669229,
   "lat_reg_plot:all_xs:21": [
     45.8419,
     42.8611,
@@ -8240,10 +8234,8 @@
     1.8148
   ],
   "lat_reg_plot_slope:21": -0.7018,
-  "lat_regression:use_code:22": [
-    -1.4661436613975958,
-    67.39991983530629
-  ],
+  "lat_regression:use_code_slope:22": -1.4661436613975958,
+  "lat_regression:use_code_intercept:22": 67.39991983530629,
   "lat_reg_plot:all_xs:22": [
     45.8419,
     42.8611,
@@ -8449,10 +8441,8 @@
     0.0516
   ],
   "lat_reg_plot_slope:22": -1.4661,
-  "lat_regression:use_code:23": [
-    -0.5625809519574596,
-    25.763069593039177
-  ],
+  "lat_regression:use_code_slope:23": -0.5625809519574596,
+  "lat_regression:use_code_intercept:23": 25.763069593039177,
   "lat_reg_plot:all_xs:23": [
     45.8419,
     42.8611,
@@ -8658,10 +8648,8 @@
     0.0016
   ],
   "lat_reg_plot_slope:23": -0.5626,
-  "lat_regression:use_code:24": [
-    -0.21021694048795891,
-    9.623037040522537
-  ],
+  "lat_regression:use_code_slope:24": -0.21021694048795891,
+  "lat_regression:use_code_intercept:24": 9.623037040522537,
   "lat_reg_plot:all_xs:24": [
     45.8419,
     42.8611,
@@ -8867,10 +8855,8 @@
     0.0
   ],
   "lat_reg_plot_slope:24": -0.2102,
-  "lat_regression:use_code:31": [
-    -0.05536197748548914,
-    2.585413245855815
-  ],
+  "lat_regression:use_code_slope:31": -0.05536197748548914,
+  "lat_regression:use_code_intercept:31": 2.585413245855815,
   "lat_reg_plot:all_xs:31": [
     45.8419,
     42.8611,
@@ -9076,10 +9062,8 @@
     0.0024
   ],
   "lat_reg_plot_slope:31": -0.0554,
-  "lat_regression:use_code:41": [
-    5.965578948401941,
-    -243.38363729644226
-  ],
+  "lat_regression:use_code_slope:41": 5.965578948401941,
+  "lat_regression:use_code_intercept:41": -243.38363729644226,
   "lat_reg_plot:all_xs:41": [
     45.8419,
     42.8611,
@@ -9285,10 +9269,8 @@
     39.586
   ],
   "lat_reg_plot_slope:41": 5.9656,
-  "lat_regression:use_code:42": [
-    0.7050707842342218,
-    -29.869942840000764
-  ],
+  "lat_regression:use_code_slope:42": 0.7050707842342218,
+  "lat_regression:use_code_intercept:42": -29.869942840000764,
   "lat_reg_plot:all_xs:42": [
     45.8419,
     42.8611,
@@ -9494,10 +9476,8 @@
     0.4788
   ],
   "lat_reg_plot_slope:42": 0.7051,
-  "lat_regression:use_code:43": [
-    4.013310368066527,
-    -172.06031517408448
-  ],
+  "lat_regression:use_code_slope:43": 4.013310368066527,
+  "lat_regression:use_code_intercept:43": -172.06031517408448,
   "lat_reg_plot:all_xs:43": [
     45.8419,
     42.8611,
@@ -9703,10 +9683,8 @@
     9.9776
   ],
   "lat_reg_plot_slope:43": 4.0133,
-  "lat_regression:use_code:51": [
-    -0.0,
-    0.0
-  ],
+  "lat_regression:use_code_slope:51": -0.0,
+  "lat_regression:use_code_intercept:51": 0.0,
   "lat_reg_plot:all_xs:51": [
     45.8419,
     42.8611,
@@ -9912,10 +9890,8 @@
     0.0
   ],
   "lat_reg_plot_slope:51": 0.0,
-  "lat_regression:use_code:52": [
-    0.3661377902279664,
-    -15.668712288102947
-  ],
+  "lat_regression:use_code_slope:52": 0.3661377902279664,
+  "lat_regression:use_code_intercept:52": -15.668712288102947,
   "lat_reg_plot:all_xs:52": [
     45.8419,
     42.8611,
@@ -10121,10 +10097,8 @@
     1.8668
   ],
   "lat_reg_plot_slope:52": 0.3661,
-  "lat_regression:use_code:71": [
-    0.1081334625186452,
-    -4.123742558630304
-  ],
+  "lat_regression:use_code_slope:71": 0.1081334625186452,
+  "lat_regression:use_code_intercept:71": -4.123742558630304,
   "lat_reg_plot:all_xs:71": [
     45.8419,
     42.8611,
@@ -10330,10 +10304,8 @@
     0.396
   ],
   "lat_reg_plot_slope:71": 0.1081,
-  "lat_regression:use_code:72": [
-    -0.0,
-    0.0
-  ],
+  "lat_regression:use_code_slope:72": -0.0,
+  "lat_regression:use_code_intercept:72": 0.0,
   "lat_reg_plot:all_xs:72": [
     45.8419,
     42.8611,
@@ -10539,10 +10511,8 @@
     0.0
   ],
   "lat_reg_plot_slope:72": 0.0,
-  "lat_regression:use_code:73": [
-    -0.0,
-    0.0
-  ],
+  "lat_regression:use_code_slope:73": -0.0,
+  "lat_regression:use_code_intercept:73": 0.0,
   "lat_reg_plot:all_xs:73": [
     45.8419,
     42.8611,
@@ -10748,10 +10718,8 @@
     0.0
   ],
   "lat_reg_plot_slope:73": 0.0,
-  "lat_regression:use_code:74": [
-    -0.0,
-    0.0
-  ],
+  "lat_regression:use_code_slope:74": -0.0,
+  "lat_regression:use_code_intercept:74": 0.0,
   "lat_reg_plot:all_xs:74": [
     45.8419,
     42.8611,
@@ -10957,10 +10925,8 @@
     0.0
   ],
   "lat_reg_plot_slope:74": 0.0,
-  "lat_regression:use_code:81": [
-    -3.660924067427085,
-    170.2724398365114
-  ],
+  "lat_regression:use_code_slope:81": -3.660924067427085,
+  "lat_regression:use_code_intercept:81": 170.2724398365114,
   "lat_reg_plot:all_xs:81": [
     45.8419,
     42.8611,
@@ -11166,10 +11132,8 @@
     0.186
   ],
   "lat_reg_plot_slope:81": -3.6609,
-  "lat_regression:use_code:82": [
-    -13.287428335864155,
-    621.1812768744524
-  ],
+  "lat_regression:use_code_slope:82": -13.287428335864155,
+  "lat_regression:use_code_intercept:82": 621.1812768744524,
   "lat_reg_plot:all_xs:82": [
     45.8419,
     42.8611,
@@ -11375,10 +11339,8 @@
     0.0
   ],
   "lat_reg_plot_slope:82": -13.2874,
-  "lat_regression:use_code:90": [
-    8.527523415468794,
-    -362.8064929453068
-  ],
+  "lat_regression:use_code_slope:90": 8.527523415468794,
+  "lat_regression:use_code_intercept:90": -362.8064929453068,
   "lat_reg_plot:all_xs:90": [
     45.8419,
     42.8611,
@@ -11584,10 +11546,8 @@
     43.16
   ],
   "lat_reg_plot_slope:90": 8.5275,
-  "lat_regression:use_code:95": [
-    -0.7131644076927623,
-    35.924352300173524
-  ],
+  "lat_regression:use_code_slope:95": -0.7131644076927623,
+  "lat_regression:use_code_intercept:95": 35.924352300173524,
   "lat_reg_plot:all_xs:95": [
     45.8419,
     42.8611,
@@ -11793,10 +11753,8 @@
     2.0712
   ],
   "lat_reg_plot_slope:95": -0.7132,
-  "year_regression:city:mb:madison": [
-    -0.300605663314176,
-    655.8962529334286
-  ],
+  "year_regression:city:m:madison": -0.300605663314176,
+  "year_regression:city:b:madison": 655.8962529334286,
   "year_reg_plot:madison:all_xs": [
     2001,
     2004,
@@ -11816,10 +11774,8 @@
     50.2827
   ],
   "year_reg_plot_slope:madison": -0.3006,
-  "year_regression:city:mb:greenbay": [
-    0.004970426245210733,
-    6.592511853448265
-  ],
+  "year_regression:city:m:greenbay": 0.004970426245210733,
+  "year_regression:city:b:greenbay": 6.592511853448265,
   "year_reg_plot:greenbay:all_xs": [
     2001,
     2004,
@@ -11839,10 +11795,8 @@
     16.7192
   ],
   "year_reg_plot_slope:greenbay": 0.005,
-  "year_regression:city:mb:milwaukee": [
-    0.10246880986590012,
-    -186.56401358955887
-  ],
+  "year_regression:city:m:milwaukee": 0.10246880986590012,
+  "year_regression:city:b:milwaukee": -186.56401358955887,
   "year_reg_plot:milwaukee:all_xs": [
     2001,
     2004,
@@ -11862,10 +11816,8 @@
     19.913
   ],
   "year_reg_plot_slope:milwaukee": 0.1025,
-  "year_regression:city:mb:racine": [
-    -0.02269767720306512,
-    49.817893558429084
-  ],
+  "year_regression:city:m:racine": -0.02269767720306512,
+  "year_regression:city:b:racine": 49.817893558429084,
   "year_reg_plot:racine:all_xs": [
     2001,
     2004,
@@ -11885,10 +11837,8 @@
     4.101
   ],
   "year_reg_plot_slope:racine": -0.0227,
-  "year_regression:city:mb:oshkosh": [
-    -0.09854376197317993,
-    246.549347162356
-  ],
+  "year_regression:city:m:oshkosh": -0.09854376197317993,
+  "year_regression:city:b:oshkosh": 246.549347162356,
   "year_reg_plot:oshkosh:all_xs": [
     2001,
     2004,
