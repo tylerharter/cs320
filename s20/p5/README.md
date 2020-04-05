@@ -24,6 +24,8 @@ database, a zip file, and numpy matrices representing land use.
 ## Corrections/Clarifications
 
 * Apr 2: forgot to push the tests already in tester.py yesterday
+* Apr 4: updated tester.py with tests for remaining parts
+* Apr 5: fixed some issues w/ tester.py
 
 ## Dataset
 
@@ -189,11 +191,15 @@ might use your function like this:
 
 <img src="lat-reg.png" width=500>
 
+**Important**: When using `scatter()` in this project, you need to call it like 
+`ax.scatter()` so the tester picks up the points. Otherwise tester.py may not 
+recognize the points. 
+
 **Important**: only include points with names that begin with "samp",
   like "samp5" (but not with `name="madison"`) for this function.
   We'll use the city data for the next part.
 
-### 3. `City.year_regression` method
+### 3. `Connection.year_regression` method
 
 This is similar to `lat_regression`, but with the following differences:
 1. we'll only use data points with a name, that is passed in as the first argument
@@ -207,7 +213,7 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 ax.set_ylabel("Developed")
 ax.set_xlabel("Year")
-c.time_regression("madison", [21,22,23,24], ax)
+c.year_regression("madison", [21,22,23,24], ax)
 ```
 
 And get this:
@@ -228,7 +234,7 @@ kenosha, racine, appleton, waukesha, oshkosh, eauclaire, janesville.
 Play around with different trends for various cities and see if you
 find any surprising developments.
 
-### 4. `City.animate` method
+### 4. `Connection.animate` method
 
 This one should take a city name, then use FuncAnimation to produce
 some HTML that can be shown in a Jupyter cell, like this:
@@ -236,7 +242,7 @@ some HTML that can be shown in a Jupyter cell, like this:
 ```python
 from IPython.core.display import HTML
 html = c.animate("eauclaire")
-HTML(httml)
+HTML(html)
 ```
 
 It should say the year somewhere on the animation.  It's OK to have
