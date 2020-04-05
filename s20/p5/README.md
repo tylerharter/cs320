@@ -193,7 +193,7 @@ might use your function like this:
 
 **Important**: When using `scatter()` in this project, you need to call it like 
 `ax.scatter()` so the tester picks up the points. Otherwise tester.py may not 
-recognize the points. Same goes for `plot()`.
+recognize the points. 
 
 **Important**: only include points with names that begin with "samp",
   like "samp5" (but not with `name="madison"`) for this function.
