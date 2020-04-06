@@ -1,4 +1,4 @@
-# April 10 Lecture (NOT RELEASED YET, IN PROGRESS!)
+# April 10 Lecture
 
 ## 1. Non-Linear Fit
 
@@ -31,7 +31,7 @@ And plot it...
 ax = df.plot.scatter(x="x", y="y")
 ```
 
-Now, let's import `PolynomialFeatures` and compute x**2, x**3, etc.
+Now, let's import `PolynomialFeatures` and compute `x**2`, `x**3`, etc.
 
 ```python
 from sklearn.preprocessing import PolynomialFeatures
@@ -74,9 +74,7 @@ ax.plot(fit_x, fit_y, "red")
 
 <img src="fit.png" width=400>
 
-2. Overfitting
-
-## 1. Overfitting
+## 2. Overfitting
 
 ### Watch: [4-minute video](https://youtu.be/3ZPCY0hoHCE)
 
@@ -121,3 +119,79 @@ fit_x = np.arange(0, 5, 0.1).reshape(-1,1)
 fit_y = lr.predict(poly.fit_transform(fit_x))
 ax.plot(fit_x, fit_y, "red")
 ```
+
+## 2. Covariance and Correlation Matrices
+
+### Watch: [14-minute video](https://youtu.be/oCE7jcHYo_s)
+
+### Practice: Visualizing Correlations
+
+Generate a dataset similar to the one in the video:
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+# build DataFrame of rectangle measurements
+
+df = pd.DataFrame()
+rows = 100
+df["w_in"] = np.random.uniform(5,50,rows) # in inches
+df["h_in"] = np.random.uniform(5,50,rows)
+df["border_in"] = 2*df["w_in"] + 2*df["h_in"]
+df["w_cm"] = df["w_in"] * 2.54
+df["h_cm"] = df["h_in"] * 2.54
+df += np.random.normal(size=(df.shape))
+df.head()
+```
+
+Compute a correlation matrix and look at it:
+
+```python
+corr = df.corr()
+corr
+```
+
+Plot the correlation matrix:
+
+```python
+ax = plt.imshow(corr)
+```
+
+Go back, and add some ticks to the cell that creates the plot:
+
+```python
+plt.xticks(range(len(corr)), corr.columns)
+plt.yticks(range(len(corr)), corr.columns)
+```
+
+For the color scheme, we want one color for positives and one for
+negatives.  Go to
+https://matplotlib.org/tutorials/colors/colormaps.html.  Then pick a
+color scheme under "Diverging colormaps."  Then go back and revise the
+call to `imshow` (replace "coolwarm" with whatever scheme you chose):
+
+```python
+ax = plt.imshow(corr, cmap="coolwarm", vmin=-1, vmax=1)
+```
+
+Why did we need to pass `vmin` and `vmax`?  Without that, the smallest
+values would line up with the leftmost colors.  This might mean that
+the light colors in the middle wouldn't correspond to 0, as we would
+like.  Try temporarily deleting `vmin=-1` to observe this.
+
+As a final step, add `plt.colorbar()` to the previous cell and rerun.
+The final correlation visualization ought to look like this:
+
+<img src="corr.png" width=400>
+
+Note that there is no blue, suggesting there are no negative
+correlations.
+
+Before moving on, take a look at this cool plot borrowed from
+Wikipedia (https://en.wikipedia.org/wiki/Correlation_and_dependence) to gain an intuition for what correlation values you might
+get for various patterns (also know some clear patterns that the
+correlation metric cannot detect):
+
+<img src="Correlation_examples2.svg" width=600>
