@@ -195,3 +195,7 @@ get for various patterns (also know some clear patterns that the
 correlation metric cannot detect):
 
 <img src="Correlation_examples2.svg" width=600>
+
+# Remember!
+
+Please record that you finished this lecture: https://forms.gle/z9oCk4BzvVjdN1aZ6
