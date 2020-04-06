@@ -70,12 +70,12 @@ def is_expected2(actual, name, histo_comp=False):
         if diff > 0.01:
             return "average error between actual and expected was %.2f (>0.01)" % diff
 
-    elif type(expected) != type(actual) and expected != None and actual != None:
-        return "expected a {} but found {} of type {}".format(expected, actual, type(actual))
-    
     elif isinstance(expected, (np.float64, np.float32, float)) and isinstance(actual, (np.float64, np.float32, float)): 
-        if not math.isclose(expected, actual):
+        if not math.isclose(float(expected), float(actual)):
             return "{} is not close to {}".format(expected, actual)
+        
+    elif type(expected) != type(actual) and expected != None and actual != None:
+        return "expected a {} but found {} of type {}".format(type(expected), actual, type(actual))
     
     elif expected != actual:
         return "expected {} but found {}".format(expected, actual)
