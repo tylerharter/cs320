@@ -1,5 +1,9 @@
 # Lab 11: SQL JOIN and Counting Cells
 
+## Corrections
+
+* Apr 7: add `SUM` (which had been forgotten) to several queries
+
 ## Part 1: SQL JOIN
 
 Let's review SQL, then learn a very important new operator, JOIN.
@@ -31,7 +35,7 @@ To review `GROUP BY`, take a look at this query that computes how much
 revenue each kind of fruit generates and run it:
 
 ```python
-pd.read_sql("SELECT item, quantity*price AS dollars FROM sales GROUP BY item", connection)
+pd.read_sql("SELECT item, SUM(quantity*price) AS dollars FROM sales GROUP BY item", connection)
 ```
 
 Now, try to write a query that counts sales per location.
@@ -39,7 +43,7 @@ Now, try to write a query that counts sales per location.
 <details>
     <summary>ANSWER</summary>
     <code>
-    pd.read_sql("SELECT state, city, address, quantity*price AS dollars FROM sales GROUP BY state, city, address", connection)
+    pd.read_sql("SELECT state, city, address, SUM(quantity*price) AS dollars FROM sales GROUP BY state, city, address", connection)
     </code>
 </details>
 
@@ -120,7 +124,7 @@ revenue did each fruit generate?
 
 ```python
 pd.read_sql("""
-  SELECT item, quantity*price AS dollars
+  SELECT item, SUM(quantity*price) AS dollars
   FROM locations INNER JOIN sales 
   ON locations.location_id = sales.location_id
   GROUP BY item""", connection)
@@ -133,7 +137,7 @@ there at each location?
     <summary>ANSWER (option 1)</summary>
     <code>
 pd.read_sql("""
-  SELECT state, city, address, quantity*price AS dollars
+  SELECT state, city, address, SUM(quantity*price) AS dollars
   FROM locations INNER JOIN sales 
   ON locations.location_id = sales.location_id
   GROUP BY state, city, address""", connection)
@@ -144,7 +148,7 @@ pd.read_sql("""
     <summary>ANSWER (option 2)</summary>
     <code>
 pd.read_sql("""
-  SELECT state, city, address, quantity*price AS dollars
+  SELECT state, city, address, SUM(quantity*price) AS dollars
   FROM locations INNER JOIN sales 
   ON locations.location_id = sales.location_id
   GROUP BY locations.location_id""", connection)
