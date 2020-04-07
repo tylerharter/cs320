@@ -300,9 +300,19 @@ You can do so with:
     ```
 
 * Being familiar with docker can be helpful, a good docker cheat-sheet 
-can be found [here](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
+can be found [here](https://github.com/wsargent/docker-cheat-sheet).
+Specifically, when rebuilding the docker image (after modifying the Dockerfile) 
+it might be helpful to stop and remove all containers and delete all images like seen 
+[here](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes). Be 
+careful with these commands:
+    ```
+    docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+    docker rmi $(docker images -a -q) 
+    ```
 
 # Changelog
+
+* April 7, 2020: Added geopandas dependency pysal and it's dependency libspatialindex-c4v5 to Dockerfile.
 
 * April 2, 2020: Added catch all and skipping logic if a single submission fails.
 

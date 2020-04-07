@@ -14,6 +14,9 @@ run_grader() {
     export AWS_SHARED_CREDENTIALS_FILE="~/.aws/credentials"
 
     echo "Running Auto-grader\n"
+    echo "\nAuto-grader for P5:"
+    python3 autograder.py p5 ? -ff land.py
+
     echo "\nAuto-grader for P4:"
     python3 autograder.py p4 ? -ff main.py
 

@@ -11,7 +11,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from io import TextIOWrapper
 from xml.dom import minidom
 
-################################nn########
+########################################
 # TEST FRAMEWORK
 ########################################
 
@@ -103,6 +103,9 @@ def run_all_tests():
         print("TEST {} ({} points possible)".format(t.fn.__name__, t.points))
         try:
             points = t.fn()
+        except subprocess.CalledProcessError as exc:
+            print(exc.returncode, exc.output)
+            points = 0
         except Exception as e:
             print(traceback.format_exc())
             points = 0
@@ -247,8 +250,11 @@ def svg_analyze(fname):
 def run(*args):
     args = ["python3", prog_name] + [str(a) for a in args]
     print("RUN:", " ".join(args))
-    exit_code = subprocess.call(args)
-    assert exit_code == 0
+    subprocess.check_output(
+        args, stderr=subprocess.STDOUT,
+        universal_newlines=True
+    )
+
 
 def zip_csv_iter(name):
     with ZipFile(name) as zf:
