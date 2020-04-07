@@ -22,10 +22,10 @@ the bus module for P2).  The module will help pull data from a sqlite3
 database, a zip file, and numpy matrices representing land use.
 
 ## Corrections/Clarifications
-
-* Apr 2: forgot to push the tests already in tester.py yesterday
-* Apr 4: updated tester.py with tests for remaining parts
+* Apr 7: slight tester fix (does not affect functionality)
 * Apr 5: fixed some issues w/ tester.py
+* Apr 4: updated tester.py with tests for remaining parts
+* Apr 2: forgot to push the tests already in tester.py yesterday
 
 ## Dataset
 
