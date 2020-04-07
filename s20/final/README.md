@@ -260,3 +260,8 @@ the deductions.  Learning entails remembering -- what do you really
 hope somebody who reads your site will remember a month later and will
 want to tell their friends?  Make sure you know what those lessons
 are, then leverage all your text and visuals to make them stand out!
+
+
+
+<blockquote class="reddit-card" data-card-created="1586217530"><a href="https://www.reddit.com/r/dataisbeautiful/comments/fumbza/oc_coronavirus_covid19_daily_cases_by_country_per/">[OC] CORONAVIRUS (COVID19) Daily Cases by Country per 1,000,000</a> from <a href="http://www.reddit.com/r/dataisbeautiful">r/dataisbeautiful</a></blockquote>
+<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
