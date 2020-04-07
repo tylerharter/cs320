@@ -16,14 +16,20 @@ RUN apt-get -y autoremove
 RUN apt-get install -y python3.7
 RUN apt-get install -y python3-pip
 
-# Install general packages
-RUN pip3 install jupyter pandas numpy requests matplotlib beautifulsoup4 statistics recordclass haversine sklearn 
-RUN pip3 install gitpython pylint graphviz bs4 lxml flask html5lib geopandas shapely descartes click
+# Install other apt packages
 RUN apt-get -y install zip
 RUN apt-get -y install git
 RUN apt-get -y install graphviz
-RUN apt-get -y install ffmpeg 
+RUN apt-get -y install ffmpeg
+RUN apt-get -y install libspatialindex-c4v5
+
+# Update git settings
 RUN git config --global core.filemode false
+
+# Install general packages
+RUN pip3 install jupyter pandas numpy requests matplotlib beautifulsoup4 statistics recordclass haversine sklearn 
+RUN pip3 install gitpython pylint graphviz bs4 lxml flask html5lib geopandas shapely descartes click netaddr
+RUN pip3 install pysal
 
 # Install pytorch, see pytorch.org for updated command
 RUN pip3 install torch==1.4.0+cpu torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
