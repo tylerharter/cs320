@@ -4,13 +4,13 @@
 
 # Final Exam
 
-The final "exam" is really an open-ended analysis project.  Hopefully
+The final "exam" is really an open-ended analysis project.  Hopefully,
 it's fun to be free of the usual constraints!  You'll be building a
 static website (no flask) to share your analysis on a topic of your
 choosing.  You'll write Python code (in .ipynb or .py files -- your
 choice) to generate plots as image files to use in the site.
 
-Being a good data scientist requires you to be a both a detective and
+Being a good data scientist requires you to be both a detective and
 a teacher.  You need to discover truths about your topic, then
 effectively share them with your audience.
 
@@ -20,14 +20,14 @@ process.  You should generate dozens of plots for yourself and invest
 serious time reflecting on them so that you can learn something about
 your chosen topic.
 
-**Teacher:** After your can articulate the most import insights,
+**Teacher:** After you can articulate the most import insights,
 carefully decide what 10 visualizations best reveal the lessons you
 learned.  It's OK (and good) if most of your visualizations get pruned
 out of the final product.  The 10 visualizations in their final form
 should be highly refined, hopefully not like anything you created when
 doing your detective work.
 
-The writing that accompanies your plots will be of upmost importance.
+The writing that accompanies your plots will be of utmost importance.
 Read this essay by venture capitalist Paul Graham on useful writing
 before you get started: http://www.paulgraham.com/useful.html.
 
@@ -95,7 +95,7 @@ usually done the hard preprocessing work for those datasets).
 
 Describe the audience for whom you're doing the analysis.  You should
 assume your audience is technical (for example, they've taken CS 320),
-so this is more about what other background they have.
+so this is more about what other backgrounds they have.
 
 List some of the questions you want to answer and potential
 actions/policies that will be evaluated.  Be sure to tie this to the
@@ -111,8 +111,8 @@ You should have the following pages:
 * results.html (most important)
 * acks.html
 
-The home page should include title, names, wiscmail addresses, one
-paragraph summary of the project, and links to the other pages.  Other
+The home page should include title, names, wiscmail addresses, one-paragraph
+ summary of the project, and links to the other pages.  Other
 pages are described below.
 
 ## Page: data.html
@@ -140,7 +140,7 @@ one of each of the following:
 1. stacked bar plot
 2. clustered bar plot
 3. line plot with multiple lines
-4. scatter plot with regression line showing a correlation between two variables
+4. scatter plot with a regression line showing a correlation between two variables
 5. scatter plot with multiple markers representing different categories
 6. a plot with multiple subplots
 7. geographic map
@@ -162,12 +162,12 @@ https://www.reddit.com/r/dataisbeautiful/comments/fumbza/oc_coronavirus_covid19_
 A simple plot with time on the x-axis and one line per country
 would have saved time and made the trends more apparent.  Being
 informative matters, being flashy doesn't.  You're more than welcome
-to make all visuals gray scale, if you like.
+to make all visuals grayscale if you like.
 
 If you use visualization tools beyond what we learned in class, they
 shouldn't depend on any online resources each time they're displayed
 (I'm specifically thinking of folium, which I dislike because it
-re-fetches map data evertime a map is shown, but this applies to any
+re-fetches map data every time a map is shown, but this applies to any
 tool that behaves this way).
 
 ### Text
