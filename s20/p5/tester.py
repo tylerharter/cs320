@@ -246,54 +246,66 @@ def list_images():
 
 @test(points=5)
 def image_year():
+    points = 0
     errs = []
-    with land.open("images") as c:
-        for i in range(170):
-            img = "area%d.npy" % i
-            err = is_expected(c.image_year(img), "image_year:%d" % i)
-            if err:
-                errs.append(err)
-    if errs:
+    c = land.open("images")
+    for i in range(170):
+       img = "area%d.npy" % i
+       err = is_expected(c.image_year(img), "image_year:%d" % i)
+       if err:
+          errs.append(err)
+    c.close()
+    if errs: 
         print(errs[0])
-        return 1
-    return 5
+        points = 1
+    else:
+        points = 5
+    return points
 
 
 @test(points=5)
 def image_name():
+    points = 0
     errs = []
-    with land.open("images") as c:
-        for i in range(170):
-            img = "area%d.npy" % i
-            err = is_expected(c.image_name(img), "image_name:%d" % i)
-            if err:
-                errs.append(err)
+    c = land.open("images")
+    for i in range(170):
+        img = "area%d.npy" % i
+        err = is_expected(c.image_name(img), "image_name:%d" % i)
+        if err:
+            errs.append(err)
+    c.close()
     if errs:
         print(errs[0])
-        return 1
-    return 5
+        points = 1
+    else:
+        points = 5
+    return points
 
 
 @test(points=5)
 def image_load():
+    points = 0
     errs = []
-    with land.open("images") as c:
-        for i in range(170):
-            img = "area%d.npy" % i
-            matrix = c.image_load(img)
-            shape = [int(x) for x in matrix.shape]
-            err = is_expected(shape, "image_load:shape:%d" % i)
+    c = land.open("images")
+    for i in range(170):
+        img = "area%d.npy" % i
+        matrix = c.image_load(img)
+        shape = [int(x) for x in matrix.shape]
+        err = is_expected(shape, "image_load:shape:%d" % i)
+        if err:
+            errs.append(err)
+        else:
+            point_sample = [int(x) for x in matrix[::150, ::150].reshape(-1)]
+            err = is_expected(point_sample, "image_load:points:%d" % i)
             if err:
                 errs.append(err)
-            else:
-                point_sample = [int(x) for x in matrix[::150, ::150].reshape(-1)]
-                err = is_expected(point_sample, "image_load:points:%d" % i)
-                if err:
-                    errs.append(err)
+    c.close()
     if errs:
         print(errs[0])
-        return 1
-    return 5
+        points = 1
+    else:
+        points = 5
+    return points
 
 
 # adapted from P2
