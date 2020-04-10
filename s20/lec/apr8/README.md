@@ -136,3 +136,7 @@ Not related to linear algebra, but wanted to teach how to increase
 disk size...
 
 ### Watch: [17-minute video](https://youtu.be/5OuasxWJT40)
+
+# Remember!
+
+Please record that you finished this lecture: https://forms.gle/z9oCk4BzvVjdN1aZ6

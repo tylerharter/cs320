@@ -206,3 +206,7 @@ pca.explained_variance_ratio_
 
 A number close to 1 means that we're capturing most of the
 co-variance.  Looks like we're good!
+
+# Remember!
+
+Please record that you finished this lecture: https://forms.gle/z9oCk4BzvVjdN1aZ6
