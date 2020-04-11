@@ -1,6 +1,5 @@
 # April 17 Lecture
 
-
 ## 1. Hardware Tradeoffs, Installing PyTorch
 
 ### Watch: [15-minute video](https://youtu.be/b0ptGj0KQCo)
@@ -124,9 +123,73 @@ greater than 1 and sometimes less than one.
 
 ## 4. Gradients
 
-### Watch: [????-minute video](????)
+### Watch: [12-minute video](https://youtu.be/vXOsWXUpW9I)
 
-### Practice: ????
+### Practice: Two Gradients
+
+Paste+run:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from torch import tensor
+
+def plot_func(func, color="red"):
+    x_vals = np.arange(-3, 3, 0.1)
+    y_vals = func(x_vals)
+    plt.plot(x_vals, y_vals, color)
+
+def plot_gradient(x, y, slope):
+    x, y, slope = map(float, (x, y, slope))
+    dx = 3
+    dy = dx*slope
+    plt.arrow(x-dx/2, y-dy/2, dx, dy, linewidth=2)
+
+def f1(x):
+    y = 3 - x + (x/2)**2
+    return y
+    
+def f2(x):
+    y = 3 - (x/2) ** 2
+    return y
+
+plot_func(f1)
+plot_func(f2, "blue")
+```
+
+The red line represents f1; the blue, f2.  It should look like this:
+
+<img src="before.png" width=400>
+
+You're job is to modify the code so that it draws a tangent line for
+both functions at `x=-1`.  It should look like this:
+
+<img src="after.png" width=400>
+
+You should do so by adding and completing this snippet to the above cell:
+
+```python
+x = tensor(-1.0).????
+y1 = f1(x)
+y2 = f2(x)
+
+y1.????
+f1_grad = x.????
+plot_gradient(x, y1, f1_grad)
+
+x.grad.zero_()
+
+y2.????
+f2_grad = x.????
+plot_gradient(x, y2, f2_grad)
+```
+
+**Hint:** each of the 5 missing pieces above should be one of the
+  three following options: `requires_grad_()`, `backward()`, or
+  `grad`.
+
+As a last step, try commenting out `x.grad.zero_()` to gain intuition
+about what can go wrong when that step is forgotten.
 
 # Remember!
 
