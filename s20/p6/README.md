@@ -232,7 +232,7 @@ def check_regression(ax):
 
 Look at the metrics for evaluating regressions here: https://scikit-learn.org/stable/modules/model_evaluation.html
 
-Then use the `explained_variance_score`, giving a tuple of size two,
+Then use the a`explained_variance_score`, giving a tuple of size two,
 with the regression's scores on train and test respectively.
 
 Expected: `(0.0009184071670116367, 0.001087944356748527)`
@@ -297,6 +297,8 @@ Complete the following code to create a class that can transform the
 original data using one-hot encoding:
 
 ```python
+from sklearn.base import TransformerMixin
+
 def range_mid(r):
     r = r.strip("[]()")
     return int(r.split("-")[0]) # TODO: fix the logic here!
@@ -320,7 +322,7 @@ class DemographicTransformer(TransformerMixin):
             df2[gender] = (df1["gender"] == gender).astype(int)
 
         df2["age"] = df1["age"].apply(range_mid)
-        self.features_ = list(df2.columns)
+        self.output_features_ = list(df2.columns)
         return df2
 ```
 
@@ -344,13 +346,104 @@ testing data to fill those columns.
 
 It should look like table 12 in `expected.html`.
 
-## Part 4: PyTorch Practice
+#### Q13: what is the fitted relationship between length of stay and the demographic data?
 
-animated regression finder
+You can create an sklearn pipeline to automatically feed the data
+through your transformer, then to a linear regressor:
+
+```python
+lr = LinearRegression()
+pipe = Pipeline([
+    ("dem", DemographicTransformer()),
+    ("lr", LinearRegression()),
+])
+y = "time_in_hospital"
+pipe.fit(train, train[[y]])
+```
+
+Then, you can find an answer by inspecting different parts of the pipeline:
+
+* `pipe["dem"].output_features_` gives the one-hot features you computed
+* `pipe["lr"].coef_` gives the coefficients on those columns
+* `pipe["lr"].intercept_` gives the intercept
+
+Answer with a string representing the equation, with the coefficients (rounded to two places) and column names:
+
+Expected: `'stay = 0.32*AfricanAmerican + -0.29*Asian + 0.04*Caucasian + -0.14*Hispanic + -0.10*Other + 3.42*Female + 3.28*Male + 0.02*age + -0.45'`
+
+#### Q14: how well does that equation explain the variance?
+
+Answer using the same format as `#q19`
+
+Expected: `(0.014362012823362136, 0.012415699517403067)`
+
+Not very well, apparently!
 
 ## Part 5: Classification
 
-readmission vs. length of stay (non-polynomial?)
-readmission vs. drugs (one hot, PCA?)
-missing data vs. demographic
 
+
+## Part 6: Gradient Descent with PyTorch
+
+Earlier, in `#q10`, we used sklearn to find the coefficients that
+minimized the mean-squared error, thus producing a least-squares fit
+line that we could draw over the scatter plot.
+
+Alternatively, we could have used PyTorch's ability to compute
+gradients to iteratively improve on some arbitrary initial
+coeeficients, each time changing them a little to make the
+mean-squared error smaller.  Note that although this approach
+(gradient descent) is slightly slower than sklearn in this case, it
+will often be faster for regressions over many variables and data
+points.
+
+Run this code to optimized the fit line over 1000 iterations:
+
+```python
+from torch import tensor
+
+# STEP 1
+# optimize coef such that the difference between y and
+# A@coef is minimized
+x = "time_in_hospital"
+y = "num_lab_procedures"
+
+A = train[[x]].copy()
+A["ones"] = 1
+A = tensor(A.values, dtype=float)
+b = tensor(train[[y]].values, dtype=float)
+coef = tensor([[0], [0]], dtype=float).requires_grad_()
+
+learning_rate = 0.01
+for i in range(1000):
+    predicted = A @ coef
+    mse = ((predicted - b) ** 2).mean()
+    mse.backward()
+    coef.data -= coef.grad * learning_rate
+    coef.grad.zero_()
+        
+# STEP 2
+# show scatter and fit line based on coef
+fig, ax = plt.subplots()
+train.plot.scatter(x=x, y=y, c="k", alpha=0.01, ax=ax)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.set_xlabel("days in hospital")
+ax.set_ylabel("lab procedures done")
+
+xlim = np.array(ax.get_xlim())
+coef_np = coef.detach().numpy()
+ax.plot(xlim, xlim * coef_np[0] + coef_np[1], color="red")
+```
+
+#### Q20: how quickly does the fit line converge to the correct position? [animation]
+
+To answer, create a 25-frame animation (200 millisecond interval),
+showing the position of the fitline after every 40 iterations of the
+optimization loop above.
+
+It should look like this: [gradient-descent.mp4](gradient-descent.mp4).
+
+Recommended: once you have the animation working, try playing with
+larger and smaller values for `learing_rate` to gain an intuition for
+this important configuration.

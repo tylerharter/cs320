@@ -55,6 +55,7 @@ TEXT_FORMAT = "text"
 PNG_FORMAT = "png"
 HTML_FORMAT = "html"
 NUMPY_FORMAT = "numpy"
+VIDEO_FORMAT = "mp4"
 Question = namedtuple("Question", ["number", "weight", "format"])
 
 questions = [
@@ -70,6 +71,9 @@ questions = [
     Question(number=10, weight=1, format=TEXT_FORMAT),
     Question(number=11, weight=1, format=NUMPY_FORMAT),
     Question(number=12, weight=1, format=HTML_FORMAT),
+    Question(number=13, weight=1, format=TEXT_FORMAT),
+    Question(number=14, weight=1, format=TEXT_FORMAT),
+    Question(number=20, weight=1, format=VIDEO_FORMAT),
 ]
 question_nums = set([q.number for q in questions])
 
@@ -108,7 +112,8 @@ expected_json = {
            'slope': 2.119487878508591,
            'intercept': 33.8274241649776},
     "11": (0.10234075960861977, 0.1004406985134011),
-
+    "13": "stay = 0.32*AfricanAmerican + -0.29*Asian + 0.04*Caucasian + -0.14*Hispanic + -0.10*Other + 3.42*Female + 3.28*Male + 0.02*age + -0.45",
+    "14": (0.014362012823362136, 0.012415699517403067),
 }
 
 def parse_df_html_table(html, question=None):
@@ -349,6 +354,14 @@ def check_cell_numpy(qnum, cell):
         return f"np.allclose({actual}, {expected}), comparing actual to expected, failed"
     return PASS
 
+def check_cell_video(qnum, cell):
+    actual_lines = get_cell_output(cell, "text/html")
+    if actual_lines == None:
+        return 'no Out[N] output found for cell (note: printing the output does not work)'
+    actual = ''.join(actual_lines)
+    if actual.find("<video") < 0:
+        return "no <video> tag found in output"
+    return PASS
 
 def check_cell(question, cell):
     print('Checking question %d' % question.number)
@@ -360,6 +373,8 @@ def check_cell(question, cell):
         return check_cell_html(question.number,cell)
     elif question.format == NUMPY_FORMAT:
         return check_cell_numpy(question.number,cell)
+    elif question.format == VIDEO_FORMAT:
+        return check_cell_video(question.number, cell)
     raise Exception("invalid question type")
 
 
