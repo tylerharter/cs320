@@ -120,10 +120,76 @@ missing data in the dictionary.
 
 ## Part 2: Heat Maps
 
+Answer the following questions with respect to the training data (not
+the original dataset!).
+
+#### Q5: How common is each pairing of `admission_source_id` to `discharge_disposition_id`?
+
+Output should be a DataFrame, like the "Question 5" one in
+`expected.html`.  The index contains every unique
+`admission_source_id` and the columns correspond to every unique
+`discharge_disposition_id`.  Each cell is an integer, representing how
+many rows have each admission/discharge combo.
+
+The order of the rows/columns in the output is not important to the
+tester.
+
+To satisfy the tester, you will need to tweak the display options so
+data is not hidden by ellipses (`...`):
+
+https://pandas.pydata.org/pandas-docs/stable/user_guide/options.html
+
+You may want to reset the display option after the question.
+
+#### Q6: How common is each pairing of admission source to discharge disposition?
+
+This is the same as last time, but now codes are replaced with
+descriptions, like in the "Question 6" table in `expected.html`.
+
+This question is actually very challenging because the
+`dataset_diabetes/IDs_mapping.csv` file is weirdly formatted.  We
+didn't make it so -- this is an example of real-world messiness you'll
+often encounter as a data scientist.  Basically, there are three CSVs
+jammed together into one .csv file.  Each of the three is separated by
+a line that is empty, except for one comma.
+
+Once you pull the data out of `IDs_mapping.csv`, you may want to use
+the following function to add real index/column names to your
+DataFrame from `#q5`, without recomputing everything from scratch:
+
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html
+
+#### Q7: How common is each pairing of admission source to discharge disposition? [Heat Map]
+
+This is the same as the last one, but now, instead of producing a table, you should produce a heatmap, like this:
+
+<img width=800 src="heatmap.png">
+
+Hints:
+
+* here's an example of how to create a square heatmap from a DataFrame (not that your DataFrame is NOT square): https://www.pythonprogramming.in/generate-a-heatmap-in-matplotlib-using-pandas-data.html
+* we used the `cmap="binary"` to make darker values correspond to larger numbers
+* a few combinations dominate -- to make the others visible, take the `log2` of each number before calling `plt.imshow`.  As `log2(0)` is not defined, add 1 to each cell before taking the `log2`.  Why is it valid for us to make these seemingly arbitrary transformations?  Because color is inherently subjective (unlike, say, distance along an axis), so we only care about the relative, namely that darker=more.
+
 ## Part 3: Regressions
+
+Add a column to your train and test datasets named `visits` that sums
+the three kinds of visits already in the data: 
+
+length of stay vs. total visits
+length of stay vs. visits
+length of stay vs. demographics
 
 ## Part 4: PyTorch Practice
 
+animated regression finder
+
 ## Part 5: Logistic Regression
 
+readmission vs. length of stay (non-polynomial?)
+readmission vs. drugs (one hot, PCA?)
+missing data vs. demographic
+
 ## Part 6: Clustering
+
+visit types

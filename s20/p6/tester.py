@@ -62,6 +62,9 @@ questions = [
     Question(number=2, weight=1, format=NUMPY_FORMAT),
     Question(number=3, weight=1, format=TEXT_FORMAT),
     Question(number=4, weight=1, format=TEXT_FORMAT),
+    Question(number=5, weight=2, format=HTML_FORMAT),
+    Question(number=6, weight=2, format=HTML_FORMAT),
+    Question(number=7, weight=2, format=PNG_FORMAT),
 ]
 question_nums = set([q.number for q in questions])
 
@@ -85,6 +88,9 @@ def parse_df_html_table(html, question=None):
         tables = soup.find_all('table')
         assert(len(tables) == 1)
         table = tables[0]
+        # log actual output (useful for manually creating expected.html...)
+        with open("out.txt", "a") as f:
+            f.write(table.prettify())
     else:
         # find a table that looks like this:
         # <table data-question="6"> ...
@@ -94,7 +100,7 @@ def parse_df_html_table(html, question=None):
     for tr in table.find_all('tr'):
         rows.append([])
         for cell in tr.find_all(['td', 'th']):
-            rows[-1].append(cell.get_text())
+            rows[-1].append(cell.get_text().strip())
 
     cells = {}
     for r in range(1, len(rows)):
