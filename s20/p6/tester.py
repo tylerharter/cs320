@@ -62,9 +62,14 @@ questions = [
     Question(number=2, weight=1, format=NUMPY_FORMAT),
     Question(number=3, weight=1, format=TEXT_FORMAT),
     Question(number=4, weight=1, format=TEXT_FORMAT),
-    Question(number=5, weight=2, format=HTML_FORMAT),
-    Question(number=6, weight=2, format=HTML_FORMAT),
-    Question(number=7, weight=2, format=PNG_FORMAT),
+    Question(number=5, weight=1, format=HTML_FORMAT),
+    Question(number=6, weight=1, format=HTML_FORMAT),
+    Question(number=7, weight=1, format=PNG_FORMAT),
+    Question(number=8, weight=1, format=TEXT_FORMAT),
+    Question(number=9, weight=1, format=NUMPY_FORMAT),
+    Question(number=10, weight=1, format=TEXT_FORMAT),
+    Question(number=11, weight=1, format=NUMPY_FORMAT),
+    Question(number=12, weight=1, format=HTML_FORMAT),
 ]
 question_nums = set([q.number for q in questions])
 
@@ -79,6 +84,31 @@ expected_json = {
           'diag_1': 0.023620652323681674,
           'diag_2': 0.3444678463870244,
           'diag_3': 1.3955868747908586},
+    "8": {'font12plus': True,
+          'transparency': True,
+          'x-label': 'visits',
+          'y-label': 'days in hospital',
+          'spines': False,
+          'x-mean': 2.2887866256900424,
+          'y-mean': 2.983996296763971,
+          'x-std': 1.206208294785741,
+          'y-std': 4.401295199102416,
+          'slope': 0.03951032525517387,
+          'intercept': 4.353637517049943},
+    "9": (0.0009184071670116367, 0.001087944356748527),
+    "10": {'font12plus': True,
+           'transparency': True,
+           'x-label': 'days in hospital',
+           'y-label': 'lab procedures done',
+           'spines': False,
+           'x-mean': 2.983996296763971,
+           'y-mean': 19.769919407825235,
+           'x-std': 4.401295199102416,
+           'y-std': 43.155915989213234,
+           'slope': 2.119487878508591,
+           'intercept': 33.8274241649776},
+    "11": (0.10234075960861977, 0.1004406985134011),
+
 }
 
 def parse_df_html_table(html, question=None):
@@ -232,9 +262,9 @@ def check_cell_text(qnum, cell):
         for k in expected:
             if type(expected[k]) == float:
                 if not math.isclose(expected[k], actual[k]):
-                    return f"found {actual[k]} for key {k} but found expected {expected[k]}"
+                    return f"found {repr(actual[k])} for key {repr(k)} but found expected {repr(expected[k])}"
             elif expected[k] != actual[k]:
-                return f"found {actual[k]} for key {k} but found expected {expected[k]}"
+                return f"found {repr(actual[k])} for key {repr(k)} but found expected {repr(expected[k])}"
 
     else:
         if expected != actual:

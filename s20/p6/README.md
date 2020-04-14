@@ -174,22 +174,183 @@ Hints:
 ## Part 3: Regressions
 
 Add a column to your train and test datasets named `visits` that sums
-the three kinds of visits already in the data: 
+the three kinds of prior visits already recorded in the data:
+`number_outpatient`, `number_inpatient`, `number_emergency`.
 
-length of stay vs. total visits
-length of stay vs. visits
-length of stay vs. demographics
+#### Q8: What is the relationship between number of prior visits and length of stay for the current visit? [PLOT]
+
+Answer with a plot like this:
+
+<img src="q8.png">
+
+Requirements:
+* scatter points should be somewhat transparent
+* font size of at least 12 required
+* top+right spines (borders) should be removed
+* slope should be computed using `LinearRegression` in sklearn with no special configuration
+
+For tester.py to auto-grade this, the last line in your `#q8` cell should be this:
+
+```python
+check_regression(ax)
+```
+
+The `check_regression` function extracts important details of the plot to a dict, which tester.py can test.  Paste the `check_regression` function somewhere earlier in your notebook, without modifying it:
+
+```python
+# do not change this function!
+def check_regression(ax):
+    plot = {}
+    plot["font12plus"] = min(ax.xaxis.label.get_size(),
+                             ax.yaxis.label.get_size(),
+                             ax.get_xticklabels()[0].get_size()) >= 12
+    plot["transparency"] = ax.collections[0].get_alpha() != None
+    plot["x-label"] = ax.get_xlabel().lower()
+    plot["y-label"] = ax.get_ylabel().lower()
+    plot["spines"] = ax.spines['right'].get_visible() or ax.spines['top'].get_visible()
+    plot["x-mean"], plot["y-mean"] = ax.collections[0].get_offsets().data.std(axis=0)
+    plot["x-std"], plot["y-std"] = ax.collections[0].get_offsets().data.mean(axis=0)
+    plot["slope"] = None
+    for line in ax.get_lines():
+        x = line.get_xdata()
+        y = line.get_ydata()
+        for i in range(1, len(x)):
+            slope = (y[i]-y[i-1]) / (x[i] - x[i-1])
+            intercept = y[i] - x[i] * slope
+            if plot["slope"] is None:
+                plot["slope"] = slope
+                plot["intercept"] = intercept
+            elif not (np.isclose(plot["slope"], slope) and 
+                      np.isclose(plot["intercept"], intercept)):
+                plot["slope"] = None
+                plot["intercept"] = None
+                break
+    return plot
+```
+
+#### Q9: How well does the regression perform on both the train and test datasets?
+
+Look at the metrics for evaluating regressions here: https://scikit-learn.org/stable/modules/model_evaluation.html
+
+Then use the `explained_variance_score`, giving a tuple of size two,
+with the regression's scores on train and test respectively.
+
+Expected: `(0.0009184071670116367, 0.001087944356748527)`
+
+Based on these results, we conclude that our linear model doesn't do a
+good job capturing the variance in the data (the best score possible
+is 1).
+
+#### Q10: What is the relationship between the length of stay and number of procedures performed during that time? [PLOT]
+
+It should look like the following.  Use `check_regression` as before
+to test it.
+
+<img src="q10.png">
+
+#### Q11: How well does the regression perform on both the train and test datasets?
+
+Answer the same way you did for Q9.
+
+Expected: `(0.10234075960861977, 0.1004406985134011)`
+
+Still not amazing, but at least now we're explaining 10% of the
+variance.  Also, no signs of overfitting, as the two scores are
+similar.
+
+## Part 4: Transformer
+
+Take a look at the demographic data in our training dataset:
+
+```python
+train[["race", "gender", "age"]].head()
+```
+
+<img src="demographic.png">
+
+Unfortunately, we can't do a regression over this data in its current form.  Try it:
+
+```python
+lr = LinearRegression()
+lr.fit(train[["race", "gender", "age"]], train[["time_in_hospital"]])
+```
+
+You'll get `ValueError: could not convert string to float: 'Caucasian'`.
+
+We'll need to transform the data to make it purely numeric so that we
+can do the regression.  The age column is the easiest to fix: we'll
+pick numbers in the middle of each range (for example, we'll represent
+`[0-10]` as `5`).
+
+The `gender` and `race` columns are trickier.  We could each unique
+string in these columns a different numeric code, but this will not
+lead to meaningful results for a linear regression.
+
+Instead, we should create more columns, for each unique value
+("Female", "Male", "African", "Asian", etc).  When constructing a row
+for a person, we'll put a 1 in each column when that category applies
+to them.  This general strategy of transforming one column with
+categorical data into a group of columns containing one `1` per row is
+a general machine learning technique called *one-hot encoding*.
+
+Complete the following code to create a class that can transform the
+original data using one-hot encoding:
+
+```python
+def range_mid(r):
+    r = r.strip("[]()")
+    return int(r.split("-")[0]) # TODO: fix the logic here!
+
+class DemographicTransformer(TransformerMixin):
+    def fit(self, train_df, y=None):
+        # TODO: compute self.race_columns to contain every unique
+        #  value in the race column of train_df, in sorted order,
+        #  excluding "?"
+
+        return self
+
+    def transform(self, df1):
+        df2 = pd.DataFrame()
+
+        # TODO: uncomment after fit function is finished
+        # for race in self.race_columns:
+        #     df2[race] = (df1["race"] == race).astype(int)
+
+        for gender in ["Female", "Male"]:
+            df2[gender] = (df1["gender"] == gender).astype(int)
+
+        df2["age"] = df1["age"].apply(range_mid)
+        self.features_ = list(df2.columns)
+        return df2
+```
+
+Inheriting from `TransformerMixin` automatically gives us a
+`fit_transform` method that calls our own `fit` and `transform`
+methods in one step.
+
+Why do we need separate `fit` and `transform` methods?  We'll
+eventually want to transform both train and test data.  What if the
+test data contains some values in the race column that didn't show up
+in the same column in the training data?  We wouldn't want our
+transformation to produce different one-hot encodings for our test
+data than for our traing data, or any further analysis (like linear
+regression) wouldn't work.
+
+So the `fit` is used to figure out the columns based on the training
+data only, and the `transform` can be used on both training and
+testing data to fill those columns.
+
+#### Q12: what is `DemographicTransformer().fit_transform(train).head()`?
+
+It should look like table 12 in `expected.html`.
 
 ## Part 4: PyTorch Practice
 
 animated regression finder
 
-## Part 5: Logistic Regression
+## Part 5: Classification
 
 readmission vs. length of stay (non-polynomial?)
 readmission vs. drugs (one hot, PCA?)
 missing data vs. demographic
 
-## Part 6: Clustering
-
-visit types
