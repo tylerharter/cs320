@@ -1,13 +1,9 @@
-# IN PROGRESS!!!!
-
-# DON'T START YET!!!!!
-
 # P6: Hospital Readmission
 
 When patients are admitted to a hospital, the type of care they
 receive may affect whether they'll be readmitted again in the near
 future.  In this project, we'll look at data about length of stay and
-readmissions for patients with diabetes.
+re-admissions for patients with diabetes.
 
 You'll be answering questions (using the `#qN` format) in a .ipynb
 notebook file, much like you did for P1.  You'll be primarily using
@@ -82,7 +78,7 @@ train.shape, test.shape
 
 #### Q2: Is `time_in_hospital` similar between test and training?
 
-Answer with a tuple giving the means and standard devations for this
+Answer with a tuple giving the means and standard deviations for this
 field in both datasets, like this:
 
 ```python
@@ -97,7 +93,7 @@ field in both datasets, like this:
 
 We're doing this to sanity check that our scheme for splitting the
 into the two datasets into test/training (checking the oddness of the
-sum of digits) isn't producing very disimilar subsets.
+sum of digits) isn't producing very dissimilar subsets.
 
 #### Q3: Is `readmitted` similar between test and training?
 
@@ -280,13 +276,13 @@ You'll get `ValueError: could not convert string to float: 'Caucasian'`.
 We'll need to transform the data to make it purely numeric so that we
 can do the regression.  The age column is the easiest to fix: we'll
 pick numbers in the middle of each range (for example, we'll represent
-`[0-10]` as `5`).
+`[0-10)` as `5`).
 
-The `gender` and `race` columns are trickier.  We could each unique
-string in these columns a different numeric code, but this will not
-lead to meaningful results for a linear regression.
+The `gender` and `race` columns are trickier.  We could assign each
+unique string in these columns a different numeric code, but this will
+not lead to meaningful results for a linear regression.
 
-Instead, we should create more columns, for each unique value
+Instead, we will create more columns, one for each unique value
 ("Female", "Male", "African", "Asian", etc).  When constructing a row
 for a person, we'll put a 1 in each column when that category applies
 to them.  This general strategy of transforming one column with
@@ -335,7 +331,7 @@ eventually want to transform both train and test data.  What if the
 test data contains some values in the race column that didn't show up
 in the same column in the training data?  We wouldn't want our
 transformation to produce different one-hot encodings for our test
-data than for our traing data, or any further analysis (like linear
+data than for our training data, or any further analysis (like linear
 regression) wouldn't work.
 
 So the `fit` is used to figure out the columns based on the training
@@ -346,7 +342,7 @@ testing data to fill those columns.
 
 It should look like table 12 in `expected.html`.
 
-#### Q13: what is the fitted relationship between length of stay and the demographic data?
+#### Q13: what is the relationship between length of stay and the demographic data?
 
 You can create an sklearn pipeline to automatically feed the data
 through your transformer, then to a linear regressor:
@@ -381,7 +377,97 @@ Not very well, apparently!
 
 ## Part 5: Classification
 
+We've been using *regression* to predict a numeric variable, such as
+length of stay or number of lab procedures performed.  Now, we'll be
+using classification to predict a boolean variable indicating whether
+somebody will be readmitted within 30 days after being released.
 
+Look at the values in the `readmitted` column: `train["readmitted"].value_counts()`.
+
+We'll simplify this to a `readmitted_soon` column like this
+(copy+paste):
+
+```python
+train["readmit_soon"] = train["readmitted"] == "<30"
+test["readmit_soon"] = test["readmitted"] == "<30"
+```
+
+Using the training data, perform a logistic regression on
+`readmitted_soon` over `time_in_hospital` (remember that "logistic
+regression" is actually a "classification" technique, not actually a
+"regression").  Use the "lbfgs" solver with `LogisticRegression`
+(otherwise using the defaults) on the training data:
+https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+
+#### Q15: what is the accuracy?
+
+Look at the various scoring functions for classifiers here:
+https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values.
+Then use `accuracy_score` for both the training and test data,
+respectively (output a tuple with both).
+
+Expected: `(0.8883333661397949, 0.8884681043109707)`
+
+#### Q16: is 89% accuracy good?
+
+To answer, give the accuracy scores in the same format is in `q15`,
+but instead of using LogisticRegression, use a very simple estimator:
+
+```python
+class NaiveEstimator(BaseEstimator, ClassifierMixin):
+    def fit(self, X, y):
+        if y.sum() / len(y) > 0.5:
+            self.prediction = True
+        else:
+            self.prediction = False
+
+    def predict(self, X):
+        return [self.prediction] * len(X)
+```
+
+This estimator just ignores the x variables, always predicting the y
+value that was most common in the training data.
+
+Expected: `(0.8883333661397949, 0.8884681043109707)`
+
+89% must not be very good if a classifier that ignores all the inputs
+can achieve it!
+
+The problem is that the original data is highly imbalanced, with only
+11% of the patients being readmitted soon.  So of course it is easy to
+get 89% accuracy -- just predict no re-admissions!
+
+#### Q17: what is the balanced accuracy of our logistic regression?
+
+Use the `balanced_accuracy_score` here: https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values on both the training and test data.
+
+Expected: `(0.5, 0.5)`
+
+Hopefully this makes intuitive sense: our classifier is getting all
+the no-readmit cases right and all the readmit cases wrong.  If we
+weight no-readmit and readmit equally (even though they aren't equally
+common in the data), we get 0.5.
+
+#### Q18: what is the balanced accuracy if we also balance during fitting?
+
+This is just like 'q15', but you should (a) pass `class_weight="balanced"` to `LogisticRegression` and (b) use balanced_accuracy_score instead of accuracy_score.
+
+Expected: `(0.5332863335560872, 0.5292818798995528)`
+
+Now, the numbers don't look so encouraging, but they are more
+meaningful, and we're doing better than the `NaiveEstimator`.
+
+#### Q19: can we improve on the balanced accuracy if we consider more columns?
+
+In addition to `time_in_hospital`, include these:
+`num_lab_procedures`, `num_procedures`, `num_medications`,
+`number_outpatient`, `number_emergency`, `number_inpatient`.
+
+Expected: `(0.5930123033331954, 0.5882354971931861)`
+
+Better!  And our more complicated model isn't showing signs of
+overfitting (the performance on the test data is similar to that for
+the training data).
 
 ## Part 6: Gradient Descent with PyTorch
 
@@ -391,7 +477,7 @@ line that we could draw over the scatter plot.
 
 Alternatively, we could have used PyTorch's ability to compute
 gradients to iteratively improve on some arbitrary initial
-coeeficients, each time changing them a little to make the
+coefficients, each time changing them a little to make the
 mean-squared error smaller.  Note that although this approach
 (gradient descent) is slightly slower than sklearn in this case, it
 will often be faster for regressions over many variables and data

@@ -73,6 +73,11 @@ questions = [
     Question(number=12, weight=1, format=HTML_FORMAT),
     Question(number=13, weight=1, format=TEXT_FORMAT),
     Question(number=14, weight=1, format=TEXT_FORMAT),
+    Question(number=15, weight=1, format=NUMPY_FORMAT),
+    Question(number=16, weight=1, format=NUMPY_FORMAT),
+    Question(number=17, weight=1, format=NUMPY_FORMAT),
+    Question(number=18, weight=1, format=NUMPY_FORMAT),
+    Question(number=19, weight=1, format=NUMPY_FORMAT),
     Question(number=20, weight=1, format=VIDEO_FORMAT),
 ]
 question_nums = set([q.number for q in questions])
@@ -114,6 +119,11 @@ expected_json = {
     "11": (0.10234075960861977, 0.1004406985134011),
     "13": "stay = 0.32*AfricanAmerican + -0.29*Asian + 0.04*Caucasian + -0.14*Hispanic + -0.10*Other + 3.42*Female + 3.28*Male + 0.02*age + -0.45",
     "14": (0.014362012823362136, 0.012415699517403067),
+    "15": (0.8883333661397949, 0.8884681043109707),
+    "16": (0.8883333661397949, 0.8884681043109707),
+    "17": (0.5, 0.5),
+    "18": (0.5332863335560872, 0.5292818798995528),
+    "19": (0.5930123033331954, 0.5882354971931861),
 }
 
 def parse_df_html_table(html, question=None):
