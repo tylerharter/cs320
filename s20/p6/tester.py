@@ -152,7 +152,7 @@ def parse_df_html_table(html, question=None):
         for c in range(1, len(rows[0])):
             rname = rows[r][0]
             cname = rows[0][c]
-            cells[(rname,cname)] = rows[r][c]
+            cells[(rname.lower(),cname.lower())] = rows[r][c]
     return cells
 
 
