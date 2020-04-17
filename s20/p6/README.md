@@ -48,13 +48,13 @@ patterns -- this is called overfitting.
 To check whether this is happening, models are usually trained on a
 training set, then evaluated on both the training set and a separate
 test set.  A model that does much worse on test data than training
-data likely overfitted.
+data is likely overfitted.
 
 You should split the rows of the original DataFrame (from
 `diabetic_data.csv`) into DataFrames named `train` and `test`.
 
 Training+test datasets are often formed by randomly splitting the
-original data in some way.  To simply our auto-grading, you will
+original data in some way.  To simplify our auto-grading, you will
 instead split based on the following rule:
 
 Add up all the digits in the `encounter_id` and `patient_nbr` columns
@@ -91,8 +91,8 @@ field in both datasets, like this:
 )
 ```
 
-We're doing this to sanity check that our scheme for splitting the
-into the two datasets into test/training (checking the oddness of the
+We're doing this to sanity check that our scheme for splitting the dataset
+into the test/training datasets (checking the oddness of the
 sum of digits) isn't producing very dissimilar subsets.
 
 #### Q3: Is `readmitted` similar between test and training?
@@ -338,11 +338,11 @@ So the `fit` is used to figure out the columns based on the training
 data only, and the `transform` can be used on both training and
 testing data to fill those columns.
 
-#### Q12: what is `DemographicTransformer().fit_transform(train).head()`?
+#### Q12: What is `DemographicTransformer().fit_transform(train).head()`?
 
 It should look like table 12 in `expected.html`.
 
-#### Q13: what is the relationship between length of stay and the demographic data?
+#### Q13: What is the relationship between length of stay and the demographic data?
 
 You can create an sklearn pipeline to automatically feed the data
 through your transformer, then to a linear regressor:
@@ -367,9 +367,9 @@ Answer with a string representing the equation, with the coefficients (rounded t
 
 Expected: `'stay = 0.32*AfricanAmerican + -0.29*Asian + 0.04*Caucasian + -0.14*Hispanic + -0.10*Other + 3.42*Female + 3.28*Male + 0.02*age + -0.45'`
 
-#### Q14: how well does that equation explain the variance?
+#### Q14: How well does that equation explain the variance?
 
-Answer using the same format as `#q19`
+Answer using the same format as `#q9`
 
 Expected: `(0.014362012823362136, 0.012415699517403067)`
 
@@ -399,7 +399,7 @@ regression" is actually a "classification" technique, not actually a
 (otherwise using the defaults) on the training data:
 https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
 
-#### Q15: what is the accuracy?
+#### Q15: What is the accuracy?
 
 Look at the various scoring functions for classifiers here:
 https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values.
@@ -408,9 +408,9 @@ respectively (output a tuple with both).
 
 Expected: `(0.8883333661397949, 0.8884681043109707)`
 
-#### Q16: is 89% accuracy good?
+#### Q16: Is 89% accuracy good?
 
-To answer, give the accuracy scores in the same format is in `q15`,
+To answer, give the accuracy scores in the same format as in `q15`,
 but instead of using LogisticRegression, use a very simple estimator:
 
 ```python
@@ -437,7 +437,7 @@ The problem is that the original data is highly imbalanced, with only
 11% of the patients being readmitted soon.  So of course it is easy to
 get 89% accuracy -- just predict no re-admissions!
 
-#### Q17: what is the balanced accuracy of our logistic regression?
+#### Q17: What is the balanced accuracy of our logistic regression?
 
 Use the `balanced_accuracy_score` here: https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values on both the training and test data.
 
@@ -448,18 +448,18 @@ the no-readmit cases right and all the readmit cases wrong.  If we
 weight no-readmit and readmit equally (even though they aren't equally
 common in the data), we get 0.5.
 
-#### Q18: what is the balanced accuracy if we also balance during fitting?
+#### Q18: What is the balanced accuracy if we also balance during fitting?
 
-This is just like 'q15', but you should (a) pass `class_weight="balanced"` to `LogisticRegression` and (b) use balanced_accuracy_score instead of accuracy_score.
+This is just like `q15`, but you should (a) pass `class_weight="balanced"` to `LogisticRegression` and (b) use balanced_accuracy_score instead of accuracy_score.
 
 Expected: `(0.5332863335560872, 0.5292818798995528)`
 
 Now, the numbers don't look so encouraging, but they are more
 meaningful, and we're doing better than the `NaiveEstimator`.
 
-#### Q19: can we improve on the balanced accuracy if we consider more columns?
+#### Q19: Can we improve on the balanced accuracy if we consider more columns?
 
-In addition to `time_in_hospital`, include these:
+In addition to `time_in_hospital`, include these columns:
 `num_lab_procedures`, `num_procedures`, `num_medications`,
 `number_outpatient`, `number_emergency`, `number_inpatient`.
 
@@ -483,7 +483,7 @@ mean-squared error smaller.  Note that although this approach
 will often be faster for regressions over many variables and data
 points.
 
-Run this code to optimized the fit line over 1000 iterations:
+Run this code to optimize the fit line over 1000 iterations:
 
 ```python
 from torch import tensor
@@ -522,7 +522,7 @@ coef_np = coef.detach().numpy()
 ax.plot(xlim, xlim * coef_np[0] + coef_np[1], color="red")
 ```
 
-#### Q20: how quickly does the fit line converge to the correct position? [animation]
+#### Q20: How quickly does the fit line converge to the correct position? [animation]
 
 To answer, create a 25-frame animation (200 millisecond interval),
 showing the position of the fitline after every 40 iterations of the
@@ -530,6 +530,6 @@ optimization loop above.
 
 It should look like this: [gradient-descent.mp4](gradient-descent.mp4).
 
-Recommended: once you have the animation working, try playing with
+Recommended: Once you have the animation working, try playing with
 larger and smaller values for `learing_rate` to gain an intuition for
 this important configuration.
