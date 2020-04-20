@@ -29,7 +29,8 @@ ALLOWED_LINT_ERRS = {
   "E1135": "unsupported-membership-test",
   "R1711": "useless-return",
   "W0143": "comparison-with-callable",
-  "E1102": "not-callable",
+  # Removed due to pytorch error
+  # "E1102": "not-callable",
   "W0107": "unnecessary-pass",
   "W0301": "unnecessary-semicolon",
   "W0404": "reimported",
