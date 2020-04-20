@@ -11,7 +11,7 @@ sklearn to learn about the data.  The main challenge will be getting
 the data into a form that can readily used as sklearn input.
 
 ## Corrections/Clarifications
-* none yet
+* April 20, 2020: updated tester to ignore "tensor not callable" error due to [this](https://github.com/pytorch/pytorch/issues/24807) bug.
 
 ## Dataset
 
