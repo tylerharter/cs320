@@ -143,3 +143,7 @@ pipe = Pipeline([
 
 Call `fit` and `score` as we did for `lr` earlier, but instead of
 `lr`, use your `pipe` object.  A little better, eh?
+
+# Remember!
+
+Please record that you finished this lecture: https://forms.gle/z9oCk4BzvVjdN1aZ6

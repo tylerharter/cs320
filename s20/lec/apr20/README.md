@@ -172,3 +172,7 @@ the `.plot(...)` call.
 The final thing should look like this:
 
 <img src="part5.png" width=400>
+
+# Remember!
+
+Please record that you finished this lecture: https://forms.gle/z9oCk4BzvVjdN1aZ6
