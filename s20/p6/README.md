@@ -11,7 +11,7 @@ sklearn to learn about the data.  The main challenge will be getting
 the data into a form that can readily used as sklearn input.
 
 ## Corrections/Clarifications
-* none yet
+* Apr 20: Lab 13 will help a lot with part 2 of this project!
 
 ## Dataset
 
