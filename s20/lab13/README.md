@@ -111,11 +111,13 @@ Hopefully you got three!
 
 Complete the code to write the
 
+```python
 for p in parts:
     name = p[:p.index(",")] + ".csv"
     print(name)
     # TODO: write the string p to a file named name.
     # no need to use the CSV module!
+```
 
 ## Step 3: CSVs to DataFrame
 
