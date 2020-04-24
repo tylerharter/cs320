@@ -13,7 +13,10 @@ run_grader() {
     export PYTHONDONTWRITEBYTECODE=1
     export AWS_SHARED_CREDENTIALS_FILE="~/.aws/credentials"
 
-    echo "Running Auto-grader\n"
+    echo "Running Auto-grader"
+    echo "\nAuto-grader fpr P6:"
+    python3 autograder.py p6 ? -ff main.ipynb -rf result.json
+
     echo "\nAuto-grader for P5:"
     python3 autograder.py p5 ? -ff land.py
 
