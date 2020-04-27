@@ -120,6 +120,8 @@ We should be able to perform the following steps to evaluate your work
 3. `python3 -m http.server --bind 127.0.0.1 8000`
 4. open `http://127.0.0.1:8000/index.html` in a web browser
 
+_*Note*_: The above is for testing out your submission locally. To do this on your VM, replace `127.0.0.1` by `0.0.0.0` in step 3 and 4.
+
 Please read the [grading standards](grading.md) carefully.
 
 ## Conclusion
