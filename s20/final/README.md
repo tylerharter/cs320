@@ -1,5 +1,10 @@
 # Final Exam
 
+## Corrections/Clarifications
+* May 1, 2020: the submission site doesn't support multiple partners, but you're allowed to have them, so just click "Ignore Errors" when submitting.  We'll make sure everybody gets their grade based on the proposals you submitted.
+
+## Overview
+
 The final "exam" is really an open-ended analysis project.  Hopefully
 it's fun to be free of the usual constraints!  You'll be building a
 static website (no flask) to share your analysis on a topic of your
@@ -111,6 +116,11 @@ projects:
 https://tyler.caraza-harter.com/cs320/s20/submission.html. The zip
 should contain your code, pages, and graphics.  If the data is small,
 include that too (the whole zip must be <1 MB).
+
+Only one team member should submit.  The submission site may complain
+about missing project, submitter, and partner info.  The site doesn't
+support multiple partners (as allowed for the final), so please just
+check the "Ignore Errors" box this time.
 
 We should be able to perform the following steps to evaluate your work
 (test it for yourself before handing in!):
