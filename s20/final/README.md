@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 * May 1, 2020: the submission site doesn't support multiple partners, but you're allowed to have them, so just click "Ignore Errors" when submitting.  We'll make sure everybody gets their grade based on the proposals you submitted.
+* May 2, 2020: try to keep your .zip under 1 MB if you can, but we've bumped the limit to 10 MB, so don't worry if you're a bit over
 
 ## Overview
 
