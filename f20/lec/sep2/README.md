@@ -12,4 +12,4 @@ Please fill this form: https://forms.gle/SdFHQq37txmqkkgq7
 
 ## 3. Reproducibility and Operating Systems
 
-### Watch: [17-minute video](https://youtu.be/toIcX1iWBHc)
+### Watch: [14-minute video](https://youtu.be/toIcX1iWBHc)
