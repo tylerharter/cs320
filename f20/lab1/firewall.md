@@ -5,9 +5,9 @@
 <img src="img/7.png" width=600>
 
 2. In the menu on the left, scroll down to "Networking"; under that, open
-the "VPC network" menu and select "Firewall rules"
+the "VPC network" menu and select "Firewall"
 
-<img src="img/8.png" width=600>
+<img src="img/Firewall_part2_update.png" width=600>
 
 3. Click the "CREATE FIREWALL RULE" button
 
