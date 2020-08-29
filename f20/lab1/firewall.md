@@ -11,7 +11,7 @@ the "VPC network" menu and select "Firewall"
 
 3. Click the "CREATE FIREWALL RULE" button
 
-<img src="img/9.png" width=600>
+<img src="img/Firewall_part3_update.png" width=600>
 
 4. For the name and description, enter "cs320"
 
