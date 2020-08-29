@@ -4,8 +4,6 @@
 
 ### Watch: [12-minute video](https://youtu.be/tu_zv_sx728)
 
-<img src="gitsim.png" width=800>
-
 ### Practice
 
 Choose at least two scenarios below, then, see if you can reproduce
@@ -14,6 +12,8 @@ https://tyler.caraza-harter.com/cs320/f20/learnGitBranching/index.html.
 
 Don't worry about the colors of the commits (those are random and just
 make it look nice).
+
+<img src="gitsim.png" width=800>
 
 ## 2. A Conflict
 
