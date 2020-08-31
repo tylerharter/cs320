@@ -52,6 +52,39 @@ d. crashes
 
 ### Watch: [20-minute video](https://youtu.be/FkL04j95x0g)
 
+Complete the following  code in a cell:
+
+```python
+class ShoppingList:
+    def __init__(self, items=[]):
+        self.items = items # items we need to get
+        self.added = set() # items already in cart
+    
+    def pickup(????, ????):
+        self.added.add(item)
+    
+    def ????(self):
+        s = "<h3>Shopping List</h3><ul>"
+        for item in self.items:
+            if not item in self.added:
+                s += "<li>" + item
+            else:
+                ????
+        s += "</ul>"
+        return s
+    
+slist = ShoppingList(["eggs", "milk", "cookies", "bread"])
+slist.pickup("eggs")
+slist.pickup("bread")
+slist
+```
+
+The goal is see a bulleted list with some items crossed off, like this:
+
+<img src="shopping.png">
+
+Hint: the HTML for something crossed off is like this: `<del>crossed-out text</del>`
+
 ## 3. \_\_getitem\_\_
 
 ### Watch: [21-minute video](https://youtu.be/9uRj-kccMm4)
