@@ -26,7 +26,7 @@ class TimeIt:
         print(f"that took {(self.t1-self.t0)*1000} milliseconds")
 
 with TimeIt():
-    # add one billion numbers
+    # add one million numbers
     total = 0
     for i in range(1000000):
         total += i
