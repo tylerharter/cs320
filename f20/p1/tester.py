@@ -60,35 +60,30 @@ questions = [
     Question(number=2, weight=1, format=TEXT_FORMAT),
     Question(number=3, weight=1, format=PNG_FORMAT),
     Question(number=4, weight=1, format=TEXT_FORMAT),
-    Question(number=5, weight=1, format=HTML_FORMAT),
-    Question(number=6, weight=1, format=PNG_FORMAT),
+    Question(number=5, weight=1, format=PNG_FORMAT),
+    Question(number=6, weight=1, format=TEXT_FORMAT),
     Question(number=7, weight=1, format=TEXT_FORMAT),
-    Question(number=8, weight=1, format=TEXT_FORMAT),
+    Question(number=8, weight=1, format=HTML_FORMAT),
     Question(number=9, weight=1, format=HTML_FORMAT),
     Question(number=10, weight=1, format=HTML_FORMAT),
-    Question(number=11, weight=1, format=HTML_FORMAT),
+    Question(number=11, weight=1, format=PNG_FORMAT),
     Question(number=12, weight=1, format=PNG_FORMAT),
     Question(number=13, weight=1, format=PNG_FORMAT),
-    Question(number=14, weight=1, format=PNG_FORMAT),
-    Question(number=15, weight=1, format=PNG_FORMAT),
-    Question(number=16, weight=1, format=PNG_FORMAT),
-    Question(number=17, weight=1, format=TEXT_FORMAT),
-    Question(number=18, weight=1, format=TEXT_FORMAT),
-    Question(number=19, weight=1, format=TEXT_FORMAT),
-    Question(number=20, weight=1, format=TEXT_FORMAT),
+    Question(number=14, weight=1, format=TEXT_FORMAT),
+    Question(number=15, weight=1, format=TEXT_FORMAT),
+    Question(number=16, weight=1, format=TEXT_FORMAT),
 ]
 question_nums = set([q.number for q in questions])
 
 expected_json = {
     "1": 8,
     "2": {'Steve': 3, 'Ada': 3, 'Linus': 2},
-    "4": {'Steve'},
-    "7": {'X': 1, 'Y': 1, 'Z': 1},
-    "8": {'A': 2, 'B': 1, 'C': 1},
-    "17": 0,
-    "18": 2,
-    "19": {'APPLE': 1, 'BANANA': 2, 'KIWI': 2},
-    "20": ['BANANA', 'KIWI']
+    "4": [21, 35, 35, 39, 40, 40, 40, 43],
+    "6": {'X': 1, 'Y': 1, 'Z': 1},
+    "7": {'A': 2, 'B': 1, 'C': 1},
+    "14": ('A39DE2', 'Ben', 'added a readme', 'B143D0', 'Jaime', 'optimized the code'),
+    "15": ('A39DE2[Aarushi]: created the repo', 'D1E9C5[Ben]: wrote some code', 'B978EE[Wendy]: optimized the code'),
+    "16": ('F0148D[Jaime]: fixed a bug', 'B143D0[Hunter]: made some tests', 'AA0912[Emma]: added a readme')
 }
 
 
@@ -199,7 +194,7 @@ def check_cell_text(qnum, cell):
     elif type(expected) == float:
         if not math.isclose(actual, expected, rel_tol=1e-02, abs_tol=1e-02):
             expected_mismatch = True
-    elif type(expected) == list:
+    elif type(expected) in (list, tuple):
         try:
             extra = set(actual) - set(expected)
             missing = set(expected) - set(actual)

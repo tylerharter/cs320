@@ -1,5 +1,3 @@
-# DON'T START YET, UNDER REVISION
-
 # Project 1: Counting Fast
 
 ## Corrections/Clarifications
@@ -26,7 +24,7 @@ been provided as `repo.zip`.
 You'll need to install a few pip packages, if you don't already have them (connect to your VM with SSH to do the installs):
 
 ```
-pip3 install pylint beautifulsoup4 pandas matplotlib gitpython
+pip3 install pylint beautifulsoup4 pandas matplotlib
 ```
 
 You should create a directory/folder named `p1` somewhere on your
@@ -192,21 +190,42 @@ question 1, start with a `#q1` comment, and so on.  You'll be
 switching between commits more, but you'll be using the `git` module
 to do it with Python code rather than running the commands yourself.
 
+# Group Part (75%)
+
+For this portion of the project, you may collaborate with your group
+members in any way (even looking at working code).  You may also seek
+help from 320 staff (mentors, TAs, instructor).  You <b>may not</b>
+seek receive help from other 320 students (outside your group) or
+anybody outside the course.
+
 ## Part 1: Repo Analysis
 
 #### Q1: How many commits are in the repo?
 
-You can control the repo from Python by creating a `Repo` object:
+You need to write code to answer, but it's helpful to think how you
+would do this manually first.  You would probably do something like this:
 
-```python
-from git import Repo
-dirname = "repo"
-repo = Repo(dirname)
-repo.git.checkout("master")
-```
+1. change to the `repo` directory
+2. run `git log`
+3. count the commits
 
-Read a bit about the `Commit` object and `iter_commits` method here:
-https://gitpython.readthedocs.io/en/stable/tutorial.html#the-commit-object.
+You can use `check_output` to run git commands.  For example,
+`check_output(["git", "status"], cwd="repo")` changes to the "repo"
+directory ("cwd" = "change working directory") and runs `git status`,
+returning the output.  Something like this:
+
+`b'On branch master\nnothing to commit, working tree clean\n'`
+
+Adapt this example to run `git log` in the "repo" directory.  Capture
+the bytes that are returned, convert it to a string, then split that
+string into a list of lines.
+
+That list will help you answer this question (loop over it and count
+how many lines start with the word "commit") and the following
+questions.
+
+Note that there are modules (like `gitpython`) that make these steps a
+bit easier -- they're not allowed for this project.
 
 #### Q2: How many commits were there by each author?
 
@@ -236,46 +255,29 @@ def get_ax():
 
 If you haven't created plots in Python for a while, you can review the CS 220/301 readings here: https://github.com/tylerharter/caraza-harter-com/tree/master/tyler/cs301/fall19/readings
 
-#### Q4: Which developers have committed code on a weekend?
+#### Q4: How has the size of the wc.py code grown over time?
 
-Answer with a Python set.  If you have a `Commit` object `c` (say from `.iter_commits()`), you can get its date with `c.authored_date`.
+Answer with a list, with an entry corresponding to the number of lines
+in `wc.py` for each commit.  The earliest commit is at index zero.
 
-Dates and times are often represented as integer *timestamps* that count the number of seconds since Jan 1, 1970 
-(this is known as UNIX timestamp, and is widely used because it's simpler 
-than dealing with timezones/leap years/etc). You can convert these to a `datetime` object in Python that's easier to work with.  For example, try running this in a cell:
+It should look like this: `[21, 35, 35, 39, 40, 40, 40, 43]`
 
-```python
-from datetime import datetime # yes, both the module and type are named datetime
-dt = datetime.fromtimestamp(1579744630)
-print(type(dt), dt)
-```
-
-Try copy/pasting the current timestamp (from
-https://www.unixtimestamp.com/) to replace the integer value above,
-and run the code again.  Does it come out right?
-
-There are lots of useful methods for datetime object so we encourage you to check them out, like this one: https://docs.python.org/3/library/datetime.html#datetime.datetime.weekday
-
-#### Q5 [TABLE]: How has the size of the wc.py code grown over time?
+#### Q5 [PLOT]: How has the size of the wc.py code grown over time?
 
 Expected:
 
 <img src="img/q5.png">
 
-#### Q6 [PLOT]: How has the size of the wc.py code grown over time?
-
-Expected:
-
-<img src="img/q6.png">
-
 ## Part 2: Testing
 
-In CS 301 (now called CS 220) you were not required to write functions that 
-met certain criteria. Going further, we will require you to do so more and more as 
-it provides us with a standard way to grade, but also forces you to write useful functions. 
-When asked to implement a function, we will provide you with a **function prototype** which 
-is essentially the blueprint of that function, what it should be called, how it should behave, and 
-what inputs and outputs it should produce. 
+In CS 220/301 you were not required to write functions
+that met certain criteria. Going further, we will require you to do so
+more and more as it provides us with a standard way to grade, but also
+forces you to write useful functions.  When asked to implement a
+function, we will sometimes provide you with a **function prototype**
+which is essentially the blueprint of that function, what it should be
+called, how it should behave, and what inputs and outputs it should
+produce.
 
 Note that you should remove the 
 `pass` statement as it will have no effect once you write the function.
@@ -315,9 +317,9 @@ a c
 """
 ```
 
-#### Q7: What does `run_wc(test1)` return?
+#### Q6: What does `run_wc(test1)` return?
 
-#### Q8: What does `run_wc(test3)` return?
+#### Q7: What does `run_wc(test3)` return?
 
 ---
 
@@ -332,31 +334,30 @@ Specifications:
 * **description**: run every version of `wc.py` on a given output, and check which version produce correct output
 * `body`: a string to pass along to `run_wc`
 * `expected`: a dictionary with word counts that `run_wc` should return when it is working correctly
-* **return value**: a DataFrame with one row per commit (oldest first) and four columns:
+* **return value**: a DataFrame with one row per commit (oldest first) and three columns:
 1. `commit`: the commit hex
-2. `msg20`: the commit message (capped at 20 characters)
-3. `author`: the commit author's names
-4. `pass`: whether or not `run_wc` returns the same thing as `expected` for each commit
+2. `author`: the commit author's names
+3. `pass`: whether or not `run_wc` returns the same thing as `expected` for each commit
 
 ---
 
-#### Q9: What does `test_table(test1, {'X': 1, 'Y': 1, 'Z': 1})` return?
+#### Q8: What does `test_table(test1, {'X': 1, 'Y': 1, 'Z': 1})` return?
+
+Expected:
+
+<img src="img/q8.png">
+
+#### Q9: What does `test_table(test2, {'A': 2, 'B': 1, 'C': 1})` return?
 
 Expected:
 
 <img src="img/q9.png">
 
-#### Q10: What does `test_table(test2, {'A': 2, 'B': 1, 'C': 1})` return?
+#### Q10: What does `test_table(test3, {'A': 2, 'B': 1, 'C': 1})` return?
 
 Expected:
 
 <img src="img/q10.png">
-
-#### Q11: What does `test_table(test3, {'A': 2, 'B': 1, 'C': 1})` return?
-
-Expected:
-
-<img src="img/q11.png">
 
 **To get full points**, write a short comment here about which of the three
   test inputs is most useful for evaluating the wc.py program.
@@ -394,22 +395,27 @@ versions = {
 }
 ```
 
-#### Q12: How long does each version take for 5000-word inputs consisting of 100 unique words?
+#### Q11: How long does each version take for 5000-word inputs consisting of 100 unique words?
 
 Answer with a compact, horizontal, log-scale plot, like this:
 
-<img src="img/q12.png">
+<img src="img/q11.png">
 
 Note: Your function should return the runtime in seconds, but we expect the graph to be in milliseconds. 
 
-#### Q13: How long does each version take for 5000-word inputs consisting of 1 unique word?
+#### Q12: How long does each version take for 5000-word inputs consisting of 1 unique word?
 
 Expected:
 
-<img src="img/q13.png">
+<img src="img/q12.png">
 
 **To get full points**, write a short comment here with a hypothesis
   about when the v3 version does better than the v2 version.
+
+# Individual Part (25%)
+
+You have to do the remainder of this project on your own.  Do not
+discuss with anybody except 320 staff (mentors, TAs, instructor).
 
 ## Part 4: Complexity
 
@@ -426,177 +432,101 @@ corresponds to an run where there were 10000 total words consisting of
 100 unique words (1% of 10000) -- it took 0.0851483 seconds to run
 `wc.py` in this scenario.
 
-#### Q14 [PLOT]: How does the number of total words and unique percent affect the performance of versions 2 and 3?
+#### Q13 [PLOT]: How does the number of total words and unique percent affect the performance of versions 2 and 3?
 
 Expected:
 
-<img src="img/q14.png">
+<img src="img/q13.png">
 
-#### Q15 [PLOT]: Same question as Q14.
+## Part 5: Repo and Commit Classes
 
-In this and the previous experiment, we want to understand how time
-depends on three variables: total, unique, and version.  For Q14, we
-represented these variables with x-axis, line color, and plot side
-respectively.
-
-For Q15, let's mix it up and use x-axis for unique and line color for
-total.
-
-Hint: When plotting a DataFrame in Pandas, each column is a line,
-and the index corresponds to the x-axis.  So swapping line color with
-x-axis position can be accomplished by transposing the DataFrame
-before plotting (something like `df.T.plot.line(...)`).
-
-Expected:
-
-<img src="img/q15.png">
-
-**To get full points**, write a short comment about whether Q14 or Q15
-  more clearly shows performance trends.
-
-#### Q16 [PLOT]: How does v3 scale with more words, keeping unique percent at 10?  
-
-Show standard deviation around the line.
-
-Computing and plotting standard deviation based on trials is a bit
-involved, so we'll give you some helper code (finish it):
+Complete the `Commit` and `Repo` classes (finish the methods and add
+others necessary):
 
 ```python
-df = DataFrame()
-df.index.name = "total"
-df.columns.name = "trial"
-for i in range(10):
-    total_words = 10000 * (i+1)
-    print(total_words)
-    uniq = total_words // 10
-    for trial in range(5):
-        df.loc[total_words/1000, trial] = ???? # TODO: call time_run_sec
-df
+class Commit:
+    def __init__(self, commit_hex, author, message):
+        pass
+
+class Repo:
+    def __init__(self):
+        pass
+
+    def commit(self, commit_hex, author, message):
+        pass
 ```
 
-This should get you a DataFrame something like this:
+If `repo` is a `Repo` instance, calling `repo.commit(...)` should
+create a new `Commit` object, add the new Commit some structures in
+the `Repo` (list and/or dict), and return the Commit.  `str(commit)`
+on a Commit object should give something like 'A39DE2[Aarushi]:
+created the repo'.
 
-<img src="img/q16a.png">
+`repo[????]` should produce a Commit object.  `????` could be an
+integer index, in which case 0 would be the first commit, 1 would be
+the second, and -1 would be the last, etc.
 
-We want to compute the mean and standard deviation over the
-trials/columns.  Run the following and look at the resulting Series:
+If `????` is a string, `repo[????]` should produce the Commit with
+that commit hex.  The case of the string shouldn't matter, nor
+white space.
 
-```python
-mean = df.mean(axis=1)
-std = df.std(axis=1)
-```
-
-Now plot the mean, and add a standard deviation range with this:
-
-```
-plt.fill_between(mean.index, mean-std, mean+std, color='b', alpha=0.2)
-```
-
-It should look something like this:
-
-<img src="img/q16b.png">
-
-## Part 5: Counter Class
-
-You're going to make a new class named `Counter` that acts like a
-dictionary, but makes it easier to count unique words.  Keys are
-always strings and values are always integers.  You should be able to
-create a Counter like this:
-
-```python
-c = Counter()
-```
-
-Expectations:
-* `c["KEY"]` is the same as `c["key"]`
-* `c["KEY"]` should default to 0 if a value hasn't already been set for "KEY"
-* `print(c)` should look like printing a `dict` where all keys are upper case
-* `c.max_keys()` should return a list of key(s) that map to the highest value (it returns a list rather than a single key string, as there may be ties -- in which case the keys should be in ascending order alphabetically)
-
-Note: There is a built in Counter class that comes with Python. It is generally 
-extremely useful but the one we ask you to implement here is slightly different. 
-See: https://docs.python.org/2/library/collections.html#collections.Counter
-
-Your class will need to implement the following special methods:
-* https://docs.python.org/3/reference/datamodel.html#object.__setitem__
-* https://docs.python.org/3/reference/datamodel.html#object.__getitem__
-* https://docs.python.org/3/reference/datamodel.html#object.__repr__
-
-After you get the Counter class working, you can just paste our
-provided code for the following questions as a way to test that
-Counter behaves as expected. (So for Part 5, your Counter class is the only code you should need to write.)
-
-#### Q17: What does the following code produce?
+#### Q14: what does running the following in a cell produce?
 
 Code:
 
 ```python
-c = Counter()
-c["apple"]
+repo = Repo()
+c1 = repo.commit("A39DE2", "Aarushi", "created the repo")
+c2 = repo.commit("D1E9C5", "Ben", "wrote some code")
+c3 = repo.commit("AA0912", "Emma", "added a readme")
+c4 = repo.commit("B143D0", "Hunter", "made some tests")
+c5 = repo.commit("F0148D", "Jaime", "fixed a bug")
+c6 = repo.commit("B978EE", "Wendy", "optimized the code")
+c1.commit_hex, c2.author, c3.message, c4.commit_hex, c4.author, c6.message
 ```
 
 Expected:
-
 ```
-0
+('A39DE2', 'Ben', 'added a readme', 'B143D0', 'Jaime', 'optimized the code')
 ```
 
-#### Q18: What does the following code produce?
+#### Q15: what does running the following in a cell produce?
 
 Code:
 
 ```python
-c = Counter()
-c["apple"] += 1
-c["banana"] += 1
-c["BANANA"] += 1
-c["kiwi"] += 2
-c["banana"]
+str(c1), str(repo[1]), str(repo[-1])
 ```
 
 Expected:
-
 ```
-2
+('A39DE2[Aarushi]: created the repo',
+ 'D1E9C5[Ben]: wrote some code',
+ 'B978EE[Wendy]: optimized the code')
 ```
 
-#### Q19: What does the following code produce?
+#### Q16: what does running the following in a cell produce?
 
 Code:
 
 ```python
-c
+str(repo["F0148D"]), str(repo["b143d0"]), str(repo["  AA0912  "])
 ```
 
 Expected:
-
 ```
-{'APPLE': 1, 'BANANA': 2, 'KIWI': 2}
+('F0148D[Jaime]: fixed a bug',
+ 'B143D0[Hunter]: made some tests',
+ 'AA0912[Emma]: added a readme')
 ```
-
-#### Q20: What does the following code produce?
-
-Code:
-
-```python
-c.max_keys()
-```
-
-Expected:
-
-```
-['BANANA', 'KIWI']
-```
-
----
-
-Congrats! You've just implemented your first class. Can you see why having 
-this class might be helpful for the development of the WC project?
 
 ## Submitting your Work
 
-The submission process is the same as in CS 220/301, so no need to
-read the following if you're already familiar with it.
+The submission process is mostly the same as in CS 220/301, so no need
+to read this whole section if you're already familiar with it.  The
+one big difference is that everyone individually this semester, so
+partner must be "none" (do not list group members you collaborated with
+on the group part as partners).
 
 Before you can hand in the project, you need to add a few more details
 at the top of your notebook (or, in other projects, .py file).  Paste
@@ -609,9 +539,7 @@ the following in a new cell:
 ```
 
 Replace `NETID` with your Net ID (usually the part before "@wisc.edu"
-in your student email address).  Everybody submits individually this
-semester, so partner must be "none" (do not list group members you
-collorated with on the group part as partners).
+in your student email address).
 
 If you worked with with a partner, there should only be one submission
 between you (please don't both submit), and make sure that `submitter`
