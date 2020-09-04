@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Sep 4: fixed typo in code snippet for q14
 
 ## Overview
 
@@ -482,7 +482,7 @@ c3 = repo.commit("AA0912", "Emma", "added a readme")
 c4 = repo.commit("B143D0", "Hunter", "made some tests")
 c5 = repo.commit("F0148D", "Jaime", "fixed a bug")
 c6 = repo.commit("B978EE", "Wendy", "optimized the code")
-c1.commit_hex, c2.author, c3.message, c4.commit_hex, c4.author, c6.message
+c1.commit_hex, c2.author, c3.message, c4.commit_hex, c5.author, c6.message
 ```
 
 Expected:
