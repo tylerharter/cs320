@@ -23,7 +23,10 @@ installing tools and other tasks.
 
 4. When you start Jupyter notebook remotely, you'll want to set a
 password for connecting to it.  Make it a good one, or anybody will be
-able to take over your VM!  Run the following:
+able to take over your VM! (Whenever you need to enter something, like a password, 
+in the terminal, don't worry if nothing is appearing as you're typing. Your keystrokes 
+are still registering; the terminal just isn't displaying them!) 
+Run the following:
 
 ```
 mkdir -p ~/.jupyter
