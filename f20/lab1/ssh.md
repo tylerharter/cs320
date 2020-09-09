@@ -17,9 +17,6 @@ section and go back to the next steps on the [main page](README.md)
 for now (feel free to get help more specific to your setup during
 office hours).
 
-Note: Whenever you need to enter something, like a password, in the terminal, don't 
-worry if nothing is appearing as you're typing. Your keystrokes are still registering; the terminal just isn't displaying them!
-
 <img src="img/15.png" width=600>
 
 4. run `cat ~/.ssh/id_rsa.pub`.  Then copy the output (the part
