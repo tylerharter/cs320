@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Sep 11: fixed the expected output graph for q13
 * Sep 4: fixed typo in code snippet for q14
 
 ## Overview
