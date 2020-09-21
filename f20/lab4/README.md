@@ -22,13 +22,13 @@ understanding this particular snippet isn't expected for this lab):
 
 ```python
 import pandas as pd
-from zipfile import ZipFile
+from zipfile import ZipFile, ZIP_DEFLATED
 from io import TextIOWrapper
 
 with open("hello.txt", "w") as f:
     f.write("hello world")
 
-with ZipFile("example.zip", "w") as zf:
+with ZipFile("example.zip", "w", compression=ZIP_DEFLATED) as zf:
     with zf.open("hello.txt", "w") as f:
         f.write(bytes("hello world", "utf-8"))
     with zf.open("ha.txt", "w") as f:
