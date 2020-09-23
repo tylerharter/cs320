@@ -345,10 +345,10 @@ applicants, with race being a deciding factor 41% of the time.
 ## Conclusion
 
 When we build models to mimic human behavior, we need to be careful
-that our models don't become biased.  In this project, we evaluated a
-number of models for one kind of bias (racial).  The HDMA data set
-quite extensive.  Take a moment to think about what other biases you
-might want to check for before using decision trees to make loan
+that our models don't also become biased.  In this project, we tested
+a number of models for one kind of bias (racial).  The HDMA data set
+is quite extensive.  Take a moment to think about what other biases
+you might want to check for before using decision trees to make loan
 decisions for real people.  For inspiration, here are some of the
 columns in the HDMA dataset:
 
