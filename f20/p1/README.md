@@ -458,9 +458,10 @@ class Repo:
 ```
 
 If `repo` is a `Repo` instance, calling `repo.commit(...)` should
-create a new `Commit` object, add the new Commit some structures in
-the `Repo` (list and/or dict), and return the Commit.  `str(commit)`
-on a Commit object should give something like 'A39DE2[Aarushi]:
+create a new `Commit` object, add the new Commit to some structures in
+the `Repo` (list and/or dict), and return the Commit.    
+  
+`str(commit)` on a Commit object should give something like 'A39DE2[Aarushi]:
 created the repo'.
 
 `repo[????]` should produce a Commit object.  `????` could be an
