@@ -227,7 +227,7 @@ have.  Assuming `dtree` (creative name, I know) is an object of your
 `DTree` class:
 
 * `dtree.readTree(path)` will take a file name (such as `simple.txt`) and build a decision tree using its contents (likely recursively) (a bit more on this below). It is not required to return everything
-* `dtree.predict(data)` will return 1 for loan approved and 3 for loan disapproved using the tree built in `readTree`
+* `dtree.predict(data)` will return True for loan approved and False for loan disapproved using the tree built in `readTree`
 * `dtree.getDisapproved()` will return how many applicants have been disapproved so far
 
 The following code snippet should create a tree and make one prediction:
