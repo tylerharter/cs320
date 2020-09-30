@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Sep 30: fix `readTree` documentation
 
 ## Overview
 
@@ -226,7 +226,7 @@ can still use!) There are several methods should `DTree` class should
 have.  Assuming `dtree` (creative name, I know) is an object of your
 `DTree` class:
 
-* `dtree.readTree(path)` will take a file name (such as `simple.txt`) and build a decision tree using its contents (likely recursively) (a bit more on this below). It is not required to return everything
+* `dtree.readTree(reader, path)` will take a file name (such as `simple.txt`) that will be read from a zip via the reader (of type ZippedCSVReader) and build a decision tree using its contents (a bit more on this below). It is not required to return anything
 * `dtree.predict(data)` will return True for loan approved and False for loan disapproved using the tree built in `readTree`
 * `dtree.getDisapproved()` will return how many applicants have been disapproved so far
 
