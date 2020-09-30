@@ -1,4 +1,4 @@
-# Zip Files
+# Lab 4: Zip Files
 
 As you deal with bigger datasets, those datasets will often be
 compressed.  Compressed means that the format takes advantage of

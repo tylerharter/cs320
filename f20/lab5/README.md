@@ -1,4 +1,4 @@
-# Linked Lists
+# Lab 5: Linked Lists
 
 Most people learn about Python lists before they learn about Python
 classes.  But what if you learned about classes first, and Python
