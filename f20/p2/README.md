@@ -3,6 +3,7 @@
 ## Corrections/Clarifications
 
 * Sep 30: fix `readTree` documentation
+* Sep 30: rename `data_reader` to `reader` to clarify example
 
 ## Overview
 
@@ -82,15 +83,15 @@ be used as follows:
 
 ```python
 # loop over all lines in file.txt
-for row in data_reader.lines("file.txt"):
+for row in reader.lines("file.txt"):
     pass
 
 # loop over all rows as OrderedDicts from any CSV in the zip
-for row in data_reader.csv_iter():
+for row in reader.csv_iter():
     pass
 
 # loop over all rows as OrderedDicts from specific.csv in the zip
-for row in data_reader.csv_iter("specific.csv"):
+for row in reader.csv_iter("specific.csv"):
     pass
 ```
 
