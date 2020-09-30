@@ -2,11 +2,11 @@
 
 ## 1. BFS Backtrace
 
-### Watch: [25-minute video](https://youtu.be/4k2jq3x_xJg)
+### Watch: [26-minute video](https://youtu.be/4k2jq3x_xJg)
 
 ## 2. Stacks, Queues, and Priority Queues
 
-### Watch: [25-minute video](https://youtu.be/Bllz_q66rh8)
+### Watch: [24-minute video](https://youtu.be/Bllz_q66rh8)
 
 ### Practice: heapq and dequeue
 
