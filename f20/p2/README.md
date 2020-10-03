@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Oct 2: fixed testDTree:predict in tester.py 
 * Sep 30: fix `readTree` documentation
 * Sep 30: rename `data_reader` to `reader` to clarify example
 * Sep 30: show results of how our classifier behaves on each loan for testBiasLargeFile in the debug directory
