@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Oct 5: added **hints** for dtree.readTree
 * Oct 2: fixed testDTree:predict in tester.py 
 * Sep 30: fix `readTree` documentation
 * Sep 30: rename `data_reader` to `reader` to clarify example
