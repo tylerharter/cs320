@@ -276,8 +276,11 @@ application is therefore approved.
 * in this format, the root node isn't shown, but you still need to add it
 * leaves have a "class", and other nodes have a split field and threshold
 * consider splitting on "---".  The number of bars on the left tells you the node depth: "|   |" has depth 2 (the node, not show, has depth 0)
-* notice that the information is a little redundant.  Instead of storing "amount <= 200" and "amount >  200" in the two children of the root, it makes more sense to store this information once in the root node (split key is "amount", threshold is 200)
+* notice that the information is a little redundant.  Instead of storing "amount <= 200" and "amount >  200" in the two children of the root,** it makes more sense to store this information once in the root node** (split key is "amount", threshold is 200). The left child would be considered either <= being true or > true, and the right child would be the other. 
 * each line represents a node.  If you loop over them one at a time, how do you find the parent node?  Here's an observation: if you are on a line for a depth-5 node, it's parent is depth-4 node most recently added to the tree.  One strategy is to keep a dictionary where the key is the depth and the value is the node most recently added at that level.
+* this can also be done recursively. It would probably be easiest to not call it recursively by line, but to call it for each node (so in the call for root, it would be called twice, once for root.left and once for root.right). 
+* the binary tree for simple.txt should be similar to ![this](tree.png)
+
   
 # Individual Part (25%)
 
