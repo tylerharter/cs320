@@ -151,13 +151,17 @@ result.
 
 Treat each page as a node, and each hyperlink as a directed edge.  Do
 a Depth-First Search, starting from the home page.  Explore edges that
-appearch earlier in the page first.
+appear earlier in the page first.
 
 Each time a page is visited for the first time, click the "DFS Click!"
 button to get a letter.
 
 Contatenate the letters in the order found to construct a password.
 Return it.
+
+Consider adding helper methods to simplify your search.  For example,
+would it be helpful to have one that visits a page and returns a list
+of hyperlinks to children?
 
 ### `bfs_pass` method
 
@@ -173,6 +177,11 @@ discuss with anybody except 320 staff (mentors, TAs, instructor).
 
 The method should navigate to the home page, enter the password, click
 GO, and return a DataFrame based on the page that is loaded.
+
+Note that after clicking a button, there might be a slight delay
+before `driver.page_source` reflects the new page.  Consider how you
+can use `time.sleep(...)` to reduce the chance that this will happen
+on some systems (like our test machine).
 
 You may want to use this function: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_html.html
 
