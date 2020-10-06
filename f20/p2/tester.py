@@ -334,6 +334,7 @@ def testRF():
             y = dtree.predict(loan)
             err = is_expected(actual=y, name=f"testRF:predict:{voters}-trees:{i}")
             if err != None:
+                mistakes += 1
                 print("unexpected results for random forest predict(): {}".format(err))
         if mistakes == 0:
             points += 3
