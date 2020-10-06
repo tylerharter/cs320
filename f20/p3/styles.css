@@ -1,0 +1,60 @@
+body {
+  background-color: black;
+  color: greenyellow;
+  font-family: 'VT323', monospace;
+  margin: 10px 20% 10px 20%;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 20px;
+}
+
+a {
+  color: greenyellow;
+}
+
+.interactivity-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input{
+  font-size: 20px;
+  border: 1px solid greenyellow;
+  background-color: black;
+  outline: lightgreen;
+  color: greenyellow;
+  font-family: 'VT323', monospace;
+}
+
+button{
+  font-size: 20px;
+  border: 1px solid greenyellow;
+  background-color: black;
+  outline: lightgreen;
+  color: greenyellow;
+  font-family: 'VT323', monospace;
+}
+
+button:hover{
+  background-color: rgb(58, 87, 15)
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+table, th, td {
+  border: 1px solid greenyellow;
+}
