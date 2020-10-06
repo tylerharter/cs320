@@ -1,5 +1,3 @@
-# DON'T START YET (draft only)
-
 # Project 3: Treasure Hunt!
 
 ## Corrections/Clarifications
