@@ -4,7 +4,9 @@
 
 ### Watch: [27-minute video](https://youtu.be/ad7HYin-OTo)
 
-### Practice: TODO
+### Practice:
+
+Add a subtract function and decorate it with `trace`:
 
 ```python
 def trace(fn):
@@ -30,10 +32,6 @@ print(absolute(-3))
 print(add(2, 2))
 print(add(3, 4))
 ```
-
-### Review:
-
-Step through the exercises here: https://tyler.caraza-harter.com/cs320/f20/materials/lec-19.html
 
 ## 2. Rate Limiting
 
