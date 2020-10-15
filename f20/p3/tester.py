@@ -23,7 +23,7 @@ def easter_egg_test(scraper):
     expected = "on wisconsin"
     if rv.replace(" ", "") != expected.replace(" ", ""):
         print(f"unexpected easter egg: {repr(rv)}")
-    return rv == expected
+    return rv.replace(" ", "") == expected.replace(" ", "")
 
 def dfs_pass_test(scraper):
     rv = scraper.dfs_pass()
