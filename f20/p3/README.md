@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Tester updated. Both `onwisconsin` and `on wisconsin` are acceptable output for  `easter_egg` method. 
 
 ## Overview
 
