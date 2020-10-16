@@ -1,20 +1,19 @@
 # Don't Start Yet!!!  Still under revision.
 
-# Project 3: Building a Data Website
+# Project 4: Building a Data Website
 
 ## Corrections/Clarifications
 
-* March 3: Fixes to tester.py for issues with rounding, nans, and strings on browse.html
-* March 5: Added note at [bottom of this page](#hints) about nesting decorators with Flask.  Note that your instructor didn't use this for the project solution, but multiple students wanted to, and it's tricky, so we're describing it
-* March 5: More fixes to tester.py for extra spaces in middle of strings and final touches on rounding
-* March 7: we now support upper case letters in URLs, thanks to the pull request by [vmpatil](https://github.com/vmpatil)!
-* March 8: added hand-in directions
+None yet. 
 
 ## Handin
 
-To hand in this assignment, you need to put your files in a .zip.  You
-can create this from the terminal.  Let's say you're already in a
-directory named `p3`.  You can run this to create a compressed p3.zip
+When you're done, you'll hand in a .zip file containing `main.py`,
+`main.csv`, and any `.html` files necessary (basically whatever we need 
+to run your website).
+
+You can create a zip file from the terminal.  Let's say you're already in 
+a directory named `p3`.  You can run this to create a compressed p3.zip
 file alongside your directory:
 
 ```
@@ -35,18 +34,20 @@ suggested.  Of course, only the root user can install software with
 `apt`, so you'll need to tweak the suggested command by adding `sudo`
 to the beginning.
 
-Once you have the .zip ready, you can download it your laptop (via
+Once you have the .zip ready, you can download it to your laptop (via
 Jupyter) then upload it to the site.
 
-**Important:** make sure your program is named `main.py` (we've been more flexible about this in the past, but naming it something else causes problems for us now that it's in a zip).
+**Important:** make sure your program is named `main.py` (we've been more 
+flexible about this in the past, but naming it something else causes 
+problems for us now that it's in a zip).
 
 ## Overview
 
 In this project, you'll build a website for sharing a dataset -- you
-get to pick the dataset!  Feel free to use a dataset you know from CS
-220/301 (https://tyler.caraza-harter.com/cs301/fall19/schedule.html),
-or better, find something entirely new on
-https://www.kaggle.com/datasets or elsewhere.
+get to pick the dataset!  There's a lot of relevant topics right now, 
+like COVID-19, the election, fires, etc., so try to pick something relevant 
+to what's been going on lately that you're passionate about! (More on 
+possible sources for data later)
 
 You'll use the flask framework for the site.  The site will have ways
 for humans to browse the data, as well as web APIs for other people's
@@ -59,20 +60,12 @@ week a project is released and crazy the week it is due, so starting
 early is a good way to get a larger slice of TA/instructor time.
 
 Your `.py` file may be short, perhaps <100 lines, but it will probably
-take a LOT of time to get those lines right.
+take a fair bit of time to get those lines right.
 
-## Handing in Work
-
-When you're done, you'll hand in a .zip file containing `main.py`,
-`main.csv`, and any `.html` files necessary.
-
-**Note:** we don't have a good way for you to upload a .zip file to the
-website yet, but we will before the deadline.  Watch for an
-announcement with more details.
 
 ## Setup
 
-Install some things:
+First, install some things:
 
 ```
 pip3 install Flask lxml html5lib
@@ -81,7 +74,7 @@ pip3 install Flask lxml html5lib
 Download `tester.py` -- as always, run it often!  You'll create the rest of the files from scratch.  
 **Note:** Running `tester.py` locally can be very helpful and time-saving for you if you haven't already been doing so. For the most part, this will let you know how your code will perform against our tests. While we still may take points off, this is a good way to ensure nothing is very off from what we're expecting. 
 
-# Requirements
+# Group Part (75%)
 
 ## Data
 
@@ -92,7 +85,10 @@ The file should have between 10 and 1000 rows and between 3 and 15
 columns.  Feel free to drop rows/columns from your original data
 source if necessary.
 
-Leave a comment in your `main.py` about the source of your data.
+**Mandatory**: Leave a comment in your `main.py` about the source of your 
+data and another comment about an interesting graph you could make using 
+this data. (Just be creative and show us that you've thought about your 
+data a bit)
 
 Two good places to check while looking for a dataset are [Kaggle](https://www.kaggle.com/datasets) and 
 Google's [Dataset Search](https://datasetsearch.research.google.com/). 
@@ -168,7 +164,7 @@ Requirements:
 ## Browse
 
 The `browse.html` page should show an HTML table with all the data
-from `data.csv`.  Don't truncate the table (meaning we want to see all
+from `main.csv`.  Don't truncate the table (meaning we want to see all
 the rows).  Don't have any other tables on this page, so as not to
 confuse our tester.
 
@@ -188,94 +184,11 @@ def hi_handler():
 
 For browse, instead of returning a hardcoded string, you'll need to
 generate a string containing HTML code for the table, then return that
-string.
+string. For example, `"<html>{}<html>".format("hello")` would insert `"hello"`
+into the middle of a string containing HTML code. 
 
 **Hint 2:** look into `_repr_html_` for DataFrames (or possibly `to_html()`).
 
-## API
-
-Your website should have some flask routes built especially for other
-programs to download from; these will return JSON instead of HTML.
-
-You can design the API, but we require the following features:
-* a way to get a dict corresponding for a particular row of interest in the .csv
-* a way to get a list of dicts, with each dict representing a row in the .csv
-* a way to get a list of dicts, representing a subset of the rows, based on some kind of filtering
-
-Any searching should be based on query strings (something like `?field=value`).
-
-Your `api.html` page should document the API, giving at least one
-example of a resource path for each use case.  E.g., maybe an API for
-grabbing hurricane data might look like the following:
-
-<img src="api.png" width=400>
-
-Requirement: each example URL should be inside `pre` tags, like this:
-
-```html
-<pre>
-/hurricane.json?name=Bob
-</pre>
-```
-
-Based on the above, a developer can infer they can write code like the following:
-
-```python
-import requests
-url = "http://the-vm-ip-here:5000/hurricane.json?name=Bob" # TODO: replace IP
-r = requests.get(url)
-r.raise_for_status()
-print(r.json())
-```
-
-In this case, the developer using the website might see this output:
-
-```
-{'damage': '1.5B', 'deaths': 15, 'dissipated': '08/29/1991', 'formed': '08/16/1991', 'mph': 115, 'name': 'Bob'}
-```
-
-Of course, the page for your endpoint might be different, and the data
-probably will be too, because you're encouraged to find your own
-dataset, not necessarily related to storms.
-
-**Hint 1:** if somebody visits `yourpage.html?key=value`, you can get
-  `value` with Flask's help with the following snippet inside the
-  route handler: `request.args.get("key")`.
-
-**Hint 2:** You need to make sure the `Content-Type` of your HTTP
-  responses is "application/json".  The easiest way to do this is with
-  flask's `jsonify` method, something like this: `return jsonify(????)`
-
-## Donations
-
-On your donations page, write some text, making your best plea for funding.
-
-Then, let's find out the best design for the homepage, so that people
-are most likely to click the link to the donations page.
-
-We'll do an A/B test.  Create two version of the homepage, A and B.
-They should differ in some way, perhaps trivial (e.g., maybe the link
-to donations is blue in version A and red in version B).
-
-The first 10 times your homepage is visited, alternate between version
-A and B each time.  After that, pick the best version (the one where
-people click to donate most often), and keep showing it for all future
-visits to the page.
-
-**Hint 1:** consider having a global counter in `main.py` to keep track of
-how many times the home page has been visited.  Consider whether this
-number is 10 or less and whether it is even/odd when deciding between
-showing version A or B.
-
-**Hint 2:** when somebody visits `donate.html`, we need to know if
-  they took a link from version A or B of the homepage.  The easiest
-  way is with query strings.  On version A of the homepage, instead of
-  having a regular link to "donate.html", link to
-  "donate.html?from=A", and in the link on version B to
-  donate.html, use "donate.html?from=B".  Then the handler for
-  the "donate.html" route can keep count of how much people are
-  using the links on both versions of the home page. (Hint 1 of the previous 
-  section is a good refresher for pulling A/B out of the query string.) 
 
 ## Emails
 
@@ -330,11 +243,11 @@ POST the data to the `/email` route in your app, so add that to your
 @app.route('/email', methods=["POST"])
 def email():
     email = str(request.data, "utf-8")
-    if re.match(r"????", email):
+    if re.match(r"????", email): # 1
         with open("emails.txt", "a") as f: # open file in append mode
-            ????
-        return jsonify("thanks")
-    return jsonify(????)
+            f.????(email + ????) # 2
+        return jsonify("thanks, you're subscriber number {}!".format(n))
+    return jsonify(????) # 3
 ```
 
 Fill in the `????` parts in the above code so that it:
@@ -342,15 +255,115 @@ Fill in the `????` parts in the above code so that it:
 2. writes each valid email address on its own line in `emails.txt`
 3. sternly warns the user if they entered an invalid email address to stop being so careless (you choose the wording)
 
+Also find a way to fill the variable `n` with the number of users that have subscribed so far, 
+including the user that just got accepted. 
+
+
+## Donations
+
+On your donations page, write some text, making your best plea for funding.
+
+Then, let's find out the best design for the homepage, so that people
+are most likely to click the link to the donations page.
+
+We'll do an A/B test.  Create two version of the homepage, A and B.
+They should differ in some way, perhaps trivial (e.g., maybe the link
+to donations is blue in version A and red in version B).
+
+The first 10 times your homepage is visited, alternate between version
+A and B each time.  After that, pick the best version (the one where
+people click to donate most often), and keep showing it for all future
+visits to the page.
+
+**Hint 1:** consider having a global counter in `main.py` to keep track of
+how many times the home page has been visited.  Consider whether this
+number is 10 or less and whether it is even/odd when deciding between
+showing version A or B.
+
+**Hint 2:** when somebody visits `donate.html`, we need to know if
+  they took a link from version A or B of the homepage.  The easiest
+  way is with query strings.  On version A of the homepage, instead of
+  having a regular link to "donate.html", link to
+  "donate.html?from=A", and in the link on version B to
+  donate.html, use "donate.html?from=B".  Then the handler for
+  the "donate.html" route can keep count of how much people are
+  using the links on both versions of the home page. (Hint 1 of the previous 
+  section is a good refresher for pulling A/B out of the query string.) 
+  
+**Hint 3:** You shouldn't need to have two different versions of your homepage 
+to make this work. Once you read your index.html file into your program, you 
+can edit it. At that point it should be a string, so you could add something 
+to it or replace something in it. 
+
+
+# Individual Part (25%)
+
+## API
+Your website should have some flask routes built especially for other
+programs to download from; these will return JSON instead of HTML.
+
+You can design the API, but we require the following features:
+* a way to get a dict, where each key is a column name and its corresponding value is its dtype
+* a way to get a list of lists, representing a subset of the rows based on some kind of filtering, where each inside list is similar to `[row_index, dict_of_row]`
+* a way to get a list of dicts, with each dict representing a row for each row in the .csv
+
+Any searching should be based on query strings (something like `?field=value`).
+
+Your `api.html` page should document the API, giving at least one
+example of a resource path for each use case.  E.g., maybe an API for
+grabbing hurricane data might look like the following:
+
+<img src="api.png" width=400>
+
+Requirement: each example URL should be inside `pre` tags, like this:
+
+```html
+<pre>
+/hurricanecols.json
+</pre>
+```
+
+Based on the above, a developer can infer they can write code like the following:
+
+```python
+import requests
+url = "http://the-vm-ip-here:5000/hurricanecols.json" # TODO: replace IP
+r = requests.get(url)
+r.raise_for_status()
+print(r.json())
+```
+
+In this case, the developer using the website might see this output:
+
+```
+{'name': 'object', 'formed': 'object', 'dissipated': 'object', 'mph': 'int64', 'damage': 'object', 'deaths': 'int64'}
+```
+
+Of course, the page for your endpoint might be different, and the data
+probably will be too, because you're encouraged to find your own
+dataset, not necessarily related to storms.
+
+**Hint 1:** if somebody visits `yourpage.html?key=value`, you can get
+  `value` with Flask's help with the following snippet inside the
+  route handler: `request.args.get("key")`.
+
+**Hint 2:** You need to make sure the `Content-Type` of your HTTP
+  responses is "application/json".  The easiest way to do this is with
+  flask's `jsonify` method, something like this: `return jsonify(????)`
+  
+**Hint 3:** If you have a dtype object of a column, its name attribute will 
+return a string such as 'int64' or 'object'. 
+
+
 ## Concluding Thoughts
 
-Get started early, test often, and above all, have fun with this one!
+Get started early, test often, and, above all, have fun with this one!
 
 ## Hints
 
 ### 1. Nested Decorators with Flask
 
-You don't need to use nested decorators to solve P3, but you may if
+You don't need to use nested decorators to solve P4, but you may if
 you like.  There are a couple things that make this tricky.
 
 Consider this code:
