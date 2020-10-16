@@ -1,4 +1,4 @@
-# Lab 7: Web
+# Lab 8: Web
 
 In this part, you'll build a simple Flask game, called "Guess that
 Function!".  You'll also learn `curl`; `curl` is like `cat`, but for
@@ -94,7 +94,7 @@ directly into the middle of HTML.
 
 ## SVG in Flask
 
-Start a new Flask app in a file named `lab7.py`, pasting the following
+Start a new Flask app in a file named `guess.py`, pasting the following
 (which is adapted from the example you just did in the notebook).
 
 ```python
@@ -134,7 +134,7 @@ if __name__ == '__main__':
 Now, in a terminal, connect via SSH, and run the following:
 
 ```
-python3 lab7.py
+python3 guess.py
 ```
 
 It should look something like this:
@@ -151,7 +151,7 @@ They should see something like this:
 
 ## Guess Route
 
-Add a function to your `lab7.py` file, something like the following:
+Add a function to your `guess.py` file, something like the following:
 
 ```python
 def f(x):
@@ -163,8 +163,8 @@ module if you like.  It doesn't matter what the function is.  The
 "game" is that people will try to guess it.
 
 Now, let's add a route so people can upload (POST) their guesses to
-the server.  Paste the following in `lab7.py` and restart the server
-(kill it with `CTRL-C` before running `python3 lab7.py` again).
+the server.  Paste the following in `guess.py` and restart the server
+(kill it with `CTRL-C` before running `python3 guess.py` again).
 
 ```python
 @app.route('/guess', methods=["POST"])
@@ -241,7 +241,7 @@ That should dump out all the code for the SVG image.
 ## Plotting Guesses
 
 Let's record guesses then plot them in `/plot.svg`.  Import pandas and
-create a DataFrame for guesses (this code goes in `lab7.py`):
+create a DataFrame for guesses (this code goes in `guess.py`):
 
 ```python
 import pandas as pd
