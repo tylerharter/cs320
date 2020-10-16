@@ -21,9 +21,10 @@ password_dfs = "BleuSus"
 def easter_egg_test(scraper):
     rv = scraper.easter_egg()
     expected = "on wisconsin"
+    #`onwisconsin` and `on wisconsin` are fine.
     if rv.replace(" ", "") != expected.replace(" ", ""):
         print(f"unexpected easter egg: {repr(rv)}")
-    return rv == expected
+    return rv.replace(" ", "") == expected.replace(" ", "")
 
 def dfs_pass_test(scraper):
     rv = scraper.dfs_pass()
