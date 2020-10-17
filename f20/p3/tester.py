@@ -30,14 +30,14 @@ def dfs_pass_test(scraper):
     rv = scraper.dfs_pass()
     expected = password_dfs
     if rv != expected:
-        print(f"unexpected easter egg: {repr(rv)}")
+        print(f"unexpected dfs pass: {repr(rv)}")
     return rv == expected
 
 def bfs_pass_test(scraper):
     rv = scraper.bfs_pass()
     expected = password_bfs
     if rv != expected:
-        print(f"unexpected easter egg: {repr(rv)}")
+        print(f"unexpected bfs pass: {repr(rv)}")
     return rv == expected
 
 def protected_df_test(scraper):

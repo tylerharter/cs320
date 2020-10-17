@@ -1,7 +1,7 @@
 # Project 3: Treasure Hunt!
 
 ## Corrections/Clarifications
-
+* Oct 17: `bfs_pass` and `dfs_pass` methods in the tester are updated. 
 * Oct 15: Tester updated. Both `onwisconsin` and `on wisconsin` are acceptable output for  `easter_egg` method. 
 
 ## Overview
