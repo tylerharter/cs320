@@ -1,5 +1,3 @@
-# Don't Start Yet!!!  Still under revision.
-
 # Project 4: Building a Data Website
 
 ## Corrections/Clarifications
@@ -13,11 +11,11 @@ When you're done, you'll hand in a .zip file containing `main.py`,
 to run your website).
 
 You can create a zip file from the terminal.  Let's say you're already in 
-a directory named `p3`.  You can run this to create a compressed p3.zip
+a directory named `p4`.  You can run this to create a compressed p4.zip
 file alongside your directory:
 
 ```
-zip ../p3.zip main.py main.csv *.html
+zip ../p4.zip main.py main.csv *.html
 ```
 
 If you haven't installed `zip` before, you might see this:
@@ -139,7 +137,7 @@ if __name__ == '__main__':
 
 Try launching your application by running `python3 main.py`:
 ```
-trh@instance-1:~/p3$ python3 main.py
+trh@instance-1:~/p4$ python3 main.py
  * Serving Flask app "main" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
@@ -258,6 +256,8 @@ Fill in the `????` parts in the above code so that it:
 Also find a way to fill the variable `n` with the number of users that have subscribed so far, 
 including the user that just got accepted. 
 
+Note: Although it will be talked about more later, you can find information about 
+`jsonify` [here](https://www.kite.com/python/docs/flask.jsonify) if you're curious right now. 
 
 ## Donations
 
@@ -349,7 +349,8 @@ dataset, not necessarily related to storms.
 
 **Hint 2:** You need to make sure the `Content-Type` of your HTTP
   responses is "application/json".  The easiest way to do this is with
-  flask's `jsonify` method, something like this: `return jsonify(????)`
+  flask's `jsonify` method, something like this: `return jsonify(????)`. 
+  A good reference for `jsonify` can be found [here](https://www.kite.com/python/docs/flask.jsonify).
   
 **Hint 3:** If you have a dtype object of a column, its name attribute will 
 return a string such as 'int64' or 'object'. 
@@ -358,55 +359,3 @@ return a string such as 'int64' or 'object'.
 ## Concluding Thoughts
 
 Get started early, test often, and, above all, have fun with this one!
-
-## Hints
-
-### 1. Nested Decorators with Flask
-
-You don't need to use nested decorators to solve P4, but you may if
-you like.  There are a couple things that make this tricky.
-
-Consider this code:
-
-```python
-@decA
-@decB
-def f():
-    ....
-```
-
-The decorators are run from the inside out, so `decB` gets a chance to
-swap out the function before `decA` runs.
-
-This means that if you want Flask to call a wrapper created by your
-own decorator, you need to do it like this (`@app.route` before `@counte_me`):
-
-```python
-counts = {}
-
-def count_me(fn):
-    counts[fn.__name__] = 0
-    def wrapper():
-        counts[fn.__name__] += 1
-        print(counts)
-        return fn()
-
-    wrapper.__name__ = fn.__name__
-    return wrapper
-
-@app.route('/')
-@count_me
-def home():
-    ...
-```
-
-If you look closely at the above example, you'll notice this bit that we didn't do in any class examples:
-
-```python
-wrapper.__name__ = fn.__name__
-```
-
-Flask refuses to map different routes to multiple functions with the
- same name, even if those functions sharing a name are different.  The
- workaround is to give your `wrapper` function a new name (in this
- case, the same name as decorated function).
