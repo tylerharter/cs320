@@ -2,7 +2,7 @@
 
 ## 1. Vector Multiplication
 
-### Watch: [13-minute video](https://youtu.be/r4B812a6e_0)
+### Watch: [23-minute video](https://youtu.be/r4B812a6e_0)
 
 ### Practice: Vector dot Vector
 
@@ -54,7 +54,7 @@ print(f"Nice, you got {goal} in a row correct!")
 
 ## 2. Applications, Matrix Multiplication
 
-### Watch: [16-minute video](https://youtu.be/zCKfjZq2cR8)
+### Watch: [15-minute video](https://youtu.be/zCKfjZq2cR8)
 
 ### Practice: Matrix dot Vector
 
@@ -115,7 +115,7 @@ print(f"Nice, you got {goal} in a row correct!")
 
 ## 3. Solving Equations
 
-### Watch: [8-minute video](https://youtu.be/zCKfjZq2cR8)
+### Watch: [13-minute video](https://youtu.be/zCKfjZq2cR8)
 
 ### Practice: Pricing Fruits
 
