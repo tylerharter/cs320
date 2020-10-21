@@ -244,7 +244,7 @@ def browse():
     else:
         print("browse.html should have exactly one table, but it had ", len(dfs))
         return 0
-
+    
     df = dfs[0]
     if len(df) == len(main_df):
         points += 10
@@ -258,7 +258,8 @@ def browse():
             actual = main_df[col]
             for i in range(len(expected)):
                 if expected.iat[i] != actual.iat[i]:
-                    if isinstance(expected.iat[i], (np.float64, np.float32, float)) and isinstance(actual.iat[i], (np.float64, np.float32, float)): 
+                    dif_floats = (np.float64, np.float32, float)
+                    if isinstance(expected.iat[i], dif_floats) and  isinstance(actual.iat[i], dif_floats): 
                         if np.isnan(expected.iat[i]) and np.isnan(actual.iat[i]): # to check nans (they don't show as equal)
                             continue
                         elif round(expected.iat[i], 3) == round(actual.iat[i], 3): # round them and check
@@ -378,14 +379,20 @@ def api_examples():
         result = json.loads(body)
         if type(result) == dict:
             has_dict = True
-        elif type(result) == list and len(result) > 0 and type(result[0]) == dict:
-            if len(result) == len(main_df):
-                has_list_of_dicts = True
-            elif len(result) < len(main_df):
-                has_short_list_of_dicts = True
-            else:
-                print("to many dicts in list for url: " + url)
-
+        elif type(result) == list and len(result) > 0:
+            if type(result[0]) == dict: # list of dicts
+                if len(result) == len(main_df):
+                    has_list_of_dicts = True
+                else:
+                    print("wrong number of dicts in list for url: " + url)
+            elif type(result[0]) == list: # list of lists
+                if len(result) < len(main_df):
+                    has_short_list_of_lists = True
+                elif len(result) == len(main_df):
+                    print('no filtering done for url: ' + url)
+                else: # >
+                    print("too many dicts in list for url: " + url)
+                
     if all_json:
         points += 2
     else:
@@ -401,7 +408,7 @@ def api_examples():
     else:
         print("at least one API example should return a list of dicts (one per data row)")
 
-    if has_short_list_of_dicts:
+    if has_short_list_of_lists:
         points += 6
     else:
         print("at least one API example should return a filtered list of dicts (subset of all data rows)")
@@ -422,6 +429,7 @@ def email():
         os.remove("emails.txt")
     
     points = 0
+    n = 0
     for email, valid in emails.items():
         status, headers, body = app_req("/email", method="POST", input_body=email)
         if status != "200 OK":
@@ -429,10 +437,16 @@ def email():
             return 0
         resp = json.loads(body)
         if valid:
+            n += 1
             if resp.lower().find("thank") >= 0:
-                points += 2
+                points += 1
             else:
                 print("response '%s' did not contain 'thank' for valid email '%s'" % (resp, email))
+                
+            if resp.lower().find(str(n)) >= 0:
+                points += 1
+            else:
+                print("response '%s' did not contain correct 'n' for valid email '%s'" % (resp, email))
         else:
             if resp.lower().find("thank") >= 0:
                 print("response '%s' contained 'thank' for invalid email '%s'" % (resp, email))
