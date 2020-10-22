@@ -1,0 +1,80 @@
+<html>
+ <head>
+ <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="styles.css">
+<style>
+  table, th, td {
+    border: 1px solid black;
+  }
+  table.center {
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  .center {
+    text-align: center
+  }
+
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: black;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .button-bfs {
+    background: rgb(177, 80, 90);
+    border-radius: 12px;
+    /* this is a maroon */
+  }
+  .button-dfs {
+    background: rgb(77, 80, 150);
+    border-radius: 12px;
+    /* this is a maroon */
+  }
+  .button2 {
+    background-color: blue; 
+    color: black; 
+    border: 2px solid #008CBA;
+  }
+
+  .button2:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+</style>
+</head>
+<body>
+<h1 class="center" title="I'm a header" >&Title&</h1>
+<div class="center">
+  <button class="button-bfs" onclick="onBFSClick()" id="BFS">BFS Click!</button>
+</div>
+<div class="center">
+  <button class="button-dfs" onclick="onDFSClick()" id="DFS">DFS Click!</button>
+</div>
+
+<table class="center" id="Pages">
+  <tr>
+    &Links&
+  </tr>
+</table>
+
+<script>
+  bfsPartialPassword = "&BFS_PASS&"
+  dfsPartialPassword = "&DFS_PASS&"
+
+  function onBFSClick() {
+    document.getElementById("BFS").innerHTML = bfsPartialPassword;
+  }
+  function onDFSClick() {
+    document.getElementById("DFS").innerHTML = dfsPartialPassword;
+  }
+</script>
+</body>
+</html>
