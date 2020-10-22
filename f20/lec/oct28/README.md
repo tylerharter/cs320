@@ -47,7 +47,7 @@ the above `scatter` method.
 Can you modify the above code so it draws the same scatter points as
 black dots on the right?  It ought to look like this:
 
-<img src="scatter.png" width=300>
+<img src="scatter.png" width=500>
 
 You'll need to (1) make another `.transform` call based on the `ax2`
 coordinate system, (2) make an additional call to `scatter`, and (3)
