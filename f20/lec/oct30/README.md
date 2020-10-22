@@ -4,6 +4,27 @@
 
 ### Watch: [26-minute video](https://youtu.be/pRYj38npGP0)
 
+### Practice: Filtering and Coloring
+
+Start with this example:
+
+```python
+world_df = geopandas.read_file(geopandas.datasets.get_path("naturalearth_lowres"))
+world_df = world_df[world_df["continent"] != "Oceania"]
+world_df["color"] = "0.7"
+world_df.loc[world_df["pop_est"] > 2e8, "color"] = "red"
+world_df.plot(color=world_df["color"])
+ax.set_axis_off()
+```
+
+Modify it so that:
+1. it includes Oceania, but excludes Antarctica
+2. countries with >200 million are still red, but those in the 100-200 million range are yellow
+
+It should look like this:
+
+<img src="world.png" width=400>
+
 ## 2. Shapefiles (Part 2)
 
 ### Watch: [20-minute video](https://youtu.be/JPKqMN_jTtM)
