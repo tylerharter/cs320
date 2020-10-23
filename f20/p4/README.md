@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-None yet. 
+* Oct 23: Small change to tester
 
 ## Handin
 
