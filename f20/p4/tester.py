@@ -358,7 +358,7 @@ def api_examples():
     all_json = True
     has_dict = False
     has_list_of_dicts = False
-    has_short_list_of_dicts = False
+    has_short_list_of_lists = False
 
     api_tags = ['pre', 'code']
     api_tags_formated = f"{', '.join([f'<{x}>' for x in api_tags[:-1]])} or <{api_tags[-1]}>"
