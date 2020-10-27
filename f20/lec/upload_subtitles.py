@@ -48,8 +48,6 @@ def main():
     youtube = googleapiclient.discovery.build("youtube", "v3", credentials=credentials)
 
     for dirname in os.listdir("."):
-        if not dirname.startswith("oct2"): # TODO!
-            continue
         if not os.path.isdir(dirname):
             continue
         for fname in os.listdir(dirname):
