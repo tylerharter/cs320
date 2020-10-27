@@ -156,7 +156,7 @@ Open your web browser and go to `http://your-ip:5000` to see your page
 Requirements:
 
 * Going to `http://your-ip:port/browse.html` should return the content for `browse.html`, and similarly for the other pages.
-* The index.html page should have hyperlinks to all the other pages.
+* The index.html page should have hyperlinks to all the other pages. Slide 4 [of this powerpoint](https://tyler.caraza-harter.com/cs320/f20/materials/lec-16.pdf) has some nice examples. (Be sure to not include your ip here! A relative path is fine.)
 * You should put whatever content you think makes sense on the pages.  Just make sure that they all start with an `<h1>` heading, giving the page a title.
 
 ## Browse
