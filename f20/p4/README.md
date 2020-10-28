@@ -288,7 +288,7 @@ showing version A or B.
   "donate.html?from=A", and in the link on version B to
   donate.html, use "donate.html?from=B".  Then the handler for
   the "donate.html" route can keep count of how much people are
-  using the links on both versions of the home page. (Hint 1 of the previous 
+  using the links on both versions of the home page. (Hint 1 of the API 
   section is a good refresher for pulling A/B out of the query string.) 
   
 **Hint 3:** You shouldn't need to have two different versions of your homepage 
