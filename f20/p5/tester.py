@@ -42,7 +42,7 @@ def print(*args, **kwargs):
 # TIP: to generate expected.json, run the tests on a good
 # implementation, then copy actual.json to expected.json
 expected_json = None
-actual_json = {"version": 2}
+actual_json = {"version": 1}
 
 # return string (error) or None
 def is_expected2(actual, name, histo_comp=False):
@@ -211,7 +211,7 @@ def gen(row_count=10, sort=False, name=None):
     with ZipFile(zipname, "w", compression=ZIP_DEFLATED) as zf:
         with zf.open(name+".csv", "w") as raw:
             with TextIOWrapper(raw) as f:
-                writer = csv.writer(f)
+                writer = csv.writer(f, lineterminator='\n')
                 writer.writerow(header)
                 for row in rows:
                     writer.writerow(row)
@@ -248,7 +248,7 @@ def svg_analyze(fname):
     return stats
 
 def run(*args):
-    args = ["python3", prog_name] + [str(a) for a in args]
+    args = ["python3", prog_name] + [str(a) for a in args] 
     print("RUN:", " ".join(args))
     subprocess.check_output(
         args, stderr=subprocess.STDOUT,
@@ -257,6 +257,7 @@ def run(*args):
 
 
 def zip_csv_iter(name):
+    print('change back to python3')
     with ZipFile(name) as zf:
         with zf.open(name.replace(".zip", ".csv")) as f:
             reader = csv.reader(TextIOWrapper(f))
@@ -269,6 +270,7 @@ def check_zip(zname):
 
     for i, row in enumerate(rows):
         errors.append(is_expected(len(rows), zname+":row-%d:length" % i))
+
         ip = row[ip_idx]
         cik = row[cik_idx]
         errors.append(is_expected(ip, zname+":row-%d:ip" % i))
@@ -283,7 +285,7 @@ def check_zip(zname):
 def small_samp():
     points = 0
     zname = gen()
-
+    
     for mod in range(1, 6):
         zout = zname.replace(".zip", "-%d.zip"%mod)
         run("sample", zname, zout, mod)
@@ -306,32 +308,9 @@ def big_samp():
     return 10
 
 @test(points=10)
-def small_sort():
+def small_country():
     zname = gen(row_count=50)
     zout = zname.replace(".zip", "_output.zip")
-    run("sort", zname, zout)
-    err = check_zip(zout)
-    if err:
-        print(err)
-        return 0
-    else:
-        return 10
-
-@test(points=10)
-def big_sort():
-    zname = "small.zip"
-    zout = zname.replace(".zip", "_output.zip")
-    run("sort", zname, zout)
-    err = check_zip(zout)
-    if err:
-        print(err)
-        return 0
-    return 10
-
-@test(points=10)
-def small_country():
-    zname = gen(row_count=50, sort=True)
-    zout = zname.replace(".zip", "_output.zip")
     run("country", zname, zout)
     err = check_zip(zout)
     if err:
@@ -339,31 +318,32 @@ def small_country():
         return 0
     else:
         return 10
-
-@test(points=10)
-def big_country():
-    zname = "sorted.zip"
-    zout = zname.replace(".zip", "_output.zip")
-    run("country", zname, zout)
-    err = check_zip(zout)
-    if err:
-        print(err)
-        return 0
-    return 10
 
 @test(points=20)
-def geo():
+def big_country():
+    zname = "small.zip" 
+    zout = "country_output.zip"
+    run("country", zname, zout)
+    err = check_zip(zout)
+    if err:
+        print(err)
+        return 0
+    return 20
+
+@test(points=25)
+def geocontinent():
     zname = "countries.zip"
     svg = "geo.svg"
     if os.path.exists(svg):
         os.remove(svg)
-    run("geo", zname, svg)
+    run("geocontinent", zname, svg, 'Europe')
     stats = svg_analyze(svg)
     if stats["paths"] < 270 or stats["paths"] > 300:
         print("that doesn't look like a world map")
         return 0
-
-    points = 20
+    
+    # preliminary tests
+    points = 25
     if stats["paths"] > 284:
         print("ERROR: please remove Antartica")
         points -= 5
@@ -375,13 +355,28 @@ def geo():
     if stats["width"] < 450:
         print("ERROR: make the plot wider")
         points -= 5
+      
+    avg_colors = set()      
+    for continent in ['Europe', 'North America', 'Asia', 'South America', 'Australia', 'Africa']:
+        svg = "geo{}.svg".format(continent.split()[0])
+        if os.path.exists(svg):
+            os.remove(svg)
+        run("geocontinent", zname, svg, continent)
+        stats = svg_analyze(svg)
+        avg_colors.add(stats["avg_color"])
+
+    if len(avg_colors) < 6:
+        print("colors don't seem to change much from hour to hour")
+        points -= 10
 
     return points
 
-@test(points=10)
+@test(points=15)
 def geohour():
     zname = "countries.zip"
     avg_colors = set()
+    points = 15
+    
     for hour in range(0, 24, 4):
         svg = "geo-%d.svg" % hour
         if os.path.exists(svg):
@@ -392,12 +387,20 @@ def geohour():
             print("%s doesn't look like a world map" % svg)
             return 0
         avg_colors.add(stats["avg_color"])
+        
+        # check json file
+        with open('top_5_h{}.json'.format(hour), 'r') as f:
+            top_5 = json.load(f)
+        err = is_expected(top_5, 'geohour_json_{}'.format(hour))
+        if err is not None:
+            points -= 1
+            print('incorrect top 5 for hour {}'.format(hour))
 
     if len(avg_colors) < 3:
         print("colors don't seem to change much from hour to hour")
         return 0
 
-    return 10
+    return points
 
 @test(points=10)
 def video():

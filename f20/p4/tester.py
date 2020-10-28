@@ -411,7 +411,7 @@ def api_examples():
     if has_short_list_of_lists:
         points += 6
     else:
-        print("at least one API example should return a filtered list of dicts (subset of all data rows)")
+        print("at least one API example should return a filtered list of lists (subset of all data rows)")
 
     return points
 

@@ -1,6 +1,6 @@
 # Don't Start Yet!!!  Still under revision.
 
-# P4: EDGAR Data
+# P5: EDGAR Data
 
 In this project, you'll be building a command line tool for processing
 compress EDGAR web logs.  In the US, public companies need to
@@ -17,32 +17,19 @@ data, take a look at this early-stage work:
 EDGAR logs are huge.  Logs for *just one day* might be about 250 MB
 compressed as a .zip (or 2 GB uncompressed!).  It will be very useful
 to have command line tools to sample and otherwise process this data.
-Your tool (which will consist of a single `main.py`) will have three
-commands for dealing with these zips: `sample`, `sort`, and `country`.
+Your tool (which will consist of a single `main.py`) will have two
+commands for dealing with these zips: `sample` and `country`.
 
 Your tool will also provide three commands for visualizing where web
-requests to EDGAR are originating: `geo`, `geohour`, and `video`.
-These will generate either images or videos.  For example, `geo`
-generates the following:
+requests to EDGAR are originating: `geocontinent`, `geohour`, and `video`.
+These will generate either images or videos.  For example, `geocontinent`
+could generate the following (without filtering):
 
 <img src="world.png">
 
 ## Corrections/Clarifications
 
-* March 15: tests released (please download `tester.py` and `expected.json`)
-* March 19: remove commas in pip3 command
-* March 25: `geo` solution posted [here](geo-solution.md).
-* March 26: big_country test in `tester.py` updated (please redownload `tester.py`)
-
-## What's Most Challenging?
-
-There are six commands you need to implement for this project.  On
-Wed, March 25th, we'll give away our code for one of these six.  Vote
-on which one here:
-
-https://forms.gle/1wtbgDHiKLVxhWNt7
-
-Get an early start so you know which part you want us to solve for you!
+None yet.
 
 ## EDGAR Data
 
@@ -107,7 +94,7 @@ pip3 install click
 And these will help you make maps:
 
 ```
-pip3 install geopandas shapely descartes
+pip3 install geopandas shapely descartes mapclassify
 ```
 
 ## Starter Code
@@ -158,9 +145,11 @@ python3 main.py sample # shows what arguments sample command needs
 python3 main.py sample samp.zip samp2.zip 10 # click module automatically runs sample(...)
 ```
 
+# Group Part (75%)
+
 ## Data Pipeline Commands
 
-`sample`, `sort`, and `country` are commands that will take a .zip as
+`sample` and `country` are commands that will take a .zip as
 input and produce a new .zip as output.  The zips will contain a
 single .csv by the same name.  It will be possible to chain the
 transformations together into a pipeline, to make a series of changes
@@ -231,9 +220,12 @@ Running the above will give output like this:
 
 Yes, those aren't quite real IP addresses, as explained in the next section...
 
-### 2. `sort` Command
+### 2. `country` Command
 
-In this one, it's OK if you read in the complete CSV, then sort,
+This command has two parts: sorting and adding a new country column. 
+As explained why lateer, the sorting will come first. 
+
+It's OK if you read in the complete CSV, then sort,
 perhaps something like this:
 
 ```python
@@ -269,40 +261,47 @@ is used. If an unstable sorting algorithm is used then they aren't guaranteed to
 the same order (although they made be by chance). This [link](https://qr.ae/pNvGYH) 
 goes a little more in-depth on stable vs unstable sorting algorithms with a nice 
 example.
-
 Python's sort and sorted methods are stable. Pandas' sort_values method isn't stable 
 by default (although it is possible to make it stable). However, you're encouraged to 
 use csv.reader and csv.writer from Python's csv module instead of Pandas 
 (as noted in section 1). 
+    
+Now on to adding a country column. 
 
-### 3. `country` Command
-
-This one uses the IP2Location(:tm:).  The compressed output table
+This part uses the IP2Location(:tm:).  The compressed output table
 should be the same as the input, except with an extra column for
 country at the end.
-
-The `country` command only needs to work on .zip files where IPs are
-already sorted in ascending order (perhaps it's output from the `sort`
-command you just created).
 
 The fact that both the IP2Location(:tm:) data and the input zip to the
 `country` command are sorted in ascending order by IP means it should
 be possible to implement `country` as an O(N) function, where N is
 number of rows.  Searching through all the IP2Location(:tm:) data
-again for each row of input data could be pretty slow.
+again for each row of input data could be pretty slow.  
+
+**Hint** Keeping an index for the IP2Location csv and only ever incrementing 
+it should help keep the algorithm O(N).  
+
+**Note:** As you may have noticed, it would be reasonable to also split 
+sorting and adding the country column into two separate commands. When you 
+come across dilemmas like in your own work, one question you could ask 
+yourself is "Would I ever want the output of just the first part but not 
+the second?" Taking this command for example, if you'd answer yes to 
+the above question, you could think think about which is more inconvenient: 
+having an extra command or having to remove a column when you just want 
+sorted data?
 
 ## Visualization Commands
 
 Once you know have the country data for all the requests, there are a
 lot of fun ways to visualize the data.  As shown in the following, the
-`geo` and `geohour` commands will produce .svg files, where countries
-generating more requests are drawn darker.  The `video` command will
+`geocontinent` and `geohour` commands will produce .svg files, where countries
+which generate more requests are drawn darker.  The `video` command will
 generate a 24-frame animation, showing where requests are coming
 from, hour-by-hour.
 
 <img src="media.png">
 
-### 4. `geo` Command
+### 3. `geohour` Command
 
 Give this a try:
 
@@ -314,25 +313,63 @@ world.plot()
 
 <img src="blue-map.png" width=300>
 
-The `geo` command will produce a similar map, with at least three improvements:
+The `geohour` command will produce a similar map, with at least three improvements:
 
 1. make it larger
 2. don't show Antarctica -- the penguins probably aren't operating a hedge fund there anyways
 3. countries that sent more traffic to EDGAR should be shaded darker
+4. an integer between 0 and 23 is passed in; the rows are filtered on the `time` column
 
 You can otherwise decide the color scheme, and it can be continuous or
-discrete (for example, one color for 1000+, another for 100-999, etc).
+discrete (for example, one color for 1000+, another for 100-999, etc). 
+[This link](https://geopandas.org/mapping.html) has a lot of examples for 
+plotting with geopandas.  
 
-Many of the country names are identical in the IP2Location(:tm:) and
-EDGAR log datasets.  In cases where the names are slightly different,
-you don't need to worry about shading for that country.
+`geohour` should also write to a json file called `"top_5_h{}.json".format(hour)` a dict 
+of the top 5 counts at that time (key = country; value = count). 
 
-### 5. `geohour` Command
+Many of the country names are identical in the IP2Location(:tm:) and EDGAR log datasets.  
+In cases where the names are slightly different, you don't need to worry about shading for that country.
 
-Same as above, but an integer between 0 and 23 is passed in.  The rows
-is filtered on the `time` column before the plot is generated.
+Here's a bit of code for a function that could help out:
+```python
+def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
+    # count occurences per country
+    reader = zip_csv_iter(zipname)
+    header = next(reader)
+    cidx = header.index("country")
+    counts = defaultdict(int)
+    w = world()
+	
+	# populate counts 
+	for row in reader:
+        if hour != None:
+            if hour != int(row[timeidx].split(":")[0]):
+                continue
+        counts[row[cidx]] += 1
+	
+    for country, count in counts.items():
+        # sometimes country names in IP dataset don't
+        # match names in naturalearth_lowres -- skip those
+        if not country in w.index:
+            continue
 
-### 6. `video` Command
+        # add data (either count or a color) to a new column
+	
+	# plot it
+	# return it
+```
+
+# Individual Part (25%)
+
+### 4. `geocontinent` Command
+
+Same as above, but a continent is passed instead of an integer 0-23. 
+Now, only show non-default colors for countries on the continent identified 
+by the parameter. The helper function above could be helpful here as well; 
+it just needs to be adapted. 
+
+### 5. `video` Command
 
 Imagine running `geohour` for all hours of the day, then combining the
 images to make a video.  That's basically what this command does.
@@ -343,9 +380,12 @@ to create the video, then call
 [.to_html5_video(...)](https://matplotlib.org/api/_as_gen/matplotlib.animation.Animation.to_html5_video.html),
 which is why we have `.html` in the video's file name.
 
-This last part needs a (non-python) package called `ffmpeg` to convert all the images into a video/animation/html file. Install it like so:
+This last part needs a (non-Python) package called `ffmpeg` to convert all the images into a video/animation/html file. Install it like so:
 ```
 sudo apt-get install ffmpeg
 ``` 
 
-The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html).
+The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html).  
+  
+## Hand-In
+Your main.py is your deliverable for P5. 

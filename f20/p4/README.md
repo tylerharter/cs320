@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Oct 28: Change to error message in tester
 * Oct 23: Small change to tester
 
 ## Handin
