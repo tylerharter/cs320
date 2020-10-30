@@ -8,7 +8,7 @@
 # See instructions for running these code samples locally:
 # https://developers.google.com/explorer-help/guides/code_samples#python
 
-import io, os, re
+import io, os, re, pickle
 
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
@@ -36,9 +36,17 @@ def download_cc(youtube, video, path):
 def main():
     # Get credentials and create an API client
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-    scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
-    flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file("cred.json", scopes)
-    credentials = flow.run_local_server()
+
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            credentials = pickle.load(token)
+    else:
+        scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
+        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file("cred.json", scopes)
+        credentials = flow.run_local_server()
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(credentials, token)
+
     youtube = googleapiclient.discovery.build("youtube", "v3", credentials=credentials)
 
     for dirname in os.listdir("."):
