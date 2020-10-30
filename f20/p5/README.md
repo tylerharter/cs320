@@ -1,5 +1,3 @@
-# Don't Start Yet!!!  Still under revision.
-
 # P5: EDGAR Data
 
 In this project, you'll be building a command line tool for processing
