@@ -297,6 +297,9 @@ which generate more requests are drawn darker.  The `video` command will
 generate a 24-frame animation, showing where requests are coming
 from, hour-by-hour.
 
+**Note:** Your colors may look different than the images below due to choice 
+of colors and choice of how to assign colors to countries. 
+
 <img src="media.png">
 
 ### 3. `geohour` Command
