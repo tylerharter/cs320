@@ -274,7 +274,8 @@ The fact that both the IP2Location(:tm:) data and the input zip to the
 `country` command are sorted in ascending order by IP means it should
 be possible to implement `country` as an O(N) function, where N is
 number of rows.  Searching through all the IP2Location(:tm:) data
-again for each row of input data could be pretty slow.  
+again for each row of input data could be pretty slow. 
+(That is to say, write an O(N) implementation.)  
 
 **Hint** Keeping an index for the IP2Location csv and only ever incrementing 
 it should help keep the algorithm O(N).  
