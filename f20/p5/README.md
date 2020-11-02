@@ -27,7 +27,7 @@ could generate the following (without filtering):
 
 ## Corrections/Clarifications
 
-None yet.
+*Nov 2. Update to tester: please redownload
 
 ## EDGAR Data
 

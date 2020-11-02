@@ -120,19 +120,21 @@ def run_all_tests():
         print_buf = None # stop tracing prints
         print("TEST RESULT: {} of {} points".format(points, t.points))
 
-    print("="*40)
-    print("Earned {} of {} points across all tests".format(total_points, total_possible))
-    results["score"] = round(100.0 * total_points / total_possible, 1)
-
+    
     # how long did it take?
     t1 = time.time()
     max_sec = 240
     sec = t1-t0
-    if sec > max_sec/2:
+    if sec > 90:
         print("WARNING!  Tests took", sec, "seconds")
-        print("Maximum is ", sec, "seconds")
-        print("We recommend keeping runtime under half the maximum as a buffer.")
-        print("Variability may cause it to run slower for us than you.")
+        print("Try to keep test under 90 seconds.")
+        print("Make sure you have an O(N) implementation for country")
+        print("-5 points")
+        total_points -= 5
+           
+    print("="*40)
+    print("Earned {} of {} points across all tests".format(total_points, total_possible))
+    results["score"] = round(100.0 * total_points / total_possible, 1)
 
     results["latency"] = sec
 
@@ -257,7 +259,6 @@ def run(*args):
 
 
 def zip_csv_iter(name):
-    print('change back to python3')
     with ZipFile(name) as zf:
         with zf.open(name.replace(".zip", ".csv")) as f:
             reader = csv.reader(TextIOWrapper(f))
