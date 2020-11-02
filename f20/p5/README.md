@@ -1,7 +1,7 @@
 # P5: EDGAR Data
 
 In this project, you'll be building a command line tool for processing
-compress EDGAR web logs.  In the US, public companies need to
+compressed EDGAR web logs.  In the US, public companies need to
 regularly file various statements and reports to the SEC's (Securities and
 Exchange Commission) EDGAR database.  EDGAR data is publicly available
 online; furthermore, web requests to EDGAR from around the world are
