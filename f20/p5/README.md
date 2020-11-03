@@ -27,8 +27,8 @@ could generate the following (without filtering):
 
 ## Corrections/Clarifications
 
-*Nov 2: Update to tester: please redownload
-*Nov 2: Typo in unzip command fixed
+* Nov 2: Update to tester: please redownload
+* Nov 2: Typo in unzip command fixed
 
 ## EDGAR Data
 
