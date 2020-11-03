@@ -27,7 +27,8 @@ could generate the following (without filtering):
 
 ## Corrections/Clarifications
 
-*Nov 2. Update to tester: please redownload
+*Nov 2: Update to tester: please redownload
+*Nov 2: Typo in unzip command fixed
 
 ## EDGAR Data
 
@@ -48,7 +49,7 @@ to know some command line techniques to troubleshoot.
 View names of files in a zip file:
 
 ```
-unzip -l jan1.csv
+unzip -l jan1.zip
 ```
 
 View start of a file inside of a zip file:
