@@ -32,7 +32,7 @@ col_dot(X, c)
 Let's say we want to subtract the third column from the first column
 (this is a linear combination!) to get values 97, 198, and 299.
 
-Relpace the `???` parts with numbers to achieve this subtraction.
+Replace the `???` parts with numbers to achieve this subtraction.
 
 <details>
     <summary>ANSWER</summary>
