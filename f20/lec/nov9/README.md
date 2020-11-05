@@ -14,6 +14,8 @@ Run the following to practice computing the dot product yourself,
 until you can get 5 in a row correct:
 
 ```python
+import numpy as np
+
 def practice():
     size = np.random.randint(1,5)
     a = np.random.randint(-3,4,size).reshape(-1,1)
@@ -24,9 +26,9 @@ def practice():
     print("b = ")
     print(b)
     print()
-    answer = int(input("What is np.dot(a.T,b), as a scalar?  "))
+    answer = int(input("What is a.T@b, as a scalar?  "))
     print()
-    expected = np.dot(a.T, b)[0][0]
+    expected = (a.T @ b)[0][0]
     if answer == expected:
         print("Good job!")
         return True
@@ -72,28 +74,28 @@ identify that row, based on what row 'x' is in.
 ```python
 def practice(cols):
     rows = np.random.randint(3, 7)
-    A = np.random.randint(-3,4,(rows, cols))
-    b = np.random.randint(-3,4,cols).reshape(-1,1)
-    print("A = ")
-    print(A)
+    X = np.random.randint(-3,4,(rows, cols))
+    c = np.random.randint(-3,4,cols).reshape(-1,1)
+    print("X = ")
+    print(X)
     print()
-    print("b = ")
-    print(b)
+    print("c = ")
+    print(c)
     print()
-    M = np.dot(A,b).astype(object)
+    M = (X @ c).astype(object)
     pos = np.random.randint(0,rows)
-    expected, M[pos,0] = M[pos,0], "x"
-    print("np.dot(A,b) = ")
+    expected, M[pos,0] = M[pos,0], "?"
+    print("X @ c = ")
     print(M)    
     print()
-    answer = int(input("What is 'x'?  "))
+    answer = int(input("What is '?'?  "))
     print()
     if answer == expected:
         print("Good job!")
         return True
     else:
         print("\nActually, it is ", expected)
-        print("Calculation:", " + ".join(f"({x}*{y})" for x,y in zip(A[pos].reshape(-1), b.reshape(-1))))
+        print("Calculation:", " + ".join(f"({x}*{y})" for x,y in zip(X[pos].reshape(-1), c.reshape(-1))))
         time.sleep(2)
         return False
 
