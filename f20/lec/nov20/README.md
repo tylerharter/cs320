@@ -1,4 +1,4 @@
-# April 22 Lecture
+# Nov 20 Lecture
 
 ## 1. Regression vs. Classification
 
@@ -62,7 +62,7 @@ train, test = train_test_split(df, test_size=0.5)
 train.head()
 ```
 
-How well does it doe on the training and test data?
+How well does it do on the training and test data?
 
 ```python
 lr = LogisticRegression(penalty="none")
@@ -75,18 +75,18 @@ helps us better gauge the performance of the model, especially when
 the model might be overfitting the training data.
 
 There is a greater risk for overfitting the training data when the
-number of features is large relative to the number of rows.  Increase
-`features = 50` above to observe this problem.
+number of features (columns) is large relative to the number of rows.
+Increase `features = 50` above to observe this problem.
 
-What scores do both get now?  You probably observe perfect scores on
-the training data, but that doesn't mean anything because the model
-essentially memorized the oddities of that data.  It doesn't do so
-great on the test data.
+What scores do both get now?  You'll probably observe perfect scores
+on the training data, but that doesn't mean anything because the model
+essentially memorized the oddities of that data.  It probably won't do
+so great on the test data.
 
 Note that we specifically disabled penalties with `penalty="none"`.
 We won't go into detail here about what this parameter means, but it
 is used to avoid overfitting.  Remove `penalty="none"`, then see
-whether the model does better on the training data.
+whether the model does better on the test data.
 
 ## 3. Pipelines
 
