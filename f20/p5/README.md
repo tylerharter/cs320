@@ -223,7 +223,9 @@ Yes, those aren't quite real IP addresses, as explained in the next section...
 ### 2. `country` Command
 
 This command has two parts: sorting and adding a new country column. 
-As explained why lateer, the sorting will come first. 
+
+Can you think of a reason to sort the new column before merging?
+**Hint** The zip files are pre-sorted
 
 It's OK if you read in the complete CSV, then sort,
 perhaps something like this:
