@@ -199,4 +199,4 @@ And what percent of the total is that?
 ```
 
 This may be useful for counting what percentage of an area matches a
-given land type in P5.
+given land type in P6.
