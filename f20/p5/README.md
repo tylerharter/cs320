@@ -224,8 +224,8 @@ Yes, those aren't quite real IP addresses, as explained in the next section...
 
 This command has two parts: sorting and adding a new country column. 
 
-Can you think of a reason to sort the new column before merging?
-**Hint** The zip files are pre-sorted
+Can you think of a reason to sort the files before merging?
+**Hint** What if they are sorted by the same key?
 
 It's OK if you read in the complete CSV, then sort,
 perhaps something like this:
