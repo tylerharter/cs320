@@ -258,7 +258,7 @@ def svg_analyze(fname):
     return stats
 
 def run(*args):
-    args = ["python", prog_name] + [str(a) for a in args] 
+    args = ["python3", prog_name] + [str(a) for a in args] 
     print("RUN:", " ".join(args))
     subprocess.check_output(
         args, stderr=subprocess.STDOUT,
