@@ -222,11 +222,19 @@ def gen(row_count=10, sort=False, name=None):
 def svg_analyze(fname):
     doc = minidom.parse(fname)
 
-    stats = {
-        "paths": 0,
-        "colors": set(),
-        "width": float(doc.getElementsByTagName("svg")[0].getAttribute("width").split(".")[0])
-    }
+    
+    try:
+        stats = {
+            "paths": 0,
+            "colors": set(),
+            "width": float(doc.getElementsByTagName("svg")[0].getAttribute("width").replace("pt", ""))
+        }
+    except: # don't think this is needed but just to be safe I guess
+        stats = {
+            "paths": 0,
+            "colors": set(),
+            "width": float(doc.getElementsByTagName("svg")[0].getAttribute("width").split(".")[0])
+        }
 
     rgb = [0, 0, 0]
     
@@ -250,7 +258,7 @@ def svg_analyze(fname):
     return stats
 
 def run(*args):
-    args = ["python3", prog_name] + [str(a) for a in args] 
+    args = ["python", prog_name] + [str(a) for a in args] 
     print("RUN:", " ".join(args))
     subprocess.check_output(
         args, stderr=subprocess.STDOUT,

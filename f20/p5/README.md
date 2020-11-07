@@ -27,8 +27,9 @@ could generate the following (without filtering):
 
 ## Corrections/Clarifications
 
-* Nov 2: Update to tester: please redownload
+* Nov 7: Problem with width in analyzing svgs fixed
 * Nov 2: Typo in unzip command fixed
+* Nov 2: Update to tester: please redownload
 
 ## EDGAR Data
 
