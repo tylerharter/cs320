@@ -7,7 +7,7 @@
 ### Practice: Polynomial Terms
 
 In the lecture, we added some polynomial terms that were non-linear,
-such as x**2 and x**3.  We also added log2(x) and 1/x, which are
+such as x\*\*2 and x\*\*3.  We also added log2(x) and 1/x, which are
 non-linear and non-polynomial.
 
 When you only need to deal with polynomials, sklearn has a
