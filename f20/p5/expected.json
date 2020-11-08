@@ -53237,46 +53237,46 @@
   "country_output.zip:row-17486:length": 17487,
   "country_output.zip:row-17486:ip": "223.72.72.bjh",
   "country_output.zip:row-17486:cik": "1610601.0",
-  "geohour_json_0": {
-    "United States of America": 527,
-    "Ireland": 124,
-    "China": 72,
-    "India": 9,
-    "Canada": 9
-  },
-  "geohour_json_4": {
-    "United States of America": 494,
-    "Ireland": 105,
-    "China": 68,
-    "Canada": 17,
-    "India": 14
-  },
-  "geohour_json_8": {
-    "United States of America": 508,
-    "Ireland": 111,
-    "China": 66,
-    "Canada": 15,
-    "India": 10
-  },
-  "geohour_json_12": {
-    "United States of America": 436,
-    "China": 78,
-    "Canada": 16,
-    "France": 12,
-    "Australia": 9
-  },
-  "geohour_json_16": {
-    "United States of America": 390,
-    "China": 46,
-    "Canada": 21,
-    "France": 20,
-    "Germany": 13
-  },
-  "geohour_json_20": {
-    "United States of America": 439,
-    "China": 62,
-    "Canada": 29,
-    "India": 9,
-    "Bulgaria": 7
-  }
+  "geohour_json_0": [
+    9,
+    9,
+    72,
+    124,
+    527
+  ],
+  "geohour_json_4": [
+    14,
+    17,
+    68,
+    105,
+    494
+  ],
+  "geohour_json_8": [
+    10,
+    15,
+    66,
+    111,
+    508
+  ],
+  "geohour_json_12": [
+    9,
+    12,
+    16,
+    78,
+    436
+  ],
+  "geohour_json_16": [
+    13,
+    20,
+    21,
+    46,
+    390
+  ],
+  "geohour_json_20": [
+    7,
+    9,
+    29,
+    62,
+    439
+  ]
 }

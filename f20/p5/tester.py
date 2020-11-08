@@ -258,7 +258,7 @@ def svg_analyze(fname):
     return stats
 
 def run(*args):
-    args = ["python3", prog_name] + [str(a) for a in args] 
+    args = ["python", prog_name] + [str(a) for a in args] 
     print("RUN:", " ".join(args))
     subprocess.check_output(
         args, stderr=subprocess.STDOUT,
@@ -400,7 +400,7 @@ def geohour():
         # check json file
         with open('top_5_h{}.json'.format(hour), 'r') as f:
             top_5 = json.load(f)
-        err = is_expected(top_5, 'geohour_json_{}'.format(hour))
+        err = is_expected(sorted(top_5.values()), 'geohour_json_{}'.format(hour))
         if err is not None:
             points -= 1
             print('incorrect top 5 for hour {}'.format(hour))
