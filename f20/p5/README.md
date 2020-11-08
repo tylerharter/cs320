@@ -27,6 +27,7 @@ could generate the following (without filtering):
 
 ## Corrections/Clarifications
 
+* Nov 8: tester update for geohour
 * Nov 7: Problem with width in analyzing svgs fixed
 * Nov 2: Typo in unzip command fixed
 * Nov 2: Update to tester: please redownload
@@ -223,7 +224,7 @@ Yes, those aren't quite real IP addresses, as explained in the next section...
 ### 2. `country` Command
 
 This command has two parts: sorting and adding a new country column. 
-As explained why lateer, the sorting will come first. 
+As explained why later, the sorting will come first. 
 
 It's OK if you read in the complete CSV, then sort,
 perhaps something like this:
@@ -344,12 +345,12 @@ def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
     cidx = header.index("country")
     counts = defaultdict(int)
     w = world()
-	
-	# populate counts 
-	for row in reader:
+    
+    # populate counts 
+    for row in reader:
         if hour != None:
             if hour != int(row[timeidx].split(":")[0]):
-                continue
+	        continue
         counts[row[cidx]] += 1
 	
     for country, count in counts.items():
