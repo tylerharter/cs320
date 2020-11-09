@@ -400,7 +400,7 @@ def geohour():
         # check json file
         with open('top_5_h{}.json'.format(hour), 'r') as f:
             top_5 = json.load(f)
-        err = is_expected(top_5, 'geohour_json_{}'.format(hour))
+        err = is_expected(sorted(top_5.values()), 'geohour_json_{}'.format(hour))
         if err is not None:
             points -= 1
             print('incorrect top 5 for hour {}'.format(hour))
