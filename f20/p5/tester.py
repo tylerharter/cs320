@@ -374,7 +374,7 @@ def geocontinent():
         stats = svg_analyze(svg)
         avg_colors.add(stats["avg_color"])
 
-    if len(avg_colors) < 6:
+    if len(avg_colors) < 5:
         print("colors don't seem to change much from hour to hour")
         points -= 10
 
