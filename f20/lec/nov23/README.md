@@ -6,7 +6,7 @@
 
 ### Practice:
 
-In the demo, we did k-means in 2 dimensions.  You can also do it in 3 or more.
+In the demo, we did NearestNeighbor in 2 dimensions.  You can also do it in 3 or more.
 
 Do some imports and generate some 3-dimensional data:
 
