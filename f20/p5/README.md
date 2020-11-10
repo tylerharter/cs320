@@ -27,6 +27,7 @@ could generate the following (without filtering):
 
 ## Corrections/Clarifications
 
+* Nov 10: although we have a "country" command and column, it's more accurate to think of this as a region.  There are a number of IP ranges corresponding to a specific region of a country, rather than the country as a whole
 * Nov 8: tester update for geohour
 * Nov 7: Problem with width in analyzing svgs fixed
 * Nov 2: Typo in unzip command fixed
@@ -72,7 +73,11 @@ https://lite.ip2location.com/database/ip-country.  We've uploaded a
 copy of this `IP2LOCATION-LITE-DB1.CSV.ZIP` file to GitHub for you to
 manually download.
 
-One weird thing about this dataset is that regular IP address, like
+Note that although IP2Location calls this their "LITE IP-COUNTRY
+Database", it's more accurately a regional database: there are
+sometimes multiple entries for the same country.
+
+Another weird thing about this dataset is that regular IP address, like
 `"34.67.75.25"`, get converted to integers, like `574835481`.  Rather
 than dive into the details around this, consider adapting the
 following, with citation, of course!
