@@ -336,7 +336,8 @@ discrete (for example, one color for 1000+, another for 100-999, etc).
 plotting with geopandas.  
 
 `geohour` should also write to a json file called `"top_5_h{}.json".format(hour)` a dict 
-of the top 5 counts at that time (key = country; value = count). 
+of the top 5 counts at that time (key = country; value = count). Only include counts that 
+have been added to the DataFrame and are being displayed in the image. 
 
 Many of the country names are identical in the IP2Location(:tm:) and EDGAR log datasets.  
 In cases where the names are slightly different, you don't need to worry about shading for that country.
