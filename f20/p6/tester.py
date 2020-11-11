@@ -56,7 +56,7 @@ def print(*args, **kwargs):
 # TIP: to generate expected.json, run the tests on a good
 # implementation, then copy actual.json to expected.json
 expected_json = None
-actual_json = {"version": 4}
+actual_json = {"version": 1}
 
 
 # return string (error) or None
@@ -184,7 +184,7 @@ def run_all_tests(mod_name):
 # TESTS
 ########################################
 
-@test(points=10)
+@test(points=5)
 def conn_cleanup():
     points = 0
 
@@ -194,11 +194,11 @@ def conn_cleanup():
         print(err)
         return 0
 
-    points += 2
+    points += 1
 
     try:
         c1.db.execute("select * from sqlite_master")
-        points += 2
+        points += 1
     except sqlite3.ProgrammingError:
         print("1 - db connection isn't open for an open land.Connection")
 
@@ -207,7 +207,7 @@ def conn_cleanup():
         c1.db.execute("select * from sqlite_master")
         print("c1.close() didn't close underlying db")
     except sqlite3.ProgrammingError:
-        points += 2
+        points += 1
 
     if not (hasattr(c1, "__enter__") and hasattr(c1, "__exit__")):
         print("Connection is not a context manager (missing special functions)")
@@ -216,7 +216,7 @@ def conn_cleanup():
     with land.open("images") as c2:
         try:
             c2.db.execute("select * from sqlite_master")
-            points += 2
+            points += 1
         except sqlite3.ProgrammingError:
             print("2 - db connection isn't open for an open land.Connection")
 
@@ -224,7 +224,7 @@ def conn_cleanup():
         c2.db.execute("select * from sqlite_master")
         print("underlying db not closed after context manager exit")
     except sqlite3.ProgrammingError:
-        points += 2
+        points += 1
 
     return points
 
@@ -307,8 +307,6 @@ def image_load():
         points = 5
     return points
 
-
-# adapted from P2
 class WrapAx:
     def __init__(self, ax):
         self.ax = ax
@@ -325,7 +323,30 @@ class WrapAx:
 
     def __getattr__(self, attr):
         return getattr(self.ax, attr)
-
+    
+@test(points=5)
+def plot_img():
+    points = 0
+    c = land.open("images")
+    
+    for i in range(5):
+        img = "area%d.npy" % i
+        fig, ax = plt.subplots()
+        ax = WrapAx(ax)
+        c.plot_img(img, ax=ax)
+        
+        if str(c.image_year(img)) in str(ax.ax.title):
+            points += 1
+        else:
+            print("couldn't find year in title for " + img)
+        
+        if str(c.image_name(img)) in str(ax.ax.title).lower():
+            points += 1
+        else:
+            print("couldn't find city name in title for " + img)
+    
+    c.close()
+    return points // 2
 
 @test(points=20)
 def lat_regression():
@@ -385,64 +406,32 @@ def lat_regression():
 
 
 @test(points=25)
-def year_regression():
-    points = 0
+def city_regression():
     calls = [
-        {'city': 'madison', 'codes': [81, 82]},
-        {'city': 'greenbay', 'codes': [11, 12]},
-        {'city': 'milwaukee', 'codes': [23, 24]},
-        {'city': 'racine', 'codes': [41, 42, 43]},
-        {'city': 'oshkosh', 'codes': [51, 52, 71, 72, 73, 74, 81, 82, 90, 95]}
+        {'year': 2050, 'codes': [81, 82]},
+        {'year': 7510, 'codes': [11, 12]},
+        {'year': 2200, 'codes': [21, 22, 23, 24]},
+        {'year': 2525, 'codes': [41, 42, 43]},
+        {'year': 2030, 'codes': [51, 52, 71, 72, 73, 74, 81, 82, 90, 95]}
     ]
+    
+    points = 0
     c = land.open("images")
-
-    # Go through each of 5 sets of params (5 points each)
-    # 10 for slopes and intercepts
-    # 10 for scatter points
-    # 5 for having line
+    
     for params in calls:
-        fig, ax = plt.subplots()
-        ax = WrapAx(ax)
-        slope, intercept = c.year_regression(params['city'], params['codes'], ax)
+        city, prediction = c.city_regression(params['codes'], params['year'])
 
-        err = is_expected(actual=slope, name="year_regression:city:m:%s" % params['city'])
-        err = is_expected(actual=intercept, name="year_regression:city:b:%s" % params['city'])
+        err = is_expected(actual=city, name="city_regression:{}:city".format(str(params['year'])))
         if err is not None:
-            print("wrong output for city {}: {}".format(params['city'], err))
+            print("wrong output for year {}: {}".format(str(params['year']), err))
+        else:
+            points += 3
+        
+        err = is_expected(actual=prediction, name="city_regression:{}:pred".format(str(params['year'])))
+        if err is not None:
+            print("wrong output for year {}: {}".format(str(params['year']), err))
         else:
             points += 2
-
-        # Just grabbing them from ax.xs worked for lat_reg but not this for some reason
-        try:
-            check = {
-                "all_xs": [int(item) for item in list(itertools.chain.from_iterable(ax.xs))],
-                "all_ys": [round(item, 4) for item in list(itertools.chain.from_iterable(ax.ys))]
-            }
-        except:
-            check = {
-                "all_xs": [int(item) for item in ax.xs],
-                "all_ys": [round(item, 4) for item in ax.ys]
-            }
-
-        # Check x's and y's of scatter points
-        for key in check:
-            err = is_expected(check[key], name="year_reg_plot:%s:%s" % (params['city'], key), histo_comp=True)
-            if err is not None:
-                print("distribution of scatter points %s not correct: %s" % (key, err))
-            else:
-                points += 1
-
-        # Check line and its slope
-        if len(ax.lines) == 1:
-            slope = round((ax.lines[0].get_ydata()[1] - ax.lines[0].get_ydata()[0]) /
-                          (ax.lines[0].get_xdata()[1] - ax.lines[0].get_xdata()[0]), 4)
-            err = is_expected(float(slope), name="year_reg_plot_slope:%s" % (params['city']))
-            if err is not None:
-                print("incorrect slope of line for %s: %s" % (params['city'], err))
-            else:
-                points += 1
-        else:
-            print("incorrect number of lines detected for city %s" % params['city'])
 
     c.close()
     return points
@@ -452,8 +441,8 @@ def year_regression():
 def animate():
     # if you can spell all of these cities w/o help, that's how you know 
     # you're from Wisconsin
-    cities = ['madison', 'greenbay', 'eauclaire', 'milwaukee', 'oshkosh',
-              'kenosha', 'racine', 'appleton', 'waukesha', 'janesville']
+    cities = ['madison', 'greenbay', 'eauclaire', 'milwaukee', 'oshkosh']
+            #  'kenosha', 'racine', 'appleton', 'waukesha', 'janesville']
 
     # mostly from p4 tester.py
     vid_mp4 = "extract-vid.mp4"
@@ -499,7 +488,7 @@ def animate():
                 points += 3
 
     c.close()
-    return points // 2  # 5 points for 10 cases, so 50 total but only worth 25 points
+    return points 
 
 
 ########################################

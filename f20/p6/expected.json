@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 1,
   "conn_cleanup:type-name": "Connection",
   "list_images": [
     "area0.npy",
@@ -11753,109 +11753,14 @@
     2.0712
   ],
   "lat_reg_plot_slope:95": -0.7132,
-  "year_regression:city:m:madison": -0.300605663314176,
-  "year_regression:city:b:madison": 655.8962529334286,
-  "year_reg_plot:madison:all_xs": [
-    2001,
-    2004,
-    2006,
-    2008,
-    2011,
-    2013,
-    2016
-  ],
-  "year_reg_plot:madison:all_ys": [
-    54.5676,
-    54.4497,
-    51.909,
-    51.864,
-    50.981,
-    51.0049,
-    50.2827
-  ],
-  "year_reg_plot_slope:madison": -0.3006,
-  "year_regression:city:m:greenbay": 0.004970426245210733,
-  "year_regression:city:b:greenbay": 6.592511853448265,
-  "year_reg_plot:greenbay:all_xs": [
-    2001,
-    2004,
-    2006,
-    2008,
-    2011,
-    2013,
-    2016
-  ],
-  "year_reg_plot:greenbay:all_ys": [
-    16.6039,
-    16.5696,
-    16.529,
-    16.5157,
-    16.5438,
-    16.5457,
-    16.7192
-  ],
-  "year_reg_plot_slope:greenbay": 0.005,
-  "year_regression:city:m:milwaukee": 0.10246880986590012,
-  "year_regression:city:b:milwaukee": -186.56401358955887,
-  "year_reg_plot:milwaukee:all_xs": [
-    2001,
-    2004,
-    2006,
-    2008,
-    2011,
-    2013,
-    2016
-  ],
-  "year_reg_plot:milwaukee:all_ys": [
-    18.4794,
-    18.4794,
-    19.2494,
-    19.2494,
-    19.6451,
-    19.6451,
-    19.913
-  ],
-  "year_reg_plot_slope:milwaukee": 0.1025,
-  "year_regression:city:m:racine": -0.02269767720306512,
-  "year_regression:city:b:racine": 49.817893558429084,
-  "year_reg_plot:racine:all_xs": [
-    2001,
-    2004,
-    2006,
-    2008,
-    2011,
-    2013,
-    2016
-  ],
-  "year_reg_plot:racine:all_ys": [
-    4.4124,
-    4.4272,
-    4.2,
-    4.1962,
-    4.1449,
-    4.1369,
-    4.101
-  ],
-  "year_reg_plot_slope:racine": -0.0227,
-  "year_regression:city:m:oshkosh": -0.09854376197317993,
-  "year_regression:city:b:oshkosh": 246.549347162356,
-  "year_reg_plot:oshkosh:all_xs": [
-    2001,
-    2004,
-    2006,
-    2008,
-    2011,
-    2013,
-    2016
-  ],
-  "year_reg_plot:oshkosh:all_ys": [
-    49.5205,
-    49.3507,
-    48.4851,
-    48.4862,
-    48.2934,
-    48.1875,
-    48.0953
-  ],
-  "year_reg_plot_slope:oshkosh": -0.0985
+  "city_regression:2050:city": "janesville",
+  "city_regression:2050:pred": 69.09164727011486,
+  "city_regression:7510:city": "racine",
+  "city_regression:7510:pred": 49.78618917624527,
+  "city_regression:2200:city": "waukesha",
+  "city_regression:2200:pred": 96.81169193007656,
+  "city_regression:2525:city": "janesville",
+  "city_regression:2525:pred": 5.632965517241416,
+  "city_regression:2030:city": "janesville",
+  "city_regression:2030:pred": 75.19822509578543
 }
