@@ -87,6 +87,8 @@ table) and location (from `places` table).  More on this in lab...
 You'll need to write a class and some methods in your module, which
 should be in a file named `land.py`.
 
+# Group Part (75%)
+
 ### 1. `Connection` class
 
 Create a `Connection` class in land.py, building on the following:
@@ -232,19 +234,8 @@ And get this:
 `('milwaukee', 58.1294187021073)`
 
 
-Here, we're grabbing the 7 snapshots of Madison, and counting what
-percent of the area is coded between 21 ("Developed, Open Space") and
-24 ("Developed, High Intensity").
-
-Once you have that working, explore other trends by making more calls.
-For example, what is happening to farming in the Madison area (codes
-81 and 82)?  How do the development trends in Madison compare to those
-in Milwaukee?
-
 These are the city names in the dataset: madison, milwaukee, greenbay,
 kenosha, racine, appleton, waukesha, oshkosh, eauclaire, janesville.
-Play around with different trends for various cities and see if you
-find any surprising developments.
 
 # Individual Part (25%)
 
