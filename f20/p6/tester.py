@@ -436,8 +436,41 @@ def city_regression():
     c.close()
     return points
 
-
 @test(points=25)
+def city_plot():
+    points = 0
+    cities = ['kenosha', 'racine', 'appleton', 'waukesha', 'janesville']
+    c = land.open("images")
+    
+    for city in cities:
+        ax = c.city_plot(city)
+        
+        # check number of lines
+        err = is_expected(actual=len(ax.lines), name="city_plot:{}:numLines".format(city))
+        if err is not None:
+            print("wrong number of lines for city {}: {}".format(city, err))
+        else:
+            points += 2
+            
+        # might have to just check if they're close...
+        # people might find the percents differently
+        plot_points = [line._y[2] for line in ax.lines] # only check one of the middle points
+        err = is_expected(actual=plot_points, name="city_plot:{}:points".format(city), histo_comp=True)
+        if err is not None:
+            print("wrong points for city {}: {}".format(city, err))
+            print("possible precision error")
+        else:
+            points += 2
+            
+        if len(ax.legend().texts) != len(ax.lines):
+            print('differing number of lines and labels in legend')
+        else:
+            points += 1
+    
+    c.close()
+    return points
+
+#@test(points=0)
 def animate():
     # if you can spell all of these cities w/o help, that's how you know 
     # you're from Wisconsin

@@ -85,7 +85,9 @@ table) and location (from `places` table).  More on this in lab...
 ## Requirements
 
 You'll need to write a class and some methods in your module, which
-should be in a file named `land.py`.
+should be in a file named `land.py`.  
+  
+Please download `tester.py`, `expected.json`, `images.db`, and `images.zip`. 
 
 # Group Part (75%)
 
@@ -128,8 +130,8 @@ with land.open("images") as c:
 
 Make sure `db` and `zf` get closed at the end.
 
-`Connection` should have `list_images`, `image_year`, `image_name`,
-and `image_load` methods that behave as follows:
+`Connection` should have `list_images`, `image_year`, `image_name`, 
+`image_load`, and `plot_img` methods that behave as follows:
 
 ```python
 with land.open("images") as c:
@@ -149,7 +151,7 @@ with land.open("images") as c:
     # should be a 2-dimensional numpy array
     print(c.image_load("area0.npy"))
 	
-	# should plot the given image similar too in map.md
+	# should plot the given image similar to the one in map.md
 	# the plot title should include that image's year and city name
 	# (assuming ax is defined earlier as usual. ax should then be returned by the function)
 	c.plot_img("area0.npy", ax=ax)
@@ -239,31 +241,30 @@ kenosha, racine, appleton, waukesha, oshkosh, eauclaire, janesville.
 
 # Individual Part (25%)
 
-### 4. `Connection.animate` method
+### 4. `Connection.city_plot` method
 
-This one should take a city name, then use FuncAnimation to produce
-some HTML that can be shown in a Jupyter cell, like this:
+This one should take a city name, then use `matplotlib` to product a graph that 
+looks something like:
 
-```python
-from IPython.core.display import HTML
-html = c.animate("milwaukee")
-HTML(html)
-```
+<img src="madison.png" width=500>  
 
-It should say the year somewhere on the animation (optionally the city name as well).  
-It's OK to have one frame per year of data (this is slightly misleading, 
-because the time elapsed between frames will sometimes be 2 years and 
-sometimes 3, but we want to keep it simple).  
+It should plot the percent of each use code at each given year for the 
+given city. (year is on the x-axis and percent is on the y-axis.) 
+Use codes that don't appear in any year for that city shouldn't be 
+plotted. It should at least have a title and y-axis label. It should 
+also have a legend (that doesn't cover half the plot) that tells what 
+label goes with which color.  
   
-You should use matplotlib to create a pie chart for each year of a parameter 
-`name` (in this case "milwaukee"). The pie chart consists of all use codes that 
-have over 5% usage in the image for that city in that year (All less than
- 5% should be grouped together into a separate other category. The pie chart should 
- include both the labels of the usage codes (Developed, Forest, Open Water, etc.) and 
- its percent in that image. 
+So, a call to `c.city_plot("madison")` should produce a plot 
+like the above. You may choose whether or not you want to save the 
+image to a file. For the tester's sake, return an axis object. (You can 
+create one as usual using `plt.subplots()` and then do `ax.plot(...)` 
+to use it. It may help to call `plot()` once for each use code that is 
+to be plotted.) 
+
  
   
-To help, here is a dictionary that maps usage codes to their string description. 
+Here is a dictionary that maps usage codes to their string description. 
 ```python
 use_codes = {11:'Open Water', 12: 'Perennial Ice/Snow', 
 			21: "Developed, Open Space", 22: "Developed, Low Intensity",
@@ -278,17 +279,13 @@ use_codes = {11:'Open Water', 12: 'Perennial Ice/Snow',
 			}
 ```
 
-You can download an example of the video at
-[milwaukee.mp4](milwaukee.mp4).  A screenshot of it looks like this:
 
-<img src="milwaukee.png" width=500>  
-  
-### Not Required: Another Animation  
+### Not Required: An Animation  
 As the header says, this part is not required. You can consider yourself 
-done with the project! If you'd like to explore another cool animation 
-(ok, this one is a lot cooler than the last), then this section is for you.  
+done with the project! If you'd like to explore a cool animation, 
+then this section is for you.  
 
-Similar to the last one, this one also takes a city name. Now, we're showing 
+This one takes a city name. We're showing 
 images themselves as they change throughout the years. [map.md](map.md), 
 as mentioned in the Zipped Images section, will be helpful here.    
   
