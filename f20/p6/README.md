@@ -1,5 +1,3 @@
-# Don't Start Yet!!!  Still under revision.
-
 # P6: Wisconsin Land Use
 
 In this project, you'll explore how land is used in Wisconsin (for
