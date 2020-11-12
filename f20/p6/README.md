@@ -151,10 +151,10 @@ with land.open("images") as c:
     # should be a 2-dimensional numpy array
     print(c.image_load("area0.npy"))
 	
-	# should plot the given image similar to the one in map.md
-	# the plot title should include that image's year and city name
-	# (assuming ax is defined earlier as usual. ax should then be returned by the function)
-	c.plot_img("area0.npy", ax=ax)
+    # should plot the given image similar to the one in map.md
+    # the plot title should include that image's year and city name
+    # (assuming ax is defined earlier as usual. ax should then be returned by the function)
+    c.plot_img("area0.npy", ax=ax)
 ```
 
 For these functions, you may either do a query each time, or load the
