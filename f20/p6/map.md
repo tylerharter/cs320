@@ -89,7 +89,7 @@ use_cmap = ListedColormap(use_cmap)
 Now try again, setting `cmap`, `vmin`, and `vmax`:
 
 ```python
-plt.figure(figsize=(8,8))
+plt.figure(figsize=(8,8)) # not needed if an ax is already defined
 plt.imshow(madison, cmap=use_cmap, vmin=0, vmax=255)
 ```
 
