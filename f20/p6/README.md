@@ -137,7 +137,7 @@ with land.open("images") as c:
     # expected: ['area0.npy', 'area1.npy', 'area10.npy', 'area100.npy', ...]
     print(c.list_images()) 
 
-    # get name from DB corresponding to this image
+    # get year from DB corresponding to this image
     # expected: 2001 (of type int, not int64)
     print(c.image_year("area0.npy"))
 
