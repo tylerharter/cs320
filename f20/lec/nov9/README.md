@@ -117,7 +117,7 @@ print(f"Nice, you got {goal} in a row correct!")
 
 ## 3. Solving Equations
 
-### Watch: [13-minute video](https://youtu.be/zCKfjZq2cR8)
+### Watch: [13-minute video](https://www.youtube.com/watch?v=E_RdM6zJ-gE)
 
 ### Practice: Pricing Fruits
 
