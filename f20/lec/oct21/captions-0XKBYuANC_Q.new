@@ -1,0 +1,654 @@
+0:00:01.839,0:00:07.759
+hello in this video we'll be learning about regular expressions
+
+0:00:05.680,0:00:10.559
+and regular expressions are a way to analyze strings
+
+0:00:08.880,0:00:13.840
+and i have a little bit of a different reading for today
+
+0:00:12.400,0:00:17.920
+it's from this book that they wrote at berkeley uh and it's chapter eight
+
+0:00:16.400,0:00:20.320
+i'm just trying to draw here quick and kind of give you a bit of an
+
+0:00:18.960,0:00:24.720
+introduction to the book so you can find your way around
+
+0:00:21.520,0:00:30.480
+so i'm gonna head over here and uh sorry it popped up on my other monitor
+
+0:00:28.080,0:00:34.000
+and uh and so you can see it's an online free block has everything in this course
+
+0:00:32.640,0:00:37.680
+um there's a little bit of a review here on python strings i think you know all
+
+0:00:35.920,0:00:42.559
+that but at least trying to go through and see what is there
+
+0:00:39.520,0:00:44.640
+um and then let me see where am i in the book
+
+0:00:43.040,0:00:49.120
+then this regular expression thing is the main piece and so you can go through
+
+0:00:46.879,0:00:54.559
+and you can copy these examples and uh and that'll all be helpful
+
+0:00:52.239,0:00:56.960
+um in some of these examples like let's say this one
+
+0:00:55.440,0:01:00.399
+when i was first reading this i got very confused like well where is this
+
+0:00:58.399,0:01:03.920
+function i couldn't run the example and that's because for some of these
+
+0:01:02.239,0:01:07.520
+cells of code there's some hidden cells right here so
+
+0:01:05.360,0:01:11.760
+you have to expand this and so if you want to actually run this example
+
+0:01:09.040,0:01:15.040
+i'd have to copy both this hidden cell and this here and actually this is a
+
+0:01:13.280,0:01:18.400
+very useful for function for analyzing what regular expressions are doing and i
+
+0:01:16.479,0:01:24.000
+may be using it today in the examples so anyway uh please do read that and let
+
+0:01:21.520,0:01:28.159
+me head back here um so we have that a little bit of
+
+0:01:27.040,0:01:32.560
+background uh we actually have this idea of a
+
+0:01:30.560,0:01:36.560
+regular language that was driven uh by cleaning on the right a famous
+
+0:01:34.960,0:01:40.880
+professor of the mathematics department here at uw madison
+
+0:01:38.400,0:01:44.880
+and uh basically regular languages or regular expressions
+
+0:01:42.560,0:01:50.320
+are are kind of like a simple pattern for matching different types of of
+
+0:01:47.040,0:01:55.360
+text and you can almost think about it um like we put different things in
+
+0:01:52.880,0:02:00.479
+strings in python right like we put um so i suppose like sql code or sql or
+
+0:01:58.560,0:02:02.799
+maybe there's like html inside of a string
+
+0:02:01.200,0:02:07.680
+um in the same way we're going to have these regular expressions be inside of
+
+0:02:04.880,0:02:12.800
+strings in python and we're going to use them or run them
+
+0:02:09.119,0:02:15.840
+to analyze other strengths and um and actually it's kind of a very general
+
+0:02:14.160,0:02:20.080
+thing even beyond python like if i head over to this reading here
+
+0:02:18.879,0:02:23.680
+this is showing regular expressions in 10 different languages and if you scroll
+
+0:02:22.319,0:02:27.680
+down you're going to see that while it's actually pretty
+
+0:02:24.720,0:02:30.000
+um oh and they're trying to hire me away um you're gonna see that it's very
+
+0:02:28.800,0:02:34.000
+similar across a lot of different programming languages
+
+0:02:31.280,0:02:37.040
+so it's kind of a general skill um that you can learn when you're doing text
+
+0:02:35.200,0:02:40.800
+analysis um let me contrast with some things that
+
+0:02:39.519,0:02:45.760
+you already know um so we've had uh we've used string
+
+0:02:43.920,0:02:49.440
+methods to do searching within in strings before
+
+0:02:48.080,0:02:53.200
+right i could say something like message dot find 320
+
+0:02:51.040,0:02:57.680
+and um and if this is my my string right here then of course it'll find it
+
+0:02:55.280,0:03:00.400
+and uh and this will be true uh do you remember what
+
+0:02:58.560,0:03:03.040
+what find returns i guess i'm comparing it to an integer here so it must return
+
+0:03:01.920,0:03:06.239
+an integer but do you remember what integer that
+
+0:03:04.159,0:03:10.080
+returns um it returns the index of the starting position so i
+
+0:03:08.400,0:03:16.640
+guess in this case it would be you know 0 1 2 3 4 5
+
+0:03:13.920,0:03:19.519
+6 right so it would return 6 because it found it
+
+0:03:17.200,0:03:21.599
+at position six it's ignoring the later one
+
+0:03:20.239,0:03:25.040
+and that's greater than zero so i found it if it doesn't find it at all then it
+
+0:03:23.200,0:03:29.280
+will indicate that by returning a negative one um so over here on the
+
+0:03:27.200,0:03:32.720
+right i have a bunch of limitations with this
+
+0:03:29.760,0:03:38.560
+find method um what if i wanted to find all the occurrences of 320
+
+0:03:34.720,0:03:42.959
+in my string um what if i wanted to find any three digit numbers not necessarily
+
+0:03:40.720,0:03:46.000
+these exact three numbers what if i wanted to find any numbers at
+
+0:03:44.400,0:03:49.280
+all maybe there are two digits maybe they're 10 digits who cares right i want
+
+0:03:47.680,0:03:52.879
+to find all the numbers um what if i care about the context what
+
+0:03:50.959,0:03:57.519
+if i want to find a number before the word projects right you could
+
+0:03:56.080,0:04:00.480
+imagine that maybe i want to somehow pull out
+
+0:03:58.959,0:04:05.519
+um something from the syllabus that's telling me how many uh projects we have
+
+0:04:03.040,0:04:08.080
+oh and then finally um we've done string replace before
+
+0:04:06.879,0:04:11.439
+uh but what if i want to do a more complicated um pattern right where i
+
+0:04:10.000,0:04:16.479
+want to kind of replace something that matches something
+
+0:04:12.879,0:04:19.759
+uh specific so regular expressions are going to be
+
+0:04:17.440,0:04:22.079
+like this fine method on steroids right we're going to be able to do all of
+
+0:04:21.120,0:04:27.840
+these things and we have to have a little
+
+0:04:24.080,0:04:31.600
+language to describe these patterns uh as i was saying we're putting these
+
+0:04:29.840,0:04:35.440
+regular expressions themselves um in strings it's like a little language
+
+0:04:33.199,0:04:38.800
+and of itself and so one of the things is is this little
+
+0:04:36.880,0:04:41.919
+language we often use the escape character
+
+0:04:39.680,0:04:44.479
+in the same way that python uses escape character so maybe just a little bit of
+
+0:04:43.520,0:04:47.759
+review but do you remember what's going to
+
+0:04:45.680,0:04:52.880
+print if i do this what will what will show off between a and b
+
+0:04:49.600,0:04:56.479
+well it's going to be a tab and and so what if what do i do if i
+
+0:04:54.720,0:05:01.360
+actually want to have a legitimate backslash and a t between
+
+0:04:58.639,0:05:05.520
+here well then i would have to uh escape my backslash right so i would
+
+0:05:04.000,0:05:09.759
+have to do something like this backslash backslash
+
+0:05:06.800,0:05:14.000
+now because regular expressions as a language
+
+0:05:10.560,0:05:17.919
+use backslashes for escaping and python does it too
+
+0:05:15.280,0:05:23.600
+i'd actually have to type all of this backslash backslash t
+
+0:05:20.080,0:05:27.120
+actually send a a real backslash t to my regular expression and so because
+
+0:05:26.320,0:05:32.080
+of that um they introduce this notion in python
+
+0:05:30.560,0:05:35.360
+of the raw string and that's just a string with the letter r before all
+
+0:05:34.000,0:05:38.880
+right so i have these quotes so there's an r there
+
+0:05:36.400,0:05:42.320
+um you know 99 of the time when i see these being used
+
+0:05:40.240,0:05:43.919
+it's for a regular expression so sometimes i think people even think the
+
+0:05:43.600,0:05:47.600
+r is for uh red jacks which is short for
+
+0:05:46.160,0:05:49.680
+regular expression but really it's just saying that's a raw string and it's a
+
+0:05:48.880,0:05:53.600
+general uh feature in python it's saying i don't
+
+0:05:51.199,0:05:57.520
+want this to be a tab i want this to actually be
+
+0:05:54.240,0:06:02.880
+literally uh backslash t and and somewhere i basically be doing that
+
+0:05:59.280,0:06:06.639
+all the time so i have some code here um then i go over to and start working
+
+0:06:04.720,0:06:09.680
+out in adult book i'll also share this starting code
+
+0:06:08.400,0:06:14.400
+online uh so let me head over here uh
+
+0:06:12.720,0:06:18.800
+to my notebook i'm just going to close these actually
+
+0:06:15.840,0:06:21.520
+and let's make this a little bit bigger like so
+
+0:06:19.840,0:06:26.639
+and basically what i've done here is i copied that function
+
+0:06:23.680,0:06:29.039
+from uh the ds 100 book that i was talking about
+
+0:06:27.680,0:06:32.720
+and we don't really have to understand it it's kind of weird right but
+
+0:06:31.120,0:06:36.160
+what it basically will do will help us visualize regular expressions that we're
+
+0:06:35.039,0:06:40.000
+analyzing and so then what i have is i have a
+
+0:06:37.440,0:06:43.520
+bunch of strings that we're going to search for so so example the kind of
+
+0:06:42.560,0:06:50.080
+question i might ask is what is a phone number
+
+0:06:47.039,0:06:53.280
+um inside of here or what is a url or what is an email address i guess
+
+0:06:51.680,0:06:57.120
+there's no email address here but i could ask those types of questions
+
+0:06:54.960,0:06:59.520
+i could try to match different kinds of phone numbers you can see like later
+
+0:06:58.240,0:07:03.360
+we're going to look at this is a phone number this is this is i
+
+0:07:02.240,0:07:06.319
+guess this one's not quite because it doesn't have enough digits this one's
+
+0:07:04.639,0:07:09.280
+not because it has letters and so how can i write a little regular
+
+0:07:07.680,0:07:12.639
+expression that captures exactly the ones i want
+
+0:07:10.319,0:07:17.440
+um how can i pull out how many projects there are in the course
+
+0:07:14.080,0:07:20.720
+and lots of details like that so what i'm going to do is i'm going to
+
+0:07:18.560,0:07:24.479
+create a new cell down here and i'm going to call this a reg
+
+0:07:22.720,0:07:28.560
+function and if i look at my wrench function i'm
+
+0:07:26.639,0:07:34.160
+passing in two strings um one uh is a string that contains the
+
+0:07:32.160,0:07:37.199
+little pattern i'm trying to match and the other one contains the text i'm
+
+0:07:36.319,0:07:42.720
+looking in for that pattern so what i can do is
+
+0:07:40.720,0:07:46.000
+something like this i could say i want to look for me to make this very
+
+0:07:44.800,0:07:50.160
+clear pattern and then text and so maybe for my starting text
+
+0:07:49.280,0:07:54.319
+i'll i'll start with s1 right so i'll say i want to look at
+
+0:07:53.360,0:07:57.440
+s1 and let's say i want to look for the
+
+0:07:55.919,0:08:02.000
+character capital a so i do that
+
+0:08:00.479,0:08:05.440
+and you can see that the regular expression very quickly finds
+
+0:08:04.000,0:08:08.000
+um all the a's which is maybe not terribly exciting right i have a very
+
+0:08:07.039,0:08:11.280
+simple uh simple pattern right so i can do that
+
+0:08:10.080,0:08:15.039
+but i can match different things notice it's case sensitive like most
+
+0:08:12.800,0:08:18.720
+things in python it's not matching those um i can match those instead um if i
+
+0:08:17.759,0:08:22.879
+type something like this a a it doesn't match anything because
+
+0:08:21.599,0:08:25.360
+it's looking for these two letters in sequence
+
+0:08:23.840,0:08:28.400
+and so one of the first features that we'll use in python is called the
+
+0:08:26.879,0:08:32.240
+character class and uh character classes draw in
+
+0:08:31.120,0:08:36.320
+brackets and what this means is well i really
+
+0:08:34.560,0:08:38.839
+want any of these things right so let me just make a note of that so i'm going to
+
+0:08:37.599,0:08:44.399
+say character class just like that and
+
+0:08:41.919,0:08:46.720
+then i can match all of them um which is very nice of you that you have either
+
+0:08:45.680,0:08:50.720
+uppercase um or lowercase uh you know we've
+
+0:08:49.279,0:08:53.839
+learned all these things in python like brackets means like indexing your list
+
+0:08:52.399,0:08:57.760
+for us before throw all of that out the window right
+
+0:08:55.200,0:09:03.200
+we're learning a completely new language uh for matching strings
+
+0:09:00.880,0:09:06.320
+okay so i could do that um if i wanted to i could do something more general now
+
+0:09:04.800,0:09:13.200
+that i have this pattern um i could a-i-o-u
+
+0:09:10.399,0:09:17.760
+i could match on all of the vowels if i wanted to for example
+
+0:09:14.640,0:09:22.480
+so i could do that um like so um if i wanted all the uh
+
+0:09:20.839,0:09:26.800
+uppercase um letters i could do that too but then
+
+0:09:25.120,0:09:29.279
+it starts to be a bit of a pain right i mean
+
+0:09:27.680,0:09:34.160
+if i wanted all the uppercase letters i could draw like a b c d
+
+0:09:30.800,0:09:37.920
+e f and then maybe eventually i get to z and uh and so what's actually nice that
+
+0:09:35.680,0:09:41.200
+we could do is we can expect express ranges in here i can put a dash
+
+0:09:40.560,0:09:47.200
+and then i run that and it's capturing um
+
+0:09:44.560,0:09:50.399
+all of the characters between here so this is a
+
+0:09:48.000,0:09:52.240
+this is a character range i'm just trying to give you all these feature
+
+0:09:51.519,0:09:57.200
+names so uh if you need to look them up later um
+
+0:09:55.120,0:10:00.399
+to do something you can right so character classes i can have a set of
+
+0:09:58.560,0:10:05.519
+characters but within that i can put a character range to capture
+
+0:10:02.480,0:10:09.200
+a bunch of different things right now of course if i wanted to actually uh
+
+0:10:07.120,0:10:13.600
+capture these dashes then i'd have to do some sort of escaping
+
+0:10:10.399,0:10:19.920
+right um like if i'm looking for uh uh you know um let's say i'm looking for
+
+0:10:17.279,0:10:22.399
+dot uh i'm looking for these kinds of punctuation
+
+0:10:21.040,0:10:24.480
+right i guess it's kind of complaining there right because i can't find any of
+
+0:10:23.839,0:10:27.519
+those things what i'm gonna have to do is i'm gonna
+
+0:10:25.519,0:10:30.640
+have to escape those right so it actually works
+
+0:10:31.120,0:10:35.839
+right now i can actually find those those characters within here otherwise
+
+0:10:34.399,0:10:39.440
+it's trying to use it as that kind of meaning up here
+
+0:10:37.279,0:10:43.040
+um some of these other ones i might have to escape as well in certain time texts
+
+0:10:41.519,0:10:47.519
+um here it's figuring it out but sometimes i might escape that
+
+0:10:44.560,0:10:51.839
+and of course just to remember why we need this
+
+0:10:48.000,0:10:56.720
+r if i didn't have that then uh um well it's actually i guess working
+
+0:10:53.600,0:11:00.320
+because uh uh because these are these are okay
+
+0:10:58.160,0:11:03.920
+characters so maybe i'll come up with another example later to actually better
+
+0:11:01.920,0:11:08.800
+illustrate that okay so we saw uh we saw um
+
+0:11:07.360,0:11:13.360
+character classes we saw character ranges um another thing i want to talk
+
+0:11:10.720,0:11:18.240
+about is a negative character class so here i was looking for all the vowels
+
+0:11:19.680,0:11:27.440
+right um and if i wanted to i could look for all the non
+
+0:11:24.959,0:11:30.800
+vowels and the way i do that is at the very beginning
+
+0:11:28.000,0:11:34.240
+of my um of my character class i just put a little
+
+0:11:31.440,0:11:37.839
+hat right so this means not and so this will grab
+
+0:11:34.959,0:11:42.480
+everything um except the vowels and notice it's also cut
+
+0:11:38.959,0:11:47.600
+catching punctuation on and that sort of thing
+
+0:11:44.240,0:11:51.360
+um a very similar idea to uh to these um character classes are what
+
+0:11:49.920,0:11:54.720
+we call meta characters really i think of a meta character as a
+
+0:11:53.440,0:11:58.399
+character um that's kind of a long class in and of
+
+0:11:56.800,0:12:02.079
+itself and so we can just type this one special character
+
+0:11:59.680,0:12:06.160
+um and match everything and so one example of this
+
+0:12:03.120,0:12:10.880
+is uh slash d so if i do r and then i say i want to
+
+0:12:09.440,0:12:13.440
+look for um slash d i guess i don't even need to
+
+0:12:12.399,0:12:18.639
+put that in a class but it's the only thing i'm looking for
+
+0:12:15.040,0:12:26.000
+um then i can look inside of my string and slash d is for digit so this is a
+
+0:12:21.760,0:12:30.480
+meta class and digit in this case right so i can do that other important
+
+0:12:28.800,0:12:37.600
+ones you should know are slash w
+
+0:12:33.920,0:12:44.399
+and so this one is white space and so that's like tabs spaces new lines
+
+0:12:40.959,0:12:48.959
+all that good stuff and uh actually i'm sorry that was um that was
+
+0:12:47.120,0:12:52.160
+like a word character word character captures all these things i got that a
+
+0:12:50.959,0:12:55.279
+little bit wrong so i was a word character
+
+0:12:52.800,0:13:00.000
+the white space one which actually makes more sense
+
+0:12:56.000,0:13:04.639
+is is s so that's the white space i can capture all of that um quickly um
+
+0:13:03.279,0:13:10.880
+if i want to um for a lot of these uh for all the
+
+0:13:07.920,0:13:14.000
+meta characters um oh sorry i i misspelled that up here it's a meta
+
+0:13:12.079,0:13:17.440
+character for digit um i have a word meta character a white
+
+0:13:16.160,0:13:22.160
+space meta character for a lot of them uh the capital
+
+0:13:19.920,0:13:27.680
+metacharacter means the opposite of that so um so this means not white space
+
+0:13:25.440,0:13:30.240
+because it's capitalized and so now you can actually see i'm grabbing all of the
+
+0:13:29.279,0:13:34.720
+words uh separately and i'm ignoring all of
+
+0:13:32.000,0:13:40.000
+the all of the white space um in between um another one that we
+
+0:13:38.240,0:13:47.440
+might want to look at which is very general is
+
+0:13:43.680,0:13:55.680
+is just this it is the period and uh and this one means uh match
+
+0:13:51.440,0:14:00.240
+everything except except new line so i'm going to run that and it
+
+0:13:58.720,0:14:04.000
+only works if i pass in a string of course i'm going to do that i guess
+
+0:14:02.160,0:14:07.760
+that's capturing everything here um and because that's so general and so
+
+0:14:06.639,0:14:11.760
+powerful uh i may have to escape it right so i'd
+
+0:14:10.079,0:14:17.519
+have to escape it like that to actually just look for um
+
+0:14:15.040,0:14:21.519
+look for the specific periods and then if i do this
+
+0:14:18.399,0:14:23.760
+let me let me run that uh i guess that's still
+
+0:14:22.240,0:14:28.639
+still working still not a great example to show why we need the raw string
+
+0:14:26.000,0:14:32.320
+um okay so i can see that that is is capturing
+
+0:14:29.680,0:14:36.240
+all of those uh i may leave it off there and we'll pick up again in the next
+
+0:14:33.519,0:14:36.240
+video
+

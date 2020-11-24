@@ -1,0 +1,669 @@
+0:00:02.399,0:00:09.040
+so our big question is for reproducibility will my is will my
+
+0:00:06.960,0:00:12.320
+program run on somebody else's computer even though it ran on mine remember we
+
+0:00:11.200,0:00:15.679
+aren't really worrying too much about python
+
+0:00:13.120,0:00:18.000
+specifically just programs in general and so the first big piece of that was
+
+0:00:17.199,0:00:21.520
+hardware the second big piece is well what
+
+0:00:19.760,0:00:24.800
+operating system do we have um the two most common ones that people
+
+0:00:23.760,0:00:28.960
+have in this class are generally windows and mac another
+
+0:00:27.840,0:00:34.160
+really important one though is linux linux is more
+
+0:00:32.239,0:00:37.200
+common than you might think um most of the things running in the cloud are
+
+0:00:35.280,0:00:41.120
+running on linux linux was kind of the parent of androids
+
+0:00:39.680,0:00:43.360
+i'm sure a lot of you have android phones
+
+0:00:41.920,0:00:48.480
+there's lots of different flavors of linux maybe red hat
+
+0:00:45.200,0:00:52.000
+um ubuntu and um we're actually learning a little bit of ubuntu linux
+
+0:00:49.920,0:00:54.399
+this semester um that'll be kind of one of the
+
+0:00:52.800,0:00:57.440
+now one of the key things that we're focusing on but you'll pick it up a
+
+0:00:56.000,0:01:01.120
+little bit which is a good skill to have in general
+
+0:00:58.719,0:01:03.199
+to know another operating system and and kind of worrying about the operating
+
+0:01:02.160,0:01:04.720
+system is going to be what we're going to do
+
+0:01:03.920,0:01:12.640
+when we're thinking about reproducibility okay so operating system
+
+0:01:08.960,0:01:15.680
+os um so the os worries about what jobs we want to run
+
+0:01:14.240,0:01:19.200
+on our computer right or i guess what processes and it
+
+0:01:17.520,0:01:23.360
+kind of has two jobs with this regard how can it allocate
+
+0:01:21.119,0:01:28.080
+resources to these processes and then also abstract those resources
+
+0:01:26.080,0:01:32.560
+and so abstract is kind of a funny word i'll talk more about that
+
+0:01:29.680,0:01:38.560
+let's talk about allocation first so here what i'm showing is that
+
+0:01:34.720,0:01:43.360
+process a is running on the cpu and it turns out that well at least you
+
+0:01:41.680,0:01:48.880
+know an older cpu would only run one process at a time
+
+0:01:47.360,0:01:51.360
+uh but of course we're used to having multiple programs in our computer
+
+0:01:50.399,0:01:55.680
+running so how did that work um what these cpus
+
+0:01:54.159,0:02:01.439
+would do is they would have a bunch of um processes that are waiting to run and
+
+0:01:59.200,0:02:04.560
+it would cycle through them it would run process a for a little bit
+
+0:02:02.880,0:02:07.520
+and it would run process b for a little bit maybe some others and it might come
+
+0:02:06.560,0:02:11.120
+back to process a again and it could be switching between
+
+0:02:09.520,0:02:14.640
+these so fast you won't even know as a human using the computer it feels
+
+0:02:13.599,0:02:18.879
+like it's running them all at the same same time right so that's
+
+0:02:16.800,0:02:23.599
+kind of how a cpu works and and there's some details with modern
+
+0:02:21.360,0:02:29.360
+cpus but this is very close to true today too right so
+
+0:02:27.280,0:02:32.319
+cpu cycling between these who decides who gets to run
+
+0:02:30.319,0:02:35.440
+when are all the processes equally important um
+
+0:02:34.000,0:02:38.080
+you know is there some that are more important than others maybe i'm doing a
+
+0:02:36.800,0:02:40.959
+big download maybe that's not as important
+
+0:02:38.879,0:02:45.040
+and so the operating system is the one that gets to decide who gets to run when
+
+0:02:42.879,0:02:48.879
+it's allocating the cpu resource the process that's an operating system
+
+0:02:46.560,0:02:52.959
+decision the other thing an operating system does
+
+0:02:51.200,0:02:58.080
+is actually one more side right on
+
+0:02:54.879,0:03:02.879
+allocation before i move on i was talking a little bit about modern
+
+0:02:59.360,0:03:07.920
+cpus it turns out that modern cpus have multiple what we might call cores
+
+0:03:06.080,0:03:12.879
+on a single chap right and each of these cores is like a cpu in and of itself
+
+0:03:10.720,0:03:16.239
+um and it's not a huge number maybe we might be talking like i might have eight
+
+0:03:14.319,0:03:19.920
+cores on my computer and each of these can be running a
+
+0:03:18.159,0:03:23.920
+process at the same time right so so on my laptop maybe i can run
+
+0:03:22.000,0:03:28.319
+eight processes at a time still i probably have a lot more um
+
+0:03:26.560,0:03:31.840
+around that are waiting at any given point in time right so this still
+
+0:03:30.319,0:03:35.440
+uh we saw this importance of the operating system deciding who gets to
+
+0:03:33.519,0:03:39.680
+run when on what cpu okay um now the way we've always been
+
+0:03:38.720,0:03:44.239
+writing code in the previous course our program runs
+
+0:03:42.640,0:03:49.040
+on exactly one or at a time and even if others are not
+
+0:03:47.200,0:03:51.920
+free they just aren't used right so one of the things we're going to talk about
+
+0:03:49.920,0:03:55.360
+at the very end of this course is how we can write our programs in a
+
+0:03:54.000,0:03:58.560
+way that they can use multiple cores and if you have
+
+0:03:57.040,0:04:02.159
+something like eight pores on your cpu maybe that means your program will
+
+0:04:01.120,0:04:05.439
+run eight times faster right and kind of if everything
+
+0:04:04.239,0:04:09.280
+works out um so that'll be something that we'll
+
+0:04:06.480,0:04:13.680
+revisit later in the semester okay this other piece so operating
+
+0:04:11.519,0:04:18.320
+systems that allocate resources and they abstract resources and
+
+0:04:16.000,0:04:23.040
+abstraction is kind of this funny detail or a funny word or concept and and one
+
+0:04:21.519,0:04:27.280
+way to think of it is that you're hiding things um
+
+0:04:24.560,0:04:30.800
+so for example why would i want to hide something
+
+0:04:28.000,0:04:35.520
+well in my laptop maybe i have a hard drive and down below i have this picture
+
+0:04:33.600,0:04:38.639
+of this hard drive which has like a magnetic platter
+
+0:04:37.120,0:04:41.600
+and on that platter there's all these zeros and ones right that's what
+
+0:04:40.240,0:04:45.840
+maybe you've heard that before that on hard drives there's 20 zeros and ones
+
+0:04:43.919,0:04:50.080
+and um at the end of the day i'd like to really save all my data there
+
+0:04:48.160,0:04:54.560
+and uh but dealing with zeros and ones doesn't sound very convenient
+
+0:04:52.160,0:04:57.440
+a hard drive doesn't have any concept of there being separate files or
+
+0:04:56.080,0:05:01.759
+directories um or any of that right so how do i
+
+0:05:00.160,0:05:05.840
+actually use a hard drive and not have it be a huge pain
+
+0:05:03.520,0:05:10.560
+um well the operating system takes care of that i can write programs
+
+0:05:07.759,0:05:13.280
+that read and write files and the operating system then
+
+0:05:11.919,0:05:15.440
+let's say i'm writing a file the operating system will figure out well
+
+0:05:14.639,0:05:19.360
+these are the the zeros and ones i want to write in a
+
+0:05:17.199,0:05:24.639
+specific place on the hard drive to store that file right so the
+
+0:05:22.560,0:05:27.759
+the operating system the system is kind of hiding all these details about hard
+
+0:05:26.160,0:05:30.639
+drives from me it's easier to just store my data
+
+0:05:28.639,0:05:34.639
+if i think in terms of files right and it's also kind of adding this new notion
+
+0:05:32.080,0:05:38.080
+right i mean the hard drive doesn't know about files but the operating system
+
+0:05:36.240,0:05:41.680
+kind of invented this concept of files that's easier to use that's
+
+0:05:40.160,0:05:45.600
+that's abstraction it kind of separates my
+
+0:05:42.479,0:05:50.400
+easy to conceptualize parts from what's actually happening
+
+0:05:46.960,0:05:54.880
+uh in the physical world okay so that's what operating system
+
+0:05:52.080,0:05:58.160
+does um it allocates and abstracts resources
+
+0:05:56.240,0:06:02.000
+and um and this is kind of like the new picture now right so
+
+0:05:59.759,0:06:05.680
+uh before we had a picture of a cpu an interpreter in a program
+
+0:06:03.840,0:06:09.759
+and now i need to squeeze in a picture of an operating system which i'm doing
+
+0:06:07.919,0:06:14.720
+and what i want you to see here is that both the
+
+0:06:11.440,0:06:18.880
+uh python interpreter and the operating system in this case windows
+
+0:06:16.400,0:06:22.800
+has to fit the cpu right so it's both with the cpu
+
+0:06:20.160,0:06:26.000
+and um and sometimes uh the python interpreter is directly working with the
+
+0:06:24.240,0:06:31.120
+cpu and maybe sometimes it's working through the operating system
+
+0:06:28.160,0:06:34.400
+now you might wish that the python interpreter
+
+0:06:32.080,0:06:38.160
+would hide all the details of the operating system
+
+0:06:35.840,0:06:40.479
+just like it does the cpu but it doesn't it kind of the details of the operating
+
+0:06:39.600,0:06:43.520
+system uh show through so that's what i want
+
+0:06:42.319,0:06:47.520
+you to kind of see here right the python interpreter is on top of both the cpu
+
+0:06:45.680,0:06:51.199
+and the operating system and for the pure cpu part it hides those details
+
+0:06:49.759,0:06:55.840
+pretty well but for the operating system part it has
+
+0:06:54.080,0:07:00.080
+some shape to it and i need to make sure that my
+
+0:06:57.120,0:07:02.000
+python program in this case bad dot pi fits the operating system right you've
+
+0:07:01.680,0:07:05.840
+all seen examples of that right on the right i
+
+0:07:03.360,0:07:10.080
+have f equals open forward slash data forward slash
+
+0:07:08.560,0:07:15.199
+file.txt right and and that won't work on windows
+
+0:07:13.440,0:07:18.000
+but it will if i change it to these backslashes
+
+0:07:16.800,0:07:20.960
+right so you have to worry kind of about how to fit your code to the operating
+
+0:07:20.319,0:07:24.160
+system it's very easy to write things that are
+
+0:07:22.560,0:07:28.479
+reproducible now some of you are probably remembering how
+
+0:07:25.919,0:07:34.800
+to fix this issue and um and well that's with os.path.join
+
+0:07:33.280,0:07:37.440
+you just call this thing and then then it will actually use the right slash for
+
+0:07:37.120,0:07:40.960
+you right it'll make it work and that's a
+
+0:07:39.440,0:07:45.440
+good solution you should write your code that way
+
+0:07:42.160,0:07:49.840
+now there's another solution which has some pros and cons that solution is tell
+
+0:07:47.280,0:07:52.479
+tell anybody that wants to run your code you know if you want to run my code
+
+0:07:51.520,0:07:56.879
+make sure you're using the same operating system i do i chose windows
+
+0:07:54.639,0:07:59.919
+you'd better use windows and there's some trade-offs between
+
+0:07:58.720,0:08:02.800
+these well one is that you know we aren't kind of
+
+0:08:01.599,0:08:06.319
+bossing people around about what operating system they
+
+0:08:03.840,0:08:08.639
+they use but the disadvantage of option one is that
+
+0:08:06.960,0:08:12.560
+maybe i forget to do that and it's hard to catch those places where i forget
+
+0:08:10.560,0:08:16.319
+where solution 2 is a little bit safer right um
+
+0:08:14.240,0:08:19.280
+it's unlikely that some oversight on my part will mean my program doesn't run
+
+0:08:18.240,0:08:22.960
+for somebody else that's actually very common right it's
+
+0:08:20.879,0:08:26.879
+very uh it's okay to tell somebody hey this
+
+0:08:24.639,0:08:30.319
+program has to run on linux or on windows or on mac
+
+0:08:30.800,0:08:37.200
+okay now you can imagine when that's a pain
+
+0:08:34.479,0:08:41.120
+right if i say ask somebody with a mac to run a windows program
+
+0:08:39.360,0:08:46.000
+i don't want to ask them to buy a whole other computer
+
+0:08:43.680,0:08:50.080
+and that would be a huge huge cost right and so there's this
+
+0:08:47.360,0:08:53.040
+special software that has kind of worked around this
+
+0:08:51.360,0:08:57.279
+and the software is called virtual machine software
+
+0:08:54.720,0:09:01.760
+and what it does is it kind of creates a fake machine on top of a real machine
+
+0:09:00.000,0:09:06.080
+and it could create multiple fake machines or virtual machines on top of
+
+0:09:03.519,0:09:12.000
+one real machine and you can install a different operating system on each one
+
+0:09:08.959,0:09:14.959
+right so so here maybe i have my physical machine i bought and by machine
+
+0:09:13.760,0:09:17.920
+i mean the stuff like all the hardware like the cpu and memory
+
+0:09:16.480,0:09:21.120
+and it's a mac right so i have a mac operating system running on top of it
+
+0:09:19.600,0:09:24.720
+and on the left right you can see i'm running mac programs
+
+0:09:23.040,0:09:30.800
+but maybe i also installed two virtual machines and on one i put linux and
+
+0:09:27.279,0:09:35.040
+when i put windows now on my one laptop that's set up this way with my two
+
+0:09:32.399,0:09:39.720
+virtual machines i can run math programs linux programs uh and windows programs
+
+0:09:37.920,0:09:43.760
+right so virtual machines are great for reproducibility
+
+0:09:41.360,0:09:48.959
+because they kind of decrease this cost of demanding somebody else run
+
+0:09:46.160,0:09:51.360
+your code on the same operating system okay so we're gonna be using virtual
+
+0:09:50.160,0:09:54.160
+machines uh the whole semester that's where
+
+0:09:52.560,0:09:56.880
+you're gonna do all your projects and that's gonna kind of save
+
+0:09:55.200,0:10:01.120
+all of us some hassle right because you're gonna be using a virtual machine
+
+0:09:58.640,0:10:04.000
+with linux on it um odds are that if the tests are passing for you it's pretty
+
+0:10:02.480,0:10:08.240
+good odds it's at stream pass for us too because we're gonna have the same setup
+
+0:10:06.480,0:10:11.600
+now so that's the original purpose of virtual machines right how can we
+
+0:10:09.760,0:10:16.800
+kind of uh run multiple operating systems uh but there's another
+
+0:10:14.079,0:10:20.720
+uh benefit to them that's maybe even more important
+
+0:10:17.839,0:10:23.360
+but it's right up there and that is well we can
+
+0:10:21.200,0:10:26.560
+pack a lot of virtual machines on one one computer
+
+0:10:24.560,0:10:29.440
+and if if they're all kind of busy at different times we can kind of almost
+
+0:10:28.160,0:10:33.680
+cheat we can make it look like we have more computers than we actually
+
+0:10:31.360,0:10:38.320
+do and this is the fundamental idea of economics of the cloud
+
+0:10:35.680,0:10:42.560
+um you've probably heard of the cloud before i mean there's different cloud
+
+0:10:39.600,0:10:46.240
+providers like amazon and microsoft and google and what they're all doing is
+
+0:10:44.560,0:10:51.360
+they're buying a bunch of powerful computers
+
+0:10:49.600,0:10:54.560
+and for each powerful computer they might be putting dozens of virtual
+
+0:10:53.040,0:10:58.560
+machines on it and then they rent those virtual
+
+0:10:55.839,0:11:02.240
+machines on say a monthly basis you can run a virtual machine the cloud say for
+
+0:11:00.079,0:11:05.760
+15 dollars a month and um and the great thing is they can
+
+0:11:04.480,0:11:08.079
+kind of cheat and they can pack more virtual machines on there than they
+
+0:11:06.959,0:11:11.200
+should because odds are not everybody is using it for
+
+0:11:10.079,0:11:14.800
+the same time even though they're charging
+
+0:11:12.079,0:11:19.680
+uh fifteen dollars a month for right so they can they can profit that way
+
+0:11:16.399,0:11:22.640
+right um it's almost like you have a parking lot where you're kind of selling
+
+0:11:21.120,0:11:26.399
+spots in the parking lot and you know that everybody you sell a spot to
+
+0:11:24.720,0:11:30.000
+will show up at the same time right this time like that but a more extreme
+
+0:11:28.480,0:11:32.800
+uh situation right so that's what those are though cloud providers will have
+
+0:11:31.440,0:11:35.360
+these virtual machines and they'll rent them
+
+0:11:33.760,0:11:37.920
+and um and we're gonna be doing running them this semester actually you'll set
+
+0:11:36.560,0:11:40.399
+up some virtual machines on google's cloud
+
+0:11:38.800,0:11:43.600
+and uh and don't worry about the cost because generally they have a credit
+
+0:11:42.079,0:11:47.920
+when you first sign up um when you know you know 100 worth of
+
+0:11:46.720,0:11:50.720
+credit you probably won't end up paying anything
+
+0:11:49.600,0:11:56.800
+okay so when you have these virtual machines running in the cloud
+
+0:11:53.040,0:12:00.480
+how do you get access to them well uh we're gonna use something called a
+
+0:11:58.959,0:12:04.000
+secure shell that's gonna give us a remote connection
+
+0:12:01.839,0:12:07.360
+uh on my map right if i open up the terminal
+
+0:12:05.200,0:12:10.320
+um i have bash running there the bash shell and i can run those commands on my
+
+0:12:08.959,0:12:13.920
+computer if inside of bash i start something
+
+0:12:12.160,0:12:18.160
+called an ssh session a secure shell session i can
+
+0:12:16.720,0:12:21.200
+connect to a virtual machine in the cloud or some other
+
+0:12:19.360,0:12:24.639
+computer in the world and then the commands i type even though i'm typing
+
+0:12:22.880,0:12:27.839
+them on my laptop aren't running on my laptop they're
+
+0:12:26.800,0:12:30.800
+typing them here but they're actually running somewhere else they're running
+
+0:12:28.959,0:12:34.880
+in the cloud on that virtual machine right so i can i can access both my
+
+0:12:32.959,0:12:38.079
+machine and other machines uh from one place that's a very powerful
+
+0:12:37.760,0:12:41.920
+uh powerful thing okay so that's what we're
+
+0:12:40.399,0:12:45.120
+gonna be doing this semester and you it can be a little bit
+
+0:12:43.200,0:12:49.600
+mind-bending at first for example let's say i open up on a secure shell
+
+0:12:47.360,0:12:53.680
+and i connect my virtual machine and i let's say i do like a pip install
+
+0:12:51.839,0:12:56.959
+i install some packages all of those packages are installed on
+
+0:12:55.120,0:13:00.480
+my virtual machine in the cloud which is like a separate computer from
+
+0:12:58.480,0:13:02.880
+mine so so after i've done that i mean i did pep install and i closed my terminal
+
+0:13:02.480,0:13:07.360
+and i open a new one and uh now i'm just
+
+0:13:05.519,0:13:09.600
+running code on my computer well guess what i don't have it
+
+0:13:08.480,0:13:13.519
+installed right because even though i ran pip install from my computer
+
+0:13:11.519,0:13:16.399
+it it installed somewhere else not where i am uh
+
+0:13:14.880,0:13:19.839
+right now you're gonna be setting this up in lab one where you're gonna be
+
+0:13:18.160,0:13:22.160
+setting up a virtual machines and kind of getting these sessions
+
+0:13:20.800,0:13:25.600
+this is gonna be one that's tricky right so i really suggest you do this when
+
+0:13:24.320,0:13:28.959
+office hours are available a lot of people get stuck on small details
+
+0:13:27.600,0:13:33.040
+and you can do a screen share with us and we can walk you through
+
+0:13:30.720,0:13:37.279
+uh getting your your virtual machine set up
+
+0:13:34.959,0:13:41.120
+okay so that was the first two big pieces of reproducibility well my
+
+0:13:38.959,0:13:44.880
+program runs on somebody else's computer we have python interpreter that's going
+
+0:13:42.480,0:13:48.000
+to help us with the hardware and then the approach we're kind of
+
+0:13:46.800,0:13:50.240
+taking in this class is we have everybody using the same operating
+
+0:13:49.360,0:13:55.199
+system ubuntu linux on on virtual machines
+
+0:13:53.440,0:13:58.320
+next time we'll talk a little bit about package dependencies
+
+0:13:59.040,0:14:10.240
+oh and here and here's a recap of all those terms that we
+
+0:14:02.240,0:14:10.240
+have learned
+

@@ -1,0 +1,720 @@
+0:00:01.199,0:00:05.759
+hi in this video i'm going to be talking about
+
+0:00:03.280,0:00:09.040
+recursion and nesting and we're going to have a lot of examples like this
+
+0:00:07.359,0:00:11.440
+when we're creating our own classes and upcoming lectures
+
+0:00:10.639,0:00:13.920
+if i'm going to start with something a little bit more simple which is a nested
+
+0:00:13.200,0:00:17.199
+list a list might contain other lists which
+
+0:00:15.839,0:00:21.119
+might contain other lists which finally contain some values
+
+0:00:19.279,0:00:26.560
+and and so i'm going to look at have two recursive functions for that
+
+0:00:23.279,0:00:30.400
+um and and so well first off oops that's a preview of what i'm going to
+
+0:00:27.680,0:00:33.440
+look at next so so looking at this call to has right i have a has
+
+0:00:32.480,0:00:38.480
+function here it takes a list and then it returns
+
+0:00:36.320,0:00:44.160
+whether that access somewhere in the nested structure right and so so
+
+0:00:41.440,0:00:47.280
+here i see have this nested list and i want to see if
+
+0:00:44.719,0:00:51.120
+aid is anywhere in there and indeed it is
+
+0:00:48.160,0:00:56.719
+now if i used an operator like um like let's say something like this if i said
+
+0:00:53.600,0:00:59.840
+eight and list where where that list is basically this
+
+0:00:58.719,0:01:04.720
+stuff that would be false actually and the
+
+0:01:02.480,0:01:10.080
+reason the reason is that list only contains
+
+0:01:06.240,0:01:13.840
+three things contains a list actually contains two things it contains
+
+0:01:11.520,0:01:16.880
+this list and it contains this list and neither of those things is eight
+
+0:01:15.680,0:01:20.799
+right so so the n operator is not recursive right it can't
+
+0:01:18.720,0:01:24.560
+figure out that uh eight is kind of buried somewhere in here
+
+0:01:22.159,0:01:28.000
+um and that's the purpose of this has this has um
+
+0:01:26.720,0:01:33.040
+function all right so let me kind of clear that out so
+
+0:01:29.759,0:01:36.159
+this list we're dealing with um if you were to put in python twitter would look
+
+0:01:34.400,0:01:41.759
+something like this like al refers to this list with two entries one
+
+0:01:39.280,0:01:44.960
+is a list with the numbers one two three the other one is a list that contains
+
+0:01:43.759,0:01:49.600
+both a list and nine okay and so
+
+0:01:48.320,0:01:53.520
+let's just kind of trace through what the function does
+
+0:01:51.600,0:01:58.560
+um i'm going to loop over everything in the list
+
+0:01:55.280,0:02:02.079
+and if the thing i'm looping for over is exactly what i want then
+
+0:02:00.159,0:02:08.560
+problem solved i know that it's true and i'm done
+
+0:02:04.320,0:02:13.520
+otherwise let's say it's not what i want but the thing i'm looping over happens
+
+0:02:11.599,0:02:16.879
+to be a left right so it is instance item list looping over it well must be a
+
+0:02:16.160,0:02:21.280
+list well then then what then i'm going to do
+
+0:02:19.280,0:02:24.640
+my recursive call and say okay well maybe i don't directly
+
+0:02:23.280,0:02:29.200
+contain it but you know i contain a list and maybe
+
+0:02:27.120,0:02:32.239
+that list contains it and and so i kind of look over all the
+
+0:02:30.560,0:02:36.000
+items and i do both these checks trying to either the direct check
+
+0:02:33.440,0:02:39.440
+or the recursive check and and when i get all done while i return false right
+
+0:02:38.160,0:02:42.640
+if i've kind of looked over everything and can't find it
+
+0:02:40.720,0:02:47.599
+well then i must not have it it's all returned false
+
+0:02:44.560,0:02:50.160
+okay so let me think a little bit about this
+
+0:02:48.720,0:02:54.000
+like let's say i'm looping over two items
+
+0:02:51.280,0:02:58.159
+right um if either of those items is what i want
+
+0:02:55.440,0:03:00.720
+uh i'm gonna return true right so we can really kind of think of this loop as a
+
+0:02:59.519,0:03:04.000
+big or does item one have it or does it m2 have
+
+0:03:03.120,0:03:08.480
+it or does item 3 have it or does item 4 have
+
+0:03:06.400,0:03:11.920
+it and that's kind of how i may write this out when i'm tracing through this i
+
+0:03:10.000,0:03:15.519
+may be writing ors so so let's actually take um take an
+
+0:03:13.760,0:03:18.560
+attempt at this let me write some code on the right
+
+0:03:16.959,0:03:22.560
+and and so what i want to do first is i want to figure out well what do i get
+
+0:03:20.000,0:03:25.599
+when i say has and then i'm passing in the list i want
+
+0:03:24.080,0:03:29.680
+to search and the list contains the list of one
+
+0:03:28.400,0:03:36.159
+two three and it also contains
+
+0:03:32.879,0:03:40.799
+a list that contains a list seven eight and then the integer nine
+
+0:03:41.360,0:03:47.440
+and um and that was part of that list and that was part of that list
+
+0:03:46.000,0:03:54.319
+right so i can have these three levels and i'm searching for eight
+
+0:03:50.159,0:03:59.040
+right what does that give me well it's going to give me well you know
+
+0:03:57.439,0:04:01.920
+does this list have it or does this list have it right because
+
+0:04:00.640,0:04:06.000
+each each case i'm kind of looking over here and i'm checking well
+
+0:04:03.200,0:04:08.640
+does does the first list have it or the second list have it
+
+0:04:07.040,0:04:17.040
+so so the way i really write this out is i'd say as
+
+0:04:14.239,0:04:22.160
+my item one was that first last one two three
+
+0:04:18.720,0:04:28.639
+does that list have nine if if it does right if if this does then
+
+0:04:26.000,0:04:30.880
+this whole thing is true or
+
+0:04:32.880,0:04:38.240
+there's another possibility and that possibility is that maybe this other
+
+0:04:36.479,0:04:45.520
+list has nine so let me write that out or as
+
+0:04:42.880,0:04:51.600
+the other list is like this it contains the list seven
+
+0:04:46.479,0:04:57.440
+eight and nine does that contain eight and you know i
+
+0:04:55.440,0:05:00.960
+already say i have a kind of a let me just fix this here right i'm
+
+0:04:58.720,0:05:04.960
+searching for eight right whenever i um whenever i make my recursive call
+
+0:05:03.280,0:05:08.240
+from has to has i'm searching for that same item so so
+
+0:05:06.880,0:05:14.720
+my apologies these are both eight so and
+
+0:05:11.360,0:05:21.919
+and so that's my first problem and do i know the answer yet no i do not
+
+0:05:18.160,0:05:25.520
+because how do i make a note there um because i need to run both this
+
+0:05:24.080,0:05:28.400
+function and this function first to try to figure out
+
+0:05:26.479,0:05:32.479
+um what the answer is right so that's kind of a hanging problem
+
+0:05:29.919,0:05:35.520
+so let me take a an attempt at this one let me write that down
+
+0:05:35.600,0:05:41.680
+um that is like this it's well as
+
+0:05:42.240,0:05:50.800
+then one two three are any of those eight
+
+0:05:50.960,0:05:59.199
+and so as i'm looping over here right i may loop over you know item equals one
+
+0:05:55.520,0:06:02.720
+item equals two item equals three in each case none of them are eight so
+
+0:06:01.039,0:06:07.680
+this will never be true and also well
+
+0:06:06.160,0:06:11.360
+none of them is none of the items of the list right they're all integers
+
+0:06:09.840,0:06:16.479
+so when i run this i can already see all the answers going to be false
+
+0:06:13.680,0:06:22.639
+right so this this is going to be false
+
+0:06:20.479,0:06:27.120
+okay that was one of my sub problems right so i always let this up here
+
+0:06:24.000,0:06:30.560
+but i also had this piece so i'm going to
+
+0:06:27.520,0:06:35.840
+put that down here as well and that is what do i get when i have
+
+0:06:33.360,0:06:44.479
+has and then then my list is
+
+0:06:40.720,0:06:52.160
+containing the list seven eight and the value nine
+
+0:06:48.960,0:06:56.400
+and i'm searching for eight what is that well
+
+0:06:56.720,0:07:04.479
+i guess there's two possibilities right um
+
+0:07:02.960,0:07:07.919
+well as i'm kind of looping over here i may check well does this list contain
+
+0:07:06.319,0:07:13.360
+eight or is this value equal to eight
+
+0:07:11.680,0:07:19.199
+so let me write that out i may write that as
+
+0:07:16.080,0:07:26.960
+that is has seven eight
+
+0:07:23.840,0:07:33.440
+does that contain eight or
+
+0:07:31.599,0:07:38.080
+let me make my recursive call which is has actually no
+
+0:07:35.120,0:07:40.880
+there's not a recursive caller i'm sorry um
+
+0:07:38.639,0:07:46.319
+or or does nine equal eight so maybe i'll
+
+0:07:45.280,0:07:52.000
+just write that out or nine equal to equal to
+
+0:07:49.680,0:07:54.639
+eight which is of course false right so for this or
+
+0:07:52.960,0:07:58.240
+to give me true i mean this thing has to be true so this is really the last
+
+0:07:56.560,0:08:01.919
+problem we have and um and so i'll just write that out
+
+0:08:00.000,0:08:11.039
+i'll say does i have the has here do i have 7
+
+0:08:06.160,0:08:14.960
+8 does that have 8 and so now when i'm running this this is
+
+0:08:12.800,0:08:18.000
+my list and i loop over it you know item equals seven item equals
+
+0:08:17.039,0:08:21.440
+eight and when i'm on items equals eight well
+
+0:08:20.080,0:08:26.400
+x is eight so eight equals eight i may return true and
+
+0:08:24.400,0:08:29.599
+and so for this i am going to get true
+
+0:08:30.160,0:08:38.000
+right so what does that mean that means i can work my way back to
+
+0:08:35.519,0:08:46.800
+this right i know the answer to this so false or true gives me
+
+0:08:41.919,0:08:52.880
+true okay so now i have this piece which feeds back into
+
+0:08:50.000,0:08:55.600
+what well well let me kind of just back in my original problem right
+
+0:08:54.000,0:08:59.440
+i had this recursive call and this is a recursive call and i'm oring them
+
+0:08:57.680,0:09:04.000
+and so i know that this piece that that turned out to be false
+
+0:09:00.800,0:09:07.680
+right so i had false or this thing and that thing turned out to
+
+0:09:05.360,0:09:12.000
+be true i just saw where you see that this true goes up to
+
+0:09:09.760,0:09:15.760
+here so i have false or true which is of course true right so i can
+
+0:09:14.240,0:09:19.680
+kind of work my way back and that's my final answer right it's
+
+0:09:17.600,0:09:24.480
+true that this list this time nested list somewhere contains
+
+0:09:22.480,0:09:30.399
+the value eight okay so i can kind of deal with these
+
+0:09:27.839,0:09:33.760
+recursive structures like this and um and kind of search through them
+
+0:09:33.360,0:09:37.760
+and we'll be doing that with more complicated
+
+0:09:35.200,0:09:41.839
+structures that we create ourselves okay there was an example where it's
+
+0:09:40.880,0:09:45.279
+kind of mathematical i'm just returning something let me do
+
+0:09:43.760,0:09:48.640
+an example where i'm taking actions instead of returning
+
+0:09:47.120,0:09:52.800
+i'm actually printing something and i want to see what the result is and
+
+0:09:51.360,0:09:56.560
+and so i have a slightly different list here
+
+0:09:53.360,0:10:00.000
+but still nested and i want to dump it out
+
+0:09:56.800,0:10:04.959
+i want to dump out all the numbers 1 2 3 7 8. and what i want to do is i want to
+
+0:10:02.240,0:10:09.279
+put some spaces almost like tabs in front of the numbers that will
+
+0:10:06.640,0:10:13.519
+indicate how many levels of nesting are there so for example
+
+0:10:10.480,0:10:19.040
+three is directly in the list right so so three shouldn't be indented at all
+
+0:10:15.760,0:10:23.440
+one and two have one level of indenting seven has one level indenting eight has
+
+0:10:21.360,0:10:26.399
+two levels of indenting and um and so what i'm gonna do i'm
+
+0:10:25.120,0:10:31.040
+gonna kind of dump out these recursive structures and then
+
+0:10:27.920,0:10:35.680
+maybe calling myself and as i'm going deeper and deeper into the structures
+
+0:10:33.120,0:10:38.560
+i want to increase that indenting right so so let's just start it and
+
+0:10:37.120,0:10:42.480
+we'll kind of look at the more code more as we go um so since this is one of
+
+0:10:41.040,0:10:46.399
+those ones where we are taking actions this may be one of
+
+0:10:43.920,0:10:53.519
+those ones where we get a timeline on the right okay so so what happens
+
+0:10:50.320,0:10:58.839
+here so i have dump i have dump and then i have a list which
+
+0:10:57.040,0:11:02.160
+has one two three
+
+0:11:02.320,0:11:13.600
+seven eight um and then i think i need one more
+
+0:11:12.000,0:11:19.920
+bracket so that was my list right that was my l
+
+0:11:17.680,0:11:25.519
+and then and then i had zero here right so i'm just gonna say zero
+
+0:11:22.160,0:11:30.640
+was my level of indent okay so so as i'm i'm reading through
+
+0:11:29.360,0:11:34.000
+this right i'm looping over all the items in my list
+
+0:11:32.320,0:11:40.399
+i guess there's three items there's this list this integer
+
+0:11:36.240,0:11:42.720
+and then this list and so the first one you know each of them i'm checking if
+
+0:11:41.600,0:11:48.000
+it's a list the first one i'm going to do a recursive call
+
+0:11:45.040,0:11:52.079
+the second one is not a list so i'll do my print
+
+0:11:49.120,0:11:56.160
+then the third one is a list so i'll do my recursive call so i'm really kind of
+
+0:11:53.680,0:12:00.320
+making two recursive calls in one print so so what happens here the first
+
+0:11:58.399,0:12:03.680
+recursive call is like this i might say dump
+
+0:12:04.560,0:12:11.839
+dump of my first list which is one and two
+
+0:12:12.959,0:12:20.160
+and my indent level is so i'm calling myself right i'm kind of
+
+0:12:18.399,0:12:24.399
+doing that item is that first list and i say indent plus one right so my
+
+0:12:22.079,0:12:29.120
+indent level was zero so when i call myself i increase that to one
+
+0:12:26.000,0:12:38.240
+my indent level is one okay right so so item was the first list
+
+0:12:34.720,0:12:43.839
+now item is three and i'm going to do this
+
+0:12:40.480,0:12:48.320
+i'm going to multiply this string by my indent level which is 0. so i guess
+
+0:12:47.040,0:12:52.720
+this is nothing right multiplying a string by 0 gives me nothing
+
+0:12:50.320,0:12:58.800
+and then the string of that item which is well items three right so this is
+
+0:12:55.600,0:13:02.160
+going to give me the next thing it gives me
+
+0:12:59.279,0:13:07.839
+is print print three
+
+0:13:08.480,0:13:15.680
+okay and then the last thing he's trying to do right is for this list
+
+0:13:12.480,0:13:20.160
+oops excuse me uh for this list right this will now be
+
+0:13:16.639,0:13:24.079
+item uh and so this thing is uh you know the item is a list and so i'm
+
+0:13:22.000,0:13:27.680
+gonna do another recursive call there and maybe i'll just kind of draw that
+
+0:13:25.440,0:13:31.040
+down here where i have room so now i'm calling dump
+
+0:13:31.920,0:13:39.920
+of the list seven and then another list that just contains
+
+0:13:37.680,0:13:44.880
+eight and one okay so i figured out one print
+
+0:13:44.240,0:13:49.279
+so far but both of these recursive calls might
+
+0:13:47.040,0:13:54.079
+also be doing some prints okay so let's do this one first now i'm
+
+0:13:52.560,0:13:59.040
+looping over this thing so item will be one and then item will
+
+0:13:57.360,0:14:02.240
+be two and so this isn't true in either case in
+
+0:14:00.880,0:14:05.600
+both cases i'm just trying to print this down here
+
+0:14:02.800,0:14:10.079
+right so i may run this for item as one and then item is two
+
+0:14:07.279,0:14:13.440
+and in both cases the indent level is one
+
+0:14:11.279,0:14:16.800
+so i may be printing off one underscore between each of these right so let me
+
+0:14:15.120,0:14:19.760
+just try and write this out what am i going to print
+
+0:14:20.160,0:14:31.839
+i'm going to print underscore one
+
+0:14:26.959,0:14:35.360
+and i'm going to print underscore two
+
+0:14:36.240,0:14:42.639
+okay right so kind of the more underscores i print something
+
+0:14:41.040,0:14:47.040
+what that indicates is it's deeper in the nested structure right so
+
+0:14:44.240,0:14:49.360
+so three is directly in the top list one and two
+
+0:14:47.680,0:14:52.800
+are in a list inside of a list and that's why they have one underscore in
+
+0:14:50.800,0:14:57.199
+front of them okay so that's good so so now let's
+
+0:14:55.680,0:15:00.320
+figure out what happens down for this stump right i'm
+
+0:14:58.399,0:15:04.720
+building out my tree one piece at a time or my call graph i'm building it out
+
+0:15:03.279,0:15:10.079
+okay so for this one i'm going to loop over seven
+
+0:15:07.360,0:15:14.720
+and i'm going to loop over this list that contains eight
+
+0:15:11.360,0:15:19.519
+so so when seven is item i'm gonna come down here
+
+0:15:15.360,0:15:25.440
+and i'm gonna print one underscore before seven right so so this
+
+0:15:24.079,0:15:27.839
+this thing what am i going to do i made a print
+
+0:15:27.920,0:15:33.279
+i'm going to print one underscore and then
+
+0:15:30.959,0:15:44.320
+seven okay that was so so item item was seven
+
+0:15:42.240,0:15:48.959
+and now item is going to be this list that contains eight
+
+0:15:46.880,0:15:52.000
+okay so since item is a list this is true
+
+0:15:50.320,0:15:57.920
+and i'm going to recursively call myself i'm going to dump
+
+0:15:53.680,0:16:01.759
+a list that contains eight with indent equal to two right because my it was one
+
+0:15:59.600,0:16:04.800
+for me when i call myself i add one right so
+
+0:16:02.800,0:16:07.680
+this list eight is trying to go out of here
+
+0:16:06.079,0:16:12.000
+and adding one here i'm gonna get two here right so so let me just
+
+0:16:09.440,0:16:14.320
+write this out this is going to call dump
+
+0:16:15.600,0:16:21.199
+dump my list containing eight you can see each time i recursively call myself
+
+0:16:20.160,0:16:24.480
+i kind of have a simpler endpoint right it was kind of awful at
+
+0:16:22.639,0:16:27.519
+the beginning but i keep breaking it down into smaller and
+
+0:16:26.000,0:16:31.199
+smaller pieces right so i have this and then i have two
+
+0:16:31.600,0:16:37.519
+and well what does this piece of code do well
+
+0:16:34.720,0:16:43.920
+i'm going to loop over this list so i loop once right so item
+
+0:16:39.759,0:16:48.079
+is eight um the integer is not a list so i'm just trying to print this
+
+0:16:45.440,0:16:52.880
+i'm going to print two two underscores so two underscores and then eight
+
+0:16:50.399,0:16:55.279
+right so what i get here this is going to print
+
+0:16:57.360,0:17:08.559
+this is going to print underscore underscore eight
+
+0:17:05.600,0:17:11.760
+whew okay let's try to put this all together
+
+0:17:09.520,0:17:15.199
+what so i've kind of figured out all the prints i'm gonna do
+
+0:17:13.120,0:17:18.160
+and now that i've figured that out i can figure out what is the order in which
+
+0:17:16.480,0:17:21.760
+things are printed right i'm ultimately going to print
+
+0:17:19.120,0:17:28.559
+everything in my list like one two three
+
+0:17:25.120,0:17:32.080
+seven eight but this may put the number of underscores in front to indicate how
+
+0:17:30.160,0:17:36.160
+many levels of nesting i have right so i'm going to say output over
+
+0:17:33.919,0:17:43.840
+here output these are all my prints
+
+0:17:40.559,0:17:49.360
+so what happens first is i have um if i i have underscore one and then i have
+
+0:17:47.440,0:17:52.320
+this is underscore two
+
+0:17:52.640,0:18:00.240
+then i have three let me kind of look like my almost like
+
+0:17:59.120,0:18:03.600
+a minus let me put it down properly so i was underscore
+
+0:18:02.000,0:18:09.039
+two and i have three and then down here i have um you know i
+
+0:18:06.000,0:18:15.840
+have underscore seven and um and then finally down here i have
+
+0:18:12.559,0:18:21.120
+underscore underscore eight so underscore underscore
+
+0:18:19.600,0:18:24.000
+eight and so i can trace through and figure out what happens
+
+0:18:22.720,0:18:27.440
+uh for this function a little bit more complicated than the last one
+
+0:18:25.760,0:18:32.000
+so we're gonna be doing lots of things like this upcoming when we learn about
+
+0:18:29.840,0:18:34.640
+graphs and drafts are kind of very common in the real world
+
+0:18:33.440,0:18:38.160
+so even though this feels like maybe a bit of a contrived example being able to
+
+0:18:36.960,0:18:42.440
+reason through this is kind of a stepping stone towards what um
+
+0:18:40.240,0:18:45.440
+or maybe doing kind of upcoming in the class
+

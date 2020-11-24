@@ -1,0 +1,1155 @@
+0:00:01.439,0:00:05.839
+hello in this video i may be talking about some
+
+0:00:03.679,0:00:08.720
+python features that are related to on kind of web servers
+
+0:00:07.279,0:00:11.840
+and the first one will be picking up where we left off last time and that was
+
+0:00:10.480,0:00:15.679
+with decorators uh we were learning a little bit about
+
+0:00:13.120,0:00:19.359
+flask and we saw that flask is based on these decorators in python
+
+0:00:17.920,0:00:23.920
+the other thing that i want to think about is how we can trace our web
+
+0:00:21.600,0:00:27.119
+applications for debugging purposes um a lot of programs we've been running
+
+0:00:26.000,0:00:30.000
+you know you can hit run it runs for a few seconds and then you
+
+0:00:28.800,0:00:32.399
+either get some output or you get an error
+
+0:00:30.880,0:00:35.920
+and if you get an error while it's right there and you can debug it um
+
+0:00:34.480,0:00:39.920
+when we're dealing with websites there's kind of this issue that um
+
+0:00:38.079,0:00:41.760
+you know it's running all the time and in the background it's not running
+
+0:00:40.960,0:00:45.520
+forever and nobody's watching it and then maybe
+
+0:00:44.239,0:00:48.079
+somebody sends you an email they're like oh i was using your website last night
+
+0:00:47.360,0:00:51.440
+and it wasn't wasn't working and so what
+
+0:00:50.480,0:00:55.520
+we'll often do when we have a website is we'll collect
+
+0:00:53.840,0:00:58.800
+logs and the logs will contain information about everything that's been
+
+0:00:56.879,0:01:02.399
+happening what requests have we gotten what do we return things like that so we
+
+0:01:00.800,0:01:06.560
+kind of want to trace our applications to get these logs
+
+0:01:04.080,0:01:10.960
+and so combining decorators with argument lists is going to be
+
+0:01:08.400,0:01:13.360
+um a way that we're going to do that okay so
+
+0:01:12.000,0:01:16.159
+what i'm going to do is starting off is trying to look at one application for
+
+0:01:14.799,0:01:20.000
+decorators uh which is for building frameworks
+
+0:01:18.320,0:01:23.119
+where we want to kind of get some sort of list or
+
+0:01:20.960,0:01:26.080
+dictionary of all the functions in a program
+
+0:01:24.560,0:01:30.320
+and there's different reasons we might want to do that um one is for testing
+
+0:01:28.880,0:01:33.520
+and so we're gonna be testing this function here and
+
+0:01:32.000,0:01:35.520
+uh and you can see while it's buggy right i mean it's supposed to add x and
+
+0:01:34.880,0:01:38.560
+y and instead it's multiplying them so let
+
+0:01:37.680,0:01:42.399
+me try to write some tests for that test for these testing is
+
+0:01:41.040,0:01:45.119
+actually really simple i mean all you do is while you
+
+0:01:43.600,0:01:47.759
+run some code and you see if the answer is correct right so i'm going to create
+
+0:01:46.720,0:01:53.119
+two tests let me say test one and um
+
+0:01:50.799,0:01:57.680
+and maybe what i'll do here is i'll say uh
+
+0:01:54.479,0:02:04.640
+assert that i'll start that add of two and two
+
+0:02:02.079,0:02:07.840
+uh equals four right if i add two and two i should have four
+
+0:02:06.000,0:02:13.120
+and let me just try calling that here at the end
+
+0:02:09.520,0:02:18.000
+and um and so i i guess i kind of want that to end and maybe i'll just
+
+0:02:14.480,0:02:25.120
+print at the end you know all pass right and um and so i i guess that's one
+
+0:02:21.760,0:02:28.959
+test case not a great test case because well it's not showing the bug right let
+
+0:02:27.520,0:02:33.440
+me try adding another test case i'm going to say
+
+0:02:29.599,0:02:37.200
+def test two and then i'll say assert that
+
+0:02:34.160,0:02:43.920
+you know add add three and four equals seven
+
+0:02:40.480,0:02:47.920
+and so then if i call that one and then i try to run it well i get that
+
+0:02:47.200,0:02:51.040
+assertion error right and i can see while it's not
+
+0:02:50.319,0:02:54.879
+working right and maybe if i want to be more
+
+0:02:52.959,0:03:00.319
+specific um maybe i'd say something like raise say
+
+0:02:57.760,0:03:05.519
+something like you know if if this is not equal to 7 then maybe i i
+
+0:03:03.760,0:03:13.920
+raise an exception you know add three four
+
+0:03:09.760,0:03:18.400
+not seven then i can kind of run that and then i get a better exception down
+
+0:03:15.680,0:03:21.440
+here and um it's very common right that will actually
+
+0:03:19.360,0:03:24.720
+write a lot more test code than we actually have for our kind of original
+
+0:03:23.440,0:03:26.959
+code right that's how we make sure it actually works right i mean writing the
+
+0:03:26.080,0:03:30.080
+code eventually becomes the easy part making
+
+0:03:28.560,0:03:33.920
+sure that it doesn't have um kind of horrible bugs is the hard part
+
+0:03:32.720,0:03:35.920
+and so i could keep doing that i mean i could keep calling all these functions
+
+0:03:35.200,0:03:38.799
+one by one but still annoying i kind of add a
+
+0:03:37.120,0:03:42.239
+function and then have it down here and i have another one
+
+0:03:40.000,0:03:45.040
+and then i have it down here and so really what i'd like to do
+
+0:03:43.440,0:03:49.440
+is i'd like to have a list of functions something like this
+
+0:03:46.640,0:03:53.439
+uh maybe i'll call it like um function list
+
+0:03:50.720,0:03:57.280
+and um and and then somehow what i'll do down here is i'll maybe have the so i'll
+
+0:03:55.519,0:04:03.360
+say function list or i'll say something 4 test function
+
+0:04:01.120,0:04:09.040
+and function list then i will call it
+
+0:04:06.560,0:04:12.000
+right so that's one way i could do it and um
+
+0:04:09.920,0:04:17.040
+and then of course then i still kind of have this pain right whenever
+
+0:04:13.680,0:04:20.639
+i create a new function i have to add it i have to add it to the list right i
+
+0:04:18.320,0:04:25.919
+have to do that and then i have to do that right so this is
+
+0:04:22.079,0:04:32.160
+kind of a clunky way to do tests and if i run that uh or
+
+0:04:29.120,0:04:38.320
+oh um append sorry uh and i'll append here too as well so i
+
+0:04:34.880,0:04:41.520
+kind of run that and um and you see how clunky it is i even made
+
+0:04:40.080,0:04:44.320
+a mistake that wasn't intentional but it kind of demonstrates right that i have
+
+0:04:42.880,0:04:48.000
+to kind of match these up or it does nothing and okay so i have i
+
+0:04:47.600,0:04:52.080
+have kind of my tests for this what i'd like
+
+0:04:50.160,0:04:53.919
+to do to avoid kind of appending each time
+
+0:04:52.560,0:04:59.520
+is i'd like to have some sort of decorator that works something like this
+
+0:04:56.880,0:05:04.800
+i want to be able to say something like this at test
+
+0:05:01.280,0:05:10.080
+and then maybe here as well at test and my idea is that if i have those
+
+0:05:08.840,0:05:13.440
+decorators uh before these functions well then i would
+
+0:05:12.560,0:05:17.520
+like to automatically um kind of add them to the
+
+0:05:16.000,0:05:21.840
+test list right so when i'm running this right
+
+0:05:19.280,0:05:25.280
+this is really calling the test function when i have this definition it's calling
+
+0:05:24.240,0:05:28.000
+the test function when i have this definition i haven't
+
+0:05:26.479,0:05:32.240
+written the test function yet right so i have to write a decorator up here
+
+0:05:29.919,0:05:36.400
+and i'm going to call it test and decorators
+
+0:05:33.199,0:05:40.639
+um have to take in a function right so this is kind of weird right like a
+
+0:05:38.560,0:05:43.680
+reference to test one is going to be passed as an argument to
+
+0:05:42.479,0:05:46.639
+test right so this test one function is going to get
+
+0:05:45.360,0:05:50.800
+passed in here right i'm passing a function
+
+0:05:47.520,0:05:54.960
+into a function and um and i'm just trying to return the same thing
+
+0:05:52.000,0:05:57.120
+right so boring for now in this example i'm not going to do anything interesting
+
+0:05:56.319,0:06:00.880
+with that i'm just going to return back the same
+
+0:05:59.199,0:06:04.720
+function i have all right let me do that and let's not
+
+0:06:02.479,0:06:09.440
+have traced through this slowly i wonder if i can
+
+0:06:05.680,0:06:14.800
+how much i can kind of fit on the screen um maybe
+
+0:06:13.360,0:06:18.960
+maybe let me just try to cinch this up a little bit
+
+0:06:16.960,0:06:22.000
+okay so i'm going to go to the beginning okay so i
+
+0:06:20.000,0:06:25.759
+i define my add function which i may be testing
+
+0:06:23.440,0:06:32.000
+and and then i define my decorator oh you
+
+0:06:29.680,0:06:35.759
+know what i forgot to do right so this thing is going to be
+
+0:06:33.199,0:06:39.199
+called whenever i'm defining a new function with that beforehand
+
+0:06:37.280,0:06:43.600
+right so test and so what i want to do is i want to say f
+
+0:06:40.319,0:06:47.520
+fn list dot append that function right that was kind of my
+
+0:06:45.759,0:06:51.120
+my big idea all right so let's um let's try this
+
+0:06:50.400,0:06:54.319
+maybe i'll just snug that up a little bit too
+
+0:06:55.120,0:07:00.560
+there we go okay so let's go back to the beginning i have my um
+
+0:06:58.400,0:07:03.440
+empty function list i have my decorator and so now
+
+0:07:01.440,0:07:07.759
+because i'm about to call or i'm about to define test one i'm going to pass
+
+0:07:05.280,0:07:10.639
+test one to task right because i have the test decorator
+
+0:07:09.440,0:07:13.599
+right decorators are just trying these special functions that take a function
+
+0:07:12.080,0:07:17.360
+and they return a function and so i do that and then you can see
+
+0:07:15.599,0:07:21.360
+what i did right um i have this new test one function and
+
+0:07:20.240,0:07:25.039
+i put it i put it inside of this list up here
+
+0:07:23.840,0:07:30.000
+right that's kind of cool and um and that's
+
+0:07:27.759,0:07:34.000
+really all that function does right and this one right i'm defining a new
+
+0:07:31.919,0:07:37.280
+function so this time you can kind of see what's happening
+
+0:07:34.960,0:07:44.000
+here i'm passing test2 into function and so you know test2
+
+0:07:40.720,0:07:47.599
+is also going to get added do this list right so i'm going to step through here
+
+0:07:46.319,0:07:50.879
+and that's great and and so now you can see i kind of
+
+0:07:48.879,0:07:54.720
+have built this nice list with references to the test one and test
+
+0:07:53.280,0:07:58.240
+two functions and that means when i'm down here i can
+
+0:07:56.000,0:08:02.720
+loop over that list right so test function uh refers the first thing the
+
+0:08:01.199,0:08:07.440
+list which is test one and i run that and that all works fine
+
+0:08:07.680,0:08:14.160
+and then and then i'm going to grab the next thing
+
+0:08:11.120,0:08:22.319
+which is the test two so now test fn is test two and i'm gonna call that
+
+0:08:19.039,0:08:26.560
+and uh and that is all well okay so that was the first use case right so
+
+0:08:24.240,0:08:33.279
+this was a use of decorators where i'm doing testing okay
+
+0:08:29.680,0:08:36.479
+um let me show you another kind of um interesting use case which is
+
+0:08:35.680,0:08:40.159
+for creating these logs i talked about for
+
+0:08:38.240,0:08:45.120
+web applications um maybe what i'd like to do is i'd like
+
+0:08:43.440,0:08:48.320
+to some have some sort of like um thing like this that says like uh i'm
+
+0:08:47.839,0:08:52.000
+just gonna do all the test test stuff right to clean
+
+0:08:49.760,0:08:56.240
+this up i'm not testing anymore um i i'd like to print something like
+
+0:08:54.720,0:08:59.760
+add and then maybe i'll make this a format string
+
+0:08:57.760,0:09:07.040
+something like this and then you know some something like you know x
+
+0:09:03.600,0:09:11.440
+then y and then i might want to kind of like record like um
+
+0:09:09.440,0:09:15.760
+you know like what it returns right so maybe i'll put something here
+
+0:09:13.040,0:09:20.560
+and then the idea right is that um if i call this thing
+
+0:09:17.440,0:09:24.320
+at different times uh like this i'm gonna get these these
+
+0:09:23.120,0:09:28.800
+things right and maybe instead of printing this maybe
+
+0:09:25.279,0:09:34.080
+i'm gonna say like um you know put to file instead right um and that way right
+
+0:09:32.720,0:09:38.560
+i mean i could have all these records and if i actually saw the return value
+
+0:09:36.080,0:09:41.760
+then if somebody kind of calls me up and they're like hey i was using
+
+0:09:39.680,0:09:44.640
+your online calculator last night and it gave me the wrong answer
+
+0:09:43.200,0:09:48.959
+i could actually go back and kind of see well what happened right
+
+0:09:46.640,0:09:52.800
+now this is kind of okay because i only have one function here
+
+0:09:50.399,0:09:56.000
+what i'd like to do is to have something like this i'd like to have something
+
+0:09:54.000,0:10:02.480
+like you know trace and i would like it to do this um
+
+0:09:59.360,0:10:05.440
+for uh for really any number of functions right let's say
+
+0:10:03.920,0:10:07.360
+i have a multiply and subtract and all of that
+
+0:10:06.160,0:10:10.079
+i don't want to kind of have to keep writing code like this for all of them i
+
+0:10:08.800,0:10:13.040
+just want to say trace and i want it to work
+
+0:10:11.120,0:10:18.800
+okay so so what we're going to do here is i'm going to find
+
+0:10:14.399,0:10:23.360
+the trace and um and it's a decorator so we have to
+
+0:10:19.760,0:10:28.079
+take in a function and we have to return a function here and before i've just
+
+0:10:26.320,0:10:31.200
+been kind of returning and kind of while taking it and then returning the
+
+0:10:29.279,0:10:34.800
+same thing here i'm gonna do actually something a little bit tricky
+
+0:10:32.640,0:10:36.959
+right i'm gonna you know when i have the add function i'm gonna actually swap it
+
+0:10:36.399,0:10:42.560
+out right so what i'm gonna do is something
+
+0:10:39.519,0:10:45.600
+like this i'm gonna say i need to find a new function actually
+
+0:10:44.079,0:10:48.720
+inside of a function like this let me call it my wrapper function
+
+0:10:47.200,0:10:53.600
+and that's also going to take an x and a y and
+
+0:10:50.480,0:10:58.079
+and my idea here is that i'm going to return that wrapper
+
+0:10:54.880,0:11:02.880
+function here what this is going to do is when i define the ad it's actually
+
+0:11:00.000,0:11:05.920
+going to swap that out for my wrapper right oh this time i'm going to do the
+
+0:11:04.160,0:11:08.640
+switcheroo right i have my ad function i'm going to swap it out my wrapper
+
+0:11:07.279,0:11:13.040
+function and um and well one advantage of that is
+
+0:11:11.680,0:11:18.160
+i can actually print these things right so maybe i'll just say
+
+0:11:14.800,0:11:21.200
+um you know print you know some sort of function
+
+0:11:22.640,0:11:27.360
+and then and then maybe i'll say like well what the x and y was right
+
+0:11:27.600,0:11:33.680
+i'll i'll i'll just leave it at this for now so i can kind of see
+
+0:11:31.600,0:11:37.279
+and then i'll just try to return let's say let me return nine
+
+0:11:36.000,0:11:39.839
+well let's just have a look at what it is i mean it's a far from complete
+
+0:11:38.720,0:11:43.120
+example but let's not get too far ahead of
+
+0:11:41.760,0:11:50.079
+ourselves let's try to understand what is here right now
+
+0:11:45.040,0:11:53.279
+okay so i'm gonna step through here and um let me just try to run to the end
+
+0:11:51.920,0:11:56.399
+i feel like it's giving me some sort of um
+
+0:11:53.680,0:12:00.240
+error uh maybe no why is it printing that
+
+0:11:57.680,0:12:04.880
+that box there because i i have my strings in
+
+0:12:02.079,0:12:08.720
+in weird places is why okay so i'm gonna have to step through this
+
+0:12:06.480,0:12:13.920
+to find that thing and so since i have this trace decorator i'm going to pass
+
+0:12:10.639,0:12:19.200
+and add up to fn right so i'm going to do that and then
+
+0:12:15.680,0:12:22.480
+you see it's very weird like um i'm defining a function inside of a
+
+0:12:20.959,0:12:25.839
+function we haven't seen that before but what this means is that every time that
+
+0:12:24.160,0:12:29.279
+trace gets called i'm defining a new function
+
+0:12:28.480,0:12:34.000
+here right so if i if i called on trace like five times
+
+0:12:32.320,0:12:36.959
+well i would actually end up with having five different wrapper functions right
+
+0:12:35.920,0:12:40.880
+five different functions that all have the same name wrapper
+
+0:12:38.880,0:12:44.720
+okay so i kind of define this new weird thing that all it does is it prints the
+
+0:12:42.560,0:12:48.639
+inputs and then returns nine and then i'm returning this and what
+
+0:12:46.320,0:12:52.320
+this means is that the add function will get swapped out for wrapper right
+
+0:12:50.399,0:12:57.760
+so we have something new like this um which means that okay i'm down here
+
+0:12:55.519,0:13:02.160
+uh when i call add you know instead of calling ad it actually
+
+0:12:59.760,0:13:05.600
+kind of calls the thing that my uh decorator
+
+0:13:03.600,0:13:08.000
+returned right which is wrapper right so so i looks like i'm calling out i'm
+
+0:13:07.120,0:13:12.959
+actually calling wrapper and so i call wrapper and
+
+0:13:11.279,0:13:17.600
+wrapper kind of prints this information out like before
+
+0:13:14.480,0:13:21.920
+and then it returns nine this prints this information out
+
+0:13:18.800,0:13:26.720
+and it returns nine okay so you can kind of see how um
+
+0:13:25.360,0:13:30.079
+i did some good things and some bad things i mean the good thing i'm doing
+
+0:13:27.839,0:13:35.200
+is now i can actually kind of record um you know all the calls to add
+
+0:13:33.360,0:13:38.560
+uh and i could maybe save that to a file if i want the bad thing is
+
+0:13:36.639,0:13:43.920
+that i kind of broke what it was doing right and so
+
+0:13:40.480,0:13:48.000
+how can i actually fix this and that's where this comes in right i
+
+0:13:45.600,0:13:53.120
+passed in the original ad to fn right
+
+0:13:51.040,0:13:55.920
+and and so what i should do is i something like this i should say
+
+0:13:54.000,0:14:00.399
+something like you know i should call it i should call that
+
+0:13:57.440,0:14:02.720
+original one with whatever my x and y were
+
+0:14:00.959,0:14:07.040
+maybe i'll say that's like result equals that and then i'm going to return that
+
+0:14:04.639,0:14:11.839
+result okay and it's let me just run this
+
+0:14:09.920,0:14:16.320
+through uh from the beginning to end again
+
+0:14:13.279,0:14:21.120
+now you can see it's very cool right because
+
+0:14:17.760,0:14:26.800
+when i call add well when i call add um i'm actually calling rapper and so
+
+0:14:24.000,0:14:30.639
+rapper does my extra stuff like this but it's just extra because in the end i
+
+0:14:29.199,0:14:35.519
+i call this which was add right so so i'm still ultimately
+
+0:14:33.839,0:14:39.680
+calling add indirectly but i'm doing some stuff
+
+0:14:37.680,0:14:43.040
+around it and that around part is why we call this kind of function
+
+0:14:41.279,0:14:47.120
+a wrapper right so it behaves just like before and i get this extra goodies
+
+0:14:45.920,0:14:51.519
+let me let me kind of make this a little bit better um
+
+0:14:49.519,0:14:55.199
+i think what i'd like to do is instead of just saying funk here
+
+0:14:53.279,0:15:00.399
+i would like to say what the name of the function is i'm going to say
+
+0:14:57.600,0:15:02.880
+name and so now i can actually see what that is
+
+0:15:01.440,0:15:08.079
+and then the other cool thing i could do is i could say well
+
+0:15:04.720,0:15:14.160
+um you know if i swap these two i could say what the result was right i
+
+0:15:10.800,0:15:19.040
+could say well i got back this thing right and it's now you can see it's
+
+0:15:17.279,0:15:21.920
+running and i kind of get this nice thing that i could have in some sort of
+
+0:15:20.240,0:15:24.959
+log that might help me debug later right adding two and two gives four
+
+0:15:23.440,0:15:28.800
+okay that's good somebody comes along later and they see this and like aha
+
+0:15:27.120,0:15:31.759
+that should be seven right i can notice later that there was some sort of bug
+
+0:15:30.160,0:15:38.560
+there um okay so that's pretty cool
+
+0:15:35.199,0:15:42.079
+and um and i think that you know what i'd like to do is how can
+
+0:15:41.600,0:15:45.199
+i do this with other functions as well
+
+0:15:44.000,0:15:50.240
+right like let's say i have another function
+
+0:15:46.560,0:15:55.920
+which is um uh let's say it's like um absolute
+
+0:15:53.440,0:16:00.240
+and i i take x right and so maybe i'll return x here
+
+0:15:57.120,0:16:05.440
+and then i'll say like if x is less than zero
+
+0:16:01.040,0:16:10.800
+x you know multiply it by negative one okay and so and i want to trace that one
+
+0:16:13.199,0:16:21.360
+okay here here's where it gets kind of really wacky right so let me kind of
+
+0:16:17.839,0:16:25.199
+change this to absolute down here what is the absolute of negative three
+
+0:16:25.680,0:16:33.199
+okay let's run this thing it's really confusing when i have kind
+
+0:16:31.600,0:16:36.560
+of um you know i'm creating two different
+
+0:16:34.320,0:16:39.360
+wrappers right so i'm gonna step through here
+
+0:16:37.600,0:16:44.959
+and um and i'm gonna create this new wrapper function
+
+0:16:41.440,0:16:47.519
+and um you notice something actually like
+
+0:16:45.279,0:16:52.959
+uh when i'm inside of here right it's saying that well that's a frame one
+
+0:16:49.600,0:16:56.800
+right so uh when i'm creating this wrapper function
+
+0:16:54.560,0:17:01.120
+here that was created when i had a function
+
+0:16:59.199,0:17:04.799
+that was invoked right so so there's kind of a parent
+
+0:17:02.880,0:17:09.280
+frame right every time i call trace that creates a new frame
+
+0:17:06.640,0:17:12.079
+and when i'm defining this i want to kind of think about well what frame was
+
+0:17:10.640,0:17:16.480
+i in when that happened right that's why i say parent equals
+
+0:17:13.600,0:17:18.079
+frame one and so on i return and you can see it's actually kind of showing it as
+
+0:17:17.600,0:17:22.480
+a ghost here right because you know back in 220
+
+0:17:21.439,0:17:27.280
+what did we learn we learned when a function returns
+
+0:17:24.400,0:17:33.200
+its frame dies and i'm kind of showing you that that's not
+
+0:17:28.559,0:17:38.080
+always true anymore um it's frame dies unless that function created another
+
+0:17:35.039,0:17:43.120
+function that might need that data right right here i can access fn
+
+0:17:41.120,0:17:47.039
+which is really not a local variable here
+
+0:17:44.320,0:17:49.840
+it was a it was a parameter up here right so i kind of
+
+0:17:48.320,0:17:53.600
+you know if this wrapper function is going to kind of live and last
+
+0:17:51.360,0:17:56.720
+later right and it does right because it gets returned out
+
+0:17:55.039,0:18:00.400
+then it still needs to be able to access the frame
+
+0:17:58.559,0:18:03.280
+uh at the time that trace was called right that's why you can see it's kind
+
+0:18:01.440,0:18:08.799
+of a ghost of a frame here right if that wrapper function runs
+
+0:18:06.799,0:18:14.240
+they can still access this fn from up here okay so now i'm defining
+
+0:18:10.960,0:18:19.120
+it again right so i'm running this and now you can see well before i had this
+
+0:18:17.840,0:18:21.760
+frame which is kind of sticking around for trace
+
+0:18:19.760,0:18:27.200
+now i'm creating a second frame frame two per trace and this time
+
+0:18:23.840,0:18:33.039
+fn is add instead of absolute
+
+0:18:30.559,0:18:37.440
+and so i'm going to return that and now i'm kind of in this situation
+
+0:18:34.480,0:18:39.760
+right where i have um i have two wrapper functions over here
+
+0:18:38.400,0:18:44.240
+do you see them right i have this wrapper function
+
+0:18:41.520,0:18:48.559
+which is associated with f n or which is associated with f1
+
+0:18:46.160,0:18:52.960
+so that kind of takes me to absolute and then i have this one here which is
+
+0:18:50.000,0:18:56.880
+associated with f2 right it's an f2 frame fn takes me to
+
+0:18:55.280,0:19:02.480
+add right so my two different wrapper functions
+
+0:18:59.280,0:19:04.320
+have different values for fn right so they're kind of wrapping different
+
+0:19:03.360,0:19:08.960
+functions and so that's all good but let me show
+
+0:19:06.960,0:19:13.840
+you the problem i run into so i'm calling the wrapper function now
+
+0:19:12.240,0:19:18.000
+and uh and that's what the wrapper function can only ever take
+
+0:19:18.320,0:19:24.640
+two parameters right and i don't have two parameters i only have one
+
+0:19:22.240,0:19:27.360
+right and so the way i've kind of set this off i mean i have this cool
+
+0:19:26.000,0:19:31.679
+decorator but the wrapper that it's creating is
+
+0:19:28.880,0:19:35.919
+not a very general purpose it's not very general purpose because it
+
+0:19:34.640,0:19:41.919
+has to take exactly two let's take exactly two
+
+0:19:39.280,0:19:47.280
+parameters okay and so what i'm gonna teach you now
+
+0:19:43.440,0:19:50.880
+is how we can pass in a variable number of parameters right so so what i'm gonna
+
+0:19:49.440,0:19:56.160
+do is i'm just gonna put all this down here for a while
+
+0:19:53.120,0:20:01.360
+and i'm gonna create a function f and um and i could take like you know x y
+
+0:19:58.160,0:20:03.760
+and z something like that if i wanted if i don't really know how many i'm gonna
+
+0:20:02.480,0:20:08.320
+take what i can do is i can have something like um
+
+0:20:05.200,0:20:11.520
+you know an argument list and um and right now this is kind of
+
+0:20:09.840,0:20:15.600
+like one thing i could pass a list to it but i put a star before it what this
+
+0:20:14.320,0:20:18.080
+means is that uh you know i don't really know how many
+
+0:20:16.640,0:20:21.440
+things are going to come to this right so let me print off the argument maybe
+
+0:20:20.159,0:20:23.760
+i'm just going to call it r list for short
+
+0:20:24.240,0:20:30.799
+on and so let's try calling this guy so i'm going to say f
+
+0:20:27.520,0:20:33.120
+of you know one two three four and maybe what does this f trying to do i'm just
+
+0:20:32.080,0:20:38.720
+trying to say it does something like it returns like the max of the art
+
+0:20:35.120,0:20:41.280
+list okay maybe i'm just going to print this down here
+
+0:20:42.320,0:20:48.400
+it's kind of back to the beginning so i create that that thing
+
+0:20:46.080,0:20:51.440
+and then i call this and you see that arg list
+
+0:20:49.840,0:20:55.840
+actually kind of looks like a regular list after this
+
+0:20:53.039,0:20:57.520
+right um it certainly didn't have a list as
+
+0:20:56.320,0:21:02.320
+the parameters right it had four different um arguments passed in
+
+0:21:00.240,0:21:06.000
+but it ultimately those you know however many um you know parameters i have or
+
+0:21:04.320,0:21:09.840
+how many of our arguments i have uh ends up in this nice little list i
+
+0:21:07.520,0:21:13.520
+have right so i can see that over here and uh and so that all kind of works
+
+0:21:11.679,0:21:17.919
+fine right right it's not a list it's technically a tuple
+
+0:21:16.000,0:21:22.960
+and so that works great right and and that could work you know
+
+0:21:19.840,0:21:27.200
+uh let me do it again right so i'm going to step through here
+
+0:21:24.880,0:21:31.039
+and now i'm passing in more things right or or it could even be empty right
+
+0:21:29.679,0:21:38.960
+and then i'm going to kind of pass in i'm going to pass in this empty tuple
+
+0:21:35.120,0:21:43.039
+right okay so that's kind of cool right that i can pass
+
+0:21:39.840,0:21:46.320
+in on you know whatever parameters down here or whatever
+
+0:21:44.320,0:21:49.120
+arguments down here becomes a list i can also actually do the reverse of it like
+
+0:21:47.919,0:21:54.880
+let's say i had something like this let's say i had a function
+
+0:21:50.799,0:21:58.880
+g um maybe i'll just kind of start at the top
+
+0:21:56.799,0:22:01.919
+right so that i can kind of leave multiple examples up here at once let's
+
+0:22:01.039,0:22:08.320
+say g takes x y and uh and z and
+
+0:22:06.480,0:22:13.600
+uh i don't know maybe i'll just like return
+
+0:22:10.480,0:22:18.320
+x plus y plus z whatever right and um and i have some like values down
+
+0:22:15.600,0:22:24.000
+here and the values are like one two three um and i want to use
+
+0:22:21.360,0:22:27.760
+g to add those i mean kind of the the ugly way to do it would be like this i
+
+0:22:25.760,0:22:34.880
+could say something like g vowels of zero vowels of one
+
+0:22:31.200,0:22:37.120
+vowels of two and maybe print that thing right
+
+0:22:38.000,0:22:46.240
+um i could do that right i pass in those three things from my list
+
+0:22:43.200,0:22:49.679
+right to here but there's another trick and uh and this may be another use of
+
+0:22:47.919,0:22:53.440
+this star right and so the way i'll do it is i'll say
+
+0:22:51.440,0:22:59.520
+something like this i'll say g of star values
+
+0:22:57.039,0:23:03.600
+and i'll just try to print that right and
+
+0:23:00.080,0:23:08.159
+uh and then let's see what happens when i step through here i do this and
+
+0:23:06.159,0:23:11.919
+so now i'm starting with a list but i'm going to convert it to a bunch
+
+0:23:09.520,0:23:15.280
+of parameters right and i kind of end up with three
+
+0:23:13.120,0:23:20.559
+different parameters so this star is useful in both directions right
+
+0:23:17.440,0:23:24.559
+a star can take me from a list a bunch of parameters
+
+0:23:22.320,0:23:28.000
+and it can also take me from a bunch of parameters
+
+0:23:26.080,0:23:32.480
+back to a last right so i kind of in both directions i'm very flexible
+
+0:23:30.000,0:23:35.840
+right if i if i don't i don't know how many things i'm kind of dealing with
+
+0:23:34.640,0:23:40.480
+okay so that's how we can deal with variable number of arguments
+
+0:23:37.760,0:23:44.080
+um unwinding a bit uh we were trying to solve this problem
+
+0:23:41.520,0:23:46.640
+right i wanted to have a wrapper that can
+
+0:23:44.960,0:23:52.000
+kind of work for both absolute which takes one parameter
+
+0:23:48.640,0:23:54.880
+and add which takes two and and so the way i'm gonna do that
+
+0:23:53.200,0:23:58.799
+instead of kind of saying hey i have to take exactly two here
+
+0:23:56.240,0:24:02.480
+i'm gonna say i'll take any number that you
+
+0:23:59.440,0:24:04.880
+want and um and so what will happen well when
+
+0:24:03.919,0:24:07.200
+wrapper is called i'm going to get a bunch of parameters
+
+0:24:06.240,0:24:12.400
+and then i'm going to convert it to a list called args
+
+0:24:09.440,0:24:17.279
+then when i call fn i need to do this again because i need to go from a list
+
+0:24:14.720,0:24:20.000
+back to a bunch of parameters back to a bunch of arguments
+
+0:24:18.320,0:24:25.279
+you see how that works there's kind of happening twice right so
+
+0:24:21.679,0:24:30.400
+when you call wrapper multiple arguments go into a list
+
+0:24:27.760,0:24:36.559
+and then when i use it again down here that list goes back to multiple
+
+0:24:33.520,0:24:39.279
+arguments okay and uh it's like the one thing that's not going
+
+0:24:37.679,0:24:41.520
+to work right now well first of all let's just kind of run this thing and
+
+0:24:40.400,0:24:46.480
+see if it runs it does which is great um this
+
+0:24:43.919,0:24:51.919
+print is kind of still a problem because this is not right is it and so so what i
+
+0:24:49.840,0:24:55.279
+should do is maybe kind of um have some sort of arg string here that
+
+0:24:53.840,0:25:01.760
+i'm going to show and uh and well how can i do that um
+
+0:24:59.360,0:25:04.799
+well one thing i could do is i could uh let me just try to do this first i'm
+
+0:25:03.039,0:25:08.400
+gonna do a list comprehension and i'm gonna say something like um
+
+0:25:07.279,0:25:13.360
+something for a and args
+
+0:25:11.440,0:25:18.880
+and i wanna get like the programmatic representation of that
+
+0:25:15.679,0:25:29.840
+let me kind of run that and uh and why is it unhappy
+
+0:25:31.520,0:25:36.720
+oh i guess it is happy it's okay with that um
+
+0:25:38.320,0:25:42.880
+i guess i got negative three there so that's good
+
+0:25:41.360,0:25:49.120
+and so i think what i can actually do is i can say something like um
+
+0:25:45.600,0:25:54.159
+if i join that right if i say dot join i can say like well that's my arg string
+
+0:25:52.159,0:25:58.559
+okay and now i can see well this is beautiful right absolute of negative
+
+0:25:55.600,0:26:03.360
+three gives me three and um and what else could i do maybe
+
+0:26:02.080,0:26:06.880
+let me see down here i guess it's not hard to fit a lot i mean i could say
+
+0:26:05.120,0:26:14.799
+like um uh let me expand this a bit
+
+0:26:11.039,0:26:22.559
+uh i could say print add of two two print add of three four
+
+0:26:18.240,0:26:25.840
+and um if i kind of run that to the end i i can see it's kind of working for all
+
+0:26:24.400,0:26:29.679
+of these right i can i can trace my different functions with
+
+0:26:27.919,0:26:33.360
+this kind of general wrapper right so i had to do lots of things here
+
+0:26:30.960,0:26:36.880
+right i had to use a decorator uh the decorator had to create a wrapper
+
+0:26:35.360,0:26:42.000
+function that both kind of print some stuff for me
+
+0:26:39.039,0:26:45.039
+and calls the original version and um and to make sure it can work for
+
+0:26:43.039,0:26:49.360
+multiple functions i had to use variable number of arguments so people
+
+0:26:48.400,0:26:52.799
+will do this for things like their websites right so they can kind of trace
+
+0:26:50.799,0:26:56.559
+what's happening um even when they're not watching it right
+
+0:26:54.799,0:27:01.039
+if it's running overnight all right so kind of tricky stuff but
+
+0:26:57.840,0:27:01.039
+but i'll end it there
+

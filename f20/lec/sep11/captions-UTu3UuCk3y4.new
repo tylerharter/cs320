@@ -1,0 +1,858 @@
+0:00:02.080,0:00:08.000
+all right in this video i'm going to be introducing
+
+0:00:04.640,0:00:11.599
+uh this idea of complexity analysis and uh in a mathematical notation which
+
+0:00:10.160,0:00:16.480
+is big on notation and complexity analysis has a lot to do
+
+0:00:14.719,0:00:20.240
+with performance and so i've asked you to spend some time thinking about
+
+0:00:18.560,0:00:22.880
+different things that might perfect affect performance
+
+0:00:21.600,0:00:27.119
+which is really well how long does it take to run my program and there are
+
+0:00:25.119,0:00:31.359
+lots of possible answers here um one is just the speed of the computer
+
+0:00:29.119,0:00:35.280
+how fast is my cpu how much ram do i have do i have you know a hard
+
+0:00:33.680,0:00:38.559
+drive or an ssd um this could be a little bit funny
+
+0:00:37.200,0:00:41.600
+right because i might have two different programs and maybe one computer is
+
+0:00:40.480,0:00:45.440
+faster um for program a and although your
+
+0:00:43.600,0:00:48.320
+computer is faster for program b but in general right we can spend money
+
+0:00:46.879,0:00:52.160
+to get better hardware and try to make things run faster
+
+0:00:50.000,0:00:54.719
+um other things that matter maybe the speed of python itself remember that
+
+0:00:53.760,0:01:00.000
+python is interpreting our python code uh
+
+0:00:57.600,0:01:03.280
+translating it to something that the cpu understands that's in terms of the
+
+0:01:01.680,0:01:07.119
+instruction set and so i'm trying to pity the quality
+
+0:01:05.280,0:01:10.080
+and efficiency of that my program might run
+
+0:01:08.159,0:01:12.960
+faster or slower and it's totally possible that i could write my python
+
+0:01:12.320,0:01:16.080
+program and in a few years there's a new python
+
+0:01:15.119,0:01:20.400
+interpreter and my program just starts running
+
+0:01:17.840,0:01:24.479
+faster because of that that happens um now both of these things are not
+
+0:01:22.080,0:01:28.400
+really related to the code i write what's more related to the code that i
+
+0:01:26.400,0:01:33.280
+write is well what is my um algorithm and an algorithm is kind of
+
+0:01:31.280,0:01:37.040
+this general strategy for breaking down a problem into steps
+
+0:01:35.280,0:01:42.000
+um and so i'll just give an example of an algorithm for
+
+0:01:38.479,0:01:45.119
+finding the largest value um in a list so so what i'll do is i'll start at the
+
+0:01:43.520,0:01:51.280
+beginning of the list and i'll kind of assume that first value
+
+0:01:49.360,0:01:53.759
+is the biggest item until proven otherwise and i'm just going to loop
+
+0:01:52.560,0:01:58.479
+over the list and each new item i have i see well is
+
+0:01:55.920,0:02:02.719
+it bigger than my previous biggest and uh and if it is i'll replace that
+
+0:02:00.880,0:02:06.159
+previous big as with this new one and by time i've looked at each item in
+
+0:02:04.880,0:02:10.080
+the list once well whatever is remaining in that biggest
+
+0:02:07.759,0:02:13.120
+variable is the biggest item and so notice i'm not writing any python
+
+0:02:12.000,0:02:16.480
+code here but i'm describing the steps for solving
+
+0:02:14.879,0:02:19.680
+this problem and that's an algorithm right i could
+
+0:02:17.760,0:02:23.040
+implement that algorithm in python or java or any other number of languages
+
+0:02:21.920,0:02:25.680
+that's an algorithm and and there can be different
+
+0:02:24.160,0:02:28.400
+algorithms for solving the same problem and sometimes
+
+0:02:26.400,0:02:31.120
+some will involve uh more work than others
+
+0:02:29.920,0:02:35.519
+the last thing that's really important is well how much data
+
+0:02:32.959,0:02:38.480
+are we dealing with generally when we have more data
+
+0:02:36.080,0:02:40.319
+things get slower and that's not always true
+
+0:02:39.120,0:02:44.800
+and and the question we're going to care a lot about as well how
+
+0:02:42.480,0:02:47.920
+much slower do they get as we double input size if i double the input size
+
+0:02:46.400,0:02:51.360
+does that mean it takes twice as long as to run
+
+0:02:48.959,0:02:53.040
+or or maybe more or maybe less right that's something where i care about a
+
+0:02:52.319,0:02:56.720
+lot and so there's all these different
+
+0:02:54.080,0:02:59.519
+factors and um and this idea of complexity analysis which we're going to
+
+0:02:58.239,0:03:04.480
+be looking at today wants to focus on these last two details
+
+0:03:01.760,0:03:08.080
+this is kind of the mathematical heart of performance right and we aren't going
+
+0:03:06.239,0:03:11.120
+to think so much about well uh you know the speed of the python
+
+0:03:09.599,0:03:16.000
+interpreter or the cpu we just want to see like well how
+
+0:03:12.879,0:03:20.400
+how efficient is our algorithm as the input size grows right and kind
+
+0:03:19.440,0:03:22.400
+of what we're going to do is we're going to try to measure how much work must be
+
+0:03:21.840,0:03:25.280
+done and so we're going to break the work
+
+0:03:23.680,0:03:29.360
+down into steps how many steps do we have to do
+
+0:03:26.400,0:03:31.920
+as a function of the input size to solve to solve the problem
+
+0:03:30.560,0:03:35.040
+and so when you're thinking about this it makes sense to make a lot of graphs
+
+0:03:33.680,0:03:39.200
+like this where on the x-axis represents how much
+
+0:03:37.760,0:03:42.640
+data i have and we're going to talk more about how
+
+0:03:40.799,0:03:47.840
+to count that but for now i'll just say you know our data is of size 5 or 10 and
+
+0:03:46.159,0:03:52.959
+give that a variable and maybe um n okay and that'll be our our x-axis
+
+0:03:51.280,0:03:56.959
+and then on the y-axis where i have some measure of how much work we're doing
+
+0:03:55.439,0:04:01.040
+and i'm just going to say well there's some number of steps that must be
+
+0:03:58.640,0:04:06.799
+need to be done and if you can finish in fewer steps well then it's faster
+
+0:04:04.000,0:04:09.840
+and so every algorithm i have is a function that takes
+
+0:04:07.760,0:04:14.480
+n to the number of steps and i can draw that function as a line
+
+0:04:11.200,0:04:16.239
+so here i have two um two algorithms a and b
+
+0:04:15.120,0:04:18.320
+and for each of them i can have some function that says well for this
+
+0:04:17.359,0:04:21.680
+algorithm given n how many how many steps do i
+
+0:04:20.239,0:04:25.440
+have to do and so i want you to think about this for a moment
+
+0:04:23.280,0:04:30.240
+um which of these algorithms is better would i rather have algorithm a
+
+0:04:27.680,0:04:34.240
+or b assuming they basically are both correct um solutions to the same problem
+
+0:04:35.759,0:04:42.800
+so so there's not really a right answer here it kind of depends i guess
+
+0:04:39.600,0:04:46.160
+for this range of n values a is a lot faster
+
+0:04:43.360,0:04:48.400
+right so for what i can see in this plot well i'd want to do a
+
+0:04:47.280,0:04:52.880
+but but if you're kind of looking carefully you notice that
+
+0:04:50.479,0:04:57.120
+as the data gets bigger and bigger it doesn't take any longer to do b
+
+0:04:55.280,0:05:00.479
+but a is getting a little bit slower and slower over time
+
+0:04:58.400,0:05:05.360
+and so indeed if i look at a very large input size what i see is that eventually
+
+0:05:03.360,0:05:08.560
+algorithm a starts to be a lot lot slower right and algorithm b would be
+
+0:05:07.280,0:05:12.160
+better and and eventually these lines cross and
+
+0:05:10.560,0:05:15.120
+there's a crossover point and what you might think about is that to the left of
+
+0:05:13.680,0:05:18.160
+that crossover point i should use algorithm a and to the
+
+0:05:16.720,0:05:22.800
+right i should use um i should use algorithm b right so
+
+0:05:21.520,0:05:25.759
+so really i mean there's multiple answers this question one you could say
+
+0:05:24.000,0:05:29.199
+well it depends on the input size um you might also say well if there's
+
+0:05:27.199,0:05:32.560
+small inputs it's fast and i don't care um if it's really big then that's when
+
+0:05:30.800,0:05:36.000
+it actually could be painful to wait for my program
+
+0:05:33.520,0:05:38.880
+and i kind of care about that right so complexity analysis i'm going to be
+
+0:05:37.440,0:05:42.560
+learning about today only cares about um the really big
+
+0:05:41.039,0:05:46.479
+inputs and in that case complexity analysis is going to say
+
+0:05:44.160,0:05:49.680
+uh b wins right it's not going to care about that
+
+0:05:47.440,0:05:52.800
+now um when you're trying to think about performance right you don't want to have
+
+0:05:51.600,0:05:55.520
+kind of one tool for thinking about performance complexity analysis is one
+
+0:05:54.560,0:06:00.240
+tool uh but it's very often that you might be
+
+0:05:57.520,0:06:04.400
+to the left of this crossover point um and uh for example when i was an
+
+0:06:02.880,0:06:08.319
+intern at facebook there was on this on our team who would always go
+
+0:06:07.360,0:06:12.240
+around saying you know i worry about small data you
+
+0:06:10.560,0:06:15.919
+know everybody is kind of hyped like hey i care about big data big data yeah yeah
+
+0:06:14.400,0:06:21.120
+and he's like no i may focus on small data this small data actually shows up
+
+0:06:18.639,0:06:24.240
+everywhere uh maybe maybe think about the typical size of the data sets you've
+
+0:06:23.039,0:06:28.479
+worked with i mean it's pretty hard to find a data set
+
+0:06:26.000,0:06:34.400
+that's over one gigabyte in size or even say a terabyte but a terabyte
+
+0:06:31.520,0:06:38.160
+fits on one hard drive right if my whole computation can run on one computer on
+
+0:06:36.240,0:06:41.199
+my laptop is it really big data uh maybe not right so you should think
+
+0:06:39.759,0:06:44.560
+about the smaller port too and for that there's not so much of a
+
+0:06:42.400,0:06:47.280
+theory but well you time how long it takes to run the code and kind of see
+
+0:06:46.080,0:06:51.039
+what's faster and we've done some of that in that last
+
+0:06:48.720,0:06:57.120
+lecture okay so something should be bothering
+
+0:06:55.039,0:07:01.039
+you here and that is well what exactly is a step
+
+0:06:59.919,0:07:07.520
+right that's not been very well defined okay so what is a step
+
+0:07:05.440,0:07:09.759
+is a big question and so let's think about this in in the context of some
+
+0:07:09.280,0:07:15.840
+actual code so so here i have some code
+
+0:07:13.039,0:07:19.280
+and um and i have this input nums list with a bunch of numbers in it
+
+0:07:17.599,0:07:22.880
+and um and maybe what i'll say is that my variable n
+
+0:07:21.120,0:07:25.199
+is the size of that list i could say that that's an input size of this
+
+0:07:24.240,0:07:28.400
+program and um and why don't you just pause me
+
+0:07:27.280,0:07:32.160
+until you kind of look at this code and figure out what it's doing and then
+
+0:07:30.319,0:07:34.560
+once you've absorbed it then resume the video
+
+0:07:36.880,0:07:45.039
+okay so what i'm doing here is i'm looping over all these numbers
+
+0:07:42.319,0:07:49.039
+i'm checking if the number is odd and if it is i'm i'm both counting it
+
+0:07:46.639,0:07:52.400
+and kind of adding the total to a sum and then at the end i'm i'm
+
+0:07:50.720,0:07:58.000
+dividing that sum by how many there are so basically i'm i'm getting the average
+
+0:07:54.800,0:08:03.599
+of all the odd numbers in the last and um and so i need to break this code
+
+0:08:00.319,0:08:08.639
+down into some number of steps and um the way i may define a step is
+
+0:08:06.800,0:08:14.400
+well very carefully right the words matter here is any unit of work
+
+0:08:11.120,0:08:18.319
+with bounded execution time it doesn't keep getting slower
+
+0:08:15.919,0:08:23.120
+uh with growing input size so you can see the step one where i say
+
+0:08:19.599,0:08:27.039
+odd count equals zero um that has this fixed cost right it
+
+0:08:25.360,0:08:32.240
+doesn't get slower as i have more uh more items um what about the
+
+0:08:30.160,0:08:38.640
+third step where i say for num and input noms um does that
+
+0:08:35.279,0:08:45.040
+does that it's slower when i have input nums and it turns out the answer is no
+
+0:08:41.120,0:08:49.920
+when i have more numbers step three runs more time but more times
+
+0:08:48.480,0:08:53.120
+right if i have a million numbers that will run something like a million times
+
+0:08:51.680,0:08:57.040
+but each time it run doesn't keep getting slower and slower as
+
+0:08:54.800,0:09:00.640
+it grows right so so i could try to break down at least in this example i
+
+0:08:58.640,0:09:05.040
+could say each one of these lines uh is a step they would match that that
+
+0:09:03.680,0:09:10.000
+definition okay now there are more ways to
+
+0:09:08.160,0:09:13.040
+define steps so it's kind of a very general term and so somebody else a
+
+0:09:11.760,0:09:16.560
+totally reasonable person would come along and they could say well
+
+0:09:14.160,0:09:20.640
+these are five steps um even though the first step involves
+
+0:09:19.040,0:09:24.800
+two lines of code well it's a unit of work that doesn't
+
+0:09:22.399,0:09:28.240
+really keep getting worse as i have more uh more numbers right so i could
+
+0:09:26.880,0:09:33.519
+absolutely um kind of count or kind of break down
+
+0:09:30.399,0:09:37.680
+steps in this way and identify them in this way and one of the reasons that
+
+0:09:36.480,0:09:40.560
+we want to do that is it's not really clear
+
+0:09:38.160,0:09:43.519
+um you know how much work it is based on how many lines of code so kind of just
+
+0:09:42.000,0:09:47.680
+going back and forth between these you can see i'm changing that last step
+
+0:09:45.839,0:09:50.240
+um you know there's lots of expressions that i could break up into multiple
+
+0:09:49.040,0:09:53.279
+lines of code or have on a single line of code right
+
+0:09:51.839,0:09:55.920
+so that's why we don't want to get too picky
+
+0:09:54.480,0:09:59.920
+about saying that each step has to be exactly a line right
+
+0:09:58.320,0:10:04.640
+now the other thing here is that the flip could be true
+
+0:10:02.000,0:10:08.320
+so let's say i have this code where i'm checking if
+
+0:10:05.680,0:10:10.240
+x is in l that's going to give me a boolean that i'm putting in the found
+
+0:10:09.440,0:10:14.320
+variable now even though i i'm as a programmer
+
+0:10:12.480,0:10:18.480
+not writing any loops there the python interpreter deals it with
+
+0:10:16.800,0:10:22.880
+this by having a loop it loops over everything in l
+
+0:10:19.360,0:10:25.279
+and checks well is x item zero is x item one
+
+0:10:23.680,0:10:30.959
+and so so even though that's one line of code that's actually multiple
+
+0:10:27.519,0:10:34.800
+um steps inside of that right i mean as l gets bigger it takes
+
+0:10:33.200,0:10:37.600
+longer to run that so i can't count that as a single step
+
+0:10:37.760,0:10:46.800
+okay this is a tricky one okay can i break it down like this
+
+0:10:42.160,0:10:51.040
+is this legal and um and in particular the suspicious
+
+0:10:49.040,0:10:57.519
+thing is this third step right can i can i do this
+
+0:10:54.640,0:11:03.040
+is that a single step and and probably the first thing you might notice is that
+
+0:11:00.000,0:11:07.120
+how long it takes to run this code um will depend on whether the number is
+
+0:11:05.279,0:11:11.920
+even or odd right i mean if it's even if it's even i
+
+0:11:10.720,0:11:16.160
+only have to do well kind of this first check um if it's
+
+0:11:14.399,0:11:18.480
+odd i have to run these three lines of code
+
+0:11:16.720,0:11:22.880
+so this this absolutely depends on the input size
+
+0:11:20.079,0:11:27.279
+uh but it turns out i'm still allowed to keep it as a as a stop right
+
+0:11:24.800,0:11:32.720
+and that goes back to the definition it doesn't keep getting slower
+
+0:11:30.079,0:11:37.760
+with growing input size right so for down here
+
+0:11:34.000,0:11:42.480
+i have a fast case and a slow case but the slow case doesn't keep getting
+
+0:11:39.600,0:11:47.200
+slower and slower and slower as i have more and more numbers
+
+0:11:43.920,0:11:50.800
+right so this is absolutely um allowed right even though that this staff does
+
+0:11:48.720,0:11:54.160
+not have a fixed cost whenever we're never trying to claim that a step
+
+0:11:52.320,0:11:57.519
+has a fixed cost and we're never trying to claim that all steps have
+
+0:11:55.760,0:12:03.440
+equal costs only that they have bounded execution time
+
+0:11:59.200,0:12:10.000
+uh as the input size keeps growing all right what about this
+
+0:12:06.639,0:12:16.880
+is this one a step and now of course the suspicious step is line number two
+
+0:12:12.880,0:12:20.959
+and this is absolutely not a step and the reason is because kind of
+
+0:12:19.279,0:12:25.680
+running that whole loop will take longer if there's more numbers
+
+0:12:24.079,0:12:30.480
+right the more numbers i have the longer it takes to run
+
+0:12:27.360,0:12:34.720
+run that whole loop so this would not be a valid step right the time to run step
+
+0:12:32.959,0:12:38.959
+two depends on the input size and it can keep getting slower and
+
+0:12:35.920,0:12:42.079
+slower as we have more items okay now i just want to make a note here
+
+0:12:40.959,0:12:46.079
+right like 90 percent of the time when you see
+
+0:12:43.680,0:12:50.000
+loops um you know the whole loop is not a step
+
+0:12:48.639,0:12:55.519
+but it could be but under that definition um if
+
+0:12:53.120,0:12:58.480
+i'm looping you know a fixed number of times let's say i'm looping exactly 10
+
+0:12:57.200,0:13:01.839
+times regardless of how big that list is then
+
+0:13:00.480,0:13:05.040
+i could count it as a whole stop right so i only really kind of get into
+
+0:13:04.320,0:13:09.200
+trouble if i'm you know say looping over um you know
+
+0:13:07.760,0:13:11.920
+all the items in the list right then in that case
+
+0:13:09.839,0:13:16.160
+uh it can't be a step right because the it gets slower and slower as i have more
+
+0:13:13.839,0:13:21.440
+items okay so that first piece right we were
+
+0:13:19.279,0:13:26.720
+identifying the steps without really caring about how many
+
+0:13:23.279,0:13:29.680
+times they they ran right we were just kind of looking at
+
+0:13:27.760,0:13:33.200
+well how how long does it take to run that step once if that's bounded
+
+0:13:31.440,0:13:37.760
+it could be a step now i want to say well how many times
+
+0:13:34.720,0:13:41.120
+does each step run okay and so let's just work through some
+
+0:13:38.800,0:13:44.959
+concrete examples here um so i may say if i'm breaking down
+
+0:13:43.600,0:13:50.560
+steps this way how many total stops will execute if
+
+0:13:48.399,0:13:54.720
+well let's say the length of input numbs is is 10.
+
+0:13:52.240,0:13:59.199
+okay so how how does this work well that first step
+
+0:13:55.839,0:14:03.839
+always executes once um step number three
+
+0:14:00.560,0:14:06.880
+that number three is trying to execute ten times right i mean there's ten
+
+0:14:05.199,0:14:09.360
+numbers so it's trying to execute ten times
+
+0:14:07.760,0:14:15.600
+um what's a little bit more confusing is that the the loop line for num and input
+
+0:14:12.480,0:14:17.760
+nums will always be like n plus one and that's the way if
+
+0:14:16.560,0:14:20.560
+you put in python tutorial you'll see what's happening here right when i have
+
+0:14:19.519,0:14:25.199
+a loop you know i run that first part and then
+
+0:14:22.320,0:14:28.800
+the body first part and the body first part into the body and then for
+
+0:14:26.959,0:14:32.079
+the last time i run the first part and then i'm like oh
+
+0:14:30.240,0:14:35.120
+there's no more numbers so i'll kind of skip over the body and do that so we're
+
+0:14:34.320,0:14:39.120
+always kind of getting n plus one there um not a super
+
+0:14:37.360,0:14:41.600
+important detail right but that runs 11 times
+
+0:14:39.600,0:14:45.920
+then this last piece of course will will only run once i get 23
+
+0:14:44.000,0:14:51.120
+steps total and if i wanted to i could put that in a formula i could say that
+
+0:14:48.800,0:14:53.760
+um in total there's going to be two times n
+
+0:14:52.240,0:14:58.399
+plus three steps when i run this regardless of how many
+
+0:14:55.680,0:15:03.680
+input items i have right if i have 100 i have 100
+
+0:14:59.440,0:15:08.079
+input items then it will be 203 stops okay let's count the steps if i do it a
+
+0:15:06.399,0:15:11.440
+little bit differently so now i'm kind of going back to that first version
+
+0:15:09.279,0:15:15.120
+where i counted each each each one and i'm again assuming that i have 10
+
+0:15:13.120,0:15:19.519
+input items and so maybe the way i'm going to do this just to kind of
+
+0:15:16.320,0:15:23.040
+talk through it a little bit better um is let me see here i want to hide this
+
+0:15:21.839,0:15:28.639
+sidebar applied only and um
+
+0:15:26.160,0:15:30.639
+a little bit bigger so what i'm going to do is i'm going to go
+
+0:15:29.360,0:15:33.040
+through here and see how often each of these things execute and kind of take
+
+0:15:32.160,0:15:40.639
+notes so this first piece is going to do what
+
+0:15:36.959,0:15:45.920
+it's going to run once uh this is going to run once
+
+0:15:41.920,0:15:50.320
+oh that's trying to run once as well um how many times is this thing going to
+
+0:15:47.440,0:15:55.360
+run um well so i guess it's the 10 plus one
+
+0:15:53.040,0:16:00.639
+which gives me 11. and then this this line of code
+
+0:15:58.800,0:16:04.560
+is trying to run once for each items that gives me 10.
+
+0:16:02.480,0:16:07.680
+and um this one this one's kind of tricky
+
+0:16:05.839,0:16:12.880
+right because well it depends on what the numbers are i mean if they're all
+
+0:16:09.120,0:16:16.240
+if they're all even i guess it would be zero times i mean if they're all odd it
+
+0:16:15.360,0:16:18.560
+would be 10. so so maybe what i'm gonna do is i'm
+
+0:16:17.279,0:16:21.120
+just gonna say something like zero to ten
+
+0:16:19.600,0:16:26.079
+and the same thing for the next one right i'll just kind of leave it vague
+
+0:16:23.360,0:16:28.880
+zero to ten and then this last part that's outside of the loop this is just
+
+0:16:27.519,0:16:32.320
+one and one and so i can add all those off but what
+
+0:16:30.560,0:16:40.240
+do i get i guess i get um one two thirteen
+
+0:16:36.399,0:16:46.720
+23 24 25 between 25 and 45
+
+0:16:43.279,0:16:50.240
+um stops right and uh let me i'm just trying to start playing
+
+0:16:48.079,0:16:53.040
+the slides again and and so that's what i have here
+
+0:16:51.360,0:16:56.959
+and if i wanted to put that in an equation i would do that like down here
+
+0:16:54.800,0:17:01.040
+i would say that it's going to vary depending on whether they're even and
+
+0:16:58.240,0:17:05.360
+odd i'm going to do at least 2n plus 5 stops and if they're all odd it
+
+0:17:04.480,0:17:09.839
+could be up to four n uh plus five steps and
+
+0:17:08.559,0:17:14.640
+and so you can see that this is an example where the execution time
+
+0:17:12.079,0:17:18.319
+uh doesn't just depend on the number of items i have but it depends on
+
+0:17:16.559,0:17:21.679
+their characteristics are they even or odd and so generally when i'm kind of
+
+0:17:20.319,0:17:24.959
+reasoning through this what i'll do is i'll take the worst case
+
+0:17:23.360,0:17:27.520
+scenario i mean i don't you know it depends on what kind of complexity
+
+0:17:26.079,0:17:30.000
+analysis you're going to do it's a broad field
+
+0:17:28.240,0:17:33.679
+maybe you won't take the worst case but ninety percent of the time will take the
+
+0:17:31.039,0:17:38.799
+worst pace so my answer here would be you know worst case we're gonna do four
+
+0:17:35.440,0:17:43.919
+n plus five steps now i've just done the same problem
+
+0:17:42.160,0:17:49.200
+and done two different answers depending on how i'm breaking down
+
+0:17:46.080,0:17:53.200
+my steps right uh in the first way where i just had a few steps
+
+0:17:50.720,0:17:55.919
+well then i had two n plus three and the second way i get this upper bound of
+
+0:17:54.799,0:17:58.480
+four n plus five so you might be kind of
+
+0:17:57.520,0:18:03.440
+starting to wonder like what is the point of this theory if it's not
+
+0:18:00.000,0:18:06.640
+giving me these concrete um answers and and so that will be i'll be kind of
+
+0:18:05.200,0:18:10.799
+that in the next video but let me hint at the answer a little
+
+0:18:08.240,0:18:16.240
+bit uh what's the difference between two n plus three and four n plus
+
+0:18:14.960,0:18:21.280
+five uh the difference is no bigger than a
+
+0:18:19.120,0:18:29.280
+constant factor okay um answer two
+
+0:18:25.600,0:18:33.760
+or n plus five is never bigger than two times answer one which is four n
+
+0:18:32.640,0:18:37.520
+plus six right so so you know i got a bigger
+
+0:18:35.840,0:18:41.440
+answer and answer too but only by this fixed factor more
+
+0:18:39.520,0:18:46.080
+and in the same way i mean answer one is never bigger than one times factor
+
+0:18:44.240,0:18:50.640
+one times answer two right so it's kind of no bigger than some
+
+0:18:47.360,0:18:53.120
+constant factor of that and and so what we're gonna do here is we're gonna say
+
+0:18:51.760,0:18:59.120
+that hey even though we might not identify steps the same
+
+0:18:55.360,0:19:01.919
+um our execution counts will vary by at most a constant factor
+
+0:19:00.720,0:19:06.640
+it's in the next video where i try to develop a theory where we can ignore
+
+0:19:04.559,0:19:17.760
+the constant factors and actually be rigorous about how we're
+
+0:19:08.720,0:19:17.760
+kind of measuring complexity
+

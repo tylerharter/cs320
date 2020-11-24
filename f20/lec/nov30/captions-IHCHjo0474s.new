@@ -1,0 +1,342 @@
+0:00:01.199,0:00:07.040
+on this last video i want to try to understand a little bit about
+
+0:00:05.040,0:00:10.000
+how this model is performing we created this pipeline
+
+0:00:08.400,0:00:14.080
+um it's actually complicated there's lots of kind of parts in it
+
+0:00:12.160,0:00:18.400
+and um until we understand what it's actually
+
+0:00:15.519,0:00:22.480
+predicting and so one way i could maybe start is i could think about well what
+
+0:00:19.840,0:00:26.480
+are the coefficients that got learned by my linear regression and so i have my
+
+0:00:25.359,0:00:31.199
+pipeline here and one of the cool things about a
+
+0:00:28.000,0:00:35.040
+pipeline in sk learn is you can use it like a dictionary where the key actually
+
+0:00:34.480,0:00:40.160
+is the component name and so for example if
+
+0:00:38.480,0:00:45.680
+i say lrag here for linear regression
+
+0:00:43.600,0:00:49.360
+i can get the linear regression out of it and once i do that i could of course
+
+0:00:47.760,0:00:57.440
+i could get the coefficients and i could get the intercept no problem
+
+0:00:54.719,0:01:00.320
+now you can see that i have a lot of um coefficients here maybe more than you
+
+0:00:58.879,0:01:03.440
+might even think uh why is that well first off i went
+
+0:01:02.879,0:01:10.560
+from two columns to seven
+
+0:01:07.280,0:01:13.600
+columns here and then i did a bunch of combinations of those right i tried
+
+0:01:12.159,0:01:16.720
+squaring each column i tried multiplying one column by
+
+0:01:15.119,0:01:19.520
+another and so i get lots of coefficients
+
+0:01:17.920,0:01:22.960
+and eventually as models get more and more complicated it's hard to look at
+
+0:01:21.119,0:01:25.920
+the coefficients and understand what's going on
+
+0:01:24.159,0:01:29.759
+and that gets even worse when you eventually get into deep learning
+
+0:01:28.000,0:01:33.200
+and um and then there's basically a number like this for every connection
+
+0:01:31.600,0:01:36.960
+between some neurons and um and so we still need to somehow
+
+0:01:34.880,0:01:40.400
+understand what our model is doing and so one good way to understand what
+
+0:01:38.400,0:01:44.640
+our model is doing is to feed it in some sort of uniform
+
+0:01:43.040,0:01:48.000
+inputs see what it predicts and then then plot
+
+0:01:46.799,0:01:51.840
+those predictions help us actually understand something
+
+0:01:50.320,0:01:54.079
+and so what i'm going to do is i'm actually go back and look at one of
+
+0:01:53.040,0:01:57.280
+these i'm going to create one plot like this
+
+0:01:56.799,0:02:00.479
+and um instead of having scatter points
+
+0:01:59.280,0:02:04.240
+there's going to be a line and that's going to be the regression line
+
+0:02:02.399,0:02:07.119
+and i'm going to draw six lines like that because i have six different
+
+0:02:05.520,0:02:09.920
+categories and i like to know what those look like
+
+0:02:08.399,0:02:13.920
+okay that will give me some sense of what i learned with this linear
+
+0:02:12.319,0:02:17.120
+regression and so how are we going to do this i
+
+0:02:15.920,0:02:25.360
+think the easiest thing to do is to create a data frame
+
+0:02:22.560,0:02:29.680
+data frame where we have a couple columns right and
+
+0:02:27.760,0:02:34.480
+what it's trying to have to look like is all my training data right it has to
+
+0:02:32.400,0:02:37.840
+well not try quite like my training data it has to look like my training data
+
+0:02:36.400,0:02:42.720
+that i actually fed in right i have to have the same beach name
+
+0:02:39.519,0:02:45.360
+and then uh the wave period and so i'm gonna do something like this and we have
+
+0:02:44.080,0:02:52.319
+those same same two columns so uh beach
+
+0:02:48.840,0:02:57.200
+name maybe something and then wave period is going to be something else
+
+0:02:55.200,0:03:03.440
+and um and for now let's let me just grab one of these i'm going to grab
+
+0:02:59.200,0:03:09.280
+a kelmet beach and put that in quotes and then for this one
+
+0:03:06.319,0:03:17.440
+um i want all the numbers from from what i guess from 1 until 10.
+
+0:03:13.519,0:03:22.800
+right so i'm going to do that with np.a range
+
+0:03:18.879,0:03:28.000
+one two ten step of one right this is exclusive
+
+0:03:24.560,0:03:32.640
+and and let's just peek at that and uh and i have that and then what i
+
+0:03:30.080,0:03:36.640
+can do is on this data frame i can do predictions with my with my
+
+0:03:36.000,0:03:43.519
+pipeline right i can say predict just like that
+
+0:03:40.159,0:03:45.840
+and i get these values and rather than showing this as a separate thing and
+
+0:03:44.799,0:03:49.519
+then trying to line that up with the original data frame
+
+0:03:47.440,0:03:55.200
+the easiest thing to do is probably to say well what is the
+
+0:03:51.519,0:03:58.239
+well predicted i'll just call a predicted wave
+
+0:03:56.720,0:04:01.760
+and then i can look at what that data frame is right and i could of course
+
+0:04:00.239,0:04:07.040
+plot that i could plot it a line plot where the
+
+0:04:06.159,0:04:14.159
+x-axis is the wave period and the y
+
+0:04:10.239,0:04:20.160
+is the predicted wave like that to do it and i can see what it
+
+0:04:17.600,0:04:23.040
+is for that specific beach and and i want to do that for all of
+
+0:04:21.840,0:04:27.840
+them and at this point since i have to do this six times right rather than
+
+0:04:25.360,0:04:30.080
+you know copy that six times the thing i had to do is i would actually put this
+
+0:04:29.120,0:04:38.479
+in a method right so i'm gonna say plot beach
+
+0:04:33.919,0:04:42.000
+okay and um i do all of this stuff and um and i have to pass in what the
+
+0:04:40.240,0:04:50.479
+beach name is all right so we have the beach name like this this here
+
+0:04:46.240,0:04:53.440
+and and uh what else do i need to do oh well let me just try doing this for a
+
+0:04:52.000,0:04:58.479
+minute i think that was not changing anything yet
+
+0:04:54.639,0:05:01.759
+the plot beach and um you know if i go way back to the
+
+0:04:59.680,0:05:04.880
+beginning i think i had uh rose 12 but i had this list of all my
+
+0:05:03.440,0:05:07.520
+beach names right that's going to come in handy
+
+0:05:05.919,0:05:12.960
+let me um let me just have a peek at that for a moment
+
+0:05:09.120,0:05:18.479
+if i have that here uh i can say well let's look at this speech this time
+
+0:05:14.960,0:05:21.039
+right look at that beach and um and i get that
+
+0:05:19.039,0:05:25.600
+thing line all right and i want to change what this um
+
+0:05:22.400,0:05:29.120
+what this label says here because i'm about to have six lines and i need
+
+0:05:27.680,0:05:32.800
+to have um have that be the name of the beach right
+
+0:05:30.720,0:05:39.680
+so i'm gonna say name like that i see okay great that's uh 63rd street
+
+0:05:35.280,0:05:42.880
+beach that seems correct okay now what i'd like to do is i'd like to
+
+0:05:41.600,0:05:50.479
+do this for every beach right so i'm going to say for name and
+
+0:05:46.560,0:05:57.199
+beach names i am going to plot that beach right just like that
+
+0:05:54.639,0:06:01.520
+boom and uh and i get these six plots for the six different beaches
+
+0:05:59.440,0:06:05.919
+uh next step is i'd like them all to be in the same
+
+0:06:02.720,0:06:10.880
+area and um and so what i'm actually going to do
+
+0:06:07.120,0:06:16.160
+is uh is this i'm going to pass in an ax right i might pass in an
+
+0:06:14.720,0:06:22.000
+ax here and if ax starts off as none
+
+0:06:19.520,0:06:28.240
+on means that it should create a new one so i didn't change anything yet
+
+0:06:24.240,0:06:33.440
+you know what i'm going to do this 2ax x rates i have a means to tell it hey this
+
+0:06:31.120,0:06:37.199
+is where you should be plotting right and it'll plot there and it's none
+
+0:06:35.199,0:06:41.440
+right so it's creating a new one and um and so the first time i call this
+
+0:06:39.199,0:06:45.680
+thing i'm passing in none and um and so it's going to create a new
+
+0:06:43.759,0:06:50.800
+ax object and it's trying to return it and so
+
+0:06:49.680,0:06:54.400
+what i'm going to do is i'm going to show you capture that in a variable like
+
+0:06:52.560,0:07:01.199
+this right and um let me return that thing
+
+0:06:58.560,0:07:05.039
+and so what's going to happen here right so if i pass
+
+0:07:02.000,0:07:09.440
+in none it creates a new one that goes here and it returns it if i
+
+0:07:08.400,0:07:12.880
+pass in something that's not none an actual
+
+0:07:11.840,0:07:16.960
+object i'll pass it in it'll use that and then
+
+0:07:15.440,0:07:19.199
+it's going to return the same thing right so
+
+0:07:17.520,0:07:23.199
+if i pass in that none it just returns whatever i have back to me
+
+0:07:21.440,0:07:26.479
+why is that elegant well ax is going to go in here as none
+
+0:07:24.960,0:07:29.759
+and then i return a new one which i'm going to capture in here
+
+0:07:28.160,0:07:34.160
+so in the next pass through the loop i'm going to pass in the one that i used the
+
+0:07:31.599,0:07:39.039
+first time run that and i get these six nice lines
+
+0:07:37.360,0:07:42.240
+and i can see that there's kind of this pattern you can see which beaches are
+
+0:07:40.479,0:07:46.720
+similar to each other i can see that the most mellow beach is
+
+0:07:44.400,0:07:54.560
+the 63rd street beach and and just for completeness let me um
+
+0:07:50.560,0:08:01.759
+let me set a y label here and um that y label will be wave height and i read in
+
+0:07:58.240,0:08:05.199
+the documentation that i was in meters and that's actually a nice plot and it
+
+0:08:03.520,0:08:08.879
+didn't show me like this pattern that it is actually you know i head back
+
+0:08:08.080,0:08:12.639
+up here a little hard to see that right in this
+
+0:08:10.800,0:08:15.360
+original data right i can see something like that
+
+0:08:14.080,0:08:19.840
+but now that i've actually done the regression the the trend becomes much
+
+0:08:17.680,0:08:27.840
+clearer i can make easier comparisons across the beaches
+
+0:08:29.520,0:08:31.599
+you
+

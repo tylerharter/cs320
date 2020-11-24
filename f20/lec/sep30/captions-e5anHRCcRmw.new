@@ -1,0 +1,849 @@
+0:00:01.360,0:00:07.120
+hello in this video we're going to start talking about
+
+0:00:04.480,0:00:09.120
+how we can check if there's a value in a tree
+
+0:00:07.839,0:00:13.920
+and so i'm starting with the same code as last time i have my node class
+
+0:00:11.360,0:00:17.119
+and where we wrapped up last time we were working on this stump method that
+
+0:00:15.280,0:00:22.240
+would recursively print off all the nodes in the tree and basically
+
+0:00:20.240,0:00:25.599
+we would do something for our own node and then do a recursive call on both
+
+0:00:24.160,0:00:29.599
+sides and the strategy is going to be similar when
+
+0:00:27.599,0:00:31.760
+we're kind of trying to search in the tree for
+
+0:00:30.080,0:00:34.640
+something so i'm going to delete this for now and
+
+0:00:33.280,0:00:38.640
+um and here's a picture of the tree we're dealing with just to kind of put
+
+0:00:37.040,0:00:42.960
+this into context if i have some sort of list like this if
+
+0:00:40.480,0:00:49.680
+i say you know have a b c
+
+0:00:46.640,0:00:53.680
+d um and i say something like um you know
+
+0:00:50.000,0:00:58.239
+e and l that would be false if i say something like d
+
+0:00:54.399,0:01:01.600
+and l uh that would be true and um and you've already seen how well this is
+
+0:00:59.760,0:01:05.439
+kind of a slow operation ready to loop over everything we've also learned
+
+0:01:04.559,0:01:08.640
+strategies uh binary search for making this faster
+
+0:01:08.159,0:01:12.080
+and what i mean i first try to do is see if
+
+0:01:10.080,0:01:16.720
+i can implement this with my um with my tree right and so i can do
+
+0:01:15.040,0:01:21.600
+operations like this um so the context up here right so if
+
+0:01:19.520,0:01:26.320
+i'm looking at this here i would like to be able to do something
+
+0:01:22.880,0:01:30.640
+like um say like you know is d and in my tree and
+
+0:01:29.680,0:01:33.280
+right now i was just saying well it's not iterable right i haven't done
+
+0:01:31.759,0:01:36.640
+anything to support that yet but that's what i'm going to go for
+
+0:01:34.400,0:01:39.920
+right so first i want to see how i can make this work
+
+0:01:38.560,0:01:45.119
+and then eventually i want to figure out how i can actually make it
+
+0:01:41.600,0:01:49.920
+uh faster so so the first order is well you know make it work and then the
+
+0:01:47.759,0:01:56.799
+second order of business is make it faster than order
+
+0:01:53.360,0:02:00.880
+n okay so how are we going to do this well i
+
+0:01:59.200,0:02:06.000
+may write my some sort of method up here i may call
+
+0:02:02.960,0:02:11.200
+it maybe contains and i'm going to check if i have some
+
+0:02:10.000,0:02:15.840
+value on let's say x and
+
+0:02:14.239,0:02:20.319
+and so there's three possibilities right let's say i'm looking at a given node
+
+0:02:18.319,0:02:26.800
+um the lucky case is that node is exactly what i want right so if self
+
+0:02:23.440,0:02:30.560
+dot value equals x then then i'm in in business right then i can
+
+0:02:28.640,0:02:34.319
+kind of just return well i'll return true right
+
+0:02:34.840,0:02:42.720
+otherwise uh else uh
+
+0:02:40.959,0:02:44.959
+well i can need to check both sides right
+
+0:02:45.200,0:02:51.280
+i need to kind of check well does this side have it
+
+0:02:49.280,0:02:58.080
+or or does this side have it i might call these subtrees right so i can say
+
+0:02:54.239,0:03:02.400
+from self.left uh well i need to check if that's even
+
+0:03:00.800,0:03:06.080
+not equal to none right so i can say not equal to none
+
+0:03:04.319,0:03:11.840
+then maybe i can do something like this maybe i can say
+
+0:03:08.080,0:03:17.360
+i'll return i'll return true if the left side has it
+
+0:03:13.840,0:03:21.280
+right if it contains x otherwise if my right hand side is not
+
+0:03:20.080,0:03:27.200
+equal to none then what i'll return i'll return
+
+0:03:24.080,0:03:32.000
+whether that has it well i'll return to my right hand side
+
+0:03:30.159,0:03:35.440
+has it something like that right so so let me let me try to debug
+
+0:03:34.400,0:03:40.400
+this a little bit well or try running it and see what
+
+0:03:37.040,0:03:44.840
+happens and so here's what i'll do maybe i'll just add
+
+0:03:41.599,0:03:48.159
+a print statement here i'll print root.contains a
+
+0:03:49.840,0:03:55.280
+and um and i get i guess i meant to have two equal signs up there
+
+0:03:53.280,0:03:58.640
+so that's good so if i have something that is at the root
+
+0:03:56.799,0:04:02.400
+it works fine what if i have something like z
+
+0:04:00.720,0:04:06.239
+well somehow i'm not returning anything there i'm getting none back
+
+0:04:04.799,0:04:14.560
+and so just trying looking through this code i guess at the very end
+
+0:04:09.200,0:04:16.799
+i need to return false right so so that's good
+
+0:04:15.280,0:04:22.479
+right so let me make sure i didn't break my original thing so
+
+0:04:18.400,0:04:26.840
+so that's good that's good um what other values could i try i guess
+
+0:04:24.800,0:04:35.520
+i could try um me see if i can contain uh b
+
+0:04:31.199,0:04:38.960
+so do i contain b that that's correct um what if i try to contain c let me try
+
+0:04:37.680,0:04:42.479
+that so so that's a bug right somehow i'm not
+
+0:04:41.120,0:04:47.680
+returning what i want to when i'm looking for c
+
+0:04:46.160,0:04:52.160
+i wonder what's happening here i wonder which case i'm kind of getting towards
+
+0:04:50.240,0:04:57.160
+so so maybe what i should do is i'm going to say
+
+0:04:53.280,0:05:01.039
+you know check subtree at self.value right by checking a or
+
+0:05:00.160,0:05:06.240
+whatever right so let me try that so i'm checking the
+
+0:05:04.160,0:05:11.360
+subtree at a and then i check the subtree at b
+
+0:05:09.440,0:05:15.520
+and then i guess i check the subtree at d
+
+0:05:13.280,0:05:20.960
+and um and so that's kind of funny right i guess i never even
+
+0:05:17.759,0:05:24.000
+i never even checked this did i i never checked my right tree
+
+0:05:22.400,0:05:30.560
+and so i wonder when i'm kind of checking uh a
+
+0:05:26.400,0:05:41.840
+why i never went right so maybe let me try this i'm gonna say
+
+0:05:38.720,0:05:47.600
+check left from from this parent and let me try
+
+0:05:45.280,0:05:52.880
+this i'm going to try to check right from
+
+0:05:50.960,0:05:57.280
+here let me see if i can figure out what's going on
+
+0:05:54.240,0:06:01.440
+okay so i'm checking the sub tree at a and i check left right so i'm kind of
+
+0:05:59.039,0:06:05.600
+checking left and um and then i'm checking beneath the
+
+0:06:03.520,0:06:09.360
+b b doesn't have a left so i check right
+
+0:06:07.360,0:06:14.880
+from b and um then what so i kind of check the
+
+0:06:13.280,0:06:18.400
+the subtree of b and then i must be returning right i
+
+0:06:16.560,0:06:25.199
+must be getting false do you see what the bug is here
+
+0:06:21.600,0:06:30.000
+the bug is is that just because my left subtree doesn't have it
+
+0:06:28.319,0:06:33.440
+doesn't mean i know the final answer just means i haven't found anything yet
+
+0:06:31.120,0:06:38.639
+i can only return immediately um if it has it right if it's if this
+
+0:06:36.560,0:06:43.280
+returns true well then i can return true as well if
+
+0:06:41.520,0:06:46.400
+this just returns false you know i need to keep looking i need
+
+0:06:44.479,0:06:50.400
+to check down here as well so i have to write this a little bit differently
+
+0:06:48.639,0:06:53.440
+um and i'm gonna do it like this i'm gonna kind of get rid of
+
+0:06:51.840,0:06:59.280
+these right and instead of directly returning what my child says
+
+0:06:56.160,0:07:03.759
+i i'm gonna ask my child right did you find it
+
+0:07:00.319,0:07:09.360
+well if my child found it then i can return true
+
+0:07:07.039,0:07:12.800
+if my child didn't find it well then i can't return anything right i can't
+
+0:07:11.360,0:07:16.400
+you know at this point it'd be premature to return false right i have to check my
+
+0:07:14.479,0:07:22.560
+right child too so here i say um you know
+
+0:07:20.560,0:07:27.120
+let me try this i'm gonna say if my right contains
+
+0:07:24.080,0:07:31.280
+contains it then i'll return true right so the only time i can really return
+
+0:07:28.720,0:07:34.800
+false is if i ask both my children well i've i've checked that i don't have
+
+0:07:32.800,0:07:37.280
+it directly neither of my children have it
+
+0:07:35.520,0:07:41.360
+and then finally i can actually return return false
+
+0:07:38.960,0:07:45.840
+so i might run that and um and now i should try to
+
+0:07:42.000,0:07:49.599
+check all these cases again right um uh you know maybe what i'll do is i'll
+
+0:07:47.680,0:07:52.479
+say something like for letter and
+
+0:07:52.879,0:08:00.720
+a b c d e f um i'll print whether
+
+0:07:59.440,0:08:03.440
+i'm writing tests here right you should always do that try to think about what
+
+0:08:01.840,0:08:08.970
+the interesting cases are my testing of a lot of cases at once i
+
+0:08:05.840,0:08:12.319
+may print whether the root [Music]
+
+0:08:10.840,0:08:15.840
+contains does it contain that letter and um and i
+
+0:08:15.520,0:08:19.919
+should you know i have a b c d so i should add
+
+0:08:17.680,0:08:24.479
+four falses and two truths and a lot more information than i really
+
+0:08:22.560,0:08:29.280
+wanted there so let's let's do this i get um you know four trues and then
+
+0:08:27.520,0:08:31.360
+two false is that what i just said but that's what i want right the first four
+
+0:08:30.720,0:08:38.399
+letters a b c d we have the next two we don't
+
+0:08:34.800,0:08:41.839
+um so this seems correct and and so something i want to start thinking about
+
+0:08:39.839,0:08:48.000
+is how much work needs to be done when i'm searching through here and um
+
+0:08:46.320,0:08:52.080
+maybe one of the way that would help is i could you know do these prints right i
+
+0:08:50.080,0:08:55.760
+can kind of see what i'm looking at what will actually be cooler is if i
+
+0:08:54.080,0:09:00.160
+could print the whole subtree to kind of really visualize what's going on
+
+0:08:57.839,0:09:05.519
+um now if i just do something like this right if i just try to print that
+
+0:09:01.680,0:09:09.600
+hey i'm i'm checking this node um oh and you know why it's not actually
+
+0:09:08.399,0:09:14.480
+running anything because i didn't i didn't
+
+0:09:10.240,0:09:17.200
+kind of call anything root find let's look for d
+
+0:09:18.399,0:09:24.240
+root dot contains d right i can't really see what's going on
+
+0:09:22.959,0:09:28.160
+and so there's actually when you're debugging these things um there's an
+
+0:09:26.640,0:09:33.040
+alternative to the print method that i want to teach you
+
+0:09:29.519,0:09:36.720
+and this alternative is built into jupiter
+
+0:09:34.160,0:09:42.320
+and it can use things like this normally something like wrapper svg
+
+0:09:39.279,0:09:46.640
+only works if i put my value at the end then it calls repper
+
+0:09:43.920,0:09:50.880
+svg automatically but what i really like is something like a print method
+
+0:09:48.800,0:09:55.120
+or a print function that can use this to display something
+
+0:09:52.080,0:09:59.200
+uh kind of more um more interesting and that's the display method and and
+
+0:09:57.200,0:10:05.279
+let me just kind of grab it here uh it is in from i
+
+0:10:02.240,0:10:10.720
+python dot this is for stands for interactive
+
+0:10:06.880,0:10:15.200
+python um i'm going to import the display function right so the
+
+0:10:12.079,0:10:23.600
+modulus 12 display that's called display and in a lot of ways
+
+0:10:18.800,0:10:27.920
+right it works like a print right hello world
+
+0:10:28.959,0:10:35.360
+right but the cool thing is that it can also be used to print
+
+0:10:32.480,0:10:41.040
+a tree right so let's just try this let's say i want to print
+
+0:10:37.839,0:10:45.360
+my route so that works well what if i want to print
+
+0:10:41.760,0:10:49.120
+you know root dot left that works well what if i want to print root dot
+
+0:10:47.440,0:10:51.519
+dot right so i'm kind of hoping that i'm just going to print off this one thing
+
+0:10:50.560,0:10:55.200
+here all right so i'm going to try doing that
+
+0:10:53.279,0:10:59.279
+and i don't quite get anything i wonder i wonder why if i kind of head
+
+0:10:56.959,0:11:02.800
+up here so i must be calling this rapper svg
+
+0:11:00.880,0:11:08.399
+and let me just kind of see if i'm drawing any edges right so i'm going to
+
+0:11:04.720,0:11:14.320
+say like here is this code even running and that code is running so somehow
+
+0:11:12.000,0:11:16.399
+it's not drawing anything and and you know what the problem is is the only
+
+0:11:15.600,0:11:19.519
+time i ever kind of draw anything with my graph i'm
+
+0:11:18.560,0:11:25.839
+calling g dot edge right and and so i guess if i have
+
+0:11:23.920,0:11:28.880
+a graph with just one node it's kind of another corner case right
+
+0:11:27.600,0:11:31.680
+that i have to think about you're just trying to get into the habit of thinking
+
+0:11:29.920,0:11:34.560
+about all these kind of weird corner cases and testing and make sure
+
+0:11:33.519,0:11:37.200
+you're trying dealing with all these things
+
+0:11:35.440,0:11:40.640
+and so i think what i want to do here is um when i'm when i'm calling this
+
+0:11:39.440,0:11:44.079
+right i don't want to just draw the edges to my children
+
+0:11:42.560,0:11:48.399
+but i should make sure that i am also showing myself so i'm going to say
+
+0:11:45.519,0:11:53.680
+g.node and um and then i'm just going to show
+
+0:11:52.399,0:11:58.000
+myself that value right so even if i don't have any any
+
+0:11:55.440,0:12:01.519
+children or any parents then i'm still going to try and draw
+
+0:11:59.519,0:12:06.160
+this down here and so i can do that now i can actually see while i have c
+
+0:12:03.040,0:12:09.680
+down here which is good okay so i have this display
+
+0:12:08.000,0:12:12.560
+function and that was kind of a little bit of a roundabout thing
+
+0:12:11.279,0:12:17.519
+but what i'd really like to do is instead of printing myself i'd like to
+
+0:12:14.800,0:12:21.360
+display myself remember when i printed myself before it used
+
+0:12:18.800,0:12:24.720
+it kind of showed me these weird things now if i can do this
+
+0:12:23.279,0:12:30.639
+here let me just add a little bit more information here i may say check
+
+0:12:27.040,0:12:36.480
+subtree i might run that and i see that first i'm checking the whole subtree
+
+0:12:33.519,0:12:39.279
+and then i'm checking that left subtree and then i'm
+
+0:12:37.040,0:12:41.120
+checking the left part of that and then all i actually found what i want i found
+
+0:12:40.800,0:12:44.959
+it i found d right
+
+0:12:45.279,0:12:50.880
+so let's think about this different what are different kind of things
+
+0:12:49.040,0:12:53.920
+and i'm going to clean that up what are different things i could look for so if
+
+0:12:52.079,0:13:01.360
+i look for a i check the subtree and i'm done
+
+0:12:57.600,0:13:04.639
+kind of one step right what if i like what is the worst thing i could
+
+0:13:02.639,0:13:07.839
+look for where i would actually find it i mean obviously the worst thing is that
+
+0:13:07.279,0:13:10.399
+um i'm looking for something that's not
+
+0:13:08.800,0:13:12.800
+even there that i end up checking every node
+
+0:13:11.200,0:13:16.320
+but in this tree what is the worst thing i i could do and
+
+0:13:14.320,0:13:20.160
+maybe let me add some more nodes as you think about that
+
+0:13:17.760,0:13:23.120
+um so maybe what i'll do is i'll say something like um
+
+0:13:23.200,0:13:36.720
+uh my c node so i'll say root.right.left equals
+
+0:13:31.040,0:13:39.360
+node of e root.right.left equals
+
+0:13:39.920,0:13:51.040
+dot left equals node of f left at left equals g
+
+0:13:51.120,0:13:56.560
+and i kind of get this weird shaped tree maybe let me just add a little bit more
+
+0:13:54.240,0:14:03.600
+in there so it's not quite so strange uh maybe i'll say something like um
+
+0:14:00.040,0:14:06.560
+root.right.left equals node uh h
+
+0:14:08.880,0:14:17.839
+um and i just copy that right i'm sorry i wanted to say
+
+0:14:12.480,0:14:28.160
+that right i kind of put this backwards didn't i
+
+0:14:26.480,0:14:30.560
+okay so i filled out a node and then kind of adding these other
+
+0:14:29.360,0:14:32.639
+things you know in the latinx lecture when we talk about how to kind of more
+
+0:14:31.760,0:14:35.680
+simply build these things okay so i have this
+
+0:14:34.880,0:14:40.959
+tree here and i want to think about what would be
+
+0:14:39.040,0:14:48.320
+the worst node to search for what would take the most time
+
+0:14:43.600,0:14:53.440
+and kind of looking back at the code when i when i call this when i call this
+
+0:14:50.880,0:14:56.800
+on my left sub child this recursion happens on everything in
+
+0:14:55.519,0:15:00.959
+the left sum tree so so once i go left even one step i do
+
+0:14:59.760,0:15:04.000
+everything to the left before i do anything to the
+
+0:15:03.279,0:15:07.519
+right so so that means i might explore everything
+
+0:15:05.760,0:15:12.320
+over here before i explore any of this stuff
+
+0:15:11.120,0:15:16.480
+over here and that's kind of true all the way way down right so when i finally
+
+0:15:14.639,0:15:20.959
+eventually get to e i'm going to do everything to the left
+
+0:15:19.199,0:15:24.399
+before i do anything on the right and so i think what's going to actually
+
+0:15:22.480,0:15:28.800
+be the worst case is if i'm looking for h i think that h
+
+0:15:28.880,0:15:34.160
+is going to make me do the most possible work
+
+0:15:32.160,0:15:40.320
+and um is that true okay so i have the whole tree
+
+0:15:36.399,0:15:43.839
+and then i'm going to go left to bd does bd have anything no does d have
+
+0:15:42.560,0:15:47.920
+anything no and then finally kind of looking back up
+
+0:15:45.680,0:15:51.759
+i finally get to explore this right hand side
+
+0:15:49.519,0:15:56.800
+right and so what do i get here i get that whole subtree
+
+0:15:53.759,0:16:02.000
+and then underneath that i go i go left to the e sub tree
+
+0:16:00.399,0:16:06.800
+okay and then from here i'm going to go left first so i'm going to do f
+
+0:16:04.000,0:16:09.759
+g and g then finally i come back and i and i do
+
+0:16:07.440,0:16:12.720
+h right so i end up having to look at every
+
+0:16:10.880,0:16:18.160
+every possible node to actually find what i'm hoping to find
+
+0:16:15.600,0:16:21.199
+and um and so kind of looking back up at this
+
+0:16:18.639,0:16:25.199
+i'm just wondering if there's any hope right um
+
+0:16:22.560,0:16:28.480
+what what makes things slow i mean when things are really deep that's slow
+
+0:16:26.880,0:16:33.040
+i i guess when it's kind of off on the side i check last it's slow
+
+0:16:31.040,0:16:37.440
+um if i want to be able to make this fast
+
+0:16:34.480,0:16:41.600
+kind of consistently um there's a couple things i might have to do
+
+0:16:39.279,0:16:45.120
+um you know i end up checking the nodes in some order
+
+0:16:42.560,0:16:48.560
+right and so how can i make sure that the the thing i'm looking for isn't in
+
+0:16:46.639,0:16:53.920
+the last possible node um what i'd really like to do is to have
+
+0:16:51.839,0:16:59.600
+some sort of way to kind of when i look at the top node
+
+0:16:58.079,0:17:04.240
+is there some way that i could say something like hey
+
+0:17:01.440,0:17:07.600
+any sort of value is going to be to the left
+
+0:17:05.039,0:17:12.480
+or any sort of value is going to be just to the right i don't have to check it
+
+0:17:09.280,0:17:17.280
+and so maybe as an example um i'm going to kind of rename these a bit
+
+0:17:14.160,0:17:23.280
+i may say that's b i'm going to say b and d become uh
+
+0:17:20.480,0:17:28.160
+wait a minute here yeah so i'm going to say that everybody
+
+0:17:25.039,0:17:33.280
+say this is a1 i say this is a2 do i get that right
+
+0:17:30.799,0:17:38.880
+okay great and then then over here i'm going to call this like
+
+0:17:34.240,0:17:46.400
+um c1 c2 c3 c4
+
+0:17:42.240,0:17:50.640
+c5 and c6 oh not quite right i guess c6 right like
+
+0:17:49.360,0:17:55.440
+this so and let me just kind of get rid of
+
+0:17:52.720,0:18:00.320
+this for a moment let's just look at the tree as it is
+
+0:17:59.440,0:18:04.320
+okay now what i see here is that
+
+0:18:04.400,0:18:16.000
+i start with b and b is in between the a's
+
+0:18:11.280,0:18:21.760
+and the and why is that helpful because well when i'm searching for it
+
+0:18:19.919,0:18:26.960
+if i know about that pattern then i only have to go left or right
+
+0:18:25.280,0:18:30.880
+if i can guarantee that if i can kind of guarantee that everything
+
+0:18:28.799,0:18:33.039
+that comes alphabetically before b is to the left i only have to check the left
+
+0:18:32.240,0:18:36.480
+subtree if i can guarantee that everything that
+
+0:18:34.480,0:18:41.360
+after b comes right then i have to check that
+
+0:18:38.080,0:18:44.880
+so that's a potential optimization now the other thing though is is this
+
+0:18:43.280,0:18:50.320
+optimization isn't going to help me very much
+
+0:18:46.799,0:18:53.360
+if the tree is very deep right because in that case i kind of have to go all
+
+0:18:52.000,0:18:56.320
+the way down even if i know that it's going to be
+
+0:18:54.799,0:18:59.600
+somewhere over there if it's there at all
+
+0:18:57.679,0:19:01.440
+and so that's a problem too so what we're going to do next time is we're
+
+0:19:00.720,0:19:05.200
+going to try to set us up and see can i construct the tree in a
+
+0:19:04.000,0:19:08.559
+way that whenever i'm at a node i can kind of
+
+0:19:06.559,0:19:11.200
+eliminate one side or the other right so i'm just trying to kind of
+
+0:19:09.600,0:19:15.440
+write these strategies down so we can be thinking about it
+
+0:19:12.320,0:19:22.400
+so strategy one can we um rule out
+
+0:19:18.880,0:19:26.640
+uh you know one subtree at each node we check this may help us
+
+0:19:25.600,0:19:32.960
+be fast and then strategy two uh can we
+
+0:19:29.840,0:19:36.400
+make the tree bushy and we'll try to define that a little bit better
+
+0:19:34.400,0:19:39.120
+uh but bushy is kind of the opposite of long and stringy long and stringy means
+
+0:19:38.559,0:19:42.480
+that i have a bunch of nodes with one
+
+0:19:40.480,0:19:46.960
+children and they form this long chain if i'm in that kind of situation
+
+0:19:45.280,0:19:50.720
+and i'm searching for something like you know c5 or c6
+
+0:19:49.200,0:19:54.480
+i'm not going to know until the end right if this is kind of what we say
+
+0:19:52.720,0:19:59.120
+bushy or balanced i won't have a lot of cases where these
+
+0:19:56.240,0:20:03.520
+nodes just have one child it'll kind of be short and wide and if i do these two
+
+0:20:01.840,0:20:07.200
+things then i can i should be able to develop an algorithm
+
+0:20:05.520,0:20:12.320
+for checking my tree and kind of quickly finding what i what i want to
+
+0:20:09.200,0:20:16.000
+so that'll be for next time i want to end with something a little
+
+0:20:13.520,0:20:20.320
+bit less algorithmic um maybe a little more fun and that is
+
+0:20:18.640,0:20:25.440
+can i say something like this can i say a2 uh in root
+
+0:20:23.520,0:20:28.720
+and right now uh what python is trying to do is it's trying to somehow loop
+
+0:20:26.559,0:20:32.159
+over root to see if i can find it uh but it turns out what i can do is i
+
+0:20:30.400,0:20:36.960
+can just turn this into a special method i can do this let
+
+0:20:35.200,0:20:40.080
+me get rid of this and and i can call that special method
+
+0:20:38.960,0:20:47.600
+here as well contains is a special method and
+
+0:20:44.640,0:20:50.559
+if i run this then well i have all my debugging stuff so i'm just going to get
+
+0:20:48.880,0:20:54.480
+rid of that for a moment i have the special methods contains i
+
+0:20:52.159,0:20:58.320
+can see okay a2 is in that tree was that true let me just try to peek at
+
+0:20:56.240,0:21:04.080
+my tree again yeah there was a2 what about a3 it was a3 in the tree um
+
+0:21:01.520,0:21:07.520
+it was not okay so next time we're going to learn about
+
+0:21:05.039,0:21:11.120
+binary search trees which are basically binary trees
+
+0:21:08.880,0:21:14.880
+uh designed to make this searching thing that i'm trying to do
+
+0:21:12.400,0:21:14.880
+faster
+

@@ -1,0 +1,573 @@
+0:00:00.960,0:00:08.000
+well in this video i want to think about some more uh vocabulary around drafts
+
+0:00:05.759,0:00:11.840
+and i also want to think about um the different kinds of graphs we have
+
+0:00:10.160,0:00:16.960
+um you know whether they're directed or not whether a graph is a tree
+
+0:00:14.320,0:00:19.119
+whether a tree is a binary tree and so i have this picture on the left that we're
+
+0:00:18.320,0:00:23.439
+going to use to have a bunch of examples and and so
+
+0:00:21.439,0:00:28.960
+the first word that i want to remember is connected and so looking at this
+
+0:00:26.560,0:00:36.079
+graph over here on the left is this a connected graph and
+
+0:00:32.079,0:00:40.160
+the answer is no it is not a corrected it is not a connected graph and um and
+
+0:00:38.800,0:00:46.719
+the reason why is there is not well connected means that there
+
+0:00:43.440,0:00:50.559
+is a path between any two nodes and that's clearly not true we
+
+0:00:48.879,0:00:53.680
+have kind of the main graph and there's an island over here on on
+
+0:00:52.399,0:01:01.359
+the right what was a path a path was a sequence
+
+0:00:56.960,0:01:07.760
+of of edges not reused so for example um
+
+0:01:04.960,0:01:12.080
+if i'm looking at this here i could have a path
+
+0:01:08.320,0:01:17.439
+from d to h and that path might be d b a c h as a path
+
+0:01:15.520,0:01:21.759
+but at least the way i'm defining path in this course
+
+0:01:18.640,0:01:25.200
+um i couldn't say d b d b d b a c h because i'd be kind of reusing
+
+0:01:24.560,0:01:29.360
+that so so connected in path those are two um
+
+0:01:27.680,0:01:33.040
+key terms that we'll have um the next idea that i want to talk
+
+0:01:31.360,0:01:36.960
+about is a is a dag and a dag the easy way to remember it is
+
+0:01:35.439,0:01:41.119
+well it's a directed a cyclic graph right so if you're trying
+
+0:01:39.759,0:01:44.880
+to look at a graph and figure out if it's a dag
+
+0:01:42.159,0:01:47.600
+um you should go one letter at a time and of course the easiest letter here is
+
+0:01:46.320,0:01:51.600
+graph right if i'm looking at this picture over here
+
+0:01:49.040,0:01:54.880
+uh it's obviously a graph right so i have the g down
+
+0:01:53.119,0:01:58.960
+what about directed is it a directed graph no
+
+0:01:56.240,0:02:02.159
+i have to inspect these edges and the edges
+
+0:01:59.920,0:02:05.600
+aren't arrows right so there's kind of it's a very symmetric relationship
+
+0:02:04.159,0:02:09.520
+and so if i wanted to draw this as a directed graph
+
+0:02:07.200,0:02:14.319
+um i i could do this and now i actually have a directed graph
+
+0:02:11.440,0:02:18.560
+um so the next question is well uh is it a cyclic
+
+0:02:15.840,0:02:26.239
+and uh so let me put that down well first off what is directed right so
+
+0:02:20.840,0:02:30.560
+edges are arrows they have a direction what about a cyclic is this an acyclic
+
+0:02:29.520,0:02:33.680
+graph and the thing that probably catches your
+
+0:02:32.480,0:02:38.720
+eye is this little pattern here um you know
+
+0:02:36.720,0:02:41.920
+kind of all these edges form some sort of
+
+0:02:38.959,0:02:47.120
+uh some sort of um it looks like a cycle but it's actually not and the reason why
+
+0:02:44.000,0:02:50.720
+is that we care about the direction of these edges right so acyclic means
+
+0:02:50.000,0:02:57.920
+that uh that you can't uh you know no path
+
+0:02:54.480,0:03:04.000
+ending you know starting and ending on the same
+
+0:03:01.680,0:03:08.959
+node right and so this is acyclic right i mean i can't
+
+0:03:04.800,0:03:12.239
+i can't go a b g i can't go back to c right so so it's a cyclic right i can't
+
+0:03:11.040,0:03:18.000
+cycle back to a so um this is uh this is
+
+0:03:15.760,0:03:20.560
+actually an acyclic graph right because there's no cycles here right i can't
+
+0:03:19.519,0:03:27.519
+cycle back back to where i started another
+
+0:03:24.000,0:03:32.080
+notion is weakly connected um is this a weakly connected draft so
+
+0:03:30.879,0:03:38.319
+weakly connected means that there would be a path uh
+
+0:03:35.200,0:03:44.080
+there is a path between any two nodes ignoring direction
+
+0:03:42.640,0:03:48.239
+and that's not the case here right i mean i still have my little um island
+
+0:03:46.400,0:03:53.760
+uh even if i ignore the direction of the edges you know i can't get
+
+0:03:50.319,0:03:56.959
+from x to a um some more vocabulary that we're i'll
+
+0:03:55.840,0:04:03.360
+talk about we have are going to talk about roots and uh and
+
+0:04:00.000,0:04:06.799
+leaves uh a leaf i guess and uh these are gonna be
+
+0:04:05.840,0:04:09.680
+relevant especially when we start talking about
+
+0:04:08.239,0:04:13.120
+trees right so tree is maybe the next thing we talk about after
+
+0:04:10.879,0:04:19.199
+after we define these two things uh but this notion of a root and a leaf
+
+0:04:15.920,0:04:24.160
+is also applicable in directed graphs like this
+
+0:04:20.320,0:04:31.040
+and so root is basically any node with no parents
+
+0:04:28.479,0:04:37.120
+and and so maybe maybe i should add these words as well what is a parent
+
+0:04:33.360,0:04:43.840
+what is a parent what is a child and uh and a parent is um
+
+0:04:40.720,0:04:52.400
+the node from which an edge leaves and a child is a node
+
+0:04:47.919,0:04:56.000
+from which an edge arrives right so that's parent and child and so
+
+0:04:54.639,0:05:03.759
+a root is a node with no parents and so that means that
+
+0:04:59.919,0:05:09.600
+uh that that really i don't have any incoming um
+
+0:05:07.039,0:05:12.639
+edges right so it's basically the child of no one
+
+0:05:10.320,0:05:15.120
+right so i don't have any uh edges arriving in here
+
+0:05:13.600,0:05:20.240
+so looking over at this picture on the left um
+
+0:05:16.720,0:05:24.160
+how many roots do i have in this graph um i see two i see two roots i see a and
+
+0:05:23.680,0:05:31.840
+i see x those two don't have any parents
+
+0:05:28.400,0:05:35.440
+what about a leaf so a leaf is any node with no children
+
+0:05:35.600,0:05:41.120
+and i see a bunch of those over here right all of these on the bottom don't
+
+0:05:39.440,0:05:45.600
+have any children why doesn't have any children um and so
+
+0:05:44.160,0:05:47.199
+so i can almost imagine like the root kind of almost being like the top of the
+
+0:05:46.880,0:05:50.400
+graph no parents maybe leaves at the bottom
+
+0:05:49.280,0:05:53.199
+with no children i mean i could have drawn that differently but these are
+
+0:05:51.680,0:05:56.639
+definitions already hold even if i kind of
+
+0:05:54.000,0:06:01.840
+flipped the whole graph upside down oh and then of course we have um
+
+0:05:58.720,0:06:05.520
+we have cases where we have um some nodes that are neither parents or
+
+0:06:04.560,0:06:08.720
+children and then finally you can imagine i could
+
+0:06:07.199,0:06:13.600
+add a note here that's just all by itself and then in that case it would be
+
+0:06:10.240,0:06:20.160
+both a root and a leaf okay so so what is a tree
+
+0:06:16.800,0:06:25.600
+a tree is a dag with two extra properties and what are those
+
+0:06:23.680,0:06:28.960
+properties so we have one and two and one is that
+
+0:06:28.479,0:06:35.440
+it has exactly one root
+
+0:06:32.319,0:06:36.960
+okay and and so right away i mean i can see
+
+0:06:35.680,0:06:40.400
+this is not a tree right i mean we already talked about how this one has
+
+0:06:38.479,0:06:49.440
+two roots a and x um the other property is that uh
+
+0:06:43.680,0:06:54.960
+every node except the root has exactly one parent okay
+
+0:06:52.880,0:07:00.000
+those are the two properties so i wonder i wonder if i could fix this
+
+0:06:56.319,0:07:04.080
+up um you know one way i could do it is i could say something like g
+
+0:07:00.960,0:07:10.880
+dot edge from a to x um if i did that i would have
+
+0:07:08.319,0:07:15.120
+exactly one root or or i guess i could just kind of get rid of these two
+
+0:07:13.039,0:07:18.880
+um and that would kind of satisfy this first thing and have exactly one root
+
+0:07:17.039,0:07:21.840
+so i guess i want to take a moment and look at this and kind of decide for
+
+0:07:20.720,0:07:27.759
+yourself uh is this a tree according to my
+
+0:07:25.120,0:07:32.240
+definition and uh and the answer is no and the
+
+0:07:31.599,0:07:37.520
+reason why is that i have to say that every note
+
+0:07:34.960,0:07:41.680
+except the root has exactly one parent and look uh g has two parents um you
+
+0:07:40.639,0:07:46.560
+know one parent is b another c so this is not a tree and so i
+
+0:07:44.800,0:07:50.000
+could fix this up right i guess i could um
+
+0:07:47.199,0:07:54.319
+where is g you know i could just uh kind of delete she all together
+
+0:07:52.080,0:07:57.599
+um or i could kind of get rid of one of the parents
+
+0:07:55.280,0:08:01.520
+i guess i'll get rid of this uh the parent b right because uh
+
+0:07:59.280,0:08:05.440
+that one already has a few children so so i get down to this picture
+
+0:08:03.360,0:08:10.879
+and then finally yes this is a tree so this is an example
+
+0:08:06.400,0:08:14.400
+of a tree right here okay so you can kind of see we're narrowing
+
+0:08:12.160,0:08:18.000
+down i mean we talked about graphs kind of first and then we're like well
+
+0:08:15.919,0:08:22.000
+some drafts are directed and then some directed graphs are
+
+0:08:19.680,0:08:28.400
+directed acyclic graphs and then some directed acyclic graphs
+
+0:08:25.440,0:08:30.639
+are trees and um and i'm going to introduce one more here
+
+0:08:29.520,0:08:36.560
+that we're going to talk about today and that's the binary tree
+
+0:08:32.640,0:08:40.560
+uh and that's a tree which means that everything i've said about trees in
+
+0:08:38.479,0:08:46.000
+general applies everything i've said about dags applies
+
+0:08:42.479,0:08:55.600
+but there's one more rule and that rule is that each
+
+0:08:52.399,0:09:01.680
+on each node has at most two children
+
+0:08:59.760,0:09:04.720
+so that's what a binary tree is so binary means two and that's why
+
+0:09:03.279,0:09:08.720
+where the names comes from having these two children and most
+
+0:09:06.480,0:09:13.920
+so if i look at this picture over here uh is this
+
+0:09:10.640,0:09:17.200
+is this a binary tree and well it's not see if you can figure out
+
+0:09:16.080,0:09:20.880
+why it's not what node is kind of getting us in
+
+0:09:18.640,0:09:26.800
+trouble um the trouble is with b right b
+
+0:09:24.720,0:09:29.680
+has three children it's allowed to have at most two children
+
+0:09:28.320,0:09:33.600
+and so there's different ways i could fix that up right i guess i could um
+
+0:09:32.080,0:09:36.000
+you know i could get rid of the f node for example so this would be an example
+
+0:09:35.279,0:09:39.920
+of a binary tree let me go back another thing i can
+
+0:09:39.519,0:09:44.240
+do is if i'm willing to move nodes around a
+
+0:09:42.640,0:09:48.480
+little bit i can actually turn any tree into a binary tree
+
+0:09:45.680,0:09:51.680
+so i can keep f but i just have to put it some other place and so
+
+0:09:50.480,0:09:56.800
+really what i could do is i could look at any leaf i have for example
+
+0:09:53.760,0:09:58.800
+you know d or e or g or h i mean those all
+
+0:09:57.120,0:10:02.160
+don't have any children and so i could move it down there right so instead of
+
+0:10:00.480,0:10:05.519
+saying from b to f uh maybe i'll just say like from e e to
+
+0:10:04.800,0:10:09.040
+f um and that would be fine that would be
+
+0:10:06.720,0:10:15.440
+an example of a binary tree right um
+
+0:10:12.160,0:10:19.040
+now this kind of feels tree-like i mean sometimes we can have these very
+
+0:10:16.800,0:10:22.560
+perverse cases right let me leave this one up because it's
+
+0:10:20.240,0:10:26.240
+kind of a nice looking tree let me give you an example of what else
+
+0:10:24.000,0:10:30.959
+is a binary tree kind of a degenerate binary tree if i
+
+0:10:29.279,0:10:34.399
+wanted to i could have d come out of f right i could do that
+
+0:10:33.839,0:10:37.519
+and and kind of these other nodes i guess i
+
+0:10:35.760,0:10:40.800
+could have uh c where is c coming from c is coming
+
+0:10:39.519,0:10:44.399
+from a i can have c coming off of d right and so i can
+
+0:10:43.920,0:10:48.959
+have that and i guess really i could if i wanted
+
+0:10:45.760,0:10:52.079
+to um i could where is g coming from g is coming from
+
+0:10:51.760,0:10:56.160
+c i could really have g coming off of h
+
+0:10:53.760,0:10:59.360
+right so i have this whole thing now and um and this really starts to look
+
+0:10:57.839,0:11:03.920
+like a linked list and guess what this is still a binary tree
+
+0:11:01.760,0:11:07.600
+because i never say that most nodes have to have
+
+0:11:04.399,0:11:09.920
+two children i just say that that's the maximum
+
+0:11:08.560,0:11:13.120
+they can have so this is technically a binary tree
+
+0:11:11.760,0:11:18.079
+maybe kind of a degenerate one right it's not really using its full
+
+0:11:15.360,0:11:21.920
+flexibility okay so i want you to think a little bit about
+
+0:11:19.200,0:11:25.760
+where we might see um trees whether they're binary or not
+
+0:11:23.680,0:11:31.839
+in in real life and maybe just try to think of one example
+
+0:11:28.000,0:11:35.680
+in your mind before continuing um one example that people often uh bring
+
+0:11:33.760,0:11:40.480
+up is the family tree uh is that a tree well it kind of
+
+0:11:38.399,0:11:44.240
+depends i mean maybe if uh if we were kind of living in a uh
+
+0:11:42.240,0:11:47.440
+patriarchal society where we only cared about kind of the paternal lineage
+
+0:11:46.000,0:11:49.680
+well then yeah maybe you'd start with some
+
+0:11:48.160,0:11:52.800
+great great grandfather and then trying to branch off all the children
+
+0:11:51.200,0:11:56.160
+but but really i think that's not the tree that most of us would really care
+
+0:11:54.399,0:12:00.000
+to look at if we're trying to understand a family history really what
+
+0:11:58.880,0:12:02.320
+we should have instead of having a book with a family tree is we should have a
+
+0:12:01.279,0:12:06.000
+family dag right uh kind of every every no and
+
+0:12:04.560,0:12:10.000
+every person has uh has two biological parents right and uh
+
+0:12:08.959,0:12:13.519
+and it's directed right i mean there's kind of these
+
+0:12:11.040,0:12:16.079
+generations drawing down uh but it can kind of cross back and forth right i
+
+0:12:14.800,0:12:19.279
+mean a person could have many uh many um children and then everybody
+
+0:12:18.639,0:12:24.000
+has at least well has exactly two biological parents
+
+0:12:21.519,0:12:27.920
+so so really forget about family trees uh we have family dags what would be an
+
+0:12:26.240,0:12:31.600
+actual example of a tree that we might kind of see in the real world
+
+0:12:29.760,0:12:34.959
+um well anything where we have kind of a strong hierarchy um
+
+0:12:33.279,0:12:38.480
+you know in a lot of corporations right there's a ceo at top and then maybe some
+
+0:12:37.040,0:12:41.519
+vice presidents and then maybe some directors and then
+
+0:12:39.839,0:12:45.839
+managers and then down finally to like you know regular employees
+
+0:12:42.880,0:12:48.880
+i have a very strict hierarchy there um in the world of biology if you're ever
+
+0:12:47.360,0:12:52.800
+thinking about evolution uh you might kind of look at a tree of
+
+0:12:50.959,0:12:55.279
+species right so that might show up there
+
+0:12:53.519,0:12:57.920
+um so lots of different cases you might actually see trees right any
+
+0:12:56.720,0:13:02.160
+kind of case there where there's a hierarchy and so what we're going to be
+
+0:13:00.240,0:13:05.600
+doing soon is when i look at cases where we can take data
+
+0:13:03.920,0:13:08.399
+that doesn't really necessarily have a hierarchy to it
+
+0:13:07.040,0:13:10.959
+but we're going to impose our own hierarchy on it and that's going to let
+
+0:13:10.639,0:13:14.720
+us kind of store a lot of different kinds
+
+0:13:12.399,0:13:17.760
+of data in trees and the advantage is that if we put some
+
+0:13:16.320,0:13:21.600
+hierarchy on the data we can do certain operations faster
+
+0:13:20.320,0:13:24.720
+right like if i'm looking for a certain piece of data i can find it quickly
+
+0:13:23.600,0:13:27.120
+and so that's what's going to be coming up we're going to be talking about
+
+0:13:25.600,0:13:31.120
+binary search trees how can i impose a tree hierarchy and a
+
+0:13:29.680,0:13:34.639
+bunch of data so i can quickly search for something
+
+0:13:32.880,0:13:39.760
+i'm interested in so i'll break it off there
+

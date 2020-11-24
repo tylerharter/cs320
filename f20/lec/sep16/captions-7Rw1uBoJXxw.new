@@ -1,0 +1,1029 @@
+0:00:02.000,0:00:07.359
+hello in this video i'm going to introduce a new kind of programming
+
+0:00:05.680,0:00:11.759
+uh called object-oriented programming it's often abbreviated oop
+
+0:00:09.920,0:00:14.960
+and um kind of looking back at the previous course whether that was 301 or
+
+0:00:13.599,0:00:18.000
+220 for you there were a lot of fundamental things
+
+0:00:16.240,0:00:21.359
+we learned we learned about you know functions
+
+0:00:18.800,0:00:24.800
+loops data types like lists and dictionaries
+
+0:00:22.720,0:00:27.680
+um a lot of the fundamentals and i would say if there was one
+
+0:00:26.000,0:00:30.720
+fundamental thing that we didn't have time for that
+
+0:00:29.199,0:00:34.160
+is really important and that's probably the object-oriented programming
+
+0:00:32.719,0:00:37.920
+uh and so we're gonna be using this new style for the rest of um
+
+0:00:36.239,0:00:42.399
+this semester and also if you go out and read other books for example
+
+0:00:40.239,0:00:45.280
+a lot of kind of machine learning books out there starting to assume
+
+0:00:43.760,0:00:48.960
+that you know how to do object-oriented programming and
+
+0:00:46.960,0:00:53.680
+and what the code examples are all right so it's a very important topic
+
+0:00:51.120,0:00:56.800
+and um well they call it object-oriented programming and you've been dealing with
+
+0:00:55.039,0:01:00.239
+objects for a long time you've seen how you can create multiple list objects or
+
+0:00:58.480,0:01:03.600
+multiple dictionary objects and so it's kind of a funny name i think
+
+0:01:01.920,0:01:06.479
+really what object we're programming about
+
+0:01:04.559,0:01:10.560
+is not creating new objects but creating new types of objects
+
+0:01:08.479,0:01:14.400
+and in the picture that people often have or make is a
+
+0:01:12.880,0:01:19.600
+it's almost imagine that you were making cookies right cookies are like objects
+
+0:01:16.799,0:01:22.320
+and there's different types of objects maybe i have list objects right so
+
+0:01:21.280,0:01:27.680
+there's only one list type but from that list type in python
+
+0:01:26.000,0:01:29.840
+i can create lots of different list objects right i can kind of punch out a
+
+0:01:29.040,0:01:33.439
+lot of different uh cookie objects from that
+
+0:01:32.159,0:01:38.159
+one kind of frame type and there's a lot of
+
+0:01:36.720,0:01:40.400
+types that are built into python right we have lists we have dictionaries
+
+0:01:39.600,0:01:44.159
+strings um you know these and what we want to do
+
+0:01:42.720,0:01:48.079
+now is learn how we can make new types for very specific use cases so
+
+0:01:47.040,0:01:52.159
+for example um could i have a movie type or a person
+
+0:01:50.880,0:01:55.439
+type or maybe a type for soccer players right that's
+
+0:01:54.000,0:01:59.360
+what we're going to be doing uh going forward and not only has actually
+
+0:01:57.520,0:02:02.719
+helped us make our own new types but it'll help us understand things like um
+
+0:02:01.759,0:02:05.759
+pandas right when whoever was building pandas they
+
+0:02:04.399,0:02:08.399
+had to have a data frame type and a series type
+
+0:02:06.799,0:02:11.120
+and i'll have some examples kind of to show at least a little bit about how
+
+0:02:09.840,0:02:16.640
+they built those um new things uh by the way i made those
+
+0:02:14.000,0:02:20.800
+uh cookies myself not to brag but um okay moving on so the first thing i
+
+0:02:19.680,0:02:28.319
+want to talk about is classes and kind of an analogy
+
+0:02:24.160,0:02:32.160
+between classes and class objects to dictionaries so with dictionaries you've
+
+0:02:31.360,0:02:36.080
+seen that you can put a lot of different kinds of
+
+0:02:33.519,0:02:42.560
+information in there for example i could create a dictionary to represent a movie
+
+0:02:40.000,0:02:44.400
+object right so i could have a bunch of different movies all other of these
+
+0:02:43.760,0:02:47.440
+dictionaries and those would probably have keys and
+
+0:02:45.840,0:02:51.680
+values that might give me things like the movie title
+
+0:02:49.120,0:02:55.360
+and uh you know title might be a key and then the actual title might be
+
+0:02:53.200,0:02:58.800
+a value associated with that string title and i could have things like while
+
+0:02:56.800,0:03:02.080
+the year the movie was released and um so i can use these dictionaries
+
+0:03:00.640,0:03:05.680
+to represent movies i could also use dictionaries to represent
+
+0:03:04.080,0:03:09.040
+on people so here i'm creating three people and they're slightly differently
+
+0:03:08.000,0:03:13.440
+i'm kind of adding in the keys and values afterwards
+
+0:03:11.599,0:03:17.519
+i'm trying to set a first name uh for each of those and these happen to
+
+0:03:15.120,0:03:21.440
+be your your tas and um and so one more thing here right
+
+0:03:20.159,0:03:24.879
+so we can see that there's this special syntax for
+
+0:03:23.040,0:03:28.640
+rating dictionaries it's the two curly braces
+
+0:03:26.239,0:03:32.480
+right like right here that's one way to create dictionaries
+
+0:03:29.840,0:03:36.239
+another way is that i can say the type name
+
+0:03:33.920,0:03:38.640
+all of these are of type decked and so i can say dict
+
+0:03:37.440,0:03:42.640
+and then parentheses and that's actually what we're gonna be seeing more commonly
+
+0:03:40.959,0:03:48.159
+uh going forward you only get this special stuff like the curly braces
+
+0:03:44.720,0:03:52.159
+for the built-in python um types and so this this works fine right i mean
+
+0:03:50.560,0:03:55.760
+people write code this way um often enough but it's kind of
+
+0:03:54.480,0:03:58.560
+confusing right if i'm done at the end i just want to figure out
+
+0:03:56.640,0:04:02.319
+what is m1 what is p1 if i print the type of both of those both of them will
+
+0:04:00.560,0:04:05.760
+say it's a dictionary and so we want to do is we want to
+
+0:04:04.400,0:04:10.319
+instead of using dictionary for everything
+
+0:04:06.720,0:04:15.200
+uh create new types for different kinds of information and so let me let
+
+0:04:13.200,0:04:20.239
+me show you just how i might create a new type for people
+
+0:04:18.239,0:04:26.080
+so the syntax like this in its most minimalist form
+
+0:04:21.440,0:04:29.520
+is i say class um class is really uh a certain kind of type right most types
+
+0:04:28.479,0:04:34.479
+are actually classes so i click say class and then i say the
+
+0:04:32.000,0:04:38.080
+name of my new type which is person and then colon and then after that
+
+0:04:36.400,0:04:41.759
+there's a lot of things like quick point and maybe it's hundreds of lines after
+
+0:04:40.560,0:04:44.720
+that honestly and we're gonna be learning more what
+
+0:04:42.880,0:04:48.880
+can go there um here in the simplest form i'm just saying pass
+
+0:04:46.240,0:04:52.800
+and um and just remember what past does pass
+
+0:04:49.280,0:04:56.639
+means do nothing and why would we need a special kind of
+
+0:04:54.560,0:05:00.400
+statement to do nothing well python doesn't like emptiness
+
+0:04:58.000,0:05:04.400
+after a colon right so we do that to just you know make python happy
+
+0:05:02.560,0:05:09.199
+but really there's no extra information inside of this class
+
+0:05:06.160,0:05:13.520
+and so then the way i create person objects from the person
+
+0:05:11.360,0:05:16.720
+type or class is that well i say the type name person
+
+0:05:15.039,0:05:20.400
+and then i put parentheses after so it's really a lot like a function call
+
+0:05:18.720,0:05:24.720
+i can almost think of it as a as a function i'm calling and it's returning
+
+0:05:22.880,0:05:30.639
+a new object to me i'm just returning a new person object
+
+0:05:26.560,0:05:35.759
+and then after that i can i can add some information to it and the difference
+
+0:05:33.440,0:05:40.320
+well let me just go back here and i saw i saw what it looks like too put a key
+
+0:05:38.639,0:05:43.520
+and a value inside of a dictionary it's going to be
+
+0:05:42.479,0:05:46.880
+a lot like that but a little bit more elegant in
+
+0:05:45.680,0:05:53.280
+particular this part right here bracket quote
+
+0:05:50.479,0:05:56.720
+e quote and then bracket again is going to be simpler what we'll do is we'll say
+
+0:05:54.639,0:06:02.160
+something like this we'll say e1 dot fname uh equals
+
+0:06:00.319,0:06:05.120
+joseph and so on and so forth then we can set that for each of them so you can
+
+0:06:04.000,0:06:09.759
+see it's a lot like having keys and values but the
+
+0:06:07.360,0:06:14.400
+vocabulary is a little bit different here on the left this app name instead
+
+0:06:12.960,0:06:19.600
+of being a key i'm going to call that an attribute name
+
+0:06:17.520,0:06:26.000
+and this right part of some of those being values like in a dictionary
+
+0:06:22.880,0:06:29.600
+these are going to be attribute values so um attributes are kind of very
+
+0:06:28.160,0:06:35.199
+similar to uh keys and values it's the same concept
+
+0:06:32.639,0:06:40.479
+but different vocabulary and so there's lots of advantages of doing it this way
+
+0:06:37.280,0:06:43.600
+and we'll be getting into those um maybe kind of a small advantage is right down
+
+0:06:42.240,0:06:48.000
+here if i put off the type of this it's not going to say dictionary
+
+0:06:45.199,0:06:51.199
+yesterday i say p3 is referring to a person object and
+
+0:06:49.599,0:06:56.960
+and that's just like a very small backup where i see many more
+
+0:06:53.520,0:07:01.840
+now a couple things here uh in the previous course 301 or 220 um
+
+0:07:00.400,0:07:05.280
+we learned another way to create new types that was named tuples and record
+
+0:07:03.440,0:07:09.919
+class we don't teach that every semester uh but uh let me just
+
+0:07:08.479,0:07:13.520
+clarify some differences here when we learn about name tuples name tuples were
+
+0:07:11.680,0:07:16.560
+immutable you could create this in type and when you created objects from it you
+
+0:07:15.039,0:07:20.800
+couldn't change those options after you were created
+
+0:07:17.680,0:07:23.840
+here we are allowed to mutate objects that we create from classes
+
+0:07:22.479,0:07:25.840
+right so i could change somebody's name or
+
+0:07:24.479,0:07:31.199
+more likely if i had something like an age attribute i could change the age
+
+0:07:28.400,0:07:34.880
+over time maybe somebody's got older um also these attribute names are not fixed
+
+0:07:33.199,0:07:37.680
+at a time of creation and they can keep adding more attributes
+
+0:07:36.400,0:07:41.360
+if i want although that's kind of an unusual pattern that we won't usually do
+
+0:07:40.080,0:07:44.400
+one last thing here i want to point out which is kind of a problem that we're
+
+0:07:42.639,0:07:48.639
+not going to solve immediately is notice i have a typo here right in
+
+0:07:46.800,0:07:52.479
+the first person joseph uh i capitalize ethnic probably not what
+
+0:07:51.039,0:07:55.440
+i wanted since usually i'm not doing that
+
+0:07:53.039,0:07:59.440
+um this code runs fine but eventually learn some ways to
+
+0:07:56.639,0:08:02.560
+catch that problem uh before it creates issues for us
+
+0:08:00.960,0:08:06.879
+so let me really just keep hammering on this analogy between
+
+0:08:05.280,0:08:11.840
+objects great from classes and dictionary objects
+
+0:08:08.479,0:08:17.759
+by showing a code um that's kind of parallel between these three
+
+0:08:14.400,0:08:21.039
+okay so um in each of these cases i'm trying to
+
+0:08:19.360,0:08:25.280
+create these point objects and points are in this two-dimensional
+
+0:08:22.720,0:08:29.280
+space so each point should have an x coordinate and a y
+
+0:08:26.720,0:08:33.120
+coordinate and so on the left example i'm just saying d
+
+0:08:31.840,0:08:38.240
+equals a new object of type dictionary and then
+
+0:08:36.000,0:08:40.640
+over here on the right i have this class point
+
+0:08:39.120,0:08:46.320
+and that may show two different ways to use use that right so here on the left
+
+0:08:44.080,0:08:48.720
+i say p equals a new point object one actually the same
+
+0:08:47.200,0:08:52.839
+over here right but these examples are different let me show these type three
+
+0:08:50.080,0:08:58.160
+analogous things we can do okay if i
+
+0:08:55.680,0:09:01.279
+want to put values in a dictionary i do it just like this
+
+0:08:58.959,0:09:03.440
+right i say d of x equals three so on and so forth
+
+0:09:02.160,0:09:07.279
+i can put things in there besides integers too i really thought we had the
+
+0:09:05.519,0:09:12.880
+f name would be a string um there's a function built into python
+
+0:09:10.880,0:09:16.160
+called set attribute and the way i can do that is i can
+
+0:09:14.240,0:09:20.080
+asset three things first i pass it the object
+
+0:09:17.279,0:09:23.519
+i want to modify and an attribute name and attribute value
+
+0:09:21.200,0:09:28.720
+right so well so this these things are very analogous right these first
+
+0:09:25.120,0:09:32.480
+lines um now the other way i can use um set attributes just like this i could
+
+0:09:30.240,0:09:35.920
+say p dot attribute name equals three and that's generally going to be
+
+0:09:33.600,0:09:39.040
+preferred uh it's kind of only a special use case we'll have here
+
+0:09:37.040,0:09:43.519
+but i think this time more tightly brings together the idea that
+
+0:09:41.120,0:09:46.800
+um objects created from classes are really
+
+0:09:44.320,0:09:49.519
+uh kind of fancy dictionaries right and when we see this
+
+0:09:47.760,0:09:54.160
+syntax is more common it's kind of easy to forget that
+
+0:09:50.800,0:09:58.000
+it's really the same thing internally uh we can also pull values out right and
+
+0:09:57.200,0:10:01.680
+so if i have a dictionary right i do the
+
+0:09:59.440,0:10:05.600
+same thing the same way i'm setting it there's a get adder function built into
+
+0:10:03.519,0:10:09.519
+python i can say well here's my object here's my attribute name and that will
+
+0:10:07.760,0:10:13.360
+return back to me uh the attribute value associated with x
+
+0:10:11.600,0:10:16.720
+in this case i guess it would be stream right so i can work with that or i can
+
+0:10:15.360,0:10:22.320
+use this other syntax that's going to be more common right i can say
+
+0:10:18.800,0:10:26.959
+p dot x plus p dot y well the last thing i can do
+
+0:10:23.200,0:10:31.519
+is i can check if a certain key is in my dictionary
+
+0:10:27.680,0:10:35.680
+using the n off error i can say is z nd and for the second approach right we can
+
+0:10:33.920,0:10:41.040
+use has adder i can say is the p object of the z attribute
+
+0:10:38.800,0:10:45.360
+and that'll return either true or false um and then it turns out that this third
+
+0:10:43.680,0:10:48.560
+style which we prefer well it doesn't really have a have an
+
+0:10:47.040,0:10:51.440
+equivalent to that all right so special style is a little
+
+0:10:50.000,0:10:54.800
+more limited even though this is what we'll usually be
+
+0:10:52.800,0:11:00.000
+um doing there's also some limitations here when i'm doing the second style
+
+0:10:57.760,0:11:04.959
+i could really use whatever i want in those strings but attribute names
+
+0:11:02.720,0:11:08.079
+that's not really recommended because when we're using this style over here on
+
+0:11:06.399,0:11:13.040
+the right which is cleanest um attribute names have to be things
+
+0:11:10.240,0:11:18.160
+that would also be valuable would also be uh valid as variable names
+
+0:11:16.720,0:11:22.320
+where it's like gonna have like a space and attribute enabled here even though
+
+0:11:20.240,0:11:24.800
+that adder would allow that okay so we're gonna avoid setup and get out of
+
+0:11:23.839,0:11:28.160
+the most part unless uh we don't really know what the
+
+0:11:26.880,0:11:31.600
+attribute names are in advance it's just kind of a special
+
+0:11:29.600,0:11:35.040
+case okay so i may do some coding examples
+
+0:11:34.480,0:11:38.720
+and um to illustrate a number of different
+
+0:11:37.200,0:11:40.880
+uh principles of object linear programming
+
+0:11:39.600,0:11:45.839
+and for these i'm going to be creating two classes a dog class and a cat class
+
+0:11:44.079,0:11:48.320
+and um and so at least in this first video i'm just gonna do this first thing
+
+0:11:47.120,0:11:51.519
+i'm gonna look at how we can create these special
+
+0:11:49.760,0:11:55.040
+functions uh called methods and really trying to motivate
+
+0:11:52.880,0:11:59.600
+why we want this so i'm gonna head over here to
+
+0:11:56.480,0:12:03.519
+my um my jupiter notebook let me make this a little bit larger and
+
+0:12:02.240,0:12:07.760
+uh so what i'm going to do is i'm going to create
+
+0:12:04.079,0:12:11.760
+a dog type and initially we're not going to have
+
+0:12:08.880,0:12:16.079
+anything here at least for a while and let me let me create a drawing down
+
+0:12:14.480,0:12:25.839
+here i'll say dog one equals a new dog dog two
+
+0:12:19.279,0:12:38.639
+equals a new dog and um inside of this main notebook okay so i
+
+0:12:37.760,0:12:43.680
+have my dogs and um i can if i like i can
+
+0:12:42.000,0:12:50.240
+give them some attributes right so the attributes i will give
+
+0:12:46.000,0:12:55.040
+are let me see here so i'll say that you know dog one dot name
+
+0:12:53.279,0:13:00.639
+full spider and maybe i'll give them an age too so drive one
+
+0:12:57.519,0:13:05.040
+dot equals um we'll say it's a puppy uh let me set
+
+0:13:03.279,0:13:11.519
+some things for by dog too name equals um
+
+0:13:08.320,0:13:18.079
+uh a g4 let's say sam is kind of um on the
+
+0:13:15.120,0:13:21.040
+older guys we'll say he's 12. and if i pull off these dogs again
+
+0:13:19.600,0:13:24.240
+right it's still not really showing me you know any of that eventually we'll
+
+0:13:22.959,0:13:27.519
+learn how we can write some stuff up in here to get
+
+0:13:26.240,0:13:31.200
+something more useful point out so i can tell what's going on with the
+
+0:13:29.360,0:13:34.639
+dogs now it's very common that when i have a
+
+0:13:32.800,0:13:39.519
+new type there's going to be a bunch of functions related to working
+
+0:13:36.959,0:13:43.199
+um with that type so for example one function that i might have is something
+
+0:13:41.120,0:13:48.399
+like a speak function that will make the dog spark right so uh
+
+0:13:46.560,0:13:52.399
+when i have this i'm gonna pass in a dog to my speed function
+
+0:13:50.399,0:13:56.880
+and you know i could just make the dog bark
+
+0:13:53.440,0:14:00.320
+um or what else could i do um maybe it should depend on you know how
+
+0:13:59.199,0:14:04.240
+old the dog is so maybe i don't want the dog to spark i
+
+0:14:02.160,0:14:07.519
+want to know how old is the dog and then uh what is the dog's name so maybe i'll
+
+0:14:06.720,0:14:12.240
+do something like this i'll say something like um
+
+0:14:09.120,0:14:19.279
+uh you know age is less than two um it's a puppy
+
+0:14:15.519,0:14:26.079
+so we might park you know a lot of times right so my experience with puppies
+
+0:14:22.320,0:14:34.160
+um if it's an older dog let's say the dog is older than 10.
+
+0:14:32.240,0:14:38.880
+um then maybe the dog is starting to get kind of grumpy something else
+
+0:14:37.120,0:14:44.560
+and um otherwise it's just a normal about parking so i'll just say
+
+0:14:42.000,0:14:47.760
+down here for each of these maybe i'd like to print off um
+
+0:14:46.480,0:14:52.240
+what the name of the dog is and i'm going to say
+
+0:14:49.920,0:14:59.040
+name and then the same thing down here right
+
+0:14:55.519,0:15:03.920
+as i can see see which dog is speaking okay so it sounds good and if i want to
+
+0:15:02.639,0:15:07.279
+call this well what can i do i can come down here
+
+0:15:06.560,0:15:14.240
+and i can say let's make dog to speak
+
+0:15:11.040,0:15:17.680
+and uh and sam i guess is an older dog so sam says gir
+
+0:15:15.920,0:15:20.000
+uh well let me try to make the first dog speak
+
+0:15:20.560,0:15:28.000
+and um apparently i have some sort of attribute here
+
+0:15:24.720,0:15:31.279
+but what happened here so um i can see that while i was calling this
+
+0:15:29.519,0:15:35.199
+speak function and so then inside of the speak function
+
+0:15:33.120,0:15:41.199
+i got here log.h dog object has no attribute age
+
+0:15:38.800,0:15:43.680
+and um so coming back up here to look at fido
+
+0:15:42.160,0:15:47.040
+i see the problem is that i i haven't had this type of here i meant to have a
+
+0:15:45.600,0:15:52.160
+lowercase age right so i'll do that i'll say age
+
+0:15:50.079,0:15:57.360
+and now it's actually working and um and so that's better right so um
+
+0:15:55.759,0:16:02.560
+how can we make sure we don't make kind of silly mistakes like that
+
+0:15:59.839,0:16:06.720
+well what's very common is that we'll have a function
+
+0:16:03.759,0:16:10.480
+that does all this stuff for us right i i guess what what is bad about this
+
+0:16:09.120,0:16:15.120
+example is that when i look at when i crashed i
+
+0:16:13.279,0:16:18.240
+was crashing on my 20 which was right here this is where i
+
+0:16:16.560,0:16:21.279
+crashed well my bug was in a completely different
+
+0:16:19.680,0:16:24.000
+place back here and that's bad right it takes longer to debug
+
+0:16:22.399,0:16:28.079
+if we're crashing in a different place than our bug occurred and so i always
+
+0:16:25.839,0:16:31.600
+think about how we can write code to crash earlier rather than later and so
+
+0:16:31.120,0:16:38.800
+we'll do to avoid this is when i create another
+
+0:16:36.000,0:16:41.519
+function which i'm going to call a net which is going to do this kind of stuff
+
+0:16:40.240,0:16:45.519
+for us right to make sure that we're always using
+
+0:16:42.720,0:16:50.320
+uh consistently name and age and the capitalization there are
+
+0:16:46.959,0:16:57.680
+so when i do this i'm going to catson okay and then what i'm going to do is
+
+0:16:55.839,0:17:01.680
+i'm going to add these things as attributes to the dog so
+
+0:17:00.720,0:17:07.600
+i'm going to say dog dot name equals
+
+0:17:05.120,0:17:11.039
+name right so whatever i pass to here is going to go to dog.name
+
+0:17:09.120,0:17:15.520
+and since i'm always going to create my dogs using the submit function
+
+0:17:13.280,0:17:18.000
+then i'm always going to be spelling name the same
+
+0:17:16.480,0:17:22.319
+kind of central life since i'm not going to kind of silly mistakes like that
+
+0:17:20.480,0:17:23.760
+and so it kind of looks like strange pro but you're going to see this kind of
+
+0:17:23.360,0:17:28.079
+thing all the time and they'll do the same
+
+0:17:25.679,0:17:31.520
+thing dog dot age equals age and then down here well what do i do i
+
+0:17:29.840,0:17:38.320
+can just say annette i want to admit dog one with fido
+
+0:17:35.360,0:17:41.600
+and he's a puppy and then the same thing with the stride first i'm gonna admit
+
+0:17:40.000,0:17:48.000
+the dog too and that will be sam who's age 12. and
+
+0:17:46.000,0:17:55.919
+so that works fine and that works fine okay
+
+0:17:51.840,0:18:02.240
+so far so good um let me let me introduce another problem
+
+0:17:59.039,0:18:06.480
+that we are going to fix so i i have my blog
+
+0:18:02.880,0:18:10.240
+right and maybe let me just uh let me let me think about adding a cap
+
+0:18:08.480,0:18:13.600
+how can i add a cat i'm gonna add a cap down here well let
+
+0:18:12.320,0:18:19.919
+me just clean up some of this code for a moment so i'm going to
+
+0:18:17.520,0:18:25.039
+do this let's create a cat so i'm going to say
+
+0:18:21.840,0:18:31.919
+class tab nothing needs to go there and
+
+0:18:29.440,0:18:34.400
+just like there's a speak function for the dog i might
+
+0:18:32.799,0:18:39.760
+wish for there to be a speed function for the cats and i say define
+
+0:18:36.559,0:18:42.559
+speed i'm going to take my cat and and i guess i'm just going to be lazy here i'm
+
+0:18:41.120,0:18:46.240
+just gonna you know we're gonna be on more features
+
+0:18:44.640,0:18:50.799
+later but let's just say all cats go in the owl
+
+0:18:47.520,0:18:53.360
+um so let's try creating a cat right so you know i'm not gonna do this in that
+
+0:18:52.320,0:18:58.720
+thing for a while because i'm not gonna have any attributes here
+
+0:18:54.720,0:19:05.679
+i'm gonna say uh c equals cat and i make my cat speed okay
+
+0:19:02.640,0:19:10.160
+so so that's all fine right but here's what i might wonder what
+
+0:19:08.240,0:19:12.640
+happens if i want to make my dog speak again
+
+0:19:11.200,0:19:18.720
+all right let me get rid of this and i'm just going to say
+
+0:19:14.320,0:19:22.880
+speak dog one i want you to think for a moment what
+
+0:19:20.240,0:19:27.840
+will probably happen here when i run this well but
+
+0:19:26.000,0:19:31.600
+let's give it a try let's pause me for a while for you to think about it but
+
+0:19:30.400,0:19:35.440
+uh let's try running and see what happens i run it
+
+0:19:33.520,0:19:39.360
+and well now what i see is kind of very funny is my cat is going meow i
+
+0:19:37.600,0:19:44.080
+definitely did something wrong and the problem is that i need both my
+
+0:19:42.880,0:19:48.000
+functions speak right i named it here and when i made it
+
+0:19:46.880,0:19:51.440
+the second time what happened is that this function
+
+0:19:50.640,0:19:57.039
+basically replaced my first one right so this is
+
+0:19:53.760,0:20:01.760
+the only speed function i have right now um now there's different solutions to
+
+0:19:59.120,0:20:05.520
+this but one solution is that i could name these different things i could call
+
+0:20:03.280,0:20:10.320
+this like you know the dog speed and cat speed and um in some programming
+
+0:20:09.039,0:20:14.400
+languages that would be an appropriate thing to do
+
+0:20:11.679,0:20:19.360
+but now i can actually see what we're going to put inside of these classes
+
+0:20:16.480,0:20:22.880
+right one of the beauties of classes is that
+
+0:20:20.400,0:20:27.360
+we can put functions inside of them and when we do that we can reuse the same
+
+0:20:25.760,0:20:33.679
+uh function name right so i'm going to put let me put speed
+
+0:20:29.520,0:20:37.600
+up here i'm going to tab this in like so and then the same thing for fan
+
+0:20:35.919,0:20:42.799
+you do this and i put the cat inside of here and
+
+0:20:40.400,0:20:50.880
+because these are inside of the classes uh these two functions are now
+
+0:20:46.320,0:20:54.000
+did i have they're now um uh they're different they're different
+
+0:20:52.320,0:20:57.760
+functions with the same same name okay so that's great and
+
+0:20:56.640,0:20:59.919
+actually there's a special name for these functions
+
+0:20:58.480,0:21:04.640
+once i put a function inside of the class it's a method
+
+0:21:02.320,0:21:08.480
+right so what i might say is that the dog class has a speak method
+
+0:21:06.559,0:21:11.520
+and the cat class also has a speak method so let me try running this when i
+
+0:21:10.480,0:21:17.039
+say kernel i'll restart involved and see
+
+0:21:14.559,0:21:21.600
+where i am by code and what i'm saying now is that i don't have
+
+0:21:18.320,0:21:23.600
+speed defined which i guess is online 23 here
+
+0:21:22.000,0:21:27.039
+and that actually kind of makes sense right because
+
+0:21:25.039,0:21:30.480
+well i have two different speaks and how do i know which one is which
+
+0:21:28.720,0:21:36.080
+and the answer is simple if i want to run speak inside of blog
+
+0:21:32.880,0:21:40.400
+i say blog dot speed right and final marks like that
+
+0:21:38.960,0:21:45.280
+and then let's have the cats speak right so i
+
+0:21:42.880,0:21:50.400
+could say and um i lost my cat anyway so let me
+
+0:21:48.480,0:21:55.919
+create my cat again i'm gonna make um just call behind c1
+
+0:21:53.600,0:21:58.480
+and with the cat one speak and these both were quiet right i can choose am i
+
+0:21:57.760,0:22:02.240
+calling dog speak or am i calling uh cat
+
+0:22:01.120,0:22:05.919
+sneaking speed right so it takes off the pressure on us of
+
+0:22:04.159,0:22:08.960
+coming up with all these different names or different functions if we just make
+
+0:22:07.360,0:22:13.120
+them methods in different classes okay now one thing i want to
+
+0:22:11.840,0:22:16.559
+note here is that the way i'm kind of doing this is bad right it's just an
+
+0:22:14.720,0:22:21.840
+example of bad code um this function here is uh uh
+
+0:22:19.760,0:22:24.960
+not great either i'm actually gonna be showing better ways to do these things
+
+0:22:23.520,0:22:28.960
+but at least for now i want to focus on the mechanics rather than what
+
+0:22:27.600,0:22:31.200
+style is i think once you understand what's going on
+
+0:22:29.840,0:22:35.679
+then we'll focus on how to kind of make all of this more um elegant right so
+
+0:22:33.360,0:22:40.880
+i just want to kind of be aware of that if you're taking notes
+
+0:22:37.520,0:22:44.400
+now why is this not great i'll answer that at least in this video
+
+0:22:44.640,0:22:51.600
+um it's weird because i'm trying to pair all this off right if
+
+0:22:49.360,0:22:54.640
+i if i'm trying to call speak on a dog and i better use the dog version if i'm
+
+0:22:53.360,0:23:00.080
+playing speak on a clown on a cat i better do the cat version
+
+0:22:57.679,0:23:04.720
+and if i do something like this cat dot speak
+
+0:23:01.520,0:23:07.840
+and i say let's say dog one uh guess what that's actually
+
+0:23:06.320,0:23:12.480
+working right there's no reason a tent right i say cat
+
+0:23:09.360,0:23:16.799
+not speak i'm passing this dog so dog one
+
+0:23:13.600,0:23:21.200
+gets passed off to this method and so the dog one object
+
+0:23:19.840,0:23:24.240
+goes to bury and it turns out that nothing in this
+
+0:23:23.039,0:23:28.080
+code um causes there to be a problem right i
+
+0:23:26.880,0:23:31.760
+mean it's so it's kind of weird right it runs but it's definitely not what i want
+
+0:23:30.159,0:23:34.799
+and so what i'm not going to do now that i'm going to end on
+
+0:23:33.280,0:23:40.400
+is i'm going to say what happened i do dog dot speak
+
+0:23:36.799,0:23:46.480
+or cat and um maybe maybe let me just delete this
+
+0:23:44.159,0:23:51.600
+shot what's happening so what will happen if i do that
+
+0:23:49.760,0:23:54.159
+and so i'm going to paste this question in the lecture document what do you
+
+0:23:52.720,0:23:57.679
+think about it and eventually run it to confirm
+
+0:23:55.200,0:24:04.320
+uh if your intuition is right what will happen if we pass the cat
+
+0:23:59.600,0:24:04.320
+into this method
+

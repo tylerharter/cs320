@@ -1,0 +1,357 @@
+0:00:01.920,0:00:08.080
+so in the last video we built this node class that we can use
+
+0:00:06.000,0:00:13.759
+for a binary search tree and we saw that we can
+
+0:00:11.360,0:00:18.160
+very efficiently run this operation to kind of check if a given value
+
+0:00:16.320,0:00:23.600
+is in our data structure right with our data structure being this specific tree
+
+0:00:20.640,0:00:27.680
+and we also have this method that allows us to add new values and it kind of
+
+0:00:25.680,0:00:32.239
+positions them so it'll be efficient later to
+
+0:00:29.199,0:00:36.559
+run this operation and one thing i want to just look at here is
+
+0:00:34.399,0:00:41.040
+what happens if i add a duplicate value right like i try to add an x that's
+
+0:00:38.000,0:00:45.920
+already there um right if i if i'm on a node let's say
+
+0:00:44.000,0:00:50.960
+i'm adding five right and i'm currently on a node where self.
+
+0:00:47.760,0:00:53.840
+value is five well this will be false um this will be false
+
+0:00:52.239,0:00:58.800
+and so really if i'm on a node that is already five and i try to add five again
+
+0:00:56.399,0:01:02.480
+um nothing happens and so i want you to think about this
+
+0:01:00.800,0:01:06.400
+this tree i'm building it's kind of this new data structure
+
+0:01:04.159,0:01:12.320
+what python data structure isn't most similar
+
+0:01:07.840,0:01:18.240
+um to that we've seen before um is it kind of similar to like a list
+
+0:01:14.880,0:01:25.040
+a dictionary a set i think it's most similar to a set
+
+0:01:22.080,0:01:28.640
+right because we can very quickly check if something is in it
+
+0:01:26.799,0:01:35.040
+and based on our ad we can't have duplicates alright so this piece of code
+
+0:01:30.720,0:01:38.240
+i have here is a lot like a set like that's already built into python
+
+0:01:36.960,0:01:42.640
+and so what i want to do in this video is think about
+
+0:01:39.360,0:01:46.320
+how could we go to the next level and instead of kind of building a set from
+
+0:01:44.240,0:01:50.240
+scratch how could we build a very similar
+
+0:01:46.880,0:01:56.960
+data structure a dictionary from scratch and is a little more
+
+0:01:53.600,0:02:00.320
+complicated right sets only have values and you can efficiently check if there's
+
+0:01:58.799,0:02:05.280
+a value there uh dictionaries have keys and values
+
+0:02:03.360,0:02:10.479
+and the thing we can efficiently do is look up a key
+
+0:02:07.600,0:02:13.200
+and and so if i want to do this maybe the first thing i have to do right if i
+
+0:02:11.840,0:02:18.400
+kind of want to adapt this and turn it into a dictionary
+
+0:02:16.080,0:02:23.040
+i should probably replace key value with key so i'm just going to do a
+
+0:02:19.599,0:02:30.160
+kind of a find and replace edit find and replace
+
+0:02:26.560,0:02:36.080
+and i'm going to replace a value with a key and i'm just going to replace all
+
+0:02:33.519,0:02:39.599
+of these let me just try to make sure that you
+
+0:02:38.480,0:02:42.319
+know i have to rerun this from the beginning don't i
+
+0:02:42.800,0:02:49.760
+and that kind of all still works just fine
+
+0:02:46.480,0:02:53.040
+right okay now i'm trying to build a dictionary right
+
+0:02:51.599,0:02:57.599
+so let me just try and make this our goal here right
+
+0:02:54.239,0:03:01.280
+i want to make a new kind of dictionary and so i better have
+
+0:03:00.879,0:03:07.920
+both keys and values
+
+0:03:04.720,0:03:12.000
+i'm gonna pass this on up here and um and then i'm gonna have to do that
+
+0:03:10.480,0:03:15.599
+down here too and i'm kind of adding this this
+
+0:03:12.720,0:03:19.840
+uh x here i guess x is kind of like a key
+
+0:03:16.840,0:03:26.159
+right i'm also going to have a value right a
+
+0:03:22.640,0:03:29.760
+value kind of tags along with that i have to pass that in everywhere
+
+0:03:30.159,0:03:37.280
+i should have done a find and replace on x and key
+
+0:03:33.280,0:03:42.959
+right oh my gosh one more okay so i can do that
+
+0:03:41.040,0:03:46.159
+and when i'm creating a new node i'm going to create it with both that key
+
+0:03:44.319,0:03:50.640
+and value does this make sense well let me just
+
+0:03:49.599,0:03:54.560
+kind of try it down here i guess for some of these i'll put some
+
+0:03:52.000,0:03:58.840
+values right two three there's nothing stopping me from
+
+0:03:56.319,0:04:04.000
+having multiple keys mapped to the same value
+
+0:04:00.720,0:04:07.599
+right i do that does it run everything still kind of runs
+
+0:04:05.280,0:04:12.400
+you know what i'd like to see is um each node is showing a key i'd like to
+
+0:04:09.519,0:04:17.040
+also show a value and so i'm going to go back to here where i was drawing that
+
+0:04:14.720,0:04:19.840
+um here is where i'm drawing the the nodes right and this would be the name
+
+0:04:18.479,0:04:22.960
+of each node uh which is fine to leave that be with a
+
+0:04:21.680,0:04:26.560
+key but but i could put some other text here
+
+0:04:24.639,0:04:29.680
+like if i put hi then i saw my same structure but they
+
+0:04:28.240,0:04:34.000
+all say hi and um and so maybe what i can put here
+
+0:04:32.240,0:04:38.560
+that will be helpful is something like this i'll put it a
+
+0:04:36.240,0:04:44.720
+format string with kind of um two pieces something something like this
+
+0:04:41.680,0:04:48.880
+will will work well i can say self.key and self.value i'm going to build a
+
+0:04:47.840,0:04:53.280
+string based on that and that will be the actual label that
+
+0:04:50.320,0:04:58.080
+shows up on here and so i run that i can see while d is
+
+0:04:55.919,0:05:01.360
+one b is two you know a is three c is three f is
+
+0:05:00.160,0:05:08.560
+three e is four g is five okay
+
+0:05:05.199,0:05:13.199
+and so that's kind of cool um you know what i want to do now though
+
+0:05:10.800,0:05:16.720
+is um a couple things you know eventually i
+
+0:05:15.280,0:05:21.600
+may want some way to like look up the values that i have right and
+
+0:05:18.560,0:05:24.720
+instead of doing it contains i could still do that right anyway i can check
+
+0:05:22.960,0:05:28.800
+if there's a key there but what i'm really interested in
+
+0:05:26.479,0:05:33.759
+is this kind of saying something like you know tree
+
+0:05:30.560,0:05:36.960
+what value is associated with g right so maybe let me just put that
+
+0:05:35.120,0:05:41.680
+print there and um let me say that and of course node is
+
+0:05:40.160,0:05:46.160
+not subscriptable yet because i don't have a get item right so
+
+0:05:44.880,0:05:48.479
+up here i'm going to change this to get item
+
+0:05:50.840,0:05:55.440
+and and i have to think a little bit
+
+0:05:53.440,0:05:58.800
+carefully now i guess this x that i'm passing in is a key so i should just try
+
+0:05:57.360,0:06:11.520
+to change that like so
+
+0:06:07.759,0:06:18.000
+and instead of returning true i want to get the value associated with
+
+0:06:13.840,0:06:22.319
+that key right so if i somehow land on a node where i can't see my tree can i
+
+0:06:21.120,0:06:25.520
+can i see it like this if i land on here and the key i'm
+
+0:06:24.800,0:06:31.680
+looking for is f and i'm like hey i'm on the f node
+
+0:06:29.759,0:06:35.680
+then what i want to return is is three right i mean that's the value associated
+
+0:06:33.199,0:06:40.240
+with f right so so instead of returning true
+
+0:06:37.120,0:06:44.479
+here i really want to return self.value instead of returning false at
+
+0:06:43.520,0:06:49.840
+the end we'll just say that we'd return none for
+
+0:06:46.319,0:06:55.680
+any sort of missing value okay so let me kind of run this
+
+0:06:53.680,0:07:01.280
+and uh and right away i get an attribute error and i'm getting that error because
+
+0:06:59.520,0:07:05.680
+well i got rid of my contains method right i'm using this now so i can have
+
+0:07:03.599,0:07:08.479
+my substraps good item
+
+0:07:10.000,0:07:16.800
+that's kind of cool let me get rid of this um print here
+
+0:07:15.120,0:07:21.759
+and let me kind of check a few things if i look up g
+
+0:07:18.160,0:07:24.800
+and then uh maybe i'll look up like f
+
+0:07:25.440,0:07:37.039
+maybe i'll look up um uh a five three three four g f a is that true
+
+0:07:33.840,0:07:45.039
+so g g was five f was three
+
+0:07:42.479,0:07:50.879
+a was three maybe let me just like out of paranoia check like one more thing
+
+0:07:47.840,0:07:56.720
+this should be a two graded as a two i basically made a dictionary here
+
+0:07:53.199,0:08:00.879
+right a working dictionary now if i want to be fancy like the one
+
+0:07:58.800,0:08:05.680
+last thing i might want to do is instead of adding things like this
+
+0:08:04.240,0:08:12.400
+it'd be kind of cool if i could do this if i could say like um
+
+0:08:06.879,0:08:16.319
+tree of of b equals this let's try that and it says that note
+
+0:08:14.639,0:08:19.919
+item does not support item assignment and and so there's a
+
+0:08:18.800,0:08:25.280
+difference here right when i'm putting brackets after it
+
+0:08:21.039,0:08:32.240
+to pull out a value that calls get item but when i put the brackets like this
+
+0:08:29.039,0:08:36.320
+before an equal sign that's an item assignment
+
+0:08:32.959,0:08:40.000
+and instead of calling get item it would call set item so i'm actually
+
+0:08:39.360,0:08:44.000
+going to rename this guy i'm going to call this set item
+
+0:08:44.080,0:08:51.279
+and when i'm doing my recursion i can kind of do that down here instead of add
+
+0:08:49.040,0:08:54.399
+now i guess i have the set item when i have these um special methods
+
+0:08:53.600,0:08:58.240
+instead of kind of the things i named them then life is
+
+0:08:57.760,0:09:01.680
+better and so i can see that my line of code
+
+0:08:59.920,0:09:05.360
+ran and i just haven't changed these yet right i mean i got rid of my
+
+0:09:03.519,0:09:09.839
+um add method right so let me kind of set the rest of these
+
+0:09:16.560,0:09:24.240
+and let me see here maybe that's enough for now uh let's
+
+0:09:22.640,0:09:27.839
+just see what we get so maybe say something like um
+
+0:09:31.440,0:09:37.839
+i'll just check a couple of these maybe i'll say it's like you know four
+
+0:09:34.959,0:09:43.519
+so i should get three and four and sure enough i do
+
+0:09:38.640,0:09:47.040
+i basically made a working dictionary okay so i'll leave it there
+

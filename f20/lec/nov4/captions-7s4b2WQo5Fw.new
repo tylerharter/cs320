@@ -1,0 +1,549 @@
+0:00:01.680,0:00:06.240
+on this video we're going to do the steps of actually
+
+0:00:04.160,0:00:09.360
+um creating a map with these points on it and then finally converting that into
+
+0:00:07.839,0:00:13.440
+an animation and uh and so i might be over here on
+
+0:00:11.759,0:00:17.279
+the city of madison website because i have to look for the city limits like
+
+0:00:15.360,0:00:20.400
+we've done before and uh and this is a data set i can
+
+0:00:19.279,0:00:25.199
+download like so i can right click and then grab that
+
+0:00:22.800,0:00:28.400
+shape file copy link address um if i wanted to i could go to like
+
+0:00:26.960,0:00:35.040
+terminal i could do like a w get it turns out that if i want to
+
+0:00:31.519,0:00:37.920
+if i'm in uh in jupiter i can have any sort of bash command
+
+0:00:36.719,0:00:41.040
+right here as long as i put an exclamation mark before it
+
+0:00:39.760,0:00:45.680
+and so i'm going to actually put this here i'm going to say w get
+
+0:00:43.200,0:00:49.280
+that and i'm gonna say dash capital o city.
+
+0:00:47.280,0:00:54.000
+i run that that's trying to download that thing for me
+
+0:00:50.879,0:00:56.480
+and uh so it's saved to the city.zip and i'm just going to delete this that's
+
+0:00:55.039,0:01:00.520
+kind of a one-time thing that i'm going to do
+
+0:00:57.440,0:01:05.799
+and so i'm going to say city equals geopandas.read file
+
+0:01:02.640,0:01:08.799
+and i want to read in zip slash city.zip
+
+0:01:09.119,0:01:17.119
+very good and i can say city.plot and that looks great okay and maybe i'll
+
+0:01:16.560,0:01:20.320
+make that um kind of a lighter gray right maybe
+
+0:01:19.119,0:01:23.439
+0.7 and i'm not trying to bother with the
+
+0:01:21.520,0:01:26.640
+lakes for this video okay so what i'd like to do now is i'd
+
+0:01:25.040,0:01:30.880
+like to plot these other points on top of it so i'm
+
+0:01:28.799,0:01:34.000
+just going to leave that there for now and do this in another one i want to
+
+0:01:32.880,0:01:37.680
+grab my geodata frame that i got with all of
+
+0:01:36.560,0:01:41.119
+the locations of these fire incidents and
+
+0:01:39.680,0:01:45.040
+plot that on top of this one down here all right
+
+0:01:43.439,0:01:48.079
+so i'm going to do this and right now that's giving me two
+
+0:01:46.560,0:01:51.680
+different areas so what i'm going to do is on the first
+
+0:01:49.520,0:01:55.759
+one i'm going to capture that value and then down here i can say
+
+0:01:53.200,0:02:00.240
+well ax equals ax and um what you can see now is that uh
+
+0:01:58.960,0:02:03.119
+and as i was trying to be alluding to before a lot of these points are just
+
+0:02:01.840,0:02:07.840
+wrong right there's some maybe some erroneous data here
+
+0:02:05.119,0:02:13.840
+and uh but what i can do to actually get a reasonable map is i can look at the
+
+0:02:10.399,0:02:19.280
+limits that i had up here right uh really i think like this is the
+
+0:02:17.440,0:02:22.319
+the real city of madison in the bottom right corner and the rest is just
+
+0:02:20.560,0:02:26.720
+spurious data and so i should do this i should say ax
+
+0:02:24.400,0:02:33.680
+dot set x limit and i want to go from negative 89.55
+
+0:02:30.239,0:02:39.440
+to negative 89.25 and does it set x slim
+
+0:02:36.879,0:02:42.080
+maybe set x slim there we go that's a little bit better
+
+0:02:40.640,0:02:48.319
+and then the same deal with the y limb that's kind of a weird tall map
+
+0:02:44.160,0:02:55.200
+ax that set ylm and i can draw from uh 43 to 43.175 i'm just kind of reading
+
+0:02:54.319,0:02:59.200
+these numbers off here that i get for a
+
+0:02:56.400,0:03:02.720
+reasonable math and uh that just lets me crop off
+
+0:03:00.080,0:03:07.760
+all of these um these weird points so maybe let me make this a little bit
+
+0:03:04.800,0:03:12.319
+a lighter gray for my background and then maybe i'll make these like
+
+0:03:09.040,0:03:18.720
+um i don't know like red or something right so that that seems great and uh
+
+0:03:15.680,0:03:23.040
+and so that's good what i'd like to do now
+
+0:03:19.360,0:03:29.200
+is to figure out how i can plot it by day right how can i plot um
+
+0:03:26.159,0:03:35.200
+kind of a specific day of data and so if i look at my geodata frame here's my geo
+
+0:03:32.879,0:03:39.280
+data frame um maybe what i'm going to do is i'm
+
+0:03:37.840,0:03:44.400
+just going to get the ones that start with september to kind of keep this
+
+0:03:42.319,0:03:50.080
+not too complicated right so maybe i'll say geodata
+
+0:03:46.000,0:03:53.599
+frame uh where the date that store that starts
+
+0:03:54.159,0:04:02.000
+with um let's say 09 right so that's some of these a few of
+
+0:04:00.640,0:04:06.640
+them and i i could certainly just pull out those
+
+0:04:04.319,0:04:12.239
+right so this will be like the september september points let me look at that
+
+0:04:10.400,0:04:16.160
+and um and then what i could do is if i'm just dealing with september
+
+0:04:14.799,0:04:19.280
+i don't have to get complicated about parsing these dates i don't want to make
+
+0:04:17.600,0:04:21.120
+that part of this already complicated video
+
+0:04:19.919,0:04:25.199
+maybe i'm just going to pull off what day of the month it is
+
+0:04:23.520,0:04:31.440
+all right and so the way i can do that is i can say september
+
+0:04:27.120,0:04:38.000
+uh date and then i could do a split on a stir dot split
+
+0:04:35.600,0:04:41.520
+like that and i get this thing and then i can try to pull out
+
+0:04:40.000,0:04:45.120
+well that doesn't quite work right it's kind of like a list of that
+
+0:04:43.040,0:04:48.240
+um if i actually want to convert this to be multiple columns
+
+0:04:46.800,0:04:54.840
+i have to pass in something called explode equals true
+
+0:04:50.960,0:04:58.720
+i do that does it explode or expand there we go and now i can
+
+0:04:57.440,0:05:02.880
+actually say i want that one column so i can actually
+
+0:05:01.039,0:05:07.759
+get the day of the month right so i'm just going to put this back
+
+0:05:04.160,0:05:11.600
+in so i'm going to say september day equals that thing and so then i'm kind
+
+0:05:10.240,0:05:16.320
+of working with this nice little piece of data here
+
+0:05:13.199,0:05:20.160
+and uh and well the one thing i'd like to do is actually make that as an end
+
+0:05:17.919,0:05:22.320
+too so i'm going to say as type and
+
+0:05:23.360,0:05:31.520
+you can see it's complaining to me and the reason it's complaining
+
+0:05:28.000,0:05:34.960
+is because right here september is just a portion it's kind of a slice
+
+0:05:33.440,0:05:38.720
+of the bigger data frame and they're saying that when
+
+0:05:36.880,0:05:42.400
+you take a slice of another data frame they don't want you to add columns to it
+
+0:05:40.960,0:05:48.400
+um that kind of mux around with the internal representation
+
+0:05:44.240,0:05:52.240
+um when i take this slice i can uh tell andes to just make a copy of it and then
+
+0:05:50.479,0:05:55.840
+it'll just stop complaining which is wonderful and so here i go i
+
+0:05:54.560,0:05:59.759
+have all these different incidents that happened on different days
+
+0:05:57.680,0:06:03.039
+and um and then you could imagine well i can create something that plots just a
+
+0:06:01.280,0:06:07.199
+single day right so let's do this i'm going to say
+
+0:06:05.840,0:06:11.400
+um up here i'm going to say like fig and ax
+
+0:06:09.600,0:06:14.400
+equals plt.subplots
+
+0:06:14.720,0:06:22.000
+and here i'm just going to use ax for everything
+
+0:06:18.080,0:06:24.880
+like that and uh let me try running that's not gonna work
+
+0:06:23.280,0:06:27.840
+because i haven't imported plot yet let me go way up to the top and do that i'm
+
+0:06:26.639,0:06:35.039
+gonna say um from matplotlib
+
+0:06:32.000,0:06:39.280
+import pi plot as plt and while i'm adding i say
+
+0:06:36.240,0:06:42.880
+um from matplotlib uh dot animation
+
+0:06:43.039,0:06:49.599
+import func animation because i'm gonna need it soon right so
+
+0:06:49.039,0:06:56.560
+uh if autocomplete doesn't mess me up okay
+
+0:06:52.800,0:07:03.599
+great so back down here running this thing and i have a nice map
+
+0:07:01.599,0:07:06.880
+and uh maybe what i'll like to do is i like to have something that says like
+
+0:07:04.960,0:07:13.039
+you know plot a day and i'll pass in a day here and
+
+0:07:09.919,0:07:17.440
+uh what i'll do is i'll just filter it for september let me actually put all of
+
+0:07:15.199,0:07:23.680
+this all of this after september right so
+
+0:07:20.560,0:07:26.080
+here i have all my september stuff which is shorter
+
+0:07:24.960,0:07:29.199
+and then after that i'm just going to plot it and then what i'm going to do is
+
+0:07:27.840,0:07:32.319
+i'm just going to say well what day in september
+
+0:07:30.400,0:07:38.720
+do i want right so i'm going to say instead of gdf.plot everything
+
+0:07:34.720,0:07:44.879
+i'm going to say gdf where gdf of the day equals that
+
+0:07:43.280,0:07:50.960
+right so so then i can do this to anything i can say plot day
+
+0:07:47.440,0:07:56.160
+um you know it's plot 30 and that broke horribly um why did that
+
+0:07:54.400,0:07:59.759
+break horribly i guess was there not a day column
+
+0:07:58.000,0:08:04.319
+you know what i think my problem was is that um only
+
+0:08:01.599,0:08:07.759
+the september data frame did i add this to
+
+0:08:05.599,0:08:12.319
+not the general one so so really i want to just be doing
+
+0:08:08.720,0:08:16.560
+september everywhere i do that great so on september
+
+0:08:13.759,0:08:19.759
+30th there were these two things like one of these was a lake rescue
+
+0:08:18.319,0:08:23.599
+and then i don't know what that one was it was like a fire or something
+
+0:08:21.599,0:08:28.240
+or i could do like you know 17 and then there were some other incidents and
+
+0:08:26.479,0:08:31.360
+that's all well right and and so you can maybe see that i've gotten very close to
+
+0:08:29.680,0:08:37.120
+being able to actually um make my animation
+
+0:08:34.640,0:08:40.080
+right because i can just treat a frame number
+
+0:08:37.680,0:08:44.480
+as a day right i can actually use this plot day thing
+
+0:08:41.519,0:08:49.040
+as my um [ __ ] animation function right i can say funk
+
+0:08:45.600,0:08:54.080
+animation and i can pass in well what figure i want to use that one
+
+0:08:51.760,0:08:58.080
+and what function do i want to use i'm going to use plot day
+
+0:08:56.080,0:09:02.480
+and then how many frames how many frames do i want
+
+0:08:59.760,0:09:07.279
+um i want to have uh you know i think something like 31
+
+0:09:03.680,0:09:11.040
+right 31 days in september and uh and that's great right so it's
+
+0:09:09.440,0:09:14.959
+gonna call plot day for frame zero which i guess is nothing
+
+0:09:12.959,0:09:18.560
+right there's not no date zero which is fine right i mean this should
+
+0:09:16.080,0:09:23.279
+kind of empty frame and draw all the way up to 31 so
+
+0:09:20.080,0:09:26.320
+let me do that and uh the geodata frame you were trying to plot is empty
+
+0:09:24.880,0:09:31.519
+well that's just kind of a silly warning right i guess this is empty
+
+0:09:28.240,0:09:37.519
+maybe i'm gonna say like um uh day data frame equals this and i'll say
+
+0:09:34.800,0:09:42.480
+if like the length of day data frame is greater than zero
+
+0:09:39.760,0:09:48.080
+um then i'll actually actually plot it just so it's not so noisy
+
+0:09:45.120,0:09:54.720
+okay so what i want to do now is to actually have it plot all of them
+
+0:09:51.279,0:10:00.000
+i have to try to save this to something so i can say like animation
+
+0:09:56.959,0:10:04.320
+dot 2 uh html is it html5 video let me just see
+
+0:10:02.839,0:10:09.440
+here um i can say that too i'm hitting tab here
+
+0:10:08.079,0:10:13.360
+maybe i actually have to just say like or i forget what it's called
+
+0:10:11.519,0:10:18.640
+if i say that it's going to show me all these different things i can do
+
+0:10:15.519,0:10:24.560
+such as to html5 video that's what i was looking for
+
+0:10:20.959,0:10:28.959
+and so i'm going to say animation to html5 video remember that returns
+
+0:10:27.279,0:10:32.720
+like a big html string so let me get that big html string
+
+0:10:30.959,0:10:37.120
+and then i can show it like this i can say html
+
+0:10:34.880,0:10:43.279
+and then show it and i guess to show it what do i need to do i need to say
+
+0:10:39.120,0:10:50.800
+uh from ipython.4.display import html
+
+0:10:46.560,0:10:55.360
+so uh why is it it's not happy because i misspelled it
+
+0:10:53.200,0:11:02.480
+okay great i'm gonna do that and um fingers crossed that we actually
+
+0:10:58.959,0:11:15.839
+get a reasonable animation here i'm not optimistic about how slow this
+
+0:11:04.959,0:11:20.480
+is going and well there we go actually
+
+0:11:21.200,0:11:26.320
+great you can see the points are popping up as we go um
+
+0:11:24.560,0:11:29.920
+you can see like one problem well a couple problems right it's super fast
+
+0:11:28.240,0:11:32.800
+and one like the points don't erase after they've shown
+
+0:11:31.600,0:11:35.920
+and so we've talked about some of these things before i can say something like
+
+0:11:34.160,0:11:39.600
+ax dot clear uh each time and then down here if i
+
+0:11:38.160,0:11:43.279
+want i can actually um let me actually not set the x limit
+
+0:11:41.839,0:11:46.640
+each time that's kind of weird right um i should do that once at the
+
+0:11:44.959,0:11:51.600
+beginning uh down here i can maybe set the
+
+0:11:50.240,0:11:55.600
+interval to a little slower let's say like i want to have like a half second
+
+0:11:53.120,0:11:57.839
+per day that should be like a 15 second video
+
+0:11:58.000,0:12:11.839
+and hopefully this is like a little bit more reasonable
+
+0:12:11.920,0:12:17.200
+all right and so i have this nice video here and i can see well i guess there
+
+0:12:16.000,0:12:23.279
+were some days where it was empty you can see as they crop pop up as they go
+
+0:12:19.600,0:12:25.680
+oh maybe okay maybe it was a bad idea to set this up here you saw that it was
+
+0:12:24.480,0:12:30.240
+kind of changing size as we were going so let's not do that
+
+0:12:28.959,0:12:33.120
+let's do that after we do all our plotting because sometimes we plot out
+
+0:12:31.680,0:12:36.480
+of range bad idea i'm not going to do that and
+
+0:12:35.279,0:12:40.160
+another thing remember is that after i generate the html string
+
+0:12:38.720,0:12:46.000
+which i'm going to display i should close the figure right so i get
+
+0:12:43.600,0:12:49.680
+rid of this guy down here okay so i think that this is actually
+
+0:12:47.600,0:12:53.839
+going to finally be a good map fingers crossed let's run this
+
+0:12:54.079,0:13:01.519
+and uh and then maybe i'll deliver on my promise of actually having an animated
+
+0:12:58.959,0:13:04.240
+map based on data we straight from the web definitely one of the more
+
+0:13:02.560,0:13:08.160
+complicated examples in this course but sometimes i think it's nice to see
+
+0:13:06.320,0:13:12.720
+something that feels like a kind of an end to end project rather than
+
+0:13:10.399,0:13:16.160
+a lot of smaller examples so thank you for bearing with me
+
+0:13:14.079,0:13:18.480
+let me run that and then it keeps going and then i can see there's some other
+
+0:13:17.839,0:13:21.760
+points and that was the end of the month i kind of
+
+0:13:20.320,0:13:25.040
+know somewhere down here nope not quite the end of the month yet i
+
+0:13:23.760,0:13:28.320
+think at the end there was like another lake rescue yep there's a lake rescue
+
+0:13:26.880,0:13:31.360
+and then we're done and i'll end it there but you can
+
+0:13:29.839,0:13:34.480
+imagine a lot of ways to polish this right it could be higher resolution
+
+0:13:33.279,0:13:38.639
+if i want to get rid of the border around it i should probably have some
+
+0:13:36.480,0:13:41.920
+text up here in the top left saying what day of the month it is
+
+0:13:40.240,0:13:49.360
+um all of these things are things that you could do to improve
+
+0:13:43.839,0:13:49.360
+um the example okay so i'll end it there
+

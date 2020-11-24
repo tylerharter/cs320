@@ -1,0 +1,969 @@
+0:00:00.960,0:00:07.200
+all right in this video i'm going to see how we can use selenium
+
+0:00:04.480,0:00:10.320
+to pull the data out of the second uh table on this page
+
+0:00:08.639,0:00:14.880
+and just to remind you what's kind of tricky about this page if i refresh
+
+0:00:12.799,0:00:17.920
+the second table only gets loaded after about a second so if we were using
+
+0:00:16.160,0:00:21.279
+something like request.net uh we wouldn't even really see that and
+
+0:00:19.920,0:00:27.920
+in fact if i right click on here and i hit view page source
+
+0:00:24.080,0:00:31.840
+you can see that in my html writing i have i have the first table
+
+0:00:29.519,0:00:34.719
+and it says and add another one and there's no table here
+
+0:00:33.120,0:00:38.000
+right so if i was just kind of reading through this html
+
+0:00:36.399,0:00:42.000
+um i'm not going to be able to get that data the way i'd want to the date
+
+0:00:40.399,0:00:45.920
+the data only really shows up when this javascript code runs and it adds that
+
+0:00:44.719,0:00:51.840
+and of course china is trying to understand this javascript code um
+
+0:00:49.200,0:00:55.680
+is very non-trivial right so what i'd rather do is have
+
+0:00:53.039,0:00:59.920
+selenium run the javascript code for me and then kind of see what
+
+0:00:56.879,0:01:03.039
+what it adds in the end and and so to kind of start off i think it'll be a
+
+0:01:01.280,0:01:07.200
+little easier to see what's going on if i'm running all the code on on my
+
+0:01:04.960,0:01:11.600
+laptops i'm a local host here um you know i haven't taught you how to
+
+0:01:09.520,0:01:14.000
+install selenium on your own laptop so you won't be able to follow along with
+
+0:01:12.960,0:01:18.080
+this small demonstration so just watch and enjoy um
+
+0:01:16.880,0:01:21.600
+during the second piece i will move over to my virtual machine
+
+0:01:20.400,0:01:24.000
+where i did teach you how to install selenium so if you wanted to then you
+
+0:01:23.200,0:01:28.960
+could kind of follow along there okay so here i am i'm going
+
+0:01:26.560,0:01:35.280
+to create a new notebook and uh and there's some kind of tedious
+
+0:01:33.439,0:01:39.680
+uh kind of setup stuff so i'm just going to copy that here
+
+0:01:36.479,0:01:44.000
+from from the slides rather than kind of type it out while you're watching
+
+0:01:41.840,0:01:48.000
+and so what is this doing well we already installed the selenium
+
+0:01:46.000,0:01:52.880
+uh package and i'm gonna import webdriver from it
+
+0:01:49.759,0:01:56.880
+i am going to import this options thing from chrome each of the web browsers has
+
+0:01:55.200,0:02:00.159
+some different options and then there's a bunch of exceptions
+
+0:01:58.719,0:02:04.880
+that can happen and the one i'm going to be using today is called no such element
+
+0:02:02.000,0:02:08.399
+exception so i'm going to import that um i may start i'm going to create a new
+
+0:02:06.640,0:02:11.680
+options object uh this headless thing i'm going to talk
+
+0:02:10.239,0:02:14.959
+about that soon right and not yet just trying to ignore
+
+0:02:13.040,0:02:21.680
+that for now and then here i actually create um a new
+
+0:02:19.040,0:02:25.040
+uh chrome browser right let's call that b for browser
+
+0:02:22.800,0:02:28.080
+so let me actually just run this and we'll see what happens
+
+0:02:29.360,0:02:35.200
+that as you can see opens up this new browser window
+
+0:02:34.000,0:02:38.400
+and i don't know if you can quite read that but it says chrome is being
+
+0:02:36.640,0:02:43.599
+controlled by automated test software uh this whole selenium tool
+
+0:02:41.440,0:02:46.800
+was built in the mind of kind of testing um web pages
+
+0:02:45.200,0:02:50.319
+we aren't interested in testing it's a data science course
+
+0:02:48.480,0:02:53.760
+my only kind of interest is is how selenium will help us
+
+0:02:51.920,0:02:56.560
+pull data off of pages that have javascript
+
+0:02:54.959,0:03:00.720
+um and that should be very useful for us even though um selenium was built kind
+
+0:02:58.879,0:03:05.280
+of more with testing in mind than web scraping
+
+0:03:02.159,0:03:09.480
+okay so there i am and uh and if i want to i can say things like g dot get
+
+0:03:07.840,0:03:15.599
+uh let's say i want to go like you know google.com i could do that
+
+0:03:12.560,0:03:20.080
+b actually b is um my browser object right so i'm gonna do
+
+0:03:16.840,0:03:23.680
+b.google.com and uh and um and it's happy i guess it's an
+
+0:03:21.920,0:03:28.400
+invalid url but let me actually just kind of type it properly
+
+0:03:25.040,0:03:33.040
+right it's https like that and i can see that when i run that it
+
+0:03:30.239,0:03:36.640
+automatically goes there um if i wanted to i could go to my website
+
+0:03:35.519,0:03:44.319
+you know let me do this https.crozar.com i can do
+
+0:03:42.080,0:03:47.680
+that it goes to my website cool um what i wanted to do is i wanted to go
+
+0:03:46.319,0:03:53.840
+to this page uh right here so i'm going to copy that
+
+0:03:51.040,0:03:57.680
+and i'm going to put this here and it's going to go to that page
+
+0:03:55.680,0:04:04.000
+and load it right and if i run this again it kind of refreshes each time
+
+0:04:01.280,0:04:08.480
+okay so that's that's good and um and after i do that
+
+0:04:05.040,0:04:11.680
+there's an attribute called b dot page source and it's not a function so i
+
+0:04:11.280,0:04:15.760
+don't or method so i don't do that this is
+
+0:04:13.920,0:04:18.959
+just an attribute and it gives me a string
+
+0:04:16.880,0:04:24.000
+of what's currently on the page right so so if i run that
+
+0:04:21.440,0:04:28.000
+and i kind of look through here i can see that
+
+0:04:24.639,0:04:31.440
+there's the first table and and then it seems like there's about to
+
+0:04:29.280,0:04:37.199
+be another table and there's nothing nothing there yet right so this kind of
+
+0:04:34.560,0:04:40.479
+ran right i got this html before that second table even even
+
+0:04:39.600,0:04:43.520
+showed up now if i add another code down here
+
+0:04:42.080,0:04:48.320
+another cell down here and i run the same thing again
+
+0:04:44.960,0:04:53.440
+let's say i say um uh that's a second time print b dot page
+
+0:04:51.360,0:04:56.720
+source i do that and now what's actually pretty
+
+0:04:56.240,0:05:04.160
+cool is that i get some html
+
+0:05:00.000,0:05:07.600
+uh for that second table and what's happening here is this html
+
+0:05:06.000,0:05:13.759
+didn't come out of any kind of file right that was not in
+
+0:05:09.680,0:05:17.600
+the html source code for this page what happened is that on the right i had
+
+0:05:16.240,0:05:23.440
+something like this i had this html with one table
+
+0:05:21.280,0:05:27.680
+and then this javascript code started running
+
+0:05:24.479,0:05:30.080
+and the javascript code added another table
+
+0:05:28.160,0:05:34.240
+not not didn't create new tags but it created new elements
+
+0:05:31.919,0:05:38.080
+in the dom in the document object model and so what's happening here when i
+
+0:05:36.080,0:05:41.680
+say page source it's not giving me the actual html
+
+0:05:39.840,0:05:47.520
+for the page but it's kind of translating back it's converting the dom
+
+0:05:44.479,0:05:50.479
+back to the equivalent html uh for the purposes of well giving me something i
+
+0:05:49.440,0:05:54.400
+can actually work with right so that has all the data there i'm
+
+0:05:52.320,0:05:58.639
+interested in um which is very cool um now what i can
+
+0:05:57.919,0:06:03.199
+do uh if i'm kind of looking through here i
+
+0:06:01.520,0:06:07.039
+can see that there's two table tags right there's um this table
+
+0:06:06.240,0:06:10.240
+tag and you can actually give names to tags
+
+0:06:09.039,0:06:14.960
+in html using id so this one has id alpha and
+
+0:06:13.360,0:06:19.360
+this one has id chords for coordinates and that's
+
+0:06:17.919,0:06:23.440
+actually a handy way when we're parsing things to try to find
+
+0:06:21.039,0:06:25.199
+a particular piece of data and so if i do something like this if i say like you
+
+0:06:24.720,0:06:32.560
+know b dot find element by id
+
+0:06:29.360,0:06:36.720
+and i say chords i get this thing this um selenium web
+
+0:06:35.919,0:06:42.639
+element corresponding to that that table um if i
+
+0:06:40.160,0:06:47.840
+if i put some garbage here like missing i get a no such element
+
+0:06:44.560,0:06:52.160
+uh exception right so here's what i want to do right that you
+
+0:06:50.080,0:06:55.840
+know that page normally takes one second to load
+
+0:06:52.800,0:06:59.919
+the second table what i want to do is kind of
+
+0:06:56.560,0:07:06.160
+you know wait until it is loaded right and then
+
+0:07:03.280,0:07:10.880
+one way i can wait is i can use um i can use this i can say import
+
+0:07:08.960,0:07:15.919
+time and i could do something like well print a
+
+0:07:12.160,0:07:21.520
+print b and i could say like time dot sleep
+
+0:07:17.280,0:07:25.759
+um let's say you know 2 000 milliseconds is two seconds so if i do
+
+0:07:24.880,0:07:31.440
+that i get you know a wait two seconds and then i
+
+0:07:29.120,0:07:34.720
+get time time is trawling you know what i
+
+0:07:33.520,0:07:38.319
+got it wrong let me just kind of interrupt this
+
+0:07:36.560,0:07:41.440
+this is actually a second so i think i want to do two
+
+0:07:40.160,0:07:44.400
+i'm just gonna make a note here that's two seconds we would have been waiting
+
+0:07:42.720,0:07:51.520
+there for quite a while actually you're on that well that seems weird
+
+0:07:47.759,0:08:00.400
+let me some milliseconds or is it uh seconds let me this would be one second
+
+0:07:56.840,0:08:11.360
+a and then let me interrupt that but if i just say
+
+0:08:09.039,0:08:14.879
+one there it goes so it is one second what
+
+0:08:14.160,0:08:20.720
+was i typing before okay that's two seconds
+
+0:08:17.599,0:08:24.400
+let me try three seconds that is three seconds maybe i didn't
+
+0:08:22.960,0:08:27.520
+interrupt it properly sorry for the confusion so this is in seconds right
+
+0:08:25.840,0:08:30.639
+and that's waiting three seconds and so down here what i want to do is i
+
+0:08:28.879,0:08:34.080
+want to have some sort of like time dot sleep and the big question is well how
+
+0:08:32.880,0:08:38.320
+long and um and that's tricky right because
+
+0:08:36.719,0:08:42.320
+sometimes a page might load quickly sometimes it might load slowly
+
+0:08:40.159,0:08:45.120
+um i could error on kind of a really big number i mean i could say like you know
+
+0:08:43.839,0:08:48.399
+wait one minute but that's not great because i'm wasting
+
+0:08:46.959,0:08:51.920
+time when it's faster so a better strategy is if we can just
+
+0:08:50.160,0:08:58.000
+kind of keep checking um until the table is there right
+
+0:08:55.920,0:09:02.080
+and uh and i i will know if the table's there because
+
+0:08:59.360,0:09:04.640
+when i do this find element by id if it's there then it works and if it's not
+
+0:09:03.839,0:09:10.399
+there then i get an error right so let me let me go back to
+
+0:09:07.920,0:09:14.959
+chords and um and i think i actually since i
+
+0:09:12.880,0:09:18.399
+restarted this i lost my uh browser right so let me just try to
+
+0:09:17.200,0:09:22.160
+run through this again i'll delete this for now i run through
+
+0:09:21.360,0:09:26.080
+this again i have my browser up again hopefully
+
+0:09:24.560,0:09:30.080
+there we go and um and then i can actually start
+
+0:09:29.279,0:09:34.480
+using it right so the idea down here
+
+0:09:34.839,0:09:41.600
+is let me just write some pseudo code right so i want to say i want to keep
+
+0:09:39.839,0:09:48.959
+looping and then i want to check if we have
+
+0:09:45.680,0:09:55.440
+the content if so let me break otherwise wait a bit
+
+0:09:52.720,0:09:58.160
+um and the idea here is that i don't want to check like
+
+0:09:56.480,0:10:00.959
+constantly but i want to check maybe every tenth of a second or something
+
+0:09:59.760,0:10:04.079
+like that okay so how do i check if the content is
+
+0:10:02.640,0:10:08.000
+there i have to have a try right so maybe i'll just try to leave
+
+0:10:05.920,0:10:14.640
+these comments here like so when i have a try and um
+
+0:10:13.360,0:10:21.120
+and i'm gonna paste this thing i'm gonna see if i can find that content
+
+0:10:17.440,0:10:26.959
+and then i have an accept down here and uh and then i need to wait right if
+
+0:10:24.640,0:10:30.240
+i if i don't have it yet i need to wait a while so i'm gonna say
+
+0:10:28.320,0:10:34.000
+time dot sleep you know something i'll come back to
+
+0:10:31.920,0:10:37.440
+that um if this works and i don't have an
+
+0:10:35.360,0:10:40.959
+exception then i want to break out of this loop i don't want to keep checking
+
+0:10:39.040,0:10:44.880
+again and again all right so i'm gonna have something
+
+0:10:42.000,0:10:48.880
+like this um you know let's just check every quarter second like that
+
+0:10:49.040,0:10:54.240
+uh i better say like waiting something like that
+
+0:10:55.519,0:11:05.040
+okay uh let's give this a try waiting waiting waiting until it hits
+
+0:11:03.360,0:11:08.640
+the page and then if i scroll down and look at
+
+0:11:06.320,0:11:14.720
+this page source after that then guess what um i have
+
+0:11:12.000,0:11:18.800
+have the the table and so the beauty of this is if it takes long or slow
+
+0:11:17.040,0:11:24.320
+um i'll just kind of wait however long necessary not longer and not not shorter
+
+0:11:21.519,0:11:29.760
+okay so that's good um this is an example of pulling
+
+0:11:26.720,0:11:34.959
+and by polling uh i mean uh checking uh until it is
+
+0:11:33.200,0:11:38.640
+ready right so pulling it's time to comment strategy check are you ready now
+
+0:11:36.720,0:11:42.160
+are you ready now are you ready now um kind of a like a child in the back
+
+0:11:40.720,0:11:46.320
+seat on a long car trap right they keep asking are we there
+
+0:11:43.839,0:11:51.519
+yet and uh and sometimes in programming that's the appropriate thing to do
+
+0:11:48.880,0:11:53.839
+uh one last thing i want to do here is i want to say have some sort of maximum
+
+0:11:53.360,0:11:57.839
+time you know maybe i'll say like max equals
+
+0:11:56.240,0:12:01.120
+you know 10 seconds because maybe like the internet's down
+
+0:11:59.680,0:12:03.839
+or like there's a serious problem with the site
+
+0:12:02.160,0:12:07.440
+and and so i wouldn't want to keep doing this for like you know
+
+0:12:05.200,0:12:10.240
+five hours right so generally what i'll do is i'll say something like this you
+
+0:12:09.040,0:12:15.440
+know something like for i and range of um you know if i want to do
+
+0:12:13.600,0:12:18.800
+it a maximum of 10 seconds and each time i check i wait a quarter
+
+0:12:18.079,0:12:21.920
+second then i guess i'd wait like 40 times max
+
+0:12:21.040,0:12:26.000
+right and that's going to be better right but
+
+0:12:24.800,0:12:29.120
+if i if i search for something like garbage
+
+0:12:27.279,0:12:32.480
+i'll just see what will happen there it'll eventually give off
+
+0:12:33.839,0:12:42.000
+the very end it'll give up and uh after 10 seconds and then well whatever
+
+0:12:39.680,0:12:46.160
+i couldn't have well it was waiting for that other thing
+
+0:12:43.440,0:12:49.120
+to show off the the missing chords too and uh and it gave me the content even
+
+0:12:48.000,0:12:54.000
+if it didn't have that so this is kind of a general way that you'll
+
+0:12:51.120,0:12:57.360
+be grabbing content you'll retry you'll have some sort of maximum
+
+0:12:55.680,0:13:02.399
+and then you'll wait between between checking okay so back to chords
+
+0:12:59.920,0:13:06.000
+and i have the page okay so i want to review
+
+0:13:03.120,0:13:10.079
+um selenium or beautiful soup a little bit
+
+0:13:06.959,0:13:15.760
+selenium helps us run javascript and kind of kind of grab the changes
+
+0:13:13.760,0:13:19.040
+from javascript and html but a more useful tool that we learned
+
+0:13:17.600,0:13:22.399
+in cs220 well it was beautiful soup which would
+
+0:13:20.959,0:13:24.480
+actually help us pull content out of here
+
+0:13:22.959,0:13:30.000
+so what i'd like to do with this demo is i'd like to try to get this thing
+
+0:13:26.639,0:13:34.480
+um into a data frame okay so let's do that um maybe i'll just try to
+
+0:13:32.560,0:13:38.959
+get rid of this for now just trying to clean it up a little bit
+
+0:13:36.399,0:13:46.639
+um what i will do is i'll say from beautiful soup 4
+
+0:13:42.320,0:13:51.839
+import beautiful soup and let me create a beautiful soup
+
+0:13:49.279,0:13:59.279
+document from that html that i had so i think
+
+0:13:56.480,0:14:04.160
+that was something called like you know uh my selenium browser.page source
+
+0:14:04.800,0:14:12.160
+and let me look at this page and that's great so i was able to get it
+
+0:14:09.839,0:14:17.680
+maybe you remember in a beautiful soup i could do things like you know
+
+0:14:13.440,0:14:21.360
+page dot find i could find a table tag that would give me the first table um if
+
+0:14:19.839,0:14:24.800
+i did a find all it would give me a list of the tables
+
+0:14:23.600,0:14:28.240
+and so maybe i might say something like this tables
+
+0:14:25.760,0:14:31.839
+equals this let me check the length of the tables um
+
+0:14:30.240,0:14:35.360
+maybe a good thing to do here would be to make sure that
+
+0:14:33.279,0:14:40.320
+i i have exactly two tables so maybe i'll say something like a cert
+
+0:14:37.120,0:14:44.079
+that equals two and uh and so at this point the table i
+
+0:14:42.240,0:14:50.880
+really want is that second one and it looks like this and um
+
+0:14:47.839,0:14:58.079
+and so maybe what i can do right is if i uh if i get a
+
+0:14:54.480,0:15:03.120
+you know a list of list to construct a data frame
+
+0:15:01.680,0:15:06.959
+what i'd like to do is kind of get this list of all the rows here and use that
+
+0:15:04.959,0:15:10.959
+to construct a pandas data frame so i actually have those coordinates to
+
+0:15:08.639,0:15:16.480
+work with so so what i want to do is i have this thing
+
+0:15:12.560,0:15:20.800
+this table here and and when i have that thing i can find
+
+0:15:18.160,0:15:25.760
+all the rows so remember that tr stands for table row and so if i do that
+
+0:15:23.760,0:15:29.519
+that's going to get me all the rows and i can loop over those i could say
+
+0:15:27.360,0:15:38.639
+for you know tr and that maybe i'll just print it
+
+0:15:33.440,0:15:43.680
+and so that's great right so maybe um so maybe what i'll do now is for each of
+
+0:15:42.160,0:15:48.639
+these i'd like to actually get out the values you know like
+
+0:15:44.639,0:15:53.600
+x y uh 0 1 so on and so forth right so for each of these maybe i'll
+
+0:15:50.079,0:15:59.839
+say table row not find all td and all of these things
+
+0:15:56.880,0:16:03.440
+and um and then finally what i want to do is i just want to have a list right i
+
+0:16:01.120,0:16:07.440
+just want these raw values uh kind of at the base here and and so
+
+0:16:06.000,0:16:12.720
+what i'll do is i want to run something on each of
+
+0:16:11.279,0:16:15.040
+these elements right and i can use a list comprehension so i can say
+
+0:16:14.079,0:16:19.440
+something like something for something in that and
+
+0:16:18.079,0:16:23.279
+that's going to take each of the things in here
+
+0:16:21.120,0:16:27.360
+and uh put in a variable name here so i'll say like td
+
+0:16:24.800,0:16:30.800
+and then run some code here and whatever this code gives me it's going to give me
+
+0:16:28.880,0:16:34.560
+a list of those things right so i could say something like you
+
+0:16:32.320,0:16:38.880
+know td dot text i think it is and uh and now i see
+
+0:16:37.680,0:16:44.000
+i'm in pretty good shape right i'm kind of looping over all these things
+
+0:16:41.040,0:16:46.000
+and kind of getting all these lists so instead of
+
+0:16:44.480,0:16:50.800
+uh printing all of these i'm gonna do is i'm gonna append it to rows
+
+0:16:47.920,0:16:54.959
+like this and so then i have my nice list of rows here
+
+0:16:52.880,0:16:59.120
+and at this point i can actually start building my data frame and i say
+
+0:16:56.839,0:17:05.520
+pandas.dataframe and uh and what do i want to pass in i
+
+0:17:02.079,0:17:10.880
+want to pass in um well let's try this oh
+
+0:17:08.720,0:17:13.679
+what did i where did i import that sorry i have to import panda somewhere so i'm
+
+0:17:12.319,0:17:20.079
+going to say import pandas as pd
+
+0:17:17.280,0:17:22.799
+when i do that and um and you can see it's a little weird
+
+0:17:20.799,0:17:26.799
+right i mean it's using that first row as actual data
+
+0:17:23.919,0:17:29.760
+so maybe what i'd like to do is kind of slice that off
+
+0:17:29.840,0:17:34.640
+so i don't have x and y in my actual data
+
+0:17:33.600,0:17:40.880
+and then the other thing i can do is i can say columns equals
+
+0:17:37.440,0:17:45.360
+um i might pull that from that 0th row so let me do that and now i have this
+
+0:17:43.039,0:17:51.520
+beautiful data frame which was constructed by
+
+0:17:49.039,0:17:56.720
+it was constructed from this uh data here right this kind of tricky table
+
+0:17:54.320,0:18:03.440
+that pops up later so just kind of really quickly recap what we did here
+
+0:17:59.600,0:18:06.480
+right we navigated to the page we kept checking until the the table
+
+0:18:05.679,0:18:09.840
+loaded however long they needed to be up to 10
+
+0:18:08.240,0:18:14.000
+seconds after the table loaded we pulled out the
+
+0:18:12.799,0:18:18.720
+page source and we used beautiful soup to analyze it we
+
+0:18:16.880,0:18:21.760
+used it to find all the tables on that page after we've seen everything is
+
+0:18:20.160,0:18:26.480
+fully loaded we checked that we had two tables as
+
+0:18:23.280,0:18:31.039
+expected in the second table we looped over all the tr tags remember
+
+0:18:28.960,0:18:35.039
+that tr is table row and then within that we looped over all
+
+0:18:32.799,0:18:37.520
+the td's right so you can see i find all the tr's
+
+0:18:36.000,0:18:42.559
+well first off i find all the tables and i find all the tr's in that second table
+
+0:18:40.000,0:18:46.240
+and within each tr i find all the tds which stands for table data
+
+0:18:44.320,0:18:49.520
+and i'm getting that text right and i kind of turned that into a one liner i
+
+0:18:47.600,0:18:53.360
+could have had a separate loop here but i have this list comprehension and
+
+0:18:51.840,0:18:58.640
+and so then i kind of neatly get this here which is this kind of prime
+
+0:18:55.520,0:19:01.600
+material for constructing a data frame uh which is what i do in the end right
+
+0:19:00.320,0:19:06.400
+and then after that i can do my real analysis
+
+0:19:03.360,0:19:10.320
+okay so this was all on my laptop right you can see it's local host and
+
+0:19:08.480,0:19:13.520
+maybe it's tricky to install uh install selenium and all these extra
+
+0:19:12.240,0:19:17.120
+things on your laptop so what i want to do is i want to talk
+
+0:19:15.039,0:19:23.360
+about how we would have done this um if we were on our virtual machine
+
+0:19:20.400,0:19:26.720
+okay and so i'm going to close this here and
+
+0:19:24.000,0:19:30.480
+um and in this cell here to the right or this tab to the right
+
+0:19:28.799,0:19:36.720
+you can see i'm connected to my virtual machine and so i'm going to create a new
+
+0:19:33.200,0:19:40.880
+notebook here and maybe i'll call it october 9. and let me try copying this
+
+0:19:39.360,0:19:44.799
+code that i have over to my virtual machine so i'm going
+
+0:19:42.320,0:19:52.720
+to copy this stuff and maybe i'll just try to run that as a
+
+0:19:48.080,0:19:56.880
+first step and so this is crashing and um and when
+
+0:19:55.440,0:20:00.320
+i kind of read down it doesn't really tell me much it's just
+
+0:19:58.240,0:20:04.400
+like chrome failed to start uh it exited it normally this weird
+
+0:20:02.880,0:20:09.120
+thing doesn't exist really nothing useful and so i'll just
+
+0:20:07.520,0:20:12.720
+tell you what the problem is the problem is that when i installed on
+
+0:20:11.039,0:20:15.919
+my virtual machine uh it didn't install the regular version
+
+0:20:14.880,0:20:19.760
+of chrome it installed what we call a headless
+
+0:20:18.400,0:20:22.720
+version of chrome and the reason is that for my virtual
+
+0:20:21.280,0:20:27.039
+machine there's no graphical user interface i kind of don't pop up windows
+
+0:20:24.640,0:20:31.360
+and kind of deal with them i only access things via
+
+0:20:27.679,0:20:34.400
+ssh right so i can run the chrome engine in the background i never really have a
+
+0:20:32.840,0:20:37.679
+browser and so when i'm doing the same thing
+
+0:20:36.000,0:20:41.840
+here with selenium what it means is that since i have the
+
+0:20:39.039,0:20:45.600
+headless version of chrome installed i have to set the headless option to
+
+0:20:44.799,0:20:50.159
+true so let me run that and uh and now it
+
+0:20:48.559,0:20:54.159
+should actually work but notice that i don't have any new
+
+0:20:52.400,0:20:57.520
+window popping up like i did last time right i don't actually have a browser
+
+0:20:55.520,0:21:00.960
+window to work with which is not great right so how can i
+
+0:20:59.520,0:21:04.640
+actually see you know there's a browser window somewhere in my vm
+
+0:21:02.799,0:21:07.840
+but i can't see it how can i get the data
+
+0:21:06.000,0:21:12.000
+out of it well i could do something like this i could say
+
+0:21:09.039,0:21:19.840
+b dot get and i could kind of get this page like before
+
+0:21:16.799,0:21:24.400
+excuse me and i could just like before i could say you know print b
+
+0:21:20.960,0:21:28.240
+dot page source so i could absolutely still kind of use
+
+0:21:25.840,0:21:32.400
+it but it's hard to see what's going on right since i don't have um you know
+
+0:21:30.400,0:21:36.000
+since it's kind of in this headless mode and and so what i'll do to kind of get
+
+0:21:34.559,0:21:40.559
+around this is that i have a mechanism to take a
+
+0:21:39.280,0:21:45.440
+screenshot of a page and so that's what i can do to
+
+0:21:43.039,0:21:50.640
+kind of actually see what's happening and and so if i want to do a screenshot
+
+0:21:48.000,0:21:54.240
+it's like this i say i'll come down here maybe i'll just try
+
+0:21:52.080,0:22:00.000
+and get rid of this for now say b dot save screen shot
+
+0:21:58.320,0:22:04.159
+then i can give it a name i saw maybe call this like you know shot one dot
+
+0:22:02.400,0:22:06.480
+and it's trying to save it as a png file i mean that's a kind of common type of
+
+0:22:05.679,0:22:11.440
+image so i'm going to do that and that returns
+
+0:22:09.440,0:22:15.039
+true when it's successful if i head back over here right to all my
+
+0:22:13.280,0:22:20.240
+files i see that sure enough it created this shot1.png file
+
+0:22:17.600,0:22:25.039
+and this is a big image showing me what that page
+
+0:22:21.440,0:22:28.080
+looked like okay so i kind of like to see that in my
+
+0:22:26.320,0:22:31.280
+notebook and there's a way to load images directly
+
+0:22:29.919,0:22:35.360
+into the notebook and that is with um this module that
+
+0:22:34.400,0:22:38.840
+i'll import it's uh i'm just checking my notes here and i
+
+0:22:37.120,0:22:44.000
+say from i python
+
+0:22:41.760,0:22:48.799
+import and we've actually imported other things from here before like we've
+
+0:22:45.679,0:22:53.200
+imported the display function now i'm going to
+
+0:22:49.440,0:22:58.799
+import image and if i do that then i can create a new image object based on
+
+0:22:56.120,0:23:02.559
+shot1.png like so and i can do that and i can
+
+0:23:00.960,0:23:07.679
+basically see um you know what i have inside of that
+
+0:23:05.360,0:23:10.720
+page and i can kind of debug that way even though i'm running on on my virtual
+
+0:23:10.240,0:23:14.320
+machine it's ultimately you know i won't do it
+
+0:23:12.159,0:23:17.760
+now but i could copy all of this code over that i had before
+
+0:23:16.159,0:23:20.559
+and uh and it would all work on my virtual machine and that's kind of the
+
+0:23:18.880,0:23:23.600
+way that i recommend you do it because it's kind of easier to
+
+0:23:21.840,0:23:28.000
+deal with these screenshots than to deal with installing um selenium
+
+0:23:26.159,0:23:32.400
+on your mac or windows or you know there's kind of a lot of
+
+0:23:29.039,0:23:37.520
+situations where it's very hard to install
+

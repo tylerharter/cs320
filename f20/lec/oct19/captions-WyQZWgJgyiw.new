@@ -1,0 +1,816 @@
+0:00:01.120,0:00:06.399
+hi in this video we're going to be talking about
+
+0:00:03.520,0:00:09.280
+a b testing um now a lot of what we've done
+
+0:00:06.799,0:00:12.240
+as data scientists is take some sort of data set do some analysis and get some
+
+0:00:11.280,0:00:15.200
+answers and that's a big part of what data
+
+0:00:13.599,0:00:20.160
+scientists do and many of you may end up in jobs uh doing that sort of thing
+
+0:00:17.840,0:00:25.359
+but another piece to it is that maybe somebody has like a
+
+0:00:21.439,0:00:28.400
+some sort of like website or business and um and they don't want to just
+
+0:00:26.880,0:00:31.359
+analyze the data but they also want you to be actively involved
+
+0:00:30.080,0:00:34.960
+in running these little miniature experiments and collecting data
+
+0:00:33.360,0:00:38.160
+and then kind of feeding that back and deciding what to do
+
+0:00:36.480,0:00:42.000
+in terms of business decisions or kind of new designs
+
+0:00:40.719,0:00:45.120
+and so a lot of the things that we talked today are actually from this
+
+0:00:43.360,0:00:50.239
+keynote talk by ronnie pohavi um that he gave at the
+
+0:00:47.920,0:00:53.520
+knowledge discovering and data mining conference some years back in 2015 and
+
+0:00:53.199,0:00:59.280
+uh and ronnie he works at uh microsoft on
+
+0:00:56.559,0:01:04.320
+bang bang is microsoft search engine and for a long time at microsoft there
+
+0:01:02.079,0:01:08.000
+would be these kind of awards when you shipped your code by shipping your
+
+0:01:06.080,0:01:12.479
+code it means that you kind of send it out to where a customer could see it
+
+0:01:10.240,0:01:15.360
+and eventually they realize this is not great
+
+0:01:13.439,0:01:19.759
+just shipping code is not necessarily a success we actually want to measure
+
+0:01:17.439,0:01:22.960
+did we do what we were hoping to do uh do we have a better product
+
+0:01:21.360,0:01:26.960
+and so this tweet here is what he's celebrating is that ship it awards are
+
+0:01:25.119,0:01:30.400
+done and they're using this a b testing to gather evidence
+
+0:01:28.560,0:01:33.280
+or on you know whether or not they made a real improvement
+
+0:01:33.360,0:01:38.000
+so i want to think a little bit about experimental design in general before we
+
+0:01:36.960,0:01:41.280
+talk about how we might uh kind of optimize something like bing
+
+0:01:40.240,0:01:45.759
+and by the way uh maybe going back a minute a lot of
+
+0:01:44.320,0:01:48.799
+the examples i have here are kind of drawn from that talk that
+
+0:01:47.439,0:01:51.920
+uh that he had debited and you're welcome to go and watch the whole thing
+
+0:01:50.159,0:01:55.840
+if you want i think it's relatively uh accessible okay so if a background on
+
+0:01:54.159,0:01:59.200
+experimental design let's say you have a bunch of
+
+0:01:56.719,0:02:03.920
+programmers and you're trying to figure out whether coffee
+
+0:02:00.880,0:02:07.680
+improves their programming ability so experimental design
+
+0:02:05.759,0:02:10.560
+uh is kind of describing well what process will be used to try to answer
+
+0:02:09.440,0:02:14.720
+this question and so let me give you an example of a
+
+0:02:12.080,0:02:19.120
+design not necessarily a good one but we could try to do some sort of
+
+0:02:17.200,0:02:24.720
+before and after thing we could take all of our people
+
+0:02:22.239,0:02:29.120
+and um and give them no coffee and ask them to do a programming project and
+
+0:02:26.319,0:02:34.319
+measure on average how long it takes so let's say it takes some 16 hours well
+
+0:02:32.160,0:02:37.840
+then we could erase all their code give them coffee and ask them to do it
+
+0:02:35.760,0:02:42.160
+again and well maybe it's faster or maybe it's eight hours do you have
+
+0:02:39.920,0:02:45.840
+any concerns about this i i think one of the big concerns here
+
+0:02:44.000,0:02:50.000
+is well maybe it wasn't about the coffee maybe they just got better
+
+0:02:47.760,0:02:54.319
+uh and more experienced from kind of the first time until the second time
+
+0:02:52.319,0:02:57.440
+and so a common way people will do this and their experiments
+
+0:02:55.760,0:03:00.800
+is they'll take their population of programmers and up front they'll divide
+
+0:02:59.599,0:03:03.519
+them into two groups they might call those groups the control group and the
+
+0:03:02.319,0:03:06.879
+treatment group and it's very important that you
+
+0:03:04.720,0:03:10.000
+randomly assign people otherwise maybe somehow you're reciting
+
+0:03:08.560,0:03:12.560
+all the good programmers to the same group
+
+0:03:10.879,0:03:16.000
+so if you do this and you give the people in the treatment group coffee
+
+0:03:14.640,0:03:19.200
+and don't give people in the control group anything well then you can measure
+
+0:03:18.480,0:03:23.280
+and see what kind of difference you have maybe
+
+0:03:20.480,0:03:27.120
+for the control group it's 16.3 hours then for the treatment group maybe it's
+
+0:03:24.480,0:03:30.239
+15.4 hours a big question there is whether that difference is just about
+
+0:03:28.480,0:03:34.720
+noise or it's actually a kind of a meaningful significant signal
+
+0:03:31.840,0:03:37.680
+signal and um in statistics to answer that question i'm about to go deep into
+
+0:03:36.159,0:03:40.959
+statistics in this course uh but that can answer that well how
+
+0:03:39.120,0:03:44.400
+much of a difference uh uh is is you know at all likelihood
+
+0:03:43.200,0:03:48.959
+noise versus it's actually evidence that that's
+
+0:03:45.760,0:03:52.239
+something is a meaningful difference now there's other things you can imagine
+
+0:03:50.239,0:03:54.959
+improving here too like you know maybe i could give decaf coffee to people to
+
+0:03:53.840,0:03:58.799
+control a group or do other things to kind of make sure
+
+0:03:56.720,0:04:01.360
+that they don't have this placebo effect where
+
+0:03:59.519,0:04:03.280
+maybe uh having a cup of coffee in your hand kind of artificially just boosts
+
+0:04:02.879,0:04:06.879
+your uh confidence um but but this is kind of
+
+0:04:06.319,0:04:10.319
+a okay design right where we have this
+
+0:04:08.159,0:04:14.319
+control and treatment group if i wanted to generalize a little bit
+
+0:04:11.920,0:04:19.919
+beyond just control and treatment uh i wouldn't necessarily have to have this
+
+0:04:17.280,0:04:23.600
+control maybe i just want to compare two different things i want to say well
+
+0:04:21.199,0:04:28.560
+is coffee better or is t better right that would be a b testing
+
+0:04:26.880,0:04:32.639
+in general right so i'd say this control and treatment
+
+0:04:30.240,0:04:35.360
+um is kind of a more specific version of a b testing
+
+0:04:33.919,0:04:38.800
+and so this kind of makes sense for these uh human experiments
+
+0:04:37.600,0:04:42.240
+uh what we're gonna be talking about today though is well what does it look
+
+0:04:40.320,0:04:46.240
+like to do a b testing maybe at a big company if you're trying
+
+0:04:43.600,0:04:48.639
+to optimize optimize the software or the product
+
+0:04:49.199,0:04:57.360
+so here is a picture of what that looks like what we'll do
+
+0:04:52.960,0:05:00.240
+is we will um uh split traffic in some way right so you have these either users
+
+0:04:59.040,0:05:03.360
+or requests and we're gonna send them to different
+
+0:05:01.520,0:05:07.360
+versions maybe version a maybe that's a control or previous version
+
+0:05:05.120,0:05:11.199
+and a version b where we vary some factors about the site maybe we have
+
+0:05:08.880,0:05:15.120
+like a bigger font size or a red font or something like that
+
+0:05:12.720,0:05:18.560
+um and so kind of splitting the users across these will gather some metrics
+
+0:05:16.720,0:05:22.560
+about both parties for example a common metric that i'll be
+
+0:05:20.560,0:05:25.840
+talking more about is click through rate if i show you an ad what percentage of
+
+0:05:25.280,0:05:29.840
+the time do you actually uh click on it uh maybe
+
+0:05:28.800,0:05:33.199
+when that font with that ad has like big red font maybe
+
+0:05:32.240,0:05:37.280
+people click more maybe it's off putting they click last
+
+0:05:34.960,0:05:41.120
+but where i get these metrics and compare them in some way and we have
+
+0:05:39.919,0:05:46.560
+to choose how we want to compare them and kind of what matters to us
+
+0:05:42.800,0:05:49.280
+maybe we decide that we want to maximize the click-through rate
+
+0:05:47.919,0:05:53.759
+and so then based on that we have some sort of outcome and a common outcome is
+
+0:05:52.000,0:05:57.759
+that while we make some sort of action we might uh
+
+0:05:54.720,0:06:00.639
+try to switch to whatever is best and so what i'm going to do today is i
+
+0:05:59.199,0:06:04.400
+may talk about all the different parts of this uh pipeline
+
+0:06:02.639,0:06:07.440
+in reverse order right i think it makes it start reverse order because it'll be
+
+0:06:06.160,0:06:10.720
+fresh in our mind what we're hoping to achieve through all
+
+0:06:09.120,0:06:14.319
+of this and and so i gave one example while we
+
+0:06:12.319,0:06:17.840
+could take some sort of action uh in the world right but other things
+
+0:06:17.039,0:06:22.000
+we could do are we could learn something and so i
+
+0:06:20.479,0:06:25.039
+actually have a link here to something i'll have in the reading
+
+0:06:23.919,0:06:28.400
+which is kind of this this notorious study that facebook had done
+
+0:06:27.919,0:06:32.720
+uh what they did is they showed people
+
+0:06:31.520,0:06:36.479
+their news feeds either more positive or more negative
+
+0:06:34.560,0:06:40.240
+content and then they wanted to see whether that could control
+
+0:06:38.319,0:06:44.080
+uh how positive or negative people were when they made their own posts
+
+0:06:41.919,0:06:48.160
+and no surprise right if you're exposed to positivity you become more positive
+
+0:06:45.840,0:06:51.680
+and if you're exposed to negativity uh you become uh more negative
+
+0:06:50.080,0:06:56.000
+and so from a learning perspective this is kind of cool right maybe we
+
+0:06:53.440,0:06:59.199
+we learned how people behave but there's also huge ethical concerns here
+
+0:06:58.080,0:07:03.120
+it's that's one of the things i want you to think about through all of this right
+
+0:07:01.120,0:07:05.840
+are these measurements we're doing or kind of the way we're dividing people or
+
+0:07:04.639,0:07:09.759
+what is the treatment um are we doing it in an ethical way um
+
+0:07:08.479,0:07:12.160
+you know if this had been a university doing this kind of experiment they would
+
+0:07:11.120,0:07:16.639
+have had to submit their proposal to the irb that
+
+0:07:14.000,0:07:22.319
+institutional review board uh facebook didn't have to do that in this case
+
+0:07:20.000,0:07:25.440
+um the other thing that you could do uh this is really not
+
+0:07:23.520,0:07:31.759
+it's hard to imagine ethical concern here uh but say you want to upgrade
+
+0:07:28.479,0:07:36.560
+um from python 3.7 to python uh 3.8 um now ideally that should have
+
+0:07:34.800,0:07:40.479
+like no difference on anything uh but it's also possible that there's
+
+0:07:38.479,0:07:44.560
+some bugs in your code that only really surface when you switch to python 3.8
+
+0:07:42.960,0:07:48.080
+and ideally we would have written some sort of test that exposed that
+
+0:07:46.720,0:07:50.560
+but you know it's hard to test everything so what people often do in
+
+0:07:50.000,0:07:54.240
+this case is that uh they'll be running both at
+
+0:07:52.879,0:07:57.680
+the same time some of the code is running on 3.7
+
+0:07:55.599,0:08:01.919
+someone's running at 3.8 and then they'll compare
+
+0:07:59.120,0:08:04.160
+maybe when we switch to 3.8 some things break for
+
+0:08:02.720,0:08:07.680
+let's say all the internet explorer users and so if we do these comparisons
+
+0:08:06.240,0:08:10.800
+we can see while we actually are hurting the business in some way
+
+0:08:08.960,0:08:14.240
+and say hey i don't want to do that yet but of course our assumption
+
+0:08:12.000,0:08:17.360
+or kind of our expectation is that these would work out just the same
+
+0:08:17.440,0:08:22.720
+so let's talk about these comparisons uh when i get the metrics from version a
+
+0:08:21.680,0:08:26.720
+and b how can i figure out if it's kind of
+
+0:08:25.120,0:08:30.479
+different or not and uh and so here i'm going to give one
+
+0:08:29.199,0:08:33.680
+example of a metric we'll be learning about others later
+
+0:08:31.680,0:08:36.159
+let me look at the click-through rate and the click-through rate is is pretty
+
+0:08:35.279,0:08:39.360
+simple it's well how many times did i show you
+
+0:08:37.680,0:08:41.760
+something and then how many times did you click on the thing i showed you
+
+0:08:40.800,0:08:45.360
+right so it'll be some sort of percentage and uh
+
+0:08:44.000,0:08:50.560
+and so what i could do is i could put that all in a data frame
+
+0:08:47.200,0:08:54.320
+like this i could say for version a how many clicked and how many did it
+
+0:08:51.920,0:08:57.360
+click and then for version b uh how many collected how many did it
+
+0:08:55.440,0:09:00.880
+click and this is called a contingency table um
+
+0:08:58.720,0:09:05.760
+the breakdown here is contingent on what version
+
+0:09:02.240,0:09:10.320
+i'm showing people and so if i want to look at this well how many
+
+0:09:07.519,0:09:14.320
+impressions of b did i have i guess i showed b
+
+0:09:11.519,0:09:18.959
+20 times and they click six times i guess that is a rate of 30 percent
+
+0:09:16.959,0:09:23.040
+and uh and i could actually just put this into pandas like this i could say
+
+0:09:20.880,0:09:26.560
+divide the clicks by uh the sum of each row and then i would
+
+0:09:25.360,0:09:31.600
+get well version a is 15 and version b is 30 percent it's our
+
+0:09:29.760,0:09:35.200
+big question there is um is that just noise or is there
+
+0:09:33.920,0:09:37.839
+probably actually some meaningful difference
+
+0:09:36.720,0:09:41.839
+and so we have to do some sort of statistical test and i'm not talking to
+
+0:09:40.160,0:09:45.440
+the statistics but we get into how we can write code
+
+0:09:43.200,0:09:50.000
+to do that test and so probably the easiest way
+
+0:09:46.800,0:09:55.120
+is to use the stats module inside of scipy so scipy is this package
+
+0:09:52.480,0:09:59.040
+you could install like this pip3 install scipy and if you want to you could take
+
+0:09:57.680,0:10:03.600
+a data frame like this and feed it directly in to
+
+0:10:02.440,0:10:09.440
+stats.fisher exact stats and yes this is the fischer
+
+0:10:06.959,0:10:14.000
+uh who's so famous from statistics and so what this is going to do is to
+
+0:10:11.120,0:10:16.880
+look at this table and it's going to return back a couple things
+
+0:10:15.519,0:10:19.600
+the only thing we really care about is the second value you can see i'm
+
+0:10:18.160,0:10:27.000
+ignoring the first one and that second value is is a p-value
+
+0:10:23.279,0:10:31.120
+and here i can see that my p-value is 0.188
+
+0:10:28.480,0:10:34.800
+it really the the stronger the evidence i have that
+
+0:10:32.000,0:10:39.920
+a and b are different the smaller this p-value
+
+0:10:36.320,0:10:43.279
+is going to be okay it's uh what is that one way i could think about it is that
+
+0:10:41.279,0:10:47.040
+the p-value is the probability that i would see a
+
+0:10:45.440,0:10:52.320
+difference between these so extreme in the case that well
+
+0:10:50.800,0:10:57.680
+there's the underlying process is the same right so so
+
+0:10:54.079,0:11:01.920
+let me try to rephrase that um let's say that for the sake of argument
+
+0:10:59.680,0:11:06.399
+that a and b are the same and uh but if i collect enough samples
+
+0:11:04.800,0:11:09.360
+right eventually i might get some sort of result where the difference is this
+
+0:11:08.079,0:11:12.880
+extreme this p-value is telling me that i would
+
+0:11:10.959,0:11:17.360
+only expect that to happen about 19 percent um
+
+0:11:14.320,0:11:21.120
+of the time and so in statistics we have this idea of significance
+
+0:11:19.040,0:11:24.560
+and significance is really just in terms of the p value
+
+0:11:22.560,0:11:28.399
+um we'll set some sort of threshold like five percent
+
+0:11:25.680,0:11:30.959
+and say well if this is less than five percent we consider it a significant
+
+0:11:29.839,0:11:34.880
+result and uh and while this would not be
+
+0:11:33.360,0:11:40.959
+significant right because it's like 19 instead of five percent but
+
+0:11:38.560,0:11:43.839
+um you know even though this was a like kind of double the click-through
+
+0:11:42.000,0:11:45.839
+rate you know i don't have enough evidence because my sample were too
+
+0:11:45.279,0:11:48.880
+small if i want to get a better um i want to
+
+0:11:48.000,0:11:53.120
+get a better uh p-value right kind of a stronger
+
+0:11:51.600,0:11:56.880
+smaller p-value then i could have this kind of breakdown
+
+0:11:55.519,0:11:59.839
+but with more data or it's also possible that the data
+
+0:11:58.560,0:12:04.320
+could be more extreme and that might show up
+
+0:12:01.920,0:12:09.279
+now we also have this notion of a false positive rate
+
+0:12:05.760,0:12:12.639
+and by the false positive rate is well let's say there is no difference between
+
+0:12:10.959,0:12:15.680
+a and b um either in terms of how people interact
+
+0:12:14.240,0:12:20.240
+with it or it could even mean that literally uh you know what we're showing
+
+0:12:19.040,0:12:26.160
+people for version a and b is identical false positive as well
+
+0:12:23.680,0:12:29.760
+in this case where they're the same how often
+
+0:12:26.720,0:12:34.399
+do we have a significant result you know how often is a p-value less than
+
+0:12:31.839,0:12:38.000
+five percent and so it turns out just given the definition of this the
+
+0:12:35.600,0:12:41.360
+probability of seeing a difference if they're generated by the same
+
+0:12:39.040,0:12:44.000
+underlying process that's the definition for the p-value and i have five percent
+
+0:12:42.720,0:12:48.480
+here for my threshold the false positive rate in this case um
+
+0:12:46.639,0:12:54.560
+has to be five percent by by definition okay um
+
+0:12:52.160,0:12:58.079
+and so what does that mean if i had 200 neutral changes
+
+0:12:55.680,0:13:01.760
+right where b isn't really improving or kind of not improving
+
+0:12:59.600,0:13:04.880
+then if i set my threshold to five percent
+
+0:13:02.880,0:13:09.040
+uh what will the false positives how many false positives will i get
+
+0:13:06.720,0:13:14.079
+well five percent of 200 is 10 so i'll see 10 false positives
+
+0:13:12.000,0:13:18.480
+and so what they'll sometimes do in an organization like ben
+
+0:13:15.519,0:13:22.480
+bing is they'll intentionally run not an a b test but an a a test
+
+0:13:20.320,0:13:26.639
+to make sure the system is working when they run
+
+0:13:23.360,0:13:30.800
+the aaa test uh is it finding a significant result five percent of the
+
+0:13:29.200,0:13:35.200
+time which is what we would expect if not then maybe your platform itself
+
+0:13:32.800,0:13:38.959
+is broken so when you do this there's really three
+
+0:13:37.360,0:13:40.720
+possible outcomes that we could end up with
+
+0:13:39.279,0:13:46.800
+say based on these click-through rates and significance one is that maybe
+
+0:13:43.440,0:13:51.360
+a ends up being significantly better or b might be significantly better or a
+
+0:13:49.040,0:13:54.800
+really common case is that neither one wins and so i want you to think about
+
+0:13:53.199,0:13:58.639
+what you would do if you're running some sort of website
+
+0:13:56.800,0:14:03.040
+and you end up in this neither win situation what would be the appropriate
+
+0:14:01.120,0:14:06.000
+thing to do and there's lots of different answers here
+
+0:14:07.120,0:14:12.079
+one i mean if we're really interested in learning we might try to collect more
+
+0:14:10.880,0:14:15.680
+data uh you know i don't have a lot of data
+
+0:14:13.600,0:14:18.800
+here and that would be a fine option now of course that's not free right i
+
+0:14:17.360,0:14:22.160
+want to run other experiments on my users
+
+0:14:19.760,0:14:25.440
+um there's a cost uh doing an experiment in terms of well it might be
+
+0:14:24.000,0:14:28.639
+uh kind of breaking things or some complexity to it but if i really want to
+
+0:14:27.519,0:14:32.880
+know the answer while i'd probably collect more data
+
+0:14:30.240,0:14:36.240
+um you know at the end of the day i have to make a decision
+
+0:14:33.920,0:14:40.639
+right if i'm on my website and i show people either version a or b
+
+0:14:38.480,0:14:43.199
+well i can't wait until i have statistical evidence i have to do
+
+0:14:42.000,0:14:48.399
+something at any given point in time right when a user comes to my website
+
+0:14:45.279,0:14:51.519
+i should show them something so it would be fine to actually just
+
+0:14:49.760,0:14:55.600
+in this case make a business decision ignore the statistical significance
+
+0:14:53.760,0:14:58.800
+and just look at the click-through rate and just draw with whatever is higher
+
+0:14:57.519,0:15:01.920
+even if it's not a statistically significant result
+
+0:15:00.480,0:15:05.440
+um there's other things that you could do one is that you could default to
+
+0:15:04.240,0:15:08.480
+whatever version you were running before right it's
+
+0:15:06.800,0:15:11.680
+pretty often that this is one we've had for a while
+
+0:15:09.360,0:15:13.680
+and b is something new we're considering as an alternative
+
+0:15:12.560,0:15:18.240
+that's not always the case i mean sometimes both of these are brand new
+
+0:15:15.839,0:15:20.639
+uh but usually you know one is has some more
+
+0:15:18.959,0:15:23.120
+uh background and so it'd be pretty reasonable to stick with that i mean
+
+0:15:22.079,0:15:27.680
+it's familiar there are probably fewer bugs involved
+
+0:15:25.839,0:15:31.440
+in other cases like let's say when i was talking about
+
+0:15:28.639,0:15:35.920
+the python version well we want to upgrade from python 3.7 to 3.8
+
+0:15:34.320,0:15:38.560
+and we actually kind of expect that that won't affect anything we expect that
+
+0:15:37.440,0:15:44.880
+neither wins so choosing a new version for b makes a
+
+0:15:41.360,0:15:49.680
+lot of sense in that situation so so bang actually did this study where
+
+0:15:47.440,0:15:52.240
+they uh showed these two versions of the search page
+
+0:15:51.040,0:15:54.639
+and in general when they're showing a search page they want click-through rate
+
+0:15:53.680,0:15:58.079
+they want some sort of indication that they're
+
+0:15:55.920,0:16:01.759
+showing meaningful results and so i'm just curious what do you
+
+0:15:59.839,0:16:04.880
+think which version of this website do you think people
+
+0:16:03.519,0:16:11.360
+click on more and it turns out
+
+0:16:09.040,0:16:14.639
+that they click on this version more on the left
+
+0:16:12.079,0:16:17.759
+right if there's underlines for the hyperlinks well people like to click on
+
+0:16:16.480,0:16:22.480
+that and if you go to bing now you won't see
+
+0:16:20.959,0:16:25.519
+this version which is better in terms of the metric you're going to
+
+0:16:23.519,0:16:28.399
+see this version and apparently this is a big controversy in
+
+0:16:26.959,0:16:33.440
+in the company right even though the data said that people click on this more
+
+0:16:31.440,0:16:37.040
+uh i think a lot of the designers and maybe even just kind of
+
+0:16:34.880,0:16:40.079
+you know probably you and i think this one looks nicer and so there's this big
+
+0:16:38.959,0:16:43.600
+conflict well do we maximize click-through rate or do
+
+0:16:42.079,0:16:47.040
+we just do what looks nice and at the end of the day they decided
+
+0:16:45.199,0:16:51.199
+to do what looks nice and that's what i encourage you to do
+
+0:16:48.560,0:16:55.440
+too metrics should inform humans but not directly determine uh decisions
+
+0:16:53.920,0:16:58.639
+something like click-through rate doesn't really do a very good job of
+
+0:16:56.959,0:17:02.720
+capturing um you know what these ugly underlines
+
+0:17:00.399,0:17:06.480
+might do to microsoft's brand in the long run
+
+0:17:03.519,0:17:09.120
+right this feels sleek and modern and that's what
+
+0:17:07.199,0:17:12.319
+the kind of the image that microsoft wants to
+
+0:17:10.400,0:17:14.559
+project okay so i'll end it off there and then you can do some examples and
+
+0:17:13.760,0:17:18.400
+then we'll come back and talk more
+

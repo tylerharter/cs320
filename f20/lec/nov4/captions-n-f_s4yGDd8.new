@@ -1,0 +1,894 @@
+0:00:01.439,0:00:06.480
+hello in this video i want to do something a little bit different
+
+0:00:04.560,0:00:10.559
+i want to do a larger example where i'm tying together several ideas we've been
+
+0:00:08.160,0:00:14.559
+learning in this section of the course and um so the example is that i want to
+
+0:00:13.360,0:00:18.720
+look at all of these incidents that the city of
+
+0:00:16.240,0:00:22.000
+madison fire department has to deal with and i want to be able to see it on an
+
+0:00:20.160,0:00:25.199
+animated map and um so there's maybe a few pieces
+
+0:00:23.760,0:00:30.160
+involved in that first um this is not in some nice tidy
+
+0:00:28.080,0:00:32.880
+format that i can download so i'm gonna have to do some web scraping on the
+
+0:00:32.079,0:00:38.320
+daily fire reports website um second
+
+0:00:36.239,0:00:41.440
+uh before i can put this on a geopandas map i'm gonna have to get latitude and
+
+0:00:40.399,0:00:45.200
+longitude and guess what it doesn't give me that
+
+0:00:43.200,0:00:47.920
+it's just giving me these addresses let me be talking about how we can
+
+0:00:46.320,0:00:51.120
+convert addresses into latitude and longitude coordinates
+
+0:00:49.680,0:00:55.600
+um third once we have that we're actually creating a geopandas map
+
+0:00:53.760,0:00:59.199
+um really kind of showing instance at any given point in time
+
+0:00:57.520,0:01:03.280
+and then finally i'm going to combine geopandas with um
+
+0:01:01.199,0:01:07.840
+matplotlib function animation so i can actually see
+
+0:01:04.559,0:01:11.200
+these events cropping up over time and uh and so on this page i've already
+
+0:01:09.920,0:01:14.960
+looked at a little bit so i'm not going to go into all this detail
+
+0:01:12.880,0:01:18.960
+but there's not really any complicated javascript that's a problem
+
+0:01:17.280,0:01:21.040
+and so even though i've been teaching selenium we're just going to use
+
+0:01:20.159,0:01:25.040
+requests the request module for that and that's
+
+0:01:23.040,0:01:27.840
+going to be simpler and easier to use now although javascript isn't going to
+
+0:01:26.479,0:01:35.759
+be a problem one of the things that where i see is if i hit inspect on these
+
+0:01:31.520,0:01:41.439
+is that if i look carefully down here there is no um there is no table tag
+
+0:01:39.600,0:01:45.920
+like we're used to there are just these um div
+
+0:01:43.200,0:01:50.720
+tags that are everywhere and the dib tags could be a whole table
+
+0:01:47.759,0:01:55.119
+um it could be a row and it could even be
+
+0:01:51.840,0:01:58.399
+say just a single column uh within a row and um and so what i'm going to have to
+
+0:01:56.719,0:02:01.280
+do to try to figure out what i'm looking at
+
+0:01:59.360,0:02:06.079
+is i'm going to be looking at this class attribute that these div tags have so
+
+0:02:04.079,0:02:10.160
+it's a very different type of table and i can see well i do have some hints
+
+0:02:08.959,0:02:13.840
+right even though um i'm using these divs for everything
+
+0:02:12.560,0:02:16.720
+or i guess they are uh i can see that this one says
+
+0:02:15.360,0:02:20.480
+pseudotable and that's gonna help me actually pull the data out of here
+
+0:02:18.879,0:02:24.560
+okay so i'm gonna head over here to my notebook and i'm going to import the
+
+0:02:22.560,0:02:28.360
+request module and and i want to be able to download
+
+0:02:26.480,0:02:33.120
+that page so i'm going to say requests.kit
+
+0:02:30.319,0:02:37.920
+and uh looking back here maybe i can just grab this url
+
+0:02:35.519,0:02:42.640
+and grab that thing and i'm going to say r
+
+0:02:38.560,0:02:50.080
+equals that r dot raise for status and uh and then finally i can say
+
+0:02:47.040,0:02:52.879
+r dot text i can actually see what's on that page
+
+0:02:51.440,0:02:56.480
+and you can see that's kind of slow to run and if i run it again it'll be slow
+
+0:02:55.519,0:03:00.000
+to run again so one of the first things i want to do
+
+0:02:58.080,0:03:02.800
+um when i'm doing this kind of project is i want
+
+0:03:00.640,0:03:07.440
+to write some code that's going to save my files
+
+0:03:04.319,0:03:10.720
+um basically onto my computer and uh and then if i try to grab that file
+
+0:03:09.280,0:03:14.159
+again it'll use the version i already downloaded and that's going to both
+
+0:03:12.800,0:03:16.879
+make the people running the website happier because i'm not going to be
+
+0:03:15.280,0:03:21.599
+hitting their website as hard and it'll also make my code on faster
+
+0:03:20.319,0:03:24.239
+so let me think a little bit about how i'm going to do this when i look at this
+
+0:03:23.760,0:03:27.120
+um site here all right you can see there's
+
+0:03:25.599,0:03:31.280
+a bunch of pages right i can go to the next page
+
+0:03:28.799,0:03:36.879
+and uh and you can see that page two actually says page one up here
+
+0:03:33.599,0:03:40.480
+if i go to page three it actually says page two up here
+
+0:03:38.239,0:03:43.840
+and and actually i'm kind of lucky even though i don't uh it doesn't say page
+
+0:03:42.239,0:03:48.400
+zero on the first one you know page one is indexed at zero and
+
+0:03:46.959,0:03:51.200
+and so i can grab all these different pages by passing in different numbers
+
+0:03:50.159,0:03:56.720
+here and and so what i'd like to do is let me
+
+0:03:53.920,0:04:02.480
+paste this url like this um in general when i'm when i'm
+
+0:04:00.080,0:04:06.720
+trying to grab a page i am going to make this a format string and i'm going to
+
+0:04:04.080,0:04:10.640
+pass in some sort of number here okay and so what i'm going to do is i'm
+
+0:04:09.200,0:04:12.959
+going to create a function that does all of this for me and maybe i'll call it
+
+0:04:12.000,0:04:20.400
+something like fire html and i may have like a page number
+
+0:04:17.199,0:04:25.120
+page number and uh maybe i'll make that the page number just like that
+
+0:04:22.720,0:04:29.919
+and i have all this stuff and then down at the end i'm actually return it
+
+0:04:28.080,0:04:34.720
+and so let me try calling this thing to make sure i can get different pages i
+
+0:04:31.280,0:04:39.120
+want to get page 0 for example and that works fine and the reason i put
+
+0:04:37.440,0:04:42.400
+this in a function is that this function can do a little extra work for me
+
+0:04:40.639,0:04:46.800
+what it will do is it'll save this result to a file
+
+0:04:44.560,0:04:49.840
+and then it'll check if that file exists in the future
+
+0:04:48.400,0:04:52.720
+and so i should come up with some sort of file name where i want to save that
+
+0:04:51.440,0:04:57.840
+and maybe i'll call this something like page
+
+0:04:54.840,0:05:04.800
+uh whatever page it is dot html and make that a format string
+
+0:05:03.520,0:05:11.560
+and then all this stuff here where i'm actually downloading the the file
+
+0:05:07.120,0:05:17.440
+um i'm gonna say if not os.path.exists that file name
+
+0:05:15.039,0:05:22.479
+right so only if i don't already have a file named that
+
+0:05:19.039,0:05:26.080
+am i going to do all this good stuff and now when i do this right this file
+
+0:05:24.320,0:05:30.240
+doesn't exist instead of just returning the thing i downloaded
+
+0:05:27.520,0:05:35.520
+um it will be better if i save that to that file that i'm interested in
+
+0:05:32.160,0:05:43.680
+let me say with open f name as f i say f dot write
+
+0:05:40.160,0:05:48.479
+this little piece of text here and um and i'm going to have to open that up
+
+0:05:45.600,0:05:51.600
+with w to actually make that work and so if that file doesn't exist it's
+
+0:05:50.160,0:05:54.000
+going to create it and so maybe i should make a little comment here i should put
+
+0:05:53.120,0:05:59.919
+this in a variable called url and i'll actually
+
+0:05:57.360,0:06:03.039
+print it off uh so i can see what's going on it looks
+
+0:06:02.240,0:06:06.319
+like i can kind of tell the way it was tabbing
+
+0:06:04.240,0:06:11.520
+and i forgot an indent there so if i run this
+
+0:06:07.919,0:06:15.759
+um i say os is not defined on line three and that's because i have to
+
+0:06:13.360,0:06:20.080
+import it import os let me run this again and i can see
+
+0:06:18.800,0:06:23.600
+it downloaded that thing and if i run it again well it's not
+
+0:06:22.240,0:06:26.960
+doing anything that time right it's only on that first time if i
+
+0:06:25.440,0:06:31.120
+download another page i can see that it's downloading it
+
+0:06:27.919,0:06:34.960
+run it again it's only slow once when it first has to grab it
+
+0:06:32.800,0:06:38.479
+and um let me see i have another monitor here but if i if i bring this down
+
+0:06:36.479,0:06:42.000
+you can actually see that i have these multiple pages here this page zero page
+
+0:06:40.720,0:06:45.919
+one uh for each time i try to grab a
+
+0:06:43.360,0:06:51.360
+different page okay so now what i'd like to do is
+
+0:06:49.360,0:06:54.240
+i would like to actually return something that was my original goal i
+
+0:06:52.560,0:06:58.400
+wanted to feed in a page number and then get
+
+0:06:55.120,0:07:02.160
+all the stuff back from that page and um and so maybe what i'll do down here is
+
+0:07:00.560,0:07:06.160
+at this point uh this path definitely exists right if
+
+0:07:04.560,0:07:09.919
+it didn't exist before i've created it here and so now what i
+
+0:07:08.560,0:07:13.759
+can do down here is i can say i know that that file exists and i can
+
+0:07:12.240,0:07:18.400
+open it so open f name as f and then i can just
+
+0:07:16.720,0:07:23.599
+return while whatever good stuff is inside of that
+
+0:07:20.160,0:07:28.160
+i do that and i can get all that html just like so right i can do that
+
+0:07:25.440,0:07:30.720
+it's fast for any page that i've grabbed before
+
+0:07:29.199,0:07:35.120
+and then if i have a new page well it'll be a little bit slower
+
+0:07:32.880,0:07:37.120
+first time and i always have it right so this is great right i can just kind of
+
+0:07:36.639,0:07:41.039
+um write my code as if i'm grabbing the
+
+0:07:39.120,0:07:44.879
+fresh stuff every time uh but i'm not going to have any sort of
+
+0:07:42.800,0:07:48.160
+repeated work that's all fine and well um the next
+
+0:07:46.960,0:07:51.840
+thing i think i want to do is actually try to do the beautiful soup
+
+0:07:50.639,0:07:58.240
+parsing and so i may say from beautiful soup for
+
+0:07:54.879,0:08:01.680
+import beautiful soup and uh maybe the easiest thing to do is
+
+0:08:00.319,0:08:05.599
+around instead of kind of dealing with um html directly
+
+0:08:03.680,0:08:09.520
+i can say well i want to get the fire page and so i'm just going to convert
+
+0:08:07.520,0:08:14.240
+that html right there to a page and run it and uh
+
+0:08:12.800,0:08:17.199
+did that change anything let me just put off the type of this thing that i'm
+
+0:08:15.599,0:08:20.639
+getting back um that's kind of strange right so i
+
+0:08:19.039,0:08:24.400
+think uh um do you see what what happened there
+
+0:08:22.879,0:08:28.720
+if i do a kernel restarting model you're going to see it
+
+0:08:26.639,0:08:34.719
+do kernel restart run all and uh fire html is not defined i
+
+0:08:32.000,0:08:37.919
+renamed this function here um and since i didn't rename it down here it was just
+
+0:08:36.080,0:08:41.519
+calling the old version which kind of lingered until i restarted
+
+0:08:40.320,0:08:45.839
+my notebook so i'm gonna do that and i can grab all
+
+0:08:42.959,0:08:50.480
+these different pages now okay so that's fine i'm kind of uh
+
+0:08:48.880,0:08:54.640
+i have this very efficient function that will get me a beautiful soup
+
+0:08:52.160,0:08:57.440
+page or any of the pages on the actual site
+
+0:08:55.680,0:09:02.959
+and what i would really like to do now is get some um
+
+0:08:59.600,0:09:07.279
+some pandas uh data out of it so i'm going to do something here maybe
+
+0:09:04.480,0:09:11.440
+call this like fire table and i'm going to pass in the page number
+
+0:09:09.519,0:09:16.800
+just like before and i'm going to get the page is fire
+
+0:09:15.200,0:09:23.440
+page of whatever that number is and
+
+0:09:20.480,0:09:30.000
+then what we want to do if i if i shrink this down and i go back to where i was
+
+0:09:26.880,0:09:34.800
+let me inspect this my goal here is i want to go through until i find
+
+0:09:31.680,0:09:39.839
+a div where it says class is pseudo table right because then i
+
+0:09:36.880,0:09:47.279
+know i found the table on the page and so i should do this i should say on
+
+0:09:42.959,0:09:50.560
+page dot find all dev and i can loop over those so i can say
+
+0:09:48.959,0:09:54.880
+something like for a div and this
+
+0:09:55.279,0:10:05.680
+um i i can say uh if oh let me do this i may print div
+
+0:10:02.320,0:10:10.000
+dot adder all right so i can get those attributes for all of the
+
+0:10:07.920,0:10:14.480
+um all the pages which i guess i'm not actually calling my function let me
+
+0:10:11.040,0:10:18.079
+change it from fire page to fire table and i get a bunch of nuns for all of
+
+0:10:16.880,0:10:22.000
+these actually i think it's called adders
+
+0:10:18.720,0:10:26.640
+my apologies i run adders and i get all these things
+
+0:10:23.279,0:10:30.880
+and what i'm looking for is the pseudo table right so i should check if that is
+
+0:10:28.320,0:10:34.800
+inside of the class attribute right so so this whole thing is um this
+
+0:10:33.920,0:10:38.959
+whole thing here is adders up above right so that's my
+
+0:10:37.839,0:10:43.279
+adders and uh so i can say adders brackets last
+
+0:10:41.360,0:10:48.000
+to get to this list well let me just try that let me say adders
+
+0:10:44.560,0:10:52.000
+bracket class and um it's complaining because not all of my
+
+0:10:50.000,0:10:56.000
+devs even have a class so maybe the better way i
+
+0:10:52.560,0:11:00.000
+could do this i could say get a class and then it's going to be either none i
+
+0:10:58.560,0:11:03.839
+might have these things um what i'd kind of like to do is have
+
+0:11:02.240,0:11:05.920
+it more uniform i'd like it to never have on
+
+0:11:04.480,0:11:09.200
+different types i'd like it to always be a list and so really what i can do is
+
+0:11:08.079,0:11:12.640
+when i'm looking up something inside of this dictionary i'm
+
+0:11:10.800,0:11:16.880
+looking up this key this dictionary uh i can pass on a
+
+0:11:14.880,0:11:20.560
+default that i want to get back so right right now the default is none
+
+0:11:18.640,0:11:23.519
+and so if i say this well it always gives me a list these are all the things
+
+0:11:21.920,0:11:27.040
+in the class and uh and i can check then if you know
+
+0:11:26.160,0:11:32.240
+sudo table is in there right so um i i can say
+
+0:11:30.320,0:11:38.880
+something like if sudo table is in that thing
+
+0:11:36.880,0:11:42.720
+well then i found my table so i'll say table
+
+0:11:40.240,0:11:45.120
+equals um this div and then i'm going to break
+
+0:11:43.920,0:11:47.600
+and uh and i think the other thing i'm going to do is i'm just going to say up
+
+0:11:46.160,0:11:51.600
+here table equals none said it starts off at
+
+0:11:49.360,0:11:55.440
+something and what i'd like to do when i get all done with this loop is
+
+0:11:53.279,0:11:58.160
+i'd like to assert that i actually found something
+
+0:11:56.160,0:12:02.079
+um i didn't kind of go over all the divs and never find this pseudo table
+
+0:12:00.000,0:12:06.079
+so i'll say a cert table is not equal to none
+
+0:12:04.240,0:12:12.399
+and maybe then i'll just return this table that seems like a fine thing to do
+
+0:12:08.959,0:12:15.680
+okay so i i now have this table and uh inside of there i i can see that there's
+
+0:12:14.399,0:12:20.160
+a header like this that's fine and um and then i have a
+
+0:12:18.480,0:12:23.200
+bunch of these actual rows right so this is like you know row
+
+0:12:22.079,0:12:26.240
+hidden excess access something that's like
+
+0:12:24.079,0:12:29.600
+extra small or something like that i can pull out all these rows
+
+0:12:28.240,0:12:33.519
+and i can actually see in here there's some of the text right that this is
+
+0:12:31.279,0:12:37.279
+driving the incident i can see that uh you know this was a carbon monoxide
+
+0:12:35.519,0:12:42.880
+emergency um and i can see while there was a date
+
+0:12:41.040,0:12:48.480
+associated with it and so i can try to pull all these things out
+
+0:12:45.600,0:12:53.519
+so here's what i'm going to do i'm going to loop over all the rows inside of that
+
+0:12:50.959,0:12:56.320
+table right i found the table let's loop over all the rows inside of the table so
+
+0:12:55.120,0:12:59.680
+so it's actually gonna be very similar to what i had up here right here i was
+
+0:12:57.600,0:13:03.360
+looking over all the divs and the whole page right because this is
+
+0:13:02.079,0:13:06.480
+my whole page um now instead of doing it on my whole
+
+0:13:04.959,0:13:09.279
+page i just want to do it on this table within the page right so i'm going to do
+
+0:13:07.920,0:13:15.600
+that so all the all the divs inside of that and
+
+0:13:12.399,0:13:19.440
+this is going to be very similar as well i'm only interested in these ones that
+
+0:13:17.040,0:13:22.959
+say row exactly um i can see up here they sometimes have
+
+0:13:21.360,0:13:27.279
+multiple things but i only want the ones where it's row
+
+0:13:25.200,0:13:30.480
+so maybe what i'll do is i'll just print off what i'm i'm getting so far like i
+
+0:13:29.200,0:13:34.399
+did before um just so that we aren't having to do
+
+0:13:32.160,0:13:40.560
+too much reasoning in our head right so i'm gonna just print that off
+
+0:13:37.680,0:13:43.920
+and i can see that um that well that was like the header before
+
+0:13:42.480,0:13:46.959
+and then uh these things these are all columns which i guess are actually since
+
+0:13:45.519,0:13:50.560
+a column is inside of a row these are actually just cells
+
+0:13:48.959,0:13:54.639
+and and i can see these are the ones i really want right i have all these rows
+
+0:13:52.399,0:13:59.199
+that's what i'm interested in and uh and so what i can do is i can say
+
+0:13:56.480,0:14:05.839
+well if this thing if this here uh equals
+
+0:14:02.639,0:14:08.880
+this single row like this well then i then i have what i want so
+
+0:14:07.839,0:14:13.279
+so then maybe i'm just trying to say well that's a row
+
+0:14:10.320,0:14:15.920
+so i'll say uh maybe row equals dev um it's fine to create more variable names
+
+0:14:14.800,0:14:20.959
+just to make that very clear what's going on
+
+0:14:17.600,0:14:24.000
+um once i have one of these rows it's kind of funny as i'm looping over
+
+0:14:22.320,0:14:27.279
+it right because these divs were actually contained
+
+0:14:25.519,0:14:29.440
+inside of this one but it's just looping over them
+
+0:14:28.399,0:14:34.000
+regardless of where they are in the hierarchy
+
+0:14:30.639,0:14:37.040
+um but what i can do is i can print off all these little ones that are inside of
+
+0:14:35.519,0:14:42.000
+it right i can say um print row dot find all
+
+0:14:40.639,0:14:46.480
+dev right and that's going to give me all the cells so i'm going to do that
+
+0:14:44.800,0:14:50.880
+and there's a bunch of html that are just kind of complicated so maybe
+
+0:14:47.920,0:14:55.279
+what would be cleanest is if i looped over
+
+0:14:52.880,0:14:59.040
+these so i might say something for something in this
+
+0:14:57.360,0:15:03.120
+right this is a list comprehension right i can build a list from all the stuff
+
+0:15:00.639,0:15:05.519
+i'm getting out of that list and um and so what i'm going to do is
+
+0:15:04.480,0:15:08.959
+i'm going to be looping over those so maybe i can say something like cell
+
+0:15:06.800,0:15:12.639
+and here i can say something like um you know cell dot
+
+0:15:10.000,0:15:16.560
+text and i run that and now i actually get something that's very close to what
+
+0:15:15.279,0:15:20.160
+i would like right i mean you get this nice little list and i can see the
+
+0:15:18.560,0:15:25.680
+different pieces there you can see like what is instant type was address and all
+
+0:15:23.279,0:15:30.160
+of that uh maybe what i like to do now is try to
+
+0:15:28.639,0:15:32.480
+put all of these things in a dictionary i think that'll make it easier to build
+
+0:15:31.519,0:15:40.000
+up um a pandas data frame
+
+0:15:36.720,0:15:43.600
+uh so maybe actually uh i kind of prematurely was trying to do
+
+0:15:42.079,0:15:45.519
+this list comprehension and view it all like this
+
+0:15:44.160,0:15:51.440
+maybe what i'll do is i'll just loop over each of these things i pull this
+
+0:15:48.160,0:15:55.279
+list comprehension out like so i just have a regular loop and then for
+
+0:15:53.519,0:15:58.240
+each of these cells i want to split it based on that
+
+0:15:56.160,0:16:02.959
+colon right i can split based on the colon and look at the two pieces
+
+0:16:00.320,0:16:08.320
+so um maybe i'll say um you know my split
+
+0:16:04.560,0:16:15.120
+split index is going to be cell dot find looking for a colon
+
+0:16:12.160,0:16:18.959
+and what i can do is i can print the cell
+
+0:16:16.160,0:16:21.040
+actually sorry let me be a little careful here right
+
+0:16:19.759,0:16:23.839
+what type is this cell that's going to be one of these um beautiful soup
+
+0:16:22.639,0:16:28.160
+elements i'm gonna actually say cell equals
+
+0:16:24.880,0:16:31.279
+cell dot text and uh then this will actually work here
+
+0:16:29.279,0:16:36.959
+and then i can print um the left of it right i can say cell
+
+0:16:33.600,0:16:40.320
+of split index these are all the kinds of fields i'm
+
+0:16:38.320,0:16:43.680
+trying to pull out and i can also print off
+
+0:16:41.360,0:16:47.519
+the other side of the colon what what is after that
+
+0:16:46.000,0:16:50.720
+plus one i want to skip over that colon which is why i'm adding one there
+
+0:16:49.040,0:16:53.839
+so when i do that i get all these pieces right i have incident and
+
+0:16:52.320,0:16:57.839
+this was the name of the incident and the date and there was the date
+
+0:16:56.079,0:17:00.959
+so so slowly right this is harder than it usually is because everything is in
+
+0:16:59.360,0:17:04.319
+all of these divs but i'm starting to get to a point where
+
+0:17:02.320,0:17:08.160
+i can pair up um basically keys and values and and if i
+
+0:17:07.280,0:17:12.079
+strip that so there's no white space that's maybe
+
+0:17:09.839,0:17:16.079
+even even cleaner right so i'm just going to strip all that
+
+0:17:13.679,0:17:22.400
+and i can see it's nicely paired up so so maybe what i'll do
+
+0:17:19.839,0:17:25.360
+is i will i'll try to build all this up by creating a dictionary
+
+0:17:24.160,0:17:30.559
+right for each role i want to have a dictionary
+
+0:17:27.199,0:17:34.480
+and uh this could be my key here and uh then this down here can be my
+
+0:17:32.640,0:17:37.919
+value all right so i have my keys and my
+
+0:17:35.600,0:17:41.200
+values and i'll just add it to my dictionary right my dictionary of key
+
+0:17:39.760,0:17:45.039
+will equal value and i'm just saying here that i i meant
+
+0:17:42.720,0:17:48.559
+to actually have that be a dictionary and then when i'm all done i'm going to
+
+0:17:46.240,0:17:51.120
+actually print that thing and so now i'm getting all of these nice beautiful
+
+0:17:49.840,0:17:54.320
+dictionaries uh which is kind of what i'm interested
+
+0:17:52.799,0:17:58.240
+in right this is how i can actually construct my
+
+0:17:55.600,0:18:03.600
+um data frame okay so we're getting very close
+
+0:17:59.520,0:18:07.360
+um what i can do now is i can uh i can put all these into a list right so
+
+0:18:05.520,0:18:11.280
+i'm gonna say rows equals list and instead of printing it i'm just
+
+0:18:08.720,0:18:15.760
+gonna append it there so rows dot append dictionary and then when we're all done
+
+0:18:13.919,0:18:21.120
+what we can do is we can return rows or better um a pandas data
+
+0:18:19.679,0:18:25.039
+frame based on those rows right so that's what
+
+0:18:23.919,0:18:28.400
+i'd like to do and then up here of course i need to
+
+0:18:26.160,0:18:32.480
+import panda so i'm going to say import pandas as pd
+
+0:18:32.559,0:18:36.160
+now let's see fingers crossed see if this works
+
+0:18:34.910,0:18:40.400
+[Music] um and uh and it seems to right i can
+
+0:18:38.559,0:18:43.440
+get all this information for the different for the different
+
+0:18:42.400,0:18:47.840
+tables right uh i i guess i see that it's a little
+
+0:18:45.039,0:18:51.520
+bit weird right that um sometimes it has the updated column and uh sometimes does
+
+0:18:51.039,0:18:54.640
+not right but otherwise it's pretty
+
+0:18:53.919,0:19:00.880
+consistent across the pages um what i'm going to do
+
+0:18:58.880,0:19:03.840
+is just slice this so i don't have that last column i just always want the first
+
+0:19:02.559,0:19:08.559
+four columns so i can say i location and i want to
+
+0:19:06.880,0:19:12.160
+have all the rows and then i want everything except that
+
+0:19:10.640,0:19:16.400
+fourth column so this will give me column zero one two
+
+0:19:14.080,0:19:19.919
+three so if i do that right i have the same um consistent
+
+0:19:18.240,0:19:22.840
+thing and and the reason why i want to do that is that down here then i could
+
+0:19:21.200,0:19:28.320
+say pd dot contact and uh
+
+0:19:25.840,0:19:32.880
+and then i can pull together all of my different
+
+0:19:29.919,0:19:35.520
+all of my different um data frames right i can i can grab several pages actually
+
+0:19:34.960,0:19:39.760
+quite quite quickly and quite elegantly and
+
+0:19:37.600,0:19:43.760
+just have this one huge um data frame you you do see that when i'm
+
+0:19:42.080,0:19:48.640
+concatenating a bunch of little data frames it has the repeated index here
+
+0:19:46.799,0:19:53.840
+right it starts over at zero like that so i should really say like reset
+
+0:19:50.880,0:19:59.760
+index and um let me let me think
+
+0:19:57.919,0:20:02.640
+there's an option i want to keep here uh i think drop is
+
+0:20:01.440,0:20:06.799
+true you can see that when i'm doing that it's shoving
+
+0:20:04.799,0:20:09.600
+this back up here i don't want to do that i want to drop it
+
+0:20:08.400,0:20:13.679
+and now i actually have a nice data frame where it's kind of counted
+
+0:20:11.679,0:20:16.720
+um like it normally would be and then i can go from here
+
+0:20:15.200,0:20:20.640
+the next steps in terms of actually getting these addresses and the latitude
+
+0:20:19.360,0:20:28.880
+and longitude so i'll be doing that in the next video
+

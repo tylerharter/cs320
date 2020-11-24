@@ -1,0 +1,1107 @@
+0:00:01.360,0:00:07.040
+hello in this video we're going to be learning about how to make geographic
+
+0:00:04.640,0:00:10.320
+maps and so i've played with a number of different uh mapping tools that you can
+
+0:00:08.880,0:00:14.799
+install with python and my favorite is called geopandas
+
+0:00:13.360,0:00:20.320
+and i like it for a few reasons it's pretty easy to get started
+
+0:00:16.640,0:00:22.880
+um and it's very similar to just regular pandas so hopefully it feels a little
+
+0:00:21.760,0:00:28.080
+bit familiar um here i have a gallery of examples and
+
+0:00:24.720,0:00:30.720
+i can look at some different ones here for example there's a map of south
+
+0:00:29.359,0:00:36.000
+america we'll be making something like that today
+
+0:00:32.079,0:00:39.280
+another tool that people often find um and they kind of gravitate towards is
+
+0:00:37.760,0:00:44.800
+called folium and folium isn't my favorite tool and
+
+0:00:41.600,0:00:48.160
+one of the reasons why is that whenever you view a map it's fetching
+
+0:00:46.559,0:00:51.120
+resources from online so there's some sort of web service
+
+0:00:49.440,0:00:54.719
+and so actually the way this is right now is on the bottom i have all of these
+
+0:00:53.680,0:00:59.440
+different um all of these different web requests
+
+0:00:57.760,0:01:02.160
+and if i refresh this page to see this map
+
+0:01:00.559,0:01:05.280
+um you can see that it's doing all these different web requests it wouldn't work
+
+0:01:03.840,0:01:09.040
+if you were offline um it will break eventually if these web
+
+0:01:07.280,0:01:12.880
+services go away um you can see even as i'm scrolling
+
+0:01:10.880,0:01:16.640
+around on the map uh it's trying to trigger on more uh
+
+0:01:15.759,0:01:20.240
+more fetches so even though the folio maps tend to
+
+0:01:19.119,0:01:23.840
+look pretty sharp um i would steer clear of them in
+
+0:01:21.840,0:01:27.840
+general you want to have your work be built in a way that is going to last
+
+0:01:25.600,0:01:33.520
+for i don't know 100 years right and if you use geopandas and put your
+
+0:01:31.040,0:01:37.680
+maps and uh say a pdf while that's around for a long time
+
+0:01:35.040,0:01:39.439
+this folium stuff uh maybe not so much um
+
+0:01:38.400,0:01:43.040
+the other thing i don't really like about interactive maps is it puts the
+
+0:01:41.200,0:01:46.240
+burden on the audience to look for what is important generally as
+
+0:01:44.479,0:01:49.439
+a data scientist you spend a lot of time looking at all
+
+0:01:47.520,0:01:52.960
+the data and you know what the most important lessons are
+
+0:01:51.119,0:01:55.840
+and it's better to just show those directly um
+
+0:01:54.479,0:01:59.200
+and statically rather than having somebody stroll around so anyway that's
+
+0:01:57.600,0:02:04.880
+why i'm going to be teaching at geopanda silver folium this semester
+
+0:02:01.439,0:02:08.080
+um and so let me head over here uh to um to my notebook here and uh for these
+
+0:02:07.600,0:02:11.440
+examples i've already done some installs i did
+
+0:02:09.360,0:02:14.480
+pip three install on my install geopandas and then these two other
+
+0:02:12.879,0:02:18.000
+things i need shapely um and descartes later on there's gonna
+
+0:02:16.720,0:02:22.640
+be some other stuff we have to install for a particular example but
+
+0:02:19.599,0:02:27.920
+um this is enough to get started and so let's import it so
+
+0:02:24.080,0:02:34.879
+i'll say import pandas as pd and then i may import geopandas
+
+0:02:31.840,0:02:39.519
+and uh inside of geopandas that's kind of a slow import there you
+
+0:02:36.640,0:02:44.720
+can see it's still running there we go inside geopandas we have all
+
+0:02:43.920,0:02:48.879
+of these um data sets and uh
+
+0:02:47.840,0:02:52.800
+and eventually we'll learn how to download our own data sets from the web
+
+0:02:50.400,0:02:56.080
+but there are a bunch of already there and i can say things like this i could
+
+0:02:54.160,0:03:00.239
+say get path to natural or low resolution that's the
+
+0:02:58.159,0:03:07.760
+name of one of the data sets and uh natural birch okay earth
+
+0:03:04.080,0:03:12.959
+sorry there we go and um and so it's giving me a file path on my computer
+
+0:03:10.400,0:03:16.080
+uh that goes to this natural earth low res
+
+0:03:13.920,0:03:18.879
+dot shp that that's what we call a shape file where we learn more about shape
+
+0:03:17.519,0:03:23.120
+files and it's that's a file i could uh load
+
+0:03:21.519,0:03:27.280
+in if i wanted to let me let me take a peek inside of this
+
+0:03:25.200,0:03:31.599
+um this directory here and see what other
+
+0:03:28.319,0:03:38.159
+things we might have um if i import os and then i say os dot list
+
+0:03:35.200,0:03:41.519
+dur i can paste that directory that data sets directory i copied
+
+0:03:40.159,0:03:44.959
+and i could see we have a couple different directories here that work as
+
+0:03:43.599,0:03:49.280
+examples i have this one and also these cities and so maybe let
+
+0:03:47.200,0:03:53.599
+me just capture these i may call this um the world path that's the map of the
+
+0:03:52.480,0:04:00.000
+whole world and then i have these cities uh
+
+0:03:56.959,0:04:03.200
+also there and so i'm just gonna say this copy this thing
+
+0:04:04.640,0:04:12.799
+like so what is that that's natural earth
+
+0:04:08.319,0:04:16.320
+cities maybe just let me peek at that and you can see that's another one of
+
+0:04:14.080,0:04:19.359
+these um shape files but one other thing i may point out here
+
+0:04:18.639,0:04:25.120
+on is that you can see that this refers to
+
+0:04:23.199,0:04:28.160
+a directory so that's the name of the data set that the name of the data set
+
+0:04:26.560,0:04:31.360
+refers to a directory inside of datasets and and it contains
+
+0:04:30.880,0:04:35.360
+this shape file actually and so if i actually
+
+0:04:33.759,0:04:41.040
+peek inside of the directory that contains a shapefile
+
+0:04:37.919,0:04:43.600
+i am going to see this there's actually a bunch of stuff there i have my shape
+
+0:04:42.800,0:04:46.800
+file uh but all of these other things as well
+
+0:04:45.919,0:04:50.479
+and so often shape files have a bunch of um
+
+0:04:49.120,0:04:52.800
+kind of helper files that are accompanying them
+
+0:04:51.600,0:04:55.600
+and so when you're grabbing your own shape files we'll talk more about that
+
+0:04:54.240,0:04:58.560
+later you'll often have some sort of zip that
+
+0:04:57.280,0:05:01.759
+will have all these things and you want to grab all of it and then extract it to
+
+0:05:00.240,0:05:04.320
+some directory when people are talking about shape
+
+0:05:02.800,0:05:09.199
+files they actually probably mean a collection of files
+
+0:05:06.320,0:05:12.720
+okay so i have both of those things and so what i can do now
+
+0:05:10.080,0:05:17.680
+is i can uh load them i can say geopandas
+
+0:05:13.840,0:05:21.919
+dot read file and uh let me actually make this path and i can
+
+0:05:20.000,0:05:25.919
+um and i can read one of these paths i can say
+
+0:05:22.400,0:05:31.520
+well let's get the world path uh world wath okay what's wrong there
+
+0:05:29.680,0:05:35.039
+um it has nothing called read file because checking my notes here it has an
+
+0:05:33.520,0:05:38.639
+underscore in it so i do that and i get this nice data
+
+0:05:36.720,0:05:41.919
+frame back and uh maybe i'm just going to call this my
+
+0:05:39.840,0:05:45.360
+world data frame and then we're going to be analyzing this a bit
+
+0:05:45.520,0:05:51.759
+um what is the maybe let me just look at the head of it and i'll do some
+
+0:05:50.240,0:05:56.000
+analysis in the in the cell below maybe i want fewer
+
+0:05:53.759,0:06:04.880
+rows just so i can fit more in okay so if i take a look at the type
+
+0:06:01.039,0:06:09.360
+of world df i can see that it's this new type it's a geo data frame
+
+0:06:07.440,0:06:12.960
+um whenever i'm learning about a new type
+
+0:06:10.560,0:06:15.280
+uh i want to think in kind of terms of object-oriented programming i want to
+
+0:06:14.160,0:06:19.120
+think well is this a subtype of something else and
+
+0:06:17.919,0:06:22.560
+so uh i might want to look at this i'm
+
+0:06:20.319,0:06:25.759
+going to look at the method the method resolution order remember
+
+0:06:24.400,0:06:30.800
+that one method resolution
+
+0:06:29.199,0:06:36.560
+order and that's trying to tell me where this fits in as a hierarchy
+
+0:06:33.440,0:06:39.680
+because the order in which i execute methods really depends on well what is
+
+0:06:38.240,0:06:42.639
+what are the parents of this class what are my grandparents on and so forth
+
+0:06:41.360,0:06:47.120
+and this is not quite how we do that i'm just doing this to remind people
+
+0:06:44.960,0:06:52.240
+method resolution order only works for a class and so if i want to get the class
+
+0:06:49.599,0:06:57.599
+that corresponds to this data frame object i would do this
+
+0:06:54.639,0:07:01.360
+and i can see that if i call world data frame dot
+
+0:06:58.560,0:07:04.560
+some method it will first look in my actual class the geode
+
+0:07:02.720,0:07:09.520
+data frame growing up here it's just a little more interesting i see that
+
+0:07:06.400,0:07:13.440
+we're actually inheriting from uh from pandas.dataframe and so well what
+
+0:07:12.479,0:07:18.080
+does that mean that means everything that you have been
+
+0:07:15.840,0:07:21.280
+able to do with data frames before you can also do with the geodata frame
+
+0:07:20.800,0:07:24.800
+plus whatever extra stuff we have here right
+
+0:07:23.520,0:07:26.560
+so that's one of the reasons i like this right we're just trying building on top
+
+0:07:26.080,0:07:33.599
+of of standard data frames okay
+
+0:07:30.400,0:07:36.639
+and so there's some other types that we have to think about here
+
+0:07:34.720,0:07:39.039
+you can see that if i look at these different columns a lot of these are
+
+0:07:37.680,0:07:43.039
+just regular columns i also have kind of this weird column
+
+0:07:40.880,0:07:50.080
+over here this geometry column um every uh every
+
+0:07:46.879,0:07:54.160
+geodata frame has a geometry column sometimes the geometry column is named
+
+0:07:51.759,0:07:56.960
+geometry uh the geometry column could also be named something else that would
+
+0:07:55.440,0:08:02.000
+be totally fine and uh and so let's take a peek at that
+
+0:07:59.840,0:08:07.039
+so i'm going to say world df and i want to look at geometry
+
+0:08:07.360,0:08:14.720
+and i i see it's a series let me look at the type of this thing
+
+0:08:11.199,0:08:19.280
+can i say type of that column and i see that it is a geo series
+
+0:08:17.199,0:08:23.039
+and just like i wanted to look at the method resolution for a geodata frame
+
+0:08:21.440,0:08:25.680
+and i saw that inherited from regular data frame
+
+0:08:24.160,0:08:30.160
+uh here i could also say method resolution order
+
+0:08:27.360,0:08:33.599
+and i could see that a geo series is ultimately
+
+0:08:31.759,0:08:36.560
+a special kind of series right so everything we can do with panda series
+
+0:08:34.880,0:08:42.800
+we can do here too uh plus a lot of other things okay
+
+0:08:40.479,0:08:45.839
+so let's take a little bit of a closer look at this column
+
+0:08:46.480,0:08:52.080
+and uh and i see that it contains a lot of these different
+
+0:08:50.720,0:08:56.240
+objects right and it contains multi-polygons polygons
+
+0:08:54.320,0:09:01.040
+um let's take a peek at some of these let me say dot
+
+0:08:57.680,0:09:05.680
+i location zero and uh and that kind of looks funny doesn't
+
+0:09:03.120,0:09:10.880
+it let me first look at the type of this thing
+
+0:09:06.880,0:09:13.920
+uh the type of this thing is a shapely object right so i have this
+
+0:09:12.080,0:09:17.760
+multi-polygon type which is part of the shapely
+
+0:09:14.959,0:09:20.240
+uh module eventually where i import shapely and
+
+0:09:18.720,0:09:25.440
+kind of look at that a little bit more right um
+
+0:09:22.240,0:09:27.360
+uh geo pandas is built on top of these shapely things that's how it represents
+
+0:09:26.720,0:09:31.440
+all these geographic shapes and so when i when i'm
+
+0:09:30.160,0:09:34.560
+doing this here it's showing me what that shape is and i
+
+0:09:33.200,0:09:38.000
+don't really know what country this is but
+
+0:09:35.440,0:09:42.959
+those are two pieces of something um i can look at some other ones here
+
+0:09:39.760,0:09:48.720
+like um that's more recognizable as a country there i have another one uh
+
+0:09:46.880,0:09:51.760
+maybe you uh maybe that one's pretty familiar and
+
+0:09:50.240,0:09:54.720
+there we go that's the united states right so i have all of these shapes
+
+0:09:53.519,0:09:59.440
+right and let me just try to look at this again
+
+0:09:56.080,0:10:04.800
+uh that is a multi-polygon and uh and well why is it a multi-polygon uh
+
+0:10:02.480,0:10:09.279
+in some of these other cases like um i think
+
+0:10:05.519,0:10:15.360
+i had this one what was that one uh the type of that one is just a
+
+0:10:13.040,0:10:17.440
+polygon because i can draw it with one line right if i want to draw that
+
+0:10:16.800,0:10:21.440
+country i just have one line bounding the shape
+
+0:10:19.839,0:10:25.040
+something like the the united states right i guess uh
+
+0:10:22.800,0:10:28.240
+you know we have one big shape here right but
+
+0:10:26.399,0:10:32.160
+and that's kind of one poly cod but the shape really includes other
+
+0:10:30.240,0:10:34.720
+separated parts right like alaska is a separate part uh hawaii is a separate
+
+0:10:34.240,0:10:39.760
+part and so really to uh represent
+
+0:10:37.760,0:10:43.600
+um something like the united states as a shape uh it can't be a polygon it
+
+0:10:41.680,0:10:48.399
+actually has to be um a multi-polygon okay so so i said
+
+0:10:47.360,0:10:51.519
+we're going to look at these shapely shapes a little bit more
+
+0:10:50.000,0:10:55.760
+and so let me let me just look at the type of this
+
+0:10:53.040,0:10:58.079
+uh again so that i can do my import right
+
+0:10:56.959,0:11:03.680
+so i'm going to say this i'm going to say uh
+
+0:11:00.720,0:11:06.480
+i'm going to say import shapely dot geometry
+
+0:11:06.560,0:11:14.880
+uh or maybe i'll say this i'll say from shapely
+
+0:11:10.079,0:11:20.800
+dot geometry import polygon is it like that i think so okay and so
+
+0:11:17.839,0:11:24.399
+now i can create these polygon objects and um when i'm doing this what i'll
+
+0:11:23.680,0:11:30.800
+have to pass in is a sequence of
+
+0:11:28.000,0:11:33.760
+of of all coordinates and this is kind of confusing how
+
+0:11:32.160,0:11:37.680
+they specify it i guess the example makes a little bit more sense down here
+
+0:11:35.680,0:11:40.839
+they're passing in a sequence of x y coordinates which is a little bit
+
+0:11:39.120,0:11:45.839
+different than how we've done with map uh matplotlib right with matplotlib if i
+
+0:11:44.240,0:11:50.160
+was trying to draw a line so maybe you remember line 2d
+
+0:11:48.000,0:11:52.480
+we would have something like this we'd i want to have a line with a bunch of
+
+0:11:51.279,0:11:57.040
+points i'd have like you know x1 x2 x3
+
+0:11:55.519,0:12:00.639
+and then i'd have separately the y-coordinates
+
+0:11:58.880,0:12:03.360
+uh the coordinate the way we specify coordinates here is a little bit
+
+0:12:01.519,0:12:10.880
+different i may have a list and i may have like my x one y one
+
+0:12:07.519,0:12:16.480
+and then x two y y2 and then x3 y3 that's how we're going to do it
+
+0:12:13.920,0:12:21.040
+when we're creating these polygons right so this is in uh it's in
+
+0:12:18.320,0:12:27.600
+matplotlib and this is in shapely okay so
+
+0:12:24.399,0:12:32.880
+let's try this um maybe i will start off with just like two points
+
+0:12:28.880,0:12:37.440
+uh can i draw a line let me go from zero zero um diagonally up to the right to
+
+0:12:36.399,0:12:43.279
+one one and uh it doesn't like that because
+
+0:12:41.360,0:12:46.000
+uh i need to have at least three coordinates to have a shapely shape so
+
+0:12:44.880,0:12:48.399
+that's a little bit different here as well
+
+0:12:46.800,0:12:53.360
+and so let me try to go for a triangle so so i went up and to the right
+
+0:12:50.560,0:12:57.519
+um now let's go down and to the right so so i guess
+
+0:12:54.079,0:13:04.000
+i'm kind of my x is increasing 0 1 2 and then i'm going up and down so 0
+
+0:13:00.639,0:13:07.360
+for my y so i go 0 1 0 and there i get this nice little
+
+0:13:06.720,0:13:10.720
+triangle right so i can do that let me let me do
+
+0:13:09.680,0:13:14.959
+another shape um let's try to make like a diamond so
+
+0:13:13.680,0:13:18.560
+if i want to make a diamond i want to add another point
+
+0:13:16.480,0:13:23.600
+right here then i have to go down into the left so i guess i'll go
+
+0:13:20.000,0:13:27.600
+back to x is zero and y is negative one and uh and well that was a little bit
+
+0:13:26.000,0:13:34.160
+strange wasn't it um why did it do that
+
+0:13:30.959,0:13:38.959
+oh i know why because my x is drawing 0 1 2 this should go back to 1 and now i
+
+0:13:37.279,0:13:42.560
+get my nice little diamond there so we're going to do a
+
+0:13:40.079,0:13:46.000
+little bit more with shapely shapes in the future i'll just try to set that
+
+0:13:43.920,0:13:50.880
+aside for now um let's do uh i want to get into some
+
+0:13:49.519,0:13:53.839
+plotting here pretty soon well one other thing i want to talk
+
+0:13:52.160,0:13:56.720
+about though is as i say like i have these geo series
+
+0:13:55.199,0:13:59.440
+i can do everything i can do with a series but there's other stuff so let me
+
+0:13:58.160,0:14:05.839
+give you an example of some other stuff i can do
+
+0:14:02.000,0:14:09.920
+i have all of these uh shapes and for each of them i can get a
+
+0:14:08.160,0:14:13.839
+centroid if i would like and be careful right
+
+0:14:12.720,0:14:18.079
+this is a an attribute not a method right so i
+
+0:14:16.480,0:14:20.560
+don't have any uh parentheses after that kind of strangely all right
+
+0:14:19.279,0:14:23.440
+i would if i were designing this i would probably made it a method and so now
+
+0:14:22.480,0:14:25.839
+what it's doing is reaching those polygons is telling me well where is the
+
+0:14:24.959,0:14:31.279
+center um of each of those things and so
+
+0:14:29.199,0:14:34.240
+and the type of this as well is just well
+
+0:14:32.399,0:14:38.240
+another geo series right i can take the centroid of a series
+
+0:14:35.680,0:14:40.959
+of a geo series and i get another geo series
+
+0:14:38.880,0:14:46.360
+and so when i have these geo series i can uh
+
+0:14:43.199,0:14:49.360
+i can plot them i can just say uh geoseries.plot
+
+0:14:50.240,0:14:56.399
+and there we go i get a map or i i could have said um
+
+0:14:54.959,0:15:00.639
+that was one of my examples my other one as well this is also a geo series i can
+
+0:14:58.320,0:15:04.160
+plot that one as well another geo series that's a centroid of
+
+0:15:02.320,0:15:08.079
+all the different countries and so that's all well another thing i
+
+0:15:06.320,0:15:12.240
+can do is that um i was telling you how like
+
+0:15:11.360,0:15:19.600
+that every uh data frame uh
+
+0:15:15.839,0:15:22.880
+every every geodata frame has a geometry column
+
+0:15:20.160,0:15:26.720
+and um it's often named geometry if i want to
+
+0:15:23.279,0:15:30.160
+get it regardless of of its name i can do that so this would give me that
+
+0:15:28.800,0:15:33.199
+geometry column even if it had a different
+
+0:15:30.639,0:15:36.800
+uh different name and so this is always a special
+
+0:15:34.399,0:15:40.480
+um column within a data frame um if i wanted to i could
+
+0:15:37.920,0:15:44.639
+set it as something else so for example um
+
+0:15:41.279,0:15:50.480
+i could do this if i wanted to i could say
+
+0:15:45.120,0:15:55.839
+world df geometry 2 equals the centroids
+
+0:15:58.800,0:16:04.959
+right i could do that and then let me take a peek at this
+
+0:16:03.440,0:16:09.279
+and so now you actually see i have these two different geometry columns on my
+
+0:16:07.120,0:16:14.560
+geometry one of my geometry too and um but which one is this this is
+
+0:16:12.959,0:16:19.360
+still going to be referring to the one that was before it was this right here
+
+0:16:16.320,0:16:22.639
+so so i look at that and uh and it's that
+
+0:16:20.000,0:16:27.040
+and so if i do a dot plot on a data frame
+
+0:16:23.680,0:16:34.560
+then what it's really doing is uh calling plot on the current
+
+0:16:30.240,0:16:38.720
+geometry uh uh geo series is what what a plotting of a data frame
+
+0:16:36.320,0:16:42.160
+does and um and if i wanted to i can change that right i mean if i could
+
+0:16:40.800,0:16:48.320
+come down here i could say something like um set the geometry column
+
+0:16:45.600,0:16:53.199
+and i can make the geometry column uh geometry too
+
+0:16:50.639,0:16:56.480
+um and then if i wanted to i could but by the way this doesn't actually change
+
+0:16:54.959,0:16:59.839
+my data frame this is just making a new data frame
+
+0:16:57.759,0:17:03.199
+um where it has a different uh geometry column but but i could plot that and now
+
+0:17:01.759,0:17:09.439
+i would get all those points and instead okay so let's try to um
+
+0:17:07.520,0:17:13.760
+actually make a map that is showing the centroids on top of all the countries
+
+0:17:11.919,0:17:18.400
+and so what i'll do is this i'm going to say world
+
+0:17:15.360,0:17:21.760
+df dot plot back here you notice i didn't have to change it
+
+0:17:19.679,0:17:25.600
+back right because this did not this did not modify my data frame
+
+0:17:23.360,0:17:30.320
+object and just created a new one that i used for plotting and then threw it away
+
+0:17:27.679,0:17:34.720
+let me do this we make the color uh maybe like a nice
+
+0:17:31.440,0:17:38.720
+light gray color and uh and then if i want to do the
+
+0:17:35.440,0:17:46.160
+world uh df um uh dot well let me get geometry
+
+0:17:42.960,0:17:50.000
+at centroid dot plot right now let's go into a
+
+0:17:48.480,0:17:54.000
+separate one but i can put that on top of the other one i can say something
+
+0:17:51.760,0:17:58.000
+like this i can capture for here i'm returning an ax object so i
+
+0:17:55.840,0:18:02.320
+can capture that and then down here i could say well i
+
+0:17:59.280,0:18:06.400
+want to plot on top of that same area and now i get this nice map and maybe
+
+0:18:04.960,0:18:11.440
+i'll make like these red and maybe the marker size uh
+
+0:18:09.760,0:18:14.960
+a little bit smaller something like that maybe and now i have this nice map where
+
+0:18:13.440,0:18:18.960
+i can see the centroid on top of on top of each of the of the
+
+0:18:17.520,0:18:23.440
+countries okay so that's all good um what if we
+
+0:18:22.000,0:18:28.240
+want to do uh uh instead of this i could also try
+
+0:18:26.320,0:18:30.720
+to do like the cities right what i'm going to work towards is actually maybe
+
+0:18:29.520,0:18:34.799
+a little bit more of a complicated example than you might expect
+
+0:18:32.320,0:18:39.600
+is how can i create a map of south america
+
+0:18:36.160,0:18:46.320
+with all the capitals um on top of those okay so uh let's um
+
+0:18:43.520,0:18:49.039
+oops didn't want to do that sorry i i did it too soon i need to change the
+
+0:18:47.600,0:18:52.160
+cell type back to code you see there's like markdown
+
+0:18:50.000,0:18:56.160
+and and code what i was trying to do is i was trying to create
+
+0:18:53.039,0:19:02.960
+oh and i did it again uh i hit escape m it changes the type and
+
+0:18:59.760,0:19:06.720
+uh so that's code escape d is what i wanted to do and then escape
+
+0:19:04.880,0:19:12.000
+in yeah okay so i saw america oh with
+
+0:19:10.080,0:19:17.840
+capitals that's what i want to do how do i spell that not sure
+
+0:19:14.240,0:19:20.480
+okay so uh when i go back to my world data frame
+
+0:19:20.640,0:19:25.679
+uh i can filter it just like i would any other
+
+0:19:24.000,0:19:30.880
+data frame so i can filter it by continent for example
+
+0:19:27.360,0:19:37.760
+so i can say um continent uh equal equals um let's say uh where is
+
+0:19:35.440,0:19:42.000
+south america is i don't have any here i guess i'll just type it
+
+0:19:38.960,0:19:46.240
+so south america and uh and this is mostly false but it's
+
+0:19:43.919,0:19:49.280
+true wherever that's a continent and so if i want to take this boolean
+
+0:19:48.080,0:19:55.120
+series and uh and send it into
+
+0:19:52.720,0:19:58.960
+my indexer here then i'm just trying to get those rows
+
+0:19:56.320,0:20:04.320
+for south america and i may capture those in a
+
+0:20:00.000,0:20:11.600
+in a data frame so let me do that okay so that's good and
+
+0:20:07.760,0:20:16.720
+let me plot that i say essay.plot uh i i guess just like that and um
+
+0:20:15.280,0:20:20.960
+right now it's defaulting to making everything blue um i could make
+
+0:20:18.559,0:20:24.480
+all the countries another color well the other thing i could do is i could get um
+
+0:20:22.880,0:20:28.960
+some sort of like heat map like if i wanted to have
+
+0:20:25.919,0:20:33.200
+have it based on the population um i could have one color you know for a
+
+0:20:31.679,0:20:36.320
+kind of bigger population another color for smaller population
+
+0:20:35.039,0:20:40.640
+and that's actually relatively straightforward i can just say
+
+0:20:38.240,0:20:43.679
+uh actually not color i need to say what column i'm trying to plot
+
+0:20:42.000,0:20:47.360
+i could do that and of course you know brazil has a
+
+0:20:45.039,0:20:51.039
+the largest population in south america and that's why it's that bright color
+
+0:20:49.120,0:20:55.919
+no real scale here so i think what i should do is um
+
+0:20:52.960,0:20:59.840
+say legend equals true and now i actually get this
+
+0:20:56.720,0:21:03.120
+uh this scale here on on the right and um and so what is that i think that
+
+0:21:01.280,0:21:09.200
+means that uh brazil has well what is this one
+
+0:21:06.400,0:21:12.640
+to the six is a million so one to the eight is a hundred million so this is
+
+0:21:10.799,0:21:16.400
+about 200 million people in brazil which is uh
+
+0:21:13.600,0:21:20.400
+matches roughly my uh intuition and so that's good so i have this nice map here
+
+0:21:18.720,0:21:25.280
+um what i want to do now is i want to draw the capitals
+
+0:21:22.240,0:21:28.400
+on top of that map okay so i'm going to capture this in an
+
+0:21:26.960,0:21:32.320
+ax and uh and remember like way back at the
+
+0:21:31.760,0:21:36.559
+beginning actually did i even ever grab it um way
+
+0:21:34.880,0:21:41.679
+back at the beginning i had pulled in my world data frame
+
+0:21:39.760,0:21:45.120
+and you know what else i want i want to have a
+
+0:21:42.880,0:21:50.320
+i want to have on like a city data frame so i'm just going to paste that here
+
+0:21:47.280,0:21:53.360
+uh city data frame right so we're plotting points again but
+
+0:21:52.080,0:21:55.760
+it's not going to be the centroid it's going to be about what are the actual
+
+0:21:54.480,0:21:59.520
+cities and so i'm going to do that and maybe
+
+0:21:57.280,0:22:03.760
+just say like citydf.head i need this down at the end well oh
+
+0:22:02.480,0:22:11.280
+city's path i guess um okay so cities data frame
+
+0:22:07.600,0:22:14.640
+cities data frame cities path and um you see i'm kind of going to be
+
+0:22:13.120,0:22:17.200
+in trouble here already because this is a much simpler data frame i don't
+
+0:22:16.000,0:22:20.559
+actually have a details about what continent or even
+
+0:22:19.120,0:22:25.120
+what country these are i just have well i know the
+
+0:22:22.240,0:22:28.159
+name of the city and i know where it is right so so kind of coming back to this
+
+0:22:27.200,0:22:31.760
+example sure i can easily do this i could say
+
+0:22:29.919,0:22:35.039
+cities data frame dot plot ax equals ax maybe i'll make
+
+0:22:34.640,0:22:41.039
+those these nice red points but
+
+0:22:39.120,0:22:45.440
+the problem i might run into is well that's horrible right let me um
+
+0:22:43.120,0:22:50.000
+uh maybe if i make a little smaller i can only see something
+
+0:22:47.120,0:22:54.960
+um it's like well i'm planning it for the whole world i need to figure out
+
+0:22:51.120,0:23:01.760
+some way to filter those down okay and so kind of backing up a step
+
+0:22:58.559,0:23:05.840
+here right if i look at my cities df i don't really know but if i look at my
+
+0:23:04.400,0:23:09.280
+world df i do know the continent or if i look at
+
+0:23:08.400,0:23:12.720
+sa or i guess maybe that's where i've already done my
+
+0:23:10.480,0:23:15.280
+filtering down i absolutely do know the continent
+
+0:23:13.600,0:23:21.760
+and and so what i'm going to do here is called a spatial join
+
+0:23:17.360,0:23:28.760
+i want to figure out which cities overlap things in the geometry column
+
+0:23:26.080,0:23:33.280
+of south america and so i can say geopandas dot
+
+0:23:30.159,0:23:35.440
+spatial join and then i can pass in two data frames
+
+0:23:34.000,0:23:40.159
+data frame one and data frame too so this is a spatial join
+
+0:23:37.520,0:23:43.279
+and and by the way for this to work um you need
+
+0:23:40.720,0:23:49.679
+yet another uh package which is to be installed with this it can be like sudo
+
+0:23:45.679,0:23:56.240
+apt install python3 dash r um and uh and my comment
+
+0:23:52.799,0:23:59.600
+here is don't use pep for this because um uh this archery thing that
+
+0:23:59.039,0:24:03.440
+you actually actually have to install some other
+
+0:24:00.880,0:24:07.679
+programs too that are besides python and the apt is very general apt is for
+
+0:24:05.919,0:24:11.760
+all things on ubuntu python or not and so when i install it
+
+0:24:09.679,0:24:15.279
+this way it's going to both install the python package that i need
+
+0:24:13.840,0:24:17.840
+and the other programs right so that's going to give me everything i need i've
+
+0:24:16.320,0:24:21.200
+already done that so this is just for you if you're following along
+
+0:24:19.600,0:24:24.080
+and so now that i have this spatial joint i can take my two data frames and
+
+0:24:22.799,0:24:28.640
+it's going to tell me well how do they overlap with each other
+
+0:24:25.520,0:24:34.240
+so i can look at my city's data frame and by south america data frame
+
+0:24:32.240,0:24:38.640
+and i get this really weird data frame that's kind of well
+
+0:24:35.760,0:24:42.159
+literally joining them together and uh and why is that weird well
+
+0:24:40.559,0:24:46.240
+one of the reason it's weird is that both of them had a name column
+
+0:24:44.080,0:24:50.000
+and i see i have two name columns here i have name left and name
+
+0:24:47.919,0:24:53.679
+right so so name left was coming from city's df and
+
+0:24:51.120,0:24:56.240
+yeah sure these all look like city names and
+
+0:24:54.240,0:24:59.120
+uh and name right was from the name column
+
+0:24:57.440,0:25:03.039
+in south america and of course these are all country names
+
+0:25:00.559,0:25:08.240
+so so i have all of that but you know the real important point is that i
+
+0:25:05.039,0:25:15.840
+get my geometry right i get my geometry from city's df and i only have entries
+
+0:25:12.000,0:25:18.720
+that geographically overlap with my second shape
+
+0:25:16.720,0:25:23.440
+right so so maybe i'm going to call this something like sa
+
+0:25:19.760,0:25:25.279
+cities like this and then i'm down here instead of looking at all my cities i
+
+0:25:24.799,0:25:29.600
+can just plot my essay cities and uh and actually
+
+0:25:28.559,0:25:32.720
+let me crank that size up again now maybe i'll make it
+
+0:25:31.039,0:25:36.960
+like eight uh maybe even bigger and now i have this
+
+0:25:35.200,0:25:40.559
+beautiful map of like well there's all these different uh uh cities in
+
+0:25:39.039,0:25:43.679
+south america and i'm overlaying that with the with the
+
+0:25:42.240,0:25:46.799
+population um so often when you're making cool maps
+
+0:25:45.760,0:25:50.480
+you have to figure out what are these different
+
+0:25:47.279,0:25:54.840
+uh geodata frames i want to plot and then how can i combine them
+
+0:25:52.240,0:25:57.840
+um in interesting ways i'll leave it off there
+

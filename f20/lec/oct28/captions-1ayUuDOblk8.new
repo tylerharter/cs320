@@ -1,0 +1,936 @@
+0:00:01.199,0:00:08.160
+hello in this video i might introduce the idea of building custom plots
+
+0:00:05.759,0:00:11.440
+um often i think people will try to force their data into one of the cookie
+
+0:00:10.160,0:00:14.799
+cutter designs that matpotlib or whatever tool they're using
+
+0:00:13.280,0:00:18.000
+has and so i think that a lot of the plots that
+
+0:00:16.480,0:00:22.960
+really i find amazing are ones where people thought
+
+0:00:20.720,0:00:26.320
+about well what is the best design for this data and then they did whatever
+
+0:00:24.480,0:00:28.880
+necessary it was to design the plot for that even if it wasn't one of the
+
+0:00:27.519,0:00:33.280
+standard options in one of these tools um let me
+
+0:00:31.920,0:00:36.399
+give you an example of that maybe something that wouldn't be so easy to do
+
+0:00:35.040,0:00:40.879
+in matplotlib um here i have this map of the united
+
+0:00:39.760,0:00:46.559
+states and let me zoom in a little bit here and
+
+0:00:43.920,0:00:50.559
+there's basically this scatter plot on top of a geographic map and instead
+
+0:00:49.440,0:00:54.960
+of just drawing a little point for each um point of the scatter
+
+0:00:53.360,0:00:58.000
+they draw this little line and what each of these lines represents
+
+0:00:56.559,0:01:03.039
+on this picture is an airport in the united states and um
+
+0:01:01.680,0:01:05.600
+it turns out that when you're i'm not really a pilot but when it turns out
+
+0:01:04.159,0:01:08.880
+when you're flying a plane uh and you're taking off you want to be
+
+0:01:07.280,0:01:12.640
+flying into the wind that just makes it easier to take off
+
+0:01:10.320,0:01:16.560
+and so some very cool patterns emerge here you can see that
+
+0:01:14.240,0:01:21.040
+in the middle of the country we have these uh north-south winds
+
+0:01:18.799,0:01:23.840
+if i look on at florida over here for example
+
+0:01:21.920,0:01:28.479
+i can see there's all of these east-west winds
+
+0:01:25.040,0:01:32.320
+and so we get this very interesting um picture of all these airports and if i
+
+0:01:30.799,0:01:36.079
+was trying to do something like this and i was just using a regular scatter plot
+
+0:01:34.240,0:01:39.600
+in matplotlib i wouldn't have such a stunning result
+
+0:01:38.079,0:01:44.320
+so that's what i want to do i want to teach you how we can build custom result
+
+0:01:41.840,0:01:46.399
+plots and it's actually not as hard as you might think
+
+0:01:45.200,0:01:51.439
+we need to learn how to draw a few things we have to be able to draw
+
+0:01:48.240,0:01:54.880
+maybe boxes and lines and circles and points
+
+0:01:53.119,0:01:58.159
+and if you can do all those things well then you can write the code to really
+
+0:01:56.320,0:02:01.439
+build whatever you want right all graphics kind of boils down to these
+
+0:02:00.320,0:02:05.280
+things so if we're drawing these things let's
+
+0:02:02.880,0:02:08.800
+say i'm drawing a line for example i might need to specify where the two
+
+0:02:06.880,0:02:12.959
+end endpoints of the line are and to do that i may have to have some
+
+0:02:10.479,0:02:16.080
+coordinates and so we have to think carefully about the
+
+0:02:14.400,0:02:20.640
+coordinate systems um that matplotlib has if we're going to
+
+0:02:18.319,0:02:24.480
+be basing our work on matplotlib and so here i have um a tutorial which
+
+0:02:23.440,0:02:28.480
+i'm not assigning or anything i just want to show you that it's here
+
+0:02:26.319,0:02:31.360
+um and this is talking about how we can transform between different coordinate
+
+0:02:30.640,0:02:34.319
+systems and it says right up front as you want
+
+0:02:32.720,0:02:38.319
+to push the limits of custom figure generation
+
+0:02:35.599,0:02:40.879
+you have to understand this stuff and there are all these different coordinate
+
+0:02:39.599,0:02:44.160
+systems that we can use i'm going to be showing some of those
+
+0:02:42.160,0:02:48.480
+today just in the context of drawing circles
+
+0:02:45.360,0:02:50.560
+on axes areas right so when i see how as we
+
+0:02:49.280,0:02:54.720
+use different coordinate systems we're going to get very different pictures and
+
+0:02:52.080,0:02:58.560
+try to build some intuition for that okay so i'm going to head over here to
+
+0:02:57.599,0:03:05.599
+my notebook and i am going to import
+
+0:03:02.840,0:03:13.519
+matplotlib dot pi plot as as plt
+
+0:03:10.239,0:03:18.159
+and then i say plt.subplots and um and in some plots i i could say
+
+0:03:16.800,0:03:22.319
+something like in columns and i could get multiple diff little
+
+0:03:20.319,0:03:26.000
+subplots within the same figure um i'm not going to do that right now
+
+0:03:24.159,0:03:30.560
+which means i'm just trying to return a figure and an axe right if i if i was
+
+0:03:28.879,0:03:34.400
+passing something else in here then i'd be returning
+
+0:03:31.440,0:03:37.680
+an array of axes objects um that was a little bit strange because it sounds
+
+0:03:35.599,0:03:43.920
+plural but i'm only getting one let me do that and i get my little area
+
+0:03:41.040,0:03:47.120
+so that's good um let's try to create a circle
+
+0:03:44.640,0:03:50.480
+um on top of it and so i'm going to say plt
+
+0:03:48.480,0:03:55.680
+dot circle there's different shapes that we can get from
+
+0:03:52.400,0:03:58.840
+from plt let me say circle and when i call circle i have to pass in a tuple
+
+0:03:57.920,0:04:05.439
+with an x uh and at a y position
+
+0:04:02.159,0:04:09.920
+and then i also have to have a radius okay so let's just try to draw it in the
+
+0:04:08.239,0:04:17.440
+middle of this picture we have above so maybe i'll say 0.5
+
+0:04:12.840,0:04:23.680
+0.5 and let's say a radius of of one and so i do that and it returns this
+
+0:04:20.639,0:04:26.639
+circle patch object and so let me capture that in a variable
+
+0:04:25.199,0:04:30.960
+just creating a circle doesn't automatically update
+
+0:04:29.280,0:04:36.880
+any of our figures what we actually have to do is we have to say something like
+
+0:04:33.440,0:04:42.240
+ax dot add you see this is a patch object so i'm going to say add
+
+0:04:38.080,0:04:45.280
+patch p and um and so that's not quite working yet there's a couple
+
+0:04:43.680,0:04:48.479
+things that were i have to do um one of the things that we have to do
+
+0:04:47.280,0:04:51.680
+is make sure that this is in the same cell where i'm
+
+0:04:50.080,0:04:57.759
+actually generating it so i'm going to take this back here
+
+0:04:53.600,0:05:01.360
+and uh and run this and uh and now i get actually this huge circle maybe i should
+
+0:04:59.280,0:05:04.960
+make that a little bit smaller huh let me do that and i and i get my circle
+
+0:05:04.160,0:05:08.000
+there um so be careful uh when you're creating
+
+0:05:07.600,0:05:11.039
+um these patch objects and adding them to
+
+0:05:09.600,0:05:14.800
+ax areas uh never add the same patch object more
+
+0:05:14.160,0:05:18.960
+than once if i want to have multiple circles i
+
+0:05:16.400,0:05:24.000
+should create multiple circle objects and add them separately
+
+0:05:21.039,0:05:26.960
+um just for being future proof and kind of thinking forward what i might be
+
+0:05:25.120,0:05:30.240
+doing in upcoming videos i'm going to change this from ad patch
+
+0:05:28.639,0:05:37.280
+to ad artist um and in matplotlib patch
+
+0:05:33.759,0:05:40.080
+is a kind of artist right so there's going to be other things like text or
+
+0:05:38.720,0:05:43.600
+things like that that um you know everything is an artist it's
+
+0:05:41.919,0:05:47.360
+kind of a strange name for something that's being drawn instead of
+
+0:05:45.039,0:05:50.320
+somebody that's drawing but a circle is an example of a patch which is a kind of
+
+0:05:49.120,0:05:54.400
+artist and so that's what i'm going to do
+
+0:05:51.039,0:05:58.000
+and that runs exactly exactly the same so so that's all good um and i can
+
+0:05:56.560,0:06:00.400
+change different things about the circle if i would like i could say things like
+
+0:05:59.680,0:06:06.479
+well um let's set a you know
+
+0:06:03.440,0:06:12.319
+a fill color um maybe i can make the circle red if i would like um
+
+0:06:09.520,0:06:16.880
+let me just check my notes here um i'm doing that wrong
+
+0:06:13.759,0:06:23.440
+uh actually it's face color is the the front of it i could also set
+
+0:06:20.000,0:06:27.919
+a line color if i wanted to um let me actually flip this i might say
+
+0:06:25.680,0:06:32.000
+the line color is red and the face color is
+
+0:06:28.319,0:06:37.280
+empty on and what what am i doing now oh i'm sorry uh
+
+0:06:34.560,0:06:40.479
+not line color edge color okay so i can do that so i can get an
+
+0:06:39.120,0:06:43.759
+empty red circle um i can make it wider if i want i can
+
+0:06:42.639,0:06:50.479
+say line width equals three i get a thicker um
+
+0:06:47.120,0:06:54.319
+thicker circle right there and uh and so that's all
+
+0:06:51.120,0:07:00.080
+all good um you you might notice that i keep calling this thing a circle
+
+0:06:57.520,0:07:03.759
+and uh is that true on some level it looks more like an oval
+
+0:07:02.160,0:07:09.360
+on the other hand if i look along the x-axis
+
+0:07:05.919,0:07:13.599
+i see that it has a width of 0.2 and if i look on the y-axis i see it has
+
+0:07:11.520,0:07:17.680
+a height of 0.2 so even though visually it's not a
+
+0:07:15.280,0:07:20.479
+circle with respect to the data that's definitely
+
+0:07:18.240,0:07:22.479
+a circle and so that's one of the things we're going to talk about how can we
+
+0:07:21.599,0:07:25.759
+think about when i'm drawing a circle is it a circle
+
+0:07:24.240,0:07:30.880
+with respect to the data that's one coordinate system or is it a
+
+0:07:28.800,0:07:33.599
+circle with respect to actual space on the screen that's
+
+0:07:32.160,0:07:36.560
+another kind of circle with another coordinate system
+
+0:07:35.199,0:07:42.000
+so to explore this idea a little bit further what i'd like to do
+
+0:07:39.199,0:07:46.879
+is is kind of compare two things side by side and so i'm going to
+
+0:07:43.120,0:07:53.520
+add this here and i may say n columns equals 2 this time and now this a
+
+0:07:50.319,0:07:57.520
+x is actually a list i have two ax objects one
+
+0:07:54.479,0:08:01.199
+for the left hand side one for the right hand side
+
+0:07:58.800,0:08:05.440
+if i want to i mean i could do this i couldn't pull them out like this
+
+0:08:03.840,0:08:09.360
+the other thing i can do in python is called unpacking if i know that
+
+0:08:07.120,0:08:12.400
+i'm getting something here which is uh has two entries in it
+
+0:08:10.879,0:08:18.000
+i could just put my tuple here and i could say ax1 and ax2
+
+0:08:15.199,0:08:20.720
+and that would be perfectly fine so let me
+
+0:08:18.319,0:08:25.360
+let me do this down here now i'm going to add the same
+
+0:08:22.240,0:08:30.400
+circle and um like this and what i'm actually going to
+
+0:08:28.080,0:08:33.599
+do is put this into a function because i'm going to be
+
+0:08:32.000,0:08:36.959
+drawing lots of circles on as i have more examples here so i'm
+
+0:08:35.279,0:08:42.159
+going to say uh i'm going to call this a relative circle
+
+0:08:40.240,0:08:47.839
+relative because this may be relative to the coordinates of a particular
+
+0:08:44.320,0:08:52.399
+ax area and i should pass in a few things i guess i should pass in
+
+0:08:49.760,0:08:59.040
+what area am i going to be drawing that in maybe the area will be either ax
+
+0:08:54.640,0:09:02.800
+1 or ax2 an x and then and then a y and so i may have that and then i'm
+
+0:09:00.320,0:09:08.080
+going to do all this drawing here and let me just snug that up a bit
+
+0:09:05.839,0:09:11.760
+and i'll say that i want to add this to the area
+
+0:09:09.040,0:09:15.360
+that is passed in and i'm going to have my
+
+0:09:12.080,0:09:19.440
+x y so that's all good let me draw a relative
+
+0:09:18.160,0:09:22.640
+circle on the left hand side so i'm going to
+
+0:09:21.519,0:09:28.720
+say ax1 0.5 0.5
+
+0:09:26.240,0:09:31.600
+and you can see i got that you can see comparing the last time
+
+0:09:30.240,0:09:34.959
+the oval is drawing the other way now right because it's still a circle with
+
+0:09:33.600,0:09:40.320
+respect to the data but my axes are are very different um
+
+0:09:38.080,0:09:45.200
+just really to make this uh clearer let me do this over here i might say
+
+0:09:42.080,0:09:51.760
+ax2 dot set x limit and i'm going to go from
+
+0:09:48.240,0:09:58.800
+oh i i don't know i'll go from uh uh from negative 0.1
+
+0:09:55.839,0:10:01.839
+to i don't know three let's do that and and then what i'm gonna do is i'm gonna
+
+0:10:00.000,0:10:06.079
+draw the same circle on the right hand side and in the same
+
+0:10:04.959,0:10:10.320
+place and i'm going to see well the so the way
+
+0:10:08.640,0:10:14.720
+the circle looks totally depends on the coordinate system
+
+0:10:11.680,0:10:18.480
+i'm working in now it turns out there's also
+
+0:10:15.360,0:10:25.120
+a coordinate system for the whole figure right so this is ax one
+
+0:10:21.760,0:10:29.600
+this is ax2 and the figure is this whole big thing and um and it's
+
+0:10:28.640,0:10:33.120
+a little bit harder to see the coordinate system for the figure
+
+0:10:31.440,0:10:37.120
+because i don't have these nice numbers like we do down here but the way
+
+0:10:35.440,0:10:43.360
+the figure works is that it goes from 0 0 and the bottom left
+
+0:10:40.320,0:10:47.760
+up to 1 1 in the top right so if i try to draw the same circle
+
+0:10:45.360,0:10:52.079
+on top of my finger this should be roughly in the center of my
+
+0:10:50.240,0:10:56.800
+picture and it is right it's spanning these two
+
+0:10:53.600,0:11:01.600
+these two areas so that's all good right so i can do that
+
+0:10:58.560,0:11:05.680
+um i can also uh if i want i i could imagine trying to build some
+
+0:11:03.519,0:11:11.120
+sort of um uh absolute circle right i'd like to
+
+0:11:08.880,0:11:16.079
+actually have something that's visually a circle on here and if i if i head back
+
+0:11:13.680,0:11:19.760
+to this transformations i can see that if i want to be dealing
+
+0:11:18.320,0:11:26.000
+with inches instead of um maybe even my data scale
+
+0:11:23.040,0:11:30.000
+i i can use this transformation here it's called
+
+0:11:26.800,0:11:32.880
+figure dot dpi dpi means dots per square inch
+
+0:11:30.399,0:11:36.079
+a scale transform kind of a clunky name but if i can use that thing and specify
+
+0:11:34.720,0:11:39.120
+that's the coordinate system i want to use
+
+0:11:37.120,0:11:41.920
+well uh then then i'm going to be able to
+
+0:11:40.240,0:11:45.839
+draw something that visually looks like a circle um
+
+0:11:43.920,0:11:51.680
+it turns out whenever i draw a circle or anything one of these coordinate systems
+
+0:11:48.399,0:11:54.639
+is being used and so when i'm uh doing things like this back here
+
+0:11:53.040,0:11:59.600
+right i create the circle and then i'm adding it
+
+0:11:56.399,0:12:03.760
+it's really as if i'm passing in something like this that's like i'm
+
+0:12:00.800,0:12:09.680
+passing in a transform equals and if this was an ax 1 it would
+
+0:12:07.040,0:12:13.279
+be something like ax1 dot transform data right
+
+0:12:13.440,0:12:18.800
+something like that and that's all happening automatically i don't need to
+
+0:12:17.200,0:12:21.120
+worry about that if i actually want to draw something that visually looks like
+
+0:12:20.000,0:12:25.200
+a circle though then i'm absolutely going to have to
+
+0:12:23.519,0:12:30.000
+pass something in there and so so now what i'm going to do is
+
+0:12:26.560,0:12:34.000
+i'm going to pass in absolute circle and um let's make it a little look a
+
+0:12:32.800,0:12:38.000
+little bit different this time just so that it's clear the two things
+
+0:12:36.000,0:12:44.079
+i'm dealing with somebody have a solid blue circle this time um
+
+0:12:42.320,0:12:47.120
+like that is fine i guess maybe i'll make it a little bit smaller
+
+0:12:48.120,0:12:55.279
+0.075 and um and now when i'm doing this
+
+0:12:53.120,0:12:59.519
+i have to pass in what transformation i want so
+
+0:12:56.320,0:13:02.560
+my transformation is going to be an absolute coordinate so it'll look like a
+
+0:13:01.279,0:13:07.600
+legitimate circle uh visually and so i could do i could
+
+0:13:05.040,0:13:12.959
+say fig dot dpi uh scale transform
+
+0:13:10.720,0:13:17.440
+let me do that and so i'm going to try to create a new circle just like that
+
+0:13:15.200,0:13:20.480
+and um and so i'm going to say absolute circle
+
+0:13:18.720,0:13:26.639
+and just like last time it has to be a blue circle and you can see it's way
+
+0:13:23.440,0:13:29.839
+down here on the bottom left right so that must be
+
+0:13:28.079,0:13:35.200
+it must be one it must be like half an inch off half an inch up
+
+0:13:32.240,0:13:38.079
+from the bottom left of my of my figure what if i
+
+0:13:35.760,0:13:42.000
+actually wanted to draw um that blue circle
+
+0:13:39.519,0:13:43.920
+kind of in the middle right here right i mean i could
+
+0:13:42.639,0:13:47.040
+i could do that things like this i could try to move it up a bit and keep playing
+
+0:13:45.760,0:13:49.360
+with it until it got roughly to the center
+
+0:13:47.680,0:13:51.839
+the other thing i could do is when i come back here and i'm creating my
+
+0:13:50.639,0:13:55.440
+subplots i could say what my figure size is and
+
+0:13:54.000,0:13:59.920
+maybe i'll say something like you know eight by
+
+0:13:56.399,0:14:04.320
+four so i do that and and now if it's eight by four then i
+
+0:14:02.160,0:14:09.600
+guess the center is four inches two inches right half of the
+
+0:14:07.519,0:14:13.680
+dimensions right so if i want to get a circle
+
+0:14:10.880,0:14:18.160
+roughly in the center i'm gonna say four and two
+
+0:14:14.959,0:14:20.160
+and uh voila that's roughly in the center
+
+0:14:18.639,0:14:22.880
+of this whole thing it may be a little hard to see right because there's kind
+
+0:14:21.440,0:14:26.399
+of weird padding um in places but that should be roughly
+
+0:14:25.440,0:14:33.600
+on the center of what i'm dealing with here okay
+
+0:14:30.480,0:14:37.199
+so that's all good um let's uh let's uh think a little bit
+
+0:14:36.160,0:14:44.800
+about if i wanted to draw a round circle
+
+0:14:40.959,0:14:46.880
+um actually on top of one of these axes areas
+
+0:14:45.920,0:14:49.199
+right so that's going to be a little trick tricky right i want to figure out
+
+0:14:48.399,0:14:53.360
+the x and y based on the data but i want to figure
+
+0:14:52.240,0:14:57.279
+out the radius of the circle on absolute
+
+0:14:55.760,0:15:00.560
+terms right so i can i can choose the position based on the
+
+0:14:58.880,0:15:04.240
+data and then still get a nice visually round circle so how how would i
+
+0:15:02.959,0:15:10.720
+do that um what i'm going to have to do
+
+0:15:07.360,0:15:14.320
+and maybe what i'll aim for is i'll say let's create the circle right here where
+
+0:15:12.720,0:15:20.320
+i say it's at um two and uh and zero point five on the
+
+0:15:18.320,0:15:26.240
+right hand side um i i have to calculate what the
+
+0:15:22.959,0:15:30.480
+absolute coordinates are for that okay and the way i can do that is i can
+
+0:15:29.120,0:15:33.519
+say fig dot
+
+0:15:34.240,0:15:41.600
+let me look back here uh actually i don't want to do a fig i want to do ax
+
+0:15:38.480,0:15:46.079
+i want to do this trans data first i'm going to say i'm going to say
+
+0:15:46.120,0:15:52.839
+ax2.transdata and so this is a transformer so i can use it to transform
+
+0:15:50.320,0:16:00.000
+points to the overall scale okay and so
+
+0:15:56.480,0:16:03.199
+what i'm going to do here is pass in my data coordinates
+
+0:16:03.440,0:16:11.360
+all right so i'm going to pass in on a tuple and i'm going to say said i want
+
+0:16:10.240,0:16:22.079
+it to be right over here right so i'm going to say 2 and 0.5
+
+0:16:17.360,0:16:26.079
+okay and so i'm going to do that and i'm going to get this very large
+
+0:16:23.519,0:16:31.199
+number here and these are in dots where i have some
+
+0:16:28.959,0:16:34.800
+number of dots per square inch so this is not quite what i want i
+
+0:16:33.199,0:16:39.040
+really want to get this to inches and so to get to this to inches i have
+
+0:16:36.399,0:16:43.839
+to divide by figure dot dpi right i do that
+
+0:16:42.320,0:16:49.759
+and this is actually telling me well how many inches should i go over
+
+0:16:47.120,0:16:53.440
+i should go 6.3 inches over and two inches off
+
+0:16:50.880,0:16:57.199
+and that should be roughly right here at at 2
+
+0:16:54.160,0:17:01.920
+and 0.5 so this is my x and my y and in theory i mean i
+
+0:17:00.560,0:17:06.480
+actually run into a little problem here that we're going to talk about um but in
+
+0:17:04.319,0:17:14.480
+theory i should be able to do absolute circle uh you know on my finger
+
+0:17:10.799,0:17:18.640
+and then x and y and it's not quite right is it i i think
+
+0:17:16.640,0:17:23.360
+that i wanted it right here it ended up there so so what's going on
+
+0:17:21.520,0:17:28.960
+here um it it turns out that
+
+0:17:26.880,0:17:33.039
+what matte plot willow will do when it's generating something for jupiter is
+
+0:17:30.400,0:17:37.520
+it'll first generate its plot and everything is fine and then at the
+
+0:17:35.520,0:17:42.400
+last minute before jupiter actually shows it it will crop
+
+0:17:40.320,0:17:46.080
+out any white space okay so when it crops out the white
+
+0:17:44.160,0:17:49.120
+space you know before there was time more
+
+0:17:46.799,0:17:52.720
+you can imagine that there was more padding to the left here
+
+0:17:50.640,0:17:57.919
+when it cropped that out everything moved left
+
+0:17:54.480,0:18:00.640
+but these points which are in absolute terms now
+
+0:17:59.039,0:18:02.480
+stay the same that's why this ended up looking like it's a little bit to the
+
+0:18:01.600,0:18:06.320
+right of where it is supposed to be so i may
+
+0:18:05.039,0:18:11.520
+have to configure um a jupiter to not do that right that's
+
+0:18:09.840,0:18:15.360
+kind of annoying that it doesn't uh because it makes it harder to make
+
+0:18:13.120,0:18:18.320
+pictures like this and so if i go to my configuration i can
+
+0:18:16.799,0:18:21.919
+these are called like magic commands i say magic configuration
+
+0:18:20.240,0:18:25.840
+um i can see that they have something called inline back end
+
+0:18:23.760,0:18:28.080
+and this has to do with those inline figures that i'm dealing with so i'm
+
+0:18:27.120,0:18:32.880
+going to say config inline back end and it gives me all of
+
+0:18:30.559,0:18:36.160
+these options i can deal with and the one that's creating all my
+
+0:18:34.720,0:18:42.799
+trouble is these print figure keyword arguments and
+
+0:18:39.840,0:18:45.280
+this setting this b box inches tight that's what's causing it to do the
+
+0:18:44.160,0:18:49.440
+cropping and so what i have to do is something
+
+0:18:47.120,0:18:53.520
+like this i have to come up here and i have to say config inline backhand
+
+0:18:52.240,0:18:59.360
+dot print figure keywords equals and instead of
+
+0:18:57.200,0:19:03.600
+this default i don't want it to crop it so i don't want to have this
+
+0:19:01.120,0:19:07.840
+tight here um i i just actually want to say none
+
+0:19:05.120,0:19:11.440
+let me run that and run that and now it's beautiful right i see i
+
+0:19:09.200,0:19:15.840
+uh for one i see that while i have all this extra padding over here
+
+0:19:13.200,0:19:18.480
+right and i see that this is exactly where it's supposed to be it's supposed
+
+0:19:17.280,0:19:22.960
+to be at 2 on the x-axis and 0.5
+
+0:19:21.520,0:19:26.320
+on the right that's where i wanted it to end off and uh and it's round it's
+
+0:19:25.120,0:19:33.280
+visually round so i'm able to use the inches coordinate system
+
+0:19:29.760,0:19:36.400
+for the radius and uh and also use data to figure out the position of it
+
+0:19:34.960,0:19:40.080
+and so you can easily imagine how i might build a scatter
+
+0:19:38.000,0:19:42.400
+plot by this you also notice that i mentioned this before right it didn't
+
+0:19:41.280,0:19:44.480
+quite look like that was in the center before
+
+0:19:43.039,0:19:49.760
+now it actually does visually look like it's in the center um
+
+0:19:46.480,0:19:54.400
+in the center of the plot so looking at this code here um
+
+0:19:53.039,0:20:00.080
+there's one other thing i want to bring up which is
+
+0:19:56.559,0:20:03.360
+this um when i'm figuring out the positioning of things
+
+0:20:01.520,0:20:07.200
+i'm using this transformer right i'm saying i want to do it in
+
+0:20:05.200,0:20:13.120
+absolute terms based on the overall fig right so
+
+0:20:10.480,0:20:16.799
+so the question here is why do i even have to pass in this area
+
+0:20:14.400,0:20:20.080
+right why am i passing in an area to add it
+
+0:20:17.760,0:20:23.280
+if i'm ultimately using this fig doesn't even matter
+
+0:20:21.679,0:20:27.520
+what i'm doing let me make this a little bit bigger since um
+
+0:20:26.400,0:20:32.559
+this time so i'm going to do it like this and let's
+
+0:20:29.440,0:20:36.799
+think about this point right here right so so i'm going to do this let me
+
+0:20:34.799,0:20:38.960
+make a copy of that one i think that was right here
+
+0:20:37.679,0:20:43.840
+here i'm just going to put that down to the bottom i have that circle there
+
+0:20:42.240,0:20:48.640
+let me create another one of those that bumps up a little bit maybe i'll say
+
+0:20:46.240,0:20:52.400
+one and two and so i have those two circles on top of each other
+
+0:20:50.400,0:20:56.320
+and what will happen if i instead of having um both of them
+
+0:20:53.840,0:21:03.039
+in figure i say i want to have one of them in ax
+
+0:20:57.679,0:21:07.120
+one do you see what happens there there's a difference here so so on one
+
+0:21:05.120,0:21:11.280
+of these i'm doing the add artist and when i do the add artist to the axes
+
+0:21:10.559,0:21:14.320
+object well then it'll truncate it if it's not
+
+0:21:12.799,0:21:18.640
+out of there when i do it to the figure object well i
+
+0:21:15.280,0:21:25.679
+i can go anywhere and and so i'm doing kind of a couple complicated things here
+
+0:21:22.159,0:21:29.120
+one is i'm using the figure in terms of figuring out where it goes
+
+0:21:27.520,0:21:33.760
+and then i'm using different areas to figure out how it gets
+
+0:21:30.559,0:21:38.640
+cropped and then similarly down here i want to use data
+
+0:21:36.400,0:21:44.080
+coordinates for the position but i want the radius
+
+0:21:42.400,0:21:47.679
+to be an absolute coordinates and so what that means is i have to do this
+
+0:21:45.840,0:21:52.720
+manual transformation step where i transform
+
+0:21:49.280,0:21:56.720
+my data coordinates to inches and that way i can up here i just use
+
+0:21:54.960,0:22:01.120
+inches for everything and i get the effect i want where
+
+0:21:58.159,0:22:04.159
+uh round circle um at the correct uh data coordinate
+
+0:22:02.559,0:22:08.159
+okay so that was a kind of an intro to matplotlib
+
+0:22:05.600,0:22:09.919
+um coordinate systems and that's going to be important if you're trying to
+
+0:22:09.200,0:22:13.840
+build custom visualizations
+

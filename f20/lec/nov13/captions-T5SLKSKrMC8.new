@@ -1,0 +1,789 @@
+0:00:01.520,0:00:08.320
+hello to review where we were last time uh we were talking about what kind of
+
+0:00:05.600,0:00:11.599
+problems were solvable or not solvable and this might have been a notion that
+
+0:00:09.760,0:00:13.679
+you've heard of before right you probably
+
+0:00:12.000,0:00:18.000
+might have heard or picked up on this idea that if i have the same number of
+
+0:00:15.920,0:00:22.400
+equations and variables that's usually going to be a solvable
+
+0:00:19.439,0:00:25.599
+problem uh whereas if i have more equations and i have variables and i'm
+
+0:00:24.240,0:00:29.199
+often in trouble another thing we talked about last time
+
+0:00:27.199,0:00:33.040
+is how we could represent all the numbers involved in our
+
+0:00:30.400,0:00:36.160
+equations with matrices so the way i might translate that rule
+
+0:00:35.360,0:00:40.079
+then is that generally things work well when
+
+0:00:38.559,0:00:44.239
+i have square matrices right because i have a column for each
+
+0:00:41.680,0:00:48.239
+variable and a row for each equation right so having a square matrix means i
+
+0:00:46.079,0:00:51.520
+have the same number of rows and that means i have the same number of
+
+0:00:49.520,0:00:57.360
+variables and equations um and then when i have more uh more
+
+0:00:55.120,0:01:00.800
+equations than variables or i might have more rows and columns
+
+0:00:59.440,0:01:03.840
+then i'm probably in trouble but not necessarily right it really depends on
+
+0:01:02.800,0:01:10.080
+the data that i'm dealing with and uh and so
+
+0:01:08.080,0:01:12.560
+for certain data right for certain y values i'm actually going
+
+0:01:11.119,0:01:16.560
+able to solve the problem i'm interested in but for most i'm not
+
+0:01:14.880,0:01:22.320
+and so the idea i left you with last time is that if we have a solve
+
+0:01:18.560,0:01:26.479
+unsolvable problem is there a way we can kind of replace that unsolvable problem
+
+0:01:24.159,0:01:30.159
+with a problem that we can solve and choose the problem that we can solve
+
+0:01:28.640,0:01:33.200
+that's as closest to our original as possible
+
+0:01:31.600,0:01:38.000
+and so if we solve that new problem we'll have some answer that is still
+
+0:01:34.640,0:01:42.000
+some somewhat meaningful in some way so to do this uh practically actually
+
+0:01:40.479,0:01:46.399
+kind of do the number crunching i have to introduce this idea of a
+
+0:01:44.560,0:01:50.880
+projection matrix and i have here the formula for a
+
+0:01:48.960,0:01:55.680
+projection matrix so for any any given x values we might have i can
+
+0:01:53.759,0:01:59.040
+use this equation right here and get a projection matrix and there's
+
+0:01:57.439,0:02:02.159
+things in this uh equation that we haven't uh talked about yet for example
+
+0:02:00.880,0:02:04.960
+i have this negative one here i'm going to be mentioning that
+
+0:02:03.759,0:02:08.560
+and i'm not trying to tell you where this formula comes from that's not
+
+0:02:06.799,0:02:12.000
+in the scope of this course i just want to think about how we can
+
+0:02:10.399,0:02:17.040
+reason about what it's doing and then actually write python code for it
+
+0:02:14.480,0:02:19.920
+so this projection matrix that we have uh
+
+0:02:17.520,0:02:23.520
+does a couple nice things for us when we multiply
+
+0:02:21.040,0:02:28.080
+it in front of another vector well if i multiply a matrix by
+
+0:02:25.280,0:02:31.120
+some vector then the result is some new vector
+
+0:02:29.200,0:02:35.040
+and in some ways then i like to almost think of of matrices as functions right
+
+0:02:33.599,0:02:37.519
+you multiply it by a vector to the vector
+
+0:02:35.840,0:02:41.840
+it's almost as if i have an input vector and an output vector
+
+0:02:39.680,0:02:47.680
+and um and so the output vector the thing i get back when i multiply b
+
+0:02:43.599,0:02:52.800
+by my input has a couple nice properties uh first the vector i get back is going
+
+0:02:50.800,0:02:57.599
+to be in the column space of x and one of the ideas i introduced
+
+0:02:55.920,0:03:02.400
+last time was that when our y is in the column space of x
+
+0:03:00.560,0:03:05.840
+then i'm able to solve for c whether or not whether or not i have a
+
+0:03:04.640,0:03:10.080
+square matrix right so this is nice right so one of
+
+0:03:08.480,0:03:14.560
+the things i'm seeing is that if my input
+
+0:03:10.959,0:03:18.879
+vector is say a y that is causing me trouble the output
+
+0:03:17.200,0:03:21.920
+vector it's going to give me back is is going to represent something
+
+0:03:20.560,0:03:27.040
+that's a solvable problem so that's great um is that is that
+
+0:03:25.040,0:03:31.040
+impressive in and of itself no it's not and one reason is that you
+
+0:03:29.599,0:03:35.280
+could imagine what if p was just giving me back on the
+
+0:03:33.840,0:03:39.440
+zero vector right it's just a bunch of zeros
+
+0:03:36.480,0:03:45.200
+um as i mentioned last time the zero vector is in the column space
+
+0:03:41.920,0:03:48.319
+of every single matrix right and so that's not great
+
+0:03:46.480,0:03:51.120
+and so it'd be solvable but you know the problem i'd be solving would be totally
+
+0:03:50.000,0:03:54.159
+unlike the original problem be ignoring all the
+
+0:03:52.720,0:03:58.319
+data i'd just be turning into this kind of arbitrary
+
+0:03:55.599,0:04:01.360
+solvable problem so the second property is what is actually pretty cool when we
+
+0:04:00.080,0:04:04.560
+think about in conjunction with the first
+
+0:04:02.400,0:04:08.640
+um that new vector that i'm getting back that output vector
+
+0:04:06.400,0:04:10.640
+is going to be as close to the original vector as possible right and i'm just
+
+0:04:10.000,0:04:14.319
+trying to be hand wavy here for now what does it mean
+
+0:04:12.560,0:04:17.359
+to be close eventually i'll find that better
+
+0:04:15.360,0:04:19.440
+but just know that hey i'm creating this solvable problem that's actually kind of
+
+0:04:18.799,0:04:24.639
+similar to the original problem so to put it
+
+0:04:22.400,0:04:31.120
+into mathematical terms uh there is no solution to xc
+
+0:04:28.000,0:04:34.400
+equals y and and so what we're going to do
+
+0:04:31.680,0:04:40.400
+is we're going to get a new vector instead of y and i say that
+
+0:04:36.320,0:04:43.680
+p equals my projection matrix times y right so i'm going to replace y with p
+
+0:04:43.199,0:04:46.880
+and uh and then i'm just going to this
+
+0:04:45.040,0:04:49.759
+original equation you know i can't solve this
+
+0:04:47.199,0:04:55.440
+i'm just going to swap out y for that p and i get here i'm going to try to solve
+
+0:04:52.240,0:05:00.639
+x c equals p and this is a good problem because
+
+0:04:58.560,0:05:03.680
+because while it's solvable right i i saw up here
+
+0:05:02.240,0:05:08.160
+p is going to be in the column space of x so i know i can solve this problem
+
+0:05:05.840,0:05:11.520
+and then second i know that this p vector is pretty close to y right so i'm
+
+0:05:10.320,0:05:15.520
+solving something that's pretty close to my original problem
+
+0:05:13.360,0:05:18.880
+um let's try to actually do the number crunching in python
+
+0:05:17.120,0:05:21.680
+with that example i left you with last time
+
+0:05:20.160,0:05:27.360
+last time i started off with a nice problem where i had um
+
+0:05:23.680,0:05:31.759
+the same number of variables and uh and rows and then i added this little
+
+0:05:29.759,0:05:36.000
+trouble at the end i added a duplicate uh basket right so the
+
+0:05:34.560,0:05:40.160
+basket had the same number of apples bananas
+
+0:05:37.039,0:05:43.759
+and uh you know and i had one basket and these two
+
+0:05:40.720,0:05:46.320
+baskets that are identical um sold for different values
+
+0:05:44.880,0:05:50.080
+right so if i was trying to solve the system of equations
+
+0:05:48.400,0:05:52.000
+i wouldn't i wouldn't be able to do it because i'd be looking at my last two
+
+0:05:51.360,0:05:56.800
+equation equations and i'd see well the left-hand
+
+0:05:54.639,0:05:59.280
+side of these two looks the same but the right-hand side of these two
+
+0:05:58.240,0:06:03.199
+looks different right so it's a contradiction
+
+0:06:01.600,0:06:07.199
+uh if i'm ever going to be able to solve this kind of problem say
+
+0:06:04.720,0:06:11.600
+you know where i have these additional rows
+
+0:06:08.800,0:06:14.720
+these last two uh better have the same price on on the right
+
+0:06:13.120,0:06:16.880
+if that if they had had the same price then this would have been a solvable
+
+0:06:16.000,0:06:20.560
+problem and i wouldn't have this trouble okay so
+
+0:06:19.680,0:06:24.319
+this is my y right here uh i'm going to do like i
+
+0:06:22.639,0:06:27.759
+described above and see if i can compute that p
+
+0:06:24.880,0:06:30.960
+vector and if i'm computing the p vector properly
+
+0:06:29.120,0:06:33.440
+well the last two values in the p vector better be the same right because that's
+
+0:06:32.560,0:06:39.600
+the only case this turns into some sort of solvable problem
+
+0:06:36.800,0:06:42.240
+okay so here i have again that formula for my projection matrix i'm going to do
+
+0:06:41.280,0:06:48.639
+that and uh and so i'm going to say p equals
+
+0:06:45.360,0:06:52.560
+and and i have start with x and then when i have um when i just have
+
+0:06:51.840,0:06:56.400
+these two matrices together like this these two
+
+0:06:54.479,0:07:00.080
+values that means i needed a dot product so when i'm translating from the
+
+0:06:57.599,0:07:05.199
+mathematical notation to python i should say dot dot product and i have
+
+0:07:03.199,0:07:09.599
+some stuff there in parentheses and then at the end i have another dot
+
+0:07:06.800,0:07:14.639
+product with x transpose and the way i do x transpose in python
+
+0:07:11.440,0:07:18.479
+is just x dot t okay so what about this part here and
+
+0:07:16.240,0:07:23.599
+what is this negative one uh negative one uh means that
+
+0:07:21.520,0:07:27.840
+as an exponent means that i want to take what we call the inverse of a matrix and
+
+0:07:25.680,0:07:31.599
+that's another thing you learn about if you took like a full linear algebra
+
+0:07:29.280,0:07:36.960
+course i'm not trying to talk about what an inverse means i'm just going to
+
+0:07:33.840,0:07:41.360
+tell you how to compute it in python and numpy
+
+0:07:38.000,0:07:46.000
+and so i could say numpy.linear algebra dot inverse and then i can pass in some
+
+0:07:44.080,0:07:49.680
+sort of matrix here and that matrix better be square so let
+
+0:07:48.479,0:07:55.120
+me try doing this i'm going to try passing an x
+
+0:07:50.560,0:08:01.199
+t and x so i'm going to say x dot t dot product x and i can see great i can
+
+0:07:58.720,0:08:04.240
+take the inverse of that right and this matrix here are some nice properties i'm
+
+0:08:02.720,0:08:08.720
+not trying to talk about but anyway so just trying to translate
+
+0:08:05.759,0:08:13.039
+the math to python i can copy this and put this right here and uh and i'm
+
+0:08:11.520,0:08:16.400
+going to end up with this kind of weird looking projection
+
+0:08:14.879,0:08:21.039
+matrix so let's use it and see if it has these
+
+0:08:17.919,0:08:27.360
+nice properties i talked about um i'm going to say p dot product
+
+0:08:24.800,0:08:31.440
+y let me get back this projection matrix here or this
+
+0:08:28.400,0:08:37.919
+this vector and you can see this has the exact properties that i was hoping for
+
+0:08:34.159,0:08:42.159
+these last two values are the same now right so so i'm kind of imagining like
+
+0:08:39.760,0:08:45.200
+well what if these two baskets didn't sell for original prices i might
+
+0:08:44.000,0:08:48.720
+fix it up by pretending they did sell for the same
+
+0:08:46.720,0:08:52.880
+value and that value i'm pretending is somewhere
+
+0:08:50.160,0:08:56.480
+between 8 and 8.5 this is going to be a solvable problem
+
+0:08:54.480,0:08:59.440
+and i can also see that this vector i produced
+
+0:08:57.920,0:09:03.040
+is not only gives me something solvable but it's very close to my y
+
+0:09:01.120,0:09:08.240
+right so i can see you know with y i have 7
+
+0:09:04.160,0:09:12.320
+with p i have 7.04 up here i have 5 down here i have 5.04
+
+0:09:10.240,0:09:16.640
+so this is a great vector and and then i'd be able to solve it
+
+0:09:14.320,0:09:20.160
+um i want to visually show you what's happening too
+
+0:09:17.680,0:09:22.000
+and and i can't quite do with the fruit fruit example because i want to create
+
+0:09:21.360,0:09:26.000
+this scatter plot and with the fruit example i have
+
+0:09:24.240,0:09:30.399
+too many variables so so what i'm going to do down here is
+
+0:09:27.519,0:09:34.080
+i'm going to make up a new problem that'll be something like this i'm going
+
+0:09:31.920,0:09:37.839
+to say uh numpy dot dot
+
+0:09:39.040,0:09:44.800
+and if i do that i can get these numbers this is just a gaussian
+
+0:09:43.120,0:09:48.839
+um kind of sampling from a normal distribution
+
+0:09:46.320,0:09:51.600
+and if i wanted to i could uh i could compute
+
+0:09:50.080,0:09:57.920
+a column from this i could say something like you know size equals
+
+0:09:54.399,0:10:01.760
+um let's have like uh 10 rows and one column right so i'm computing this nice
+
+0:09:59.680,0:10:06.160
+column of random numbers and i might say that is uh that's acts
+
+0:10:04.320,0:10:10.320
+right so there's x uh let me also get some y values so i'm
+
+0:10:08.880,0:10:14.320
+gonna say uh say something like this i'm gonna say
+
+0:10:12.320,0:10:17.440
+actually maybe that's is that uniform i think i wanna do normal was what i was
+
+0:10:16.160,0:10:21.519
+saying i was doing well let me let me um what else do i
+
+0:10:20.160,0:10:27.600
+have here so i can look at the scale location so maybe i'll say like the
+
+0:10:23.920,0:10:32.480
+uh the location of this is five and um and the scale is let's say two
+
+0:10:31.040,0:10:35.920
+okay great sorry i think it was doing like a uniform random when i just said
+
+0:10:34.320,0:10:39.920
+random now it's normal right so i have some random x values um
+
+0:10:38.079,0:10:41.920
+let's say that i have some y values as well
+
+0:10:40.320,0:10:47.440
+and and there's a relationship between the y values i'll say that
+
+0:10:44.079,0:10:52.720
+i don't know y equals um uh 2 times x let me just do that
+
+0:10:50.640,0:10:55.680
+i have some y values but let's say there's some noise in the system so i'm
+
+0:10:54.480,0:10:58.800
+going to say um i'm going to add in some noise and i
+
+0:10:57.440,0:11:01.120
+can i can just do that the same way i can say
+
+0:11:01.399,0:11:07.040
+numpy.random.normal and then the size here is just going to
+
+0:11:05.760,0:11:10.720
+be well whatever the shape of x is right maybe
+
+0:11:09.680,0:11:13.440
+i'm just trying to kind of peek at this and kind of see what that noise looks
+
+0:11:12.320,0:11:16.240
+like right i'm just doing some small values i
+
+0:11:15.120,0:11:20.720
+mean sometimes a little bit more than one sometimes a little less than one
+
+0:11:18.480,0:11:24.240
+and uh and i'm adding that up to my signal here right so i have two times
+
+0:11:22.079,0:11:28.320
+x plus this noise so i get these y values
+
+0:11:26.240,0:11:31.839
+so so if i wanted to i could uh create a data frame from all this
+
+0:11:29.760,0:11:37.200
+um maybe i should actually head back here and say something like um
+
+0:11:34.160,0:11:40.399
+import pandas as pd and then down here i can create my data
+
+0:11:38.720,0:11:46.880
+frames i'm going to say uh pandas.dataframe
+
+0:11:44.079,0:11:49.200
+and then i can have these uh a dictionary of columns right so i could
+
+0:11:48.399,0:11:54.079
+say x is x and then y is is y and then i could
+
+0:11:52.639,0:11:59.839
+look at that and um and why is that unhappy
+
+0:11:57.600,0:12:10.320
+um well let me just try this and see if i
+
+0:12:07.680,0:12:13.839
+have any um any more locks i think my y
+
+0:12:15.200,0:12:19.200
+uh is like that you know what i think it's trying to do is that i already have
+
+0:12:18.639,0:12:23.120
+um you notice that i already have uh in two
+
+0:12:21.760,0:12:27.040
+dimensions and i'm expecting something one dimensional here
+
+0:12:24.560,0:12:31.600
+so so maybe i'll just actually uh reshape this
+
+0:12:28.320,0:12:34.560
+to be just one dimensional since i'm imposing this new structure on
+
+0:12:33.279,0:12:39.040
+so i'm going to do that and and it's still not happy what is it saying now
+
+0:12:36.240,0:12:41.760
+arrays must have the same length uh i sure would have thought they would
+
+0:12:40.320,0:12:45.360
+have had the same length let me let me just peek at both of these i must have
+
+0:12:43.120,0:12:49.600
+done something wrong here so that i have that one and then i have
+
+0:12:48.000,0:12:52.720
+this here my y if i look at the size of the size and
+
+0:12:51.200,0:12:59.519
+shape of that that's smaller for some reason
+
+0:12:55.839,0:13:02.560
+did i rerun some other photo earlier you know what it was i think when i was
+
+0:13:00.720,0:13:06.240
+importing up here i changed what my y was and that's why it was breaking
+
+0:13:04.480,0:13:10.000
+now i'm actually curious if i actually do this reshape
+
+0:13:08.000,0:13:13.839
+what if i have it just like this is it going to be okay with that
+
+0:13:11.760,0:13:18.320
+okay i guess i still need to flatten it okay great so i have this thing
+
+0:13:16.240,0:13:22.720
+and now i can actually plot it right i could say
+
+0:13:19.360,0:13:26.880
+uh dataframe.plot dot actually just leave it there for now
+
+0:13:24.959,0:13:31.519
+i'm going to do it another cell i'm going to say down here a
+
+0:13:29.480,0:13:35.440
+dataframe.plot.scatter x equals my x column y equals my y
+
+0:13:34.160,0:13:42.639
+column and maybe i'll say that uh
+
+0:13:38.880,0:13:46.800
+the color will be gray maybe a slightly darker gray great so
+
+0:13:45.600,0:13:50.800
+you can see those points there's kind of a relationship there but
+
+0:13:48.800,0:13:55.519
+i definitely cannot uh i i definitely cannot fit a straight
+
+0:13:52.959,0:14:02.320
+line to it right it's not possible i cannot find c where
+
+0:13:59.440,0:14:04.880
+y equals x times c right i can't do that right there's too much noise in the
+
+0:14:03.680,0:14:08.959
+system okay so how can i use projection
+
+0:14:06.639,0:14:14.240
+matrices in this case to replace this y with something that i
+
+0:14:12.320,0:14:17.600
+could actually solve for and so what i'm going to do is i'm going
+
+0:14:15.440,0:14:23.199
+to actually just grab my um my equation up here this p matrix
+
+0:14:20.959,0:14:28.639
+and uh and so down here what am i going to do i'm going to compute this p
+
+0:14:26.000,0:14:32.240
+based on on my x and i guess down here i actually have been
+
+0:14:30.000,0:14:35.360
+using lowercase x and the reason why is that it's one dimensional right it's
+
+0:14:33.680,0:14:39.040
+just this one column but uh it doesn't matter right i can do
+
+0:14:37.279,0:14:42.959
+that the same all right so i'm going to do that and uh
+
+0:14:41.680,0:14:46.880
+and let me look at this p here still still a pretty large matrix
+
+0:14:45.360,0:14:52.079
+right even though i have only one one column now and uh and i can use it i
+
+0:14:50.560,0:14:57.680
+can multiply it by my y right and i get this other thing
+
+0:14:55.120,0:15:00.880
+right so this is um maybe i'll call this my p vector
+
+0:14:59.360,0:15:03.760
+and uh and let me just kind of add this back to my original data frame i'm going
+
+0:15:02.399,0:15:10.320
+to say um data frame add a p column equals to bp
+
+0:15:08.079,0:15:13.120
+and then i'm just going to flatten that and i'm going to look at my data frame
+
+0:15:11.600,0:15:18.240
+again okay so so what happened here uh i was
+
+0:15:16.320,0:15:22.240
+trying to find a relationship between uh x and y a perfectly linear
+
+0:15:20.000,0:15:26.399
+relationship and it wasn't possible and uh so instead i added this new
+
+0:15:24.000,0:15:32.800
+column p and it is going to be possible to find a perfect relationship between
+
+0:15:28.800,0:15:36.880
+uh between the p and the x and uh and you can see that p is pretty close
+
+0:15:35.600,0:15:40.320
+to y but there are some minor differences
+
+0:15:38.880,0:15:45.759
+right that that's why this is working out great right so
+
+0:15:42.000,0:15:50.480
+p has um uh it's close to my y but it can actually fit to my x um
+
+0:15:48.800,0:15:54.240
+and so let me just plot that and we can actually see what it looks like
+
+0:15:52.480,0:16:00.639
+uh let me do the same plotting i did before
+
+0:15:56.480,0:16:03.680
+um down here uh that was all good and uh and let me let me plot the same
+
+0:16:02.560,0:16:07.199
+thing but instead of plotting x against y i may plot x
+
+0:16:05.920,0:16:10.639
+against p and we make that like a red line we we
+
+0:16:09.920,0:16:17.360
+can find c where p equals x times c
+
+0:16:14.240,0:16:19.040
+so let me do that and uh and actually it's plotting these on two different
+
+0:16:18.320,0:16:22.639
+things let me let me do this i'm going to say this
+
+0:16:20.720,0:16:26.079
+first one returns an ax and down here i might pass that in ax
+
+0:16:24.399,0:16:29.120
+equals ax and you can see what it did to those
+
+0:16:27.519,0:16:33.120
+great points right actually let me make this a little bit lighter now again
+
+0:16:30.959,0:16:36.880
+so you can see the contrast writer replaced all of those
+
+0:16:34.240,0:16:40.160
+um let me actually make it black i think just
+
+0:16:37.360,0:16:43.519
+so people can really see they replace all those gray points
+
+0:16:42.000,0:16:46.320
+with those very similar black points and now you can see the black points lie on
+
+0:16:44.959,0:16:50.240
+a perfect line and and so i can actually compute and
+
+0:16:48.639,0:16:55.440
+compute a slope here um how could i do that um well
+
+0:16:53.440,0:16:59.120
+i'm only really solving for one variable and i have
+
+0:16:56.480,0:17:01.759
+what i guess like 10 equations and so i could really solve it by any of them
+
+0:17:00.480,0:17:06.319
+right i could say something like data frame of
+
+0:17:03.360,0:17:12.400
+of p divided by data frame of x and that's trying to do an element-wise
+
+0:17:08.240,0:17:16.160
+and i can see that my slope is 2.027 right from any of those
+
+0:17:13.679,0:17:17.919
+equations i could have figured that out and
+
+0:17:16.720,0:17:23.280
+that's great right because when i was randomly generating my data
+
+0:17:20.640,0:17:28.720
+i had all the way back here what was y y was 2 times x plus some noise
+
+0:17:25.679,0:17:31.600
+and so i rediscovered that that too and this is what i'll generally
+
+0:17:30.000,0:17:36.000
+encourage you to do when you're learning new
+
+0:17:32.799,0:17:40.320
+kind of linear algebra or or maybe machine learning techniques
+
+0:17:38.080,0:17:44.240
+randomly generate some data where you know what the underlying pattern is
+
+0:17:42.480,0:17:48.720
+and then see if you can use these machine learning techniques
+
+0:17:46.160,0:17:52.400
+to pull that back out from the noisy data can you
+
+0:17:49.520,0:17:58.840
+under uh kind of uncover that original signal
+
+0:17:54.559,0:18:01.840
+okay great so uh i will leave it off there
+

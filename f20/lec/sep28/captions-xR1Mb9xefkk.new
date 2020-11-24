@@ -1,0 +1,639 @@
+0:00:01.120,0:00:05.520
+hello so this point in your programming career
+
+0:00:03.760,0:00:09.840
+you probably all have a decent intuition about when to use lists or when to use
+
+0:00:07.359,0:00:13.360
+dictionaries to represent different data another really important way to
+
+0:00:11.679,0:00:16.800
+represent data is with a graph there's lots of real world problems i may be
+
+0:00:14.880,0:00:19.840
+giving examples of these that that can kind of be represented
+
+0:00:18.400,0:00:23.439
+with graphs and in graphs the basic idea is that we
+
+0:00:22.800,0:00:27.680
+have two parts then we have nodes and nodes could
+
+0:00:26.400,0:00:31.439
+represent any sort of entity in the world maybe a person
+
+0:00:29.279,0:00:35.280
+or an intersection or any any number of things i'll be giving examples
+
+0:00:33.440,0:00:40.000
+and then we have edges that connect nodes and that could represent any kind
+
+0:00:37.520,0:00:46.399
+of different relationship so let me let me give some examples here
+
+0:00:43.360,0:00:51.920
+um one is get we've already been using get for a while now
+
+0:00:48.000,0:00:56.000
+and um in jet we have commits and then there's relationships between
+
+0:00:54.160,0:01:00.640
+mats right i can maybe say that c is based on b
+
+0:00:59.120,0:01:06.320
+or or maybe this commit down here command one is also based on b
+
+0:01:03.199,0:01:12.320
+and and so any sort of um uh any sort of uh get repository is a graph
+
+0:01:10.000,0:01:16.240
+right with both nodes and edges nodes or commits edges are these
+
+0:01:13.840,0:01:20.400
+relationships between commands um other example let's say you're
+
+0:01:19.119,0:01:24.320
+interested in understanding politics what you could do or this
+
+0:01:23.119,0:01:31.200
+person did is they created a node for every um
+
+0:01:28.640,0:01:35.600
+uh for every senator uh in the federal government
+
+0:01:32.400,0:01:39.280
+and then they wanted to try to figure out other kind of any clusters or kind
+
+0:01:37.360,0:01:42.720
+of relationship patterns and in this case it's not so clear what
+
+0:01:41.520,0:01:46.320
+does it mean for there to be an edge between
+
+0:01:43.680,0:01:49.439
+uh two senators or not um there's not kind of that immediately in the data so
+
+0:01:48.000,0:01:52.640
+the whoever was making this design had to come up with that and what they did
+
+0:01:50.640,0:01:57.040
+is they had some sort of measure of well how often do these two senators
+
+0:01:55.439,0:02:00.159
+vote with each other and then the more often they vote we'll
+
+0:01:58.560,0:02:03.040
+have a stronger edge between them so really there's an edge between every two
+
+0:02:01.680,0:02:06.719
+senators here but some of those edges are stronger
+
+0:02:05.520,0:02:10.000
+stronger than others and then if they run some sort of thing
+
+0:02:07.920,0:02:15.680
+where all edges pull each other kind of into some sort of physics simulation
+
+0:02:12.080,0:02:18.959
+what you'll see is that um is that well you can kind of get a sense
+
+0:02:17.200,0:02:23.520
+while you know the red nodes which are republicans to develop
+
+0:02:20.239,0:02:27.040
+together the blue nodes uh tend to vote vote together and then you can see
+
+0:02:25.520,0:02:30.000
+interesting things for example like you know here's an independent and you can
+
+0:02:28.560,0:02:34.560
+see well that independent is more on maybe uh might be more
+
+0:02:33.120,0:02:38.480
+like a democrat in terms of where they're positioned or we can get some
+
+0:02:36.720,0:02:42.160
+sense of who are the moderates so if we can take some data and we can
+
+0:02:40.800,0:02:44.400
+kind of carefully define the nodes and edges
+
+0:02:42.879,0:02:47.360
+well then we can maybe actually get some kind of visual insights into what's
+
+0:02:45.920,0:02:50.000
+going on and an otherwise very complicated problem right it's very
+
+0:02:48.560,0:02:55.519
+complicated to kind of uh cluster or categorize uh politicians
+
+0:02:53.680,0:02:59.840
+right um some of you might be from a biology
+
+0:02:58.640,0:03:05.680
+background and here's a graph where i want to
+
+0:03:02.560,0:03:09.599
+understand the relationship between um various animals right that are are
+
+0:03:08.000,0:03:14.800
+kind of alive today so all the animals that are alive today
+
+0:03:11.280,0:03:17.920
+uh are here on the right and then you can see that there's edges right
+
+0:03:16.239,0:03:26.239
+these kind of square edges maybe if i kind of zoom in right the marsupial mole and the wombat
+
+0:03:23.120,0:03:29.280
+kangaroo possum koala both come up to here here's actually a note
+
+0:03:28.159,0:03:32.480
+it's just kind of an intersection between these edges
+
+0:03:30.799,0:03:36.319
+and that represents some sort of um inferred common
+
+0:03:33.840,0:03:38.799
+um ancestor right so this this kind of graph is a special kind of graph it's a
+
+0:03:38.080,0:03:41.840
+tree we'll be learning about different kinds
+
+0:03:39.920,0:03:47.360
+of graphs in this course and uh and um and kind of this tree
+
+0:03:45.599,0:03:49.519
+helps us understand the evolution of all of these different
+
+0:03:48.159,0:03:53.439
+uh kind of animals right it's a phylogenetic tree that's gonna be
+
+0:03:51.360,0:03:59.439
+something that's also very useful um and kind of our uh individual
+
+0:03:57.040,0:04:03.120
+uh kind of um let me see if i can make this a little bit bigger
+
+0:04:01.280,0:04:07.040
+um and kind of our friendships and relationships we can also represent that
+
+0:04:05.040,0:04:11.200
+right maybe every person in the world um is a node and then a friendship
+
+0:04:09.280,0:04:14.799
+between two people you could think of uh uh as an edge and so this was
+
+0:04:13.680,0:04:18.000
+actually something that an intern at facebook did that they made a big
+
+0:04:17.120,0:04:21.759
+news um where they they represented this for
+
+0:04:19.840,0:04:24.880
+every every person in the world and their friendships and maybe you can
+
+0:04:23.199,0:04:29.199
+see well i don't know maybe people travel between certain pairs of
+
+0:04:26.840,0:04:31.440
+countries um and things like that right so it's kind of a lot of nodes a lot of
+
+0:04:30.800,0:04:39.199
+edges here it's very hard to visualize in that scale um let me see here uh
+
+0:04:38.000,0:04:43.840
+this one was actually something that some students of mine did they uh
+
+0:04:41.840,0:04:46.720
+they were trying to understand um basically spending within the city of
+
+0:04:45.520,0:04:53.520
+madison and what you're actually gonna notice is kind of if you uh work in a big complicated
+
+0:04:51.440,0:04:56.320
+organization uh there's kind of this weird thing where there's like different
+
+0:04:54.639,0:04:58.479
+departments and they actually will spend money
+
+0:04:56.720,0:05:01.039
+um between each other it's kind of weird to think of like well the city of
+
+0:04:59.840,0:05:04.560
+madison is paying some other part of the city of
+
+0:05:02.639,0:05:08.320
+madison for something uh but that makes all kinds of
+
+0:05:05.840,0:05:11.120
+kind of accounting details easier so for example one of the things they'll do is
+
+0:05:09.680,0:05:14.320
+they have like a fleet services that's in charge of vehicles
+
+0:05:12.960,0:05:17.280
+and then there's many other departments that will basically rent those vehicles
+
+0:05:16.400,0:05:23.600
+from them so so rather for example than the fire department or parks and police owning their own
+
+0:05:21.680,0:05:25.600
+vehicles they're they're basically renting
+
+0:05:24.000,0:05:29.759
+those from the fleet services and then kind of internally doing billing
+
+0:05:27.280,0:05:33.280
+so we can kind of see um you know even though this is like kind of consolidated
+
+0:05:31.280,0:05:36.840
+that makes sense we can still see well uh you know how much are we kind of
+
+0:05:34.639,0:05:40.560
+spending from the fire department on vehicles and so here we have some sort
+
+0:05:38.960,0:05:44.800
+of flow right where we have um a bunch of nodes over here uh
+
+0:05:43.680,0:05:48.000
+which are organizations that are spending money and then here's
+
+0:05:46.639,0:05:51.440
+organizations where the money is going to you know the
+
+0:05:49.199,0:05:55.520
+the fleet service is the largest workers comp traffic engineering
+
+0:05:53.280,0:06:00.160
+um insurance so on and so forth this is another special kind of graph
+
+0:05:56.880,0:06:02.880
+it's a sake plot that's showing that and uh and so you can kind of understand
+
+0:06:01.600,0:06:06.240
+these relationships and of course the most important thing here
+
+0:06:04.479,0:06:09.039
+is really the the strength of those edges right how much
+
+0:06:07.840,0:06:13.360
+you know i don't just care that money is flowing from the streets uh agency to
+
+0:06:11.280,0:06:19.520
+fleet services by care how much money um is flowing along that edge
+
+0:06:16.960,0:06:24.080
+one last one here is that uh streets actually
+
+0:06:20.160,0:06:29.600
+it turns out are also graphs i can think of every intersection as a node
+
+0:06:26.560,0:06:32.400
+and then edges are streets that connect intersections
+
+0:06:30.960,0:06:34.800
+and so if i can have algorithms that help me think about these graphs and how
+
+0:06:34.160,0:06:37.919
+uh you know i could take a series of edges
+
+0:06:36.160,0:06:40.319
+to get from one point to another i could do something like build google maps or
+
+0:06:39.520,0:06:43.600
+kind of um you know infer whether there are new
+
+0:06:42.160,0:06:49.840
+streets that i should be um developing let me let me close a
+
+0:06:45.759,0:06:54.160
+bunch of these and i'm gonna head back here and so
+
+0:06:53.120,0:07:00.479
+we're gonna be talking a lot about graphs and kind of starting with trees
+
+0:06:57.840,0:07:02.960
+um but but there's different ways we know how to do graph so i've shown a lot
+
+0:07:01.919,0:07:05.759
+of examples where we just want to visualize it
+
+0:07:04.319,0:07:10.160
+and for that we're going to be learning this tool called graph fizz
+
+0:07:08.160,0:07:12.960
+and so graph is is good for making a kind of a a good picture to share with
+
+0:07:12.160,0:07:16.080
+people and in the vast majority of cases if you
+
+0:07:14.880,0:07:19.759
+have a good picture of a graph it's a relatively simple graph otherwise
+
+0:07:18.319,0:07:24.160
+it just doesn't really fit on the page maybe that facebook
+
+0:07:21.440,0:07:26.639
+um friends example was an exception um so when i start with visualization i
+
+0:07:25.440,0:07:29.039
+think that's a little easier to wrap our heads around
+
+0:07:27.680,0:07:32.560
+oh but pretty soon we're gonna have a separate way of kind of constructing
+
+0:07:31.039,0:07:36.080
+graphs which will be from our own classes that we're
+
+0:07:34.080,0:07:38.880
+constructing where i have often have classes for like a node and another
+
+0:07:37.680,0:07:41.919
+class for an edge and we're going to use that to build our graphs
+
+0:07:40.479,0:07:44.160
+and that's going to be more appropriate if we have kind of a lot of data to deal
+
+0:07:43.440,0:07:47.520
+with okay so today is just draft fizz so i
+
+0:07:45.759,0:07:54.400
+can introduce a bunch of concepts so i'm going to say from graph vis
+
+0:07:50.639,0:07:59.440
+import uh i'm going to just import graph and um and you there's some details in
+
+0:07:57.440,0:08:02.479
+the reading that you have to go through to be able to make this work right um
+
+0:08:01.360,0:08:06.800
+i've already kind of done all that installation so that works just fine
+
+0:08:04.720,0:08:14.800
+and so i can create a new graph object like this and i can i can see it and um and then the simplest
+
+0:08:12.080,0:08:19.360
+graph i guess just would have maybe one node called a
+
+0:08:16.800,0:08:23.599
+all right i see there's my node um if i want to
+
+0:08:21.599,0:08:27.520
+in graph is i can separate i can have like a
+
+0:08:24.720,0:08:29.280
+a name for the node and then actually which i'm going to use in code and then
+
+0:08:28.800,0:08:38.959
+i can have what actually gets displayed so now the a node is called madison right
+
+0:08:36.880,0:08:42.560
+if i wanted to start thinking about kind of a rough idea of maybe like the
+
+0:08:40.800,0:08:47.680
+streets in the midwest or kind of the the roads um maybe i'll
+
+0:08:45.519,0:08:51.920
+add chicago here like so and then i might want to note
+
+0:08:50.720,0:08:55.680
+that while there are roads that are connecting madison and
+
+0:08:53.519,0:08:59.839
+chicago you can drive from one uh to the other right neither one is an
+
+0:08:57.200,0:09:03.040
+island right so i can say g dot edge and um and i can say well i want a
+
+0:09:01.680,0:09:10.080
+street between between madison and chicago okay
+
+0:09:06.480,0:09:14.480
+so that's all fine um now it's kind of weird but if i wanted to
+
+0:09:12.560,0:09:19.680
+there's nothing stopping me from having uh two edges between the
+
+0:09:18.080,0:09:22.480
+same two nodes i want you to think for a moment
+
+0:09:21.040,0:09:26.800
+can you think of a reason maybe for madison in chicago specifically why
+
+0:09:24.240,0:09:30.399
+might want to have these two edges here between these what might that represent
+
+0:09:29.360,0:09:37.519
+um for those of you who have made that trip right it's time to chicago's a nice place to visit
+
+0:09:34.959,0:09:41.120
+oh that's not too far from us you often have this choice right you can
+
+0:09:38.959,0:09:44.160
+pay to go on these toll roads right and you have to pay i don't know maybe
+
+0:09:42.320,0:09:47.839
+you'll pay five to ten dollars maybe more to get there
+
+0:09:45.440,0:09:51.839
+um and you'll get there kind of quickly or you can take a longer route that
+
+0:09:50.160,0:09:55.760
+is free right so there are kind of two ways to get between madison chicago
+
+0:09:53.839,0:10:00.000
+with trade-offs one is cheaper and one is uh one is faster
+
+0:09:58.399,0:10:02.880
+i might also you know there are sometimes cases where i can have a node
+
+0:10:02.079,0:10:06.959
+from uh from a city to itself right i mean
+
+0:10:05.200,0:10:11.040
+there's certainly ways i could you know from madison down the beltline
+
+0:10:08.880,0:10:15.839
+and then kind of pop back into madison um that's not too strange right uh so so
+
+0:10:14.480,0:10:19.440
+kind of back to this idea i'm not gonna do that for now
+
+0:10:16.640,0:10:25.200
+um in terms of having these two edges right there's two ways to get to
+
+0:10:21.839,0:10:29.360
+chicago maybe i want to somehow indicate that
+
+0:10:25.920,0:10:33.600
+and so on either an edge either on either an edge or a node i can
+
+0:10:31.839,0:10:36.959
+add what i call metadata right i mean the core data as well the nodes and the
+
+0:10:35.279,0:10:40.399
+relationships between them metadata is telling me a little bit
+
+0:10:38.320,0:10:44.560
+extra about those nodes and edges and so one way i could visualize that is
+
+0:10:43.120,0:10:48.160
+by passing in a label right so i could say something like time equals two hours
+
+0:10:46.399,0:10:51.760
+and 40 minutes and um i could i could make a note here
+
+0:10:51.200,0:10:55.440
+there's no tolls tolls are what i pay to use the
+
+0:10:54.320,0:11:00.880
+road and um and then for the other one maybe
+
+0:10:58.560,0:11:07.440
+i'll say um you know let's say it takes like three hours and 10 minutes
+
+0:11:04.079,0:11:11.839
+but guess what it's free okay so that's that's good now one thing i want
+
+0:11:09.839,0:11:15.680
+to point out about graphviz that's not great
+
+0:11:12.839,0:11:20.240
+is that you can pass in whatever parameters you want
+
+0:11:17.519,0:11:25.680
+and some of them are meaningful but if i pass in you know like a garbage
+
+0:11:22.480,0:11:29.120
+param equals haha it just does nothing right which is a
+
+0:11:27.600,0:11:32.079
+little bit confusing right so so if you're doing this and it's not
+
+0:11:30.320,0:11:37.360
+working for example double check that you spelled it right you don't get errors and graph is
+
+0:11:36.079,0:11:39.360
+when you might expect to even when you do something wrong so i guess you have
+
+0:11:38.640,0:11:42.880
+to more so than usual kind of stare at your
+
+0:11:41.040,0:11:48.160
+code and make sure you aren't kind of making a silly mistake right so
+
+0:11:46.160,0:11:52.079
+so how can i figure out which things are valid to pass here
+
+0:11:49.920,0:11:55.519
+and um and the documentation is a little bit horrible so i think that i want to
+
+0:11:53.680,0:12:00.000
+spend at least a little bit of time trying to explain how to read it and so
+
+0:11:58.720,0:12:03.600
+there's a link in the reading over to this page which is um
+
+0:12:01.519,0:12:07.680
+attributes right so node edge and graph attributes
+
+0:12:04.639,0:12:10.880
+and the attributes are passed in i guess just as a parameters right so
+
+0:12:09.200,0:12:15.120
+they're kind of using label as an attribute for an edge and uh and so
+
+0:12:13.760,0:12:21.279
+they have this abbreviation like they have on n is node e is edge
+
+0:12:19.040,0:12:26.800
+g is graph they also have clusters which we won't talk about clusters are c
+
+0:12:24.160,0:12:31.440
+and if i want to look down here maybe i'll just say
+
+0:12:28.560,0:12:35.519
+let's look at color right so by color it says i have
+
+0:12:32.160,0:12:38.880
+e and c and what that means is that i can
+
+0:12:35.839,0:12:42.560
+pass in a color or an edge a node and then a cluster which i
+
+0:12:41.040,0:12:49.440
+actually really care about right so so if i wanted to right i can
+
+0:12:46.000,0:12:52.560
+head back here and i can say well this one
+
+0:12:50.000,0:12:55.279
+where i'm um let's say i'm kind of using the toll roads i want that to really
+
+0:12:53.839,0:12:59.839
+stand out so i'm allowed to pass in taller here
+
+0:12:56.399,0:13:03.360
+and say that that's red um right and you can see that that below
+
+0:13:01.440,0:13:05.519
+there's also a little bit further down i'll give another example i think it's
+
+0:13:04.880,0:13:13.440
+called pin width and width is for clusters nodes and edges and i can kind of show how thick the
+
+0:13:12.079,0:13:18.639
+line is right so i could say pin width equals um
+
+0:13:16.560,0:13:24.160
+i don't know i'll pass in three let me do this first time i pass n3
+
+0:13:20.639,0:13:28.800
+and i see i get this kind of weird um error right expected a string or bytes
+
+0:13:27.680,0:13:32.560
+like object and the deal here is that for whatever
+
+0:13:32.079,0:13:36.959
+reason they want everything to be a string with
+
+0:13:34.240,0:13:40.560
+graph is kind of a weird design but even even i have to kind of pass in
+
+0:13:38.959,0:13:47.279
+my numeric things as strings so just something to get used to
+
+0:13:44.880,0:13:51.199
+um so you can imagine lots of cases where we might have
+
+0:13:48.000,0:13:55.360
+metadata on both nodes and edges um you know if nodes are people right and
+
+0:13:53.199,0:13:58.399
+edges are the relationships between them well what might i know about people i
+
+0:13:56.800,0:14:01.360
+might know their social security number or their birth date or their address or
+
+0:14:00.000,0:14:04.800
+their phone number um if i'm talking about edges between
+
+0:14:03.199,0:14:08.880
+people there's lots of relationships right i mean there's um
+
+0:14:06.560,0:14:11.839
+maybe kind of work relationships or kind of maybe it's at your sibling or your
+
+0:14:10.560,0:14:15.360
+friend or your parent right so lots of cases where i have kind
+
+0:14:13.600,0:14:19.440
+of additional information about our both nodes
+
+0:14:16.800,0:14:25.440
+and edges okay so i'll cut off there in the next video we'll talk about paths
+
+0:14:21.519,0:14:25.440
+and kind of more complicated graphs
+

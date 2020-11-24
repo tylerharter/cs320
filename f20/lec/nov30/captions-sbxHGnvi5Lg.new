@@ -1,0 +1,657 @@
+0:00:02.240,0:00:06.879
+the last time we looked at these scatter plots for
+
+0:00:05.359,0:00:10.160
+um all the beaches and we saw that there's a non-linear
+
+0:00:08.559,0:00:14.160
+pattern definitely a correlation between wave period and wave height
+
+0:00:12.480,0:00:17.920
+and so we had a polynomial features and we were able to explain um about
+
+0:00:16.480,0:00:21.359
+you know four and a half percent of the variance when we did that
+
+0:00:19.680,0:00:25.039
+um but we could also see that another important factor here is going to be
+
+0:00:22.960,0:00:28.400
+well which beach are we on each beach behaves a little bit
+
+0:00:26.480,0:00:33.280
+um differently and this is going to be tricky because this is categorical data
+
+0:00:31.199,0:00:38.079
+and the linear regression we're doing needs numeric data
+
+0:00:35.280,0:00:40.399
+and um it doesn't really make sense to assign
+
+0:00:40.960,0:00:45.840
+numbers to these speeches right because well if i sign them one two three four
+
+0:00:44.480,0:00:51.440
+five six um kalamu beach isn't really halfway
+
+0:00:48.879,0:00:55.920
+between 63rd beach and montrose beach so it'd be kind of arbitrary um so what
+
+0:00:53.920,0:01:01.440
+people often do instead is this one categorical column is you'll
+
+0:00:58.480,0:01:05.680
+get six different numeric columns and um and the numbers in those will be
+
+0:01:03.520,0:01:09.200
+what we call one hot encoding right so if a given beach right for the
+
+0:01:08.000,0:01:15.040
+first row is 30 63rd street beach
+
+0:01:12.240,0:01:19.520
+then that column will have a one and others will have zeros
+
+0:01:16.880,0:01:23.600
+if it's a matro's beach then that third column will have a one
+
+0:01:21.200,0:01:27.600
+and other ones will have zeros and um and this strategy in machine learning is
+
+0:01:25.600,0:01:31.119
+called one hot encoding right and there's a one hot
+
+0:01:28.960,0:01:34.799
+encoder that comes with sklearn and uh it turns out that the one hot
+
+0:01:33.600,0:01:38.960
+encoder doesn't work great when we only want to apply it to
+
+0:01:37.600,0:01:42.159
+certain columns it's a little bit of a pain to do in sklearn
+
+0:01:40.640,0:01:47.439
+we're actually have to build our own transformer uh based on that so let's
+
+0:01:44.960,0:01:51.439
+take a look at how how that this one works that's how it
+
+0:01:50.159,0:02:00.560
+comes with sklearn i say from sk learn pre-processing
+
+0:01:56.159,0:02:07.520
+uh import one hot one hot encoder and
+
+0:02:04.560,0:02:13.200
+then then what i want to do well i can create one of them
+
+0:02:09.599,0:02:16.400
+and then i can fit it to the data i'm going to fit it
+
+0:02:15.440,0:02:19.440
+to but what i'm ultimately going to go for
+
+0:02:17.920,0:02:23.840
+is the beach name it's going to be one of
+
+0:02:21.360,0:02:28.000
+our categorical factors and um and so i'm going to fit it to the
+
+0:02:26.239,0:02:34.720
+training data and the beach name
+
+0:02:31.040,0:02:36.800
+and and i may say uh after that well first off let's just make sure that it
+
+0:02:35.920,0:02:43.040
+works after that i can transform
+
+0:02:41.280,0:02:47.920
+i can transform the test data if i wanted to let me let me try that first
+
+0:02:46.400,0:02:50.560
+and um and we're going to saw this thing called a sparse array
+
+0:02:49.440,0:02:54.160
+we're not trying to worry too much about that in this class i'm just trying to
+
+0:02:51.920,0:02:57.760
+convert it to a regular array and um and what this encoding means is
+
+0:02:56.000,0:03:04.080
+well i have these six columns representing the six speeches and um and
+
+0:03:00.879,0:03:08.800
+this one here means that the first row is the second beach as is the second row
+
+0:03:06.879,0:03:11.360
+the third row is the fourth beach so on and so forth
+
+0:03:09.920,0:03:15.680
+this is absolutely data i could feed into a linear regression
+
+0:03:13.840,0:03:19.519
+and so i might want to do this on on both of these um i could do it on the
+
+0:03:17.360,0:03:23.519
+the test data if i wanted to later i'm just going to make sure that
+
+0:03:21.280,0:03:27.120
+the beach names line up the same uh it determines that at the time i do
+
+0:03:25.360,0:03:30.560
+my fitting um since it's very here i'm doing train and
+
+0:03:28.959,0:03:34.480
+then test but if i'm doing training and train
+
+0:03:31.440,0:03:37.599
+um one of my options is that i can do fit transport form
+
+0:03:36.239,0:03:40.640
+combine it into one that's just kind of a convenience for me
+
+0:03:41.280,0:03:48.720
+so that's all good but the problem we're gonna run into is when i
+
+0:03:45.599,0:03:54.000
+do both of these at the same time i want to do both beach name and wave
+
+0:03:51.599,0:04:00.640
+period let me actually get my data here
+
+0:03:58.159,0:04:05.280
+and let's look at the shape of this data i see that there are 16
+
+0:04:02.480,0:04:08.000
+columns which is not what i want but the problem
+
+0:04:06.000,0:04:11.040
+is that it's taking six different columns for beach name
+
+0:04:09.599,0:04:14.159
+and then for the wave period there are actually 10 different values we're
+
+0:04:12.319,0:04:18.880
+getting 10 columns from that what i'd really like to end up with is seven
+
+0:04:15.599,0:04:23.520
+columns um six for the different beaches and then just one for the wave period
+
+0:04:22.000,0:04:28.160
+and um and i wish there was some sort of configuration option here
+
+0:04:25.919,0:04:30.160
+but there doesn't seem to be and so what we have to do is we have to build our
+
+0:04:29.600,0:04:37.919
+own right so uh maybe i'm gonna call
+
+0:04:33.440,0:04:42.800
+this one a better uh one hot and that's a class and the important
+
+0:04:41.199,0:04:47.840
+methods for these things to have are fit and transform because this is an
+
+0:04:46.000,0:04:50.240
+example of a transformer and if you're a transformer
+
+0:04:48.880,0:04:55.280
+those are what you need so i need to have a fit
+
+0:04:52.160,0:04:58.880
+something there and then i need to have a transform
+
+0:04:57.440,0:05:01.120
+okay i'm gonna need to have something there
+
+0:05:01.360,0:05:08.320
+and um and so the other thing i'm going to do
+
+0:05:04.400,0:05:13.280
+is i might have to have a net here and like so and and what i'm going to do in
+
+0:05:11.600,0:05:15.120
+my knit is i'm going to specify what the special
+
+0:05:13.840,0:05:18.479
+column is right because that's what i really wish i could do here
+
+0:05:16.960,0:05:22.240
+um i could say that i only want to do this encoding for beach name
+
+0:05:20.800,0:05:27.680
+and so that's what i'm going to do i'm going to say self and then
+
+0:05:24.560,0:05:32.639
+column and down here i'm just going to save that information
+
+0:05:29.600,0:05:36.160
+right okay now for fit these things always need to have an
+
+0:05:34.479,0:05:40.160
+x and a y and it doesn't really matter what the y
+
+0:05:38.240,0:05:44.000
+is for this kind of application so i'm gonna say none another rule when
+
+0:05:43.120,0:05:49.680
+i do a fitting i have to return uh return myself
+
+0:05:47.680,0:05:53.840
+and um and that's because i can do things i can uh
+
+0:05:50.960,0:05:56.800
+say you know one hot encoder dot fet and then whatever that returns i can
+
+0:05:54.960,0:06:00.000
+immediately call another method on it it's a pattern sometimes people use it
+
+0:05:58.319,0:06:03.280
+though um i don't do it too often open and you
+
+0:06:02.240,0:06:06.720
+know what else i'm printing here is i need self
+
+0:06:04.479,0:06:09.600
+then transform as i'm running that later i only need x
+
+0:06:10.080,0:06:16.639
+i don't need these y values okay so what i'm going to do here is i'm
+
+0:06:15.039,0:06:24.319
+going to create a regular one hot encoder
+
+0:06:19.680,0:06:31.759
+inside of this one let me say self.1 hot equals one hot encoder and um and then
+
+0:06:28.000,0:06:37.120
+down here when my better one hot encoder is told to fit
+
+0:06:33.280,0:06:40.560
+i'll ask this one to fit in the same way right i might make that that do some
+
+0:06:39.120,0:06:45.919
+fitting right so when my better one fits
+
+0:06:43.600,0:06:49.840
+then i made a fit but the distinction right is that i
+
+0:06:46.720,0:06:55.199
+i don't want to do it um to all of them right i just want to do it to
+
+0:06:51.840,0:06:58.240
+my one column right so maybe maybe down here let me just kind of i
+
+0:06:57.039,0:07:03.520
+like to think about how i'm going to actually use it later
+
+0:06:59.840,0:07:07.919
+maybe passing in each each name like that right so beach name will be
+
+0:07:05.039,0:07:11.599
+in in column and then when somebody calls
+
+0:07:08.400,0:07:16.720
+fit on this one you can spit on this one well i'm only going to do it to that one
+
+0:07:14.080,0:07:19.759
+that one column and um and then down here the same deal and we just do the
+
+0:07:18.080,0:07:26.639
+transformation to that one column
+
+0:07:22.960,0:07:33.840
+transform okay and that's going to give me a bunch of ones
+
+0:07:31.840,0:07:40.000
+so let me think about this i have a lot to do here right to do
+
+0:07:36.160,0:07:43.599
+uh return old data to uh all in a data frame i have to do a
+
+0:07:42.560,0:07:47.280
+little bit work here but let's just return this for now
+
+0:07:45.120,0:07:50.639
+before i do too much work um and um and so down here right i'm
+
+0:07:49.919,0:07:54.240
+going uh better hot encoder and then uh fit
+
+0:07:53.440,0:08:00.400
+transform and uh and let's just try running that
+
+0:07:58.240,0:08:07.840
+and uh well i see i actually have to run this cell of course before i do that
+
+0:08:02.800,0:08:13.599
+and um okay better one hot one great
+
+0:08:11.199,0:08:17.199
+and um and so i'm getting this error that it doesn't have a fit transform
+
+0:08:15.280,0:08:21.440
+right i only have a fit and a transform so you know what i could
+
+0:08:18.720,0:08:26.800
+do is i could i could do this fit transform uh and whatever
+
+0:08:24.479,0:08:30.639
+that i could do that the easier way is that if i can
+
+0:08:27.599,0:08:36.640
+just inherit that um that inconvenience method here right i can
+
+0:08:32.320,0:08:40.080
+inherit from a base class and sklearn and the base class that i want to
+
+0:08:39.200,0:08:43.599
+inherit from is called transformer mixin so i'm going to
+
+0:08:42.959,0:08:49.279
+say from sklearn dot base right there's a bunch
+
+0:08:46.880,0:08:54.880
+of base classes in here i'm going to import transformer
+
+0:08:52.560,0:08:58.160
+mixin and all this really does is it automatically gives me that fit
+
+0:08:56.399,0:09:00.480
+transform method right i may inherit it from there
+
+0:08:59.200,0:09:06.640
+and uh and that's going to call the combination of my two methods here
+
+0:09:02.720,0:09:10.560
+so i run that and um and uh and well i'm going too fast right i need
+
+0:09:08.959,0:09:15.200
+to import it first then define it and then i can actually
+
+0:09:12.080,0:09:20.480
+call it and um and now i'm actually getting something similar to what i want
+
+0:09:17.680,0:09:24.000
+right i'm getting those six columns uh not quite what i wanted right i want
+
+0:09:22.959,0:09:27.680
+the not just the data about the beach but
+
+0:09:25.519,0:09:31.680
+the other old data too um about the wave period for example and
+
+0:09:30.640,0:09:35.440
+i also would like it all to be in a data frame
+
+0:09:33.120,0:09:38.720
+so it's a little easier to understand and so let's do this first part let's
+
+0:09:37.040,0:09:46.320
+get it all in a data frame so i'm going to say um ones
+
+0:09:41.839,0:09:50.640
+equals pd.data frame and i'm going to pass that in and you see
+
+0:09:49.360,0:09:54.880
+i'm doing a tool right down here i should do that up here
+
+0:09:51.680,0:09:59.760
+actually let's recall that i'm not going to need to do it down here anymore
+
+0:09:57.279,0:10:02.320
+and let me just run both of these so i'm going to do that
+
+0:10:02.560,0:10:08.480
+and that's not working fine right um i'd like to put slightly better uh
+
+0:10:06.720,0:10:14.079
+column names on here right so i'm gonna say columns equals
+
+0:10:10.720,0:10:19.040
+and um well all these columns are basically getting defined
+
+0:10:15.680,0:10:22.880
+by the one hot encoder that i'm using right uh the o-h and o-h can tell me
+
+0:10:22.320,0:10:28.800
+what the names for these should be and
+
+0:10:25.920,0:10:34.720
+um and that's in a method called get feature names let me say
+
+0:10:31.040,0:10:41.120
+dot self.oh.get feature names like so okay set is good
+
+0:10:38.320,0:10:44.560
+and um and it's kind of weird names right it's
+
+0:10:41.760,0:10:46.959
+fine right it's um saying x0 because it's uh
+
+0:10:45.360,0:10:50.640
+saying that these six things were based on the first column i don't care about
+
+0:10:49.360,0:10:54.560
+that at least i can distinguish between what the different
+
+0:10:52.959,0:10:58.959
+ones are for example i can see that this first
+
+0:10:55.040,0:11:04.959
+row is a calumet each okay so far so good i have six
+
+0:11:02.480,0:11:07.040
+columns for the beach name and and the main thing i need to do now is i need to
+
+0:11:06.399,0:11:10.880
+keep this in right and so so what i'm actually
+
+0:11:09.279,0:11:17.040
+going to do is i'm going to return vd.com
+
+0:11:14.240,0:11:21.600
+and i need to have a tuple of data frames
+
+0:11:18.079,0:11:25.120
+here and um let me think about this if i said axis
+
+0:11:23.440,0:11:28.399
+equals zero uh here let me let me just kind of space
+
+0:11:27.279,0:11:31.440
+this out right i'm going to say data frame one and data frame two
+
+0:11:29.760,0:11:35.760
+if i said x is equal to zero it would put this data frame
+
+0:11:33.279,0:11:38.000
+um above this one but i'd really like this one to be on the left and this one
+
+0:11:37.040,0:11:44.560
+would be the right so zero is vertical um one is horizontal
+
+0:11:42.079,0:11:48.000
+okay and so what do i want for my two data frames
+
+0:11:45.839,0:11:52.320
+um well one of them ought to be whatever the original data
+
+0:11:49.120,0:12:00.000
+is right so i'm gonna have um x there and then the second piece next to that
+
+0:11:56.160,0:12:05.200
+should be should be these ones and so let me run that and um
+
+0:12:03.519,0:12:09.279
+and uh and that seems pretty good right so i think uh
+
+0:12:07.279,0:12:11.760
+actually what's going on here you see that it's kind of weird with my index
+
+0:12:10.720,0:12:16.560
+right sometimes i have values here when i hear or vice versa
+
+0:12:15.200,0:12:20.880
+you know what i better do is i better make sure that um in this transform data
+
+0:12:19.839,0:12:25.600
+that i have i'm using the same index that x uses
+
+0:12:23.440,0:12:30.399
+right so i'm going to do that i may say index equals x dot index so it lines up
+
+0:12:29.440,0:12:33.600
+nicely and it's going to sanitize sanity check
+
+0:12:32.000,0:12:36.240
+these things right otherwise if i get this wrong
+
+0:12:34.720,0:12:39.839
+everything i do after this is going to be wrong okay so this first one is
+
+0:12:38.480,0:12:45.920
+calumet beach boom there's a one under calimet ohio st
+
+0:12:43.279,0:12:49.839
+ohio street beach boom there's a one under ohio street beach
+
+0:12:48.000,0:12:52.800
+so that seems like it's kind of working well um
+
+0:12:51.120,0:12:58.560
+the last thing i want to do right is that after i do this transform
+
+0:12:55.519,0:13:02.639
+everything needs to be numeric so it's good that i
+
+0:13:00.160,0:13:07.360
+kept my wave period and have numeric data for this rest
+
+0:13:04.079,0:13:14.480
+but i need to drop the speech name from x right so i'm going to say drop columns
+
+0:13:10.560,0:13:18.240
+equals and self.colum i don't want that anymore
+
+0:13:15.839,0:13:20.959
+and this drop from that original data frame
+
+0:13:19.279,0:13:23.600
+it's just creating a new data frame that doesn't have that column right it
+
+0:13:22.800,0:13:26.560
+doesn't hurt the original let's just mean that it's
+
+0:13:24.880,0:13:30.639
+not in this output right so i'm going to do this
+
+0:13:27.760,0:13:36.000
+and run it and now i actually have very reasonable data
+
+0:13:33.120,0:13:40.000
+to be using for my linear for my linear regression
+
+0:13:36.959,0:13:46.240
+right so that's all good let me just uh run that and so
+
+0:13:44.399,0:13:49.920
+i want to make this one of my uh one of my steps on my pipeline
+
+0:13:47.600,0:13:52.639
+right i went from explaining almost no variance to explaining about four and a
+
+0:13:51.279,0:13:56.880
+half percent and so let's do this other to do part
+
+0:13:55.040,0:14:03.600
+right so i'm gonna say uh i want to do uh one hot
+
+0:14:00.600,0:14:07.920
+encoding and i'm going to create my class here right or create an object
+
+0:14:06.720,0:14:10.959
+from my class and i need to say what column i i care
+
+0:14:10.000,0:14:14.320
+about and um and that's going to be a beach
+
+0:14:12.639,0:14:18.959
+name right beach name is the one where i have to do one hot encoding
+
+0:14:17.040,0:14:22.320
+and uh and i'm gonna run that and hopefully this gets better than four and
+
+0:14:20.800,0:14:26.240
+a half percent run that and uh and great i'm getting
+
+0:14:25.519,0:14:31.760
+almost close to uh ten percent now
+
+0:14:29.440,0:14:37.760
+there's no signs of overfitting in fact i'm doing better on my testing data
+
+0:14:34.639,0:14:40.880
+than my training data right so so you can see that
+
+0:14:39.199,0:14:44.079
+waves right that wave height is actually pretty unpredictable right there's still
+
+0:14:42.399,0:14:47.760
+a lot of variance there but we're doing a lot better right
+
+0:14:45.760,0:14:52.399
+introducing both of these got us from almost nothing right it got
+
+0:14:50.160,0:14:56.959
+us from let me let me do this let me just kind
+
+0:14:54.000,0:15:01.920
+of review the history of what we've done um right so i did this
+
+0:15:00.240,0:15:07.199
+that was horrible right i was getting almost nothing
+
+0:15:03.519,0:15:14.320
+and then i added in some um and i added in some polynomial features
+
+0:15:10.560,0:15:18.000
+got about halfway there and then finally added in the one hot encoding and we did
+
+0:15:17.199,0:15:21.199
+even better right and one of the things you often
+
+0:15:19.040,0:15:25.040
+want to do in these cases is after you've done that
+
+0:15:22.240,0:15:29.040
+maybe get rid of um the first thing we did right maybe the second thing we did
+
+0:15:27.040,0:15:31.680
+added was good enough and it's not right we see that if we don't have the
+
+0:15:30.079,0:15:34.800
+polynomial features um it's not very good another thing we
+
+0:15:33.600,0:15:39.199
+might want to revisit is can we do better by cranking this up
+
+0:15:36.160,0:15:42.720
+further and it seems like um the answer is still no even after we added in the
+
+0:15:41.600,0:15:46.480
+beach name uh that's not really helping us uh
+
+0:15:45.040,0:15:49.680
+improve the model further so this point we're doing pretty
+
+0:15:48.079,0:15:52.079
+well and i think um this will be the final model in the next
+
+0:15:51.040,0:15:55.600
+video i'm actually show a little bit about how we can visualize
+
+0:15:54.079,0:16:02.480
+what the model is designing but it seems like a reasonable progress for now
+

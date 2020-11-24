@@ -1,0 +1,624 @@
+0:00:01.360,0:00:06.640
+all right in this video i want to talk about a couple things
+
+0:00:04.400,0:00:11.920
+um first is i want to look a little bit more closely at object types
+
+0:00:08.880,0:00:17.039
+and something called type based dispatch um dispatch is a fancy word for
+
+0:00:15.360,0:00:21.119
+kind of running a function when we call it and what we've seen now is that we
+
+0:00:19.199,0:00:24.400
+have these two methods with the same name until we kind of
+
+0:00:22.800,0:00:28.800
+automatically figure out um which one we want to call or dispatch
+
+0:00:27.039,0:00:31.519
+uh when we when we say speak so i'll be talking about that
+
+0:00:30.000,0:00:34.800
+um and then second i may be talking about these things called receivers and
+
+0:00:33.200,0:00:40.079
+instructors and just kind of how to make our code a little bit more
+
+0:00:36.960,0:00:44.000
+polished and professional okay so the problem i want to introduce it has
+
+0:00:42.640,0:00:49.440
+to do with calling the right version of a method uh for a given
+
+0:00:47.440,0:00:52.879
+object so here you can see i'm calling the dog version for dog one and the cat
+
+0:00:52.079,0:00:59.120
+version for c1 and uh that works fine but it's bad
+
+0:00:56.399,0:01:05.280
+because well let me give you an example let's say i have all my pets like this
+
+0:01:02.239,0:01:10.720
+i have drawing wood drawing two and um and then see what and
+
+0:01:08.400,0:01:13.680
+let's say i want to make them all speak get rid of this style
+
+0:01:12.080,0:01:18.400
+i make all my animals speak so i'm going to say for
+
+0:01:15.119,0:01:22.400
+pet and pets um i am going to say well i guess let me do
+
+0:01:20.640,0:01:29.920
+this let me say cat dot speak
+
+0:01:26.159,0:01:34.640
+pat and um i have an extra call in there oh that's
+
+0:01:33.040,0:01:38.079
+not really great right because i guess i'm
+
+0:01:34.880,0:01:43.200
+probably the cat version uh on all three right whereas if i call dog
+
+0:01:41.520,0:01:46.000
+again not great because the dog doesn't version doesn't work for this so it's
+
+0:01:44.320,0:01:50.000
+like well what can i put here um there's no obvious answer right it
+
+0:01:48.320,0:01:53.439
+depends on what type it is and uh and so this is that right so this
+
+0:01:51.920,0:01:58.960
+is this is really kind of uh i'm hard
+
+0:01:56.560,0:02:03.119
+coding the the type right what it is it's what
+
+0:02:02.399,0:02:07.840
+i'd really like to have is some sort of type based dispatch
+
+0:02:05.840,0:02:11.680
+when pat is a cat it should call this version and uh when pet is a dog it
+
+0:02:10.399,0:02:15.120
+should call the other version and so one way i could do this is like
+
+0:02:13.760,0:02:21.440
+this i could say something like um you know if the type
+
+0:02:18.160,0:02:26.080
+if the type of the cut is uh is a cat
+
+0:02:24.640,0:02:28.480
+then what i guess i'll call the cat version
+
+0:02:29.760,0:02:37.599
+and again this is bad code right so i basically
+
+0:02:33.280,0:02:42.239
+worked for something better else ella the type of the pet is equal to the
+
+0:02:40.800,0:02:45.920
+dog well then i call the dog version
+
+0:02:49.200,0:02:55.599
+and that actually uh works right um i could get them all to speak
+
+0:02:53.760,0:02:58.959
+um it's not great i mean what if i add more animals uh i could forget to add
+
+0:02:57.680,0:03:02.159
+them to this shade uh
+
+0:03:02.239,0:03:10.400
+you know so that's not great um or maybe this code starts to get really ugly
+
+0:03:07.040,0:03:15.599
+right so this is version one not great and so i'm just gonna copy all
+
+0:03:13.440,0:03:20.800
+this out like so um maybe
+
+0:03:18.959,0:03:26.000
+let me just leave it there for a minute you know what i'm noticing here
+
+0:03:22.159,0:03:29.200
+is that when i uh protected this type i know the type
+
+0:03:27.200,0:03:33.599
+is the same thing as cat right i'm using cat out here
+
+0:03:30.640,0:03:36.640
+so instead of saying cap down here you know what i could do is i could just say
+
+0:03:34.959,0:03:39.840
+type right here the same thing down here if i
+
+0:03:38.879,0:03:46.640
+come to this path i know that the type is just strong
+
+0:03:43.760,0:03:50.159
+and so since i've gone down here i could have said
+
+0:03:47.360,0:03:56.000
+type of type of pet down here it says my latest the better version too
+
+0:03:52.720,0:04:00.640
+so uh two is better and let me just top it all this
+
+0:03:58.840,0:04:09.120
+out what i'm gonna say is height
+
+0:04:04.959,0:04:15.840
+of bad so this will either be delog or cat and somebody call either
+
+0:04:13.599,0:04:19.680
+the dog version of cat of speed or the pet version of speed
+
+0:04:17.440,0:04:22.960
+and i might do that on my pet and that works better right so i can see all of
+
+0:04:20.959,0:04:26.080
+this mass reduces down to here and this is going to work even if i have
+
+0:04:24.479,0:04:31.680
+100 different types of pets right so this is better and this is an
+
+0:04:29.280,0:04:38.639
+example of uh type type-based dispatch by based
+
+0:04:34.880,0:04:41.199
+dispatch now why is this not the best version
+
+0:04:40.320,0:04:45.280
+well you see that there's some redundancy here uh the redundancies that
+
+0:04:44.240,0:04:48.320
+i'm using for two things i'm using it as this
+
+0:04:46.800,0:04:52.240
+first um argument that i'm passing it and i'm
+
+0:04:50.639,0:04:58.400
+using it to um to determine what version of the
+
+0:04:55.680,0:05:00.720
+want and it turns out that python gives us a shorter way to do this we can just
+
+0:04:59.919,0:05:04.160
+say hat dot speak
+
+0:05:05.600,0:05:13.280
+say behavior oh but it's still typeface dispatch
+
+0:05:14.960,0:05:19.919
+all right and so this is the best version right this is version three
+
+0:05:20.000,0:05:25.600
+this is the best one it's so this gets weird right it's very hard to get used
+
+0:05:23.919,0:05:29.360
+to this i think for a lot of people but in your head you should just always
+
+0:05:27.039,0:05:34.720
+be mentally equating this with that right what i put um oh sorry
+
+0:05:32.800,0:05:39.120
+this is the version let me just make more mistakes it works
+
+0:05:36.880,0:05:45.440
+so you should be it does right you should be equating this
+
+0:05:41.680,0:05:50.840
+with this when i put an object in front of a call to a method i use it
+
+0:05:48.479,0:05:54.960
+for two things i use it as the first argument and i use it to figure out
+
+0:05:53.360,0:05:59.039
+what version of that method i want to run whether that be the cat version or
+
+0:05:57.600,0:06:01.199
+the dog version all right so these two are the same kind
+
+0:06:00.319,0:06:04.319
+of keep that in mind that's that's something worth putting your dots and
+
+0:06:02.319,0:06:08.240
+kind of really internalizing somebody reduce all this snap down now
+
+0:06:06.560,0:06:11.600
+um so this is great um i want to think about it a little bit
+
+0:06:09.680,0:06:17.039
+more i just kind of what exactly is happening here when i
+
+0:06:14.960,0:06:20.880
+uh when i come up here right and i look at say
+
+0:06:18.479,0:06:24.479
+cat right so let's say i'm currently on c1 so let's say that
+
+0:06:22.160,0:06:27.600
+that is a cat well i figured out that i caught calling this version
+
+0:06:26.080,0:06:31.840
+and then even though i don't have anything in these parentheses
+
+0:06:29.680,0:06:36.479
+i still am passing in one argument this passes in one argument the cat
+
+0:06:34.800,0:06:40.639
+and that one argument is packed right so the first argument is outside
+
+0:06:37.919,0:06:45.120
+anything inside of here starts with the second
+
+0:06:41.520,0:06:49.840
+version okay um let me let me give another example
+
+0:06:47.680,0:06:55.120
+here i'm going to clean this up a little bit
+
+0:06:51.520,0:07:03.840
+actually um let's say that i have a function up here
+
+0:07:15.120,0:07:22.800
+have something called b day count which is normally one
+
+0:07:19.520,0:07:25.039
+um and i want to be passing in dog as usual
+
+0:07:23.759,0:07:28.560
+and what i'm going to do is i'm going to increase the dog's age whenever the
+
+0:07:27.120,0:07:33.440
+birthday function is fall right so i'm going to say dog dot age
+
+0:07:31.520,0:07:36.560
+plus equal b day count right so so normally it's one right
+
+0:07:34.960,0:07:39.840
+could i get a birthday card on order maybe if we missed the dog's birthday
+
+0:07:38.080,0:07:42.240
+for a year we'd call this and we'd pass in
+
+0:07:40.800,0:07:46.000
+it's a little bit contrived i realized that um i'm also just going to delete
+
+0:07:44.240,0:07:49.599
+the cat for now and kind of just work with this example
+
+0:07:47.599,0:07:54.720
+up here okay so i have all of this and um maybe i can
+
+0:07:52.800,0:08:00.160
+get down to one dog let me pull off the dog dot age and then
+
+0:07:58.160,0:08:06.800
+i'm gonna say dog one uh birthday and then let's
+
+0:08:03.759,0:08:09.919
+say we have three birthdays so i guess fido started at one if you have
+
+0:08:08.560,0:08:12.160
+three birthdays and you become four
+
+0:08:16.240,0:08:21.199
+and it works just fine so so let's just you know i want to walk through this
+
+0:08:19.840,0:08:26.560
+slowly this is kind of weird if you haven't seen it before
+
+0:08:22.720,0:08:29.759
+so down here i'm calling the birthday method and i have two arguments this is
+
+0:08:28.960,0:08:33.200
+the this is the first argument and then this
+
+0:08:31.919,0:08:39.519
+is the second argument this first argument goes up to here
+
+0:08:36.640,0:08:45.040
+right so whatever object dog one refers to that goes to the dog parameter
+
+0:08:41.839,0:08:48.640
+and then three goes into the b day right so there's always kind of one more
+
+0:08:46.240,0:08:51.760
+argument that you expect here and um and if i did something like this
+
+0:08:50.080,0:08:55.680
+right if i said um let's say i said something like this
+
+0:08:54.160,0:08:59.839
+always look at these confusing messages it says birthday takes
+
+0:08:57.519,0:09:04.720
+one to two positional arguments well why one to two well it needs this one
+
+0:09:01.920,0:09:08.080
+and this one so either one or two and i gave it three
+
+0:09:06.000,0:09:11.279
+right and so when i look at this you know it looks like i only gave it two
+
+0:09:10.000,0:09:14.640
+but i gave it three because i also have this up there so make sure
+
+0:09:13.200,0:09:17.279
+that you're kind of lining those up properly it's trickier than it used to
+
+0:09:16.399,0:09:22.720
+be okay so that's typeface dispatch um
+
+0:09:21.760,0:09:28.080
+another thing here is that uh this first parameter has a
+
+0:09:25.920,0:09:32.880
+special name that's the receiver it's almost anything note here uh first
+
+0:09:34.839,0:09:43.680
+parameter is receiver and i can call whatever i want but in
+
+0:09:41.440,0:09:48.080
+python the tradition is to call itself like that's what
+
+0:09:46.480,0:09:52.160
+you'll always see and what you should always do right so
+
+0:09:50.080,0:09:57.519
+i'm going to put self here so yeah just a convention i'm gonna do all
+
+0:09:55.120,0:10:03.279
+of that and um and then same thing down here
+
+0:10:01.839,0:10:10.320
+all right that's what i call that first parameter and
+
+0:10:04.880,0:10:16.079
+um i never really fixed this today okay so that's all good on that receiver
+
+0:10:15.519,0:10:23.839
+name is itself and um and then one more thing
+
+0:10:19.360,0:10:27.279
+i want to make you aware of is i can have one method called another
+
+0:10:25.440,0:10:31.600
+method so let's say i do something like this let's say i say
+
+0:10:30.000,0:10:37.440
+i have a method called is puppy and so i may have self righteous
+
+0:10:35.920,0:10:41.480
+my receiver and um let's just define a puppy as any
+
+0:10:39.680,0:10:47.600
+dog that's under two so i'm gonna return self.age is less than two
+
+0:10:44.800,0:10:49.839
+and um and so whatever gets passed in right
+
+0:10:48.079,0:10:56.399
+works just like that and so now if i want to right i can try to call
+
+0:10:52.160,0:11:00.640
+this copy down here and uh pointing inside of the
+
+0:10:58.560,0:11:03.600
+parentheses because well if i have the special symptoms this
+
+0:11:02.240,0:11:06.160
+isn't going to work just like that right if i
+
+0:11:04.880,0:11:11.519
+try to do this and i try to make my drawing speak like if i person
+
+0:11:08.640,0:11:15.519
+will not speak oh i i crash here right because is poppy
+
+0:11:14.160,0:11:19.120
+is not defined and why is this puppy not defined
+
+0:11:17.600,0:11:22.880
+because even when i'm inside a method and i do this it's not assuming
+
+0:11:21.440,0:11:26.000
+that it can see these other methods instead of the same class
+
+0:11:24.240,0:11:31.920
+even here i have to say something like dog dot
+
+0:11:27.440,0:11:35.440
+this puppy right which would actually the reason it's not working is that it
+
+0:11:33.839,0:11:40.000
+it's not the right syntax right i want to really say
+
+0:11:37.000,0:11:44.640
+self.puppy right in this case well whatever object
+
+0:11:43.279,0:11:48.320
+i'm calling speak on i'm also going to call it as poppy end
+
+0:11:46.240,0:11:50.560
+right and then it works just fine i see you're going to see a lot of methods for
+
+0:11:49.519,0:11:55.760
+other methods the same object you'll say self dot
+
+0:11:52.240,0:12:00.240
+something that's going to be very common okay um one last thing here is that i
+
+0:11:58.399,0:12:03.440
+want to talk about these two lines so this one is an
+
+0:12:02.880,0:12:10.399
+example of um
+
+0:12:06.959,0:12:13.760
+instantiation is a fancy name for it come over here how to spell that and
+
+0:12:12.320,0:12:18.800
+then the second step right so instantiation creates an object
+
+0:12:17.279,0:12:22.560
+this one is initialization and initialization
+
+0:12:20.880,0:12:29.200
+sets up our attributes right those are kind of the new the two steps to
+
+0:12:25.440,0:12:33.040
+kind of creating a useful object and uh it turns out that there's actually a
+
+0:12:31.040,0:12:36.560
+nice way to combine these two into one and actually
+
+0:12:35.519,0:12:40.880
+you know what i'm noticing here is i actually lost my init method let me just
+
+0:12:38.399,0:12:44.000
+throw that back so it's not confusing right so i'm
+
+0:12:42.560,0:12:49.519
+initializing the dog with the name and h and what was i doing
+
+0:12:47.120,0:12:53.839
+the same guy down there and equals name probably that h equals and i guess like
+
+0:12:52.720,0:12:57.680
+i would have noticed that if i had done a kernel restart
+
+0:12:55.440,0:13:02.160
+on another delete i kind of deleted that along with the cat
+
+0:12:59.120,0:13:07.120
+okay so how can i combine these two and into one step and uh and really
+
+0:13:05.360,0:13:10.560
+that's kind of a question of how can i make this part of this
+
+0:13:09.200,0:13:15.600
+creation right so if i want to make this a method
+
+0:13:16.320,0:13:23.279
+i can put it inside here and at this point it's just a regular method
+
+0:13:23.680,0:13:30.160
+all right so um you know let me just change this off this will make it a
+
+0:13:27.440,0:13:34.800
+regular method and and so if i do that then i could say
+
+0:13:32.240,0:13:40.079
+down here i could say one dotting net annette and i don't have to
+
+0:13:36.560,0:13:45.360
+pass them out there so that works fine but if i want to combine these um into
+
+0:13:43.040,0:13:50.399
+just one step like this or if i want to move this up here and do both of these
+
+0:13:48.560,0:13:54.480
+things at once well what i really like is when i run
+
+0:13:53.120,0:13:58.320
+this line of code i want my init to be called
+
+0:13:57.040,0:14:02.079
+automatically and there's a special name for methods
+
+0:14:01.120,0:14:06.160
+that uh get called automatically in the special
+
+0:14:04.079,0:14:09.600
+language as well it's a special method and the next lecture we're going to be
+
+0:14:07.199,0:14:13.360
+learning about lots of special methods and uh they all kind of have the same
+
+0:14:11.920,0:14:16.639
+format the special method becomes an underscore underscore and
+
+0:14:15.519,0:14:19.199
+then something that underscore underscore
+
+0:14:17.760,0:14:23.839
+and there are certain ones that you can have and they all get called
+
+0:14:21.600,0:14:27.680
+automatically even when you are kind of explicitly calling it
+
+0:14:25.120,0:14:30.480
+and so if i call like this then this line of code is going to do two things
+
+0:14:29.279,0:14:39.519
+it will it will um it will both instantiate
+
+0:14:34.560,0:14:45.760
+and initiate by calling my mac i do that and
+
+0:14:43.199,0:14:47.920
+so that works great and so this is kind of another funny case right i guess when
+
+0:14:47.519,0:14:52.639
+i was um uh when i was doing when i say dog
+
+0:14:51.120,0:14:57.519
+dot speak here right dog ends up being the first argument into
+
+0:14:55.680,0:15:01.600
+here right so dog lands in itself now
+
+0:15:01.680,0:15:07.760
+and ned is going to call automatically right so
+
+0:15:05.279,0:15:12.480
+i can see where name function name goes to here
+
+0:15:09.440,0:15:16.560
+and uh and then the age goes to here where is self coming from right i don't
+
+0:15:14.800,0:15:20.399
+i don't have anything before like dot and then emit and well that's because
+
+0:15:18.959,0:15:25.360
+it's a special method what happens when i run this is that python
+
+0:15:23.040,0:15:30.720
+creates that new object and then the first time i see that
+
+0:15:27.920,0:15:34.079
+object it's running directly to the cell right okay so python creates a new
+
+0:15:32.160,0:15:39.199
+object passes it into the subnet so i can do all this stuff
+
+0:15:36.320,0:15:41.600
+and then it also returns that new object to me
+
+0:15:39.680,0:15:45.120
+right so kind of trickier it kind of breaks the usual pattern of methods
+
+0:15:43.600,0:15:49.600
+but that's how we'll um kind of initialize our
+
+0:15:46.639,0:15:53.440
+our um our object and there's a special name for this
+
+0:15:50.399,0:15:55.920
+this kind of um initializer method and then the general name part is a
+
+0:15:54.720,0:15:59.360
+constructor instructor is a method that does this
+
+0:15:57.279,0:16:05.759
+initial settle on an object
+

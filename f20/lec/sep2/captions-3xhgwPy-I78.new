@@ -1,0 +1,780 @@
+0:00:01.760,0:00:07.120
+hello so in that last video we talked a little bit about the course logistics
+
+0:00:05.680,0:00:11.120
+uh now i actually want to talk about some real content and in particular
+
+0:00:09.599,0:00:14.240
+take a look at what it means to write reproducible code
+
+0:00:14.880,0:00:21.199
+let's look back at the last um course um cs301 or 220.
+
+0:00:19.680,0:00:24.080
+uh and in that one people would submit projects and at the end of the semester
+
+0:00:22.720,0:00:27.359
+i had this form that people could fill if they thought
+
+0:00:25.439,0:00:30.000
+that um there was like issues with one of their projects and so this was
+
+0:00:28.720,0:00:34.559
+showing how many issues people had across each of them and you see that
+
+0:00:32.800,0:00:38.480
+project nine was by far the most problematic and
+
+0:00:36.719,0:00:41.680
+maybe some of you had um issues with that when you took that course
+
+0:00:40.239,0:00:44.239
+and so i wanted to think back if you had any issues what was tricky about that
+
+0:00:43.360,0:00:47.520
+one um the trouble a lot of people had was
+
+0:00:47.200,0:00:52.879
+with dealing with files in particular
+
+0:00:50.719,0:00:56.160
+um when you're trying to open up a file inside of a directory
+
+0:00:54.399,0:00:58.719
+you have to have slashes in your file path is it a forward slash is the
+
+0:00:57.760,0:01:02.399
+backslash well that depends are you on windows or
+
+0:01:00.320,0:01:04.559
+mac and so if you didn't get that quite right
+
+0:01:02.960,0:01:09.280
+it was very easy to have code that would work for you but not for anybody else
+
+0:01:07.680,0:01:13.600
+running it right it's it's easy to get through that's not reproducible
+
+0:01:11.520,0:01:17.680
+if you google reproducibility here's one definition
+
+0:01:15.119,0:01:21.360
+reproducibility is to the extent to which results are obtained when an
+
+0:01:19.360,0:01:24.840
+experiment is repeated i want you to think about what does it mean for
+
+0:01:22.759,0:01:28.080
+reproducible results for a data scientist
+
+0:01:26.320,0:01:30.880
+um it means that if somebody else runs your code
+
+0:01:29.360,0:01:32.880
+uh they're going to see what you've done if it worked for you it's going to work
+
+0:01:32.079,0:01:36.320
+for them and they're going to get any sort of
+
+0:01:34.320,0:01:40.159
+numeric answers if they whatever answers they get ought
+
+0:01:38.159,0:01:43.200
+to be the same as what you got right so this is one of our new goals
+
+0:01:41.600,0:01:47.759
+how can we um i'll write reproducible code and there's
+
+0:01:45.360,0:01:52.000
+a lot of details about both hardware and operating systems and packages that
+
+0:01:50.560,0:01:55.200
+we have to learn about to think about how we can write
+
+0:01:52.960,0:01:58.560
+reproducible code and so there's a bunch of new terms well some of them are new
+
+0:01:57.360,0:02:00.960
+that we're going to be thinking about today and that i'm going to be defining
+
+0:02:00.320,0:02:04.159
+and it's i actually want you to take a moment and
+
+0:02:02.240,0:02:07.759
+pause the video and write down which of these terms you
+
+0:02:05.680,0:02:10.640
+already think you know a good key to learning
+
+0:02:08.479,0:02:14.160
+is to be able to kind of cleanly divide between what you already know and what
+
+0:02:12.239,0:02:18.560
+you still need to learn so pause me and after you come back
+
+0:02:16.560,0:02:23.680
+we'll dive in and learn some of these uh some of these new ideas okay so again
+
+0:02:22.239,0:02:28.160
+the big question today will my program run on somebody else's
+
+0:02:25.520,0:02:30.800
+computer and produce the same results and we're going to start very general
+
+0:02:29.599,0:02:35.599
+we're not even going to assume that this program is written in python
+
+0:02:33.920,0:02:39.360
+so for this to work there's a few things that have to match
+
+0:02:36.959,0:02:41.519
+um the hardware well the hardware is similar that's trying to help or
+
+0:02:40.480,0:02:44.000
+anything about how we can deal with having
+
+0:02:42.160,0:02:47.440
+different people have different hardware um you have to worry about the operating
+
+0:02:46.319,0:02:51.120
+system right what if i'm running on windows and you have a mac
+
+0:02:49.920,0:02:53.440
+and i'm going to talk about both those things today and then for the next
+
+0:02:52.400,0:02:57.599
+lecture we're going to talk about dependencies
+
+0:02:55.200,0:02:59.840
+so starting with hardware there's two types of hardware we really have to
+
+0:02:58.800,0:03:03.599
+understand um that's kind of a starting point and
+
+0:03:01.280,0:03:07.840
+that's ram or memory and the cpu and we've talked about these
+
+0:03:05.680,0:03:11.760
+before but we're going to go much deeper now here's the mental model that i want
+
+0:03:10.800,0:03:17.440
+you to have for ram or memory
+
+0:03:14.800,0:03:21.360
+say that each running program on your computer
+
+0:03:18.400,0:03:23.840
+has one giant list and anything to do with that program has to be inside of
+
+0:03:23.040,0:03:27.280
+that that list and actually i started using a
+
+0:03:26.159,0:03:30.480
+new word here when i'm talking about running programs there's a name for that
+
+0:03:28.640,0:03:34.959
+that's a process it's possible that i could write one
+
+0:03:32.159,0:03:39.440
+program and open up two uh terminals and run it the same program
+
+0:03:38.000,0:03:42.080
+at both terminals at the same time and then i'd have two processes for that
+
+0:03:40.879,0:03:45.599
+same program and each of these processes would have
+
+0:03:43.920,0:03:50.720
+this this giant list and inside of this giant list we have
+
+0:03:48.879,0:03:53.760
+these values called bytes and a byte is just an integer that's
+
+0:03:52.560,0:04:01.280
+between 0 and 255. so this is what every
+
+0:03:57.280,0:04:03.840
+running process gets in the world and you should be a little bit suspicious
+
+0:04:02.640,0:04:06.400
+right because you've written programs and you've run them
+
+0:04:04.959,0:04:09.519
+and you know you have so much more you've maybe created programs that have
+
+0:04:08.000,0:04:14.080
+two lasts or maybe have numbers bigger than 255. and
+
+0:04:12.560,0:04:17.440
+and so there's this kind of tension right if i have this kind of
+
+0:04:15.519,0:04:20.000
+simple one big list with only these small
+
+0:04:17.840,0:04:21.919
+integers in it how can i do all these other things that you know programs can
+
+0:04:21.600,0:04:25.680
+do like how can i have multiple lists um
+
+0:04:24.160,0:04:29.680
+how can i have you know multiple variables referencing the same object
+
+0:04:27.759,0:04:33.440
+how can i have strings right instead of just these numbers
+
+0:04:31.040,0:04:38.880
+and well the really kind of mind bender is that the code for our program itself
+
+0:04:36.000,0:04:42.400
+also has to end up in that last right so how how can all these things be in the
+
+0:04:40.800,0:04:47.520
+state of the program represented as this one giant
+
+0:04:43.759,0:04:51.840
+a list well uh let's think about this let's start
+
+0:04:50.320,0:04:54.960
+with having multiple lists how could you deal with having multiple
+
+0:04:53.440,0:04:58.080
+lists in it well one thing you could do is you could
+
+0:04:56.160,0:05:01.280
+carve up your big list and say okay well i want to have one list that has 3 and
+
+0:04:59.840,0:05:05.440
+20 in it and i can put that anywhere inside of
+
+0:05:03.360,0:05:09.919
+the bigger list i could say that this list is going to start at position
+
+0:05:07.520,0:05:12.960
+8 and then i can have this other list 11 22
+
+0:05:10.479,0:05:17.360
+33 and i could have that start somewhere else and i put that
+
+0:05:14.000,0:05:22.479
+at 12 position 12. um so these numbers 8 and 12 are
+
+0:05:20.720,0:05:25.280
+well they're indexes to australian kind of list terminology but when we're
+
+0:05:24.080,0:05:30.400
+talking about this big list that that a running process has
+
+0:05:28.479,0:05:33.919
+uh we're going to call those addresses which is kind of a address index
+
+0:05:32.560,0:05:37.759
+really kind of the same idea right so those are addresses in this big list i'm
+
+0:05:36.080,0:05:41.840
+actually given a name now the whole big list is called an address
+
+0:05:40.080,0:05:44.639
+space right so every running process has an address space
+
+0:05:43.120,0:05:47.360
+and if you have an address and you can find data in it maybe you can find one
+
+0:05:46.000,0:05:50.880
+of these smaller smaller lists right this is what's
+
+0:05:49.919,0:05:53.759
+really happening we have a running program this happens with
+
+0:05:52.080,0:05:56.800
+every python program that you've ever run what's happening inside
+
+0:05:55.759,0:05:59.600
+now we're going to eventually learn about these details that mean you don't
+
+0:05:58.400,0:06:03.120
+have to think about this but this is what's happening for your programs
+
+0:06:03.600,0:06:09.360
+so this transition has some implications for performance which is why i want to
+
+0:06:06.720,0:06:12.960
+think about these nitty gritty details let's say that i want to append the
+
+0:06:11.039,0:06:17.360
+value 44 to that second list it turns out that
+
+0:06:16.080,0:06:20.160
+that's going to be a really fast thing to do
+
+0:06:18.400,0:06:25.039
+because there's a spot open in there and i just try to put that number
+
+0:06:21.759,0:06:30.240
+um in the open spot now now what if i wanted to
+
+0:06:26.400,0:06:34.000
+say list two dot pop zero let's just remember what does this do so
+
+0:06:31.680,0:06:39.360
+pop is removing an item and it's removing the item at index zero
+
+0:06:37.039,0:06:43.039
+so we're trying to remove eleven right so eleven is trying to go away
+
+0:06:41.039,0:06:46.560
+and since we already said that this list starts at twelve
+
+0:06:44.319,0:06:52.080
+what that means is that all these values have to move over right
+
+0:06:48.880,0:06:56.240
+22 has to move into spot 12 33 has to move into spot 13
+
+0:06:54.080,0:07:00.319
+and so on and so forth and so that's actually a pretty slow operation
+
+0:06:58.000,0:07:02.800
+and as the list gets bigger and bigger it gets slower and slower to remove
+
+0:07:02.080,0:07:05.759
+things from the from the beginning right we can do
+
+0:07:04.080,0:07:08.639
+experiments to see that but but this is why
+
+0:07:06.240,0:07:10.720
+right yeah this is why it's slower and so
+
+0:07:09.520,0:07:13.440
+there's a couple things that we want to be teaching and kind of upcoming
+
+0:07:12.160,0:07:17.280
+lectures one how can we actually measure this and see this
+
+0:07:14.840,0:07:20.560
+happening i see that it's slower and then two we want to have some sort
+
+0:07:19.039,0:07:25.520
+of notation for talking about what is fast or slow
+
+0:07:23.440,0:07:29.039
+right i mean a pending is fast popping from the beginning is slow but
+
+0:07:27.919,0:07:33.280
+there's kind of a whole range of what's fast and slow and we want to be able to
+
+0:07:30.479,0:07:37.599
+reason about it a little bit more rigorously right we want it too
+
+0:07:34.720,0:07:41.680
+theoretical but at least a little bit okay so that was two lists inside of the
+
+0:07:39.360,0:07:44.720
+big list another challenge how can i have both variables and
+
+0:07:43.360,0:07:47.919
+references so so i'm kind of thinking in terms of this
+
+0:07:46.240,0:07:52.800
+code down here right that you can see in python tutor
+
+0:07:49.599,0:07:55.680
+x equals some list y equals x and then on the right you know what that will
+
+0:07:54.000,0:07:58.720
+look like right i mean if x and y are two references to that same list how do
+
+0:07:57.440,0:08:03.280
+we do this if we just have one giant last uh
+
+0:08:01.759,0:08:08.240
+it's actually not too hard so i have that list with 3 and 20 i've
+
+0:08:05.280,0:08:13.440
+added position 8 and what i'm going to do is i'm going to use other
+
+0:08:09.599,0:08:17.360
+positions in the list for my variables and inside of those variables i'm going
+
+0:08:16.400,0:08:21.199
+to do is i might put an address right so maybe i'll have the x
+
+0:08:20.000,0:08:24.560
+variable at position 3 and that contains 8 which refers to
+
+0:08:24.000,0:08:27.840
+that list the y variable's at position five that
+
+0:08:26.080,0:08:30.879
+also contains eight and that's how i can represent that i have multiple variables
+
+0:08:29.440,0:08:34.719
+that are referencing uh the same piece of data
+
+0:08:34.959,0:08:39.120
+third challenge right i mean the programs are kind of boring if they just
+
+0:08:38.240,0:08:42.640
+have numbers how can i get some strings and the
+
+0:08:42.000,0:08:46.640
+answer is that we're going to use encodings or
+
+0:08:45.200,0:08:49.600
+encoding tables you've seen in codings a little bit
+
+0:08:47.920,0:08:55.120
+maybe you remember that if you open a file you say something like
+
+0:08:51.519,0:08:59.040
+open file.text and coding equals utf-8 so utf-8 is an example of an encoding
+
+0:08:57.360,0:09:02.160
+and an encoding is just like a big table like the one i'm shown here this is not
+
+0:09:00.560,0:09:05.760
+the utf encoding but but it's some encoding and basically
+
+0:09:04.720,0:09:11.839
+we're going to do is we're going to say well each letter gets a number
+
+0:09:08.000,0:09:14.880
+and so here 67 65 66 those correspond to three letters and
+
+0:09:13.760,0:09:18.880
+i'm just going to have you pause for a moment and and before you
+
+0:09:17.920,0:09:22.560
+continue figure out what string is there so pause
+
+0:09:20.959,0:09:27.200
+me figure out what string is there maybe write it down
+
+0:09:24.160,0:09:34.480
+and we'll resume and well 67 is c 65
+
+0:09:31.120,0:09:37.920
+is a and 66 is b so i guess we have cab right so so there's all these tricks
+
+0:09:36.080,0:09:40.640
+right even though i only can really store
+
+0:09:38.640,0:09:45.040
+these bytes i can use that to ultimately store strings
+
+0:09:42.480,0:09:50.959
+okay this is the trickiest one of all how can we
+
+0:09:46.480,0:09:55.360
+put code inside of a giant list okay so so for the example i'm gonna go
+
+0:09:53.040,0:09:58.560
+with here i have some sort of while loop and inside of the while loop i say i a
+
+0:09:57.279,0:10:01.440
+plus equals two something like that
+
+0:10:02.240,0:10:08.480
+what we're gonna do is we're going to have something a lot like the
+
+0:10:05.519,0:10:11.760
+encoding table for strings but now what we're going to be doing is instead of
+
+0:10:09.600,0:10:14.959
+having a letter for each number we'll have some sort of operation for
+
+0:10:13.519,0:10:21.360
+each number so for example maybe i'll say that
+
+0:10:18.000,0:10:24.640
+5 means i should add 8 means that i should subtract
+
+0:10:22.959,0:10:28.160
+okay so instead of an encoding table where i call this one
+
+0:10:26.240,0:10:32.000
+with all these operations an instruction set
+
+0:10:29.760,0:10:35.920
+okay and so kind of looking at this code up here i see five
+
+0:10:33.519,0:10:39.040
+means add and then there's a two right after that so that's
+
+0:10:36.959,0:10:44.720
+that five two that's that i plus equals two part
+
+0:10:40.480,0:10:49.120
+um 33 eight well what is that so 33 means
+
+0:10:45.200,0:10:52.079
+jump jump to position eight right so so what that is actually doing is turning
+
+0:10:50.320,0:10:56.399
+back to the top of the loop so the way this is going to work is that
+
+0:10:54.000,0:11:00.000
+when i have a cpu uh the cpu is running and the cpu keeps
+
+0:10:58.560,0:11:03.839
+track of well what part of the code are we currently on and it does that
+
+0:11:02.640,0:11:07.120
+with something called the instruction pointer which i'll often draw as a
+
+0:11:05.600,0:11:09.839
+little red arrow and um and this is actually pretty
+
+0:11:08.880,0:11:13.600
+similar to something we've seen in python twitter right in the bottom left
+
+0:11:11.680,0:11:16.240
+i have some python tutor code and the red arrow points to what we're currently
+
+0:11:15.279,0:11:20.079
+doing um in the same way a cpu has this
+
+0:11:18.640,0:11:23.920
+instruction pointer that points to something in the big list
+
+0:11:21.839,0:11:28.000
+which is the code that we're currently early running so it's there and normally
+
+0:11:26.320,0:11:31.760
+right as the program's running the cpu will move forward sorry maybe
+
+0:11:29.760,0:11:36.399
+someone moves here and then it says oh i need to add
+
+0:11:32.640,0:11:39.440
+two to my variable and then it goes to the next part and it says oh
+
+0:11:37.760,0:11:44.560
+i need to go back to the top of the loop right so i'm going to jump back here
+
+0:11:41.519,0:11:48.240
+right so the cpu knows how to a and keep track of what uh what code it's
+
+0:11:47.279,0:11:53.120
+currently running and then b it has this instruction set
+
+0:11:51.200,0:11:56.720
+inside of the cpu so it knows which numbers
+
+0:11:53.760,0:12:00.480
+mean which operations it should perform all right that's how the
+
+0:11:57.680,0:12:04.240
+cpu works right and i'll try to point to these things and then run them it knows
+
+0:12:01.760,0:12:11.920
+how to interpret them okay how does this all relate back to
+
+0:12:09.399,0:12:14.800
+reproducibility how can i make sure my code on my computer runs the same for
+
+0:12:13.920,0:12:18.000
+you and so what i wanted to imagine here is
+
+0:12:16.399,0:12:22.079
+this problem where you and i bought different kinds of cpus
+
+0:12:20.720,0:12:27.680
+and by different kinds i mean they have different instruction sets
+
+0:12:24.160,0:12:31.440
+and on my cpu five means that i want to add
+
+0:12:28.320,0:12:37.360
+a number and on your cpu five means that you want to subtract something
+
+0:12:33.519,0:12:41.680
+okay if we try to run this code on your computer different things could happen
+
+0:12:39.839,0:12:46.079
+one you could be subtracting when you're supposed to be adding and just trying to
+
+0:12:42.880,0:12:50.240
+get weird results or more likely it just won't run at all right on my
+
+0:12:48.000,0:12:53.680
+computer 33 means jump on yours it doesn't mean anything so
+
+0:12:51.600,0:12:59.760
+maybe the program just crashes right so in general right
+
+0:12:56.800,0:13:05.760
+code that's written for one specific cpu does not work for other cpus the program
+
+0:13:02.880,0:13:09.040
+code and the cpu need defense right i've kind of drawn this with different shapes
+
+0:13:07.279,0:13:15.040
+right i have program a that's cpu x program b fit cpu y
+
+0:13:12.720,0:13:18.839
+if i mix and match it i'm gonna you know get something weird or more likely it
+
+0:13:16.480,0:13:23.040
+won't even run okay well you've been writing a lot of
+
+0:13:20.959,0:13:26.720
+programs and not worrying about this how is it that this has not been a
+
+0:13:25.680,0:13:31.200
+problem for you before right why haven't we noticed this
+
+0:13:31.519,0:13:36.720
+and the answer is something called the interpreter so
+
+0:13:35.360,0:13:39.199
+on your computer right when you install python right and you want to run a
+
+0:13:38.399,0:13:43.600
+program you say python base and then the program name
+
+0:13:42.399,0:13:47.680
+and what you're really doing is you're trying running two programs at the same
+
+0:13:44.880,0:13:50.000
+time you're running this python.exe that's a program that's a python
+
+0:13:49.040,0:13:54.560
+executable and you're also running your your your
+
+0:13:51.600,0:13:59.920
+own program right so the python.exe is an interpreter
+
+0:13:56.000,0:14:03.120
+and its job is to read python code and then run it on on the cpu that's
+
+0:14:02.399,0:14:07.600
+currently in use and this makes it very easy to
+
+0:14:07.120,0:14:10.959
+run our python code on different computers
+
+0:14:09.360,0:14:16.639
+because what we'll do is if i have you know cpux i may have one version of
+
+0:14:14.079,0:14:19.639
+the python.exe on my computer you have a different cpu you're going to
+
+0:14:18.000,0:14:23.199
+have a slightly different version of the python.exe that understands how to have
+
+0:14:21.760,0:14:27.440
+instructions for that and and so i can kind of like levels the
+
+0:14:25.360,0:14:31.120
+field right i can put this program.pi this regular python code on top of these
+
+0:14:29.920,0:14:34.160
+different interpreters each built for custom cpu and i can run it
+
+0:14:33.360,0:14:40.320
+anywhere right so we have different cpus
+
+0:14:37.279,0:14:43.839
+different interpreters but the same same program and and so when i do that
+
+0:14:42.480,0:14:46.320
+when i take my program and i run on somebody else's computer
+
+0:14:44.800,0:14:50.320
+i might say that i'm kind of porting it right the code is portable
+
+0:14:47.839,0:14:55.760
+it can run anywhere right thanks to this kind of python interpreter
+
+0:14:52.000,0:14:58.959
+that translates my python code into something the cpu understands right
+
+0:14:57.920,0:15:02.560
+like that you know the interpreter will be the
+
+0:15:00.639,0:15:05.279
+part that understands that five means add
+
+0:15:03.040,0:15:09.680
+right so it can translate my python code into whatever the cpu wants
+
+0:15:07.279,0:15:12.720
+okay there's other tools that do do this um
+
+0:15:10.800,0:15:15.279
+for example a compiler compiler kind of does this once and produces a new
+
+0:15:14.399,0:15:19.040
+program built for that cpu interpreters just do
+
+0:15:17.440,0:15:22.079
+this as you're running which little bit slower
+
+0:15:20.000,0:15:26.160
+uh but maybe also more convenient in some ways
+
+0:15:24.560,0:15:29.360
+so here's that want something i want you to ponder and feel free to pause if that
+
+0:15:28.320,0:15:33.120
+makes sense think about this but if all cpus in the
+
+0:15:32.000,0:15:38.320
+world have the same instruction set now that
+
+0:15:35.920,0:15:41.680
+there's only one kind of cpu basically would there be any value in having a
+
+0:15:41.120,0:15:45.199
+python interpreter right well it's using the
+
+0:15:43.440,0:15:48.240
+one value right python interpreters are great when we have different cpu
+
+0:15:47.279,0:15:53.040
+instruction that's but what if they were all the
+
+0:15:49.360,0:15:56.959
+same is there so any value in that and the answer is yes there is right
+
+0:15:56.240,0:16:00.480
+because in addition to this reproducibility
+
+0:15:58.720,0:16:04.000
+issue uh it's also a pain to write code directly
+
+0:16:02.399,0:16:08.399
+for a cpu right i don't want to have to remember as a programmer
+
+0:16:05.600,0:16:11.279
+that 5 means add and 33 means trump or anything like that right python code is
+
+0:16:10.240,0:16:15.519
+easy to run and so the python interpreter is not
+
+0:16:13.519,0:16:19.440
+only kind of bridging this gap but um but it's time meaning i don't
+
+0:16:18.399,0:16:22.000
+have to remember all these things right it's able to translate the easy to write
+
+0:16:21.199,0:16:25.120
+code into something more complicated that the
+
+0:16:23.519,0:16:30.480
+cpu um understands the hardware hardware is
+
+0:16:28.639,0:16:33.680
+very important to reproduce ability and the the python interpreter kind of
+
+0:16:32.800,0:16:37.120
+helps us deal with this let me stop this video
+
+0:16:35.519,0:16:46.320
+there next we're going to talk about operating systems and how they are going
+
+0:16:39.199,0:16:46.320
+to be relevant
+

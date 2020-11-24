@@ -1,0 +1,279 @@
+0:00:01.599,0:00:07.120
+all right in this second video i'm going to do another selenium
+
+0:00:04.799,0:00:11.519
+selenium example uh where we have a button like this to show more rows
+
+0:00:09.760,0:00:15.200
+and uh and so you can see i hear i have a table um
+
+0:00:13.200,0:00:19.520
+with a bunch of uh kind of rows about hurricanes
+
+0:00:16.320,0:00:22.960
+and i can show more to get 20 show more and if i keep clicking this eventually i
+
+0:00:21.039,0:00:27.119
+get to end and and there's no more to load okay so i'm
+
+0:00:25.920,0:00:30.560
+gonna head over here and i'm starting much like i started
+
+0:00:28.640,0:00:34.480
+last time um where uh where i'm kind of creating my
+
+0:00:32.719,0:00:37.040
+options i'm not going to do it in headless mode
+
+0:00:35.360,0:00:41.360
+on my virtual machine instead i'm going to do it
+
+0:00:38.399,0:00:46.239
+with an actual browser on my local host just because it's easier to see what's
+
+0:00:42.640,0:00:50.079
+going on and so i'll run this and i get this nice pop-up to the side
+
+0:00:48.640,0:00:56.640
+and so i'll just try to shrink this down so you can see both um
+
+0:00:52.399,0:00:59.760
+both screens is the idea and and then what i want to do is i want to
+
+0:00:57.920,0:01:07.119
+load this page i'm going to copy this uh url let me paste this here
+
+0:01:03.440,0:01:09.840
+i say browser.get and let me put that there
+
+0:01:07.680,0:01:17.439
+maybe let me just put this in a separate variable so we can see what's going on
+
+0:01:12.240,0:01:22.720
+there's my url i get it and so that's good and then what i want
+
+0:01:20.640,0:01:29.119
+to do is i want to try to figure out um you know how can i see
+
+0:01:26.320,0:01:31.520
+how can i see what this um button is and so if i come back here
+
+0:01:30.159,0:01:34.960
+actually you know one thing that i've noticed is that if i click around or do
+
+0:01:33.200,0:01:39.040
+too much manually inside of the selenium browser it can
+
+0:01:37.439,0:01:42.560
+mess up my code right so i'm going to leave that one alone
+
+0:01:40.400,0:01:46.159
+but over on this version right which is just in my regular browser
+
+0:01:44.560,0:01:50.079
+um one of the things i can do is i can right click on various pages
+
+0:01:47.600,0:01:54.479
+uh places on the page in chrome and i can say inspect
+
+0:01:51.840,0:01:56.479
+and uh and it shows me the html for that right i can try to see different parts
+
+0:01:55.759,0:02:00.479
+of that and so if i right click on the show more
+
+0:01:58.159,0:02:08.000
+button i can see that um that
+
+0:02:05.360,0:02:10.879
+here it has an id right the id is more can you can you see that let me make it
+
+0:02:09.440,0:02:16.319
+a little bit larger let me can i shrink this down as well
+
+0:02:14.400,0:02:19.280
+there we go so you can see the id for that button is more
+
+0:02:17.760,0:02:22.480
+and and so when i'm over here if i want to get that button
+
+0:02:21.040,0:02:28.640
+i can do something like this i can say like browser.get
+
+0:02:24.800,0:02:37.440
+element by id and then i saw the name of that was more
+
+0:02:30.720,0:02:41.519
+and um and do i have a typo here let me just try to check my notes here i
+
+0:02:39.360,0:02:45.120
+think uh actually i'll just try and come back
+
+0:02:42.400,0:02:48.560
+here to my previous notebook find element by id excuse me okay not
+
+0:02:48.080,0:02:52.800
+yet find find element by id and i do that
+
+0:02:51.599,0:02:55.360
+and i'm just going to kind of grab that button here
+
+0:02:55.599,0:03:00.800
+and uh and then what i can do is actually clicking that is very simple
+
+0:02:58.959,0:03:03.920
+right so i've kind of manually sort of manually clicking over here i
+
+0:03:02.959,0:03:10.480
+have that element i can just say button dot click like that
+
+0:03:07.360,0:03:13.760
+and and then that works and uh and i can keep doing that
+
+0:03:11.440,0:03:17.360
+let me keep running it until i'm at the end
+
+0:03:14.800,0:03:19.760
+and now i see that well i actually have a problem right the button doesn't exist
+
+0:03:18.879,0:03:23.120
+anymore and indeed if i ran this line of code
+
+0:03:21.360,0:03:26.159
+again i would see while i don't actually have
+
+0:03:25.040,0:03:32.879
+have that thing so i think what i'm going to do
+
+0:03:29.360,0:03:39.040
+is up here i'm going to have a while loop like before
+
+0:03:34.640,0:03:45.280
+and i may say you know keep clicking as long as there is something
+
+0:03:42.239,0:03:50.000
+to click right so i'm going to do that and um and so i'm going to try to find
+
+0:03:47.680,0:03:54.480
+this thing i'm going to do it like this and and i should do that inside of a
+
+0:03:51.599,0:04:00.000
+tri-x app right because maybe maybe it's not there right so i am going
+
+0:03:57.760,0:04:03.280
+to kind of check for that same exception
+
+0:04:01.680,0:04:10.720
+that we've had before i may say accept and this is the exception that we
+
+0:04:07.360,0:04:15.200
+get to know such element exception if i see that thing then i want to break
+
+0:04:12.959,0:04:19.880
+right i mean there's no more button uh but as long as i have that well then
+
+0:04:18.479,0:04:25.040
+i can click it right so i'm gonna say button.click
+
+0:04:22.160,0:04:30.400
+like so and so let me kind of delete this other garbage here
+
+0:04:27.759,0:04:34.560
+a little simpler i do this and you see it's very fast right i mean kind of it
+
+0:04:32.080,0:04:38.000
+loads the page and it's instantly there which is good i guess normally fast is
+
+0:04:36.479,0:04:41.199
+good but maybe i'm going to do is just say import
+
+0:04:40.240,0:04:44.479
+time and uh and then kind of each time i
+
+0:04:42.880,0:04:47.680
+click it i'll just wait like one second just so
+
+0:04:46.160,0:04:51.520
+that you can see it actually happening so i'll say like sleep you know
+
+0:04:49.759,0:04:54.639
+i'll sleep one and a half second so i'll do that so it's there
+
+0:04:53.280,0:04:58.960
+i'm not touching anything but it's trying to keep on
+
+0:04:57.680,0:05:03.199
+i actually have to import it let me let me do that now it's gonna
+
+0:05:01.039,0:05:06.320
+oh and i have a new window now just trying to keep loading these things bit
+
+0:05:04.880,0:05:10.000
+by bit until it's done which is good i can
+
+0:05:09.360,0:05:14.000
+close this one too and then at the very end then i
+
+0:05:12.720,0:05:18.000
+should be able to say something like b dot page
+
+0:05:15.840,0:05:22.639
+source maybe i'll put that in in kind of a document something like that
+
+0:05:19.520,0:05:27.280
+so let me do this oops excuse me let's see it one more time i'm
+
+0:05:25.680,0:05:31.759
+gonna go a little bit faster so i'll say like
+
+0:05:28.000,0:05:37.039
+let's go twice as fast i run that oh and there's no window let me let me
+
+0:05:33.759,0:05:41.280
+run this from the top so i get my window i'm going to resize that over here on
+
+0:05:38.639,0:05:46.720
+the right hand side my apologies and then i run this thing
+
+0:05:45.199,0:05:51.919
+and i can just see it clicking clicking clicking until it's done
+
+0:05:48.800,0:05:55.360
+and then down here i actually have my html
+
+0:05:53.360,0:05:58.800
+and and you can see while it has like a whole bunch of tr's right it has all the
+
+0:05:57.600,0:06:01.680
+data there um one last thing that i forgot to talk
+
+0:06:00.400,0:06:05.360
+about last time is that when i'm all done i can say p
+
+0:06:02.639,0:06:08.240
+b dot close and that will automatically close the browser
+
+0:06:06.639,0:06:10.720
+for me that's just kind of good practice i don't have a bunch of browsers running
+
+0:06:09.600,0:06:14.160
+in the background uh eventually that'll eat up all the
+
+0:06:12.319,0:06:17.680
+memory on my system and then i won't do it here but uh you
+
+0:06:16.080,0:06:21.919
+know i could say to do you know par stock with with this being
+
+0:06:20.880,0:06:25.360
+my doc i could parse that with you know
+
+0:06:23.759,0:06:29.120
+beautiful soup and pull out a table just like i did
+
+0:06:27.199,0:06:33.680
+last time but i'll just skip that for now
+
+0:06:30.400,0:06:33.680
+so i'm going to stop recording
+

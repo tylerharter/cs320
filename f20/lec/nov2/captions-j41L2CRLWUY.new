@@ -1,0 +1,372 @@
+0:00:01.520,0:00:07.759
+all right so you've probably seen in the example um how
+
+0:00:06.160,0:00:11.200
+you know how many frames you have in the interval between them
+
+0:00:09.200,0:00:16.160
+and really a fact on not only all the code you have to write
+
+0:00:12.799,0:00:19.199
+but how smooth the image is overall um and you might want to be able to play
+
+0:00:17.680,0:00:21.600
+with that independently it's nice if we have some sort of variable that we can
+
+0:00:20.560,0:00:25.039
+just change that's the smoothness and if we change
+
+0:00:23.680,0:00:29.279
+it that's the only thing we have to change
+
+0:00:26.160,0:00:34.480
+so here i have that same example from of exercise i'm doing some imports um
+
+0:00:32.320,0:00:37.440
+i'm creating my plot area i'm a circle and the rectangle
+
+0:00:35.920,0:00:40.559
+and and then you can see that ball is falling from the top to the bottom of
+
+0:00:38.800,0:00:43.680
+the screen and uh and i have lots of parameters in
+
+0:00:42.640,0:00:49.280
+here and i have like these number of frames the interval and
+
+0:00:46.719,0:00:52.399
+so i think what's helpful is to start off with
+
+0:00:50.079,0:00:55.680
+some variables that describe your animation
+
+0:00:53.760,0:01:00.000
+and um and some of those variables maybe i will write them here
+
+0:00:56.960,0:01:03.840
+one is just like well how uh how long is the video
+
+0:01:00.719,0:01:08.080
+maybe i'll try that video seconds and uh we can say well i want this video to be
+
+0:01:05.439,0:01:11.200
+two seconds long and then the other variable that you
+
+0:01:10.000,0:01:16.159
+probably wanted to find up front is something called
+
+0:01:12.159,0:01:22.159
+fps and that will be something uh it means frames per second so
+
+0:01:19.680,0:01:25.520
+you know in one second of video how many frames do i draw so so if i say
+
+0:01:23.840,0:01:29.119
+something like five here i guess i would have ten frames total
+
+0:01:27.280,0:01:34.880
+because i have two seconds of video and five frames per second
+
+0:01:32.960,0:01:40.479
+and uh what you're gonna want to do is you're gonna want to figure out
+
+0:01:37.200,0:01:43.439
+how to compute all of these things based on that
+
+0:01:41.439,0:01:46.880
+and and also the position i want to figure out the position based on that
+
+0:01:45.680,0:01:50.320
+so i'm just going to make a note here i have to make some changes
+
+0:01:48.960,0:01:56.640
+so well how many frames are there i think that's the easiest thing
+
+0:01:52.159,0:02:01.200
+i can just multiply the video seconds by by the frames per second um the interval
+
+0:02:00.000,0:02:08.080
+is a little bit trickier isn't it right so i kind of have um fps
+
+0:02:04.719,0:02:14.319
+is uh frames divided by seconds right so
+
+0:02:11.520,0:02:16.800
+if i wanted to get an interval i i guess i
+
+0:02:14.560,0:02:21.200
+kind of have something like that one divided by
+
+0:02:19.520,0:02:23.040
+frames per second i guess that really kind of what i'm trying to say is that
+
+0:02:22.720,0:02:28.959
+like seconds over frames
+
+0:02:26.400,0:02:34.000
+is the interval and so the way i would get that is 1 over
+
+0:02:29.920,0:02:38.080
+fps and so this is frames per second which is pretty right i'm sorry this is
+
+0:02:36.640,0:02:42.000
+seconds per frame right how many seconds do i have between
+
+0:02:39.440,0:02:45.440
+each frame which is pretty close but this needs to be in milliseconds right
+
+0:02:43.599,0:02:49.040
+so this is in seconds i need milliseconds so i should really
+
+0:02:47.760,0:02:53.760
+say something like a thousand times that and and of course i can
+
+0:02:52.160,0:02:58.239
+simplify this so so i can say a thousand over fps to get
+
+0:02:56.239,0:03:01.360
+it in in terms of um you know how many milliseconds are there
+
+0:03:00.000,0:03:05.920
+between each frame right so i have these two things based
+
+0:03:03.120,0:03:11.280
+on my more fundamental variables up here now
+
+0:03:08.159,0:03:15.040
+how do i actually do my drawing i think um what we want to get away from
+
+0:03:13.519,0:03:18.400
+is thinking too carefully about the frame number
+
+0:03:15.760,0:03:21.599
+because you know maybe before well right now i have like 10 frames maybe some
+
+0:03:20.000,0:03:25.360
+later somebody wants to increase the kind of like the smoothness of the
+
+0:03:23.680,0:03:29.760
+video and now instead of having 10 frames maybe i have like 100 frames
+
+0:03:27.920,0:03:33.200
+and uh it's so it's more useful to be able to think in terms of like well what
+
+0:03:31.440,0:03:36.560
+percentage of the way is the video done and this
+
+0:03:35.760,0:03:41.360
+will be between zero and one how how much of the video
+
+0:03:40.159,0:03:44.879
+is done and and so what i can do down here is if
+
+0:03:43.040,0:03:47.200
+i figure out how to write that i can say well
+
+0:03:45.440,0:03:51.360
+i want to draw that circle that's dropping
+
+0:03:48.720,0:03:56.159
+and it starts at the top which is one and so i can just say well minus
+
+0:03:53.200,0:03:59.120
+percent right so you know it starts at one
+
+0:03:57.760,0:04:04.080
+when my percent is zero and at the end of the video well this will be
+
+0:04:01.200,0:04:06.879
+zero and it will be to the bottom well how do i get this percentage
+
+0:04:05.680,0:04:12.879
+well that's pretty easy i can just divide my frame number i'm currently on
+
+0:04:09.840,0:04:14.720
+by i don't know however many frames there are so
+
+0:04:13.519,0:04:19.680
+maybe what i should do is i know how many frames there are here
+
+0:04:17.600,0:04:24.000
+so i'm going to cut this and put it in a variable because i need it
+
+0:04:20.799,0:04:27.040
+in more than one place whenever you need some expression more than one place good
+
+0:04:25.600,0:04:30.560
+idea to put a variable on to make sure you're consistent with
+
+0:04:29.040,0:04:35.520
+yourself so i'm going to do that so i'm going to
+
+0:04:32.880,0:04:39.520
+divide by my frame count here okay so this is what portion of the way
+
+0:04:37.120,0:04:42.639
+i'm done and i can base everything else off on this like this should be the only
+
+0:04:40.800,0:04:46.560
+place i refer to frame name uh within this function i'm gonna draw
+
+0:04:45.600,0:04:51.280
+that and uh and it still works fine so that's
+
+0:04:49.120,0:04:54.560
+good i haven't broken anything and now i can change these other things
+
+0:04:53.280,0:05:00.080
+right if i want to um if i want to make it
+
+0:04:58.479,0:05:03.039
+better resolution right i can i can change this and
+
+0:05:01.600,0:05:05.919
+notice before when i only had a few frames it was pretty fast to generate
+
+0:05:04.720,0:05:09.520
+the video uh now it's going to take longer to
+
+0:05:07.520,0:05:13.199
+generate the video right that was about three times
+
+0:05:10.080,0:05:17.039
+longer but now it's much smoother and and kind of that's the trade-off and and
+
+0:05:15.199,0:05:19.280
+so one of the advantages of having this like this is what you'll usually want to
+
+0:05:18.320,0:05:24.240
+do is have something small and kind of
+
+0:05:22.479,0:05:27.039
+rough when you're debugging to make sure it looks right and then when you're all
+
+0:05:26.479,0:05:30.880
+done maybe make it look like really nice i
+
+0:05:28.560,0:05:34.000
+can make like 40 frames per second before i kind of share out the video
+
+0:05:32.400,0:05:38.080
+with other people now that's a great video right it took a while to
+
+0:05:35.680,0:05:42.720
+generate but that's fine um okay so this is good another
+
+0:05:40.880,0:05:46.080
+debugging tip i want to give before i wrap up
+
+0:05:43.919,0:05:49.280
+is that it's often helpful to be able to draw individual frame and think about
+
+0:05:47.759,0:05:52.080
+how it looks and kind of just debug one frame at a
+
+0:05:50.880,0:05:55.680
+time instead of dealing with the whole animation
+
+0:05:54.240,0:05:58.000
+and and so what i'll usually like to do is i'll have something like this i'll
+
+0:05:56.800,0:06:02.240
+have to say something like debug frame equals uh you know let's debug
+
+0:06:01.840,0:06:09.600
+frame um 25 and uh
+
+0:06:06.479,0:06:15.680
+none means uh make an animation instead of debugging
+
+0:06:13.280,0:06:21.840
+right so so kind of the idea here is i'm gonna say
+
+0:06:16.720,0:06:28.080
+you know if debug frame equals none well then i may do all my usual stuff
+
+0:06:25.120,0:06:32.560
+oops excuse me so if i'm not debugging i do all the stuff i have been doing
+
+0:06:30.560,0:06:37.680
+um otherwise right if i have some sort of debug frame number
+
+0:06:34.479,0:06:43.039
+um i just want to make a call to my um to my draw frame right so in this
+
+0:06:40.880,0:06:46.400
+case i just say draw frame and whatever debug frame that is so i
+
+0:06:45.360,0:06:51.520
+can do that and you can see how instantaneous it is
+
+0:06:48.160,0:06:56.080
+right i can do that oh that's 50 that's 60. um and so that's straight
+
+0:06:54.800,0:07:00.080
+when i put it back to none i should be looking at the animation and um
+
+0:06:58.400,0:07:03.280
+the one difficulty here right is that this is not at the end of my of end of
+
+0:07:02.479,0:07:07.440
+my video right so i have to deal with that
+
+0:07:05.520,0:07:11.440
+somehow um there's different ways i could do it one
+
+0:07:09.120,0:07:14.880
+way i could do it is from when i'm importing html from this
+
+0:07:13.440,0:07:18.400
+display i could import the display function also from
+
+0:07:17.120,0:07:22.080
+the display module and this basically works like a print so
+
+0:07:20.800,0:07:26.400
+if i wanted to i could you know i can't quite print html but i
+
+0:07:24.080,0:07:30.160
+can display html and uh since this is like a print this
+
+0:07:28.639,0:07:34.560
+is not going to go to the outbox right you can see like before i was getting
+
+0:07:32.000,0:07:36.960
+animations in the outbox that's not going to do that but for my purposes it
+
+0:07:36.000,0:07:41.039
+doesn't really matter um i just want to see uh i just want to
+
+0:07:40.080,0:07:44.479
+see it somewhere i can still save it and watch it and
+
+0:07:43.440,0:07:47.680
+everything i need to do i don't have an outbox but
+
+0:07:45.599,0:07:51.039
+who cares right so this is kind of a good way to set up if you want to be
+
+0:07:49.680,0:07:53.280
+debugging these things right what you don't want to get in the habit of doing
+
+0:07:52.479,0:07:56.319
+is having something where every time you
+
+0:07:54.879,0:07:59.039
+try to make a code change as part of your debugging
+
+0:07:57.360,0:08:02.560
+you have to wait like a minute to see if it works right that's kind of slow
+
+0:08:00.960,0:08:07.599
+so do things like this make it sure you can just try to make these small changes
+
+0:08:05.039,0:08:11.199
+um so you can debug quickly and then kind of make it polished at the very end
+
+0:08:09.759,0:08:14.160
+and make it like this so you can debug one aspect of it without having to watch
+
+0:08:12.800,0:08:18.240
+the whole animation from beginning to end
+

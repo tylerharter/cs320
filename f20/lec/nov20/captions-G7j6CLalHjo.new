@@ -1,0 +1,648 @@
+0:00:01.599,0:00:05.359
+hello um in this lecture and the remainder ones of the semester we're
+
+0:00:04.880,0:00:08.800
+going to be moving on to perhaps a more fun topic
+
+0:00:07.040,0:00:12.240
+than some of what we've been doing um which is machine learning we've laid
+
+0:00:10.639,0:00:15.360
+a lot of the mathematical foundations that we need here
+
+0:00:13.679,0:00:19.439
+um for the rest of it we'll be doing in cf 320.
+
+0:00:16.800,0:00:21.439
+i'd like to have you recall that there's three different kinds of machine
+
+0:00:20.480,0:00:25.519
+learning um one we just simply aren't doing in in
+
+0:00:24.160,0:00:27.840
+this course and that's reinforcement learning
+
+0:00:26.320,0:00:30.080
+and um so the important ones for you kind of have differentiated in your mind
+
+0:00:29.359,0:00:35.040
+are supervised learning and unsupervised learning
+
+0:00:33.200,0:00:39.280
+and in just a quick recap when we have supervised learning
+
+0:00:36.640,0:00:43.360
+um and say a table usually there's a special column
+
+0:00:40.480,0:00:45.039
+that's considered the label column and what we want to do is we want to
+
+0:00:44.399,0:00:49.520
+pregnancy predict that one based on the others now
+
+0:00:47.600,0:00:53.520
+that special label column it might be numeric
+
+0:00:50.640,0:00:57.199
+um in which case the type of supervised learning we'll be doing is a regression
+
+0:00:55.600,0:01:01.359
+um if it's categorical then we're going to be doing classification
+
+0:01:00.160,0:01:04.879
+there's other cases where we want to learn something about the data
+
+0:01:03.199,0:01:07.680
+but there are no labels no special columns we're just trying looking for
+
+0:01:06.159,0:01:12.080
+general patterns for example maybe covariance between
+
+0:01:09.360,0:01:16.479
+different pairs of columns um so we've done a lot of kind of
+
+0:01:13.920,0:01:19.840
+foundational stuff with linear algebra that's trying to help us and um in in
+
+0:01:19.119,0:01:23.280
+general machine learning borrows from a lot of
+
+0:01:21.439,0:01:25.119
+other other fields and kind of is based on them
+
+0:01:24.000,0:01:29.600
+and so some of these things that we learned in linear algebra are directly
+
+0:01:27.759,0:01:33.200
+supervised non-supervised learning techniques um for example when we were
+
+0:01:31.680,0:01:37.759
+doing the linear regression on the least squares method that's an
+
+0:01:35.840,0:01:40.799
+example of a supervised learning regression and we were doing principal
+
+0:01:39.680,0:01:44.799
+component analysis there was no real special labeled column
+
+0:01:43.439,0:01:48.240
+uh we were just trying to see well how much
+
+0:01:45.280,0:01:52.159
+kind of actual uh independence is there among columns right how much information
+
+0:01:50.079,0:01:55.600
+can be captured in maybe fewer columns right and that was
+
+0:01:54.079,0:01:57.840
+an unsupervised uh learning technique because we weren't
+
+0:01:56.960,0:02:01.840
+really trying to do any sort of prediction there
+
+0:01:59.840,0:02:04.479
+um so so we've already seen for supervisor we've seen regression and so
+
+0:02:03.520,0:02:09.920
+today i'm going to be talking about other type which is classification
+
+0:02:07.200,0:02:14.560
+in particular for classification we're going to be using something called
+
+0:02:12.239,0:02:18.319
+logistic regression which is a very confusing name a logistic
+
+0:02:16.160,0:02:22.400
+regression model is actually used for classification it's not
+
+0:02:19.680,0:02:27.520
+used for um kind of regression information right so we'll be using
+
+0:02:24.319,0:02:32.239
+logistic regression for quantitative information um and uh and then the other
+
+0:02:30.879,0:02:35.280
+thing i want to do today is i want to talk about
+
+0:02:33.599,0:02:39.120
+whether or not a model is good how can we evaluate that
+
+0:02:37.040,0:02:41.519
+and machine learning brings in various techniques and best practices for kind
+
+0:02:40.800,0:02:44.640
+of figuring out if you're learning
+
+0:02:42.560,0:02:48.640
+something meaningful or not okay so first regression and
+
+0:02:46.400,0:02:52.720
+classification and for both of these the typical steps that you might perform
+
+0:02:50.319,0:02:55.040
+are you know first train your model after you've selected the model of
+
+0:02:54.160,0:02:59.200
+course um test your model uh trying to run on
+
+0:02:57.599,0:03:01.200
+some test data and evaluate whether it's good
+
+0:02:59.920,0:03:04.879
+and finally actually i started using your model on in the real world to make
+
+0:03:03.440,0:03:07.599
+new predictions and um and since that's where we're
+
+0:03:06.319,0:03:11.440
+headed right i mean that's our big goal is we're gonna make new predictions
+
+0:03:09.280,0:03:16.239
+um i'm gonna start there right we're gonna compare
+
+0:03:13.200,0:03:20.800
+um two uh different models uh a classification model regression model
+
+0:03:18.720,0:03:25.360
+um and then kind of talk later about how i actually
+
+0:03:21.920,0:03:29.519
+uh derive those models um so here i have some data
+
+0:03:26.959,0:03:34.000
+um i have some x columns right try my inputs
+
+0:03:31.840,0:03:37.200
+i have this kind of constant column just in any ones
+
+0:03:35.360,0:03:40.159
+that is just going to make um my life easier later
+
+0:03:38.480,0:03:45.519
+when i'm trying to multiply coefficients by these things
+
+0:03:41.599,0:03:50.720
+um i may have a vector of weights and it helps if i can put both the
+
+0:03:48.239,0:03:53.920
+coefficients on variables and and on one in here and then i have two
+
+0:03:52.720,0:03:57.840
+things that i might want to predict i have
+
+0:03:54.239,0:04:02.400
+y right which is a numeric field and so for that i'm going to have
+
+0:04:00.159,0:04:07.120
+to do a regression and have a regression model and then z
+
+0:04:05.120,0:04:09.920
+is a categorical information here i guess i have two categories true and
+
+0:04:08.720,0:04:14.159
+false another word for category is classes i'd
+
+0:04:12.239,0:04:18.479
+say this is a two class problem um eventually when we seen cases where i
+
+0:04:16.079,0:04:22.000
+have more than two classes maybe i have um
+
+0:04:19.600,0:04:25.360
+uh you know rock paper scissors or kind of other
+
+0:04:22.720,0:04:29.199
+uh you know fixed number of distinct categories but they aren't really
+
+0:04:26.840,0:04:34.400
+numbers um so for convenience i have this function here this get
+
+0:04:30.560,0:04:40.560
+row and when i run this uh let me actually try not run this
+
+0:04:38.320,0:04:44.080
+again all right let me just try to run these
+
+0:04:41.759,0:04:49.840
+cells okay oh it's going slow okay
+
+0:04:48.400,0:04:55.120
+and and what this is basically doing is it's pulling off one row at a time
+
+0:04:52.560,0:04:59.440
+to be uh to be a horizontal vector down here and you can see it's kind of
+
+0:04:56.800,0:05:03.520
+a two-dimensional so we can say which way it's going
+
+0:05:00.479,0:05:06.720
+here i'm pulling off this next one right you can see that those are the numbers i
+
+0:05:05.120,0:05:10.080
+now have down here um anyway so i'm going to be using that
+
+0:05:08.080,0:05:15.039
+later and um and so i want to create uh
+
+0:05:13.360,0:05:19.440
+or kind of use a model for both regression and classification
+
+0:05:17.360,0:05:23.600
+and and remember that a model is really you can just think of it as a function
+
+0:05:21.039,0:05:28.880
+right it's a function where i take some input for example maybe the input
+
+0:05:25.919,0:05:31.280
+is a row of the data and then it's returning something it's usually
+
+0:05:30.000,0:05:35.120
+returning a prediction and when i'm doing regression the thing
+
+0:05:34.320,0:05:38.720
+i'm predicting is a number and when i'm doing
+
+0:05:37.360,0:05:41.840
+classification the thing is that i'm predicting is a
+
+0:05:40.320,0:05:44.960
+category and um and for this data right we can
+
+0:05:43.680,0:05:49.600
+see that those categories are just true or false
+
+0:05:46.720,0:05:53.280
+so when we're having these functions uh that are our models of machine learning
+
+0:05:52.080,0:05:57.520
+rather than kind of writing different code for them what we're really usually
+
+0:05:55.680,0:06:02.560
+doing is performing um like kind of some numeric operations on
+
+0:06:00.000,0:06:06.720
+our endpoints maybe we're multiplying um multiplying these vectors by other
+
+0:06:04.000,0:06:10.479
+vectors or even by matrices we might be doing other operations and
+
+0:06:08.720,0:06:14.880
+so the key to kind of figuring out what goes inside of the function
+
+0:06:12.319,0:06:19.600
+is to have the right values and vectors or matrices
+
+0:06:16.720,0:06:22.080
+okay and and so in this case i actually have
+
+0:06:20.400,0:06:25.440
+uh two vectors right and these two vectors are giving the information that
+
+0:06:24.240,0:06:29.039
+we need for our regression model and our
+
+0:06:27.280,0:06:34.080
+classification model and and it actually the code for these
+
+0:06:32.000,0:06:37.520
+is going to look very similar and um and in this case well what am i
+
+0:06:36.400,0:06:42.560
+going to do i'm just going to change this to a lower case right because i'm
+
+0:06:39.120,0:06:49.039
+like a actual rowan um i'm going to multiply that row like this
+
+0:06:47.520,0:06:52.479
+by these right i'm gonna do the dot product so i could say numpy dot dot
+
+0:06:51.360,0:07:00.639
+product row by vector one if i wanted to
+
+0:06:56.000,0:07:04.479
+um or equivalently i could do this and um and well let's just run that so
+
+0:07:03.360,0:07:12.160
+i'm going to say uh for the regression model uh
+
+0:07:07.680,0:07:16.160
+what do we predict for row one right and and this one right it's uh
+
+0:07:14.560,0:07:21.039
+we're trying to predict the y column and something around that and i
+
+0:07:18.800,0:07:26.479
+see that's 32.94 um is that good let me see uh it is
+
+0:07:24.840,0:07:29.599
+32.94 um let me go down to the next one and
+
+0:07:28.479,0:07:36.319
+hope that i get 2.7 for my y value i do this do i get
+
+0:07:33.360,0:07:39.680
+2.7 when i go to row 2 uh about right it's um it's not perfect
+
+0:07:39.120,0:07:43.919
+but i'm predicting something all right so this
+
+0:07:41.759,0:07:46.240
+is an example of a regression model right it's kind of putting out these
+
+0:07:45.440,0:07:52.400
+numbers that are um that are numeric right they
+
+0:07:50.319,0:07:55.759
+could kind of be any any number and um and these coefficients that i got
+
+0:07:54.240,0:08:00.639
+maybe i got those from a least squares uh method actually not maybe i
+
+0:07:58.560,0:08:03.840
+didn't get those from least squares okay so let's talk about how we're gonna
+
+0:08:01.840,0:08:07.039
+do this other one uh this one's actually gonna be very similar
+
+0:08:05.039,0:08:10.319
+right um i you notice i have a different vector and i have different values here
+
+0:08:08.639,0:08:14.080
+different coefficients but the general strategy is the same i'm
+
+0:08:11.919,0:08:18.879
+going to multiply that row by my vector and um and let's try doing
+
+0:08:17.199,0:08:26.800
+this i'm going to call classification model on
+
+0:08:22.639,0:08:31.599
+uh on maybe that first row that i had like so and i get four and uh
+
+0:08:30.000,0:08:34.560
+and that's not great right i mean we could have expected it right since i'm
+
+0:08:32.880,0:08:37.839
+basically doing the same thing in these two but what i would really
+
+0:08:36.880,0:08:41.360
+like right for this one i'm hoping i'm gonna
+
+0:08:39.360,0:08:46.720
+get the answer true okay now um now there's different ways
+
+0:08:44.800,0:08:52.000
+we could uh kind of deal with this we have to somehow convert
+
+0:08:48.720,0:08:56.320
+this into either a true or a false and um i'm sorry right we need to
+
+0:08:54.160,0:08:59.760
+convert this to which we are false and uh and the way that we'll we'll do
+
+0:08:58.160,0:09:07.440
+that um is we're going to treat one as true
+
+0:09:03.839,0:09:11.680
+and zero as false okay um so we can kind of map back and forth
+
+0:09:09.920,0:09:15.600
+between these categories and and kind of these numbers
+
+0:09:13.040,0:09:20.000
+um still not great right because if one is true
+
+0:09:16.880,0:09:23.519
+uh what in the world is four and um to solve this problem we're going to do
+
+0:09:22.160,0:09:26.959
+something called uh use something called the logistic
+
+0:09:25.040,0:09:31.200
+sigmoid function often people just call it sigmoid for short
+
+0:09:28.959,0:09:34.399
+um this is the definition of it i don't really care if you remember that
+
+0:09:32.880,0:09:38.640
+but what i do care about is that you remember how it how it looks right here
+
+0:09:36.560,0:09:42.000
+i'm planting a bunch of x values for the sigmoid and the sigmoid function
+
+0:09:41.519,0:09:48.240
+is s shaped when i'm at zero
+
+0:09:45.040,0:09:52.080
+uh when i'm at zero right i'm or you know that means i'm
+
+0:09:49.920,0:09:56.080
+coming up to about uh uh you know 0.5 and then eventually i
+
+0:09:54.480,0:09:59.680
+try saturates out one and if i have a very negative number it
+
+0:09:57.440,0:10:04.399
+kind of saturates at zero right so that's great right because
+
+0:10:02.839,0:10:10.399
+if uh if if i'm going to say that one is true
+
+0:10:08.240,0:10:14.160
+and 0 is false well then this is kind of giving me a spectrum
+
+0:10:11.839,0:10:18.399
+right so what i can do is uh i'm going to actually pull this up here
+
+0:10:16.399,0:10:22.800
+i use this thing um for this classification model to work
+
+0:10:20.079,0:10:25.040
+right um you know multiplying my row by my vector
+
+0:10:23.839,0:10:28.800
+i've got enough right because i kind of get any crazy number if i take the
+
+0:10:27.360,0:10:33.519
+sigmoid of that number uh well guess what i get
+
+0:10:31.839,0:10:37.760
+something between uh zero and one and this is timely
+
+0:10:35.839,0:10:41.839
+interpreted as the probability that it's one
+
+0:10:38.560,0:10:46.640
+right so so when i get this back um what this is telling me is that the model
+
+0:10:43.440,0:10:51.519
+says there's a 99 chance that row zero
+
+0:10:49.760,0:10:57.120
+is true and let me actually just check out that well it is true
+
+0:10:54.720,0:11:00.640
+um i'm going to try row one and two and i should expect
+
+0:10:57.920,0:11:05.200
+true and then false so let me let me try some other ones
+
+0:11:02.399,0:11:08.240
+say that yeah okay well row one was true too
+
+0:11:05.680,0:11:11.279
+a very high probability that it is about two
+
+0:11:09.279,0:11:14.800
+and uh and only a fifteen percent chance here right so so this is kind of
+
+0:11:12.880,0:11:18.959
+returning meaningful probabilities for me and um and those probabilities
+
+0:11:17.839,0:11:24.000
+might be interesting in and of themselves if i'm trying to gauge um
+
+0:11:21.040,0:11:27.360
+how sure the model is but in other cases i just want an answer i want
+
+0:11:25.839,0:11:30.480
+not a probability but i want to know well is is it true or false
+
+0:11:29.120,0:11:34.880
+and that's going to be easy to do because i can just uh well
+
+0:11:32.880,0:11:40.079
+if i round it i'm going to get either a 0
+
+0:11:36.720,0:11:45.040
+or or a 1 and um and of course then i could say as type
+
+0:11:41.360,0:11:48.399
+as uh boolean uh and now i'm actually getting true
+
+0:11:46.000,0:11:52.880
+right which is what i wanted right and um
+
+0:11:49.279,0:11:56.240
+and that works just great um if i wanted to
+
+0:11:53.360,0:11:59.200
+right the kind of the beauty of kind of using
+
+0:11:56.720,0:12:03.519
+numpy and linear algebra is that i can either pass in a row
+
+0:12:00.720,0:12:06.959
+or i could pass in in the whole data so let me just do that briefly and i say
+
+0:12:05.279,0:12:10.959
+classification well first off let me figure out what my
+
+0:12:08.399,0:12:15.040
+data is here i have my data frame um and i want to kind of take a slice of
+
+0:12:13.040,0:12:22.720
+this and well i have a row slice
+
+0:12:18.160,0:12:27.839
+a column slice i want all the rows and then for the columns i want x1
+
+0:12:26.079,0:12:33.440
+through 1. and it turns out when i'm kind of doing these slices based on
+
+0:12:29.760,0:12:38.240
+on strings uh guess what it is inclusive right it's a normal normally
+
+0:12:36.639,0:12:41.200
+kind of going one past what i actually wanted
+
+0:12:39.040,0:12:46.000
+not here right because slices over these are inclusive
+
+0:12:42.720,0:12:49.120
+and um oh and you know why what i forgot is actually down
+
+0:12:46.800,0:12:52.480
+location to do that let me get that thing
+
+0:12:49.920,0:12:55.600
+and now if i want to i can pass in that data
+
+0:12:53.519,0:13:00.880
+to my classification model right and instead of just doing it on one row
+
+0:12:57.760,0:13:04.639
+it should do it on all the rows and it does i get true true false true
+
+0:13:03.600,0:13:08.079
+true you know what i want to do just to kind
+
+0:13:06.000,0:13:13.440
+of make this um there is i'm just going to say
+
+0:13:09.600,0:13:21.360
+add this as my predicted z value and then i'm just trying to look
+
+0:13:20.079,0:13:24.560
+at my data frame and i can see that this model right
+
+0:13:23.600,0:13:29.680
+apparently apparently i chose pretty good numbers
+
+0:13:26.560,0:13:34.240
+for uh for this vector because i'm often predicting the same thing as
+
+0:13:33.600,0:13:38.399
+uh as the original right does that always
+
+0:13:36.560,0:13:41.440
+trigger us in every case here it's true you know let's just do a quick count for
+
+0:13:40.320,0:13:48.560
+the fun of it and i see how well it's performing
+
+0:13:44.880,0:13:53.440
+so i want to say df of how often does z
+
+0:13:52.160,0:13:56.160
+how often is that the same as my predicted z
+
+0:13:56.959,0:14:03.600
+uh apparently a lot because i have lots of truths
+
+0:14:00.639,0:14:07.519
+how many truths do i actually have value counts
+
+0:14:05.120,0:14:12.800
+and um and well it's like 95 percent of the time it's predicting accurately
+
+0:14:09.680,0:14:15.920
+okay so i might break off there uh but what i want you to notice is that
+
+0:14:14.480,0:14:22.079
+once we actually kind of figure out what goes in these vectors
+
+0:14:18.959,0:14:24.399
+right using the models is kind of pretty simple
+
+0:14:22.720,0:14:26.800
+right actually they're kind of deploying a model to make predictions is
+
+0:14:25.519,0:14:31.839
+relatively straightforward so all the fun stuff will be in and kind
+
+0:14:29.440,0:14:36.320
+of develop kind of pulling out these uh values from from the data right and
+
+0:14:34.720,0:14:40.000
+then evaluating how good they are and that's true whether we're doing a
+
+0:14:37.519,0:14:43.199
+regression model that returns a number or a classification model that that
+
+0:14:42.160,0:14:50.720
+returns you know true or false or some other
+
+0:14:45.519,0:14:50.720
+fixed number of classes
+

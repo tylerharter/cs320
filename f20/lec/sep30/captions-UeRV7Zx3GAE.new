@@ -1,0 +1,573 @@
+0:00:01.120,0:00:07.040
+hello in this video i want to talk about how we can think about
+
+0:00:04.640,0:00:10.880
+recursive method calls for binary trees and we had an initial
+
+0:00:10.000,0:00:14.799
+example last time and i've copied this right to
+
+0:00:13.759,0:00:18.560
+here the way we do things is that we have a
+
+0:00:16.640,0:00:22.320
+class called node and then we create node objects to
+
+0:00:20.160,0:00:28.160
+represent every node in a tree and the way we represent edges are
+
+0:00:25.599,0:00:30.720
+having attributes and a node that referred all their nodes right so kind
+
+0:00:29.840,0:00:35.280
+of our attribute reference to another object is
+
+0:00:32.559,0:00:38.640
+how we represent we represent an edge and um and so what we're doing is that
+
+0:00:37.120,0:00:41.920
+we are giving every node a value and then we have the children
+
+0:00:40.719,0:00:46.320
+here and what i've done here is a classic way
+
+0:00:42.960,0:00:49.440
+to have a binary tree right i have these two attributes for two children
+
+0:00:48.000,0:00:53.440
+i'm not going to do it here but a general tree if we were to
+
+0:00:51.600,0:00:58.320
+have one would be something like this i might say self.children equals
+
+0:00:55.920,0:01:02.000
+i could have like maybe a dictionary or a list or some way of referring to
+
+0:01:00.640,0:01:04.000
+um other nodes right and then i could have like five children or something
+
+0:01:03.199,0:01:08.320
+like that but if we're doing a binary tree well
+
+0:01:05.439,0:01:12.880
+i'm just gonna have the two um then i have this recursive uh call
+
+0:01:11.119,0:01:16.560
+draw edges that are kind of drawing all the edges
+
+0:01:14.159,0:01:18.799
+for my tree and it's calling itself i'm not going to look at this code carefully
+
+0:01:17.840,0:01:24.479
+right now because i'm going to start with some other examples
+
+0:01:20.400,0:01:27.520
+and um and then i could use wrapper svg to visualize a tree so let me just
+
+0:01:26.400,0:01:31.439
+create a tree here that we're gonna be working with
+
+0:01:28.720,0:01:35.439
+um i'm gonna have a root which will be um a node
+
+0:01:32.479,0:01:39.520
+with the letter a and um and if i run this and i
+
+0:01:36.079,0:01:42.240
+look at it well um you know what's a little bit silly is
+
+0:01:40.799,0:01:45.520
+i'm not actually drawing the nodes myself yet
+
+0:01:44.159,0:01:48.479
+um i'm just inferring them when i have edges right so i'm not trying to really
+
+0:01:46.560,0:01:54.320
+get anything until i add um another node i'm just going to say
+
+0:01:51.479,0:01:58.159
+root.left equals a node b and now i actually have some sort of
+
+0:01:57.040,0:02:01.920
+uh picture and um and this picture isn't quite
+
+0:02:00.240,0:02:05.360
+complete because well regardless of whether i have a right or
+
+0:02:03.360,0:02:08.640
+left node uh graphist doesn't know about it let's try
+
+0:02:07.040,0:02:12.480
+drawing an edge so one thing i'm going to do here is when i'm
+
+0:02:09.920,0:02:17.360
+drawing a left edge i'm just going to call it
+
+0:02:14.640,0:02:21.440
+l and when i'm drawing a right edge i'm just going to call that r
+
+0:02:18.959,0:02:25.840
+and that way we can actually tell for kind of these
+
+0:02:22.400,0:02:28.959
+degenerate binary trees okay so i'm going to do that i may have
+
+0:02:27.120,0:02:37.680
+a right child so i'm going to say right equals another node c
+
+0:02:33.200,0:02:44.640
+um maybe i'll go root left which is that gets me to b uh dot write
+
+0:02:41.120,0:02:46.879
+equals d right i can kind of get this simple
+
+0:02:45.200,0:02:49.680
+tree right and draft fizz is just deciding how to
+
+0:02:48.480,0:02:53.120
+draw that maybe not the way i would have drawn it but uh but that's fine
+
+0:02:51.920,0:02:56.800
+all right so i can i have this nice picture of a binary tree
+
+0:02:54.959,0:03:00.480
+and and so i've already read these kind of complicated recursive functions
+
+0:02:58.720,0:03:02.640
+and that will let me view the tree and i did that because i want to start with a
+
+0:03:01.760,0:03:06.239
+picture um but but let's think about if we
+
+0:03:04.400,0:03:11.840
+wanted to have a function called um or a method called dump
+
+0:03:09.760,0:03:16.879
+somebody say root.dump and what it should do is just
+
+0:03:13.040,0:03:20.720
+print uh all the node values right so it would be like a b
+
+0:03:18.080,0:03:23.840
+c d is what i wanted to do for this particular tree
+
+0:03:22.159,0:03:26.400
+and it's that's going to be recursive and so what i want to do is i'm going to
+
+0:03:24.959,0:03:30.080
+write this method and then when i think carefully
+
+0:03:27.440,0:03:35.760
+about what order the node values are going to get printed in
+
+0:03:31.280,0:03:41.280
+right so i'm going to say define dope self and
+
+0:03:38.799,0:03:47.440
+maybe the first thing i'll do is i'll just print self.value
+
+0:03:44.400,0:03:52.400
+when i run that i get a okay so no recursion yet um the next
+
+0:03:50.720,0:03:55.840
+thing i can do is i can say um i can do my recursive calls right i
+
+0:03:55.040,0:03:59.200
+can you know i printed myself let's ask my
+
+0:03:57.680,0:04:05.920
+children to print themselves so i can say
+
+0:03:59.560,0:04:09.599
+self.left dot dump and self.write.dump and um well i guess i got b and then i
+
+0:04:08.799,0:04:17.359
+got an error so let me look at this
+
+0:04:13.200,0:04:24.960
+none type object has no attribute dump okay that was here
+
+0:04:22.400,0:04:27.759
+and um well it's saying that something doesn't have dump so
+
+0:04:26.240,0:04:31.440
+i don't have dump here so basically what it's saying is self dot left
+
+0:04:31.600,0:04:38.800
+must be none and which is a little bit funny right because when i look up here
+
+0:04:36.400,0:04:42.560
+i say root dot left equals this node so that should be none
+
+0:04:40.400,0:04:45.360
+um the the clue in terms of what's going on is i actually see that if i read
+
+0:04:44.160,0:04:50.080
+through the stack trace i see it was recursive right
+
+0:04:46.720,0:04:54.240
+um what happened here i called dom which called the dot method on a which
+
+0:04:52.560,0:04:57.680
+called another don't method so so the problem really isn't my a node
+
+0:04:56.080,0:05:01.759
+it's not my root right i mean this is not my problem
+
+0:04:59.440,0:05:04.479
+the problem i guess is really that you know i can't have left left right my
+
+0:05:03.440,0:05:07.840
+node b does not have a left then that's why i
+
+0:05:06.160,0:05:12.720
+can't call it right b dot left is none so this fails
+
+0:05:11.120,0:05:15.199
+so so really what i should do here is i should have some checks right i should
+
+0:05:14.000,0:05:24.000
+say something like you know uh if self.left
+
+0:05:19.120,0:05:30.880
+not equal to none i can do that and uh if self.right not equal to none
+
+0:05:28.560,0:05:34.080
+then i'll do this other piece and i do that i actually get kind of all my
+
+0:05:32.080,0:05:37.280
+values print out a b a b d c maybe not the obvious order
+
+0:05:36.560,0:05:43.840
+right maybe it's a little surprising right that c
+
+0:05:40.639,0:05:46.240
+was printed after after d and so what i want to do is i want to think about well
+
+0:05:45.039,0:05:50.240
+how how can i read this code how could i
+
+0:05:48.080,0:05:55.039
+have figured that out without actually running it that's trying to be abdc and
+
+0:05:52.880,0:05:58.319
+so for that i may switch over to um my ipad i'm just trying to kind of
+
+0:05:56.560,0:06:02.000
+trace through through this method right and so let me
+
+0:06:01.199,0:06:10.880
+let me do that i'm gonna switch uh
+
+0:06:06.160,0:06:15.680
+oh sorry just a moment oh uh i see what i'm doing okay there we
+
+0:06:15.039,0:06:19.680
+go so here's my ipad um here i have that same
+
+0:06:19.120,0:06:22.800
+method right i'm not really showing you can see
+
+0:06:21.600,0:06:27.600
+their self there but i'm not really showing the class in front of it
+
+0:06:24.880,0:06:31.520
+um this is the exact same code i just wrote
+
+0:06:28.479,0:06:35.039
+um i i can see i have my tree here right a
+
+0:06:31.840,0:06:38.319
+has b and c as children uh b has d as a right child and root which is a i'm
+
+0:06:37.759,0:06:44.720
+calling dom right so so let me try to trace
+
+0:06:41.680,0:06:48.639
+through this and see what's happening the very first thing is that i'm doing a
+
+0:06:47.199,0:06:53.680
+root dot dump and um and so maybe the way i'm going to
+
+0:06:52.400,0:06:58.000
+write that is instead of saying root i'm just trying to say
+
+0:06:54.720,0:07:03.199
+i'm calling a dot dom okay
+
+0:07:01.759,0:07:06.160
+and then i'm interested in well what what else does that call and kind of
+
+0:07:05.120,0:07:09.360
+looking up at the code here i see it does
+
+0:07:06.479,0:07:12.560
+cause three things um it i may print something
+
+0:07:09.840,0:07:17.280
+that's the first thing and then you know both my left and my right
+
+0:07:14.560,0:07:22.240
+are not equal to none so then i'm going to do two recursive calls
+
+0:07:19.120,0:07:26.800
+there right self dot left is just you know b dot dump self dot right is c
+
+0:07:25.360,0:07:30.080
+dot dot so so i'm going to kind of write this
+
+0:07:28.080,0:07:37.599
+down i mean maybe draw it like this i'm making three calls to
+
+0:07:34.319,0:07:41.440
+well the first thing was print hey i'm not doing bother with quotes
+
+0:07:40.160,0:07:46.479
+here i think that uh just trying to keep it simple
+
+0:07:44.479,0:07:50.400
+and then the next thing i did was i called
+
+0:07:47.599,0:07:59.840
+b dot dump and then finally i called c dot dump
+
+0:08:02.800,0:08:08.000
+that was kind of the first level of the call graph
+
+0:08:05.840,0:08:14.240
+and so now i have to worry about well what does b dot dump do and what does c
+
+0:08:10.000,0:08:17.520
+dot dump do i'll start with b dot dump so here i am i'm probably b dot dump and
+
+0:08:17.120,0:08:21.840
+so i kind of go through here i see well
+
+0:08:18.960,0:08:27.039
+i'll print off b this is false right b doesn't have a
+
+0:08:24.960,0:08:30.800
+left child right so this is false so nothing happens here
+
+0:08:29.039,0:08:35.279
+uh b does have a right child so i am going to call
+
+0:08:33.120,0:08:38.000
+right dot dot so b dot write dot dot is d right so
+
+0:08:36.399,0:08:42.159
+so this i guess just does two things right it it's going to call a print
+
+0:08:40.719,0:08:45.200
+and then make a string this may make a recursive call right so this is going to
+
+0:08:43.839,0:08:53.760
+call print b
+
+0:08:49.920,0:09:05.200
+and then it's also going to call okay um so so this point right
+
+0:09:04.000,0:09:08.320
+i still have kind of two of these that i have an evaluator i have d dump and c
+
+0:09:07.040,0:09:12.080
+dot dump on the table let's look at c dot dom first doesn't
+
+0:09:09.839,0:09:16.399
+really matter the order i reason through these
+
+0:09:13.440,0:09:21.120
+when i call c dot dump c is a leaf right it doesn't have any children
+
+0:09:18.080,0:09:24.399
+so i'm going to print c and then both of these things are false
+
+0:09:22.720,0:09:28.160
+so printing c i guess is the only thing i do
+
+0:09:25.360,0:09:31.040
+right so this is just trying to do what it's trying to print
+
+0:09:31.440,0:09:39.760
+just straight to print c okay um what about that was this one
+
+0:09:38.160,0:09:42.480
+what about d dot dom right so i kind of come back here
+
+0:09:40.880,0:09:46.160
+d is kind of a similar situation right it's a leaf it has no children
+
+0:09:44.560,0:09:48.560
+so it's going to print itself and then these things are going to be false so it
+
+0:09:47.360,0:09:56.320
+won't do anything right so so really all this does is
+
+0:09:52.080,0:10:00.880
+it it prints d okay somebody say print print d right and so now right after
+
+0:09:59.600,0:10:04.560
+i've kind of gone through all these things i can think about the order
+
+0:10:02.880,0:10:07.279
+in which my prints happen right what is my output
+
+0:10:09.920,0:10:14.880
+right and so well the first thing right i can try and draw these lines here the
+
+0:10:13.680,0:10:22.560
+first thing is that i print a and then after that
+
+0:10:18.800,0:10:26.560
+i'm going to print b and after that this was kind of the surprise right we
+
+0:10:24.800,0:10:30.640
+print d before we print c and hopefully you can
+
+0:10:29.040,0:10:34.640
+you can kind of see why now right so so as i'm kind of doing these
+
+0:10:32.640,0:10:38.560
+prints right it kind of goes down well you can see i go left before i go
+
+0:10:36.720,0:10:41.519
+right and so when i go left i really go all the way left
+
+0:10:40.079,0:10:45.200
+and i'm kind of doing all of these things before i come back and actually
+
+0:10:44.000,0:10:50.880
+print off c um now
+
+0:10:48.399,0:10:54.160
+this code would have a very different order it would still print all the same
+
+0:10:52.240,0:10:58.839
+things but i have a very different order if i move that print down there to the
+
+0:10:55.760,0:11:03.440
+bottom so let me do that uh just like that
+
+0:11:02.240,0:11:07.760
+okay so i'm gonna move that to the bottom and let's think about what
+
+0:11:05.680,0:11:15.839
+happens in this case um in this case well i guess i'm still
+
+0:11:12.320,0:11:20.399
+oh excuse me i'm still i'm still starting with
+
+0:11:18.720,0:11:24.079
+root.dom and the root is a right so so let me write that down first
+
+0:11:22.399,0:11:31.920
+so the first thing i do is um a dot
+
+0:11:29.839,0:11:35.519
+and then tracing through here maybe a little more quickly this time
+
+0:11:33.760,0:11:39.760
+you know i have the left child b so i'm going to call b dump
+
+0:11:37.760,0:11:44.560
+right child c so c dot dump and then finally print a
+
+0:11:41.519,0:11:51.920
+right so so i have my three things uh which are b
+
+0:11:47.920,0:11:58.959
+dot dom c dot dump
+
+0:11:57.760,0:12:01.360
+and then finally i'm going to actually print a
+
+0:12:03.440,0:12:11.839
+okay i can try to trace through these um okay what about b dot dump i'm looking
+
+0:12:10.560,0:12:15.519
+through this code now uh b doesn't have a left but i'm going
+
+0:12:14.160,0:12:19.680
+to call right dot dump or write dot dump is the
+
+0:12:18.399,0:12:24.639
+same thing as d dot dot so i'm going to say d dot dump and print
+
+0:12:22.839,0:12:28.240
+b right so i'm going to call
+
+0:12:30.320,0:12:42.560
+i'm going to call d dot dump and i am going to print
+
+0:12:39.360,0:12:45.600
+b okay all right so so just like kind of last
+
+0:12:44.320,0:12:50.160
+time i ended up with the last things i have to figure out are d dot dom
+
+0:12:47.040,0:12:54.399
+and c dot dump and both of these both of these don't have any children
+
+0:12:51.519,0:12:57.839
+right d doesn't have any children you know c doesn't have any children so
+
+0:12:56.399,0:13:00.480
+in both these cases right these conditions will be false in both
+
+0:12:59.279,0:13:03.600
+these cases i'm just printing off what the note is
+
+0:13:01.839,0:13:09.839
+right so in both these cases i just have one print this one prints
+
+0:13:06.160,0:13:12.079
+oops this one prints d
+
+0:13:12.880,0:13:24.399
+and this one this one prints c so again if i go to my output at the end
+
+0:13:21.680,0:13:31.760
+what do i get so in this case i'm going to have
+
+0:13:28.480,0:13:34.320
+d first all right i'm kind of almost starting from the bottom right and this
+
+0:13:33.040,0:13:35.839
+recursive client is starting from the bottom and then it's going to work its
+
+0:13:35.360,0:13:42.480
+way back up so i'm going to get d first
+
+0:13:39.199,0:13:47.279
+and then b and then c and then
+
+0:13:45.680,0:13:49.920
+a right and this kind of thinking where we're trying these recursive calls this
+
+0:13:48.720,0:13:53.279
+is going to come up a lot when we start searching for data
+
+0:13:52.000,0:13:55.600
+what is the order we're searching through nodes
+
+0:13:53.920,0:13:59.839
+uh and and that's going to affect the performance right kind of
+
+0:13:56.959,0:14:03.440
+and whether we find something quickly uh or
+
+0:14:00.240,0:14:08.480
+or slowly okay so i'm just going to switch back and just kind of
+
+0:14:04.720,0:14:13.440
+check db ca is that what we actually get if i switch back here i um if i kind of
+
+0:14:11.839,0:14:20.800
+switch this down here db ca let's hope i got this right
+
+0:14:17.440,0:14:28.000
+and sure enough db ca right so we'll be doing lots more problems like this soon
+
+0:14:23.120,0:14:28.000
+for kind of more practical purposes
+

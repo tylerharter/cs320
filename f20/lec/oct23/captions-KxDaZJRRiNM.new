@@ -1,0 +1,846 @@
+0:00:01.439,0:00:07.759
+hello in this video i'm going to do another example with regular expressions
+
+0:00:05.520,0:00:11.040
+uh where we want to actually analyze some code kind of like we did at the
+
+0:00:09.200,0:00:14.080
+beginning of the semester now what we're going to do is when i
+
+0:00:12.480,0:00:17.520
+write something that will look through a jupiter notebook
+
+0:00:15.679,0:00:23.600
+and tell us all the names of all the files in that notebook
+
+0:00:19.760,0:00:29.119
+and and so here i am in my demo and if i had like a dot pi file dot pi files
+
+0:00:27.119,0:00:31.519
+are just regular text files and so i could absolutely do something like this
+
+0:00:30.240,0:00:36.480
+i could say something like with open um and maybe i had a file called
+
+0:00:34.160,0:00:39.520
+something like word count dot pi um as f and then i could do something
+
+0:00:38.480,0:00:45.280
+like data equals f dot read or
+
+0:00:42.879,0:00:49.280
+or maybe instead of that if i wanted to i could say lines equals
+
+0:00:47.360,0:00:52.960
+list of f i could absolutely do things like that
+
+0:00:50.399,0:00:57.920
+but how do we deal with having a notebook file like this
+
+0:00:55.039,0:01:01.039
+so i'm going to head over here to my tab on the left and
+
+0:00:58.879,0:01:06.560
+let me go to new and i'm going to open up a new terminal here
+
+0:01:02.960,0:01:11.360
+and somebody say ls and you know i could say cat demo.i pi in b
+
+0:01:09.360,0:01:14.640
+to peak inside that would show me a whole bunch of
+
+0:01:12.479,0:01:18.799
+things or i could say head demo.ipi and b that will just show
+
+0:01:17.040,0:01:22.400
+me the first 10 lines and what i want you to notice is that
+
+0:01:21.520,0:01:29.040
+dot ipi and b files really are just a bunch of
+
+0:01:26.000,0:01:32.320
+json that's the format right even even though that's not like this
+
+0:01:30.079,0:01:37.200
+extension right it's not json uh inside while it's formatted as dot json
+
+0:01:35.360,0:01:40.320
+and so what i could do is i could read it in a via dot json and maybe i'll do
+
+0:01:39.200,0:01:45.600
+that here um i'll say import json
+
+0:01:43.360,0:01:47.759
+and um and then i'm going to try to read in a notebook
+
+0:01:46.479,0:01:49.920
+actually it's kind of funny i could read it myself right i could say something
+
+0:01:49.200,0:01:58.320
+like um with open the name of this file is
+
+0:01:54.320,0:02:05.040
+demo dot dot i pi n b as f um i could say json.load
+
+0:02:03.200,0:02:08.800
+f and and i'm gonna get a bunch of data there and maybe let me just look at the
+
+0:02:07.280,0:02:12.560
+type of the data sure enough a notebook file if i parse
+
+0:02:11.360,0:02:16.959
+it as json is just one giant dictionary right and i
+
+0:02:14.480,0:02:20.400
+can look at that dictionary now what i'm going to do for this
+
+0:02:18.239,0:02:27.840
+example um our goal is going to be to um
+
+0:02:23.920,0:02:32.640
+find all function names in a notebook that's our goal and just to kind of keep
+
+0:02:31.040,0:02:36.959
+things a little bit simpler i'm going to create a new notebook and
+
+0:02:35.680,0:02:40.080
+um uh and maybe i'll call that one
+
+0:02:38.480,0:02:44.720
+something like target and this is the one we're gonna analyze right so
+
+0:02:41.760,0:02:48.160
+i may write code inside of demo to analyze my target notebooks i'm gonna
+
+0:02:46.720,0:02:51.760
+call this one target and let me create a bunch of functions
+
+0:02:49.680,0:02:58.959
+here i may say define f and uh and maybe
+
+0:02:55.360,0:03:04.720
+um you know i'll just print hi here um maybe i will um define another one
+
+0:03:02.640,0:03:08.080
+here so i'll say actually i may call this one like hello
+
+0:03:06.159,0:03:11.840
+so this is the hello function maybe i'll call like print x that will
+
+0:03:10.239,0:03:15.680
+take x and maybe some will print x you can imagine defining a lot of
+
+0:03:14.000,0:03:19.920
+different functions uh maybe i'll do like one more i'll say
+
+0:03:18.319,0:03:26.000
+define um add that takes an x and a y
+
+0:03:23.120,0:03:28.799
+and maybe i'll return x plus uh y right so i have all these functions here and
+
+0:03:27.519,0:03:33.920
+what i want to do is i want to write some code over in
+
+0:03:31.519,0:03:35.920
+this notebook to extract the names of the functions in here and you can
+
+0:03:34.879,0:03:38.400
+imagine different reasons i might want to do that
+
+0:03:36.799,0:03:42.560
+maybe we have like a big software team and we've written a ton of
+
+0:03:40.319,0:03:46.080
+functions we want to analyze how people are naming things or look for trends
+
+0:03:44.080,0:03:50.640
+like how long our function names stuff like that right code itself is a
+
+0:03:48.000,0:03:54.319
+source of data that could be analyzed and so when i'm over here i'm going to
+
+0:03:52.560,0:03:58.720
+open up my target notebook like so and then print
+
+0:03:57.599,0:04:04.480
+that thing and when i have a giant blob of
+
+0:04:01.840,0:04:07.599
+um you know a dictionary that i read in one of the first things i like to do is
+
+0:04:05.840,0:04:12.080
+i look at like look at the keys that it has right so i get a dictionary
+
+0:04:09.439,0:04:15.120
+i say dictionary.keys and uh and then that's kind of a good place to start
+
+0:04:13.439,0:04:20.160
+because i can look at well what is the notebook format um i guess they have
+
+0:04:18.000,0:04:23.519
+some version number four i could look at uh nb format
+
+0:04:23.919,0:04:29.199
+miner so on and so forth those are versions but really
+
+0:04:27.520,0:04:33.199
+cells are what i'm interested in i guess with cells um
+
+0:04:30.720,0:04:36.880
+i get this nice dictionary right and then i can loop over that
+
+0:04:35.360,0:04:39.840
+and and so eventually what i want to do is i want to figure out how can i loop
+
+0:04:38.160,0:04:44.160
+over all the lines of code in my other notebook file
+
+0:04:41.520,0:04:47.120
+and then pull out the function names and so one of the things i want you to think
+
+0:04:45.120,0:04:50.080
+about here too kind of big picture is i might have to use a regular
+
+0:04:48.479,0:04:53.520
+expression to figure out if a line of code contains a function
+
+0:04:51.680,0:04:56.720
+but i'm also having to use other tools like json to actually
+
+0:04:55.440,0:04:59.520
+get to the data and you want to become very flexible like that as a programmer
+
+0:04:58.240,0:05:03.919
+i'm kind of mixing uh this tool here that i have with json
+
+0:05:01.680,0:05:07.039
+with some regular expressions and then use all these tools together and you
+
+0:05:05.440,0:05:11.680
+become very powerful so i see these cells are a list and what
+
+0:05:10.160,0:05:16.080
+i like to do when i'm digging through these nested data structures
+
+0:05:13.680,0:05:20.880
+is if i have a dictionary i like to print off the keys it has
+
+0:05:17.759,0:05:24.160
+and if it's a list well i like to um i like to loop over it so i'll say
+
+0:05:22.720,0:05:30.720
+something for cell and cells i'll print each one
+
+0:05:27.440,0:05:35.039
+separately like so and i see i actually get a bunch of different
+
+0:05:31.840,0:05:40.320
+uh dictionaries and you can see that i have different
+
+0:05:35.759,0:05:45.120
+types of cell like this is a code cell i can see well let me do my own advice
+
+0:05:43.840,0:05:48.479
+right i said each of these things as a dictionary
+
+0:05:46.400,0:05:53.600
+let me print off its keys right so i'm looking over all the cells
+
+0:05:50.240,0:05:56.639
+and they have all of these things here right and and i could try printing off
+
+0:05:55.120,0:06:01.440
+different things right maybe i'll print off
+
+0:05:57.039,0:06:04.800
+cell uh cell type um so that's code they're all code in
+
+0:06:03.680,0:06:10.319
+this case i could look at execution count um i get one two three
+
+0:06:08.720,0:06:13.360
+where is that coming from actually like if i look back here these are the
+
+0:06:12.000,0:06:20.160
+execution counts one two three and so
+
+0:06:16.639,0:06:26.880
+so i might be here um i could look at metadata nothing there
+
+0:06:23.440,0:06:30.000
+um i could look at outputs nothing there well what if i had like some prints what
+
+0:06:28.400,0:06:35.120
+if i come over here and i say something like um
+
+0:06:31.600,0:06:39.280
+uh here i guess on this one i will let me try actually running it so i'm
+
+0:06:36.479,0:06:42.400
+gonna say hello down here and then down here i'm gonna say add
+
+0:06:41.840,0:06:46.080
+three four so i have two kinds of things in
+
+0:06:44.800,0:06:49.120
+this case i just have a print which does not draw to an off outbox
+
+0:06:48.000,0:06:52.319
+in this case i have something at the end of a line so i do get that so let me
+
+0:06:51.199,0:06:56.479
+save this and come back here and just redo all of
+
+0:06:55.039,0:07:00.000
+this and now i actually see when i'm putting
+
+0:06:58.479,0:07:03.680
+these outputs um i have different kinds of outputs
+
+0:07:02.160,0:07:08.560
+right i have um i have text outputs in this case i have
+
+0:07:06.880,0:07:11.360
+data outputs in the other case and so you could totally imagine i could
+
+0:07:10.000,0:07:14.720
+write something and see you all what are the outputs of the cells
+
+0:07:13.120,0:07:17.280
+um but that's not what i want to do here that's a bit of an aside it's just
+
+0:07:15.919,0:07:21.440
+something i could do what i'm really interested in is the
+
+0:07:18.800,0:07:26.400
+source the source contains the code for all of these cells and so
+
+0:07:24.080,0:07:32.960
+i'm going to say source here and and you can see that well
+
+0:07:30.479,0:07:35.520
+i'm getting these lists again right i'm getting a list of lines actually so i
+
+0:07:34.560,0:07:40.479
+could do something like this i could say something like for a line
+
+0:07:37.360,0:07:44.639
+and this remember my strategy whenever i have a
+
+0:07:42.240,0:07:48.720
+dictionary i look at the keys it has whenever i have a list i i try looping
+
+0:07:46.639,0:07:53.199
+over it um that's how i dig through these big nested structures and
+
+0:07:50.720,0:07:58.080
+kind of keep my bearings so i'm going to do that and i print these lines
+
+0:07:55.280,0:08:01.280
+like so and i see cool i have all the code
+
+0:07:59.120,0:08:03.919
+for that thing and really print is adding a new line
+
+0:08:02.240,0:08:09.440
+and a line has a new line so really i ought to do something like um
+
+0:08:06.080,0:08:13.520
+uh i guess i could remove the new line at the end with an r strap
+
+0:08:12.879,0:08:19.039
+right our strip great and now i can actually
+
+0:08:16.400,0:08:22.080
+go through and i can get all the code inside of all my different cells and
+
+0:08:20.800,0:08:26.400
+maybe i'll just do something like this i'm just going to print off
+
+0:08:23.440,0:08:30.560
+cell here so that i can tell them apart right i have a cell
+
+0:08:27.919,0:08:36.399
+that contains this stuff and a cell that contains this stuff
+
+0:08:31.919,0:08:39.599
+so on and so forth okay what i want to do now is see if i can
+
+0:08:38.479,0:08:47.839
+find a function name and so how can i do that
+
+0:08:44.399,0:08:52.320
+well i'm going to create a something up here i'm going to say
+
+0:08:49.200,0:08:58.720
+call it fname and it's going to take a line
+
+0:08:55.760,0:09:02.240
+and that's a line of code and what i'm going to do is if i can find
+
+0:09:00.720,0:09:06.720
+i'll find that in there well then i'm going to
+
+0:09:03.920,0:09:09.680
+return that name okay and so i have to have some sort of
+
+0:09:07.680,0:09:16.800
+regular expression uh searching so i'm going to say re dot find
+
+0:09:12.080,0:09:21.279
+find all and this will be matches equals this and um and what am i
+
+0:09:19.120,0:09:25.120
+searching for well i have a pattern and then my text in this case my text is
+
+0:09:23.760,0:09:29.279
+just a line of code when i say line here and then here i
+
+0:09:27.360,0:09:37.440
+have my regular expression and so one of the things i could do
+
+0:09:33.200,0:09:40.320
+is i could look for a word that is right before a parenthesis right
+
+0:09:39.440,0:09:43.839
+i could do something like this i could say
+
+0:09:40.720,0:09:46.399
+word followed by a parenthesis and remember since this is a special
+
+0:09:45.120,0:09:49.040
+character in regular expressions i should escape it
+
+0:09:48.000,0:09:52.320
+right so i'm going to be looking for those things and and then what i'll do
+
+0:09:51.200,0:10:00.240
+is i'll say if length of matches uh equals one
+
+0:09:57.040,0:10:06.480
+i'll return matches of zero otherwise i'm going to return none
+
+0:10:04.560,0:10:10.640
+let me actually try testing that thing for a moment
+
+0:10:07.839,0:10:13.760
+let me let me try doing that so i'm going to say fname
+
+0:10:12.240,0:10:18.399
+and i'm going to have a function line like this i'm going to say def f
+
+0:10:16.320,0:10:21.279
+like that and i see it's pulling out something there or if i have like a
+
+0:10:20.240,0:10:25.600
+hello it's pulling out uh i i can see i have
+
+0:10:24.320,0:10:29.519
+some problems right it's only looking for one character at a time
+
+0:10:27.600,0:10:32.959
+um maybe i should say well there has to be at least one
+
+0:10:30.640,0:10:36.720
+letter in that character but what if i have other things like um
+
+0:10:34.800,0:10:40.480
+uh what if i had a name like this hello world uh it can find that hello world
+
+0:10:39.519,0:10:44.079
+one two three you can find that as well so so this
+
+0:10:42.320,0:10:47.920
+seems somewhat reasonable um actually um one of the one of the
+
+0:10:46.560,0:10:53.519
+things i want to do though is i only want the name right i don't
+
+0:10:51.200,0:10:57.440
+really want the parentheses okay so what i'm going to do is i'm
+
+0:10:55.040,0:11:01.519
+going to put parentheses around this this is the group or name i'm trying to
+
+0:10:59.440,0:11:05.760
+pull out and so i do that and it gives me the stuff inside of the
+
+0:11:03.040,0:11:09.360
+parentheses um not this parenthesis character right so
+
+0:11:08.480,0:11:12.640
+i can do that and so what i'm going to do now is i'm
+
+0:11:11.040,0:11:21.120
+going to loop over all these things like i had and i'll say
+
+0:11:14.800,0:11:24.399
+name equals fname of the line i'm on right i'm going to do that and i'm going
+
+0:11:24.000,0:11:28.480
+to say if name not equal to none right so i
+
+0:11:26.800,0:11:32.079
+didn't return none then well let's print off what that
+
+0:11:30.720,0:11:37.440
+name is and so i run that and
+
+0:11:35.360,0:11:42.000
+you see what's going on here if i shrink this down a bit
+
+0:11:38.480,0:11:46.640
+i wonder if we can see both of these uh let me shrink that
+
+0:11:49.920,0:11:58.639
+so i see there's hello which is good maybe at the end of every cell i'm just
+
+0:11:56.240,0:12:01.920
+going to print an empty line too you you see my problem right i'm doing
+
+0:12:00.480,0:12:06.880
+multiple matches i'm i'm i'm check catching the the definition
+
+0:12:04.639,0:12:13.440
+but also print and then also this right hello print def death
+
+0:12:09.920,0:12:16.959
+down here i have print x and then print and so maybe what i want to do is not
+
+0:12:15.200,0:12:21.120
+just look for words before parentheses um i want to look for
+
+0:12:20.000,0:12:24.480
+words that fill this whole pattern right where
+
+0:12:22.959,0:12:27.680
+there is um uh where i both have a define and then
+
+0:12:27.120,0:12:31.920
+uh then maybe some argument or parameters
+
+0:12:30.000,0:12:35.680
+and then a colon at the end and so let's go back to the drawing
+
+0:12:34.560,0:12:41.920
+board here um i want to find the word define
+
+0:12:38.800,0:12:45.440
+beforehand so that's good right i'm actually getting these things
+
+0:12:43.440,0:12:50.639
+now right so that's great what if i also
+
+0:12:48.560,0:12:55.680
+wanted to return a list of parameters right so i wanted
+
+0:12:53.680,0:13:01.120
+to be actually able to tell uh that here i have x and y and so on
+
+0:12:58.560,0:13:09.279
+and so forth how would i do that so the the trick here is
+
+0:13:04.880,0:13:12.959
+well let's think about this i may have to have another parenthesis
+
+0:13:11.120,0:13:16.880
+and then a colon at the end i wonder if i actually don't need the escaping
+
+0:13:14.720,0:13:21.519
+so if i do that i'm looking for a word i'm looking for define
+
+0:13:18.399,0:13:24.639
+word parentheses and colon and uh and that's actually pretty good right
+
+0:13:23.200,0:13:29.040
+so i'm finding this one i'm not finding things that
+
+0:13:27.120,0:13:33.360
+have stuff between these two parentheses do you see
+
+0:13:31.519,0:13:36.880
+the parentheses that's a parenthesis and that's a parenthesis and they're
+
+0:13:34.480,0:13:42.160
+both escaped so it looks weird right but right here is in between two
+
+0:13:39.760,0:13:45.199
+parentheses and of course that's where all the
+
+0:13:43.760,0:13:48.800
+parameters are right so i'm going to say params
+
+0:13:46.800,0:13:54.399
+well these are my parameters how can i capture my parameters
+
+0:13:50.639,0:13:59.279
+um i could just do something like say well it's a bunch of stuff
+
+0:13:57.760,0:14:04.320
+well maybe a bunch of stuff i can say some characters
+
+0:14:00.880,0:14:09.279
+zero more characters and i could do that and um and that could possibly get me in
+
+0:14:07.600,0:14:14.399
+trouble right because if i have two functions in the same cell
+
+0:14:11.440,0:14:16.079
+let's say i have well that's not quite right
+
+0:14:14.720,0:14:18.959
+i guess i can't get me into too much trouble since i'm just drawing one line
+
+0:14:17.440,0:14:22.160
+at a time right i'm looping one at a time i can't get in too much
+
+0:14:20.720,0:14:25.040
+trouble but to really be safe i generally like to do that i like to make
+
+0:14:23.600,0:14:29.760
+it non-greedy so that um it only finds one
+
+0:14:28.320,0:14:33.360
+or it finds the smallest amount it doesn't have this risk of capturing a
+
+0:14:31.839,0:14:37.600
+different bracket right so i'm going to do that and now i
+
+0:14:36.240,0:14:43.199
+can actually see while i'm capturing these different things
+
+0:14:39.360,0:14:47.040
+and so maybe what i'll do is when i'm when i'm capturing this i'll
+
+0:14:45.040,0:14:51.519
+put all of this in real parentheses you see how weird
+
+0:14:50.079,0:14:55.360
+this gets right i have a parenthesis character in the string
+
+0:14:54.240,0:14:57.680
+and a parenthesis character in the string
+
+0:14:55.839,0:15:00.480
+and then these are not escaped so this is actually telling me i'm catching a
+
+0:14:59.199,0:15:03.440
+new group um inside of my regular expression so
+
+0:15:02.240,0:15:07.279
+maybe let me just print off these matches that i'm getting
+
+0:15:05.199,0:15:11.680
+i'm getting things like this right like that
+
+0:15:08.240,0:15:16.880
+like that so on and so forth right and so i think what i can do is i
+
+0:15:14.959,0:15:21.920
+can try to split that by how many arguments i have right so so
+
+0:15:20.000,0:15:26.079
+let me think carefully about this so so when i return matches now
+
+0:15:23.920,0:15:30.720
+i'm returning too much right so i should really have
+
+0:15:27.600,0:15:34.959
+something like you know match equals that
+
+0:15:31.839,0:15:39.519
+and then the the function name is the match of z
+
+0:15:35.920,0:15:42.959
+at zero right the match at zero is right here let me just return that for
+
+0:15:41.279,0:15:46.800
+now to make sure i haven't messed up my code too much
+
+0:15:45.120,0:15:51.199
+i'm still in good shape i'm catching all my functions
+
+0:15:48.560,0:15:57.680
+returning their names let me print that other piece though let me just print
+
+0:15:52.959,0:16:02.399
+like debug and then match and so i can see well i'm catching these
+
+0:16:00.720,0:16:07.600
+things right and so maybe what i'd like to do
+
+0:16:04.800,0:16:11.360
+is also return the parameter names and and so i can do something like this
+
+0:16:09.440,0:16:18.240
+i can say uh params equals
+
+0:16:14.560,0:16:21.279
+match of one match of one will be something like this
+
+0:16:19.440,0:16:26.720
+or something like this and i want to split it on the comma
+
+0:16:22.959,0:16:32.880
+right so i'm going to say dot split comma and then i can actually see
+
+0:16:30.240,0:16:36.399
+what are my parameters in this case and i have
+
+0:16:33.279,0:16:40.320
+x and this this you know it's kind of messed up right when i have um a
+
+0:16:38.000,0:16:43.920
+parameter named that is just empty right there's no commas in there and when i
+
+0:16:42.160,0:16:46.000
+split something on a comma that doesn't have any commas while i just do whatever
+
+0:16:45.360,0:16:48.959
+is there and so really what i should do is say
+
+0:16:47.600,0:16:55.519
+something like this i should say if length of
+
+0:16:50.480,0:16:58.800
+match if that is greater than zero then i'm actually going to do that
+
+0:16:56.959,0:17:02.720
+otherwise grams equals
+
+0:17:02.959,0:17:08.079
+empty right i don't have any of them right and now i actually kind of more
+
+0:17:06.319,0:17:12.959
+reasonable right no params x this one takes x y and so this seems
+
+0:17:11.679,0:17:18.640
+pretty good and and so what i should do down here is
+
+0:17:16.400,0:17:23.039
+i should say um let me try to actually return two things
+
+0:17:20.160,0:17:26.720
+let me return both my name and my params you know when i do something like this
+
+0:17:24.319,0:17:29.840
+when i put two return values i still only return one and the one
+
+0:17:28.240,0:17:34.480
+thing i'm returning is a tuple right so i run that thing and
+
+0:17:32.640,0:17:38.080
+i'm going to be returning a tuple and you can see i'm getting a tuple to
+
+0:17:37.280,0:17:42.559
+pull tuple whenever i print the name down here
+
+0:17:40.320,0:17:44.880
+right not exactly what i wanted maybe what i'm going to do to make this
+
+0:17:43.679,0:17:51.360
+a little more generous i'm going to say result
+
+0:17:46.559,0:17:55.919
+here and i may say if result is none i'm going to continue
+
+0:17:54.480,0:18:02.160
+right i'm going to skip this line of code otherwise
+
+0:17:59.360,0:18:07.039
+well let me print off the type of result what do i have here
+
+0:18:04.160,0:18:10.000
+okay whenever i'm finding remember i'm finding something i'm returning a tuple
+
+0:18:08.559,0:18:13.520
+right you see this becomes a tuple down here
+
+0:18:10.960,0:18:15.039
+and well and there's different ways i could get stuff out of here i mean i
+
+0:18:14.720,0:18:18.960
+could do something like this i could say
+
+0:18:16.960,0:18:22.480
+result of that would be the name and then result
+
+0:18:20.559,0:18:24.960
+of that would be the parameters but but i can really do
+
+0:18:24.080,0:18:29.919
+something like that so i can say something like um
+
+0:18:27.360,0:18:32.480
+i can say something like name and params equals
+
+0:18:32.799,0:18:38.799
+i mean i could put this here like that that would actually work fine too
+
+0:18:36.000,0:18:41.360
+or i can i can just say result here and it'll figure out since this two plus two
+
+0:18:40.480,0:18:45.200
+items to split them into these two and so now
+
+0:18:43.760,0:18:47.679
+down here i can say well what is the name
+
+0:18:46.080,0:18:53.200
+and the params that i'm dealing with right so i can do that
+
+0:18:49.520,0:18:55.919
+uh and if i can spell correctly i will get what i'm looking for so let me
+
+0:18:54.559,0:19:00.799
+delete this a little bit kind of clean up a little
+
+0:18:57.200,0:19:07.440
+here and there and this i don't need anymore right so
+
+0:19:04.160,0:19:10.480
+this is pretty cool right i can pull out all the function names from a notebook
+
+0:19:09.360,0:19:15.600
+file and i can print the the names of the
+
+0:19:13.600,0:19:20.160
+parameters that each function has and notice like all the different tools
+
+0:19:17.440,0:19:23.360
+i used here right i'm using i'm using json right i'm using json to
+
+0:19:22.400,0:19:26.799
+load this and using that to loop over the cells
+
+0:19:25.760,0:19:29.840
+down here within each cell i'm looping over the
+
+0:19:28.400,0:19:33.120
+lines of code in addition to json then i'm doing these
+
+0:19:31.520,0:19:37.600
+regular expressions to pull out both the name and then the
+
+0:19:36.240,0:19:41.120
+list of parameters when i have a list of parameters i'm not
+
+0:19:39.440,0:19:43.919
+trying to force regular expressions to split that off
+
+0:19:42.400,0:19:48.000
+i don't know how i would readily do that that would be difficult i'm using this
+
+0:19:46.320,0:19:51.280
+right here to split it up and uh and that makes my life much much
+
+0:19:50.640,0:19:55.440
+easier right so be comfortable using all these
+
+0:19:53.600,0:19:59.520
+different tools to manipulate strings to ultimately get what you're looking
+
+0:19:58.400,0:20:02.799
+for in the end
+

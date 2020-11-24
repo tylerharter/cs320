@@ -1,0 +1,528 @@
+0:00:01.439,0:00:07.040
+all right in this um video i want to be a little bit less
+
+0:00:05.279,0:00:11.920
+kind of mathematically rigorous and try to gain some more intuition about
+
+0:00:08.960,0:00:16.080
+um looking at actual code and um and so i'm gonna be making some plots and also
+
+0:00:14.000,0:00:18.560
+trying to count some steps uh programmatically
+
+0:00:17.199,0:00:22.000
+and so i have all this helper code here which don't worry about too much
+
+0:00:20.400,0:00:26.400
+um that's just gonna help me make nice plots like down here like i've also been
+
+0:00:24.240,0:00:30.560
+putting in some of the slides and um so the core of what i want to do
+
+0:00:28.160,0:00:34.960
+here is figure out what the complexity is for two functions
+
+0:00:32.399,0:00:37.440
+and those two functions are is prime and find prime
+
+0:00:36.000,0:00:41.360
+and so i'm just gonna call this with a couple um in a couple cases to get an
+
+0:00:39.680,0:00:48.719
+intuition for what they do let me call is prime of 11
+
+0:00:45.280,0:00:54.559
+it says true is prime of 12 false um is prime of 13 true again
+
+0:00:52.559,0:00:59.120
+and such is telling me if it's a prime and let me run the other one now so i'm
+
+0:00:56.239,0:01:03.039
+going to say find primes um what this one's doing is it's really
+
+0:01:00.800,0:01:06.640
+looping over all the numbers and um and kind of figuring out which
+
+0:01:04.960,0:01:10.799
+ones are our primes i can actually see i have a small bug here it's including
+
+0:01:08.720,0:01:13.360
+a zero and one and so maybe what i should do is just change this i should
+
+0:01:12.080,0:01:17.040
+start looking at it at 2. okay so i have both of these
+
+0:01:15.920,0:01:23.119
+functions and i want to figure out what the complexity is for both of them
+
+0:01:19.280,0:01:28.479
+and in this case i see that find primes as a loop and inside of that
+
+0:01:26.479,0:01:32.320
+loop i'm calling is prime and so it's trying to help me to figure
+
+0:01:29.680,0:01:36.240
+out what the complexity of s prime is first before coming back to do this one
+
+0:01:35.280,0:01:40.720
+okay and so so just try looking at it let's
+
+0:01:38.079,0:01:46.000
+let's reason through this um what is the input size first
+
+0:01:43.759,0:01:50.159
+right that's something interesting so what is the input size
+
+0:01:48.240,0:01:53.520
+um the input size i don't have any list here
+
+0:01:51.520,0:01:56.799
+but i see that i'm having to do more work
+
+0:01:54.720,0:02:00.560
+as i'm checking a bigger number right because i'm really looping
+
+0:01:58.560,0:02:03.119
+over all the numbers from two into the one i'm trying to check and i'm trying
+
+0:02:01.600,0:02:06.880
+to see well is any of these numbers does it divide
+
+0:02:05.119,0:02:13.120
+evenly into n or not right so so my input size is well
+
+0:02:10.080,0:02:17.280
+uh the the number we want to check right so so when i'm
+
+0:02:15.440,0:02:19.840
+talking about input size it's not always it's not always like the size of a list
+
+0:02:18.800,0:02:23.680
+or something like that it could just be all this number that i'm trying to
+
+0:02:22.160,0:02:30.080
+learn something about should be a little bit counterintuitive
+
+0:02:26.080,0:02:33.840
+okay so just kind of looking at this um you know i see that this is a step and
+
+0:02:32.000,0:02:37.280
+that's going to run once but this is a step and that's trying to
+
+0:02:35.360,0:02:43.519
+run once um this is a step and
+
+0:02:40.640,0:02:49.519
+that's trying to run well if it was range of n it would be
+
+0:02:47.040,0:02:53.440
+uh it would run n times but since i'm starting it at two
+
+0:02:51.040,0:02:56.879
+i guess this will run like n minus two times
+
+0:02:54.640,0:03:00.239
+and when we're dealing with complexity i don't really care about these constant
+
+0:02:58.640,0:03:03.680
+factors right they kind of wash out in terms of of the bigger factors
+
+0:03:02.239,0:03:10.640
+and so when i'm looking at this this looks to me like it's going to be
+
+0:03:06.800,0:03:14.000
+order n right as n gets bigger well i have to run through the loop more
+
+0:03:12.319,0:03:19.440
+times and and everything inside of a loop is just this constant
+
+0:03:16.239,0:03:23.200
+uh you know constant complexity single step and um that's what i think
+
+0:03:22.239,0:03:27.200
+the answer is but let's just try to add some code in
+
+0:03:24.720,0:03:30.159
+here to um kind of gain some intuition and see if this seems right
+
+0:03:29.040,0:03:34.799
+so so what i'm actually gonna do is i'm gonna create this steps variable
+
+0:03:32.319,0:03:38.879
+and i'm going to make that be a global so i'm going to say global steps
+
+0:03:37.280,0:03:43.840
+and what i'm going to do is i'm actually just trying to count here right so i'm
+
+0:03:40.159,0:03:48.560
+going to say oh here i did a step maybe inside of this loop i'm doing a
+
+0:03:46.239,0:03:52.480
+step i mean there's different ways i can
+
+0:03:50.159,0:03:54.959
+count this maybe here i'll say i'm doing a step
+
+0:03:55.200,0:04:00.400
+and then maybe here i'm doing a step and um
+
+0:03:59.120,0:04:03.840
+and you know what i'm going to do is i'm going to try calling this function
+
+0:04:02.159,0:04:06.879
+for different input sizes and then kind of see what my
+
+0:04:05.200,0:04:10.159
+how many steps i have to do as that scales up and so i'll do that like this
+
+0:04:09.200,0:04:18.239
+i'll just have a loop um maybe for uh i and range
+
+0:04:14.879,0:04:22.400
+i'll go from two until n right so exclusive someone passed that
+
+0:04:20.799,0:04:27.440
+maybe maybe i should just make this my end variable
+
+0:04:23.759,0:04:31.280
+um i'm gonna call is prime and uh it returns something which i
+
+0:04:30.080,0:04:35.040
+don't even really care about all i'm trying to do here is measure the
+
+0:04:32.720,0:04:39.520
+performance rather than get an answer when i do that and um and then what i
+
+0:04:38.080,0:04:41.919
+want to do each time is i have each of these n values
+
+0:04:40.400,0:04:47.680
+i want to figure out how many steps i have and so when i call this thing
+
+0:04:44.960,0:04:50.800
+where i was counting all the steps steps inside right so i'm going to get some
+
+0:04:49.120,0:04:54.400
+number of steps back and and so what i'm going to do
+
+0:04:52.880,0:05:01.440
+after each iteration is i'm going to set that back to zero so at this point
+
+0:04:57.840,0:05:06.240
+i can type out uh n my input size and then also how many
+
+0:05:04.000,0:05:09.520
+steps i did let me run that and i can see how this scales off right
+
+0:05:08.479,0:05:13.680
+two size of input of two gives me two steps
+
+0:05:11.919,0:05:18.639
+three gives me three steps um so on and so forth right
+
+0:05:17.360,0:05:23.360
+so i can actually see there's a very close relationship
+
+0:05:20.400,0:05:28.479
+um between these and so so let's do this let's try to
+
+0:05:24.960,0:05:31.919
+um actually plot these things and um and to plot it right let's say i
+
+0:05:30.320,0:05:35.759
+want a line plot what would be a nice thing to do is to
+
+0:05:33.520,0:05:39.520
+have a pandas series and have these numbers be the index of
+
+0:05:37.919,0:05:44.639
+the series right because the index goes to the x-axis
+
+0:05:41.280,0:05:47.199
+and have these numbers be the values right because the values go to the
+
+0:05:45.919,0:05:51.840
+y-axis and so i'm going to do that i'm going to
+
+0:05:48.240,0:05:57.919
+create a panda series let me say series and
+
+0:05:55.120,0:06:00.720
+maybe i'll just call it s and um and each time through this
+
+0:05:59.039,0:06:05.360
+instead of just printing off that hey this goes to that
+
+0:06:02.080,0:06:10.240
+i'm just going to say s of n equals steps
+
+0:06:07.360,0:06:13.840
+okay so let's try running that and um and it's complaining
+
+0:06:11.280,0:06:19.360
+that when i create an empty series i should tell it what the type will be
+
+0:06:16.000,0:06:24.720
+right so let me do that i'm gonna say uh d type equals i guess ant
+
+0:06:22.880,0:06:27.120
+all right so i do that and then the other thing that it's complaining about
+
+0:06:26.160,0:06:30.400
+here is which is i'll kind of strange is
+
+0:06:29.520,0:06:34.160
+saying well what about what index am i at and that's out of
+
+0:06:33.440,0:06:38.880
+bounds and that's be true because it's trying
+
+0:06:35.680,0:06:43.520
+to use this n as an integer position and i would prefer that it use it as uh
+
+0:06:42.000,0:06:50.000
+called the actual index right so i'm just going to say dot location
+
+0:06:46.160,0:06:54.639
+i do that and then i have this nice series down here and so i can actually
+
+0:06:52.240,0:06:57.919
+try plotting this thing all right so down here um like i was
+
+0:06:56.880,0:07:02.960
+saying i just have these helper functions
+
+0:06:58.560,0:07:07.520
+that allow me to plot these nice lines and so i'm just trying to do this i'm
+
+0:07:04.240,0:07:13.039
+going to say s dot plot dot line and where do i want to plot it i want to
+
+0:07:09.840,0:07:16.080
+plot it inside of that ax region and then what else do i want to do i
+
+0:07:15.680,0:07:20.960
+want to um i'll just make the line black so
+
+0:07:18.800,0:07:24.400
+i'll say color equals black and then you know if i abbreviated
+
+0:07:24.080,0:07:28.880
+a b that would be blue k is an
+
+0:07:26.240,0:07:32.960
+abbreviation for black so i can do that and um and then what i'm going to do
+
+0:07:30.800,0:07:36.319
+just to try to flush this out is i'm going to draw a bounding line on
+
+0:07:34.880,0:07:40.479
+it and let me just play around with this right so that's
+
+0:07:39.199,0:07:44.400
+not quite large enough let me try something like um 1.2 times
+
+0:07:43.759,0:07:48.400
+that or let me try a little bit larger right
+
+0:07:46.800,0:07:51.120
+i'm not really proving that this is always an upper bounding line but i'm
+
+0:07:49.599,0:07:53.599
+just trying to get an intuition right if i can show there's some sort of upper
+
+0:07:52.240,0:07:58.560
+bounding line um then i'm good and this factor 1.5
+
+0:07:56.720,0:08:02.800
+i mean it's gonna have to be bigger if i'm counting more staffs right i mean i
+
+0:08:00.639,0:08:06.319
+guess i counted this as one step um i could have been counting here uh
+
+0:08:04.560,0:08:09.840
+maybe this is two steps here right but i can see that that does seem
+
+0:08:08.479,0:08:13.039
+to be constant constant or not constant time it seems
+
+0:08:11.759,0:08:16.240
+to be linear time right it's proportional to n as the data
+
+0:08:15.360,0:08:20.000
+size gets larger this number of steps goes
+
+0:08:18.240,0:08:25.039
+off roughly proportionally so that's a linear time
+
+0:08:21.360,0:08:31.599
+uh big o of n okay what about
+
+0:08:28.800,0:08:34.000
+what about if i wanted to do that with um
+
+0:08:32.000,0:08:39.760
+find primes so i'm trying to look at what's happening here
+
+0:08:36.320,0:08:41.519
+and and i see well let's just try to look
+
+0:08:40.000,0:08:47.519
+through here so this is a kind of a constant time this is a constant time
+
+0:08:43.839,0:08:54.240
+the the tricky part is is the loop right um i'm looping roughly proportional to
+
+0:08:51.279,0:08:58.720
+the cap okay and so if i'm trying to find all
+
+0:08:56.240,0:09:02.240
+the numbers between 0 and 100 i'm kind of looping through here about
+
+0:09:00.399,0:09:06.080
+100 times and um and this one's a little bit
+
+0:09:03.920,0:09:09.279
+trickier right if this body here was constant time
+
+0:09:07.519,0:09:14.720
+then i would be saying that this is order
+
+0:09:10.720,0:09:18.080
+order n but it's not because because this is prime thing it's more
+
+0:09:16.560,0:09:24.880
+expensive as we go right and and so well
+
+0:09:22.320,0:09:32.480
+how expensive is is this whole thing well this runs
+
+0:09:27.680,0:09:35.600
+this runs about n times and of course now my my input size is my
+
+0:09:34.800,0:09:38.959
+cap and then how many times is this what is
+
+0:09:37.680,0:09:44.560
+the complexity of this i kind of how many steps does this have to do
+
+0:09:41.440,0:09:47.279
+um you know the first time through it does about one step i'm just trying to
+
+0:09:45.839,0:09:49.519
+think about how many times this loop runs up here
+
+0:09:48.320,0:09:54.240
+it's going to be roughly something like this would be like one time next time i
+
+0:09:51.760,0:09:58.160
+go through i might need a loop two times i might need to loop three times and
+
+0:09:56.399,0:10:01.600
+then all the way up eventually i'm gonna loop about n times
+
+0:10:00.080,0:10:04.800
+and uh and so this is a little bit trickier right and it's kind of like i'm
+
+0:10:03.200,0:10:08.640
+you know adding these numbers right every time i go through this loop
+
+0:10:07.040,0:10:12.560
+it gets a little bit more expensive first of all across about one stop and
+
+0:10:10.399,0:10:16.880
+about two about three and so what what happens when i average
+
+0:10:14.720,0:10:23.839
+all of these numbers together that's going to be very roughly equal to
+
+0:10:20.160,0:10:29.360
+n over 2 very roughly right why is that well i'm trying to take the
+
+0:10:25.920,0:10:34.880
+average of these numbers which is n uh uh which is like n plus
+
+0:10:33.600,0:10:38.240
+one over two right and then ultimately when i want to
+
+0:10:36.959,0:10:41.519
+look at the whole class i'm kind of adding them
+
+0:10:39.519,0:10:46.640
+i'm looping in time so so really kind of the cost of this whole thing
+
+0:10:43.279,0:10:49.440
+is n squared over two and since we're ignoring constant factors i could just
+
+0:10:48.160,0:10:53.279
+say this is an order and where this is what my oh sorry order
+
+0:10:52.480,0:10:56.640
+of n squared that's my intuition right is what the
+
+0:10:55.200,0:11:00.320
+complexity will be here um let's see if that if that's right um
+
+0:10:59.519,0:11:02.720
+well not i'm not really having any proof here but
+
+0:11:01.600,0:11:06.560
+we're just kind of working informally right if i'm trying to count my steps
+
+0:11:04.640,0:11:11.200
+what will that look like i'm just going to do this down here global steps
+
+0:11:10.160,0:11:14.640
+and i'm just going to do like this before just kind of get a sense of how
+
+0:11:12.720,0:11:17.680
+much work is being done intuitively right it was not very
+
+0:11:16.079,0:11:22.160
+mathematical and uh and so maybe i'll say well here
+
+0:11:19.440,0:11:25.760
+i'm doing a piece and maybe here i'm doing a piece
+
+0:11:26.000,0:11:32.640
+ryan maybe here i'm doing a piece and um and then down here
+
+0:11:29.760,0:11:35.600
+right instead of calling is prime i'm going to call
+
+0:11:33.120,0:11:38.240
+find primes which of course calls as prime and so i'm going to be getting
+
+0:11:36.720,0:11:45.040
+both these steps and these these steps i'm really counting everything
+
+0:11:39.920,0:11:51.040
+right so i'm going to call find primes let's see if this intuition pans out
+
+0:11:48.880,0:11:58.240
+that it's roughly n squared so um i'm gonna run this
+
+0:11:54.399,0:12:04.000
+run this and so that black line is how many steps are actually being
+
+0:12:01.040,0:12:07.120
+performed the way i counted them and i'm going to try to plot a red line
+
+0:12:05.680,0:12:11.519
+that's on top of that so let me just try n
+
+0:12:07.360,0:12:14.560
+squared and i see that intuitively it seems like it's going to
+
+0:12:12.880,0:12:19.120
+be an upper bound and indeed it is right i'm actually going to prove that
+
+0:12:16.000,0:12:23.200
+but it's an upper bound for large and after this crossover point so so it
+
+0:12:21.600,0:12:32.320
+turns out indeed this is an order n and this is an order
+
+0:12:26.240,0:12:32.320
+n squared
+

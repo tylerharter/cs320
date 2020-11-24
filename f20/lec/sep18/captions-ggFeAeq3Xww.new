@@ -1,0 +1,432 @@
+0:00:02.320,0:00:06.640
+all right so i'm ready to review a bit from last time
+
+0:00:05.040,0:00:08.800
+so if you haven't already answered all of these review questions that i have in
+
+0:00:08.240,0:00:12.240
+the doc um you know pause me and do that now uh
+
+0:00:11.040,0:00:15.440
+because i'm just gonna be walking through
+
+0:00:12.639,0:00:19.760
+um kind of the reasoning behind those kind of big picture here
+
+0:00:17.279,0:00:23.199
+is that we're learning to create new types
+
+0:00:20.800,0:00:26.000
+um when you have a type you can create multiple objects from it and that's why
+
+0:00:24.560,0:00:28.720
+i like to think of a type as a cookie cutter right i can create a lot of
+
+0:00:27.279,0:00:32.320
+similar objects and you know we've been creating lots of
+
+0:00:30.640,0:00:35.200
+objects and even the previous course right we maybe have the
+
+0:00:33.760,0:00:38.399
+dictionary type and we create a lot of different dictionary objects
+
+0:00:37.040,0:00:42.000
+we're going to take it to the next level of actually defining new types now that
+
+0:00:40.000,0:00:45.520
+might be very domain specific um for example maybe i have um a type
+
+0:00:44.719,0:00:48.960
+for movies and the information associated with
+
+0:00:46.960,0:00:52.480
+those and when we're creating a new type we aren't just thinking about what
+
+0:00:50.239,0:00:56.160
+attributes or information is involved we're also thinking about
+
+0:00:53.680,0:00:58.960
+what functions are going to be involved for this new type
+
+0:00:57.600,0:01:01.840
+and so when we're creating these new types we're doing it with something
+
+0:01:00.320,0:01:05.280
+called a class and uh and when we're putting these new
+
+0:01:03.680,0:01:08.799
+functions inside the class they have a special name and that is a method
+
+0:01:07.119,0:01:11.680
+and methods are kind of trickier in terms of how we
+
+0:01:10.479,0:01:14.400
+write them which is one of the things that i think is important for us to get
+
+0:01:13.040,0:01:18.560
+a solid basis of now so this was the um first snippet
+
+0:01:17.600,0:01:21.759
+of code uh that we are starting with in that
+
+0:01:19.920,0:01:24.799
+review doc which you already answered these questions
+
+0:01:23.200,0:01:30.560
+and and so the first question well which one of these things was an attribute
+
+0:01:27.200,0:01:35.200
+uh dog name malt fido and the answer is that well i guess i see
+
+0:01:33.119,0:01:40.640
+two attributes here i have a dog.name and a dog.age
+
+0:01:38.240,0:01:42.960
+so either name or age would be a fine answer and i guess
+
+0:01:41.520,0:01:46.079
+name is only one of the less the answer here is definitely two
+
+0:01:46.320,0:01:53.200
+name is an attribute um this one is a little bit trickier
+
+0:01:50.640,0:01:57.920
+right so i'm trying to figure out what it's printed here
+
+0:01:54.640,0:02:01.280
+or do we crash and well i see that there's some print
+
+0:01:59.360,0:02:07.360
+statements in both my methods so the the real important question here is
+
+0:02:03.759,0:02:10.800
+do either of my methods run and the answer here is that no neither of
+
+0:02:09.679,0:02:15.440
+them run because i'm not calling them the only
+
+0:02:13.200,0:02:19.760
+methods that get called automatically are what we call special methods and um
+
+0:02:18.480,0:02:22.640
+there's a number of them that we're going to learn some of them today
+
+0:02:21.120,0:02:25.680
+but all the special methods will have two underscores before and after the
+
+0:02:24.319,0:02:27.840
+name i don't see any special methods here
+
+0:02:26.160,0:02:31.360
+so nothing gets called automatically nothing is printed and of course we
+
+0:02:29.360,0:02:34.959
+don't crash okay so it's a bit of a trick question
+
+0:02:33.599,0:02:38.959
+right so if i actually name it properly so it is a special
+
+0:02:36.720,0:02:45.840
+method init underscore underscore well this version
+
+0:02:42.319,0:02:52.239
+is now what we call a constructor and it gets called automatically
+
+0:02:49.200,0:02:55.680
+when this code runs down here and uh and so absolutely this will get
+
+0:02:53.680,0:02:59.440
+printed and you can see i also added some parameters down here
+
+0:02:57.120,0:03:03.120
+which was kind of the trick part earlier right so this won't crash anymore
+
+0:03:01.440,0:03:06.879
+and we can see that we're using the parameters in the constructor
+
+0:03:05.040,0:03:10.959
+to set up our attributes a very common pattern that will have code like this
+
+0:03:08.720,0:03:15.760
+dog.name equals a name and so on and so forth
+
+0:03:12.480,0:03:20.879
+okay so we have our dog and our dog is referred to by a variable
+
+0:03:19.599,0:03:24.879
+name fido and there's four different ways that we
+
+0:03:22.720,0:03:28.400
+might try to call the speak method and one of them is
+
+0:03:27.120,0:03:33.200
+wrong and the one that is wrong is the first
+
+0:03:30.319,0:03:37.040
+one and that's wrong because speak is inside of the dog class and i'm
+
+0:03:36.000,0:03:41.440
+not making that clear right i'm almost imagining that speak is
+
+0:03:39.120,0:03:45.760
+some sort of global function and it's not right when we start putting
+
+0:03:43.760,0:03:49.360
+these functions inside of classes and making the methods
+
+0:03:47.360,0:03:51.519
+um it's very possible that different classes could have methods of the same
+
+0:03:51.200,0:03:55.040
+name right so i can't just simply use the
+
+0:03:52.959,0:04:00.000
+function name i can't simply use a method name like i
+
+0:03:56.640,0:04:03.599
+would for a regular function second question is which one of the
+
+0:04:02.000,0:04:10.640
+following is not an example of type based dispatch
+
+0:04:07.519,0:04:14.319
+okay so what this means is imagine that i have other classes
+
+0:04:13.200,0:04:20.880
+right so i have dog cat i don't know guerrilla whatever
+
+0:04:17.680,0:04:25.199
+and let's say i don't know what fido refers to is vital referring to a cat or
+
+0:04:23.440,0:04:29.759
+a dog type based dispatch means that when i am
+
+0:04:28.080,0:04:33.040
+calling my method the method that actually gets called
+
+0:04:31.199,0:04:37.199
+depends on the type of phyto right if fido has a cat then
+
+0:04:34.560,0:04:40.720
+cat.speak gets called a phyto is a dog dog.speak gets called
+
+0:04:39.280,0:04:46.639
+and and so i can see the one that does not have typeface dispatch
+
+0:04:43.280,0:04:51.360
+is number three dog.speak um even if fido isn't a is a cat
+
+0:04:49.759,0:04:55.360
+i'm gonna be calling the dog version of the method in example three right so
+
+0:04:53.440,0:04:58.720
+that's not type based dispatch and that's going to get us into trouble
+
+0:04:56.560,0:05:02.320
+if i say i have a list of objects that are
+
+0:04:59.040,0:05:05.600
+of maybe different animal types okay the last question is which style is
+
+0:05:03.840,0:05:08.720
+preferred and it turns out in this case it's the
+
+0:05:07.600,0:05:12.800
+shorter one i like to say object dot method
+
+0:05:11.680,0:05:16.000
+parentheses and these two are exactly equivalent
+
+0:05:14.560,0:05:19.680
+right so it's good to keep in your mind that
+
+0:05:16.880,0:05:22.160
+option two is just a shorthand for option
+
+0:05:20.400,0:05:26.479
+four right so option two is a little bit weird
+
+0:05:23.440,0:05:30.320
+right because well why is it weird it looks like i'm passing in one uh one
+
+0:05:29.440,0:05:33.919
+argument but i'm expecting two parameters i'm
+
+0:05:31.759,0:05:38.080
+actually doing two right so fido and line two is actually doing two
+
+0:05:36.560,0:05:41.840
+purposes one is it is used to figure out what type i'm
+
+0:05:40.560,0:05:46.320
+dealing with what method what speed method to use and
+
+0:05:44.080,0:05:50.960
+then second is being used as that first parameter and um and so this is what
+
+0:05:48.800,0:05:55.840
+we'll be doing we'll say phyto.speak and that's what i'll always do
+
+0:05:53.840,0:05:58.720
+so what gets passed to the dog parameter here i guess i've already talked about
+
+0:05:57.600,0:06:03.840
+it a little bit uh but it's going to be the same object
+
+0:06:02.000,0:06:07.680
+that phyto refers to phyto and dog will be referring to the
+
+0:06:06.880,0:06:12.639
+same dog object okay now that first parameter
+
+0:06:11.039,0:06:18.720
+has a special name um it's the receiver parameter
+
+0:06:16.720,0:06:21.919
+and well whatever goes in the receiver parameter is kind of a special argument
+
+0:06:20.319,0:06:26.160
+which is whatever uh is right before the method also
+
+0:06:24.240,0:06:29.199
+fido.speak so fido is drawing into the receiver in this
+
+0:06:27.600,0:06:33.280
+case it's drawing and i can call the receiver
+
+0:06:31.440,0:06:36.000
+whatever i want in python python doesn't care
+
+0:06:34.000,0:06:39.360
+but basically every programmer uses the same name here there's a convention
+
+0:06:38.080,0:06:44.160
+and the better name that you should always use is self
+
+0:06:41.199,0:06:47.360
+and that's true in both of these methods now i want to just
+
+0:06:45.120,0:06:50.639
+before i wrap this up i want to step through it in
+
+0:06:48.560,0:06:54.400
+python tutor as well just to kind of really
+
+0:06:51.759,0:06:58.880
+understand how this all works so this is the code we've been dealing with
+
+0:06:57.039,0:07:04.560
+um you can say i'm creating two different um two different dogs
+
+0:07:01.440,0:07:08.800
+and so let's step through this first i have dog
+
+0:07:06.720,0:07:12.160
+is a type that's referring to this um class and the class has multiple methods
+
+0:07:10.560,0:07:15.919
+in it um that's kind of not the very
+
+0:07:13.360,0:07:19.120
+interesting part the interesting part is here
+
+0:07:16.400,0:07:23.599
+when i am creating a new dog right so when i run this line of code
+
+0:07:21.840,0:07:26.080
+well it's going to call my constructor but be even before it calls the
+
+0:07:25.039,0:07:30.479
+constructor is going to create a new dog object for
+
+0:07:28.000,0:07:34.160
+me that will get past the dog parameter so i run this and you see i have this
+
+0:07:32.880,0:07:37.919
+new dog object or i might call it an
+
+0:07:35.759,0:07:44.800
+instance and my receiver the dog variable is
+
+0:07:41.360,0:07:49.759
+referring to that instance okay and and i have these parameters fido
+
+0:07:47.680,0:07:53.360
+name and age which have fido and nine and what i'm about to do in these next
+
+0:07:51.120,0:07:57.599
+lines of code is i'm going to add those to my dog instance
+
+0:07:54.720,0:08:02.720
+and when i do that okay so i'm creating my dog
+
+0:07:58.479,0:08:05.759
+dog.name equals name blog.age equals age really you can see that the picture that
+
+0:08:04.560,0:08:09.440
+python tutor draws for an object looks a lot like it
+
+0:08:08.639,0:08:12.960
+does for a for a dictionary right and so often in
+
+0:08:11.680,0:08:16.479
+these cases where you have a bunch of dictionaries
+
+0:08:14.240,0:08:20.720
+that have the same keys and values or i guess just the same keys
+
+0:08:18.240,0:08:23.840
+it's often the case that what i'm doing now is more appropriate and we actually
+
+0:08:22.160,0:08:28.560
+have a new type because all the instances of this type
+
+0:08:25.440,0:08:32.159
+have the same information okay and notice that even though there's
+
+0:08:30.400,0:08:36.479
+no return here i'm automatically returning back
+
+0:08:33.120,0:08:40.240
+my my dog object to go into fido right so so two things happen automatically
+
+0:08:38.080,0:08:43.680
+right the dog was created for me and i can think of the
+
+0:08:41.120,0:08:48.480
+dog as automatically being returned so now fido
+
+0:08:45.200,0:08:52.080
+fido refers to that new dog object over on the right
+
+0:08:49.680,0:08:57.920
+and now i'm going to create a second dog and somebody pass in
+
+0:08:53.200,0:09:02.720
+sam and three to my constructor along with a new dog object so i'm gonna
+
+0:08:59.920,0:09:09.040
+do that um here i am and uh and so you can see that well
+
+0:09:06.160,0:09:12.240
+you know fido refers to my old dog instance
+
+0:09:10.720,0:09:16.800
+now i'm in the process of in the constructor
+
+0:09:14.080,0:09:19.360
+referring to my new dog instance and i'm going to fill that in just like i did
+
+0:09:18.480,0:09:22.959
+the last one right i'm creating another dog again it
+
+0:09:21.200,0:09:27.360
+looks a lot like a dictionary it automatically gets returned and at
+
+0:09:25.200,0:09:34.880
+the very end i have sam and fido that are referring
+
+0:09:28.959,0:09:34.880
+to two different drawing objects
+

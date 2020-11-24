@@ -1,0 +1,891 @@
+0:00:01.920,0:00:06.080
+all right so we've been learning about classes
+
+0:00:04.319,0:00:09.120
+and we've been learning about methods which are really just functions that are
+
+0:00:07.600,0:00:11.599
+inside of classes and you have to call methods a little
+
+0:00:10.480,0:00:15.200
+bit differently than you would a normally function
+
+0:00:12.960,0:00:18.160
+than you normally would a function in this next section we're going to be
+
+0:00:16.240,0:00:21.760
+learning about special methods and special methods are a little strange
+
+0:00:20.240,0:00:26.480
+because we don't call them at all uh they kind of automatically get
+
+0:00:24.800,0:00:30.800
+called by python at certain key points and we've already
+
+0:00:28.080,0:00:34.800
+seen one of these the net constructor in that it's called whenever a new
+
+0:00:33.360,0:00:39.680
+object is created i'm not explicitly calling it but nonetheless it runs
+
+0:00:36.960,0:00:42.559
+and it turns out there's many other examples right with this kind of
+
+0:00:41.040,0:00:45.840
+surprising behavior and in general they're all going to be
+
+0:00:44.399,0:00:49.200
+kind of beginning and ending with two underscores in the name
+
+0:00:47.520,0:00:52.320
+and and so even though there's many here and you could go read this documentation
+
+0:00:50.960,0:00:55.920
+and learn some of them i don't even know all of them
+
+0:00:53.280,0:01:00.320
+um i'm going to do some of the key ones in this in this course
+
+0:00:58.559,0:01:04.559
+um you might have noticed when you're in jupiter notebook
+
+0:01:02.079,0:01:08.080
+um the output you get depends a little bit on whether
+
+0:01:05.920,0:01:11.040
+you're using a print or just putting a value in a cell right it's not the same
+
+0:01:09.840,0:01:14.560
+object but it might be displayed a little bit differently i'm ready to be
+
+0:01:13.040,0:01:18.320
+just demystifying that that really has to do with
+
+0:01:15.280,0:01:21.119
+special methods that can control how some objects end up looking in both
+
+0:01:19.920,0:01:27.200
+cases and we're going to be writing those ourselves
+
+0:01:22.799,0:01:31.119
+um second i might be talking about the equal
+
+0:01:27.680,0:01:32.960
+equal operator right our two objects the same
+
+0:01:31.759,0:01:38.880
+and so if you look at this little snippet of code down here where i say
+
+0:01:35.439,0:01:45.680
+c equals a equal equal b what is the type of c
+
+0:01:42.720,0:01:49.600
+and you probably are thinking boolean and that's true like 99
+
+0:01:47.280,0:01:53.520
+of the time but it actually depends on what type i have here for a
+
+0:01:51.280,0:01:56.240
+and b um so i wonder can you think of a type
+
+0:01:54.560,0:01:59.840
+i might have here where i want to get a boolean
+
+0:01:57.600,0:02:03.920
+and um and the answer is well if either a or
+
+0:02:00.960,0:02:07.040
+and or b is a series a pandas series then i wouldn't get that because if i
+
+0:02:05.360,0:02:09.920
+had a panda series well let's add these two panda series what i would do is
+
+0:02:08.399,0:02:14.000
+would try and say well um are the first two values equal or not
+
+0:02:12.400,0:02:17.680
+ij true or false are the second two equal or not true or
+
+0:02:16.000,0:02:21.520
+false and i'd ultimately when i'm using this equivalence operator
+
+0:02:19.840,0:02:25.120
+get a series of booleans instead of just one boolean
+
+0:02:23.599,0:02:29.520
+and so the people who are writing pandas had to basically hijack
+
+0:02:27.680,0:02:32.480
+that equal equal operator and we're going to learn how to do that for our
+
+0:02:30.800,0:02:39.680
+other new types that we're creating
+
+0:02:35.599,0:02:43.920
+um back in in 220 we learned a lot about a lot of different sequences we learned
+
+0:02:41.519,0:02:49.440
+that with you know whether i have a string sequence or a list sequence
+
+0:02:46.640,0:02:54.879
+um i can do various things i can index i can slice i can loop over things
+
+0:02:52.160,0:02:57.920
+um i can get the length of it in this class we already learned new one new
+
+0:02:56.400,0:03:01.760
+sequence we learned the bytes sequence very similar to a string
+
+0:02:59.680,0:03:06.000
+sequence and um and if we implement these special
+
+0:03:04.000,0:03:11.200
+methods get item in length we can convert our new classes into new
+
+0:03:09.040,0:03:15.680
+types of sequences right that have all these properties
+
+0:03:12.800,0:03:19.040
+um finally we're going to be and you know in another day we'll be learning
+
+0:03:17.040,0:03:24.159
+about context managers and when you've been kind of
+
+0:03:22.239,0:03:28.560
+opening files before the way i've taught you to do it is that you open a file
+
+0:03:26.400,0:03:32.319
+you maybe read or write to it and then you close it
+
+0:03:29.920,0:03:34.959
+and and if you've googled online at all i guess you've probably seen this other
+
+0:03:33.680,0:03:39.840
+pattern here on the right where i have this with statement i say
+
+0:03:36.799,0:03:43.280
+with open file.txt is f data.read and whenever you look at these
+
+0:03:41.680,0:03:47.599
+examples guess what um the programmer is not manually
+
+0:03:46.159,0:03:50.319
+closing the file the with statement takes care of that
+
+0:03:48.879,0:03:53.519
+and so with statements are really about kind of doing things that require some
+
+0:03:51.680,0:03:58.000
+sort of cleanup at the end and if we have contacts managers by
+
+0:03:56.400,0:04:02.480
+implementing these special methods uh we're gonna be able to get that
+
+0:03:59.200,0:04:06.560
+behavior and all their cases as well okay so i'm gonna start here um with
+
+0:04:04.959,0:04:08.799
+these other ones i'm gonna unfortunately be doing more examples about dogs and
+
+0:04:08.239,0:04:12.080
+cats um and then uh after that in the next
+
+0:04:11.439,0:04:15.599
+video i may move on and actually start to do
+
+0:04:13.439,0:04:18.400
+some more real things um that are not animal related
+
+0:04:16.959,0:04:23.199
+and so let me head over here i'm gonna head over to
+
+0:04:20.160,0:04:26.840
+my uh jupiter notebook and and you can see that here i have my dog class as
+
+0:04:25.440,0:04:33.520
+usual and i have my two dogs fido and sam
+
+0:04:31.120,0:04:36.400
+and well let me just try printing off phyto my credit dog i get something like
+
+0:04:35.600,0:04:40.400
+that um if i'm down here and i say fido you
+
+0:04:39.440,0:04:43.680
+can see that it's very slightly different right in the
+
+0:04:41.759,0:04:47.040
+first case it's saying you know object in the middle and down
+
+0:04:45.360,0:04:49.919
+here it's different so so why am i getting
+
+0:04:47.440,0:04:53.840
+two different things and the reason is that whenever i
+
+0:04:51.040,0:04:57.680
+want to use an object like a string because i want to print it off
+
+0:04:55.040,0:05:01.520
+or directly look at it it's calling a special method for that class and then
+
+0:04:59.520,0:05:06.080
+the two special methods here that we are going to care about are stir
+
+0:05:04.479,0:05:11.600
+and the representation function and
+
+0:05:09.520,0:05:15.440
+i haven't implemented these myself so there are these default versions and
+
+0:05:13.199,0:05:22.479
+these are the two defaults i'm getting uh but i can i can if i want to
+
+0:05:19.600,0:05:27.280
+define how both of these behave and so this one here is going to be calling
+
+0:05:24.960,0:05:31.360
+stir to get it whenever i'm doing print i'm basically converting it to a stir
+
+0:05:29.680,0:05:34.800
+and then down here i'm going to be using the representation
+
+0:05:32.880,0:05:40.560
+and the difference here is that this is really uh for the eyes
+
+0:05:37.520,0:05:43.120
+of a non-programmer right generally when i'm printing something
+
+0:05:41.600,0:05:46.320
+i'm imagining that maybe i have some program and and
+
+0:05:44.880,0:05:48.800
+even though i'm a programmer i wrote it i'm sharing that program with somebody
+
+0:05:47.600,0:05:53.280
+who's not a programmer and they just know how to run it
+
+0:05:49.840,0:05:58.319
+this is generally for the eyes for the eyes of a programmer to look at
+
+0:05:56.639,0:06:01.199
+right so that's why they might be um different
+
+0:05:59.680,0:06:06.080
+so so let me let me kind of go through here and implement both of these
+
+0:06:02.960,0:06:14.639
+i'm going to implement my stir and method and um and really i'm gonna uh
+
+0:06:11.759,0:06:18.160
+just have the receiver in this case and i i can return whatever i want right i
+
+0:06:16.720,0:06:23.520
+can return something like i am a dog and i run this
+
+0:06:21.600,0:06:26.479
+and and you can see just like i said whenever i'm printing something it's
+
+0:06:24.880,0:06:30.800
+trying to convert that object to a string
+
+0:06:27.680,0:06:34.560
+using this thing and then it's printing that right so this message gets printed
+
+0:06:32.560,0:06:38.240
+down here uh whatever i return here right is what
+
+0:06:36.639,0:06:40.560
+what happens when i try to convert to a string so even though i'm not ever
+
+0:06:39.440,0:06:46.160
+calling this explicitly down here it's a special
+
+0:06:43.360,0:06:50.160
+method and it gets called automatically if i run this down here nothing changes
+
+0:06:48.479,0:06:54.240
+because this is still looking for the programmer um
+
+0:06:52.000,0:06:59.120
+representation now if i wanted to right there's nothing stopping me
+
+0:06:55.919,0:07:02.639
+from uh from here also doing the same thing right i could return the same
+
+0:07:00.840,0:07:08.639
+message and that would be fine as well now
+
+0:07:06.240,0:07:12.560
+um kind of there's uh some tradition here i guess in general we want to not
+
+0:07:10.880,0:07:14.639
+just print something that's the same for all the
+
+0:07:13.120,0:07:17.360
+all the different dogs but i would really like to say some information
+
+0:07:16.639,0:07:20.720
+about my object so so maybe what i might do is
+
+0:07:19.919,0:07:28.080
+maybe i might say a dog named
+
+0:07:24.000,0:07:31.840
+something of age something and maybe you remember what these
+
+0:07:29.360,0:07:37.759
+brackets are for inside of a string um if i want to i can say dot format
+
+0:07:35.440,0:07:40.319
+and i can put some information there and um
+
+0:07:38.800,0:07:42.960
+and well let me try this i'm going to try putting in you know i want to know
+
+0:07:42.080,0:07:47.680
+what the name and age is right so what is the name
+
+0:07:45.680,0:07:50.800
+name can go to here and uh and what is the age age can go to
+
+0:07:50.080,0:07:54.080
+here and and if you're kind of familiar with
+
+0:07:53.120,0:07:57.840
+letter programming languages i'm guessing most of you are not
+
+0:07:55.759,0:08:01.840
+this would work fine but in python we always have to explicitly use
+
+0:08:00.400,0:08:05.199
+our receiver right so this would not work i actually have to say
+
+0:08:03.759,0:08:08.400
+you know here this is the object i'm interested in and i look up this
+
+0:08:06.960,0:08:12.720
+information for it and so i'm going to run this and and now
+
+0:08:11.440,0:08:17.919
+this is very nice right i mean i can print off both my
+
+0:08:13.759,0:08:22.479
+dogs and i get some nice information information about them right again the
+
+0:08:20.080,0:08:26.639
+uh representation is not changed just as an aside kind of as a
+
+0:08:25.039,0:08:31.599
+trick there's a shortcut for all of this that
+
+0:08:30.160,0:08:36.320
+that i haven't taught in the previous course that you might appreciate
+
+0:08:33.440,0:08:39.360
+um this whole thing calling dot format there's a shortcut
+
+0:08:37.360,0:08:43.680
+and that is i can say i want to have this be a format string
+
+0:08:41.519,0:08:47.120
+and then inside of these brackets i can say what piece of information i want to
+
+0:08:45.920,0:08:50.640
+get embedded there right and then then i
+
+0:08:48.880,0:08:52.080
+don't actually have to call this format thing
+
+0:08:51.040,0:08:56.399
+i'm just trying to do this this is going to be exactly the same thing
+
+0:08:54.320,0:09:03.680
+and um and this is just a little bit easier on the eyes of course
+
+0:08:59.120,0:09:07.519
+okay uh i want to fix up my wrapper too which is what happens when i
+
+0:09:05.600,0:09:11.360
+just put a value at the end of a cell in jupiter
+
+0:09:08.800,0:09:15.680
+and for that there's a tradition and the tradition
+
+0:09:12.160,0:09:19.519
+is that i return a string that's really a piece of python code that i could use
+
+0:09:17.440,0:09:23.120
+to create another object like this and so so in this case well what would i
+
+0:09:22.160,0:09:26.800
+do um i really want to return a string that
+
+0:09:25.360,0:09:31.600
+looks like this so let me do this let me return
+
+0:09:29.279,0:09:37.200
+something like format string and um and well
+
+0:09:34.959,0:09:40.959
+uh let's think a little bit about this i need to have
+
+0:09:39.200,0:09:46.160
+well let's give this a try and we have a format string
+
+0:09:42.240,0:09:49.519
+and well i want to create a dog object and i guess i have two pieces of well i
+
+0:09:48.160,0:09:53.600
+have two arguments here that i need to put in
+
+0:09:50.399,0:10:02.160
+right so i need to put in both self dot name and then self dot age
+
+0:09:58.959,0:10:05.120
+all right and well it's not quite right because i don't have quotes around here
+
+0:10:03.680,0:10:09.120
+so maybe what i should do is i should actually
+
+0:10:06.240,0:10:12.240
+you know if i do a wrapper here because this is a programmer friendly version i
+
+0:10:10.720,0:10:14.880
+may get some quotes around this when i do this
+
+0:10:13.600,0:10:17.600
+and now i actually get something very nice i get something that i could copy
+
+0:10:16.399,0:10:21.279
+and paste to create a new dog object right i could
+
+0:10:19.440,0:10:27.519
+do something like this i could say fido 2
+
+0:10:24.720,0:10:32.320
+equals that little snippet of code and now i have two dogs i have fido
+
+0:10:29.760,0:10:34.800
+and i have fido too and just be very clear here right where i talk more about
+
+0:10:33.600,0:10:40.079
+equality but if i do something like this
+
+0:10:38.399,0:10:43.360
+they happen to be two different dogs two different dogs that really have all the
+
+0:10:41.680,0:10:47.600
+same attributes but different objects nonetheless okay so
+
+0:10:46.640,0:10:51.120
+that's good right i have my string which is for
+
+0:10:49.040,0:10:53.519
+non-programmers wrapper which is for programmers
+
+0:10:52.240,0:10:59.279
+and there's one more that i want to teach you which is
+
+0:10:56.240,0:11:07.040
+very similar to wrapper and it is called wrapper underscore html
+
+0:11:03.920,0:11:12.640
+and it's just like this and let me just um come down here
+
+0:11:10.320,0:11:15.760
+and it turns out that this one is not actually built into python
+
+0:11:14.399,0:11:18.079
+these are special methods built into python which is why we need the two
+
+0:11:16.959,0:11:22.240
+underscores um this one is actually a part of
+
+0:11:20.240,0:11:24.720
+jupiter jupiter notebooks and that's why the naming convention a
+
+0:11:23.600,0:11:28.480
+little bit different i just have these different um
+
+0:11:26.480,0:11:32.959
+underscores here uh but what's special about this one
+
+0:11:29.920,0:11:36.800
+is that is that i cannot just return a regular string
+
+0:11:33.839,0:11:41.200
+i mean i could right but i can return some html in here
+
+0:11:39.200,0:11:45.760
+and um and so what might that look like i i might do h1 and then
+
+0:11:43.360,0:11:51.760
+maybe if you remember what h1 is this is like a very bold title
+
+0:11:47.279,0:11:59.200
+right so i could say i am a dog maybe i'll make a dog in italics like so
+
+0:11:56.320,0:12:03.120
+and i'm going to run down here and now you can see when i'm
+
+0:12:00.399,0:12:06.959
+just putting this value in a cell i get something like html
+
+0:12:05.440,0:12:11.120
+and that's very nice right so if i have both wrapper
+
+0:12:08.480,0:12:15.600
+and wrapper html student we prefer the wrapper html
+
+0:12:12.480,0:12:18.240
+um when i'm in jupyter um notebooks and and there's this is useful for
+
+0:12:17.120,0:12:21.920
+different things right i mean it's kind of silly here
+
+0:12:19.519,0:12:25.120
+but when you've been using pandas and you create a data frame
+
+0:12:23.680,0:12:29.200
+you don't just see a bunch of text you actually see a nice table
+
+0:12:26.959,0:12:33.920
+and the reason for that is because whoever built data frames in pandas
+
+0:12:31.519,0:12:36.240
+was using wrapper html and what were they returning while they were returning
+
+0:12:35.360,0:12:39.600
+you know a table tag and a bunch of stuff inside of that
+
+0:12:38.160,0:12:45.279
+right so returning this html table which i won't do right now
+
+0:12:43.760,0:12:49.920
+okay so those are the three that i really wanted you to learn
+
+0:12:46.800,0:12:54.240
+that were related to kind of how i see an object let's go back to this
+
+0:12:52.800,0:13:00.800
+other thing i said right well you know are fido2 and fido the same dog
+
+0:12:58.079,0:13:03.839
+um that's kind of for me as the programmer to say right maybe maybe
+
+0:13:02.399,0:13:08.800
+these are just kind of different objects describing the same animal and
+
+0:13:06.880,0:13:14.720
+and so really i'd like to define well our two dogs the same
+
+0:13:10.720,0:13:19.040
+uh the same or not um and so how can i do this
+
+0:13:15.680,0:13:23.920
+well there's a special method and that special method is
+
+0:13:20.240,0:13:27.519
+equal and and what it does is i'm going to come back to here what
+
+0:13:25.839,0:13:35.120
+it actually gets passed in but return weather
+
+0:13:31.440,0:13:39.519
+whether to objects are the same and i'm putting same in quotes
+
+0:13:37.920,0:13:43.519
+because i'm the programmer and i get to define that so i put two objects here
+
+0:13:41.839,0:13:47.040
+and one of those is of course always we start with a receiver for
+
+0:13:45.680,0:13:52.639
+one of these and then i have to have some other object
+
+0:13:49.360,0:13:59.040
+okay and i can return whatever i want right so i'm going to return a boolean
+
+0:13:55.920,0:14:02.000
+here and the beauty of this is that when i'm running code like this down
+
+0:14:00.480,0:14:05.680
+here this last cell whenever i have an equal equal
+
+0:14:03.839,0:14:10.160
+that equal equal is ultimately going to be calling
+
+0:14:07.040,0:14:12.959
+um this method and um and actually this is kind of an interesting point
+
+0:14:11.440,0:14:16.320
+when they're new programmers they feel like they're learning two things that
+
+0:14:14.079,0:14:19.360
+you feel like they're learning about um operators and they're learning about
+
+0:14:18.720,0:14:21.519
+functions but kind of as you become a more
+
+0:14:20.399,0:14:26.480
+advanced programmer you actually see those things are really the same
+
+0:14:23.120,0:14:30.639
+right every operator is just like a function
+
+0:14:27.760,0:14:33.440
+that um you know maybe takes two arguments
+
+0:14:31.360,0:14:36.720
+right this is a function that takes two arguments i'm calling it down here
+
+0:14:35.199,0:14:38.720
+even though the syntax is different right so i can think of this as a
+
+0:14:37.760,0:14:45.839
+function and so let me just put something here so
+
+0:14:42.160,0:14:49.040
+check if equal so i can see that that's actually happening
+
+0:14:47.040,0:14:51.760
+and well how since i get to define if two dogs are the same
+
+0:14:50.560,0:14:55.760
+um i'm going to say that they're the same if they um
+
+0:14:54.639,0:15:01.760
+well i'm just going to say they're the same if their names are the same
+
+0:14:58.240,0:15:06.560
+and their ages are the same father.age then i'll say it's the same
+
+0:15:03.760,0:15:09.920
+dog right so i'm gonna do that and um and now now you can see when i
+
+0:15:09.120,0:15:14.399
+run this well phyto and fido2 even though they're
+
+0:15:12.480,0:15:18.480
+different objects are are the same do i because i said so
+
+0:15:17.279,0:15:22.480
+and you can see that even though i'm not calling this explicitly
+
+0:15:20.160,0:15:26.880
+right it it gets called and normally you wouldn't have prints there because
+
+0:15:24.560,0:15:31.839
+it's confusing right but just to kind of illustrate what's happening
+
+0:15:28.720,0:15:35.279
+okay so i can define when two two different objects are equal equal to
+
+0:15:33.680,0:15:40.079
+each other but one of the things i cannot do is i cannot
+
+0:15:36.800,0:15:44.560
+ever like claim that two objects are the same object
+
+0:15:41.360,0:15:46.639
+right i cannot say if i run this well guess what these are two different
+
+0:15:45.759,0:15:50.079
+objects objects have all the same information
+
+0:15:48.079,0:15:54.320
+and i can recognize that but still two different objects okay so
+
+0:15:53.440,0:15:57.839
+that's good so i can see whether two dogs are equal
+
+0:15:56.800,0:16:03.920
+or not and um and and right if i try to compare
+
+0:16:01.199,0:16:08.639
+find out a sam well then that's false um as i would expect
+
+0:16:05.360,0:16:11.920
+um let's say now that i have let's say i have a list of dogs right so let's say i
+
+0:16:10.320,0:16:15.759
+have um you know my dogs and i have a list of
+
+0:16:14.240,0:16:21.360
+both phyto and sam
+
+0:16:19.920,0:16:26.240
+okay so that's fine maybe let me just print off my dogs here quick
+
+0:16:23.839,0:16:30.880
+um one of the things you're noticing here is that
+
+0:16:28.079,0:16:36.800
+when i'm printing this how is it figuring out what goes inside of here
+
+0:16:33.360,0:16:41.920
+um it's figuring that out by calling the wrapper function right
+
+0:16:39.839,0:16:44.639
+so this is a very um kind of important key right
+
+0:16:43.040,0:16:47.600
+when um even though you want to implement a wrapper html always
+
+0:16:46.160,0:16:52.639
+upload a wrapper too right because maybe people have a list of your objects
+
+0:16:50.079,0:16:57.920
+okay that was an aside let's say i wanted to sort these dogs
+
+0:16:54.320,0:17:04.079
+right and let me just try getting a sorted list of my dogs
+
+0:17:01.120,0:17:08.959
+i may get a type error and the type error says that less than operator
+
+0:17:06.799,0:17:12.640
+is not supported between instances of dog
+
+0:17:10.319,0:17:16.720
+and and dog is that true because that are really dog is uncomparable
+
+0:17:14.319,0:17:20.400
+let me try this i might say is final less than sam
+
+0:17:18.319,0:17:24.240
+and and i actually get the same thing right they're not comparable
+
+0:17:22.079,0:17:27.120
+and well what's going on here um when i'm calling this sorted function that's
+
+0:17:25.760,0:17:30.559
+built into python it's trying to figure out well what dog is the lesser dog and
+
+0:17:28.799,0:17:33.760
+what dog is the greater dog and it can't do it right because there's
+
+0:17:32.400,0:17:36.799
+no way to say that one dog is less than another
+
+0:17:35.440,0:17:40.000
+dog unless unless i come up here and define it
+
+0:17:38.960,0:17:43.760
+right so there's this other method i can do which
+
+0:17:42.640,0:17:50.960
+is the less than a less than special method
+
+0:17:47.600,0:17:55.039
+this is less than and um and it's very similar i have to compare
+
+0:17:52.640,0:17:58.480
+two things and uh and i could do what i want now i mean i could maybe say that
+
+0:17:56.799,0:18:01.280
+the lesser dog is the one that comes first and the alphabet with respect to
+
+0:18:00.240,0:18:04.880
+name i'm just going to say that you're the
+
+0:18:04.000,0:18:11.120
+lesser dog if the age is less than
+
+0:18:08.320,0:18:15.440
+um than the other dog right so older dogs are greater
+
+0:18:12.960,0:18:17.520
+younger dogs are lesser and i may run this now
+
+0:18:16.080,0:18:22.559
+let me let me kind of delete all this other stuff in the middle
+
+0:18:19.440,0:18:28.960
+we don't need that i have my dogs and now i can sort my dogs and i can
+
+0:18:25.600,0:18:32.320
+and i can actually well i think i said i'm looking at too closely before and i
+
+0:18:30.240,0:18:39.039
+can compare my dogs right so um so that's great um
+
+0:18:36.400,0:18:40.840
+and so however you wanted to do sorting right you have to implement the last
+
+0:18:40.320,0:18:47.039
+thing needed for sorting
+
+0:18:44.240,0:18:49.600
+okay now let me show you something that's a little bit frustrating about
+
+0:18:48.160,0:18:52.640
+how this works so i've done equal equal i've done less
+
+0:18:51.840,0:18:56.240
+than um guess what let's say i do something
+
+0:18:54.160,0:18:59.600
+like less than or equal to that doesn't work even though i define
+
+0:18:57.760,0:19:03.760
+these other two so so really what i'd have to do is
+
+0:19:00.880,0:19:07.280
+you know i'd have to do you know less than or equal to
+
+0:19:05.360,0:19:11.200
+and then that's what i may have to do well
+
+0:19:08.559,0:19:15.919
+greater than right if i wanted to have have this work i have to do greater than
+
+0:19:13.919,0:19:18.880
+um i guess it's actually working for me this time i might have to do greater
+
+0:19:17.280,0:19:21.120
+than or equal and
+
+0:19:22.000,0:19:28.400
+right and that well why did that not or let me try greater than or equal to
+
+0:19:26.160,0:19:32.640
+and and that's not working and so so in general right it can be
+
+0:19:29.840,0:19:36.080
+cumbersome to have to implement a bunch of different
+
+0:19:33.600,0:19:39.520
+uh methods like this so if you only care about sorting
+
+0:19:37.200,0:19:42.559
+you only have to do less than um if you are kind of having to do these other
+
+0:19:41.039,0:19:46.799
+things i guess well there's there's not a great way around it or you just
+
+0:19:44.080,0:19:52.000
+uh um do what's time necessary for your use case
+
+0:19:49.039,0:19:54.400
+okay let me see what else i wanted to cover here
+
+0:19:53.200,0:19:57.600
+um so i think that's good so i think those were just kind of looking at back
+
+0:19:56.400,0:20:03.840
+at what we had been talking about um i've just covered
+
+0:20:01.039,0:20:06.799
+how to represent objects as strings or html
+
+0:20:04.720,0:20:09.280
+how to compare them in the next video we're going to look at how we can build
+
+0:20:08.000,0:20:12.880
+our own sequence and then and then the next time the
+
+0:20:11.440,0:20:17.200
+lecture after that we're going to look at context managers
+

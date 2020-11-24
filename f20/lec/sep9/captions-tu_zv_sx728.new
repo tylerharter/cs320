@@ -1,0 +1,549 @@
+0:00:00.880,0:00:06.720
+hello in this video i'm going to introduce a new tool for learning get
+
+0:00:04.480,0:00:10.559
+um it's a git simulator it's a lot like python tutor
+
+0:00:07.759,0:00:14.880
+um forget and so if you go to my website under tools
+
+0:00:11.759,0:00:17.520
+um you can go to the get simulator and i made some changes to it kind of
+
+0:00:16.080,0:00:20.880
+simplified it a bit you can see over here on the on the left
+
+0:00:19.520,0:00:25.199
+hand side there's this link that says original
+
+0:00:22.000,0:00:30.240
+if you want to you can go there and um and then if i scroll down a bit
+
+0:00:27.359,0:00:32.800
+they have um uh they have the application here so this is kind of the
+
+0:00:31.599,0:00:36.559
+original version and in this version they have these
+
+0:00:34.399,0:00:40.399
+tutorials and you're welcome to do that um i'm just gonna have a simple sandbox
+
+0:00:38.719,0:00:44.399
+version on my site uh that you can play with and and do do
+
+0:00:42.719,0:00:48.000
+labs and and i might have like other questions based on the say on the on the
+
+0:00:46.239,0:00:51.280
+weekly quizzes um so here i am you can see that i have
+
+0:00:50.800,0:00:54.719
+um on the right hand side i have these two
+
+0:00:52.719,0:00:57.039
+commits already i'll commit zero internet one
+
+0:00:55.840,0:00:58.960
+i have this thing called the master branch i'm going to be talking about
+
+0:00:58.079,0:01:03.680
+more and let's uh first try to create a new
+
+0:01:02.719,0:01:09.760
+commit and if we were doing this
+
+0:01:06.880,0:01:12.640
+uh if we were doing this say um you know in an actual environment
+
+0:01:11.280,0:01:15.200
+there would be three steps here the first thing we would have to do is we
+
+0:01:13.840,0:01:19.600
+might have to edit a file right and so you can see
+
+0:01:16.960,0:01:22.840
+this fake terminal here on the left that i'm going to be running commands in
+
+0:01:20.880,0:01:28.520
+and so i might do something like emacs file.txt
+
+0:01:24.960,0:01:32.880
+or or the one we've learned is nano file.txt and it turns out that
+
+0:01:31.280,0:01:36.640
+since this is a simulator it's not going to do all these things but this would be
+
+0:01:34.320,0:01:42.479
+the first step right i'd edit the file and make some changes um the next step
+
+0:01:40.400,0:01:45.840
+towards making a commit is that i would have to say i want to track that file
+
+0:01:44.320,0:01:50.079
+right so i've edited the file and i want to track the file so i would
+
+0:01:47.119,0:01:53.119
+say get add file.txt and this is something i would do every
+
+0:01:51.680,0:01:58.479
+time i wanted to record changes to file a new commit and
+
+0:01:56.240,0:02:02.640
+that also is not part of the simulator right so i want you to remember those
+
+0:02:00.240,0:02:08.080
+two pieces even though i'm not going to usually be doing them
+
+0:02:04.960,0:02:12.080
+okay so first we edit second we add and then third we actually can comment
+
+0:02:09.759,0:02:16.160
+so after i've done those i could say get submit and and then i would normally put
+
+0:02:14.640,0:02:19.520
+a message here which would say what i was changing
+
+0:02:17.760,0:02:24.160
+maybe i'll say change file.txt now it turns out that
+
+0:02:22.640,0:02:27.280
+these messages are also not part of the simulator right
+
+0:02:26.160,0:02:31.840
+so i'm going to get rid of that and i'll just do git commit here
+
+0:02:29.280,0:02:36.319
+so i do that and you see that i get this new
+
+0:02:32.400,0:02:41.360
+commit c2 and you can see the master branch is now referring
+
+0:02:38.319,0:02:45.040
+um to that so also notice remember before when we were using real get
+
+0:02:43.440,0:02:47.920
+um the commit numbers were awful right they were these hexadecimal numbers that
+
+0:02:46.640,0:02:50.959
+were really long so by hexadecimal i mean they didn't
+
+0:02:49.680,0:02:56.080
+just contain the digits zero through nine but they also contained
+
+0:02:53.040,0:02:59.680
+uh letters a through f um for uh to basically are which are digits for
+
+0:02:58.159,0:03:03.200
+10 through 15. and so here is just c0 c1 c2 it's a
+
+0:03:01.760,0:03:06.159
+little bit simpler in that regard as well
+
+0:03:04.239,0:03:08.879
+okay so you can see that i can do a commit like that and
+
+0:03:07.519,0:03:11.280
+and again right since this is just a simplification if i run commit a second
+
+0:03:10.720,0:03:15.040
+time it will do it without having me do the
+
+0:03:13.040,0:03:19.680
+first and second steps that are normally so important
+
+0:03:17.360,0:03:24.799
+okay so i i can commit just like that now if i want to i can switch
+
+0:03:21.680,0:03:27.280
+um which commit i'm on and there's kind of two ways that i might show which
+
+0:03:26.159,0:03:32.640
+commit i'm on um one is you can see that after the
+
+0:03:30.640,0:03:36.480
+name master there's this little star right that means i'm currently on the
+
+0:03:33.920,0:03:40.000
+master branch and the master branch is currently on
+
+0:03:37.360,0:03:42.239
+commit three therefore i'm on commit three
+
+0:03:40.640,0:03:47.599
+if i want to change to a different one i can do this i can say get
+
+0:03:44.319,0:03:51.360
+check out c1 and it's going to draw kind of the fact that
+
+0:03:49.760,0:03:55.120
+i'm looking at a little bit differently it's going to create this arrow that
+
+0:03:53.680,0:04:00.080
+says head right and so the head is basically
+
+0:03:57.519,0:04:04.159
+pointing to whatever i'm looking at and so if i wanted to
+
+0:04:01.120,0:04:07.439
+do to check out c2 and now i'm looking at that
+
+0:04:05.040,0:04:10.480
+and when this head is looking directly at a commit
+
+0:04:08.640,0:04:13.120
+without going through a branch that's what we call headless mode so it's very
+
+0:04:11.920,0:04:16.639
+normal thing to do when i'm trying to go back in history
+
+0:04:16.079,0:04:19.040
+now well there's another way i can be
+
+0:04:17.919,0:04:24.880
+headless well that's a little bit strange and that's if i do get
+
+0:04:20.479,0:04:28.320
+check out get check out c3 okay now i'm in headless mode even
+
+0:04:27.280,0:04:32.000
+though this this commit has this branch associated
+
+0:04:31.280,0:04:36.720
+with it right so get checkout c3 would be
+
+0:04:34.960,0:04:40.479
+different than saying get checkout master when i do that i just
+
+0:04:39.440,0:04:43.440
+hit that star and really the way you should think of
+
+0:04:41.680,0:04:46.720
+that star is that the head is pointing to the master
+
+0:04:45.199,0:04:48.960
+okay so i can i can be in either of these modes and so why does that matter
+
+0:04:48.639,0:04:53.040
+so so as we saw before when i'm attached to
+
+0:04:52.000,0:04:58.639
+a branch i commit it moves along with me if i say you get
+
+0:04:56.479,0:05:03.600
+check out c4 now i'm in headless mode and if i do a
+
+0:05:01.680,0:05:07.360
+new commit what you're going to see is that the
+
+0:05:05.520,0:05:12.560
+master branch didn't keep up with me and i actually get this little warning that
+
+0:05:08.880,0:05:17.199
+i'm i'm in a detached head state right and and so generally
+
+0:05:15.680,0:05:20.960
+kind of being in a headless state is fine if i want to view
+
+0:05:19.039,0:05:26.160
+um view older commits but it's not something i would really do typically
+
+0:05:23.680,0:05:29.919
+if i was trying to make new comments and the reason why is this if i do get check
+
+0:05:28.000,0:05:33.360
+out master now again um you can kind of see that they are
+
+0:05:32.000,0:05:36.400
+drawing this commit a little bit lighter it's
+
+0:05:34.720,0:05:39.840
+almost like a ghost right and there's two reasons for that one is
+
+0:05:38.639,0:05:41.600
+that it's gonna be hard for me to get back there it doesn't have a nice name
+
+0:05:41.120,0:05:45.440
+anymore i would have to remember what that
+
+0:05:42.560,0:05:48.800
+commit number is and second uh kind of if you run some cleanup tools
+
+0:05:47.360,0:05:53.199
+later uh it will delete that c5 what it actually
+
+0:05:51.440,0:05:57.280
+is a name it's an unreachable commit because there's no branch that
+
+0:05:55.120,0:06:01.680
+kind of points to it or or any commits coming after there it's unreachable
+
+0:05:59.360,0:06:04.720
+and um and it'll kind of get deleted if i run these cleanup tools
+
+0:06:03.759,0:06:09.680
+later right so that's not really something i would want to do very often
+
+0:06:07.280,0:06:14.560
+um okay so let's do this i'm gonna i've been talking about the master branch
+
+0:06:11.600,0:06:19.600
+um i can create um other other branches right so i could say
+
+0:06:16.400,0:06:23.199
+get branch and then i can give my branch a new name so i'm going to
+
+0:06:20.880,0:06:29.440
+call this branch test and um and so you can see that's there
+
+0:06:26.400,0:06:33.919
+maybe another one jet branch uh maybe i'll call this one bug fix like
+
+0:06:32.560,0:06:36.960
+that and so i could have all these different branches that are
+
+0:06:35.039,0:06:42.479
+are kind of pointing to the same commit and that's totally fine thing
+
+0:06:39.039,0:06:50.240
+um to do um i could also create tags right i can say get ag
+
+0:06:46.240,0:06:53.360
+i guess i'll just call this um tag one and i can see that that's associated it
+
+0:06:51.759,0:06:56.560
+looks a little bit different and and so there's a lot of ways i can
+
+0:06:54.960,0:07:00.800
+be referring to um c4 right now i could i'm currently on
+
+0:06:59.280,0:07:05.280
+the master branch that's referring to it but i can say get checkout
+
+0:07:02.720,0:07:09.440
+bug fix right and you can see that the little arrow
+
+0:07:06.240,0:07:14.240
+refers to bug fix now um if i say get checkout t1
+
+0:07:14.840,0:07:22.319
+uh oh yeah check out tag one you see that that's basically like going
+
+0:07:20.160,0:07:27.680
+to headless mode right um the head can point directly to commit
+
+0:07:25.360,0:07:31.680
+or it can point to a branch referring to a commit
+
+0:07:29.039,0:07:36.160
+but it cannot refer directly to a tag when i say get checkout tag one
+
+0:07:33.680,0:07:39.680
+that's just a shorthand for saying get checkout c4
+
+0:07:37.520,0:07:45.360
+okay so let me do this i'm going to head back to
+
+0:07:40.880,0:07:48.879
+i'll get checkout bug fix and so that's a branch i'm currently on
+
+0:07:47.120,0:07:53.599
+right so head is referring to bug fix and so what this means is that when i do
+
+0:07:50.560,0:07:57.599
+a get commit that is the only branch that's going to
+
+0:07:54.879,0:08:04.080
+move along right so bug fix is going to refer to my new branch c5
+
+0:07:59.919,0:08:07.599
+whereas master and test get left behind right and so i could do another one if i
+
+0:08:05.919,0:08:11.039
+wanted to i could do a git commit right so i can have this new chain
+
+0:08:09.490,0:08:19.039
+[Music] well now if i go back to say test get
+
+0:08:14.720,0:08:24.560
+check out test i can do some commits here as well hit submit
+
+0:08:22.400,0:08:28.479
+hit commit and what i want you to notice here is that this is why we call these
+
+0:08:26.639,0:08:32.479
+branches right this branching feature where i can use this branch label
+
+0:08:30.560,0:08:38.080
+allows me to split off history into kind of different branches of a tree
+
+0:08:34.640,0:08:40.000
+okay now eventually right i mean the main version of the code is in the
+
+0:08:39.360,0:08:43.440
+master branch right so i can go back here at checkout
+
+0:08:42.240,0:08:47.120
+master and you know i've made these two
+
+0:08:45.279,0:08:50.320
+different changes right i've kind of added some tests and i've done this bug
+
+0:08:48.640,0:08:53.200
+fix and i eventually want these additional features to be part of the
+
+0:08:51.680,0:08:55.680
+main version which is kind of a little bit
+
+0:08:54.240,0:08:58.720
+lagging now it's lagging behind everything else and the way i can do
+
+0:08:57.440,0:09:05.279
+that is with the merge right so if i say git merge
+
+0:09:02.320,0:09:10.000
+and i say test what i'm saying is that everything on the test branch
+
+0:09:06.959,0:09:12.240
+should now be part of my master branch and what that's going to look like is
+
+0:09:11.120,0:09:16.399
+that the master branch is just trying to kind of run down
+
+0:09:13.680,0:09:19.760
+that right chain of the tree until it catches up
+
+0:09:17.920,0:09:23.279
+okay so that's one type of merge right i can you can see it actually says over
+
+0:09:21.839,0:09:26.320
+here on the right hand side it's fast forwarding right i'm kind of
+
+0:09:24.880,0:09:30.160
+catching up to these uh later changes that have been made on
+
+0:09:27.839,0:09:32.480
+a different uh branch one side here that sometimes people
+
+0:09:31.440,0:09:35.440
+asked about is they say well what are the colors of these
+
+0:09:34.080,0:09:38.560
+different commits mean right you can see that it changed colors and
+
+0:09:37.200,0:09:41.200
+it means nothing it just makes the simulator a little bit prettier so don't
+
+0:09:40.320,0:09:44.160
+worry about matching the colors um especially if
+
+0:09:43.200,0:09:48.480
+you're trying to reproduce what i'm doing it might be random
+
+0:09:45.519,0:09:53.200
+for example okay so i did kind of a fast forward
+
+0:09:49.120,0:09:56.320
+merge but what about bug fix how can i kind of pull in all of those features
+
+0:09:55.440,0:09:59.360
+right i've made some some improvements on test which i've
+
+0:09:57.839,0:10:03.519
+already incorporated into master made other improvements on bug fix and
+
+0:10:02.640,0:10:08.320
+the way i'm going to do that is i'm going to say get merge bug
+
+0:10:05.920,0:10:12.640
+fix and now we can't fast forward what we actually have to do
+
+0:10:09.920,0:10:15.680
+is make a brand new commit called a merge commit
+
+0:10:13.839,0:10:19.440
+that kind of pulls in all the features at the same time so we do that
+
+0:10:17.440,0:10:22.160
+and now i have the c10 that really has two
+
+0:10:20.480,0:10:25.120
+uh parents right it trying to have two predecessors in terms of the history and
+
+0:10:24.079,0:10:27.680
+this may have all those features together
+
+0:10:26.160,0:10:32.240
+now in the simulator it was almost deceptively um
+
+0:10:29.519,0:10:35.360
+simple right it's not always easy to combine two different people's changes
+
+0:10:34.079,0:10:41.279
+into the same thing right i mean maybe um
+
+0:10:38.560,0:10:47.120
+maybe somebody on one branch was adding additional calls to a function
+
+0:10:43.920,0:10:50.320
+and maybe somebody else's changes were renaming that function right so more
+
+0:10:48.959,0:10:52.720
+calls to a function than renaming the function
+
+0:10:51.200,0:10:55.760
+so the person making additional calls is probably using the old name
+
+0:10:54.240,0:10:59.279
+and it kind of takes some cleverness to realize well how can we uh
+
+0:10:57.600,0:11:02.640
+kind of incorporate all of these changes in a reasonable
+
+0:11:01.040,0:11:05.360
+way and if we're talking about python code well any tool that kind of
+
+0:11:04.079,0:11:09.360
+automatically merges these needs understand python code
+
+0:11:06.959,0:11:12.000
+um if we're writing a paper um heaven forbid
+
+0:11:10.160,0:11:15.040
+then this merge tool needs to understand the english language and how it can to
+
+0:11:13.440,0:11:19.279
+kind of do grammatically correct things and merge in multiple authors works
+
+0:11:17.519,0:11:21.920
+so it looks really simple here and sometimes it is sometimes you get to do
+
+0:11:20.880,0:11:25.040
+it automatically but oftentimes there's going to be these
+
+0:11:23.360,0:11:28.959
+merge conflicts and android will say i don't know how to combine that
+
+0:11:27.120,0:11:32.399
+and then you as the this kind of the user has to do a lot of work to say well
+
+0:11:31.120,0:11:35.200
+here's what it looks like to combine these two different things
+
+0:11:33.760,0:11:37.200
+and that can actually be quite a lot of work that's like the worst thing that
+
+0:11:36.320,0:11:41.200
+happens um happens when you're using when you're
+
+0:11:39.360,0:11:44.399
+using get okay so in the next video i'm going to
+
+0:11:43.200,0:11:48.640
+be um demonstrating that i'm going to create
+
+0:11:46.240,0:11:55.920
+an actual merge conflict in a in a real get repository and then
+
+0:11:50.480,0:11:55.920
+demonstrate this problem
+

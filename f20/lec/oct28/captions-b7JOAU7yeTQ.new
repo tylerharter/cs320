@@ -1,0 +1,1044 @@
+0:00:01.199,0:00:05.200
+one of the things that makes plots really good
+
+0:00:03.280,0:00:08.320
+is when we can see some context for information can we see annotations that
+
+0:00:07.200,0:00:12.719
+explain uh why something happened or let us know
+
+0:00:10.480,0:00:16.640
+what was going on at the time and and so i actually have up here an
+
+0:00:14.480,0:00:20.240
+example um from one of my students who made this plot and what it's looking
+
+0:00:19.359,0:00:25.039
+at is how many people are walking um on
+
+0:00:22.640,0:00:28.480
+state street over the course of a year and what i think that makes this plot so
+
+0:00:26.880,0:00:31.840
+engaging and kind of worth spending a lot of time on
+
+0:00:29.760,0:00:34.559
+is all of these rich annotations that are on it
+
+0:00:33.040,0:00:40.160
+so for example we can see over the course of the data on
+
+0:00:37.640,0:00:43.840
+a variety of things like we can see for example this
+
+0:00:41.120,0:00:46.079
+arctic wind that we had for a while not surprisingly
+
+0:00:44.640,0:00:50.320
+many not many people wanted to walk on state street then um
+
+0:00:48.000,0:00:54.879
+we can see all this fine detail really every week shows up here we can see that
+
+0:00:51.920,0:00:59.199
+there's more people walking each weekend we have all of these little annotations
+
+0:00:57.360,0:01:03.840
+at the end to tell why people were out and about for
+
+0:01:01.199,0:01:07.680
+example we have a study day apparently people actually don't like studying on
+
+0:01:05.280,0:01:11.280
+study dating like going to state street taste of madison the most popular day of
+
+0:01:10.320,0:01:14.799
+the year over here this orange one we have
+
+0:01:12.960,0:01:18.000
+halloween and so you can really look at it and see
+
+0:01:15.920,0:01:20.320
+um make interesting comparisons right we can see like well halloween and the game
+
+0:01:19.680,0:01:24.720
+day are roughly equivalent in madison in terms
+
+0:01:22.720,0:01:28.320
+of what really pulls people out so to do annotations like this we need
+
+0:01:26.560,0:01:32.720
+to be able to draw different points or lines or highlight
+
+0:01:29.439,0:01:36.000
+various regions and that's what i want to show today how can we add all of
+
+0:01:34.479,0:01:40.240
+these extra features um to our plots let me give you one more
+
+0:01:38.079,0:01:47.840
+example so this is kind of a good plot for a presentation it's very colorful
+
+0:01:44.479,0:01:50.079
+and vibrant oftentimes you might want to be
+
+0:01:48.240,0:01:55.040
+writing some sort of paper maybe needs to print well in grey scale
+
+0:01:52.159,0:01:58.000
+and so this is another great example uh but
+
+0:01:55.600,0:02:01.600
+for a very different medium so what we have here
+
+0:01:58.799,0:02:07.360
+is on the x-axis what year we're in and on the y-axis we have how many
+
+0:02:04.000,0:02:11.680
+um uh car crashes there are in madison related to
+
+0:02:08.640,0:02:14.959
+drunk driving and uh there's two lines to show whether the accidents were
+
+0:02:12.879,0:02:20.160
+happening during night or day and what's cool is that we have these
+
+0:02:17.599,0:02:24.720
+two little annotations here which are showing um this time interval
+
+0:02:22.959,0:02:29.280
+during which there was this special aldo policy uh meant to reduce drunk
+
+0:02:27.840,0:02:33.760
+driving and so you can kind of see that drop
+
+0:02:30.400,0:02:38.000
+uh at night time uh of nighttime drunk driving during that time interval
+
+0:02:36.000,0:02:42.560
+and so this is a great annotation i think that the plot isn't as exciting
+
+0:02:40.720,0:02:45.920
+if you can't see when that policy started and ended kind of surprisingly
+
+0:02:44.400,0:02:50.080
+though drunk driving didn't uh shoot back up
+
+0:02:48.000,0:02:53.360
+after the policy and then at least not much
+
+0:02:51.519,0:02:57.360
+so what am i going to do for today i'm not going to use real data
+
+0:02:55.040,0:03:01.120
+i'm going to just make up some fake data and then draw some things on it to
+
+0:02:59.200,0:03:05.120
+demonstrate and so we're ultimately going to work towards
+
+0:03:02.560,0:03:08.720
+is a plot that looks like this where i have a couple lines
+
+0:03:06.800,0:03:13.440
+and instead of having a normal legend we're going to have
+
+0:03:09.840,0:03:18.640
+um have these text labels on the right uh often if you have room and by room i
+
+0:03:16.560,0:03:20.800
+mean well how at the far right of the plot how close are the lines to each
+
+0:03:20.080,0:03:24.560
+other well if you have room it's better to
+
+0:03:22.640,0:03:28.159
+have text right on the lines instead of having it in some sort of legend it's uh
+
+0:03:26.959,0:03:30.720
+you don't have to like look back and forth and do this pattern matching it's
+
+0:03:29.519,0:03:34.319
+very intuitive and so we're going to learn how to do
+
+0:03:31.760,0:03:36.879
+that um we're going to imagine that we have some sort of
+
+0:03:35.120,0:03:39.840
+a line marking a particular point in time maybe that's some sort of event
+
+0:03:38.239,0:03:44.000
+that happened then and then where i have uh show how we can
+
+0:03:42.080,0:03:47.519
+shade a region of the plot to indicate i don't know some sort of
+
+0:03:46.080,0:03:51.040
+time interval okay so i'm gonna head over here and uh
+
+0:03:49.440,0:03:56.159
+the first thing i want to do is i want to create some random
+
+0:03:52.879,0:04:03.280
+data and so i'm going to say import numpy as np
+
+0:03:59.360,0:04:10.400
+and uh with numpy i can say uh dot random and then
+
+0:04:06.959,0:04:13.599
+there's a bunch of functions in here um that i can sample from distribution so i
+
+0:04:12.400,0:04:16.880
+think what i'll do is i'll sample from the normal
+
+0:04:14.000,0:04:20.560
+distribution uh you can see i get these uh
+
+0:04:17.600,0:04:24.080
+numbers centered at zero um if i wanted to i could say well what is the average
+
+0:04:22.479,0:04:27.120
+number and what is the standard deviation
+
+0:04:25.360,0:04:30.080
+say how many numbers i want but by the way i'm typing shift
+
+0:04:28.479,0:04:34.400
+tab in here when i want to pop up that little menu and so
+
+0:04:33.040,0:04:38.720
+let's imagine i want to have some numbers centered at 10
+
+0:04:36.400,0:04:44.960
+and i don't know a standard deviation of 20 and let's get 100 of those numbers
+
+0:04:41.759,0:04:49.520
+i i can do that let's try to get a bunch of data in a data frame
+
+0:04:46.320,0:04:54.560
+i'm going to say um i'll import pandas as pd
+
+0:04:51.600,0:05:00.160
+and when i want to create a data frame i can say pd dot data frame
+
+0:04:58.000,0:05:03.520
+and um and remember the way i can do this i can create a dictionary right
+
+0:05:01.520,0:05:07.199
+where i can have um the keys or columns and then i have a
+
+0:05:05.440,0:05:13.199
+bunch of data right so maybe i'll have an x column
+
+0:05:09.039,0:05:17.520
+and a y column and i'm imagining that maybe i have a hundred
+
+0:05:15.600,0:05:24.000
+values for each of these i'm going to say i have 100 values there
+
+0:05:19.600,0:05:28.960
+100 values there and let's run that and i see cool i get my two columns and
+
+0:05:26.479,0:05:32.800
+100 random values in them and let's just mix it up a little bit
+
+0:05:30.400,0:05:37.759
+let's say that the y's are a bit bigger or maybe like that um
+
+0:05:36.240,0:05:41.039
+and and then the other thing i want to do is
+
+0:05:40.000,0:05:44.960
+instead of just having all these independent values i want to imagine
+
+0:05:42.560,0:05:48.720
+that maybe these things are accumulating um over time so i want to apply a
+
+0:05:47.039,0:05:54.639
+transformation on here um in the first column i want to well in
+
+0:05:52.720,0:06:00.479
+the first cell of this column i want the first value to be this 26 and
+
+0:05:58.319,0:06:03.680
+the second one i want it to be 26 plus 43
+
+0:06:01.919,0:06:07.120
+and the third one i want to be 26 plus 43 minus 20
+
+0:06:05.440,0:06:11.840
+and so on and so forth and the way i can do that is i can say cumulative
+
+0:06:08.800,0:06:14.880
+sum and that's trying to go from top to bottom in each column so i'm going to do
+
+0:06:13.280,0:06:18.400
+that i'm going to get some data and maybe i'll put this all in a data
+
+0:06:16.560,0:06:22.400
+frame here like so and uh that's the data i'm
+
+0:06:21.280,0:06:29.560
+working with so let's just um plot what we have and
+
+0:06:25.440,0:06:34.080
+and see how far we are so i'm gonna say dataframe.plot.line
+
+0:06:31.440,0:06:38.639
+and uh there we go i have some sort of um
+
+0:06:34.560,0:06:41.360
+plot and uh and i was kind of expecting that second
+
+0:06:39.600,0:06:45.919
+that y value to be bigger and maybe let me make the average there
+
+0:06:43.120,0:06:48.080
+20 um so it more clearly diverges maybe also increase this a bit so it's a more
+
+0:06:47.520,0:06:54.720
+interesting looking plot okay there we go
+
+0:06:52.080,0:06:58.319
+if i want to go back and look at where i'm aiming towards here
+
+0:06:56.479,0:07:04.000
+i see that i have these three things that i want to do
+
+0:07:00.319,0:07:08.720
+one is to have um text directly on lines or maybe directly
+
+0:07:06.960,0:07:14.720
+labeling lines the second thing i want to do is
+
+0:07:11.759,0:07:20.960
+to have vertical a vertical line indicating some event
+
+0:07:19.360,0:07:24.960
+and this first one right this is instead of a legend
+
+0:07:23.280,0:07:28.479
+all right so i'm going to do that and then the third thing i want to do
+
+0:07:28.880,0:07:38.319
+is i want to have um some uh highlighted region you know
+
+0:07:34.880,0:07:42.319
+indicating some sort of time interval so that's what i'm working towards um
+
+0:07:40.639,0:07:45.919
+other things i want to clean up before i go too far
+
+0:07:43.280,0:07:49.199
+is i want to make this font a little bit bigger
+
+0:07:47.120,0:07:53.520
+and also in order to have room on the right hand side i want to
+
+0:07:51.120,0:07:57.759
+erase those spines so before i dive into these three
+
+0:07:54.479,0:08:03.479
+things i'm going to do that the way i make the font bigger
+
+0:07:59.039,0:08:10.479
+is i say um import matplotlib.pi plot as plt
+
+0:08:06.319,0:08:18.319
+and i can say plt.rc params font size equals 16.
+
+0:08:15.280,0:08:20.400
+that's good and then for the spines the the spines are
+
+0:08:19.199,0:08:24.879
+actually part of this first step so maybe i'll just make that here
+
+0:08:23.039,0:08:29.919
+i need to erase these spines so i can have the text
+
+0:08:26.560,0:08:34.080
+so i'm going to say um i'm going to say well i'm doing my
+
+0:08:32.640,0:08:40.640
+plotting here right so i have a x and if i look at ax dot spines
+
+0:08:38.560,0:08:46.399
+you see it's this big dictionary i have my left right top bottom
+
+0:08:42.880,0:08:49.200
+and so i could say write dot set visible
+
+0:08:50.399,0:08:55.839
+false and i'm gonna do the same thing on the top
+
+0:08:57.360,0:09:05.440
+okay so that's all fine and well um what i will like to do now is
+
+0:09:02.880,0:09:09.120
+actually draw some text on top of here and the way you draw text is actually
+
+0:09:07.200,0:09:15.120
+pretty simple if i have this ax i can just say ax dot text
+
+0:09:11.920,0:09:18.080
+if i hit shift tab i can see that three things are required i need to know the x
+
+0:09:16.720,0:09:22.640
+position of it uh the y position and then what the font
+
+0:09:20.240,0:09:27.360
+actually says and so um the way it works is that these
+
+0:09:26.560,0:09:33.519
+coordinates are in terms of all the data and so
+
+0:09:32.000,0:09:38.000
+if i wanted to have it roughly in the center here maybe i'll try to have the
+
+0:09:35.680,0:09:41.920
+text showing up like right about here um i could say x is 50 y is a thousand
+
+0:09:41.120,0:09:45.839
+so i'm going to say 50 and a thousand and maybe i'll just
+
+0:09:44.959,0:09:50.480
+say hi for starters and uh and there we go let
+
+0:09:48.880,0:09:53.760
+me just kind of um bump this down so it doesn't keep
+
+0:09:51.760,0:10:00.480
+jumping every time i uh run it yeah it's a little better okay
+
+0:09:57.200,0:10:08.560
+um where should that text go the the text should draw over here
+
+0:10:04.959,0:10:12.720
+right and uh so let me think a little bit about this i i
+
+0:10:11.040,0:10:16.399
+guess you know this x-axis is the index of my
+
+0:10:15.120,0:10:19.760
+data frame and so really i want to get like the
+
+0:10:17.760,0:10:22.800
+biggest value from my data frame so if i say something like this
+
+0:10:21.360,0:10:28.079
+what is the biggest value in my data frame it's
+
+0:10:24.480,0:10:32.320
+99 so i'm going to put that here and and the text jumps right over here
+
+0:10:30.079,0:10:38.880
+to the right hand side and now i have to get this y value
+
+0:10:35.600,0:10:41.680
+right and uh i guess i should name my line something
+
+0:10:40.320,0:10:46.000
+other than x or y because this might be confusing as i'm talking about it
+
+0:10:43.680,0:10:48.800
+but what i could do is look at this data frame
+
+0:10:46.720,0:10:51.839
+i really want that position to be either like this 30
+
+0:10:50.399,0:10:57.360
+or this one so i'm going to say something like this i'm going to say
+
+0:10:54.079,0:11:06.320
+uh data frame dot i location and i want to have the last row
+
+0:11:03.200,0:11:08.800
+and you know what let's grab this one first right so that's the zeroth
+
+0:11:08.079,0:11:15.360
+position so last row
+
+0:11:12.160,0:11:20.480
+zero column so i'm going to do that and that should line up perfectly with the
+
+0:11:16.959,0:11:24.240
+blue line now which it does and uh well what text do i want to have
+
+0:11:23.200,0:11:28.720
+here um well whatever that zero column is
+
+0:11:26.640,0:11:32.959
+right i'm grabbing the zeroth value so i should grab the zeroth column so
+
+0:11:31.040,0:11:40.160
+i'm gonna say columns zero and i have x there
+
+0:11:36.800,0:11:44.240
+um now you can see that x does not line up quite perfectly with that line
+
+0:11:42.959,0:11:48.240
+and that's because of the alignment there's um there's
+
+0:11:46.399,0:11:53.279
+something called vertical alignment which is actually just
+
+0:11:51.040,0:11:56.560
+abbreviated va and i could say bottom which is what it
+
+0:11:55.200,0:12:00.720
+is now i could say top even now you can see
+
+0:11:59.360,0:12:04.639
+like the uh you see that like the top left of
+
+0:12:02.639,0:12:07.760
+that is aligned with the line or what i really want is center right
+
+0:12:06.880,0:12:11.120
+and so it's just nicely leaned off there's also a
+
+0:12:09.360,0:12:14.959
+horizontal alignment which i could say uh you know something
+
+0:12:12.800,0:12:18.800
+like right and then the right of the text would line up with the line
+
+0:12:17.200,0:12:22.560
+i think left alignment is what we want and that's actually the default so that
+
+0:12:20.480,0:12:27.279
+looks great when i do this i also want to
+
+0:12:25.760,0:12:32.720
+draw the other one on the other line so i can just say here
+
+0:12:29.040,0:12:39.120
+um instead of column zero uh i can grab from column one both the
+
+0:12:35.839,0:12:43.279
+both the name of column one and the last entry of column one all right
+
+0:12:42.240,0:12:50.079
+so i can do that and now i've labeled both of my lines
+
+0:12:46.959,0:12:54.480
+um this does mean now that i can get rid of my legend right it's not necessary
+
+0:12:52.079,0:12:57.920
+anymore so i can say down here legend equals false
+
+0:12:56.160,0:13:01.839
+that looks good let me actually just throw you know i like to have a nice
+
+0:12:59.839,0:13:06.959
+polished example then so let me let me throw some um
+
+0:13:03.839,0:13:10.639
+some more uh some labels on here i'm just gonna make something up i'm gonna
+
+0:13:08.079,0:13:17.040
+say set x label uh i'll say that's time somehow
+
+0:13:14.240,0:13:24.000
+and we set the y label and that's i don't know let's say quantity
+
+0:13:20.560,0:13:31.440
+okay so let me say fig size here i'll say four and then two
+
+0:13:27.920,0:13:36.959
+yeah just a tiny bit bigger maybe like 2.5 and
+
+0:13:34.720,0:13:42.000
+i definitely have space to go wide right there we go
+
+0:13:39.199,0:13:44.399
+just so we can see more right so that's great so we were able to get the text on
+
+0:13:43.600,0:13:47.600
+the ends and uh and that let us get rid of the
+
+0:13:46.160,0:13:51.839
+legend right because we can see what's happening now
+
+0:13:49.600,0:13:54.880
+um the next thing that we wanted to do was to draw a vertical line indicating
+
+0:13:53.920,0:13:59.839
+some sort of event so let's think about how we can
+
+0:13:58.720,0:14:03.279
+draw some lines um we saw before that we would add these
+
+0:14:02.959,0:14:06.639
+um patches if we wanted to draw a circle
+
+0:14:04.880,0:14:10.959
+we'd say something like you know patch equals
+
+0:14:07.600,0:14:16.240
+plt dot circle whatever and then we would say um we would say
+
+0:14:13.680,0:14:21.040
+something like ax dot add well add artist and then we would pass
+
+0:14:18.959,0:14:24.639
+in the patch object that's what we were doing a lot last
+
+0:14:22.240,0:14:28.399
+time instead of circle i want to draw an extra line i can say
+
+0:14:26.399,0:14:34.000
+something like line 2 d and if i look in here
+
+0:14:32.079,0:14:39.839
+i see that i have to pass in two things i have to pass an x data
+
+0:14:36.480,0:14:43.199
+and y data and so the way it's trying to work is i may
+
+0:14:41.199,0:14:47.120
+have a bunch of x coordinates and a bunch of y coordinates and they're
+
+0:14:46.160,0:14:51.680
+going to pair up so so maybe what i'll do um
+
+0:14:50.160,0:14:54.000
+let's say that on both of them will start at zero right so i'm going to
+
+0:14:53.279,0:15:00.079
+start down here in this corner right here
+
+0:14:57.040,0:15:06.800
+and then let's imagine that my next x value goes to
+
+0:15:03.120,0:15:11.279
+20 and i'll say my y value jumps up to a thousand
+
+0:15:08.160,0:15:15.760
+so that would take me from here all the way up to here
+
+0:15:13.839,0:15:20.639
+and then i don't know let's just say from uh
+
+0:15:17.600,0:15:24.800
+we'll go to 40 and 1000 so i'll go to 40 on the x and we'll stay at a thousand
+
+0:15:24.079,0:15:28.320
+here and i get out of the line i can draw off
+
+0:15:26.639,0:15:31.519
+and you can imagine drawing a longer line
+
+0:15:29.600,0:15:35.920
+that way what i want to do is i just want to draw
+
+0:15:32.720,0:15:40.000
+a vertical line at x equals 20 so that i could see you know some
+
+0:15:38.399,0:15:47.360
+specific point in time and so if i want to draw a vertical line
+
+0:15:43.440,0:15:51.759
+that means i just have two end points and they're both the same right uh if i
+
+0:15:50.000,0:15:56.800
+have a vertical line both the endpoints are at the same
+
+0:15:53.040,0:16:00.880
+x position and i want to go from well something like this i want to go to
+
+0:15:58.160,0:16:05.199
+like this from the smallest y to the biggest y is what i'm i'm hoping
+
+0:16:03.680,0:16:09.360
+for and uh let me actually think about how i
+
+0:16:08.000,0:16:12.560
+can do that uh if i actually say something like this
+
+0:16:11.920,0:16:20.160
+uh ax dot get y limit
+
+0:16:16.880,0:16:24.079
+uh is it get oh get y limit get y limb something like that there we
+
+0:16:23.440,0:16:28.240
+go oh that's giving me a tuple that's the
+
+0:16:26.160,0:16:32.079
+range of values that are along the x-axis or i'm sorry along the
+
+0:16:30.800,0:16:35.199
+y-axis and so that's kind of great right i mean
+
+0:16:33.440,0:16:38.399
+that's the smallest y value the biggest y value and look what i was
+
+0:16:37.440,0:16:43.440
+looking for up here smallest and largest right so rather
+
+0:16:40.800,0:16:46.560
+than passing in this tuple here well i'm just going to build it
+
+0:16:44.959,0:16:50.240
+automatically like that so i do that and i get this nice
+
+0:16:48.560,0:16:54.639
+vertical line right at x equals 20. um let me try to
+
+0:16:53.360,0:16:59.120
+make the line a little bit nicer i'm going to say let's make it a
+
+0:16:57.120,0:17:03.440
+red line and uh and i can decide what line style
+
+0:17:02.560,0:17:06.959
+i want let me maybe i'll just pop this down to
+
+0:17:05.199,0:17:12.640
+the next line i'm going to say line style and there's a bunch of
+
+0:17:10.559,0:17:16.079
+options that i can put here and i forget what they are and rather
+
+0:17:14.720,0:17:21.360
+look at the documentation i usually just put in some garbage
+
+0:17:18.160,0:17:24.880
+because the error message is very nice it's like well that's not
+
+0:17:22.720,0:17:29.200
+valid surprise surprise these are the supported values so i
+
+0:17:26.640,0:17:33.520
+could say something like a dash or a dash dash or maybe a colon all these
+
+0:17:32.240,0:17:36.480
+different things let me just play with some of these right i could say
+
+0:17:34.640,0:17:41.200
+something like um colon and uh and then i would get one
+
+0:17:39.120,0:17:44.640
+style of line there if i say something like um
+
+0:17:44.840,0:17:53.039
+uh dot dash oh i was it dash dot maybe uh i get another
+
+0:17:51.840,0:17:55.840
+style you can kind of see it's alternating dash and dot
+
+0:17:54.480,0:17:59.679
+maybe what i'll just do here is i'll have the dash dash style
+
+0:17:57.919,0:18:05.039
+and i'll have some sort of annotation and then i might talk about that
+
+0:18:01.120,0:18:07.520
+annotation um uh in some accompanying text right generally like if you're
+
+0:18:06.559,0:18:11.039
+creating a plot you probably have to do some writing too for
+
+0:18:08.880,0:18:16.640
+people to get much value out of it so i could do that i could also um
+
+0:18:14.240,0:18:18.400
+have some text like this up on top of here that's probably the best thing to
+
+0:18:17.840,0:18:22.960
+do i'm not trying to do it now since it's a
+
+0:18:20.080,0:18:25.760
+little bit of a redundant example so that's great
+
+0:18:26.000,0:18:32.960
+let's do this highlighted uh region let's uh let's draw a region from
+
+0:18:31.780,0:18:37.840
+[Music] say 60 to 80 okay
+
+0:18:36.559,0:18:40.960
+so what i'm going to do is i'm going to grab this down here because it's very
+
+0:18:39.679,0:18:46.240
+similar and it's going to be very similar to
+
+0:18:44.160,0:18:49.760
+before i'm going to create a patch a different style of patch now i'm going
+
+0:18:47.919,0:18:52.400
+to create a patch and then i'm going to do an add artist you see it's the same
+
+0:18:51.120,0:18:56.080
+in each case right my patch could be a 2d line it could be
+
+0:18:55.200,0:19:01.039
+a rectangle before i saw a circle um this one since
+
+0:18:59.440,0:19:05.280
+i want to highlight a region is going to be a rectangle
+
+0:19:02.640,0:19:07.280
+and if i look here i'm specifying the coordinates a little bit different now i
+
+0:19:06.559,0:19:14.000
+have on x y and what is that that
+
+0:19:10.640,0:19:17.679
+has the lower left at x y great so this is an x y coordinate
+
+0:19:16.000,0:19:20.960
+where the bottom left of the rectangle is and then i'm saying well how high is
+
+0:19:19.120,0:19:27.600
+the rectangle and then or how wide is it and how high is it so
+
+0:19:25.280,0:19:32.720
+i guess i could do this i might have my x and my y
+
+0:19:29.039,0:19:35.919
+and then i have my width and my height and i what i think i want to do is i
+
+0:19:34.320,0:19:43.360
+want to start at let's say um
+
+0:19:39.360,0:19:49.039
+let's say like 60 and zero and uh what width and height do
+
+0:19:47.520,0:19:54.240
+i want i think i said that i want the width to be
+
+0:19:51.120,0:19:59.360
+20 and what should the height be well i guess whatever my biggest um
+
+0:19:57.280,0:20:04.799
+y value is so this was giving me the range of y values
+
+0:20:01.280,0:20:08.559
+so i could just grab that last one and you can see i have this little rectangle
+
+0:20:06.320,0:20:11.440
+here and that's fine you know if i really want to do it properly
+
+0:20:09.919,0:20:16.240
+what i would actually do is i'd say something like this i'd say
+
+0:20:13.520,0:20:20.240
+you know let's start wherever that's at the bottom if i want it to run right
+
+0:20:17.440,0:20:24.320
+down to the bottom okay so there's lots of things i could
+
+0:20:22.480,0:20:29.679
+change about the style here um i could say the style is um you know
+
+0:20:27.600,0:20:33.600
+or not not the style the color right let me say the color
+
+0:20:31.280,0:20:39.440
+is gray i could do something like that and there's different ways
+
+0:20:35.440,0:20:42.159
+that we can highlight this um one way is that i could have some sort
+
+0:20:40.799,0:20:45.200
+of light gray and instead of just saying gray there i could say something like
+
+0:20:43.400,0:20:50.400
+0.5 or the bigger oh the bigger the number
+
+0:20:48.799,0:20:55.440
+the closer it gets to one the lighter the color gets i could do that
+
+0:20:52.799,0:21:01.120
+and um it turns out that whenever we're drawing something like this
+
+0:20:58.400,0:21:04.960
+well back off so i'm drawing a bunch of things on this
+
+0:21:02.400,0:21:09.120
+plot right and everything has some coordinates some x and some y
+
+0:21:07.520,0:21:12.080
+there's also another coordinate called the z coordinate that all of these
+
+0:21:10.720,0:21:16.400
+things have and z has to do with well what's on top
+
+0:21:15.440,0:21:20.159
+of other things and so let me just show you
+
+0:21:18.960,0:21:25.520
+this so z order um a very small number let's say
+
+0:21:23.600,0:21:28.799
+i say like negative three is on the bottom right so when i say
+
+0:21:27.440,0:21:32.720
+something like this which was already defaulting to a small
+
+0:21:30.480,0:21:37.360
+number i can see that these orange and blue lines are on top of my box
+
+0:21:35.600,0:21:42.559
+let's say i say like a big number like i don't know 30
+
+0:21:38.640,0:21:45.039
+now i can see that my gray is on on top of the box
+
+0:21:43.600,0:21:50.159
+and so here are the two options that we can do we can have a light color
+
+0:21:47.520,0:21:55.200
+that is behind the lines what i think often looks better
+
+0:21:51.520,0:21:59.039
+is to have a semi-transparent black that is on top of the lines because
+
+0:21:57.600,0:22:01.440
+it'll actually change the color of the lines a little bit
+
+0:22:00.159,0:22:06.720
+so let me do that i'm going to change this back to like 30
+
+0:22:03.440,0:22:10.240
+and make this black so really big z order so it's covering everything else
+
+0:22:08.640,0:22:16.559
+up right now and then i can say um transparency
+
+0:22:13.280,0:22:21.919
+equals um something actually as if transparency the name for this one is uh
+
+0:22:18.799,0:22:28.320
+alpha that means transparency and one means i see it all
+
+0:22:25.520,0:22:32.480
+zero means it's invisible and something like 0.2
+
+0:22:30.080,0:22:36.080
+well it's a semi-transparent right so i can see
+
+0:22:33.760,0:22:39.200
+uh i i can see it's showing up here right it's it's kind of
+
+0:22:37.679,0:22:44.880
+not only do i see the highlighted region but i can see how it makes those
+
+0:22:41.520,0:22:49.840
+lines a little bit darker um and so that's good um
+
+0:22:48.400,0:22:54.799
+another thing i want to talk about here so that was an example right
+
+0:22:51.440,0:22:59.039
+and so end to end i made all these annotations that i wanted to make
+
+0:22:57.760,0:23:04.880
+something i want to talk about to review a little bit from the last video
+
+0:23:01.280,0:23:09.280
+is coordinate systems right when i'm saying
+
+0:23:05.280,0:23:16.240
+60 or 20 that's in terms of my data right that's my coordinate system
+
+0:23:13.360,0:23:20.880
+and the way that works right is there's a default here
+
+0:23:17.440,0:23:27.840
+and the default was transform equals ax dot transform data
+
+0:23:24.400,0:23:30.240
+run that and uh and it makes no difference right because that was my
+
+0:23:29.120,0:23:33.919
+default um if i wanted to just for the sake of
+
+0:23:33.200,0:23:37.679
+example right i mean this was kind of a complete
+
+0:23:36.400,0:23:40.640
+thing that looked nice but let me let me just
+
+0:23:38.240,0:23:43.120
+review a little bit about these on uh transformers that let me deal with
+
+0:23:42.480,0:23:48.720
+different uh axes um let me let me actually make
+
+0:23:46.240,0:23:53.760
+like a red thing now um if i want to do this not in terms of
+
+0:23:52.000,0:23:57.360
+the data um coordinates but if i want to do it in
+
+0:23:56.000,0:23:59.679
+terms of well what area am i dealing with i could say
+
+0:23:58.799,0:24:04.240
+something like this i could say something like
+
+0:24:00.880,0:24:10.159
+uh trans axes and in that case instead of going from
+
+0:24:07.440,0:24:14.240
+uh instead of going from zero to 100 i'd be going from
+
+0:24:11.360,0:24:17.200
+zero to one and instead of going from zero to
+
+0:24:15.600,0:24:21.360
+fifteen hundred i'd be going from zero to one in that direction too
+
+0:24:19.279,0:24:26.159
+and so if i run this right now i mean it doesn't show anything because 60 is
+
+0:24:24.000,0:24:30.080
+you know way off here to the right hand side so that doesn't do anything
+
+0:24:28.559,0:24:36.720
+um but i could do something like this i could say i want to go from zero
+
+0:24:33.520,0:24:42.080
+to i don't know 0.5 oh no okay wait sorry let me
+
+0:24:40.000,0:24:45.919
+remind myself what this is right i have the x and y
+
+0:24:43.520,0:24:50.640
+and then i have a width and i have a height
+
+0:24:48.000,0:24:54.720
+okay so i could start at the bottom left corner
+
+0:24:52.159,0:24:59.120
+and i could say i want it to fill up half
+
+0:24:55.840,0:25:02.080
+of the axis region and i can say well i want the height to be the whole thing
+
+0:25:00.320,0:25:05.679
+and i could do that and now i'm covering all of this stuff um as well i
+
+0:25:05.120,0:25:11.200
+guess like a an alpha with a red is kind of a pinkish
+
+0:25:08.640,0:25:15.360
+color right so i can get this pinkish um highlight that goes to half of the axes
+
+0:25:14.400,0:25:18.240
+area right so different coordinate systems
+
+0:25:16.960,0:25:20.880
+right this is going to be the default in most cases
+
+0:25:19.279,0:25:25.520
+based on the data but if i want to do another coordinate system i'm certainly
+
+0:25:22.559,0:25:29.840
+able to by passing in this transform okay so i'll leave there looking at the
+
+0:25:27.360,0:25:29.840
+code
+

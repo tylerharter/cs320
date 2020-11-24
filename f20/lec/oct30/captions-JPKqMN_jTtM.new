@@ -1,0 +1,816 @@
+0:00:01.199,0:00:07.120
+hello in this video i'm going to introduce shape files
+
+0:00:04.799,0:00:10.880
+um previously when we wanted to create a map of the earth
+
+0:00:08.720,0:00:14.639
+um what we did is we used geopandas datasets and geopandas datasets actually
+
+0:00:13.280,0:00:18.800
+comes with sub um files for example there's one for
+
+0:00:16.400,0:00:22.160
+earth and um and we could look at the paths for that
+
+0:00:20.240,0:00:26.240
+and uh the path might be something like this would be
+
+0:00:23.840,0:00:28.480
+if i took a look at it um it would be this shape file here
+
+0:00:27.439,0:00:34.320
+and there were a bunch of files accompanying that and i could read it in
+
+0:00:31.279,0:00:36.640
+and so what i want to do today is find some
+
+0:00:34.719,0:00:40.079
+our own shape files online so i'm not going to have this piece
+
+0:00:38.480,0:00:43.920
+um maybe i'm going to get rid of this here
+
+0:00:41.920,0:00:48.320
+and then i'm going to try to download my own shape file
+
+0:00:46.239,0:00:51.840
+so um there's various places you could get them um
+
+0:00:50.079,0:00:56.000
+on the city of madison website for example they have this data portal up
+
+0:00:54.239,0:01:00.239
+here in the top right and they have all kinds of shape files
+
+0:00:58.000,0:01:04.159
+here um a lot of these are under um geographic boundaries so if i go to
+
+0:01:02.640,0:01:07.280
+boundaries you can imagine browsing through here
+
+0:01:05.600,0:01:11.280
+and uh finding all kinds of different shape files maybe um
+
+0:01:09.600,0:01:15.200
+i don't know what are the street center lines for example
+
+0:01:13.840,0:01:20.400
+um i i know i actually know what i'm looking for for the example today
+
+0:01:17.119,0:01:23.600
+um i want to create a map of madison and on the map i want to show both the
+
+0:01:22.479,0:01:28.240
+city and the lakes around the city and then
+
+0:01:26.080,0:01:31.040
+on top of that i want to show both uh fire departments and and police
+
+0:01:29.759,0:01:35.920
+departments so we're gonna try to get this view of um
+
+0:01:32.799,0:01:39.040
+these city uh agencies and locations and um and so i know some of these that
+
+0:01:37.520,0:01:44.880
+i'm looking for i've looked them up before one of them is the city limit
+
+0:01:41.759,0:01:48.560
+uh data and um and so i wanna you can already see a preview of it here
+
+0:01:46.799,0:01:52.960
+um but i'm gonna want to download this and if i go to download
+
+0:01:50.640,0:01:56.880
+um the one i'm gonna want is to get a shape file
+
+0:01:54.720,0:02:00.880
+and you can totally imagine i could just click that
+
+0:01:58.159,0:02:03.680
+and download it to my computer somewhere and
+
+0:02:01.439,0:02:06.560
+uh i'm not going to do that because i want to work on my virtual machine not
+
+0:02:05.439,0:02:10.000
+on my computer so i'm going to do instead is i'm going
+
+0:02:07.680,0:02:15.200
+to right click and then click here and say copy link address
+
+0:02:12.239,0:02:20.160
+and then what i want to do down here is get my um
+
+0:02:16.879,0:02:24.480
+uh oh sorry i want to get my in my terminal and i want to ssh
+
+0:02:26.000,0:02:34.879
+and that will take just a moment and i want to go to october 30.
+
+0:02:32.239,0:02:39.440
+and uh and you can see that here i have my two notebook files
+
+0:02:37.200,0:02:45.040
+um and i want to download that shape file so i'm going to say wget
+
+0:02:41.760,0:02:48.480
+and i'm going to paste that and that will download
+
+0:02:46.080,0:02:52.640
+and they say ls and there it is and you see it has this strange
+
+0:02:50.080,0:02:57.519
+name and i'm going to call it something else this is up i'm going to say
+
+0:02:54.480,0:03:00.560
+move db and i'm going to hit the tab key on my keyboard to complete that i
+
+0:02:59.200,0:03:04.239
+don't want to type that whole awful thing
+
+0:03:02.480,0:03:07.920
+and i'm going to rename that to zip city.zapp
+
+0:03:05.680,0:03:12.959
+let me do that if i want to look inside of it
+
+0:03:08.879,0:03:17.680
+i can say unzip um i could say city.zip and honestly i
+
+0:03:16.319,0:03:20.560
+could just run that and that would pull out everything inside of there to this
+
+0:03:19.440,0:03:24.879
+directory instead i'm going to say dash l because
+
+0:03:22.640,0:03:28.959
+i just want to see what's inside and what i see is that it contains a
+
+0:03:27.440,0:03:32.400
+shape file here and really that's most of the content
+
+0:03:30.799,0:03:35.760
+that's the big part and then i have these other accompanying
+
+0:03:34.560,0:03:39.120
+pieces that are also describing these
+
+0:03:37.120,0:03:46.080
+geographic boundaries let me come back here to my notebook
+
+0:03:42.640,0:03:50.560
+and like i was saying i need to figure out what i want to put here and
+
+0:03:48.879,0:03:54.640
+so maybe what i'll try doing first is i'm just going to put the name of
+
+0:03:53.519,0:03:59.120
+that zip file which was after i renamed it with
+
+0:03:57.439,0:04:03.120
+city.zap let me run that and uh it's trying to
+
+0:04:01.680,0:04:07.040
+complain here that uh city.zip is not a recognized file
+
+0:04:05.840,0:04:10.400
+format um which is a little bit of a lie it
+
+0:04:09.280,0:04:14.159
+turns out that geopandas is capable of reading zip
+
+0:04:12.840,0:04:19.040
+files uh we just have to do something like
+
+0:04:16.320,0:04:23.280
+this we have to say protocol right here maybe you've seen this before
+
+0:04:21.040,0:04:28.639
+on this kind of specifying a protocol i mean sometimes you might see
+
+0:04:24.880,0:04:32.800
+http colon slash something here i want to specify that the protocol
+
+0:04:30.320,0:04:36.160
+i'm dealing with is a zip and so this whole thing is um i'm
+
+0:04:35.120,0:04:40.160
+putting at the beginning that's just specifying the protocol and
+
+0:04:38.000,0:04:44.320
+and so don't get the idea that this is in uh the the top level
+
+0:04:42.880,0:04:51.600
+directory on my computer this is still um still uh
+
+0:04:48.400,0:04:56.240
+same directory as my code right it's a local file
+
+0:04:53.199,0:05:00.639
+or a local or kind of um a relative path i should say
+
+0:04:56.960,0:05:04.320
+sorry it's a relative path and um and so i'm going to run that
+
+0:05:02.720,0:05:07.440
+and let me take a peek at that actually let me call it seti because i may have a
+
+0:05:05.840,0:05:12.960
+lot of these pretty soon i say city.head
+
+0:05:10.960,0:05:17.360
+and i i see like before while the city consists of a bunch of
+
+0:05:14.400,0:05:23.280
+polygon polygons and just like before i can do things like this i can say um
+
+0:05:20.000,0:05:29.680
+you know give me give me position zero geometry
+
+0:05:26.880,0:05:32.639
+right so that's row zero geometry column and there are all these different shapes
+
+0:05:31.440,0:05:36.240
+that that i can have right and i can draw through those oh
+
+0:05:34.639,0:05:40.880
+that'll make them a city i guess really most of it is this one
+
+0:05:38.000,0:05:44.080
+uh one big piece here okay great so i have my city
+
+0:05:42.160,0:05:48.320
+and i'm gonna plot it i guess there's actually four only four pieces there
+
+0:05:46.400,0:05:53.120
+um and maybe maybe i'll just plot it down here as a separate thing
+
+0:05:49.919,0:05:57.680
+let me say um city dot plot and i get this nice picture of the
+
+0:05:56.319,0:06:02.560
+city and um and then what i want to do is uh
+
+0:06:00.960,0:06:07.120
+maybe make it a light gray color so i'm gonna say color equals
+
+0:06:04.800,0:06:10.479
+maybe i'll say something like 0.8 generally when we want to plot things on
+
+0:06:08.639,0:06:14.000
+top of um on top of a map you want the background
+
+0:06:13.199,0:06:18.880
+to be a little bit lighter because um then any points we
+
+0:06:16.960,0:06:22.880
+plot on top of it are going to really show up well maybe i'll make that
+
+0:06:20.479,0:06:26.160
+even a little bit lighter still that's good uh what i may want to do is
+
+0:06:24.720,0:06:31.440
+i might want to make um add a lot of more features to here i want to add on
+
+0:06:28.560,0:06:34.800
+the lakes right so the water system i i want to add the
+
+0:06:32.240,0:06:37.759
+the police stations and then the fire stations
+
+0:06:35.759,0:06:40.880
+and so i have to head back here and find all of that data
+
+0:06:39.199,0:06:45.120
+and somebody head back and find some of that let's grab the lakes next i'm going
+
+0:06:43.440,0:06:50.639
+to say lakes and rivers i guess
+
+0:06:48.400,0:06:52.800
+um same thing i need to make sure i'm getting the shape file so i'm going to
+
+0:06:52.080,0:06:58.560
+right click that copy link address down here um
+
+0:06:56.800,0:07:04.319
+last time if i just hit the up arrow key we can see the history that i had
+
+0:07:01.199,0:07:07.599
+i i did a w again with that url and then after that
+
+0:07:05.120,0:07:11.599
+i i renamed it using the move command i named it from this weird thing
+
+0:07:09.280,0:07:15.120
+uh to city.zip uh i may actually show you a shortcut this time
+
+0:07:13.360,0:07:20.960
+on how i can do it all in one step i might say w get let me say dash
+
+0:07:17.599,0:07:24.639
+capital o and uh o is just for output i won't say all of output um
+
+0:07:23.199,0:07:32.280
+because i'm not able to that's not illegal if i say o for output capital o
+
+0:07:28.720,0:07:37.599
+and and i may call this um i don't know lakes.zap
+
+0:07:34.080,0:07:41.199
+when i do that and uh and then if i say ls here
+
+0:07:39.039,0:07:45.520
+i have both of these city.zip and lakes.up
+
+0:07:42.400,0:07:49.199
+let me just peek inside the other one too so i'm going to peek inside what do
+
+0:07:46.960,0:07:54.080
+i have inside of lakes.zip and uh and very similar to other one i
+
+0:07:51.199,0:08:00.879
+have these collections of five files so coming back here um i have that
+
+0:07:57.520,0:08:04.639
+and the the lakes are going to be very similar
+
+0:08:02.240,0:08:10.160
+uh to my city all right so i'm going to do that
+
+0:08:05.759,0:08:13.919
+and then i can say lakes.plot and what you're gonna see is that it's
+
+0:08:11.919,0:08:19.520
+creating a separate plot region right so i have um here is my city here
+
+0:08:16.560,0:08:22.639
+are my lakes i'd like to combine those and uh the way i can do that is i can
+
+0:08:21.039,0:08:26.000
+say ax equals something right um so maybe i'll say
+
+0:08:25.520,0:08:32.320
+here uh when i run this this is returning
+
+0:08:29.120,0:08:35.120
+an axis object to me so i could say something like
+
+0:08:33.680,0:08:39.919
+you know i call it ax a lot maybe i'm going to call it area for a change
+
+0:08:36.800,0:08:43.599
+i might say ax equals this area that i just created
+
+0:08:41.440,0:08:46.399
+and now i get this beautiful map where i have on
+
+0:08:44.640,0:08:50.959
+both the lakes and and the city in the same picture
+
+0:08:47.839,0:08:57.760
+and um right now the the color is defaulting to blue
+
+0:08:54.320,0:09:00.560
+um that's a slightly different blue i don't like to depend on defaults
+
+0:08:59.200,0:09:03.760
+because who knows maybe it changes someday and then my code breaks so i'm
+
+0:09:02.560,0:09:06.800
+just going to be very explicit that i want blue
+
+0:09:04.880,0:09:10.320
+um i could also do like a light blue or something like that
+
+0:09:08.959,0:09:15.920
+i guess i'll just leave it like that for now um
+
+0:09:12.240,0:09:19.680
+okay so so far so good um let's get my other zip file so i'm gonna head back
+
+0:09:17.839,0:09:23.600
+here and uh and what else do i need i need to
+
+0:09:22.160,0:09:30.480
+grab um i need to have a fire stations
+
+0:09:28.080,0:09:35.600
+and uh and i'll grab these you can see there's a few of them
+
+0:09:32.320,0:09:43.600
+let me grab that shape file w get paste
+
+0:09:38.800,0:09:50.000
+dash o fire dot zip and uh and then coming back here
+
+0:09:47.120,0:09:55.360
+i want to get the police as well please stations
+
+0:09:51.600,0:10:04.079
+and i'm gonna grab that one right click copy link address w get paste dasho
+
+0:09:59.680,0:10:09.200
+please dot zip and um and then we head back here and i'm going
+
+0:10:07.200,0:10:15.760
+to draw these points on top of the on top of the map all right so i'm going
+
+0:10:11.360,0:10:23.120
+to read both of these in i need to grab what do i need i i need my um uh
+
+0:10:19.920,0:10:26.079
+oops excuse me why is that not all right my cursor is acting weird i guess i'll
+
+0:10:24.640,0:10:29.760
+just type it out i need to grab the police data set
+
+0:10:30.160,0:10:40.640
+and then the the fire data set as well fire fire um
+
+0:10:39.040,0:10:44.720
+i'm very strange when i click on certain parts of the cell it won't let me
+
+0:10:42.480,0:10:51.920
+um highlight it so i'm gonna do that and then down here i'm going to say um
+
+0:10:47.279,0:10:56.320
+fire dot plot and then ax equals area and um and i'm going to do the same
+
+0:10:54.880,0:11:00.800
+thing with the police i'm going to say please dot plot
+
+0:10:58.320,0:11:05.200
+in that same area and i can see i have these points here
+
+0:11:02.000,0:11:07.519
+um it's choosing uh blue and uh orange for me i
+
+0:11:05.760,0:11:12.240
+i can take control of that i could say something like um
+
+0:11:09.680,0:11:15.680
+i i guess maybe fire uh department should be red
+
+0:11:13.040,0:11:18.560
+and the police should be blue uh so i'll do that
+
+0:11:16.880,0:11:22.720
+and now i'm actually realizing it was a bad idea to have my lakes be the same
+
+0:11:20.160,0:11:26.399
+color so maybe i may make my lake some light blue like i had before um so
+
+0:11:25.600,0:11:30.399
+that's good so so i can kind of see what's going on
+
+0:11:28.079,0:11:34.800
+now i can see where all of these um stations are located i can see um for
+
+0:11:33.040,0:11:39.519
+example like down here i have a decent fire station um located right
+
+0:11:37.519,0:11:43.519
+next to each other um some more things i should do is uh to
+
+0:11:43.040,0:11:48.800
+make this better um i should probably think about
+
+0:11:47.440,0:11:51.920
+what if i need to print this in black and white or what if somebody who's
+
+0:11:49.920,0:11:54.959
+colorblind is looking at it um i should probably have different
+
+0:11:53.839,0:12:00.320
+symbols offer different kinds of points okay so
+
+0:11:58.639,0:12:04.639
+so let me think here what how can i do this
+
+0:12:01.360,0:12:10.800
+um i want to i'm just looking at what the markers are in my notes sorry
+
+0:12:06.800,0:12:16.079
+um i am going to say for fire i'm going to say marker equals plus
+
+0:12:14.800,0:12:18.560
+just so that it looks a little bit different there so i can see what's
+
+0:12:17.440,0:12:23.040
+going on um other things i want to do is i want
+
+0:12:20.880,0:12:30.079
+to get rid of that border all around it so i i can say for my
+
+0:12:26.639,0:12:35.680
+ax object here right i can say dot um set
+
+0:12:33.120,0:12:38.800
+axis off right i mean this is just telling me the latitude and longitude
+
+0:12:37.040,0:12:43.279
+which i feel like is not useful information for like 99 of the
+
+0:12:41.120,0:12:47.920
+people who would look at this map um i'm going to do that i probably want
+
+0:12:45.440,0:12:51.519
+to have some sort of legend and and for that i need to do this i
+
+0:12:50.399,0:12:58.839
+need to import matplotlib dot pi plot
+
+0:12:55.920,0:13:01.839
+as plt and then down here i can say plt.legend
+
+0:13:01.920,0:13:07.120
+and it's complaining there was no labels to
+
+0:13:05.040,0:13:10.480
+draw any sort of legend you can see they draw through this weird empty box up
+
+0:13:09.440,0:13:14.880
+here and um the reason that this is happening
+
+0:13:13.120,0:13:18.480
+is when i'm i'm plotting a regular data frame
+
+0:13:15.760,0:13:21.200
+uh it can figure it out based on the column names
+
+0:13:19.519,0:13:24.160
+that's not really the case here with these shape files
+
+0:13:22.880,0:13:30.480
+so so what i got to do is when i'm plotting these points i should say
+
+0:13:26.480,0:13:34.880
+fire sorry label equals fire label equals release
+
+0:13:33.519,0:13:40.000
+and then i do that i can actually get this nice
+
+0:13:36.880,0:13:43.440
+legend text up here to the right um now it's a little bit annoying that this
+
+0:13:41.600,0:13:47.760
+text is right on top of the the map and i can control it there's
+
+0:13:45.760,0:13:51.920
+this location parameter i can pass in and right now
+
+0:13:50.160,0:13:55.360
+it's defaulting to something like top right
+
+0:13:52.959,0:13:57.519
+oh actually i love error messages that when i
+
+0:13:56.160,0:14:01.600
+do something wrong it tells me what i should actually do i guess it's
+
+0:13:59.120,0:14:05.279
+defaulting to upper right and um and so i will change it to upper
+
+0:14:03.680,0:14:10.480
+left right because i just see well the way madison is
+
+0:14:06.959,0:14:16.240
+um i can have a big uh gap there in terms of what's out of our
+
+0:14:11.760,0:14:21.680
+jurisdiction so that looks good um i also want to probably
+
+0:14:20.160,0:14:24.560
+i don't want to have a frame on that right so it's worth spending time
+
+0:14:23.199,0:14:27.199
+whenever you're making a plot to really make it
+
+0:14:25.120,0:14:31.279
+polished right that kind of gives you credibility on some level
+
+0:14:29.040,0:14:34.720
+and uh and i don't need that border of course i think people will it'll be very
+
+0:14:32.959,0:14:39.040
+clear that that's a legend and uh and not the actual um not actual
+
+0:14:37.760,0:14:42.399
+points okay so let me make this just a little
+
+0:14:40.160,0:14:47.279
+bit larger i'm gonna say you know fig size equals maybe like
+
+0:14:44.000,0:14:54.480
+10 10. and uh and this is a pretty decent uh map
+
+0:14:50.959,0:14:56.880
+now and what do we do i mean so often what are we doing we're kind of grabbing
+
+0:14:55.519,0:15:00.639
+all these different shape files and finding out how we want to display each
+
+0:14:58.480,0:15:04.880
+of them and so on and so forth and making sure we have a legend right um
+
+0:15:03.360,0:15:08.959
+not not super difficult once you get used to all of these uh method calls
+
+0:15:06.880,0:15:13.199
+right they become familiar um the other thing i wanted to talk
+
+0:15:10.560,0:15:17.120
+about today is the resolution of these images maybe
+
+0:15:15.839,0:15:20.800
+it's a little hard to see in the video i'm recording uh but this
+
+0:15:19.760,0:15:25.040
+is a little bit grainy and when i'm talking about
+
+0:15:23.760,0:15:29.519
+whether something's grainy it's because of this uh dpi dots per
+
+0:15:28.639,0:15:34.240
+square inch i guess that department of public
+
+0:15:31.839,0:15:39.440
+construction but that's per square inch and um and any sort of image you have
+
+0:15:37.839,0:15:43.759
+is made up of all these little points of of color maybe you might call them dots
+
+0:15:41.759,0:15:49.600
+or maybe somebody might interchangeably call it pixels
+
+0:15:45.600,0:15:53.600
+and uh having a higher resolution means that we have kind of more of these
+
+0:15:51.759,0:15:57.360
+little points of color per square inch and so if i want to come
+
+0:15:56.160,0:16:01.680
+back here um if i have a figure i can actually say
+
+0:15:59.759,0:16:08.160
+well what is my what is my figure uh
+
+0:16:04.800,0:16:11.600
+dot dots per inch um i i i guess i don't actually have a figure
+
+0:16:10.480,0:16:16.480
+object um i do have this ax object here so i could
+
+0:16:13.680,0:16:20.480
+say ax.jet figure what figure contains that ax
+
+0:16:18.560,0:16:24.720
+object i'm so used to calling it the ax i
+
+0:16:22.480,0:16:30.560
+should do that and i see there are 72 points
+
+0:16:26.560,0:16:34.959
+um per uh 72 points per inch and so i can control that and
+
+0:16:33.600,0:16:38.000
+and that might matter a lot if i'm trying to make an image that i'm going
+
+0:16:36.160,0:16:42.560
+to blow up for a poster or maybe using a presentation or something like that
+
+0:16:40.320,0:16:46.959
+so i'll tell you what i'm going to do um i am going to
+
+0:16:44.079,0:16:50.720
+save this figure like so i'm going to say
+
+0:16:47.279,0:16:53.920
+um uh i'm ready to grab actually let me let me just double check
+
+0:16:52.480,0:16:57.839
+my notes here um let me let me actually just put this
+
+0:16:56.320,0:17:00.800
+fig in a variable because i'm going to use it
+
+0:16:58.800,0:17:05.520
+a few times alright so i'm going to put that fig there
+
+0:17:02.160,0:17:11.360
+big dot dpi and then i'm going to save it i'm going to say fig.save
+
+0:17:08.559,0:17:15.919
+fig and i'm going to save a high resolution
+
+0:17:12.880,0:17:20.799
+version and i'm going to save a low resolution version
+
+0:17:17.120,0:17:26.559
+both as the high and low uh.p and g and um and and so what i can do is i can
+
+0:17:23.280,0:17:30.640
+specify the dots per square inch pretty good would be something like 300
+
+0:17:28.000,0:17:34.320
+points per square inch or per inch no squaring going on here maybe for this
+
+0:17:33.039,0:17:37.520
+one i'll say um let's actually just make it look
+
+0:17:36.400,0:17:41.919
+really terrible just so we can see the contrast even um
+
+0:17:40.080,0:17:44.640
+in the video another thing we need to do when we're
+
+0:17:43.120,0:17:48.320
+playing with these settings is that sometimes it gets weird about the
+
+0:17:46.240,0:17:53.039
+the white space margins and so i'm just going to say
+
+0:17:49.679,0:17:58.400
+here you know just crop off any white space around the map
+
+0:17:54.960,0:18:01.440
+in both cases so i'm going to run that and uh and that doesn't really do
+
+0:18:00.400,0:18:05.360
+anything different right because i'm just producing these files
+
+0:18:03.200,0:18:10.240
+and so if i come over here i see i have my low resolution image
+
+0:18:07.600,0:18:14.160
+and then down here i have my um high resolution image
+
+0:18:11.760,0:18:17.360
+and it's not quite a fair comparison because it's just
+
+0:18:15.120,0:18:22.000
+um you know it's showing them as different sizes here so so if i really
+
+0:18:18.960,0:18:26.960
+want to see the difference i should load them both into my notebook
+
+0:18:25.120,0:18:30.640
+uh at the same size right so i should get my high one that's at 300 and my low
+
+0:18:29.120,0:18:34.559
+one that's at 200 so i'm gonna create a new cell down here
+
+0:18:32.960,0:18:40.720
+and uh maybe you remember we've imported this before
+
+0:18:35.280,0:18:44.640
+um we'll sometimes say from ipython.cor dot import oh what am i doing dot
+
+0:18:43.280,0:18:50.960
+display import image and
+
+0:18:47.760,0:18:56.320
+then we can directly load images uh into this right i can load on
+
+0:18:53.600,0:19:00.880
+my high resolution image let's actually make it more dramatic let's do the low
+
+0:18:58.000,0:19:04.080
+resolution image first and i can specify my width
+
+0:19:01.520,0:19:06.880
+and some sort of standard and i can do that
+
+0:19:04.880,0:19:11.360
+and then i can do my high resolution image at the same
+
+0:19:08.480,0:19:14.559
+same size and um and hopefully you can see
+
+0:19:13.039,0:19:18.799
+let me see if i make this a little bit bigger how terrible the first one is
+
+0:19:16.960,0:19:22.799
+right i can't even can't even read this text up here um the
+
+0:19:21.440,0:19:26.799
+points are all blurry the high resolution one looks
+
+0:19:24.480,0:19:31.280
+uh crystal clear the text is clear the points are sharp
+
+0:19:28.559,0:19:36.000
+and uh it's always think about that i don't think it's a very important detail
+
+0:19:33.360,0:19:40.080
+until you're having a finished um project and you want to make a poster or
+
+0:19:37.840,0:19:44.240
+a presentation or something like that then think about increasing your dots
+
+0:19:42.880,0:19:49.200
+per square inch okay so i think that's all i have here
+

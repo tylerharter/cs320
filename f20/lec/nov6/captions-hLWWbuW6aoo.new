@@ -1,0 +1,1308 @@
+0:00:01.360,0:00:07.279
+hello in this video i'm going to be introducing the third part of the course
+
+0:00:04.560,0:00:12.320
+which is really kind of a pre-machine learning um intro um there are whole
+
+0:00:10.880,0:00:16.160
+courses on machine learning actually many many of them and maybe some of you
+
+0:00:14.000,0:00:19.840
+will go on to take them and so this is going to be kind of a light introduction
+
+0:00:17.920,0:00:24.080
+both to machine learning itself and some of the underlying tools that
+
+0:00:22.640,0:00:28.160
+you'll need to know to say go on and learn let's say deep
+
+0:00:26.560,0:00:31.519
+learning so let's start with the models you may
+
+0:00:30.160,0:00:34.079
+have heard before that when you're doing statistics or machine
+
+0:00:32.960,0:00:37.040
+learning you're generating some sort of model
+
+0:00:35.120,0:00:39.520
+and i may relate that to functions because you've all been writing lots of
+
+0:00:38.399,0:00:42.879
+functions and maybe that's a little bit more intuitive
+
+0:00:40.879,0:00:47.280
+so when we're talking about functions i imagine some sort of picture like this
+
+0:00:45.120,0:00:50.079
+uh there is a programmer and the programmer writes some code to produce a
+
+0:00:48.960,0:00:53.280
+function um if you put some inputs to that
+
+0:00:51.680,0:00:56.160
+function in the terms of you know here are some arguments
+
+0:00:54.719,0:00:59.520
+uh we're gonna get some outputs and those are outputs would be some sort of
+
+0:00:57.680,0:01:03.280
+return value and you could imagine this looking like
+
+0:01:01.440,0:01:08.320
+different things i could say feed in a row right and maybe that row is
+
+0:01:06.880,0:01:11.840
+describing some attributes of a house like how many beds
+
+0:01:09.920,0:01:15.200
+does it have how many baths and how many years
+
+0:01:13.200,0:01:19.520
+and uh and then you can imagine well what is this function returning
+
+0:01:17.280,0:01:22.560
+we could say well this function its job is to predict what the market value of
+
+0:01:21.439,0:01:26.880
+the house would be and then it would return say
+
+0:01:23.840,0:01:31.360
+i don't know that house is worth 190k um you could also imagine uh that we
+
+0:01:29.600,0:01:35.200
+could feed in a whole bunch of houses at once a whole bunch of rows
+
+0:01:33.360,0:01:41.040
+and then have it return a whole bunch of rows back for all of our different
+
+0:01:37.680,0:01:48.079
+predictions so a function like this is really a model um of a house's
+
+0:01:44.960,0:01:50.320
+price right it can kind of tell us um for some given attributes of a house
+
+0:01:49.520,0:01:54.240
+well how much would it probably actually sell for in
+
+0:01:52.720,0:01:56.799
+the real world right it's a model of that
+
+0:01:55.119,0:02:00.799
+um real world and so i want to start thinking for this part of the course
+
+0:01:58.240,0:02:05.680
+you know what kind of functions um can i uh write that would be
+
+0:02:02.640,0:02:08.879
+models in this way so our goal in terms of machine learning is
+
+0:02:08.080,0:02:13.120
+to not really create these models by hand
+
+0:02:11.280,0:02:18.319
+but have some sort of machine learning algorithm
+
+0:02:14.560,0:02:23.040
+automatically generate our function for us our function or model
+
+0:02:20.400,0:02:25.840
+and and to do that it's going to have to have a lot of examples
+
+0:02:24.879,0:02:29.040
+right because it fits right automatically well how how does it know
+
+0:02:27.520,0:02:33.440
+right so what we'll do is we'll feed it in a bunch of training data um
+
+0:02:31.680,0:02:37.280
+where our rows have both our inputs right so i have like beds
+
+0:02:35.120,0:02:40.480
+bath in here and then it's some examples of price how much are these existing
+
+0:02:38.959,0:02:44.160
+houses worth and the idea is that the machine
+
+0:02:42.879,0:02:46.959
+learning algorithm is trying to figure out the pattern there what is the
+
+0:02:45.280,0:02:52.480
+relationship between um price and these other things and uh
+
+0:02:50.319,0:02:56.319
+and then capture that in the function and then we can use that function to
+
+0:02:54.879,0:02:59.360
+make predictions for houses we've never even seen before
+
+0:02:59.760,0:03:05.360
+so there's a few different kinds of machine learning and
+
+0:03:03.280,0:03:09.519
+three big categories and i'm gonna talk about these um kind of generally before
+
+0:03:07.200,0:03:12.560
+i go into more specifics and uh there's kind of two categories
+
+0:03:11.680,0:03:18.959
+like first we might wanna learn from data and uh
+
+0:03:15.920,0:03:22.560
+and there's two varieties there um i'm going to talk about reinforcement
+
+0:03:20.480,0:03:25.360
+learning first which is the third thing and i'm going to talk about that first
+
+0:03:24.239,0:03:29.040
+because well we're not really going to cover it in cs320 so i just kind of want
+
+0:03:27.280,0:03:33.599
+to get it out of the way um so reinforcement learning is where
+
+0:03:32.159,0:03:37.760
+you have some sort of agent in the world as making decisions right
+
+0:03:36.159,0:03:42.080
+so those decisions are some sort of actions that it'll do
+
+0:03:39.440,0:03:45.120
+and those actions will have some impact and an environment and that environment
+
+0:03:43.760,0:03:49.519
+might be simulated um you could also imagine a robot that's
+
+0:03:47.360,0:03:52.640
+trying to walk around the real world and uh and then it's gonna get some sort
+
+0:03:51.519,0:03:57.040
+of feedback right that will enforce either uh
+
+0:03:55.280,0:04:00.080
+hopefully good behavior right so maybe if i have a robot walking
+
+0:03:58.720,0:04:03.439
+around in the real world and that's in its environment and every
+
+0:04:01.840,0:04:06.799
+time it bumps into a wall well whatever process led to that
+
+0:04:05.599,0:04:09.920
+decision is going to be a little bit penalized
+
+0:04:08.560,0:04:14.319
+right now you could imagine something kind of
+
+0:04:12.720,0:04:17.040
+less exciting than a robot walking in the real world
+
+0:04:15.519,0:04:21.040
+uh we already learned a whole bunch about a b testing how can we do all
+
+0:04:19.040,0:04:25.040
+these little experiments and figure out um you know how we want
+
+0:04:23.440,0:04:28.320
+to configure our website you know what how large should the font be what color
+
+0:04:26.800,0:04:32.560
+should things be um stuff like that and so you can
+
+0:04:30.639,0:04:36.400
+imagine an agent in that environment automatically running these
+
+0:04:34.560,0:04:39.759
+a b experiments and then making decisions and just kind of
+
+0:04:37.919,0:04:43.520
+deciding what to do and exploring that space
+
+0:04:41.040,0:04:46.479
+um so so definitely practical in a number of environments
+
+0:04:44.960,0:04:50.080
+but you know we just don't have time to go and do it any deeper in this course
+
+0:04:48.720,0:04:53.600
+um instead we're going to be looking at two types of machine learning called
+
+0:04:51.680,0:04:58.560
+supervised machine learning and unsupervised machine learning
+
+0:04:56.880,0:05:03.759
+and the difference is that when we're doing supervised machine learning
+
+0:05:01.440,0:05:08.800
+there's some particular column or maybe multiple columns of data
+
+0:05:05.520,0:05:12.720
+that we know we want to predict and we have a bunch of examples of what
+
+0:05:10.800,0:05:17.039
+should be in that column and that's kind of the supervised part right somebody
+
+0:05:14.960,0:05:20.479
+um outside of the algorithm is saying you know these are what i expect for
+
+0:05:18.720,0:05:23.600
+these particular cases right and try to learn to make those
+
+0:05:21.919,0:05:27.680
+predictions based on these examples that we're giving it
+
+0:05:25.280,0:05:31.919
+um when we're doing unsupervised machine learning
+
+0:05:28.800,0:05:35.360
+um imagine going back to those houses uh let's say that we don't have price
+
+0:05:33.680,0:05:38.880
+for anything right so there's nothing we're really trying to predict
+
+0:05:37.199,0:05:43.039
+but a machine learning algorithm could still find some sort of patterns there
+
+0:05:40.639,0:05:46.320
+right maybe uh i don't know maybe there's like two kinds of houses maybe
+
+0:05:44.560,0:05:51.199
+there's like um new big houses and old small houses or
+
+0:05:49.280,0:05:55.600
+something like that right even though there's no specially
+
+0:05:53.840,0:05:58.560
+labeled column uh that we're trying to predict we don't
+
+0:05:57.039,0:06:03.759
+have any examples of that we can still look for some general patterns
+
+0:06:00.880,0:06:06.000
+uh within the data so let's start with a supervised machine learning because
+
+0:06:05.520,0:06:10.240
+that's where i spend like 80 of our effort um this
+
+0:06:08.800,0:06:14.720
+semester okay so this is that same picture i had
+
+0:06:12.000,0:06:18.319
+before i'm feeding in the training data and uh and then my machine learning
+
+0:06:16.479,0:06:21.440
+algorithm and when i'm doing my training while i'm trying to
+
+0:06:19.280,0:06:24.720
+predict what that price is going to be right
+
+0:06:22.639,0:06:28.400
+uh on other data so so i have the separation between my trading data
+
+0:06:26.240,0:06:32.240
+and my live data for my live data i don't know what the price is
+
+0:06:30.000,0:06:36.560
+um and for my training data i do so you could totally imagine that
+
+0:06:34.720,0:06:40.319
+we have a data set of a bunch of houses that have already sold
+
+0:06:38.080,0:06:43.440
+which is why we have that but then let's say i'm like a real estate agent and i'm
+
+0:06:41.759,0:06:46.400
+trying to price a new house and kind of set a reasonable price before i put it
+
+0:06:44.880,0:06:49.759
+on the market that's why i want to actually have it
+
+0:06:47.680,0:06:54.400
+for the live data generally we want to um predict columns
+
+0:06:52.080,0:06:57.199
+that become unknown in the future uh based on columns that are more
+
+0:06:55.919,0:07:03.759
+readily known and say like you know how many beds and bounds do we have
+
+0:07:00.639,0:07:09.599
+so there's different kinds of supervised uh learning one of them is regression
+
+0:07:07.440,0:07:13.599
+and when we were doing regression we have some sort of
+
+0:07:10.960,0:07:17.280
+continuous data right an example of continuous data as well
+
+0:07:14.960,0:07:21.759
+a number right uh you know houses can take on
+
+0:07:18.720,0:07:26.319
+any range of numbers for their price and so the function or model that we're
+
+0:07:24.479,0:07:30.240
+producing is a regressor and when i want to run some sort of
+
+0:07:28.000,0:07:35.520
+regression algorithm to generate that model um the other kind of
+
+0:07:33.680,0:07:38.639
+supervised machine learning is where we're trying to make
+
+0:07:36.800,0:07:44.160
+predictions again but it's categorical maybe there's like
+
+0:07:41.039,0:07:47.440
+two categories or maybe more categories um so you could imagine that maybe my
+
+0:07:46.080,0:07:51.120
+training data is a bunch of photos of animals that are
+
+0:07:49.199,0:07:55.599
+either cats or dogs and i'm going to generate a function
+
+0:07:52.639,0:07:59.440
+then that i can feed it on other photos and uh and what i'd like to do is tell
+
+0:07:57.919,0:08:02.639
+me if it's a cat or dog and you can see well
+
+0:08:00.000,0:08:05.919
+i got this one right that's a dog um it's not the last one right that's a cat
+
+0:08:04.720,0:08:09.360
+and you can see there's actually a mistake here too that's a
+
+0:08:07.919,0:08:12.160
+a cat that actually kind of looks like a dog so the model got it
+
+0:08:11.199,0:08:14.800
+got it wrong but this is a classification right it's a
+
+0:08:13.440,0:08:19.039
+classification because there's a finite number of
+
+0:08:16.479,0:08:26.720
+categories that i might have over here it's not numeric and i can't really rank
+
+0:08:22.479,0:08:30.479
+on these animals on some sort of scale okay that was like a very brief overview
+
+0:08:28.319,0:08:34.719
+of supervised machine learning let's talk about some examples of
+
+0:08:32.399,0:08:38.719
+unsupervised machine learning um so what i might be doing here is that
+
+0:08:38.000,0:08:42.000
+i have my training data and you can see i don't
+
+0:08:40.719,0:08:45.040
+have any price anymore right that's why it's unsupervised i
+
+0:08:43.440,0:08:49.600
+don't have any special labeled column that i might think of as
+
+0:08:46.959,0:08:52.480
+well that's like my y column and uh and so then what it's trying to
+
+0:08:51.519,0:08:55.760
+do is it's just trying to look for patterns right to
+
+0:08:53.600,0:09:00.080
+kind of see groups of houses that are similar
+
+0:08:57.200,0:09:02.959
+and then when i feed in new data it's trying to assign each of these rows to
+
+0:09:01.519,0:09:06.880
+one of these groups so it might say something like oh well
+
+0:09:04.399,0:09:09.519
+these two houses are in cluster one and these other two houses are in cluster
+
+0:09:08.480,0:09:13.279
+two and uh and you can imagine lots of
+
+0:09:11.440,0:09:16.720
+reasons that might be useful um for example if i have on my website
+
+0:09:15.920,0:09:19.839
+um you know maybe the user looks at some
+
+0:09:18.080,0:09:23.519
+houses and then says well uh you know i like this house and we
+
+0:09:22.160,0:09:25.920
+want the website to automatically recommend all their similar houses to
+
+0:09:25.120,0:09:29.839
+them well maybe we could say hey well if you
+
+0:09:27.600,0:09:33.360
+like um this house here uh good chance you like this one too
+
+0:09:31.839,0:09:37.040
+because those are both in cluster one there's some similarities
+
+0:09:35.120,0:09:38.959
+um you know if you like this one here this first one i probably won't
+
+0:09:38.320,0:09:42.800
+recognize recommend that one because it's in a
+
+0:09:40.240,0:09:46.399
+different um cluster so so even though we aren't trying to
+
+0:09:44.160,0:09:50.800
+forecast anything and even though we are never told in the training data
+
+0:09:49.440,0:09:54.399
+you know which houses cluster one or cluster two the machine learning
+
+0:09:52.480,0:09:59.600
+algorithm will both invent uh these clusters and then put new data
+
+0:09:57.519,0:10:03.120
+um into the cluster these clusters that have been
+
+0:10:00.560,0:10:08.320
+um identified and that's useful for lots of things
+
+0:10:05.760,0:10:12.160
+so we are going to have to have some uh foundations both mathematical and in
+
+0:10:10.640,0:10:16.399
+terms of packages uh to be doing a lot of this work and uh
+
+0:10:15.200,0:10:20.320
+and so i'll start with the packages because it's a little bit simpler
+
+0:10:18.240,0:10:24.240
+um there's three main packages where i need for this part of the course
+
+0:10:22.000,0:10:27.279
+um that one is numpy numpy is going to be used for matrices
+
+0:10:25.440,0:10:30.079
+uh matrices are kind of similar to data frames something that'll be familiar to
+
+0:10:29.360,0:10:33.600
+you um we're gonna be learning about this
+
+0:10:31.120,0:10:36.399
+thing called pi torch and then uh finally
+
+0:10:34.160,0:10:40.240
+uh scikit-learn sometimes abbreviated just s
+
+0:10:37.200,0:10:42.000
+k learn that's a collection of a lot of machine learning models that we're gonna
+
+0:10:41.519,0:10:46.160
+be able to just use out of the box and so if you
+
+0:10:44.320,0:10:49.440
+wanna install these things um installing numpy and scikit-learn is
+
+0:10:48.079,0:10:53.120
+pretty easy um i used to think it was easy to
+
+0:10:51.920,0:10:56.079
+install pytorch as well and i had a simpler command
+
+0:10:54.880,0:10:59.440
+there like something like just like you know
+
+0:10:56.480,0:11:02.240
+pip install torch but it turns out that if you don't have a lot of memory on
+
+0:11:00.720,0:11:06.800
+your virtual machine um that fails and so one of the tas last
+
+0:11:05.040,0:11:10.079
+semester actually came up with this alternative command which looks really
+
+0:11:08.880,0:11:13.440
+long and uh complicated but what it does is
+
+0:11:12.079,0:11:17.519
+it avoids uh installing a lot of unnecessary
+
+0:11:15.519,0:11:22.079
+things it kind of minimizes that and uh and that kind of allowed people
+
+0:11:20.720,0:11:25.680
+to get it installed otherwise we were getting lots of
+
+0:11:23.200,0:11:29.200
+install issues last semester so so install it using this command
+
+0:11:28.160,0:11:33.920
+right here even though it's kind of weird right it's the longest pip command
+
+0:11:31.360,0:11:39.200
+we've seen before so what i want to talk about now is some
+
+0:11:37.279,0:11:42.079
+of the mathematical foundations there's different kinds of math maybe there's
+
+0:11:40.720,0:11:45.279
+like um maybe you've ex had some exposure to
+
+0:11:43.680,0:11:47.920
+linear algebra or calculus i'm not trying to assume you have any of that i
+
+0:11:46.640,0:11:51.200
+may tell you everything you need to know for this course
+
+0:11:49.279,0:11:57.279
+um but i think the one kind of math that's most useful here
+
+0:11:53.360,0:12:01.440
+is linear algebra and linear algebra is really the math
+
+0:11:58.160,0:12:04.480
+that can talk about matrices and that works very nicely right you can
+
+0:12:02.800,0:12:09.120
+imagine i have a data frame here and i have my function and i have this
+
+0:12:06.480,0:12:12.160
+maybe panda series or kind of column coming out
+
+0:12:10.560,0:12:14.959
+well if i can express this in terms of matrices well i can feed in a matrix
+
+0:12:14.079,0:12:20.079
+here and then i can get this other matrix
+
+0:12:16.639,0:12:24.000
+back out which is just a single column and uh and i may be able to express my
+
+0:12:22.839,0:12:29.600
+function in terms of linear algebra
+
+0:12:26.160,0:12:33.440
+multiplications and additions so let me just draw that a little bit
+
+0:12:31.200,0:12:36.880
+more what you might imagine is i'm going to take this matrix x inside matrix x
+
+0:12:35.839,0:12:40.480
+here and then what i want to do you see i say
+
+0:12:39.519,0:12:47.120
+xc i'm multiplying this matrix of data by
+
+0:12:43.839,0:12:50.720
+a column of coefficients and then i'm adding
+
+0:12:47.600,0:12:53.760
+some sort of a number here some sort of intercept here at the end
+
+0:12:52.560,0:12:56.880
+and then what that will do is it'll give me all of these different
+
+0:12:54.959,0:13:00.639
+uh numbers back it's going to give me one of these predictions
+
+0:12:58.720,0:13:04.000
+for each of these rows right and that corresponds to what we saw
+
+0:13:02.720,0:13:09.120
+up here too with the data frames hopefully that kind of feels natural
+
+0:13:06.240,0:13:12.639
+um this here thing that i'm looking at is called a dot product
+
+0:13:10.480,0:13:14.880
+and i might talk very briefly about it now but don't
+
+0:13:13.839,0:13:20.480
+worry i'm just trying to give you some exposure i may eventually explain it
+
+0:13:17.440,0:13:27.120
+in a lot of detail but but the idea here is that we want to multiply these three
+
+0:13:24.079,0:13:30.320
+uh cells in our row by these three uh coefficients so you
+
+0:13:30.000,0:13:33.440
+can see it's weird right that you know this
+
+0:13:31.839,0:13:39.199
+goes over this draws down but i'm pairing it up 2 goes with 41
+
+0:13:36.560,0:13:42.600
+just like over here 2 goes with 41. one goes with 10
+
+0:13:40.160,0:13:47.120
+and that goes here you know one times 10.36
+
+0:13:44.000,0:13:52.240
+1985 goes with 1.7 1985 1.7 you can see i'm pairing up an x
+
+0:13:50.240,0:13:56.880
+with a c an x with a c x with a c and so i multiply each of
+
+0:13:54.480,0:14:02.160
+those three pieces together and then i i add the the results so i'm
+
+0:14:00.000,0:14:05.519
+kind of adding each of these um result results i get from multiplying
+
+0:14:03.920,0:14:09.680
+and then finally i'm doing this here at the end i i do my subtract b and i do
+
+0:14:08.639,0:14:15.040
+all that math and i get out 19 or 190
+
+0:14:13.519,0:14:17.360
+000 right which is the first value in that cell up here so that's what happens
+
+0:14:16.560,0:14:22.320
+when i take this first row and multiply it by
+
+0:14:19.680,0:14:28.079
+my coefficients i get one number uh in my output and um
+
+0:14:26.000,0:14:30.800
+and really like when i'm doing linear algebra and dealing with these matrices
+
+0:14:30.079,0:14:34.560
+i imagine that i'm kind of looping over my rows that's
+
+0:14:32.959,0:14:37.600
+how i kind of think about it and so when i want to get this next
+
+0:14:35.839,0:14:40.880
+number here i'm like well let me loop over this i already did this
+
+0:14:39.279,0:14:46.560
+row let me do another row let me multiply these three numbers
+
+0:14:43.199,0:14:50.720
+uh for my second row by my coefficients and i do that over here and i get
+
+0:14:47.600,0:14:53.680
+another number which is 254 thousand like so and then i would just try and
+
+0:14:52.399,0:14:56.000
+kind of keep going down i'm not going to do it right here
+
+0:14:54.639,0:14:59.760
+but that's how i eventually get all of these results
+
+0:14:57.680,0:15:04.480
+for all of these rows so it's kind of a neat way
+
+0:15:01.120,0:15:10.880
+of saying that i want to do some math with this kind of equation on every row
+
+0:15:08.720,0:15:17.519
+of my data set linear algebras is perfect for that kind of use case
+
+0:15:14.160,0:15:21.600
+and uh and when i want to do it in actually python i may use numpy for that
+
+0:15:20.399,0:15:24.800
+numpy is the package that will help us deal with
+
+0:15:22.959,0:15:29.519
+matrices and linear algebra and the nice thing about
+
+0:15:27.120,0:15:34.800
+it is if i have a data frame then i can just say dataframe.values and
+
+0:15:32.560,0:15:39.360
+it turns out that pandas is built on top of numpy so dataframe.values
+
+0:15:37.360,0:15:44.079
+is going to give me a numpy array because i have a numpy array there
+
+0:15:41.440,0:15:46.079
+and uh and if i have this right so this is my
+
+0:15:44.480,0:15:50.120
+x and i have some over c i want to multiply it by
+
+0:15:48.000,0:15:53.759
+i could do the dot products i could say numpy.xc
+
+0:15:51.759,0:15:56.639
+that's this dot product right here and that's why i do my calculation for me
+
+0:15:55.360,0:16:03.920
+and so really like this x right here is all of the data up here
+
+0:16:00.800,0:16:06.480
+my data frame and my y over here is all of this data that i
+
+0:16:04.880,0:16:10.399
+i'm trying to produce right so i can kind of do a lot of interesting
+
+0:16:08.639,0:16:14.639
+computation my whole data frame which i convert to a matrix with just a
+
+0:16:12.800,0:16:19.600
+couple lines of code here right and so this code here is really
+
+0:16:17.120,0:16:23.199
+what i'm kind of putting inside of my inside of my model now one thing i just
+
+0:16:22.800,0:16:27.199
+want to point out now and i'll maybe remind you
+
+0:16:24.880,0:16:30.560
+of it again in the future uh to me it makes a lot of sense to
+
+0:16:29.199,0:16:35.680
+express it this way that i'm trying to predict a y and the way i
+
+0:16:33.839,0:16:40.000
+do that is i multiply my x data by a coefficient and then maybe i
+
+0:16:38.480,0:16:44.240
+add an intercept that's how i normally think about it um
+
+0:16:42.639,0:16:46.639
+it and then when you're reading a lot of code right that's the way they're going
+
+0:16:45.199,0:16:51.519
+to do it too when you read more mathematical
+
+0:16:48.399,0:16:54.320
+resources about linear algebra they will name these things a little bit
+
+0:16:53.040,0:16:57.600
+differently and i have a little bit of a note here
+
+0:16:55.759,0:17:02.959
+what they'll do is instead of calling the data x
+
+0:16:59.279,0:17:07.679
+they'll call the data a data a like that and then instead of
+
+0:17:05.839,0:17:10.720
+calling the coefficient c kind of confusingly they'll call the
+
+0:17:09.360,0:17:14.400
+coefficients on x right so it'll be something like ax
+
+0:17:12.880,0:17:18.000
+and then thank goodness they'll still just have like plus b for the intercept
+
+0:17:16.880,0:17:21.919
+so if you're reading other resources or even like a numpy um
+
+0:17:21.039,0:17:25.120
+you know if you look up the documentation for this probably most
+
+0:17:23.679,0:17:28.240
+documentation will be saying oh it can take like an a
+
+0:17:27.199,0:17:33.440
+and a and an x right so just be aware of that
+
+0:17:31.200,0:17:37.280
+uh and kind of translate into your head if you're
+
+0:17:34.080,0:17:40.480
+using multiple resources okay so i've kind of been talking about
+
+0:17:39.440,0:17:45.440
+linear algebra in terms of uh in terms of
+
+0:17:43.760,0:17:48.720
+like these matrices and that's kind of true um
+
+0:17:46.880,0:17:50.080
+linear definitely has a deeper meaning than that and i'm not going to give you
+
+0:17:49.679,0:17:53.200
+a precise definition i'm just going to
+
+0:17:51.200,0:18:01.440
+give you an example um things are linear when we just multiply
+
+0:17:56.720,0:18:06.160
+variables by uh by numbers and then add up all the results those
+
+0:18:03.440,0:18:09.760
+any anything that's doing that is linear and an example of something that's not
+
+0:18:07.840,0:18:12.480
+linear is that i can't multiply a variable
+
+0:18:11.120,0:18:15.600
+by another variable right so even something like x squared multiplying x
+
+0:18:14.240,0:18:20.160
+by itself that's not linear right so there's a
+
+0:18:18.720,0:18:23.840
+different kind of complexity here and a different kind of simplicity
+
+0:18:21.919,0:18:27.840
+when we're doing linear algebra we're often going to have lots and lots
+
+0:18:25.440,0:18:32.400
+of variables but it's all just you know multiply by numbers and add
+
+0:18:29.360,0:18:35.600
+right so simple operations on a lot of variables in contrast to
+
+0:18:34.320,0:18:42.080
+something like this right this we're doing kind of a complicated operation
+
+0:18:37.919,0:18:45.280
+on just one variable so linear algebra is going to be very
+
+0:18:43.120,0:18:50.240
+important where i spend a few few lectures on it at least
+
+0:18:47.039,0:18:53.440
+um the other kind of math which is also important here maybe to a slightly
+
+0:18:51.919,0:18:57.120
+lesser extent um is calculus and i'm not trying to
+
+0:18:55.120,0:19:00.640
+assume you know any calculus but uh we're going to use some packages
+
+0:18:59.440,0:19:04.000
+that will kind of solve these same problems for us
+
+0:19:02.320,0:19:09.120
+and and so let me give you an example of something we might want to do
+
+0:19:07.120,0:19:13.360
+um we want to have this training data which has both our x columns
+
+0:19:11.280,0:19:17.440
+and our y column and we want to feed into our machine learning algorithm
+
+0:19:15.360,0:19:20.559
+to generate our equation down here and then we can make predictions based on
+
+0:19:19.120,0:19:24.480
+that and what i'm often interested in is
+
+0:19:23.440,0:19:30.480
+comparing these actual values to
+
+0:19:27.760,0:19:33.679
+what i was predicting right you can see i made some mistakes there like you know
+
+0:19:31.840,0:19:36.160
+there's a fifty thousand dollar mistake here
+
+0:19:34.720,0:19:40.000
+uh there's like a fourteen thousand dollar mistake here
+
+0:19:38.080,0:19:43.600
+and uh and that's none of that is great but i have to have some sort of way
+
+0:19:41.360,0:19:47.120
+right i mean i made three mistakes and i would really like to have some
+
+0:19:45.120,0:19:51.280
+sort of way that looks at the magnitude of all my mistakes and
+
+0:19:48.640,0:19:56.880
+gives me a single number like how bad were my mistakes overall and
+
+0:19:55.440,0:20:00.240
+the function that will do that is called a loss function right a loss function
+
+0:19:58.400,0:20:05.120
+somehow summarizes all of my mistakes in a single number
+
+0:20:03.039,0:20:08.799
+and so if i feed both in my expected data and then well my
+
+0:20:07.200,0:20:12.159
+predictions uh then i feed those both into my loss
+
+0:20:11.440,0:20:15.760
+function then i'm going to get a loss over here
+
+0:20:15.039,0:20:19.679
+and what i want you to think about is how
+
+0:20:18.000,0:20:23.520
+the coefficients in my formula are going to affect my loss
+
+0:20:22.559,0:20:27.280
+right of course it does right i mean if i change these
+
+0:20:24.960,0:20:31.360
+coefficients i may get different predictions and so then my
+
+0:20:29.520,0:20:34.080
+predictions relative to this will be the different so
+
+0:20:32.480,0:20:37.919
+i may have a different mistakes right so you can imagine that
+
+0:20:36.320,0:20:44.000
+there's this relationship between the coefficients i choose
+
+0:20:40.080,0:20:47.280
+and the loss i end up on in the end and and so i can actually formulate this
+
+0:20:46.080,0:20:55.360
+whole problem like this how do i how do i optimize
+
+0:20:51.039,0:21:00.080
+c in order to minimize the loss and that is exactly the kind of problem
+
+0:20:57.520,0:21:04.080
+that calculus is good at right calculus is good at
+
+0:21:01.280,0:21:07.919
+figuring out how to minimize or maximize functions right and in this case my
+
+0:21:05.600,0:21:12.480
+function is this loss function um up here and uh and so we're going to
+
+0:21:11.039,0:21:16.000
+be doing that and some of these packages that we're
+
+0:21:14.559,0:21:18.080
+using like these machine learning algorithms are just trying to do it
+
+0:21:16.960,0:21:22.320
+automatically i'm also going to show you how we can
+
+0:21:19.600,0:21:26.960
+use uh pi torch to do this for us right so
+
+0:21:25.440,0:21:29.760
+in calculus we have these ideas of a derivative and radiant don't worry if
+
+0:21:28.400,0:21:33.679
+you don't know what those are but pi torch can compute those things
+
+0:21:31.840,0:21:37.600
+automatically for us and then help us do this optimization
+
+0:21:35.600,0:21:41.200
+how can i find the c that minimizes my loss because that's
+
+0:21:40.159,0:21:45.840
+the c the coefficients that i want to use
+
+0:21:46.000,0:21:51.679
+let me talk about pytorch a little bit more because pi torch also has this role
+
+0:21:50.880,0:21:57.919
+of helping us use gpus
+
+0:21:56.240,0:22:02.559
+let's actually rewind way back to the beginning of semester
+
+0:21:59.679,0:22:05.919
+uh we were learning about cpus and uh and cpus
+
+0:22:04.000,0:22:12.320
+sometimes have multiple cores and kind of we can think of each core on a cpu
+
+0:22:08.559,0:22:15.840
+as uh as well like a mini cpu and so you could imagine if i have computation i
+
+0:22:13.840,0:22:18.799
+could put it on multiple cores and uh and make it run faster and that's
+
+0:22:17.679,0:22:22.480
+one of the things i want to teach you to do this semester right how can i
+
+0:22:20.799,0:22:26.320
+bring my python program so it actually breaks up the work
+
+0:22:24.000,0:22:29.200
+and uh and uses multiple cores and so a typical cpu these days might have i
+
+0:22:28.720,0:22:32.559
+don't know eight cores right um some number of them
+
+0:22:32.080,0:22:37.440
+it's slowly increasing um and and so that's
+
+0:22:36.000,0:22:40.799
+great and people would typically use cpus for computation
+
+0:22:39.280,0:22:46.240
+but what was very interesting that has happened is that graphics
+
+0:22:43.120,0:22:50.080
+say for video games or other things uh requires being able to run code in
+
+0:22:48.400,0:22:52.559
+parallel in a lot of places right so you can imagine that hey i would really like
+
+0:22:51.520,0:22:56.720
+to have um a lot of different cores if i'm doing
+
+0:22:55.520,0:22:59.760
+graphics and uh and really kind of all those
+
+0:22:58.159,0:23:02.480
+cores when i'm doing some sort of graphics work
+
+0:23:01.200,0:23:04.240
+would be doing the same kind of computation right it's kind of
+
+0:23:03.600,0:23:10.480
+repetitive actually and so in parallel
+
+0:23:07.280,0:23:14.480
+or no pun intended to the development and evolution of cpus
+
+0:23:12.640,0:23:18.480
+all people would build these graphics processing units like for example
+
+0:23:16.799,0:23:23.280
+here's a gpu right here that people might use for video games
+
+0:23:20.480,0:23:27.600
+and in these gpus modern gpus might have thousands of cores on them
+
+0:23:25.520,0:23:31.679
+uh in comparison to say like you know the 8 or 16 that a cpu might have
+
+0:23:30.000,0:23:36.000
+now those cores aren't as flexible as a cpu core but
+
+0:23:33.039,0:23:39.679
+you know we have lots of cores and it just so happens that
+
+0:23:37.440,0:23:43.840
+these cores that are good for graphics are also
+
+0:23:40.480,0:23:46.720
+good um at number crunching in general which is really the basis for a lot of
+
+0:23:45.360,0:23:49.840
+machine learning and so all of those scores are really
+
+0:23:48.480,0:23:52.640
+great at doing things like you know multiplying matrices together we have to
+
+0:23:51.440,0:23:55.679
+do that all the time they're really good at computing
+
+0:23:54.159,0:23:58.080
+gradients we have to do that all the time
+
+0:23:56.480,0:24:02.559
+and so this is another reason we want to learn pi torch right so that we can
+
+0:24:00.640,0:24:06.240
+basically take advantage of these very powerful gpus
+
+0:24:04.559,0:24:10.000
+uh without having to think too hard about it high torch is gonna
+
+0:24:08.159,0:24:14.720
+let us just you know multiply matrices the way we always multiply matrices
+
+0:24:12.320,0:24:18.559
+and uh and just say hey this time i want to do the work on the gpu
+
+0:24:16.799,0:24:21.440
+and it'll just magically be a lot faster for us and we won't even spend much time
+
+0:24:20.080,0:24:25.039
+thinking about um how we're all running on the gpu
+
+0:24:23.600,0:24:27.600
+somebody spent like a couple lectures on this as well
+
+0:24:25.760,0:24:31.279
+well again this is one of those topics that it could really be like a whole
+
+0:24:29.919,0:24:35.440
+semester so i just want to give you a light introduction
+
+0:24:32.799,0:24:39.039
+um to it now now going forward i want to be very
+
+0:24:38.159,0:24:41.840
+clear that we're going to be practitioners here and what does that
+
+0:24:40.960,0:24:46.320
+mean well it's in contrast to say somebody
+
+0:24:45.039,0:24:51.440
+who might be a machine learning researcher with like a phd
+
+0:24:48.799,0:24:53.440
+who is developing um new machine learning
+
+0:24:52.000,0:24:57.360
+algorithms right i don't think we want to get anywhere near that level
+
+0:24:55.760,0:25:02.799
+and in this course right so other people are going to develop those algorithms
+
+0:24:59.760,0:25:05.840
+sometimes we'll write the code for an algorithm that has been well defined
+
+0:25:04.400,0:25:09.440
+for us but most of the time we're just going to
+
+0:25:06.960,0:25:13.520
+be using the algorithms that other people have
+
+0:25:10.400,0:25:17.440
+already implemented right into code and and so well what are we actually
+
+0:25:15.279,0:25:20.240
+gonna do then uh why do we have anything to learn
+
+0:25:18.559,0:25:23.200
+and and it turns out while there's still lots of work for us to do as
+
+0:25:21.760,0:25:28.159
+practitioners right people who are just kind of using these algorithms
+
+0:25:25.279,0:25:32.320
+um and one of the things is as well let's say we have
+
+0:25:29.520,0:25:36.159
+sklearn that's short for scikit-learn which is a collection of all of these
+
+0:25:33.919,0:25:39.919
+different machine learning models how can we figure out which one would be
+
+0:25:38.559,0:25:43.200
+good to use for a particular program how which one
+
+0:25:41.840,0:25:46.799
+should we pick and then how should we use it
+
+0:25:45.440,0:25:49.520
+and uh and some of the stuff we've already been doing in the course was
+
+0:25:47.919,0:25:52.080
+going to lay the foundation for us to do that
+
+0:25:49.840,0:25:57.039
+work these different machine learning algorithms have different complexity
+
+0:25:54.880,0:25:59.440
+babies one is order and the other one is order n squared
+
+0:25:58.480,0:26:03.200
+and so if we're reading the documentation sklearn uh is trying to
+
+0:26:02.080,0:26:05.520
+talk about that it's trying to talk about the
+
+0:26:03.919,0:26:08.960
+the complexity of the algorithm is one of the factors and so hopefully this
+
+0:26:07.360,0:26:13.840
+background we have will help us pick the good algorithms kind of based
+
+0:26:10.720,0:26:17.520
+on the characteristics of our data other thing we have to do is sometimes
+
+0:26:15.440,0:26:21.520
+we have to clean up our data before we feed into an algorithm uh different
+
+0:26:19.760,0:26:24.000
+algorithms have different requirements i mean some
+
+0:26:22.400,0:26:28.880
+are going to be very tolerant of us just kind of just putting in the data
+
+0:26:25.840,0:26:33.360
+um as it is other algorithms only are going to really work well if
+
+0:26:30.640,0:26:38.400
+the average of each column is zero and and so we might have to do
+
+0:26:36.000,0:26:42.080
+things like subtract off the average um there might be some other statistical
+
+0:26:40.960,0:26:45.440
+properties that the machine learning algorithms are expecting so we might
+
+0:26:43.600,0:26:49.760
+have to say standardize our data by dividing
+
+0:26:47.279,0:26:52.159
+each column by the standard deviation of all the data there so there's a bunch
+
+0:26:51.039,0:26:55.919
+of cleanup stuff like that that we're gonna get good at doing
+
+0:26:53.840,0:27:00.320
+um there's other things where uh maybe the machine learning algorithm
+
+0:26:57.840,0:27:02.799
+um wants all of the columns to be numbers
+
+0:27:01.360,0:27:07.360
+and here that's true but you could totally imagine that it might have some
+
+0:27:05.279,0:27:10.240
+column that's categorical data like for example
+
+0:27:08.320,0:27:14.080
+you know what is the color of the house maybe um
+
+0:27:11.520,0:27:17.520
+maybe if the house is orange then like that takes life like 30 000
+
+0:27:16.159,0:27:21.440
+off of the price something like that right so if we have
+
+0:27:19.520,0:27:24.720
+something like a categorical column how can we turn that into numeric data
+
+0:27:23.679,0:27:28.080
+all right so we're gonna have to do all that so we're gonna pick our algorithm
+
+0:27:26.480,0:27:31.200
+to clean up our data and then the other thing i would think
+
+0:27:29.279,0:27:35.039
+we need to be good at is after we do our trading
+
+0:27:32.399,0:27:37.120
+uh we're gonna pass in live data or or maybe
+
+0:27:35.520,0:27:42.080
+we might also pass in something called test data where
+
+0:27:39.279,0:27:44.559
+we aren't telling the algorithm uh what the
+
+0:27:42.640,0:27:47.679
+what the actual values are for the y column
+
+0:27:45.679,0:27:51.520
+but we know ourselves right and so we kind of feed this in
+
+0:27:48.799,0:27:54.399
+and then say well how well does it do at predicting this y column which we kept
+
+0:27:53.279,0:27:59.279
+secret um within the test data and so we want
+
+0:27:56.559,0:28:05.279
+to object at well how can we evaluate whether or not not our model is good
+
+0:28:03.360,0:28:08.559
+okay so in the upcoming videos i'm gonna be jumping into
+
+0:28:06.559,0:28:14.240
+uh linear algebra a bit more and we'll be learning some of the
+
+0:28:10.640,0:28:14.240
+tool tooling around that
+

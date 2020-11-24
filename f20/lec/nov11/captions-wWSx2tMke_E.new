@@ -1,0 +1,732 @@
+0:00:01.360,0:00:08.000
+hello so in this video i want to talk more about the dot product
+
+0:00:04.799,0:00:10.639
+of a matrix and a vector and and i want to do three things first i want to just
+
+0:00:09.599,0:00:15.120
+review um if i have some sort of a dot product
+
+0:00:12.880,0:00:19.520
+example like this this right here how do i actually write
+
+0:00:16.960,0:00:22.960
+the code with numpy to make it happen and then i want to spend some time
+
+0:00:21.439,0:00:26.960
+trying to conceptually understand what is going on with the dot product
+
+0:00:25.119,0:00:31.679
+and i might introduce two different mental models or pictures you might have
+
+0:00:29.439,0:00:35.600
+um you could visualize it row by row or you could visualize it column by column
+
+0:00:34.160,0:00:38.879
+and what i'm going to be doing is i'm going to be writing some python code
+
+0:00:36.880,0:00:43.840
+from scratch to really show you exactly what's happening in both those cases
+
+0:00:41.280,0:00:48.559
+all right so first with this right here let me try to capture these
+
+0:00:45.680,0:00:52.719
+and uh and i might be doing different dot products for different reasons
+
+0:00:50.719,0:00:55.360
+but in a lot of the cases in this course we kind of have a specific use case and
+
+0:00:54.399,0:00:58.559
+that is well this matrix came out of some data
+
+0:00:57.680,0:01:03.280
+frame and so that's some sort of x data and
+
+0:01:01.440,0:01:06.479
+then i have some coefficients that i want to multiply on every value and
+
+0:01:05.199,0:01:09.760
+every cell and i'm going to do that to get some y
+
+0:01:08.000,0:01:14.799
+values so so i'm going to kind of use those variables and i have
+
+0:01:11.200,0:01:18.159
+x be my matrix and um and the way i can do it is i can really
+
+0:01:16.320,0:01:23.680
+think of it as like a list of lists right
+
+0:01:19.360,0:01:28.880
+like this so i can say like 4 5 6 7 eight nine
+
+0:01:27.040,0:01:35.680
+and then i want to bundle it up nicely in a numpy array so i probably ought to
+
+0:01:31.040,0:01:40.720
+import numpy and say numpy dot array and let me peek at that and
+
+0:01:38.880,0:01:44.640
+this is just a convention right when it's um two-dimensional like this i'll
+
+0:01:42.479,0:01:49.200
+typically capitalize um for my other uh vector um it's
+
+0:01:47.759,0:01:53.520
+basically one-dimensional so i'll make that lowercase
+
+0:01:50.960,0:01:57.119
+so there i have my x let me grab my c so c
+
+0:01:54.000,0:02:02.880
+equals um uh numpy dot array and here i have the
+
+0:02:00.799,0:02:08.160
+values two and three and if i peek at that oh i don't want
+
+0:02:06.000,0:02:12.480
+that if i peek at it i i see that it's not really vertical
+
+0:02:10.160,0:02:15.280
+and up here the direction of my vectors is very important so i want to make sure
+
+0:02:13.760,0:02:18.480
+this is vertical and so the way i'll do do that is i'll
+
+0:02:16.959,0:02:26.000
+do a reshape and for here i have rows and columns
+
+0:02:23.120,0:02:29.920
+and i want just one column right a single
+
+0:02:26.800,0:02:33.360
+column is a vertical vector and then negative one to basically say will give
+
+0:02:31.360,0:02:36.400
+me as many as you need and and so there i have it i have these
+
+0:02:35.200,0:02:39.840
+two and uh and probably the way i'll recommend
+
+0:02:37.840,0:02:45.280
+that you do the dot product is like this i'll say x and then the at
+
+0:02:43.760,0:02:50.640
+symbol means dot and c and i get this result right here
+
+0:02:48.800,0:02:53.680
+just just in terms of other code you might see there's a few other patterns i
+
+0:02:52.319,0:02:58.000
+might say this this is kind of uh what i see a lot
+
+0:02:56.239,0:03:01.040
+of as well it means exactly the same thing
+
+0:02:59.040,0:03:04.959
+um and then there's also the method version so i could say
+
+0:03:02.080,0:03:08.720
+x dot product see you're gonna see that a lot of documentation as well
+
+0:03:06.720,0:03:14.879
+so just know that kind of all these three things are the same
+
+0:03:11.440,0:03:18.080
+okay so down here uh we're gonna talk about two perspectives on what's
+
+0:03:16.239,0:03:22.239
+actually going on and one perspective is that i can just
+
+0:03:20.959,0:03:25.840
+draw a row by row what i'd like to do is i'd like to take
+
+0:03:23.599,0:03:30.080
+this first row and i have those values there
+
+0:03:26.959,0:03:33.760
+and i'm going to multiply 4 and 5 by 2 and three respectively right so i
+
+0:03:32.959,0:03:38.879
+get i get here four times two plus five
+
+0:03:37.040,0:03:42.159
+five times three and that would add up to 23 and then i'm done with the first
+
+0:03:40.799,0:03:46.239
+row so you can kind of see this first row
+
+0:03:43.120,0:03:49.599
+varies all the way through right um and then i'm going to go to my second row
+
+0:03:47.920,0:03:55.599
+here and i'm going to say i'm going to multiply 6 and 7
+
+0:03:52.080,0:04:01.680
+by 2 and 3 respectively and i may add up those products right so i get 6 times 2
+
+0:03:58.400,0:04:04.000
+plus 7 times 3 which adds up to 33. you can kind of see it's carrying all the
+
+0:04:02.799,0:04:08.239
+way through again so so really kind of for every row i
+
+0:04:06.720,0:04:13.040
+have in my input i may get another value in my output
+
+0:04:11.599,0:04:16.320
+and the way you should be thinking about it is like well these are kind of um my
+
+0:04:14.720,0:04:19.440
+x values maybe i pulled them out of a data frame
+
+0:04:18.000,0:04:24.479
+and uh and then i'm doing this calculation i want to put a coefficient
+
+0:04:22.479,0:04:28.080
+uh i want to put a coefficient on all of my x values
+
+0:04:26.560,0:04:31.600
+and do the multiplications to end up with these y values
+
+0:04:29.759,0:04:36.080
+so let me write a python function to do exactly that
+
+0:04:33.600,0:04:39.680
+and uh and my big goal here right is i'm gonna
+
+0:04:36.880,0:04:44.160
+make it just a note up here um i want to show how
+
+0:04:40.320,0:04:47.199
+um uh numpy dot and i have you know a matrix and a
+
+0:04:45.840,0:04:50.080
+vector um i want to show how that's going to be
+
+0:04:48.800,0:04:55.360
+the same as these two functions i'm going to write so i'm going to say
+
+0:04:52.000,0:05:02.320
+um you know row dot product of m and v and
+
+0:04:58.400,0:05:06.800
+column dot product of m and v are all the same right so i'm
+
+0:05:05.440,0:05:09.440
+going to be writing the code for these two
+
+0:05:07.840,0:05:13.360
+uh to show you two different ways to kind of conceptualize what operation
+
+0:05:11.600,0:05:15.759
+this is performing right so all of these are just
+
+0:05:14.080,0:05:18.720
+redundant right it's different ways to think about what's happening
+
+0:05:17.360,0:05:22.800
+and uh and they may help you reason three different scenarios
+
+0:05:20.800,0:05:26.400
+okay so the first one right is just this where i'm kind of thinking
+
+0:05:24.560,0:05:32.240
+one row at a time right for each input row i get an output row
+
+0:05:28.400,0:05:36.880
+and so for this row.product taking my m and my v and and really what
+
+0:05:35.199,0:05:43.120
+i should do is i should loop over one row
+
+0:05:38.080,0:05:48.720
+at a time so so how can i do that well um i i could say well you know let me
+
+0:05:45.919,0:05:56.000
+get my row index for row index and range of length of
+
+0:05:52.240,0:06:00.160
+of what um well the length of m is going to tell me how many rows there
+
+0:05:57.680,0:06:04.560
+are right so so the length would be three not two but but three right that's
+
+0:06:03.039,0:06:08.720
+what length does for matrix it gives tips the number of rows
+
+0:06:06.319,0:06:13.039
+i'm going to loop over all of those rows and then maybe
+
+0:06:09.759,0:06:18.000
+pull out the row so the row will be uh what it'll be m and then i want to pull
+
+0:06:16.240,0:06:23.759
+out basically that row index and
+
+0:06:21.199,0:06:26.479
+uh and i think just like that would be fine let me just kind of print each row
+
+0:06:25.199,0:06:29.600
+here so i'm going to call my row dot product
+
+0:06:28.560,0:06:35.520
+and i'm going to do it on my x matrix and my c from before
+
+0:06:33.600,0:06:40.960
+and uh and i can see i'm getting each ross i have four five
+
+0:06:37.360,0:06:47.520
+six seven um eight nine which is all good okay
+
+0:06:44.479,0:06:52.479
+um i think the other thing i want to do is um is for v i i want to
+
+0:06:51.120,0:06:55.280
+reshape that actually i think it'll be a little bit simpler if it's one
+
+0:06:53.759,0:07:00.960
+dimensional so i'm going to say v equals v dot reshape um
+
+0:06:58.800,0:07:04.960
+let's just make it one dimensional however long it needs to be
+
+0:07:03.120,0:07:08.400
+and then if i go here i can i can just put off v as well
+
+0:07:07.039,0:07:11.840
+and and you can kind of see how i'm going to line this up right i'm going to
+
+0:07:10.160,0:07:16.240
+multiply 4 times 2 and then i may multiply 5
+
+0:07:15.120,0:07:21.919
+times 3 and then i add up 8 plus 15
+
+0:07:19.599,0:07:24.319
+and 8 plus 15 is going to give me my 23. right so i kind of need to
+
+0:07:22.960,0:07:28.240
+loop over these together i need to loop over the 4 and 2 together and then the 5
+
+0:07:26.639,0:07:32.240
+and 3 together and so maybe the easiest way to do that
+
+0:07:29.919,0:07:36.880
+is just say something like for i and range length of row
+
+0:07:35.759,0:07:41.039
+right and then i can try to print off these pairs of numbers that i have to
+
+0:07:38.400,0:07:44.400
+add off well what is the row of i and then for that vector what do i have
+
+0:07:42.560,0:07:49.759
+there all right so i'm going to multiply 4 times 2 and 5 times 3. maybe i'm just
+
+0:07:47.680,0:07:52.879
+going to do the multiplication right here all right so i'm going to
+
+0:07:50.720,0:07:59.840
+have you know 8 is from 4 plus 2. 15 is from 5
+
+0:07:56.960,0:08:04.160
+5 plus 3. and that's going to be a y value right so so maybe what i should do
+
+0:08:01.360,0:08:09.199
+here is i should say oh you know y equals zero and for each
+
+0:08:07.520,0:08:13.360
+of those pieces right for each of those um things that i'm kind of pairing
+
+0:08:11.759,0:08:17.120
+off and multiplying i want to add that to my total and maybe for now i can just
+
+0:08:15.759,0:08:21.759
+print what that is right so so when i'm kind of multiplying
+
+0:08:19.919,0:08:25.039
+this first row with my coefficients i get 23
+
+0:08:22.960,0:08:29.520
+when i multiply my second row with the same coefficients i got 33
+
+0:08:27.680,0:08:33.839
+when i multiply my third row by those same coefficients and i get 43
+
+0:08:32.240,0:08:36.959
+and so to kind of wrap this all up nicely
+
+0:08:35.279,0:08:43.200
+what i need to do is i need to collect all these y values together the 23
+
+0:08:40.000,0:08:47.279
+33 and 43 and put them in a result so maybe i'll say like my result is here
+
+0:08:46.080,0:08:51.839
+and instead of printing it i'm just going to say resolve dot append
+
+0:08:50.080,0:08:57.680
+and then when i'm all done i can just return
+
+0:08:53.360,0:09:01.519
+my result is a numpy array dot numpy and um and i'm just going to kind of
+
+0:09:00.640,0:09:05.040
+force that to be one of these vertical vectors again
+
+0:09:03.120,0:09:08.560
+right where i'll say um however many rows in one column i'm
+
+0:09:07.760,0:09:12.480
+going to do all that and let me just kind of clean this up
+
+0:09:09.920,0:09:16.160
+before i run it uh i'm going to do that and uh why did i
+
+0:09:15.760,0:09:22.640
+do that numpy dot numpy numpy dot array and
+
+0:09:19.279,0:09:26.560
+and very good right i get 23 33 43. just like i did up here right so kind of
+
+0:09:25.279,0:09:30.399
+a simple test case right at least row dot for this
+
+0:09:28.800,0:09:34.000
+particular example is giving me the same thing
+
+0:09:31.519,0:09:38.720
+as the numpy version we can kind of see row by row what's happening
+
+0:09:36.640,0:09:43.279
+okay now there's another way i could define the dot product that
+
+0:09:40.240,0:09:46.080
+feels very different but it turns out it actually always gives you the same
+
+0:09:44.640,0:09:52.160
+results um if i had this kind of situation where
+
+0:09:49.440,0:09:57.040
+i had a matrix with just one row and uh and let's say those values in
+
+0:09:54.320,0:10:00.399
+that row were c0 c1 and c2 and then i multiplied it by this
+
+0:09:58.880,0:10:03.760
+vertical vector that has x y and z well you know how to do that
+
+0:10:02.800,0:10:10.160
+right you would say c0 times x plus c1 times y
+
+0:10:06.800,0:10:14.320
+plus c2 times z and and what's cool is that uh is that if i
+
+0:10:13.839,0:10:18.720
+have um these things if these are not single
+
+0:10:16.079,0:10:22.079
+values but they're actually full columns this formula here actually works out the
+
+0:10:20.640,0:10:26.000
+very same same way and so what that means is that
+
+0:10:24.320,0:10:29.279
+when i multiply this uh this vector or i'm sorry this matrix
+
+0:10:28.800,0:10:33.040
+by the vector 2 3 what i'm really saying is
+
+0:10:32.320,0:10:38.160
+that i want to take 2 times this column
+
+0:10:36.800,0:10:43.920
+you can actually see that here are 2 times that column
+
+0:10:40.079,0:10:47.360
+plus 3 times the second column you can see that right here 3 times the
+
+0:10:45.279,0:10:50.240
+second column and then basically multiply each column by itself and then
+
+0:10:48.959,0:10:53.519
+add it all off and this is an example of what we call a
+
+0:10:51.839,0:10:58.000
+linear combination a linear combination is where we have a
+
+0:10:56.079,0:11:02.399
+bunch of um uh kind of uh values right in these
+
+0:11:01.040,0:11:06.800
+values could either be um you know vectors matrices scalar
+
+0:11:05.040,0:11:10.160
+scalars or whatever um and i want to take a linear
+
+0:11:08.720,0:11:12.480
+combination on that and what that means is i'll multiply them each by some
+
+0:11:11.440,0:11:15.519
+number and after i multiply them each by their
+
+0:11:14.079,0:11:19.920
+multiplier i just add them all up right so it's just kind of this
+
+0:11:17.200,0:11:22.720
+simple multiplier step before i just add them so linear combinations are kind of
+
+0:11:21.519,0:11:27.519
+very simple even though it's kind of a fancy word
+
+0:11:24.880,0:11:30.560
+so so let me see if i can write the uh the code
+
+0:11:28.000,0:11:34.079
+for this and and the the function is going to be very similar in this regard
+
+0:11:32.079,0:11:37.440
+i may start up here and i'm going to say column dot this
+
+0:11:36.399,0:11:41.440
+time and uh and right away again i want to
+
+0:11:39.839,0:11:46.560
+loop over something in the matrix i guess before i
+
+0:11:44.560,0:11:49.839
+was looping over the rows and um and i and i don't quite want to
+
+0:11:48.560,0:11:53.120
+do that this time this time i want to loop over the columns right so i'm going
+
+0:11:51.680,0:11:57.760
+to change this i'm going to say column index
+
+0:11:54.560,0:12:00.240
+this time and then uh i can't do length because length can be
+
+0:11:58.720,0:12:05.760
+gives me the number of rows and i want the number number of columns
+
+0:12:02.399,0:12:08.959
+so so what i could do well if i say m dot
+
+0:12:06.160,0:12:11.440
+shape of 0 this is the same as length right so
+
+0:12:09.519,0:12:16.320
+zero dimension gives me the number of rows this gives me the number of columns
+
+0:12:14.560,0:12:18.959
+and so i think if i print my column index here
+
+0:12:17.680,0:12:22.880
+let me just double check what i'm telling you
+
+0:12:21.279,0:12:26.639
+i see zero and one right the zeroth column the one column
+
+0:12:25.200,0:12:29.839
+and then if i want to i can actually pull out those columns right so i can
+
+0:12:28.000,0:12:36.399
+say something like you know column um equals
+
+0:12:33.040,0:12:41.360
+what is it um i i guess it would be m and then what i need i need like a row
+
+0:12:40.240,0:12:47.440
+slice and then a column slice and
+
+0:12:44.560,0:12:51.200
+uh or column index right i can do either indexing or slicing
+
+0:12:49.040,0:12:55.120
+along either of these dimensions and so for the column index well
+
+0:12:52.959,0:12:57.440
+i just want to pull out that one and then for the rows i would really like
+
+0:12:56.480,0:13:01.120
+all of them so i have that column and maybe i can
+
+0:12:59.120,0:13:04.959
+just print this thing off and uh and you can see that it got a
+
+0:13:04.000,0:13:12.240
+little bit wacky right when i did that because because y
+
+0:13:08.480,0:13:14.560
+well um you know when i have an index here that kind of reduces the dimension
+
+0:13:13.839,0:13:18.720
+right so so just kind of pulling out this column
+
+0:13:17.040,0:13:20.639
+and turning it into this one-dimensional thing
+
+0:13:19.279,0:13:25.839
+maybe what i could do is i could just reshape it and i could say
+
+0:13:22.959,0:13:29.440
+you know make it vertical again right so i can pull out
+
+0:13:26.959,0:13:33.360
+you know here's a column and i can pull out
+
+0:13:30.079,0:13:38.399
+um here's a column okay so now i want to get these multipliers again
+
+0:13:35.120,0:13:45.120
+right so maybe um what i'd like to do is uh is i have two columns and
+
+0:13:43.199,0:13:48.639
+uh and that also means i have two values in my v
+
+0:13:46.720,0:13:52.560
+and um and like last time actually i would like to just kind of flatten it
+
+0:13:51.360,0:13:55.920
+right i don't really care about the direction of it anymore let's just make
+
+0:13:53.839,0:14:02.320
+it a one dimensional thing uh instead of this vertical thing uh
+
+0:13:59.279,0:14:07.680
+if i do that let me let me kind of see here
+
+0:14:03.360,0:14:12.800
+what i can do is i can i can let me print off this i can say v
+
+0:14:10.800,0:14:16.560
+and then also look at that same column index
+
+0:14:14.320,0:14:22.880
+right so so i can see basically i want to multiply this column
+
+0:14:18.240,0:14:27.760
+by two and in this column by by three and um and so instead of four six eight
+
+0:14:26.560,0:14:31.120
+i guess i should get one i should have like eight twelve sixteen
+
+0:14:29.680,0:14:37.600
+let me just do it right now i'm going to do multiply this column
+
+0:14:34.000,0:14:42.160
+here by by 2 right so let's see if it's 8 12 16 it is
+
+0:14:41.040,0:14:45.920
+8 12 16 and then the other column right i guess
+
+0:14:44.079,0:14:50.160
+um this column here up above five seven nine becomes
+
+0:14:48.639,0:14:54.320
+multiplied by three so that becomes fifteen
+
+0:14:51.279,0:14:57.199
+uh twenty one twenty seven and uh and so this is all great
+
+0:14:55.279,0:15:01.040
+and um and i'd like to add it to some sort of total
+
+0:14:59.680,0:15:06.000
+right so maybe up here i may have some sort of result equals
+
+0:15:03.760,0:15:10.880
+something and then down here i'm going to say well result
+
+0:15:07.680,0:15:14.639
+plus equals whatever this is okay and then when i'm all done i'm
+
+0:15:12.000,0:15:19.440
+gonna return that and so what i better do is i better make sure
+
+0:15:16.160,0:15:23.199
+that that this thing um is the right shape right if i want to be
+
+0:15:21.279,0:15:28.399
+adding adding these columns to it i better start as um
+
+0:15:24.720,0:15:30.759
+kind of like this vertical column of y's and so this is actually one of these
+
+0:15:29.600,0:15:36.000
+great cases where i could say numpy.zeros
+
+0:15:32.800,0:15:42.399
+and um and when i do this i can put in a shape tuple
+
+0:15:39.680,0:15:46.079
+right what what shape do i want my zeros and
+
+0:15:42.800,0:15:50.480
+and so let me think about that you know i have the rows and the columns
+
+0:15:48.959,0:15:53.440
+and i know my results should just have one column right i mean it needs to be
+
+0:15:52.000,0:15:58.320
+the same shape of these things that i'm adding up
+
+0:15:54.880,0:16:02.480
+and how many rows do i want well i guess however tall my result should be should
+
+0:16:00.000,0:16:06.240
+be the same height as my m so i can say length of m maybe let me
+
+0:16:04.800,0:16:08.560
+just print that before i go too much farther
+
+0:16:07.360,0:16:12.160
+i just print that result at the beginning i can
+
+0:16:10.639,0:16:15.440
+i see have these three zeros in the right places
+
+0:16:13.920,0:16:21.040
+maybe i can actually print it down here as well and you can kind of see how i'm
+
+0:16:18.079,0:16:26.000
+adding up these values as i go right first i just put
+
+0:16:22.160,0:16:29.440
+the the first column times two there and then on top of that i add three
+
+0:16:28.079,0:16:34.399
+times the second column right i get three times
+
+0:16:33.040,0:16:38.959
+the second column so you can see i can just accumulate like that
+
+0:16:36.399,0:16:42.800
+and uh and then when i'm all done i guess i actually wanted to
+
+0:16:40.000,0:16:45.040
+return that thing so i do that and uh and i see it straight right i'm not
+
+0:16:44.160,0:16:49.600
+trying to prove that these two functions are always
+
+0:16:48.240,0:16:52.639
+trying to return the same result the code feels very different
+
+0:16:51.360,0:16:56.720
+but i'll let you just kind of take it on faith for the purpose of this course
+
+0:16:54.720,0:17:02.160
+that these two ways of looking at it in these two ways of writing the code
+
+0:16:58.959,0:17:06.240
+produce exactly the same same result and it turns out that in many cases this
+
+0:17:04.079,0:17:10.000
+column picture is kind of the better mental picture to have when we're kind
+
+0:17:08.880,0:17:13.760
+of reasoning about machine learning models
+

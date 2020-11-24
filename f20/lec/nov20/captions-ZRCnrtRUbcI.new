@@ -1,0 +1,555 @@
+0:00:02.800,0:00:08.400
+well in the last video we saw what a classifier or at least one kind of
+
+0:00:06.640,0:00:12.639
+classifier looks like and a classification model is just a
+
+0:00:10.480,0:00:16.160
+function that takes some input data and um and then it returns a class and
+
+0:00:14.400,0:00:18.400
+maybe in the simplest case that class is either
+
+0:00:16.960,0:00:22.880
+uh true or false although it could be other kind of categorical information
+
+0:00:20.800,0:00:26.800
+and and we saw that it was not that different
+
+0:00:24.400,0:00:30.640
+than the linear regressions we've been doing right the
+
+0:00:28.160,0:00:32.800
+logistic regression model that that we had
+
+0:00:31.199,0:00:36.880
+it was based on multiplying our inputs by a vector and um and then trying to
+
+0:00:35.280,0:00:40.000
+convert that to a number as either zero or one
+
+0:00:37.760,0:00:44.320
+that could then be treated as a boolean okay so here you can see that the models
+
+0:00:42.719,0:00:49.039
+are not that hard to use once you have them the real magic was
+
+0:00:46.399,0:00:52.000
+well how did i get these numbers and are they good numbers are these coefficients
+
+0:00:50.960,0:00:56.399
+um meaningful these model parameters and so
+
+0:00:54.559,0:00:58.879
+the typical machine learning steps are kind of
+
+0:00:57.360,0:01:03.120
+several right the first is that we actually need to train the model
+
+0:01:01.039,0:01:06.560
+somehow in training refers to the process of figuring out what these
+
+0:01:04.559,0:01:10.159
+coefficients are going to be uh then we want to test or evaluate the
+
+0:01:08.560,0:01:13.200
+model figure out well did i actually come up with good numbers
+
+0:01:11.600,0:01:15.920
+here or is it not going to work that well in the future
+
+0:01:14.720,0:01:18.080
+and then finally after we've come up with those numbers and we feel some
+
+0:01:17.040,0:01:22.320
+confidence in them we actually want to use them to make new
+
+0:01:20.000,0:01:26.080
+predictions um like we're doing right here
+
+0:01:23.119,0:01:29.200
+okay now something that would be bad would be to use the same data for
+
+0:01:27.600,0:01:34.720
+training and testing and why that is bad is that uh perhaps
+
+0:01:32.720,0:01:39.200
+perhaps during training uh we just try and memorize the answer
+
+0:01:36.479,0:01:43.280
+um it would be like if um for a course so i gave a practice exam
+
+0:01:41.280,0:01:47.520
+and then the real exam was exactly identical to the practice exam
+
+0:01:45.280,0:01:50.479
+um somebody who does well in the real exam maybe
+
+0:01:48.880,0:01:53.920
+just memorized all the answers and then actually truly
+
+0:01:52.079,0:01:56.640
+learn memorization is not the same thing as learning
+
+0:01:55.119,0:02:00.240
+and um and so what we'll want to do is we'll have different data sets for these
+
+0:01:58.719,0:02:03.520
+but often we're originally just driven one data set so we'll want to split our
+
+0:02:03.040,0:02:06.560
+data into two parts right so we can have some
+
+0:02:05.360,0:02:10.640
+data for training and some data for testing and um and
+
+0:02:09.039,0:02:13.920
+just like you might want your practice exam
+
+0:02:11.520,0:02:16.959
+have some similarities to the real exam um we might want to take some care in
+
+0:02:15.680,0:02:20.080
+how we're doing that that's splitting all right so let me
+
+0:02:17.920,0:02:23.520
+talk about how we're going to do that um once we have these two parts right and
+
+0:02:21.840,0:02:27.440
+we want to perform these three steps overall
+
+0:02:24.640,0:02:33.200
+um we could do those by hand but in general we're going to be using sklearn
+
+0:02:30.239,0:02:37.360
+and sklearn has different types of objects called
+
+0:02:33.920,0:02:40.560
+estimators one estimator an example of an estimator is
+
+0:02:38.560,0:02:44.480
+a linear regression another example is a logistic regression
+
+0:02:42.400,0:02:49.040
+and all of these estimators have these three functions
+
+0:02:45.760,0:02:54.160
+or methods i should say fit score and then predict and um and those
+
+0:02:52.480,0:02:57.599
+three things correspond to these three steps that we generally do
+
+0:02:55.920,0:03:00.959
+in machine learning right so sk learn is going to make it easy for us
+
+0:02:59.280,0:03:04.640
+um fit we're going to be given some example inputs and outputs
+
+0:03:02.959,0:03:08.400
+and that's how we kind of try to learn the coefficients between them
+
+0:03:06.400,0:03:11.040
+a score we're going to be given generally given different inputs and
+
+0:03:10.159,0:03:15.120
+outputs and it's going to evaluate how well the
+
+0:03:12.720,0:03:18.879
+model does mapping those and push those outputs right maybe sometimes it'll
+
+0:03:16.959,0:03:22.640
+um kind of do the wrong calculation and then kind of get a wrong answer
+
+0:03:20.560,0:03:24.879
+which case the score will be worse and then prediction
+
+0:03:23.680,0:03:27.360
+right we don't know what the ground truth is right so we're trying to
+
+0:03:26.080,0:03:30.720
+predict why and then hopefully we make a good
+
+0:03:28.959,0:03:35.840
+prediction um now in addition to predicting which gives us
+
+0:03:32.640,0:03:40.319
+a class right or a classification we could also get these coefficients or
+
+0:03:38.799,0:03:43.120
+intercept right you won't generally do that
+
+0:03:41.040,0:03:47.760
+but that's exactly how i got these numbers here before these first three
+
+0:03:45.680,0:03:52.239
+were coefficients and the last one um was the intercept right so you could
+
+0:03:49.760,0:03:56.640
+absolutely after you train the model fill out that information and deploy the
+
+0:03:55.040,0:04:02.239
+model in some other way not using sklearn once you have that information
+
+0:04:00.480,0:04:06.080
+um so here i have that same data set from last time i'm not going to be using
+
+0:04:04.080,0:04:10.000
+the ones column anymore um that was kind of helpful before when
+
+0:04:08.159,0:04:15.519
+i wanted to do everything as a vector multiplication
+
+0:04:13.280,0:04:18.239
+don't have to do that anymore because the predict and
+
+0:04:16.959,0:04:23.759
+that functions are going to be doing that for us right there automatically
+
+0:04:20.639,0:04:26.720
+be adding that one column um as before right we had this
+
+0:04:24.479,0:04:29.840
+y field which we did a regression on i'm not going to worry about that today
+
+0:04:28.479,0:04:34.880
+we're just trying to think about how we can make good predictions on the c
+
+0:04:32.080,0:04:38.800
+column okay so i have a couple things um imported here
+
+0:04:36.320,0:04:42.479
+and sk learn under model selection i'm importing
+
+0:04:39.759,0:04:46.479
+this function called train test split um that's trying to be able to split this
+
+0:04:43.759,0:04:51.120
+data frame into those two parts for us and um and then these other pieces are
+
+0:04:49.520,0:04:54.960
+uh well i have a linear regression we're not going to use that then logistic
+
+0:04:53.120,0:04:59.520
+regression which is our classification model not a regression
+
+0:04:57.280,0:05:05.520
+despite the name okay so first things first let's call this
+
+0:05:02.160,0:05:11.600
+let's call this function on our data frame and i can do it just like that
+
+0:05:08.240,0:05:14.880
+and when i do that i get it's returning here an array of two data frames so
+
+0:05:13.360,0:05:19.360
+maybe the easier way to do this is to say train
+
+0:05:16.240,0:05:24.240
+test equals like that and i can look at well there's my
+
+0:05:20.720,0:05:28.560
+training data i have 75 rows there and there's my test data and then here i
+
+0:05:26.479,0:05:34.000
+only have 25 rows um that's a default i could if i want to
+
+0:05:32.240,0:05:38.800
+kind of split up the data differently for example
+
+0:05:35.600,0:05:44.320
+i could say that i want my training data size to be half of all the data
+
+0:05:41.120,0:05:47.520
+and so if i do that again now um maybe it's a little hard to see but
+
+0:05:45.840,0:05:51.440
+i'm getting 50 rows that doesn't like 50 rows here here let
+
+0:05:50.400,0:05:54.800
+me do this look at the the shape of both of them
+
+0:05:53.840,0:05:59.840
+train dot shape and test dot shape
+
+0:05:57.840,0:06:06.080
+and i see okay great it's kind of um dividing them up equally
+
+0:06:03.120,0:06:07.759
+um so so let's take a look at these and um
+
+0:06:06.400,0:06:12.319
+it's something to keep in mind right as if i run this again
+
+0:06:09.440,0:06:15.360
+it's non-deterministic right so maybe here let me do this
+
+0:06:13.440,0:06:18.000
+make it a little bit more clear right every time i run this it's it's doing
+
+0:06:17.039,0:06:23.039
+different data i just randomly choosing that and because it's
+
+0:06:21.120,0:06:28.160
+randomly choosing it i could look at this thing i'm trying to
+
+0:06:24.479,0:06:33.600
+predict and and it's very possible
+
+0:06:31.600,0:06:37.440
+that these classes are not kind of divided evenly
+
+0:06:35.039,0:06:41.360
+across the training and the test data right so you can see here
+
+0:06:39.600,0:06:43.840
+um i guess that's actually pretty close but let me try again i mean it's random
+
+0:06:42.880,0:06:48.639
+right so i got a little bit lucky that was
+
+0:06:46.160,0:06:52.479
+actually pretty similar there we go you can see there's a lot of
+
+0:06:50.319,0:06:56.479
+skew here right in my training data i have a lot of trues and in my test
+
+0:06:55.280,0:07:01.039
+data actually i was very close again wasn't
+
+0:06:58.160,0:07:04.240
+it the randomness is not helping my lecture
+
+0:07:02.080,0:07:07.599
+um well anyway you can see that before i had kind of a
+
+0:07:05.759,0:07:11.840
+higher sku there right but it's often that it won't be divided equally
+
+0:07:10.160,0:07:16.639
+and that can mean that it's not very meaningful to evaluate this test data
+
+0:07:15.280,0:07:19.680
+on the test date after we've learned on the training data so it's very common
+
+0:07:18.319,0:07:26.720
+that people will do is they'll pass in the stratify
+
+0:07:23.599,0:07:31.120
+ratify and stratify can be a bunch of columns that we want to kind of be
+
+0:07:29.680,0:07:36.240
+evenly distributed across these and it doesn't work on it doesn't
+
+0:07:34.240,0:07:39.759
+work on numeric data like why right just may complain about that um
+
+0:07:38.880,0:07:43.120
+but i can absolutely do that on my z column my categorical
+
+0:07:42.479,0:07:46.319
+column and if i look at the value counts here
+
+0:07:45.919,0:07:50.560
+um you're gonna see that i'm getting it
+
+0:07:48.720,0:07:54.000
+pretty evenly split and i'm not sure why it's not exactly
+
+0:07:52.479,0:07:57.199
+perfect it was before anyway it's it's gonna make it more
+
+0:07:55.440,0:08:00.400
+evenly split than it would be um otherwise we'll kind of commonly
+
+0:07:58.800,0:08:04.400
+train uh generate our training and test data like
+
+0:08:02.000,0:08:09.759
+that okay so now we're all set up right we've um heading up here we've got
+
+0:08:07.360,0:08:13.599
+the data ready for both of these steps and um and so we're going to use the
+
+0:08:11.599,0:08:20.160
+training data for fitting and the test data for scoring
+
+0:08:17.120,0:08:29.199
+so let's let's head down here and i'm going to create a logistic regression
+
+0:08:26.800,0:08:33.680
+and um and uh the first thing i'm going to do right is that first machine
+
+0:08:30.319,0:08:37.760
+learning step i'm going to train it make a note here this is the training
+
+0:08:35.360,0:08:42.640
+step and when i'm training right i have to
+
+0:08:40.640,0:08:45.920
+have some x values and some y values let me actually just run this
+
+0:08:44.320,0:08:49.600
+here and then if i hit shift tab it'll actually give me some auto complete
+
+0:08:47.760,0:08:53.279
+um i need to have my x values and my y values and so
+
+0:08:51.519,0:08:59.360
+what are those well if i head up here and i look at my training data
+
+0:08:56.000,0:09:02.399
+um i just want to grab those first three columns so i'm going to do this let me
+
+0:09:00.720,0:09:06.080
+say that location i want all the rows and i want the
+
+0:09:04.560,0:09:10.320
+columns x1 through x3 remember that when i'm doing
+
+0:09:08.480,0:09:14.640
+a column slice on a data frame it's actually inclusive
+
+0:09:12.000,0:09:18.560
+let me get those things that's exactly what i want
+
+0:09:15.760,0:09:21.600
+down here when i'm training this thing i pass in those
+
+0:09:19.839,0:09:25.519
+those three fields i don't need the one column anymore because the logistic
+
+0:09:23.279,0:09:29.680
+regression will add that for me and and then i need that thing i'm
+
+0:09:27.920,0:09:33.760
+trying to predict that z column so i run that
+
+0:09:30.480,0:09:41.120
+and i've trained it in an instant okay so how good did i do
+
+0:09:37.760,0:09:46.000
+for that i need to call lr dot score and the scoring function does um
+
+0:09:44.480,0:09:50.880
+you know that's available for regressions too
+
+0:09:47.680,0:09:54.399
+and depending on what kind of estimator i'm using it might mean different things
+
+0:09:52.240,0:09:57.920
+but if i hit shift tab here it's telling me that it's returning
+
+0:09:55.600,0:10:01.920
+accuracy basically what percentage of the times
+
+0:09:59.120,0:10:04.320
+did i get it right and um and so the date i'm feeding it in is almost
+
+0:10:03.279,0:10:10.240
+identical here right so i could do this this is
+
+0:10:07.360,0:10:12.640
+a bad well it would be bad if i was trying to
+
+0:10:10.640,0:10:16.480
+using this for my actual score it's bad because this is the data i i trained on
+
+0:10:14.959,0:10:18.880
+right so it's kind of like cheating right we've already seen this data
+
+0:10:17.760,0:10:25.200
+before um the actual step i would do
+
+0:10:22.079,0:10:28.880
+uh would be the test data and um and that's the same thing i just
+
+0:10:27.200,0:10:32.800
+changed change train a test here and i see in this case while
+
+0:10:31.440,0:10:37.040
+it was actually um does pretty similarly and um
+
+0:10:35.839,0:10:42.399
+so i don't really see signs of overfitting here and maybe
+
+0:10:39.200,0:10:47.279
+i just say you know not a real uh measure of performance right i mean i
+
+0:10:45.760,0:10:51.040
+might still do that to compare these to see
+
+0:10:48.160,0:10:53.120
+am i over fitting my data or not um but this would
+
+0:10:51.600,0:10:56.240
+the second number would be my most meaningful number
+
+0:10:54.720,0:10:59.920
+and i guess i've kind of gotten unlucky hearing that well it looks equally good
+
+0:10:58.480,0:11:04.720
+right now which i didn't see when i was prepping before
+
+0:11:01.839,0:11:08.320
+okay so those are those steps um all right so kind of heading back up here
+
+0:11:06.079,0:11:11.920
+right let's just review this right so we train the model
+
+0:11:09.600,0:11:14.640
+uh we evaluate the model and then we can use it to make new predictions right and
+
+0:11:13.519,0:11:19.519
+those methods are fet we've seen or which we've seen
+
+0:11:18.000,0:11:23.519
+and then predict so let's actually do some predictions
+
+0:11:21.920,0:11:27.760
+i mean come down here i might say all r dot predict
+
+0:11:25.120,0:11:31.440
+and in this case right i just have x data
+
+0:11:28.320,0:11:34.800
+right i could if i wanted to i could grab
+
+0:11:31.920,0:11:38.240
+this and i could do it on that data frame make a bunch of predictions
+
+0:11:36.640,0:11:41.839
+um also if i wanted to right as i could just directly
+
+0:11:39.760,0:11:45.839
+um put some numbers down here so if i say like 100
+
+0:11:43.440,0:11:49.600
+20 10 i'm not going to quite work because it's always expecting
+
+0:11:47.760,0:11:54.000
+you know a list of rows so i could do that it predicts that's true
+
+0:11:51.440,0:11:56.880
+but if i say that's like 200 predicting that's false
+
+0:11:55.279,0:12:00.320
+so i can make those predictions like that and if i wanted to
+
+0:11:58.560,0:12:04.880
+if i wanted to kind of go back to how i started and
+
+0:12:02.320,0:12:08.959
+write the predict function myself i could pull out that vector
+
+0:12:06.800,0:12:12.519
+and in the way i would do that if i really wanted to is i'd say
+
+0:12:10.440,0:12:17.760
+lr.coefficient lr.intercept those are not
+
+0:12:15.760,0:12:25.600
+methods right they're just these values that have been populated
+
+0:12:19.120,0:12:25.600
+and i could use those up above
+

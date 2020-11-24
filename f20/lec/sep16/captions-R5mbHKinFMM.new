@@ -1,0 +1,474 @@
+0:00:01.439,0:00:05.040
+hello in this video i'm going to be talking a little bit more about
+
+0:00:04.000,0:00:08.639
+searching and in all the examples i've had um of
+
+0:00:07.279,0:00:12.880
+searching so far where we're trying to look for something in a list
+
+0:00:10.160,0:00:16.720
+um it's been order n um so for example if i
+
+0:00:13.360,0:00:20.960
+um had this list here that i'm illustrating in the top right
+
+0:00:18.240,0:00:22.720
+and then i run this piece of code 27 and l
+
+0:00:21.520,0:00:25.920
+it doesn't look like there's a loop there but what will actually happen is
+
+0:00:24.480,0:00:29.679
+that python will loop over all this range until it actually
+
+0:00:28.240,0:00:32.960
+finds 27 and so this is an order in operation
+
+0:00:31.199,0:00:36.640
+because if i have a bigger list the worst case is that i have to look at
+
+0:00:35.040,0:00:40.480
+all the items this item might be near the end
+
+0:00:37.760,0:00:42.160
+now i'm going to erase all of this here and
+
+0:00:40.879,0:00:46.719
+what i want you to notice about this list i have is that
+
+0:00:44.160,0:00:52.000
+the numbers happen to be sorted so i start with one the smallest number
+
+0:00:48.800,0:00:55.600
+and i go up to 99 the largest number and when we're have sorted numbers it
+
+0:00:54.160,0:01:00.079
+turns out or sorted anything it turns out there's an
+
+0:00:57.520,0:01:03.760
+algorithm for it called binary search that is going to be let us be faster
+
+0:01:01.840,0:01:06.080
+than order in so what i want to do here is first
+
+0:01:04.320,0:01:10.400
+kind of show you how binary search works and then talk about the complexity of it
+
+0:01:08.240,0:01:13.840
+so with my binary search function here i'm passing in my list l
+
+0:01:12.400,0:01:17.920
+and i'm passing in the target which is what i'm looking for you can see
+
+0:01:15.600,0:01:22.080
+down here i'm calling it with this list this number
+
+0:01:19.200,0:01:24.560
+and um and and i'm going to assume that n is the length of the list
+
+0:01:23.439,0:01:29.680
+as usual right so that's what i'm passing in and the whole idea here
+
+0:01:27.759,0:01:31.840
+when we're searching for something is that where i start in the middle of the
+
+0:01:31.040,0:01:35.119
+list and rather than starting at the
+
+0:01:33.680,0:01:37.280
+beginning like we normally do where i start in the middle
+
+0:01:36.079,0:01:41.680
+and where i see if the thing we're looking for is bigger
+
+0:01:39.119,0:01:46.960
+smaller than that middle and that'll help us because
+
+0:01:43.040,0:01:50.079
+if it's smaller well then we know that if item is here it's going to be
+
+0:01:48.159,0:01:55.200
+somewhere on the left and i can basically ignore looking at
+
+0:01:52.720,0:01:59.040
+anything on the right hand side so basically with kind of doing one step
+
+0:01:57.119,0:02:02.240
+we can cut the work in half and so this is going to be an algorithm
+
+0:02:00.560,0:02:07.119
+where we repeatedly cut the size of list in half and that's
+
+0:02:05.200,0:02:11.039
+going to be better than order n okay so so if i'm looking at the uh how
+
+0:02:09.280,0:02:14.560
+the code starts up here i have this left index
+
+0:02:12.000,0:02:17.680
+and my right index and those point to zero
+
+0:02:15.599,0:02:21.200
+and then the length of the last and so i'm just going to draw some arrows there
+
+0:02:19.120,0:02:26.400
+so i guess my left index is at position at position zero
+
+0:02:24.879,0:02:29.040
+and then my right one is at position eight which is i guess is just past
+
+0:02:27.920,0:02:32.879
+celeste and um and and well let me think a
+
+0:02:31.599,0:02:36.720
+little bit about how i'm going to draw this because i guess the
+
+0:02:34.239,0:02:41.599
+the left index is inclusive and the right index is exclusive
+
+0:02:39.040,0:02:45.440
+and so well what does that mean that means that
+
+0:02:43.120,0:02:47.440
+that zero is including that zeroth item right so i'm going to kind of draw that
+
+0:02:46.640,0:02:49.840
+bar there maybe i could draw it as an arrow i'm
+
+0:02:48.720,0:02:53.120
+just not going to do it though because i'm going to keep on
+
+0:02:51.360,0:02:55.840
+kind of redrawing this that would be there because that's inclusive so i want
+
+0:02:54.319,0:03:03.120
+to include 0 um 0 on the on the left
+
+0:02:59.040,0:03:07.840
+and on the right hand side well i guess i'm also going to move that
+
+0:03:04.560,0:03:14.000
+one to the left because that one is also um uh exclusive right so
+
+0:03:11.840,0:03:16.400
+so so when it's inclusive i want to move it in the direction that kind of covers
+
+0:03:15.519,0:03:21.040
+more items when it's exclusive i want to move it um
+
+0:03:19.040,0:03:24.080
+in the direction that covers fewer items and so i guess for the
+
+0:03:22.640,0:03:29.280
+left bound that means moving left and for the right bound it also means moving
+
+0:03:26.159,0:03:31.519
+moving left okay so so i'm starting off and
+
+0:03:29.920,0:03:35.040
+well what is what do these two indexes mean uh these mean
+
+0:03:33.200,0:03:39.519
+that this is the range of possible values that might have what i'm looking
+
+0:03:37.120,0:03:43.120
+for in this case i'm looking for um 27. okay so it could be anywhere in
+
+0:03:42.319,0:03:46.159
+there and so what do we do well we have this
+
+0:03:45.280,0:03:51.519
+loop while right index minus left index is
+
+0:03:49.519,0:03:56.400
+greater than one uh what does that mean so right index is
+
+0:03:53.920,0:04:00.640
+less than left index is greater than one that means that this range over here
+
+0:03:58.720,0:04:05.120
+contains at least one item right so i want to keep shrinking this range
+
+0:04:02.959,0:04:08.000
+until it's either empty which means i didn't find it
+
+0:04:06.159,0:04:10.720
+or it contains one item and then well i can just check that one item to see if
+
+0:04:09.280,0:04:14.560
+it's what i'm looking for right so that's what this loop down here
+
+0:04:12.480,0:04:18.400
+is doing right is trying to keep cutting this in half so so i see right
+
+0:04:16.479,0:04:23.600
+away that there's a middle index which is right index plus left index
+
+0:04:21.280,0:04:27.520
+divided by two and i'm rounding down and so i guess my right index is eight
+
+0:04:25.680,0:04:32.560
+and my left index is zero so this is four and so i guess i'm going to draw
+
+0:04:31.120,0:04:35.600
+this bar right here here here is kind of the
+
+0:04:34.160,0:04:38.320
+middle and and then what i'm going to do is i'm
+
+0:04:36.800,0:04:40.240
+going to be checking at position 4 so just to the right of that i'm going to
+
+0:04:39.520,0:04:43.919
+see is that value bigger or smaller than
+
+0:04:42.800,0:04:48.720
+what i'm looking for that's what i'm doing over here right is target
+
+0:04:46.320,0:04:52.960
+uh bigger or smaller than that middle value that i'm i'm getting
+
+0:04:50.479,0:04:56.479
+and while i'm looking for 27 and this is just 11
+
+0:04:54.160,0:04:59.919
+so it's bigger so so that means that i know
+
+0:04:57.440,0:05:02.400
+that i i haven't determined if 27 is here yet
+
+0:05:00.639,0:05:07.440
+but but if it is i know it has to be on this right hand side
+
+0:05:04.320,0:05:10.479
+and and so well what do i do here so i'm going to run this piece of code here
+
+0:05:08.880,0:05:13.680
+i know it's on the right hand side so i'm going to move the left end of the
+
+0:05:12.800,0:05:17.280
+range into the middle so in the second
+
+0:05:15.680,0:05:22.960
+iteration of the loop i may be like this i mean my left index is here
+
+0:05:19.520,0:05:26.000
+and my right index is here and then again i'm going to
+
+0:05:24.080,0:05:30.639
+figure out where my middle index is right so i'm going to look like that
+
+0:05:28.080,0:05:34.880
+and then again i'm going to compare 27 to this
+
+0:05:32.320,0:05:36.639
+right so i'm doing this again so it is targeted greater than or equal to the
+
+0:05:36.160,0:05:40.720
+middle yeah well i guess 27 is greater than or
+
+0:05:38.560,0:05:44.000
+equal to 27 and you can imagine versions of this
+
+0:05:42.320,0:05:47.600
+where i maybe realize oh i got lucky and i already found it and i return
+
+0:05:45.440,0:05:51.199
+early um but we're just gonna look at what this code does exactly
+
+0:05:49.600,0:05:54.080
+um and so i know it's on the right hand side so i'm going to narrow it down to
+
+0:05:52.560,0:05:57.199
+this and this right so i know that it's
+
+0:05:56.080,0:06:00.400
+somewhere um in between there right i'm going to
+
+0:05:59.199,0:06:04.560
+keep going okay so next pass through i'm going to
+
+0:06:01.840,0:06:09.039
+set my middle to here right and now what now i'm kind of
+
+0:06:07.360,0:06:12.400
+checking this value to the right and i can see oh well that that is
+
+0:06:11.120,0:06:16.800
+bigger uh that that is bigger than 27 right so
+
+0:06:15.600,0:06:19.520
+now i actually see a case where i'm going to set the the right index to the
+
+0:06:18.880,0:06:23.360
+middle so kind of in this last pass what do i
+
+0:06:21.919,0:06:28.800
+get i get narrowed down adjust this
+
+0:06:26.400,0:06:32.639
+and this and then when i come back to my loop
+
+0:06:29.600,0:06:35.919
+i see okay well uh right index minus left index equals one exactly so i've
+
+0:06:34.960,0:06:40.319
+narrowed it down so i do this final check so right index
+
+0:06:38.639,0:06:43.520
+greater than left index means that i have at least one item
+
+0:06:41.919,0:06:47.440
+and so i'm checking if that one item is what i want and indeed it is and then i
+
+0:06:45.680,0:06:55.039
+might return true okay and so what i want you to see here
+
+0:06:51.520,0:06:58.960
+is that in this case i had uh i had eight items and when i had eight
+
+0:06:57.680,0:07:05.919
+items i had to cut the list in half
+
+0:07:02.319,0:07:09.599
+three times right and so maybe what we can do is we can
+
+0:07:08.080,0:07:13.759
+try to think a little bit more generally right if i if i look up at this code
+
+0:07:12.080,0:07:17.599
+here let's think about this code this is the
+
+0:07:16.800,0:07:21.520
+code that that cuts it in half and it turns out
+
+0:07:20.319,0:07:25.520
+that if i look at this code it's possible to define that as a single step
+
+0:07:24.400,0:07:28.880
+and and then really that's the only thing inside of a loop so so really what
+
+0:07:27.599,0:07:33.120
+i want to do is i want to think about well how many
+
+0:07:30.240,0:07:36.319
+times does that step execute right and that's trickier than usual
+
+0:07:34.800,0:07:39.759
+right because usually i have like a for loop and it's going over
+
+0:07:37.919,0:07:43.199
+um everything in a list and so then it's easy here it's trickier because
+
+0:07:41.840,0:07:46.960
+it's a while loop and it's not really obvious how long it goes and so let's
+
+0:07:45.280,0:07:50.319
+just have a little table here right so i'm going to say uh you know
+
+0:07:49.840,0:07:56.240
+what is n which is the size of my list and
+
+0:07:53.440,0:08:00.160
+and then like how many times does the uh what is the exact count for my staff
+
+0:08:02.080,0:08:09.680
+and well what i've already seen is that if the list is of size eight
+
+0:08:06.720,0:08:13.680
+i have to split it in half three times um
+
+0:08:10.319,0:08:17.199
+i guess if my list was of size four i'd have to split in in twice half right
+
+0:08:15.680,0:08:21.840
+i'd draw four two one so i guess i would get two there
+
+0:08:19.360,0:08:25.199
+if i had a list of size two i'd have one so on and so forth and maybe what you're
+
+0:08:23.680,0:08:29.199
+gonna see here is that there's a there's a pattern right the
+
+0:08:26.879,0:08:32.479
+the counts maybe maybe let me say say this right so
+
+0:08:30.080,0:08:36.800
+i was maybe if i say something like you know the
+
+0:08:33.440,0:08:44.240
+uh exact count maybe i said that's e well it equals the log
+
+0:08:40.719,0:08:48.160
+base 2 of n okay and i'm not going to prove it here
+
+0:08:46.720,0:08:51.600
+but it turns out that if i want to look at
+
+0:08:49.440,0:08:56.880
+the complexity of this all of the logs are are the same
+
+0:08:55.200,0:09:00.000
+so i could actually erase this here right it's uh
+
+0:08:58.480,0:09:02.959
+when i go to complexity i guess i can't erase it here because i kind of have an
+
+0:09:01.120,0:09:09.839
+exact formula but what i can say is that binary search
+
+0:09:06.080,0:09:15.519
+i'll say binary search binary search is in
+
+0:09:15.920,0:09:26.000
+the complexity class of order log and i'm not proving it here
+
+0:09:23.279,0:09:28.480
+but it doesn't really matter what base it has as because all of these are
+
+0:09:27.440,0:09:31.760
+equivalent and and so this is very cool because
+
+0:09:29.839,0:09:38.800
+well what have we seen now um we are seeing that
+
+0:09:35.040,0:09:43.440
+you know we have we've seen oh sorry we've seen a few things i mean
+
+0:09:41.440,0:09:48.399
+we we've seen that we have um order n and um and we've seen within
+
+0:09:47.200,0:09:51.519
+there that you know there's also order constant
+
+0:09:50.560,0:09:55.600
+time and we've seen lots of examples of this
+
+0:09:53.200,0:10:00.160
+but this is the first example we've seen of something in between these which is
+
+0:09:57.120,0:10:04.720
+login and log in right things get a little bit slower
+
+0:10:01.680,0:10:07.920
+as we have more items but not that fast um
+
+0:10:05.040,0:10:10.959
+you know doubling from 10 to 20 items means i have to do you know a little bit
+
+0:10:09.440,0:10:14.640
+more work um some amount of additional work but
+
+0:10:13.519,0:10:20.079
+doubling my list from size 100 million to 200 million would
+
+0:10:18.079,0:10:23.040
+involve that same kind of constant increase and work so this is actually
+
+0:10:21.680,0:10:28.720
+great it's not quite as good as constant time
+
+0:10:24.079,0:10:28.720
+but it's very close
+

@@ -1,0 +1,483 @@
+0:00:01.120,0:00:06.480
+hello i want to start off by doing a little bit of review
+
+0:00:04.080,0:00:09.760
+and so i have a snippet of code here and then some questions here at the bottom
+
+0:00:08.400,0:00:13.920
+and so what i'd like you to do is just pause the video and actually write down
+
+0:00:12.320,0:00:16.960
+on paper what you think the answers to each of these are
+
+0:00:15.120,0:00:19.279
+uh before i go ahead and talk through that it's um
+
+0:00:18.240,0:00:21.279
+kind of when you're doing active learning and kind of making predictions
+
+0:00:20.800,0:00:24.800
+that's when things really sink in if you just kind
+
+0:00:23.199,0:00:28.480
+of watch me doing it then you won't learn as much that way so
+
+0:00:26.160,0:00:32.079
+pause and i'll assume you're back now so let's
+
+0:00:30.720,0:00:37.280
+talk through this code so what we have is that we have two
+
+0:00:34.880,0:00:41.520
+classes right we have the dog class and i say class dog and inside of
+
+0:00:39.840,0:00:46.719
+parentheses i say pet and what that means is that
+
+0:00:42.800,0:00:53.680
+dog is inheriting from the pet class and the pet class has one method in it
+
+0:00:49.840,0:00:59.199
+a constructor and it turns out that well the dog class also has a constructor
+
+0:00:56.480,0:01:02.559
+a and and so one thing i can see here is that this
+
+0:01:00.399,0:01:06.159
+constructor and dog is trying to override the one in pet right so when i
+
+0:01:04.479,0:01:10.560
+create a new dog object this is the one that it's called now i
+
+0:01:08.880,0:01:13.840
+might also want to call the one in the parent class the the
+
+0:01:12.240,0:01:18.159
+constructor there and that's what we're doing we're saying pat dot init
+
+0:01:15.920,0:01:21.119
+right here and so that will ultimately mean that
+
+0:01:19.040,0:01:24.479
+both of these methods will get called when i create a new drawing object when
+
+0:01:22.640,0:01:29.040
+am i creating a new dog object right here i say pop equals a new dog
+
+0:01:27.840,0:01:34.479
+and then i'm kind of passing these things in
+
+0:01:30.880,0:01:38.799
+okay first question is the parent class of dog is pet
+
+0:01:36.320,0:01:43.119
+and so does pet have a parent type and if so what is it
+
+0:01:40.400,0:01:46.880
+well first off i'm not explicitly passing anything in
+
+0:01:45.200,0:01:53.040
+but there's an implicit type when i don't say what it is then the type
+
+0:01:49.840,0:01:57.119
+is object object is the name of um of kind of the parent class of all
+
+0:01:56.320,0:02:02.960
+other classes perhaps confusingly right so the uh
+
+0:02:00.079,0:02:08.720
+there is a type and that's that's object okay so second how many arguments
+
+0:02:06.960,0:02:14.239
+this is line c pass right so when i'm kind of passing this in here
+
+0:02:10.959,0:02:16.400
+and well maybe i should also look at what's uh
+
+0:02:15.120,0:02:20.480
+you know what parameters i'm taking right so when this runs
+
+0:02:18.400,0:02:26.720
+the constructor is trying to run and i see there's three things there
+
+0:02:22.640,0:02:29.920
+and so hopefully the answer is three because if it's not well then the code
+
+0:02:29.200,0:02:33.760
+would crash right and it turns out that this code
+
+0:02:32.080,0:02:42.480
+does not crash and the reason is that well sam
+
+0:02:38.160,0:02:48.400
+goes to name one goes to age and well what goes into self
+
+0:02:46.080,0:02:53.840
+um a new object right so here i'm getting a new
+
+0:02:50.319,0:02:59.280
+a new object right so that oh excuse me here i'm getting a new object
+
+0:02:57.599,0:03:02.080
+and and so indeed i do actually get three things then because this is a
+
+0:03:00.800,0:03:07.440
+special method and one of them is being passed in automatically for me so i'm
+
+0:03:04.159,0:03:12.560
+just going to write that down here so here i said object for the first
+
+0:03:09.760,0:03:18.400
+first answer oops sorry i can't type object
+
+0:03:16.319,0:03:23.440
+and then how many does uh line c pass and that's three
+
+0:03:20.480,0:03:27.440
+and then the next question well how many arguments does line b
+
+0:03:24.799,0:03:30.319
+pass right when i'm calling this here and
+
+0:03:28.159,0:03:32.720
+i've gotten you so used to kind of counting the thing before the method
+
+0:03:31.680,0:03:36.640
+right i guess you know we'll count the things in the
+
+0:03:33.840,0:03:40.000
+methods there'd be two there and you might naturally think well this
+
+0:03:37.920,0:03:46.959
+thing is going to be passed in as well um but it's not and the reason
+
+0:03:43.680,0:03:51.360
+is that pat is a class right it's not an object
+
+0:03:48.319,0:03:54.080
+if we're an object it's not an object but if it were
+
+0:03:52.640,0:03:58.879
+then pet would kind of go into that receiver variable
+
+0:03:55.920,0:04:02.879
+it's not so you know it's a class not an object
+
+0:03:59.599,0:04:07.200
+so what that means is that self here we'll go to self there
+
+0:04:04.640,0:04:11.360
+and then name will go to here and i'm not really doing anything special
+
+0:04:09.920,0:04:13.599
+especially with pat i just trying to use that to figure out what method i'm
+
+0:04:12.560,0:04:18.959
+calling so the answer here is that i'm doing two
+
+0:04:17.120,0:04:23.600
+right so you see the difference right so sometimes when i'm kind of
+
+0:04:20.720,0:04:27.280
+calling a method and i put object.method object goes in the receiver when i say
+
+0:04:25.320,0:04:30.639
+class.method i'm not kind of doing any of that fancy
+
+0:04:28.960,0:04:35.759
+extra passing of of the receiver okay so fourth question the
+
+0:04:34.000,0:04:39.440
+most complicated is on another piece of paper
+
+0:04:36.639,0:04:45.040
+what do these frames look like as i'm basically running this
+
+0:04:40.840,0:04:48.400
+code okay so let's take a crack at that and the first thing i really like to do
+
+0:04:47.600,0:04:52.160
+when i'm kind of tracing through code like this
+
+0:04:50.880,0:04:57.759
+is i like to draw a boundary and on the right i might have
+
+0:04:55.199,0:05:01.120
+my objects like so i have objects over here and
+
+0:05:00.240,0:05:05.039
+then on the left i have frames
+
+0:05:06.320,0:05:12.639
+and inside of the frames i might have variables
+
+0:05:09.440,0:05:16.639
+so that's the situation and i start off running over here right i'm
+
+0:05:14.880,0:05:20.639
+running this line c that's where kind of things begin
+
+0:05:18.160,0:05:24.639
+and for that i'm going to have to create a frame
+
+0:05:22.479,0:05:28.160
+right that code is running in the global frame
+
+0:05:26.880,0:05:32.639
+right that's the global frame right there and
+
+0:05:30.720,0:05:34.639
+this doesn't quite happen yet but eventually i'm going to be creating this
+
+0:05:34.320,0:05:38.000
+pup variable maybe i'm drawing a little bit
+
+0:05:37.680,0:05:41.199
+too soon but i just want you to kind of
+
+0:05:39.039,0:05:45.199
+think about uh about that all right so there's gonna be that pup variable
+
+0:05:43.600,0:05:49.840
+and uh at least that's what's going to happen after i create
+
+0:05:46.880,0:05:53.440
+a dog object right so sometimes i'm drawing that there to see where we're
+
+0:05:51.039,0:05:57.919
+headed but first we have to create this dog object
+
+0:05:55.600,0:06:01.919
+and that happens automatically before the net method is called
+
+0:06:00.400,0:06:06.800
+so so what does that mean that means that over here
+
+0:06:03.600,0:06:10.639
+on the right i have a dog object and the dog object is going to look
+
+0:06:08.000,0:06:15.360
+something like this it's going to look very similar to a
+
+0:06:12.080,0:06:19.520
+dictionary where we have keys and values but instead of keys and values where i
+
+0:06:16.960,0:06:22.960
+have attributes and attribute values right so it's a lot
+
+0:06:21.600,0:06:27.520
+like a dictionary right that's what objects are like
+
+0:06:24.800,0:06:30.080
+and when i'm doing something like this right when i'm trying to create a new
+
+0:06:28.639,0:06:34.960
+object it creates that and then it passes it to the net method
+
+0:06:32.880,0:06:38.720
+and whenever we call a new function or a new method
+
+0:06:36.240,0:06:46.000
+that creates a new frame right so that's trading in a frame here
+
+0:06:40.880,0:06:49.840
+and that is for the init method and i guess i have two here so i should
+
+0:06:47.600,0:06:56.240
+really say well that's the dog dot init method and that's running
+
+0:06:52.960,0:07:01.039
+and i can see that that method has three parameters and so that's one
+
+0:06:58.800,0:07:07.120
+of the first things i like to draw when i make a new frame right so
+
+0:07:04.080,0:07:10.560
+so i'll have self i have name
+
+0:07:11.280,0:07:20.560
+and i have age okay and each of those is the box
+
+0:07:23.120,0:07:32.240
+like so and the self box is a reference to my new object so it
+
+0:07:30.800,0:07:35.440
+looks like that name is just sam
+
+0:07:35.599,0:07:45.560
+and ages is just one okay so i'm running this
+
+0:07:44.319,0:07:52.560
+and the next thing i do is i say self.age equals age
+
+0:07:49.280,0:07:58.240
+okay so self.age takes me up here self.
+
+0:07:56.160,0:08:01.599
+and i'm looking for a kind of an attribute named age
+
+0:08:00.160,0:08:04.479
+and there is none yet so i'm trading this new age
+
+0:08:04.560,0:08:11.759
+and then i set it equals age which is referring back to
+
+0:08:08.800,0:08:18.960
+my my parameter here right so what does that try to do i may have age
+
+0:08:14.639,0:08:25.360
+equals 1 okay just like that and
+
+0:08:23.039,0:08:29.919
+so i have my attribute age and then my value one
+
+0:08:26.720,0:08:34.000
+okay great so i ran this line of code and now i'm coming down here and i'm
+
+0:08:31.280,0:08:40.880
+saying pet.net okay so pet.init means that
+
+0:08:37.680,0:08:49.760
+let me create another frame like this and um and this is a
+
+0:08:45.120,0:08:58.240
+net again right so i'm going to say init and and this is pet.net
+
+0:08:55.279,0:09:02.720
+and in this one i guess i just have the two
+
+0:08:58.800,0:09:06.560
+parameters i have self and i have name right so i may say self
+
+0:09:06.640,0:09:16.959
+and then i have name and those are here
+
+0:09:14.240,0:09:19.680
+and well what goes into these remember right
+
+0:09:17.440,0:09:23.360
+pet is just a class so pet does not go to self
+
+0:09:20.959,0:09:27.920
+right if this was an object it would but it's not it's a class
+
+0:09:25.040,0:09:32.480
+so what goes to self up here this self so this first argument
+
+0:09:29.760,0:09:35.600
+goes to this first parameter so what does that mean that means the self in
+
+0:09:33.920,0:09:39.519
+this frame should point to the same thing that the
+
+0:09:36.959,0:09:44.320
+self and this frame points to and so i get oh let me let me kind of
+
+0:09:42.000,0:09:47.440
+just keep the colors consistent and so i get something like that i have
+
+0:09:46.240,0:09:52.080
+these two different things that are pointing to the same uh
+
+0:09:50.000,0:09:59.360
+to the same object okay same thing for name so name
+
+0:09:55.920,0:10:04.160
+goes to here and uh and so i may write down
+
+0:10:00.880,0:10:07.839
+sam over here just a little bit of an aside here
+
+0:10:05.680,0:10:10.800
+i i'm kind of drawing it like sam gets copied
+
+0:10:09.040,0:10:15.760
+and i'm doing that for simplicity to avoid drawing too many arrows
+
+0:10:12.640,0:10:20.000
+if i was really being precise i'd have a string object over here named sam and
+
+0:10:17.760,0:10:24.079
+then i'd have two arrows going to it and that'd be kind of like the most
+
+0:10:21.040,0:10:27.360
+technically correct thing but string objects are immutable you can't
+
+0:10:25.680,0:10:30.959
+change them after you've created them so it's fine to kind of draw extra
+
+0:10:28.880,0:10:35.279
+copies if it makes your picture simpler it doesn't affect the kind of the
+
+0:10:33.120,0:10:38.880
+behavior of your program okay so far so good so so i'm in this
+
+0:10:37.920,0:10:45.839
+init method i'm calling self.name equals name
+
+0:10:42.000,0:10:49.120
+and so cell that name there is no name attribute yet so i'm
+
+0:10:48.399,0:10:52.240
+going to create it i'm going to say well name
+
+0:10:55.040,0:11:01.839
+equals name which is sam and so i get sam here
+
+0:11:02.240,0:11:09.360
+okay so that's the end of this method so this method returns
+
+0:11:06.480,0:11:11.519
+and the method returning means that you know whenever a method or function
+
+0:11:10.640,0:11:16.399
+returns the frame it was using goes away so this
+
+0:11:13.600,0:11:19.920
+frame is gone and then i'm back to here i was running
+
+0:11:18.720,0:11:24.399
+this and then well since i'm going to return
+
+0:11:22.160,0:11:30.320
+at the end of this this one goes away
+
+0:11:27.600,0:11:34.560
+and now i'm all the way back to here i'm going to finish running this right i did
+
+0:11:31.920,0:11:37.680
+the right hand side of this i kind of called everything i needed to
+
+0:11:37.279,0:11:41.680
+to populate my new dog object and now i say
+
+0:11:41.279,0:11:48.320
+pop equals that and so the thing i get back
+
+0:11:45.440,0:11:51.600
+is is really that new object it's almost as if the constructor had a return
+
+0:11:50.240,0:11:55.040
+statement there right this time happening automatically
+
+0:11:53.600,0:11:58.880
+right so pop is going to refer to the same thing that
+
+0:11:56.880,0:12:05.200
+the two selfs were right so what does that mean that means
+
+0:12:01.440,0:12:08.800
+pop is going to end up looking like this and that's the final picture at the end
+
+0:12:06.560,0:12:11.760
+of this code and um and so what's helpful right when you're
+
+0:12:10.079,0:12:14.639
+confused about objects or classes is to draw a picture like this
+
+0:12:12.959,0:12:17.519
+and then run the code in python tutor and see if you get the same thing
+
+0:12:16.240,0:12:22.240
+and this time just a good way to check your mental model
+

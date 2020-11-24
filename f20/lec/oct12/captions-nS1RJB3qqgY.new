@@ -1,0 +1,1251 @@
+0:00:01.040,0:00:07.680
+hello in this video i may introduce the idea of web crawling
+
+0:00:04.960,0:00:10.800
+now in cs 220 we've done a lot of what we call web scraping
+
+0:00:09.360,0:00:14.639
+maybe i'm trying to pull data out of a single page uh crawling is a little bit
+
+0:00:13.200,0:00:18.640
+more sophisticated maybe a website or collection of
+
+0:00:16.160,0:00:20.800
+websites have a large number of pages and we want to pull information off of
+
+0:00:20.000,0:00:24.320
+them and we don't even really know what all
+
+0:00:22.240,0:00:27.840
+the pages are when we start maybe i kind of look at one page and then the
+
+0:00:26.400,0:00:31.359
+likes on that help me learn about some other pages and maybe the likes of those
+
+0:00:29.439,0:00:35.200
+help me learn about some other pages and pretty soon i can maybe find a lot
+
+0:00:33.360,0:00:37.920
+of data on different web pages and try to pull it all in
+
+0:00:36.480,0:00:42.160
+uh to my program that's gonna be web crawling
+
+0:00:39.600,0:00:45.360
+companies like google are amazing at this right that's kind of their bread
+
+0:00:43.360,0:00:49.280
+and butter business um and uh so how can we do that
+
+0:00:47.920,0:00:52.399
+hopefully as i'm describing that it sounds a little bit like a search
+
+0:00:50.640,0:00:55.440
+problem a graph search uh so in this video i'm gonna show you
+
+0:00:53.840,0:00:57.920
+how we can do a breadth first search for web crawling
+
+0:00:56.640,0:01:01.520
+and then eventually when i talk about things like um how we can be considerate
+
+0:01:00.480,0:01:05.280
+web web crawlers i mean if we're looking at
+
+0:01:03.680,0:01:08.960
+a lot of pages we could easily overwhelm a website we don't want to do that
+
+0:01:07.520,0:01:14.159
+so what i've done is i've created a bunch of different kind of simple um
+
+0:01:12.320,0:01:18.000
+web pages that we can search that have some sort of graph structure to them
+
+0:01:16.080,0:01:23.680
+and these are actually all based on examples that students came up with
+
+0:01:20.799,0:01:29.439
+last semester and so i can see i have here page1.html
+
+0:01:26.000,0:01:32.560
+that's known one um and as i'm clicking on this i want you to be thinking about
+
+0:01:30.560,0:01:36.240
+well what kind of graph uh is this that i'm exploring so i can
+
+0:01:35.520,0:01:40.159
+go to page from what one to two and then from two
+
+0:01:38.720,0:01:44.000
+to four then then four to six and then i hit a
+
+0:01:42.320,0:01:50.000
+dead end so that was one two four six let me head back to the beginning
+
+0:01:47.040,0:01:52.799
+back a few times uh what if instead of going to two i go to three so one two
+
+0:01:51.680,0:01:57.200
+three three to five then five to six i end up
+
+0:01:56.079,0:02:03.759
+in the same place what kind of graph was that well
+
+0:02:00.880,0:02:09.200
+uh it's definitely directed right so it's a directed graph right there's kind
+
+0:02:05.360,0:02:13.599
+of one page points to another um is it a dag were there any cycles there
+
+0:02:11.840,0:02:16.959
+uh there were no cycles right there was no way i could have kind of get stuck in
+
+0:02:15.520,0:02:20.720
+a loop right so this is a directed acyclic graph
+
+0:02:18.560,0:02:25.200
+and i may write some breadth first uh search code
+
+0:02:22.000,0:02:28.720
+uh to explore it so i'm actually gonna be working on my
+
+0:02:26.319,0:02:31.840
+um on my virtual machine today as you can see
+
+0:02:30.239,0:02:34.840
+and uh it's obvious i may have to be in headless mode so we're gonna do a little
+
+0:02:33.120,0:02:38.319
+bit of work before we can even get started um
+
+0:02:36.319,0:02:42.160
+let me let me start up my web browser and headless mode actually if i try to
+
+0:02:40.000,0:02:46.800
+start it like this if i don't have headless mode on um it's
+
+0:02:45.360,0:02:54.080
+trying to complain right it can't really do that
+
+0:02:51.280,0:02:58.480
+and um and it kind of gives a strange error right just that chrome
+
+0:02:55.760,0:03:02.159
+accident abnormally so if you get that you know
+
+0:02:59.360,0:03:07.280
+make sure you have that on so i run that and uh and now it
+
+0:03:04.480,0:03:10.080
+will hopefully actually work fine let me let me just try to grab this url i want
+
+0:03:08.800,0:03:13.120
+to start from i'm going to start from here
+
+0:03:13.760,0:03:23.760
+and uh and i have that url like so and and what i'll do is i'll try to get
+
+0:03:21.680,0:03:28.879
+that so i'll say b dot it url and uh and nothing exciting happens
+
+0:03:27.360,0:03:32.080
+because while it's in headless mode so what really went on there
+
+0:03:30.239,0:03:34.720
+i don't know so one of the first things i want to do before i get into the
+
+0:03:33.200,0:03:37.920
+breath first search stuff is write a nice function that will
+
+0:03:36.000,0:03:41.440
+actually help me see what's dry god uh even though i'm working from a
+
+0:03:39.280,0:03:46.080
+virtual machine and so i may write this function which is maybe called
+
+0:03:42.720,0:03:51.120
+uh visit page and uh yesterday take a url
+
+0:03:49.120,0:03:56.799
+and then that's going to be the one distributed visit
+
+0:03:52.560,0:04:02.640
+and then it will return all other urls um based on the links
+
+0:04:00.480,0:04:07.040
+okay and then what it's also going to do is it's going to
+
+0:04:03.920,0:04:10.879
+you know show a screenshot of the page just so we can tell what's
+
+0:04:08.720,0:04:15.760
+going on okay so i'm going to take my url and
+
+0:04:14.080,0:04:21.280
+um and then i may do this i may do this b dot it
+
+0:04:17.280,0:04:28.080
+dot that url like cell and um
+
+0:04:24.560,0:04:31.199
+and if i wanted to use uh let's say beautiful soup then i'd probably say
+
+0:04:30.080,0:04:35.680
+this i'd probably say something like b dot you know page source and i'd
+
+0:04:34.000,0:04:38.400
+probably build like a beautiful soup object from that
+
+0:04:38.880,0:04:44.560
+and uh and like so right i'd probably get some sort of page like
+
+0:04:42.000,0:04:48.080
+that and um and then i'd probably do something like you know page dot find
+
+0:04:46.720,0:04:51.600
+all you know i want to get all the
+
+0:04:48.960,0:04:56.000
+hyperlinks um i'm not going to use beautiful soup this time there's kind of
+
+0:04:53.360,0:04:59.199
+similar things to all of these uh baked into selenium itself
+
+0:04:57.520,0:05:02.720
+and then i just want to keep those straight i'm going to leave that
+
+0:05:00.240,0:05:05.759
+beautiful soup code there for a while and i may try to get the the links using
+
+0:05:05.280,0:05:10.080
+um just selenium and let me just try to
+
+0:05:09.039,0:05:14.720
+review how to do that so if i say dur on b i can see all the
+
+0:05:13.360,0:05:18.800
+things that my chrome browser has and um and i see that
+
+0:05:17.840,0:05:24.720
+i can find elements by by tag name which is what i
+
+0:05:23.039,0:05:29.759
+want right so so i want to get something like this i'm going to say
+
+0:05:26.560,0:05:33.039
+uh b dot find elements by tag name and i'm
+
+0:05:32.240,0:05:37.520
+looking for a tags and maybe i'll just put this in a
+
+0:05:35.280,0:05:43.280
+link of less right so i'll say these are my links
+
+0:05:39.199,0:05:48.720
+and let's just try to print those out okay so let's try visiting a page right
+
+0:05:46.000,0:05:52.000
+so let me try visiting that first url and then i can see while there's some
+
+0:05:50.240,0:05:57.840
+links to other pages right in this big last okay
+
+0:05:55.280,0:06:02.080
+before i go too far i'm going to set this aside for a moment
+
+0:05:59.280,0:06:06.400
+to kind of come back to this you know find
+
+0:06:02.720,0:06:10.960
+links on the page the other thing i want to do is
+
+0:06:07.680,0:06:14.560
+you know see the page and um and so well how can i do that uh one
+
+0:06:13.280,0:06:17.759
+thing i can do is i could take a screenshot i could say say uh b
+
+0:06:16.800,0:06:26.199
+dot uh save screenshot like that
+
+0:06:22.400,0:06:29.280
+and um uh maybe i'll just call it stream.png
+
+0:06:27.919,0:06:34.000
+and then what i really like to do is i'd like to just kind of show that on
+
+0:06:31.199,0:06:38.720
+on this screen right so i can i can see what's happening
+
+0:06:35.360,0:06:46.160
+and and so to do that i may have to um import something um i'm going to say
+
+0:06:42.319,0:06:51.440
+import uh i python.4 dot display actually i may say from that
+
+0:06:49.520,0:06:57.280
+from that module you've seen before we actually have like this display
+
+0:06:53.759,0:07:03.280
+function and display works a lot like um it works a lot like print oh from that
+
+0:07:00.479,0:07:05.440
+import display it works a lot like print but
+
+0:07:03.599,0:07:07.840
+it can kind of deal with more complex types and strings right like i could put
+
+0:07:06.960,0:07:12.160
+like a an image here like that which is another
+
+0:07:10.319,0:07:15.680
+type that i have here and and so that's what i'm going to do
+
+0:07:13.520,0:07:20.160
+down here so i can actually kind of print
+
+0:07:16.000,0:07:24.560
+what's happening um an image as well the one i just created right so let me
+
+0:07:21.680,0:07:30.720
+grab this here and um and put that there and now i can
+
+0:07:28.639,0:07:35.440
+actually see the page and uh and it's a very large page
+
+0:07:32.479,0:07:40.400
+and this is going to kind of help me see well those are those um
+
+0:07:37.440,0:07:44.479
+uh two links right so so that's where this is kind of coming from here right i
+
+0:07:41.919,0:07:49.440
+mean i have one link here and um and then another link here
+
+0:07:48.080,0:07:52.000
+so that's good so i can actually kind of troubleshoot this stuff as i'm i'm
+
+0:07:51.120,0:07:55.680
+drawing instead of just like operating without seeing
+
+0:07:53.280,0:07:59.599
+anything okay so i was talking about how i could
+
+0:07:58.080,0:08:04.720
+do a beautiful soup i'm not using beautiful soup i'm using uh
+
+0:08:01.120,0:08:08.160
+selenium instead um let's uh let's loop over these links
+
+0:08:06.879,0:08:12.800
+maybe it's the first step so maybe i'll say something like for
+
+0:08:09.919,0:08:18.800
+uh maybe for something like a right because it's an a tag right for a
+
+0:08:15.520,0:08:22.160
+uh and links oh again if this were if this were like
+
+0:08:20.879,0:08:25.280
+beautiful soup i could do something like this i could just say like
+
+0:08:23.680,0:08:29.199
+uh maybe i'll just call this link actually i could just say something like
+
+0:08:27.840,0:08:34.560
+link dot adders uh href
+
+0:08:33.200,0:08:39.200
+right you know that would be the beautiful soup
+
+0:08:36.479,0:08:43.519
+way i don't have beautiful soup right now i'm just kind of working with
+
+0:08:40.560,0:08:49.200
+um selenium and so so instead of that it's a little bit more cumbersome
+
+0:08:45.120,0:08:54.399
+i can say link dot get attribute um href and uh maybe i'm just trying to
+
+0:08:52.560,0:08:57.120
+print that for now and so i kind of print them one by one
+
+0:08:56.000,0:08:59.760
+instead of just putting them all at the end
+
+0:08:57.839,0:09:03.120
+so i'm going to do that and uh and i stroll away down here
+
+0:09:01.279,0:09:06.640
+and you can see one of the nice things that selenium actually does even though
+
+0:09:04.720,0:09:12.959
+i have to kind of type a lot more is that it converts those to um absolute
+
+0:09:10.720,0:09:16.320
+uh urls right actually on the page it was two.html
+
+0:09:14.959,0:09:21.760
+in my code based on bring it to this whole thing and if i click that well
+
+0:09:20.399,0:09:28.240
+that's actually great right i can see those pages
+
+0:09:24.080,0:09:31.680
+okay so this is doing good so far um one of the things i want to do here uh
+
+0:09:31.200,0:09:38.399
+is return the list of these things right
+
+0:09:34.880,0:09:42.160
+and um and so maybe what i should do uh actually there's kind of a trick here
+
+0:09:40.800,0:09:45.040
+right i mean if i wanted to i could append all of these to some sort of list
+
+0:09:44.160,0:09:49.440
+and then i'll kind of return that list on the end
+
+0:09:47.360,0:09:53.519
+um i can also use a python list comprehension which works like this
+
+0:09:51.680,0:09:59.120
+i kind of grab the thing i'm interested in
+
+0:09:54.880,0:10:02.240
+and put that up here and and then i put like this around here like this so i
+
+0:10:00.480,0:10:05.360
+started like a loop a loop inside a list so this is the
+
+0:10:03.680,0:10:08.640
+thing i'm trying to have inside of that and so i can turn this into this kind of
+
+0:10:06.800,0:10:12.720
+cute one liner uh just like so so i could do that and i
+
+0:10:11.519,0:10:16.160
+run that and let me scroll down here and kind of
+
+0:10:14.560,0:10:19.680
+see what it ended up with it gave me this nice list with those two
+
+0:10:17.920,0:10:24.480
+urls in it which is exactly um what i wanted okay
+
+0:10:22.959,0:10:28.160
+so i'm doing pretty good now um there's one other little detail i
+
+0:10:26.720,0:10:31.200
+kind of want to deal with you can see that this is kind of a pain right i have
+
+0:10:29.519,0:10:34.959
+to stroll down a lot because um when i'm taking this
+
+0:10:34.320,0:10:38.079
+screenshot actually the window is kind of large i
+
+0:10:36.320,0:10:41.600
+can't see the window but it's large and it's taking up a lot of space
+
+0:10:39.839,0:10:46.240
+um so maybe what i'd like to do is actually just um
+
+0:10:43.200,0:10:49.839
+shrink down the window before i uh before i actually try to do any of
+
+0:10:49.120,0:10:53.040
+this and and i've already played with
+
+0:10:51.360,0:10:56.640
+different sizes and so let me just kind of type the code here
+
+0:10:54.480,0:11:04.399
+i'm just checking my notes i can say b dot set window size
+
+0:11:01.680,0:11:07.360
+window size and these are in some units called pixels which i'm not going to
+
+0:11:05.839,0:11:10.160
+talk much about now um and i've just kind of played around
+
+0:11:08.880,0:11:14.000
+and then it turns out that that's a nice size like that
+
+0:11:11.279,0:11:17.040
+so i'm gonna run that and now i can just kind of
+
+0:11:15.440,0:11:19.680
+i'm not jumping around too much i can just see a little more right i mean i
+
+0:11:18.160,0:11:25.040
+don't have this massive window that i'm taking a screenshot of
+
+0:11:22.320,0:11:29.519
+okay so so let me kind of shrink all this down
+
+0:11:27.040,0:11:32.000
+hopefully uh hopefully this all kind of makes sense because this may be the
+
+0:11:30.800,0:11:37.279
+backbone for what we build next right um
+
+0:11:35.920,0:11:40.800
+trying to think about how this fits into the breath first search um
+
+0:11:39.120,0:11:44.800
+when we were doing search before and we were on a node
+
+0:11:42.560,0:11:47.440
+um we had some sort of node object and the node object would have a children
+
+0:11:46.399,0:11:51.120
+attribute and the children attribute would be this
+
+0:11:48.959,0:11:54.399
+list of other nodes right we don't even have any classes or
+
+0:11:52.800,0:11:58.720
+objects here anymore and and so kind of visiting a node
+
+0:11:56.720,0:12:02.880
+doesn't mean looking at a children list visiting a node means actually going to
+
+0:12:00.560,0:12:06.959
+a real page the real world and kind of looping all over all the a
+
+0:12:05.360,0:12:12.800
+tags and pulling out some information from that
+
+0:12:09.279,0:12:15.600
+okay so let's try to do breadth first search so this is going to be a little
+
+0:12:13.920,0:12:19.360
+bit of review here um the main idea for breadth first
+
+0:12:17.680,0:12:24.320
+search is you have some sort of to-do list
+
+0:12:20.720,0:12:27.760
+like so and um and then eventually you have some sort of like loop you have
+
+0:12:25.839,0:12:33.360
+something like you know while length of to do is um
+
+0:12:31.120,0:12:36.959
+you know greater than zero then i do some stuff
+
+0:12:34.320,0:12:39.200
+right uh i'm going to leave this here for a while because i'd like to write a
+
+0:12:38.480,0:12:43.519
+function for for this piece that kind of does one
+
+0:12:41.519,0:12:46.880
+step and that way as i'm doing this breadth first search i can kind of show
+
+0:12:44.959,0:12:50.160
+you one step at a time um manually right i think that'll be a
+
+0:12:48.959,0:12:53.440
+little more um clear than if i have this loop that just
+
+0:12:51.680,0:12:57.760
+does it really fast um so in this to-do list i have to have
+
+0:12:55.600,0:13:01.360
+some sort of starting point and um and maybe what i can use for that
+
+0:12:59.760,0:13:04.480
+is just this url up here right i already have this url as my
+
+0:13:03.600,0:13:08.240
+starting point i'm just trying to copy this down here
+
+0:13:05.760,0:13:11.360
+so you can actually see what's going on let me put that in the list
+
+0:13:11.519,0:13:17.600
+and uh and so maybe what i'll do here is i'll just have some sort of function
+
+0:13:16.160,0:13:20.720
+right for what i will eventually put inside of here and uh and that function
+
+0:13:20.160,0:13:27.760
+will be just let's say like um uh
+
+0:13:24.560,0:13:31.040
+you know visit next right visit next while it'll pull whatever's
+
+0:13:29.360,0:13:34.720
+off the to-do list and then and then actually visit it and then
+
+0:13:32.480,0:13:40.480
+figure out how i need to update the two do list right
+
+0:13:36.160,0:13:44.000
+so the the two main things right for a breadth first search are you know do
+
+0:13:42.560,0:13:50.959
+the first thing on the list and then add
+
+0:13:47.680,0:13:55.920
+new things to the end of the list right so i'm kind of working off the beginning
+
+0:13:53.040,0:13:59.519
+and adding things to the end and this is actually worked beautifully
+
+0:13:57.600,0:14:03.600
+with that function i already wrote because like the thing we have to do
+
+0:14:01.440,0:14:08.880
+is visiting a url and then like the new things are also other urls to visit
+
+0:14:06.079,0:14:11.600
+and so kind of if you look at this this is going to be the input to the function
+
+0:14:10.320,0:14:14.880
+i wrote earlier this will be the return value from it
+
+0:14:13.040,0:14:18.320
+right i may feed in a url that's kind of the task i'm doing and
+
+0:14:16.560,0:14:21.760
+then we learn about these other urls here
+
+0:14:18.880,0:14:26.959
+this idea right so so let's do this so i'll say something like this
+
+0:14:23.040,0:14:30.000
+um i might say like you know visit what did i call that called visit page i
+
+0:14:29.680,0:14:34.000
+guess so visit page well what page do i want
+
+0:14:33.279,0:14:39.519
+to visit um uh let me just make this
+
+0:14:37.760,0:14:42.800
+a separate variable so it's very clear so that's my start url
+
+0:14:41.120,0:14:47.839
+um here i'm just gonna say like url equals to do
+
+0:14:44.320,0:14:51.279
+dot pop zero whatever's at the beginning oh that's what i may visit and then
+
+0:14:50.000,0:14:56.000
+that's trying to return to me some children uh urls
+
+0:14:54.480,0:14:59.920
+just like that right so that was the first step kind of kind of the real work
+
+0:14:58.079,0:15:04.079
+was in here right like actually this this little step here
+
+0:15:01.199,0:15:06.800
+it's not gonna be too crazy um okay what about down here i have to add all these
+
+0:15:05.360,0:15:10.959
+new things to the end of the list so i'm gonna do that
+
+0:15:07.760,0:15:17.199
+i'm gonna say for uh maybe uh child uh url and
+
+0:15:14.160,0:15:19.839
+children urls i'm gonna add those to my to-do last
+
+0:15:18.560,0:15:23.600
+right i'm just trying to say to do that append
+
+0:15:21.519,0:15:27.920
+uh and and while i append i'll just append that new url
+
+0:15:26.240,0:15:32.880
+just like so and maybe when i'm all done i'm just going to print off what that is
+
+0:15:30.160,0:15:35.680
+okay so this is good and i may eventually come back to that loop but
+
+0:15:34.160,0:15:40.320
+let me kind of just do like one step at a time
+
+0:15:36.800,0:15:44.639
+let me say like visit next and we can see why visit node one and
+
+0:15:43.440,0:15:49.920
+from that i discover nodes two and and three
+
+0:15:47.759,0:15:51.759
+i'm just gonna run this cell again so so the next thing i'm gonna do is i'm gonna
+
+0:15:51.279,0:15:57.839
+visit cell two or node 2
+
+0:15:55.199,0:16:01.279
+and then you can see it visit node 2 and 3 is still on the list from before and
+
+0:15:59.440,0:16:03.839
+then i added four okay so now when i hit this it's trying
+
+0:16:02.639,0:16:06.720
+to kind of work out the beginning i'm going to visit three
+
+0:16:07.519,0:16:15.199
+i visit three and you can see that from uh three i discover five so five is on
+
+0:16:13.920,0:16:18.079
+the list and then you know four is still there
+
+0:16:16.800,0:16:20.720
+well let's just keep going i'm just gonna go to the end because i wanna
+
+0:16:19.440,0:16:24.880
+think through some other issues that are gonna come up um four discover six so
+
+0:16:23.519,0:16:30.560
+six is on the list i'm gonna do five next do five
+
+0:16:28.560,0:16:35.440
+and you notice that five also discovers six and i end up adding
+
+0:16:32.000,0:16:39.440
+uh six to the list twice and um sometimes that's very dangerous right um
+
+0:16:37.519,0:16:44.320
+if i have some sort of cycle in my graph which is very common on websites
+
+0:16:41.839,0:16:47.440
+then i would just keep going and drawing um
+
+0:16:46.000,0:16:50.720
+here it's kind of okay because i guess i just do like a little bit of extra work
+
+0:16:49.040,0:16:55.199
+but that's definitely what some people want to fix before we go any further so
+
+0:16:53.199,0:17:00.639
+now i've visited node six twice and my to-do list is empty
+
+0:16:57.440,0:17:08.079
+um okay so so that seems pretty good uh so i think what we can do
+
+0:17:04.959,0:17:10.480
+is let's fix that well let's do this i mean let's actually have it in our loop
+
+0:17:09.439,0:17:14.240
+like this so we can kind of see it drawing faster
+
+0:17:12.000,0:17:18.240
+um while i have something on my to-do list
+
+0:17:15.679,0:17:22.240
+uh well uh i'm just gonna do it right i'm gonna keep doing that until i'm done
+
+0:17:20.480,0:17:25.760
+and we can kind of scroll through and see what's happening in high speed from
+
+0:17:23.919,0:17:29.520
+where i was just at and uh and of course i visit node six
+
+0:17:27.839,0:17:32.960
+twice as you can see so let's try to fix that issue because
+
+0:17:31.760,0:17:36.720
+that's going to be more important before we do the cycles
+
+0:17:35.520,0:17:40.720
+so i think i have to think a little bit carefully here
+
+0:17:38.960,0:17:45.120
+before i add somebody to here i don't i never want to add the same
+
+0:17:42.640,0:17:47.760
+uh same thing twice and so something bad to do
+
+0:17:46.320,0:17:53.200
+would be like this i could say something like if not child
+
+0:17:49.840,0:17:57.280
+url and to do then i add it uh well why is that bad um well i'm
+
+0:17:55.919,0:18:00.960
+adding things down here but removing things up here so it is
+
+0:17:59.600,0:18:03.840
+still possible i could in some sort of perverse cycle where i keep adding the
+
+0:18:02.559,0:18:05.919
+same thing again and again it just kind of
+
+0:18:04.320,0:18:09.360
+enters the list is removed and there's a list removed so
+
+0:18:07.679,0:18:15.039
+so that's not good i think what i need to do is
+
+0:18:10.799,0:18:18.320
+have a separate structure here and um and and well how could i do that i guess
+
+0:18:16.640,0:18:22.559
+i could have um uh you know something like well what is
+
+0:18:20.080,0:18:27.440
+added and that could be some sort of set um you know i guess what will be in the
+
+0:18:25.760,0:18:30.160
+set to start with i guess the starting url
+
+0:18:28.320,0:18:32.720
+maybe i'll just put it to do here right so everything that was on my initial
+
+0:18:31.760,0:18:36.559
+thing will be there and uh and then i can
+
+0:18:35.440,0:18:41.919
+check this right here like so um if this url
+
+0:18:40.160,0:18:46.080
+and this is suddenly becoming good so i should change the comment
+
+0:18:43.440,0:18:49.280
+good um if it's not been added before i'll add it
+
+0:18:46.799,0:18:53.840
+and i'll also put it in this thing added dot add
+
+0:18:50.640,0:18:57.200
+child url and so my hope is now when i run this
+
+0:18:55.039,0:19:01.919
+that i'm not trying to visit node six twice anymore
+
+0:18:58.880,0:19:05.919
+so i'm gonna run this and uh well what happened there this was
+
+0:19:04.559,0:19:09.440
+a separate cell so let me let me just run it again because
+
+0:19:07.280,0:19:12.400
+i feel like it looks like i'm deleting the sixth note and i'm cheating but i'm
+
+0:19:11.360,0:19:16.240
+really not okay so so this time i see that there's
+
+0:19:14.240,0:19:19.280
+only one visit to the sixth node because the second time i see it i
+
+0:19:17.520,0:19:24.160
+realize well i've seen it before and i'm not trying to keep keep visiting
+
+0:19:21.360,0:19:29.039
+it again and again okay so we're doing pretty good here um
+
+0:19:27.280,0:19:32.960
+what i'd like to see though is kind of like well how does that
+
+0:19:30.720,0:19:36.640
+graph structure look after i visited all of these different
+
+0:19:34.000,0:19:40.400
+um after i visit all these different pages
+
+0:19:37.280,0:19:43.360
+right and so for that i need to use graphiz
+
+0:19:41.440,0:19:48.160
+right and so maybe i might head way up here back to the beginning
+
+0:19:46.240,0:19:54.080
+um actually i'll do it right here because i don't want to create a new
+
+0:19:50.240,0:20:00.640
+a new browser window so here um i'll say um from graph viz
+
+0:19:58.160,0:20:06.080
+import import graph well i guess i don't really
+
+0:20:03.039,0:20:10.559
+want to graph i want a directed a directed graph right that's what the
+
+0:20:08.080,0:20:15.200
+web is right it's a directed graph and um and so then when i'm down here
+
+0:20:13.919,0:20:17.760
+i wonder i'm just going to delete this so maybe we can kind of see more code at
+
+0:20:16.720,0:20:22.240
+the same time by the way uh oops
+
+0:20:20.960,0:20:26.320
+great here are my two functions i've been working on
+
+0:20:24.159,0:20:29.280
+when i'm down here i actually want to from all this work actually kind of
+
+0:20:27.840,0:20:32.799
+visualize uh what that set of nodes look like what
+
+0:20:31.039,0:20:39.679
+is the structure of all the pages on my website
+
+0:20:36.240,0:20:44.960
+and so i'm going to make a new graphiz graph digraph and um i haven't talked
+
+0:20:43.280,0:20:48.960
+about this before actually but there's kind of like this engine option
+
+0:20:47.200,0:20:53.679
+that i could pass and um uh different engines will be kind
+
+0:20:52.080,0:20:58.000
+of good at making a nice looking picture for different kinds of graphs
+
+0:20:55.679,0:21:00.640
+the default one works pretty well for trees
+
+0:20:58.720,0:21:04.240
+or maybe dags that kind of look like trees um
+
+0:21:02.159,0:21:06.720
+we kind of have these messier graphs now right where it's kind of just like a big
+
+0:21:05.679,0:21:11.520
+hairball and and so a good uh engine that can
+
+0:21:09.600,0:21:15.440
+kind of handle that complexity is called neato right so it'll work
+
+0:21:14.000,0:21:22.640
+either way but we'll get kind of a neater picture if i if i use neato okay
+
+0:21:19.600,0:21:25.600
+um now if i wanted to right i mean i can always just put
+
+0:21:23.600,0:21:29.039
+you know something like this at the end because
+
+0:21:26.720,0:21:33.039
+well what does this have it has a wrapper svg
+
+0:21:30.720,0:21:36.720
+right so i can i could just put this at the end if i want to anything that has a
+
+0:21:34.960,0:21:42.400
+wrapper svg i could also use uh the display
+
+0:21:40.559,0:21:47.200
+function like i did here and that's what i'd like to do kind of after i've gone
+
+0:21:44.880,0:21:51.679
+through each um each node right after i've visited each new node
+
+0:21:48.720,0:21:57.760
+i kind of like to see what my graph looks like so i'm going to say display
+
+0:21:54.400,0:22:01.360
+display my graph right so let me just try to think about what's
+
+0:21:59.200,0:22:05.120
+going to happen as i'm running this code um i'm going to see a picture of what
+
+0:22:02.799,0:22:08.960
+the page looks like um i'm going to add all of these
+
+0:22:06.640,0:22:11.280
+children and then show what the graph looks like
+
+0:22:10.080,0:22:14.720
+and then i'm going to show what remaining work has to be done i'm just
+
+0:22:13.120,0:22:21.840
+going to keep doing that until there's no more work to do
+
+0:22:18.159,0:22:28.480
+okay so what can we do here um i think one thing we can do is
+
+0:22:25.039,0:22:33.120
+every time i visit a url i could add that to the graph right i
+
+0:22:30.240,0:22:38.000
+could say graphviz.node url and and eventually i might figure
+
+0:22:36.480,0:22:43.280
+out how to add some edges but but i'll just kind of start with that
+
+0:22:40.480,0:22:46.799
+and uh and so you can see here's my starting node
+
+0:22:44.960,0:22:50.400
+and then other starting nodes really they're kind of horrible because
+
+0:22:48.320,0:22:52.880
+it's showing me the full url maybe what i like to do is write just some simple
+
+0:22:51.919,0:22:56.720
+function that extracts just the node name so so
+
+0:22:55.679,0:22:59.840
+maybe instead of this whole thing i'd like to just say like one
+
+0:22:58.480,0:23:03.200
+and then this other one over here if i can even see it i'd like this one to
+
+0:23:01.600,0:23:08.720
+just say two so let me head back up here and um
+
+0:23:07.440,0:23:13.919
+let me just try to think about how i can get a name out of these nodes so i'm
+
+0:23:12.320,0:23:19.840
+going to say def node name from a url
+
+0:23:18.000,0:23:25.919
+and then i may be calling it let's just think about that
+
+0:23:21.760,0:23:30.799
+before we actually write too much code all right this is just how we can
+
+0:23:28.640,0:23:35.200
+practice dealing with strings oh so let me put this here and
+
+0:23:35.520,0:23:41.760
+well the first thing i should do let me let me just print the url
+
+0:23:40.320,0:23:44.559
+the first thing i should probably do is probably split it
+
+0:23:45.360,0:23:50.320
+based on that forward slash and i always do this like i guess like when we're
+
+0:23:48.480,0:23:54.000
+dealing with files there's this um kind of annoyance where i have to think
+
+0:23:51.760,0:23:57.440
+about am i on windows or my mac uh but the internet is nice because well
+
+0:23:56.080,0:24:00.640
+it's always the same it's always forward slash
+
+0:23:58.400,0:24:04.000
+and i get those pieces and so after i split i could just pull out that last
+
+0:24:02.840,0:24:07.919
+piece and i'm pretty close now um for that
+
+0:24:07.120,0:24:12.400
+thing oh excuse me for that thing i think i'd
+
+0:24:10.320,0:24:15.760
+like to split it again on the period because i just want that
+
+0:24:14.720,0:24:19.360
+first piece all right so i'm going to do that and
+
+0:24:17.600,0:24:26.640
+then i just want that first piece like that so that will be the node name
+
+0:24:23.600,0:24:28.880
+for this url because it ends in one.html and that's really how you should deal
+
+0:24:27.600,0:24:32.000
+with strings i mean try to just like break it down and get it closer and
+
+0:24:30.400,0:24:35.360
+closer to what you want right you know i don't think i could
+
+0:24:33.760,0:24:39.360
+have really kind of done this but i just sat down and tried to type it
+
+0:24:37.039,0:24:45.120
+out i had to see like each piece as i added it to here and then here and here
+
+0:24:41.840,0:24:48.720
+and then here on these four steps okay so how are we going to use this
+
+0:24:47.919,0:24:52.320
+thing um well we're going to do this down here
+
+0:24:50.720,0:25:00.240
+we're going to say um uh you know node name of the url
+
+0:24:55.919,0:25:04.159
+so that when i actually run this thing well that's not what i was hoping for i
+
+0:25:01.840,0:25:09.679
+was i was hoping it wouldn't break um why did it break it's complaining
+
+0:25:08.480,0:25:15.120
+expected string or bytes like object
+
+0:25:13.200,0:25:21.919
+which happened right here was that not a string
+
+0:25:17.279,0:25:26.400
+um what did i return do you see my problem actually so so i
+
+0:25:25.039,0:25:30.000
+knew that this was not a string so i'm kind of looking back oh what does this
+
+0:25:27.600,0:25:34.000
+thing return and then i'm like oh oops i just printed it no wonder i have well
+
+0:25:32.320,0:25:38.640
+have that problem uh and so i'm gonna run this again
+
+0:25:37.279,0:25:43.200
+and now i can try to see these nice nodes okay there's the two pages
+
+0:25:40.799,0:25:47.200
+there are the three pages so on and so forth
+
+0:25:44.559,0:25:49.760
+and um and so maybe now what i can do is i can think about actually drawing some
+
+0:25:48.640,0:25:53.120
+edges between these things and you know one
+
+0:25:51.279,0:25:57.600
+other thing while i'm here um when i have this very long output what
+
+0:25:55.919,0:26:02.240
+i'd like to do is um
+
+0:26:02.960,0:26:10.080
+i would like to not have it and i'd like to not have it have a
+
+0:26:08.720,0:26:12.960
+stroll bar like it's just trying to dump out everything so i can kind of easily
+
+0:26:11.600,0:26:15.840
+see okay so i have to figure out the
+
+0:26:14.080,0:26:21.200
+structure between all of these different nodes now
+
+0:26:18.320,0:26:24.480
+so coming back to my function um i have to
+
+0:26:21.600,0:26:29.360
+draw some edges and so let's just think about it so i mean when i visit this url
+
+0:26:27.039,0:26:31.919
+um i get all of these urls here so i know there's some sort of edge from this
+
+0:26:30.799,0:26:35.840
+one uh to this one and um and so what would
+
+0:26:34.559,0:26:39.440
+happen if i did something like this what if i if i just said like you know graph
+
+0:26:37.760,0:26:45.520
+is dot edge and then i want the node
+
+0:26:42.799,0:26:51.360
+name of the url i have an edge from there to the node name
+
+0:26:47.360,0:26:54.480
+of the child url and this code isn't quite right i have to
+
+0:26:52.720,0:26:58.880
+kind of think carefully here um so there's some things like for each
+
+0:26:57.440,0:27:02.320
+child uh i never want to add the same child to
+
+0:27:00.640,0:27:06.480
+my to-do list twice but i might want to do this to the same
+
+0:27:05.039,0:27:09.840
+child twice right because there might be multiple parents of the same node
+
+0:27:08.320,0:27:14.559
+so it actually be more appropriate to do that i want to do this for every child
+
+0:27:12.320,0:27:18.559
+rape is all i might draw multiple edges to the same child
+
+0:27:16.000,0:27:21.120
+so i'm going to draw this and let's just try to take a minute to look through
+
+0:27:19.760,0:27:25.120
+here right so i start off while node one goes
+
+0:27:23.360,0:27:28.960
+to two and three and then i explore two and from there i
+
+0:27:27.200,0:27:33.600
+find four right so you can see i added in the four node
+
+0:27:30.720,0:27:35.440
+um then i explore three and from three i discover
+
+0:27:34.000,0:27:39.919
+the five nodes this time becoming this longer chain out in both directions
+
+0:27:38.080,0:27:44.000
+and then from the four node i discover the sixth node even longer
+
+0:27:41.760,0:27:47.120
+and then only at the very end when i visit five do i discover
+
+0:27:45.360,0:27:52.559
+another way to six and then it kind of becomes this like little tighter
+
+0:27:49.279,0:27:55.919
+uh bundle and then of course it's done and there's nothing left to search right
+
+0:27:54.240,0:28:00.159
+because the sixth node which is the last thing i search has
+
+0:27:57.279,0:28:03.440
+nothing else on it okay so there's just like one more thing
+
+0:28:02.240,0:28:09.279
+i want to do here uh to wrap up and that is
+
+0:28:06.799,0:28:14.799
+uh you know this is not very efficient to be using a list for my to-do list
+
+0:28:11.760,0:28:18.559
+right um because popping from the beginning is notoriously slow
+
+0:28:16.960,0:28:23.520
+and so what i'm going to do is i may say from collections
+
+0:28:20.399,0:28:27.440
+import my dq or double edged queue like that
+
+0:28:24.799,0:28:31.520
+and um and kind of changing this over is pretty simple
+
+0:28:28.240,0:28:35.919
+actually um i can create a dq with those things in it
+
+0:28:33.120,0:28:40.320
+and uh does that still work actually let me just kind of check
+
+0:28:37.520,0:28:42.399
+um close but now it's saying i can't pop i guess they just trying to change the
+
+0:28:41.440,0:28:47.440
+name of that we have a pop left and i think append
+
+0:28:46.000,0:28:51.600
+still works just like it does let's just try to run this thing
+
+0:28:49.039,0:28:55.919
+and i can see that i have a dq here now same picture in the end
+
+0:28:53.760,0:29:01.279
+so that all works well let me just head up to the final code
+
+0:28:58.000,0:29:04.480
+uh and take a peek here and now i think i'm in good shape right this is going to
+
+0:29:02.960,0:29:08.480
+be much more efficient using a dq for that because i can both
+
+0:29:06.640,0:29:13.840
+pop from the left efficiently and append to the right efficiently
+

@@ -1,0 +1,798 @@
+0:00:02.320,0:00:07.759
+hello in this video i'm going to be talking about categorical data
+
+0:00:06.160,0:00:10.240
+now we've already seen that when we're trying to predict something that is
+
+0:00:09.280,0:00:13.440
+numeric uh we're generally going to be using a
+
+0:00:11.599,0:00:17.680
+regression and when we're trying to predict something that's categorical
+
+0:00:15.599,0:00:20.720
+we'll use the classification and the things we learned for that so far were
+
+0:00:19.279,0:00:25.119
+linear regression and logistic regression um now in this
+
+0:00:23.760,0:00:28.160
+video and in the next couple following i'm going to be
+
+0:00:26.800,0:00:32.399
+tackling a new problem which is what if an input variable is
+
+0:00:31.119,0:00:35.600
+categorical um it turns out that regardless of
+
+0:00:34.000,0:00:40.719
+whether we're doing um linear regression or logistic regression
+
+0:00:38.480,0:00:44.800
+where i need to have numeric inputs and so what we're going to do is use
+
+0:00:42.559,0:00:49.440
+something called one hot encoding convert categorical data to uh numeric
+
+0:00:48.399,0:00:52.879
+data and um and so we won't get to that in
+
+0:00:51.520,0:00:56.320
+this video but we're gonna be building uh towards that and motivating it so the
+
+0:00:55.120,0:01:00.879
+data i wanna work with in this example is a data set from the
+
+0:00:59.280,0:01:06.880
+the city of chicago that they have about monitoring
+
+0:01:03.920,0:01:09.840
+waves on lake michigan um in various chicago beaches and there's six beaches
+
+0:01:08.720,0:01:13.799
+that they have and so i've already downloaded this data
+
+0:01:11.439,0:01:17.600
+from here uh it's in a file called waves.csv
+
+0:01:15.600,0:01:20.400
+and um and i can look at it and i see there's a bunch of stuff like a
+
+0:01:18.960,0:01:24.880
+temperature and um the wave height which is where i
+
+0:01:23.600,0:01:29.680
+want to predict and what i'm going to try to do is
+
+0:01:26.720,0:01:32.960
+predict wave height based on wave period um initially and then eventually i might
+
+0:01:31.920,0:01:38.479
+add in this other factor this categorical data which is
+
+0:01:36.000,0:01:41.439
+the beach name okay so right off right away that what i'm seeing is that since
+
+0:01:40.000,0:01:46.399
+i'm predicting wave height that's numeric i'm going to be doing a
+
+0:01:43.920,0:01:49.600
+linear regression on this data okay so the first thing you're often
+
+0:01:48.079,0:01:51.759
+going to do on a project is do some basic plotting you did a feel for it and
+
+0:01:51.119,0:01:56.000
+get some intuition about how you might want to
+
+0:01:53.600,0:01:59.360
+build your machine learning pipeline and so i'm going to do that maybe one of
+
+0:01:57.280,0:02:02.960
+the first things i do is i do a scatter plot
+
+0:02:00.560,0:02:08.479
+of the thing i'm trying to predict and the thing that it's based on so
+
+0:02:05.119,0:02:15.599
+uh let's say i'm i plot the wave period the time the time between waves x-axis
+
+0:02:11.840,0:02:18.800
+and then i get this um wave height on the y-axis and i do that i can
+
+0:02:18.160,0:02:22.160
+originally immediately see that the data is pretty
+
+0:02:21.040,0:02:25.520
+um pretty dirty right i can see that you know there's
+
+0:02:24.000,0:02:29.440
+not such a thing as really a negative height for a wave
+
+0:02:26.959,0:02:34.560
+and since i have this these values down here that it's like negative 100 000
+
+0:02:32.480,0:02:39.200
+um that's messing up my whole plot right there's actually a bunch of variety
+
+0:02:36.879,0:02:41.840
+up here that's kind of getting squished so one of the first things i'm going to
+
+0:02:40.640,0:02:45.519
+do is i'm trying to clean up my data right
+
+0:02:44.640,0:02:49.040
+and so so how am i going to do that i'm going
+
+0:02:46.959,0:02:53.120
+to say that i want to make sure that i'm only
+
+0:02:51.440,0:02:58.720
+looking at data where where these things are positive
+
+0:02:56.720,0:03:00.879
+right and this is one of the reasons to plot beforehand right i mean i could
+
+0:02:59.840,0:03:03.680
+have gone ahead and done some machine learning and it
+
+0:03:02.720,0:03:08.000
+might have learned something and probably what it learned
+
+0:03:04.720,0:03:12.000
+is when data is missing uh well i mean what is the wave height
+
+0:03:10.000,0:03:15.360
+right i probably learned some nonsense right so i want to make sure that the
+
+0:03:13.040,0:03:19.519
+wave period is greater than zero and um and really just to be safe i
+
+0:03:18.560,0:03:23.440
+think that's actually probably enough let me just try plotting that
+
+0:03:21.680,0:03:25.920
+uh the wave oh well you know what i'm going to do i have to say data frame
+
+0:03:24.799,0:03:28.959
+equals that that's more reasonable but just to be
+
+0:03:27.360,0:03:34.080
+safe i want to make sure that both of these important variables
+
+0:03:32.319,0:03:36.560
+are positive right so i'm going to grab this too
+
+0:03:37.040,0:03:42.799
+there we go i want to make sure that [Music]
+
+0:03:40.239,0:03:46.720
+uh this one this wave height is also positive just to be safe
+
+0:03:44.879,0:03:49.200
+okay i want to do this kind of scatter plot right there's a lot of points on
+
+0:03:47.920,0:03:56.159
+top of each other a perfect opportunity to um
+
+0:03:52.560,0:04:00.239
+to set an alpha transparency maybe what i'll do is i'll set the color
+
+0:03:57.519,0:04:05.360
+to be black and the alpha be i don't know 0.05
+
+0:04:03.360,0:04:07.599
+i can actually see something there and so at this point i'm going to actually
+
+0:04:06.319,0:04:16.000
+make an observation and my observation
+
+0:04:10.799,0:04:20.799
+is that this is a this is a non-linear relationship right for linear i can
+
+0:04:19.440,0:04:24.160
+imagine fitting some sort of straight line to this data the higher the wave
+
+0:04:22.479,0:04:27.680
+period the higher the wave height but i don't see that i see a time goes
+
+0:04:25.680,0:04:31.680
+off and then comes back down maybe kind of like a quadratic uh
+
+0:04:30.479,0:04:35.280
+formula right where the coefficient on x squared is negative
+
+0:04:34.080,0:04:38.479
+right so um so the implication there right is
+
+0:04:37.840,0:04:43.040
+that i'm going to use polynomial features
+
+0:04:40.880,0:04:46.560
+later okay another thing i want to do is i
+
+0:04:45.280,0:04:52.720
+want to see if um the beach i'm looking at matters right
+
+0:04:49.840,0:04:57.120
+should i be trying to just do this overall or should i be going by
+
+0:04:55.520,0:04:59.680
+by the beach so maybe the first thing i'm gonna do is i'm just trying to grab
+
+0:04:58.240,0:05:05.440
+the different beach names see how many beaches we're dealing with
+
+0:05:01.680,0:05:10.720
+when i say uh beach names equals data frame
+
+0:05:06.160,0:05:17.759
+of each name and i want to get that as a set
+
+0:05:14.240,0:05:21.919
+do that each names and you know what let's just make this a
+
+0:05:19.120,0:05:26.880
+sorted list just like that and great so these are
+
+0:05:25.199,0:05:31.039
+i can see there's six speeches i'm i'm dealing with and um and so
+
+0:05:29.360,0:05:34.800
+immediately right any plot that i have like for example a scatter plot
+
+0:05:33.039,0:05:37.840
+it's better if i can give more context and show is this a trend overall or does
+
+0:05:36.479,0:05:41.360
+it vary by some category so this would be a very
+
+0:05:39.280,0:05:45.520
+natural place to use uh subplots right so i can show
+
+0:05:43.120,0:05:48.479
+different parts or show the pattern for different beaches
+
+0:05:46.800,0:05:55.280
+and so i'm gonna do exactly that i am going to
+
+0:05:50.840,0:05:59.919
+do plt dot subplots i import plt already looks like i did and um and since i can
+
+0:05:57.759,0:06:03.520
+see there are six speeches um i'm trying to figure out how i want
+
+0:06:02.240,0:06:08.720
+to do this maybe i'm gonna say there's like two rows and three columns
+
+0:06:06.160,0:06:12.479
+um something like that and i see this is returning a figure
+
+0:06:10.160,0:06:14.400
+and um and then these axes right so let me let me just do this i'm going to say
+
+0:06:13.680,0:06:18.400
+fig axis equals that let me look at these
+
+0:06:16.240,0:06:22.400
+axes here i see it's a two-dimensional array
+
+0:06:20.800,0:06:25.840
+right of these axes if i look at the shape of that
+
+0:06:23.759,0:06:30.160
+and um and so maybe what i'd like to do is just say reshape
+
+0:06:28.240,0:06:34.639
+um i just want it one-dimensional however long that needs to be
+
+0:06:32.720,0:06:38.720
+and um and i'm going to put that in a list right so i'm going to do this
+
+0:06:36.880,0:06:43.039
+and the advantage of doing this is that i'm going to loop over these beach names
+
+0:06:41.440,0:06:46.000
+and for each one i'm going to pop off one of these axis subplot regions and
+
+0:06:44.800,0:06:50.000
+actually use it to do my plotting okay that's
+
+0:06:49.039,0:06:53.280
+where i'm heading towards and then let me make this a little bit
+
+0:06:51.360,0:06:58.160
+larger right so maybe i'm gonna do like a 12 by
+
+0:06:54.720,0:07:03.120
+12 by eight that's i have a little space and um and so this point let's loop over
+
+0:07:00.000,0:07:09.440
+the beaches right so i'm going to say for b and
+
+0:07:06.319,0:07:14.720
+beach names um i'm going to get a beach data frame
+
+0:07:12.240,0:07:18.080
+which is going to be my original frame where the beach name
+
+0:07:18.639,0:07:27.680
+uh is that okay and then i want to plot that one in an ax
+
+0:07:26.639,0:07:33.039
+so maybe let me just do the same plotting i did before i do this
+
+0:07:30.080,0:07:36.639
+thing like so but instead of that i'm going to do beach
+
+0:07:34.160,0:07:41.039
+df uh just like that and then i have to say
+
+0:07:40.479,0:07:44.720
+well well if i do this right now they all are
+
+0:07:42.800,0:07:48.160
+going to go to the same one actually no they all go to new ones
+
+0:07:46.800,0:07:51.520
+which is not great i would like to use these existing ones
+
+0:07:49.680,0:07:55.680
+that i have in this nice list let me do that so i'm going to say ax
+
+0:07:53.199,0:07:58.240
+equals a axes axes
+
+0:07:59.120,0:08:05.599
+0 right so i'm going to be going kind of row by row
+
+0:08:02.960,0:08:09.599
+here over the subplots i'm just going to pass this in right here
+
+0:08:07.840,0:08:12.080
+and i and i do that i can already see i'm getting the different beaches and
+
+0:08:11.440,0:08:17.520
+this this figure right um now there's a few
+
+0:08:15.440,0:08:20.879
+more things i should probably do um one of them is that i would like to
+
+0:08:19.360,0:08:26.080
+know which beach is which and so i'm going to say ax.set
+
+0:08:22.319,0:08:32.159
+title and and the title is well b right over the beach names
+
+0:08:29.919,0:08:35.599
+let me do that now that's a little bit crowded
+
+0:08:33.039,0:08:39.519
+and so i need to adjust the space between
+
+0:08:36.640,0:08:43.919
+uh between these and i am going to do that
+
+0:08:40.560,0:08:46.959
+with um my notes here uh the subplots adjust function
+
+0:08:44.959,0:08:52.160
+right so right here after i do this i'm going to say plt
+
+0:08:48.959,0:08:54.800
+uh sub plots dust i don't have this from memorized right i'm just kind of
+
+0:08:53.200,0:08:58.880
+checking my notes here that's kind of a fine thing
+
+0:08:56.480,0:09:03.920
+to do and um and then there's like the height space
+
+0:09:00.800,0:09:08.399
+so i'm going to say height space is 0.3 so 0.3 of the figures is how much
+
+0:09:06.720,0:09:10.959
+space i made between these and now that's actually kind of looking
+
+0:09:09.680,0:09:14.240
+pretty good right i can see he's not overlapping
+
+0:09:12.000,0:09:16.480
+now to make it easy to compare across these uh
+
+0:09:15.040,0:09:19.040
+notice that they're all kind of on a different scale right now which is not
+
+0:09:18.160,0:09:23.200
+great and so what i should probably do when i
+
+0:09:21.120,0:09:27.760
+create this is i should say share y equals true
+
+0:09:26.240,0:09:29.920
+and so now they're all the same scale and i can actually compare across
+
+0:09:29.040,0:09:33.040
+different uh different beaches right and maybe let
+
+0:09:32.240,0:09:37.440
+me just crank this up for a moment you can see
+
+0:09:36.080,0:09:41.920
+that some of them have these really outliers whereas a very
+
+0:09:40.080,0:09:46.560
+high wave day right that's kind of what's scaling it
+
+0:09:43.440,0:09:49.920
+let me just put this back down and um and i can see that some of these beaches
+
+0:09:47.920,0:09:53.839
+are pretty pretty similar right so for example
+
+0:09:50.640,0:10:00.240
+um montrose beach up here uh looks very similar to
+
+0:09:57.600,0:10:04.560
+osterman beach but other ones look pretty different for example
+
+0:10:01.760,0:10:07.120
+especially this one right here this uh calumet beach hopefully i'm pronouncing
+
+0:10:06.079,0:10:11.120
+that correctly has a very distinct pattern on the other
+
+0:10:09.680,0:10:16.240
+ones right so maybe if i was making observations here
+
+0:10:12.880,0:10:20.480
+right observation uh speeches have distinct
+
+0:10:19.279,0:10:23.120
+patterns and that's going to have implications where i'm going to do my
+
+0:10:22.160,0:10:25.920
+machine learning right what am i going to do so before i
+
+0:10:24.640,0:10:29.040
+say hey i want to use polynomial features because
+
+0:10:27.200,0:10:31.600
+there's this up and down thing and this one i'm going to use something called
+
+0:10:30.240,0:10:35.120
+one hot and encoding to deal with the
+
+0:10:33.519,0:10:39.760
+categorical data i may actually introduce
+
+0:10:36.160,0:10:42.399
+um which beach we're on to uh to kind of factor this in
+
+0:10:41.120,0:10:46.399
+okay so now i'm ready to start uh setting up my machine learning
+
+0:10:44.160,0:10:49.600
+pipeline and so i'm going to head down here
+
+0:10:47.839,0:10:52.880
+and there's a bunch of stuff i have to import from sklearn
+
+0:10:54.079,0:11:00.640
+like i need to get my pipeline object and
+
+0:10:57.279,0:11:04.480
+um and uh and while looking back at what we're trying to predict right i think we
+
+0:11:02.079,0:11:08.320
+made the observation earlier that we're doing regressions right because this is
+
+0:11:05.920,0:11:13.360
+numeric so i'm gonna go down here um i am going to
+
+0:11:13.600,0:11:23.120
+i'm going to import a linear regression and then we want some metrics right so i
+
+0:11:21.360,0:11:28.079
+want to metrics you know a nice metric that's
+
+0:11:26.320,0:11:34.959
+going to give us a 0 to one score is the um
+
+0:11:31.120,0:11:38.079
+is the amount of let me let me try to remember what that
+
+0:11:36.240,0:11:44.160
+says this is the explained variance
+
+0:11:42.800,0:11:47.200
+you know what and i and i'm not remembering it so you know what i'm
+
+0:11:45.200,0:11:50.399
+going to do is i'm just going to work this like so
+
+0:11:50.959,0:11:56.079
+and then i'm going to just do it to run i don't even have to go look up the
+
+0:11:54.399,0:12:01.040
+documentation right now i'm pretty exactly how to spell it
+
+0:11:57.839,0:12:06.000
+and um and the demo manages to get worse what am i doing here ryan
+
+0:12:02.480,0:12:10.320
+this is on line one uh oh you know what from this that's probably why my auto
+
+0:12:07.920,0:12:16.240
+complete wasn't working uh and i wanted the
+
+0:12:13.600,0:12:21.279
+plane variance score which is somewhere this is the one i was looking for
+
+0:12:19.360,0:12:26.079
+is i want to grab that one right to evaluate how my linear regression is
+
+0:12:22.839,0:12:31.519
+doing i do that that's all good goodness more mistakes
+
+0:12:29.200,0:12:36.240
+okay we're actually making our our way there slowly but surely
+
+0:12:33.279,0:12:39.600
+let me now create my pipeline and um and then what i'm going to do is in this
+
+0:12:37.519,0:12:42.959
+video i'm going to show how taking this first observation into
+
+0:12:41.360,0:12:46.079
+account works and then we're going to do some have a
+
+0:12:44.480,0:12:50.000
+break and in the next video we're actually going to show how
+
+0:12:47.519,0:12:54.240
+we're going to do this one hot encoding and so so what i'm going to do here is
+
+0:12:51.519,0:13:00.480
+i'm going to create my pipeline and a pipeline is a list of steps
+
+0:12:58.160,0:13:03.440
+and um and those steps might be some transformers
+
+0:13:01.839,0:13:07.839
+and i'm actually eventually have two of them right for my polynomial features
+
+0:13:06.079,0:13:11.040
+and my one hat encoding uh and then a straight end right after
+
+0:13:09.600,0:13:14.800
+the transformers um i have to have an estimator and uh
+
+0:13:13.920,0:13:18.560
+the estimator is my linear uh regression just like
+
+0:13:18.000,0:13:21.600
+that and the trick is right i can't just put
+
+0:13:20.399,0:13:26.480
+these different um kind of modules in here i have to give
+
+0:13:24.480,0:13:29.519
+them names and i do that by passing in a two tuple right so you'll just call
+
+0:13:28.720,0:13:34.399
+this linear regression um that's what is expected
+
+0:13:32.959,0:13:37.920
+for a pipeline and um okay at this point right i
+
+0:13:36.320,0:13:41.440
+actually want to do my um work right so i'm going to say x
+
+0:13:40.720,0:13:46.959
+columns equals i want to know what beach name
+
+0:13:45.199,0:13:50.800
+is and i want to know what the wave period is
+
+0:13:48.639,0:13:56.160
+and and then what i'm trying to predict right is
+
+0:13:52.480,0:14:00.959
+is the the wave height right so let's let's try doing this i'm
+
+0:13:58.720,0:14:06.480
+going to say um p dot that
+
+0:14:04.480,0:14:10.000
+and what am i fitting to well i'm gonna have some training data which notice i
+
+0:14:08.000,0:14:13.839
+haven't actually created yet i do my x columns and then i'm gonna
+
+0:14:12.399,0:14:18.399
+have my what i'm actually predicting right
+
+0:14:17.199,0:14:23.440
+and of course i don't have my training data so let me do that too quickly
+
+0:14:20.800,0:14:28.959
+i'm going to say from sk learn uh model selection
+
+0:14:25.279,0:14:34.160
+import um i need to have this train test split main test split just
+
+0:14:32.320,0:14:40.959
+like that and um let me actually do that so train
+
+0:14:37.600,0:14:46.560
+and test data is going to be from a trained test split on my data
+
+0:14:43.199,0:14:50.160
+frame and it'll just peek at this again okay i'm going to come down here and um
+
+0:14:49.360,0:14:53.839
+and so it's always helpful to notice we're
+
+0:14:51.360,0:14:57.279
+making progress right on our body i got a different error so that is
+
+0:14:56.079,0:15:01.600
+progress and what is it complaining about and
+
+0:14:59.519,0:15:04.079
+deal with this categorical data yeah right it doesn't know how to convert
+
+0:15:02.720,0:15:07.440
+that string to a number and eventually we will do
+
+0:15:05.920,0:15:11.360
+that but it's trying to create some work on our part so this point i'm just
+
+0:15:09.680,0:15:15.360
+going to do it directly on on that wave period right so i do
+
+0:15:13.360,0:15:21.279
+that and then what i'd like to do is i'd like to evaluate how well that works
+
+0:15:18.160,0:15:27.199
+and um and to do that well what do i do i need to call predict
+
+0:15:24.639,0:15:33.040
+right so i need to make a prediction based on
+
+0:15:28.880,0:15:36.880
+my test data all right my inputs let me do that and are these good or are
+
+0:15:36.079,0:15:40.639
+they bad well to find out i need to feed it to
+
+0:15:39.199,0:15:46.720
+one of my metrics right for my metrics i've been using this
+
+0:15:43.279,0:15:50.240
+explained variance score right so that was what is predicted and i want to
+
+0:15:48.959,0:15:54.000
+compare that to what is actually the truth which is
+
+0:15:52.880,0:15:58.480
+whatever is in that y column and i can actually see we're
+
+0:15:56.480,0:16:01.360
+doing horrible right we got a negative score so
+
+0:15:59.519,0:16:05.839
+after doing our linear regression we did worse
+
+0:16:02.639,0:16:09.279
+than uh then if we had just have taken the mean
+
+0:16:06.399,0:16:11.680
+as our only number and so let me add add this here all right so i'm going to do
+
+0:16:10.720,0:16:20.079
+this oh uh what i would like to do
+
+0:16:16.160,0:16:23.600
+is i would like to also run this on my training data
+
+0:16:20.959,0:16:26.399
+right in the end right the test number is more meaningful
+
+0:16:24.720,0:16:30.160
+but comparing these two numbers can tell us something i see both these numbers
+
+0:16:28.720,0:16:32.959
+are small so that doesn't mean i really have any
+
+0:16:31.040,0:16:38.000
+worry about overfitting it's just that simply i cannot
+
+0:16:34.800,0:16:42.160
+fit a straight line this pattern very well and then of course
+
+0:16:39.279,0:16:44.959
+we knew that right we saw earlier that we're going to want to use some
+
+0:16:43.040,0:16:49.839
+polynomial features to kind of get not a straight line
+
+0:16:46.399,0:16:52.480
+about that quadratic up and down and so what i'm going to do here right i have
+
+0:16:51.040,0:17:00.720
+that as a to do i want to add some polynomial features
+
+0:16:56.800,0:17:06.400
+and so i'm going to add those polynomial features like that and
+
+0:17:03.759,0:17:10.799
+let's have a second i can order and so i run this again
+
+0:17:08.079,0:17:14.640
+and um and you know what i think that the problem here is that i didn't import
+
+0:17:12.400,0:17:22.400
+that yet so i can say from sk learn.pre processing i want to import
+
+0:17:19.039,0:17:26.240
+polynomial features like so now let's actually give this a try and
+
+0:17:24.959,0:17:30.160
+um and this is much better right so i mean now i'm getting to about
+
+0:17:28.160,0:17:33.440
+five percent four and a half percent i guess and um
+
+0:17:33.120,0:17:36.080
+and uh and i don't have any signs of
+
+0:17:34.880,0:17:38.960
+overfitting right i mean that kind of works well on both of them
+
+0:17:37.520,0:17:44.480
+out of curiosity let's just see what happens here it was a much smaller
+
+0:17:42.000,0:17:48.480
+um number right so it was like a fraction
+
+0:17:45.440,0:17:51.280
+of one percent or even uh negative right so this is definitely helping capture
+
+0:17:50.400,0:17:55.919
+that pattern even though this is not an amazing score
+
+0:17:53.679,0:17:57.840
+um you know like 0.9 would be an amazing score
+
+0:17:56.559,0:18:01.200
+let's see what happens if we increase this further um there doesn't seem to be
+
+0:18:00.000,0:18:03.760
+much harm um in doing that right starting
+
+0:18:02.400,0:18:06.400
+realizing it doesn't need that so i'm just going to leave it here right keep
+
+0:18:05.120,0:18:10.559
+the model one is no good but having second order
+
+0:18:08.960,0:18:14.880
+polynomials is helping right and so that's good and
+
+0:18:13.360,0:18:18.000
+um and so i've done this one part the poly
+
+0:18:15.919,0:18:20.880
+part and then just by looking back at this i can see in the next video i'm
+
+0:18:19.360,0:18:24.000
+gonna have to take the beach into account and when we do that uh
+
+0:18:23.039,0:18:33.520
+we're gonna be getting up close to ten percent
+
+0:18:27.039,0:18:33.520
+instead of four and a half percent
+

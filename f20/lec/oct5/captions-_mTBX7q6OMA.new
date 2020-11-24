@@ -1,0 +1,1176 @@
+0:00:01.599,0:00:05.839
+hello in this video i'm going to be introducing
+
+0:00:03.919,0:00:09.040
+a new algorithm called depth first search dfs
+
+0:00:07.600,0:00:11.120
+um this is the kind of algorithm i've seen on interviews before i mean it's
+
+0:00:10.639,0:00:14.160
+kind of intellectually interesting it's a
+
+0:00:12.400,0:00:18.320
+recursive algorithm and um and and so we just kind of
+
+0:00:16.720,0:00:23.600
+contrast what we've done before we've been doing
+
+0:00:19.520,0:00:27.680
+uh a search on on binary search trees um and we're kind of broadening now
+
+0:00:26.240,0:00:30.000
+we're going to be dealing with any kind of directed graph maybe there's even
+
+0:00:29.519,0:00:34.000
+cycles in them and we're going to try to
+
+0:00:32.559,0:00:40.559
+recursively look through not necessarily for a specific node but
+
+0:00:37.520,0:00:42.559
+more for can we find a path between two nodes
+
+0:00:41.280,0:00:45.440
+so you could totally imagine that you might use this algorithm if you have an
+
+0:00:44.480,0:00:49.680
+application um like google maps where you're trying
+
+0:00:48.000,0:00:53.280
+to see well how can i get from one place to another
+
+0:00:50.960,0:00:56.559
+um through through some network of streets or whatever
+
+0:00:55.039,0:01:01.280
+and so i have a lot of starter code i've copied let me just move down here
+
+0:00:59.760,0:01:06.159
+first off we need to be able to represent things like this
+
+0:01:04.000,0:01:10.560
+um this is a single graph it has islands it has cycles
+
+0:01:07.680,0:01:15.680
+kind of more complicated and so when i have a node class like usual
+
+0:01:13.760,0:01:19.280
+and nodes have a few things they have names
+
+0:01:17.040,0:01:24.240
+and then they also have a list of children so
+
+0:01:20.799,0:01:28.400
+i guess a has no children b has one child which is c
+
+0:01:25.360,0:01:32.320
+c has one child which is d and d has one child which is b
+
+0:01:30.799,0:01:35.320
+and uh and this just kind of is for printing it out and
+
+0:01:34.159,0:01:40.479
+and you also see that there's this self.graph and
+
+0:01:37.759,0:01:44.159
+what that is going to refer to is to another class
+
+0:01:41.439,0:01:48.159
+object that represents the whole whole graph
+
+0:01:44.960,0:01:52.799
+and so why do i need a separate class well as you can see down here there's no
+
+0:01:51.280,0:01:55.920
+node that's kind of a natural starting point i mean there's kind of even these
+
+0:01:54.240,0:02:00.000
+two disjoint parts and so what i would like is to have some
+
+0:01:58.000,0:02:04.000
+sort of dictionary where i can say take me straight to the a node you know
+
+0:02:02.320,0:02:07.840
+so maybe a is the key and the node is the value
+
+0:02:04.719,0:02:09.759
+or say take me straight to the c c node and so
+
+0:02:08.479,0:02:14.959
+i need to have some place to keep that dictionary and and so for that
+
+0:02:12.160,0:02:17.760
+i created this new class called my graph and it has one attribute and that's a
+
+0:02:16.720,0:02:20.560
+dictionary and whenever i create dictionaries i like to
+
+0:02:19.360,0:02:23.360
+have little comments like this where i say well
+
+0:02:21.440,0:02:27.040
+the key is a is a name and then the value you get back is a node
+
+0:02:25.360,0:02:31.200
+a little comma like this goes a long way into in terms of understanding what your
+
+0:02:28.720,0:02:36.319
+variables or attributes are okay so so this thing here i just have
+
+0:02:33.519,0:02:42.640
+this dictionary of these nodes nodes down here and
+
+0:02:39.360,0:02:49.040
+what i have now is i have some helper uh some helper methods so if i have a graph
+
+0:02:46.239,0:02:52.560
+and i call the node method then what this is going to do is it's
+
+0:02:50.239,0:02:58.720
+going to create a new node put it in the dictionary for me and then
+
+0:02:55.760,0:03:03.840
+it's going to say node.graph equals self okay
+
+0:03:02.239,0:03:08.800
+and and so you can imagine different reasons for that right why does the
+
+0:03:06.640,0:03:12.239
+why does the node need to refer back to itself and there's actually a name for
+
+0:03:10.239,0:03:16.480
+this kind of reference it's like uh you know when i look at this here i
+
+0:03:14.879,0:03:21.280
+think of my graph is referring to a bunch of nodes
+
+0:03:19.280,0:03:25.840
+right that's what this is doing so my graph object refers to a bunch of
+
+0:03:23.200,0:03:28.879
+nodes here each node object is referring back
+
+0:03:26.640,0:03:34.640
+back to the graph and so let me just give you a silly example of why
+
+0:03:31.280,0:03:37.519
+i might want to do that um and i'm not trying to actually write
+
+0:03:35.680,0:03:41.680
+code here but you could imagine that when i'm drawing these things maybe i
+
+0:03:38.959,0:03:45.120
+wanted to specify well what color is each note in the graph and so it'd be
+
+0:03:43.519,0:03:49.200
+kind of strange to have like a self dot color down here
+
+0:03:46.480,0:03:51.840
+if i want all my nodes to be red right it would kind of make more sense that i
+
+0:03:50.319,0:03:55.760
+just have like one attribute up in here called taller and
+
+0:03:54.239,0:03:58.159
+then all the nodes can refer to that right since they're kind of all sharing
+
+0:03:56.959,0:04:00.799
+the same information and and this is going to make more sense
+
+0:03:59.519,0:04:03.120
+later and we have a more practical reason
+
+0:04:01.599,0:04:07.760
+why all the nodes need to share some information with each other
+
+0:04:05.760,0:04:10.720
+okay so that's creating the node and kind of setting up all the references so
+
+0:04:09.200,0:04:15.200
+the graph knows about its nodes and the nodes know about their graph
+
+0:04:13.439,0:04:18.639
+and then i have this thing which creates an edge and
+
+0:04:16.560,0:04:21.440
+source and destination are the names of nodes
+
+0:04:19.600,0:04:25.840
+and let's start with this last line of code here
+
+0:04:22.800,0:04:29.280
+i'm using my dictionary to get the node with the name source and i'm using
+
+0:04:28.080,0:04:33.360
+this to get the node with the name
+
+0:04:30.800,0:04:39.759
+destination and i'm saying my sources children should add
+
+0:04:37.040,0:04:42.800
+the destination right so my source node is going to refer
+
+0:04:41.280,0:04:46.639
+uh to the destination is one of its children um
+
+0:04:44.560,0:04:49.759
+what's this stuff up here uh this is just kind of some convenience stuff this
+
+0:04:48.400,0:04:52.960
+is making sure that if i'm trying to add an edge between
+
+0:04:51.600,0:04:56.639
+let's say like x and y and i haven't already created
+
+0:04:55.280,0:04:59.919
+nodes x and y this is just doing that that for me
+
+0:04:58.720,0:05:02.160
+right so i can just kind of create an edge
+
+0:05:00.560,0:05:06.000
+between any two things and it'll create those nodes if they're not already there
+
+0:05:04.240,0:05:08.240
+so that part's not too interesting and then i have some drawing stuff here
+
+0:05:07.199,0:05:12.639
+which i think i'm not going to talk about right now
+
+0:05:10.479,0:05:18.080
+okay another detail here to understand is i have this example function
+
+0:05:15.280,0:05:21.440
+and all the example function is for is um to kind of save me time
+
+0:05:19.840,0:05:24.800
+so i can i quickly did it different graphs right so
+
+0:05:23.199,0:05:26.800
+don't you know you can use it don't worry too much about it writing i just
+
+0:05:26.160,0:05:29.919
+have a big thing up here that's kind of
+
+0:05:28.160,0:05:32.479
+creating different graphs not too interesting
+
+0:05:30.639,0:05:37.759
+okay so i'm gonna head back here and i'm gonna have one
+
+0:05:33.919,0:05:40.880
+and in my goal least what i'm going to start with is i
+
+0:05:39.039,0:05:45.440
+want to see can i find my way from one specific node um to
+
+0:05:44.240,0:05:52.160
+another node so for example um it would be false
+
+0:05:49.199,0:05:55.600
+that i can get from a to b but it would be true
+
+0:05:53.039,0:05:58.639
+that i can get from b to d that's what i want this thing to do
+
+0:05:57.039,0:06:02.240
+and so i'm going to implement this as a node or as a method
+
+0:06:00.720,0:06:04.720
+in my node class and i'm going to call it find
+
+0:06:04.840,0:06:11.680
+um and well here's the node where i'm starting from
+
+0:06:08.720,0:06:15.919
+and i want to know if i can get to um some sort of destination
+
+0:06:13.360,0:06:18.880
+right and i so this is me right this is my own node
+
+0:06:17.039,0:06:24.960
+uh this is another node and i get to there uh
+
+0:06:20.400,0:06:29.440
+i guess we'll find out right and um and so how are we going to do this uh
+
+0:06:30.560,0:06:34.960
+this is going to be a node so i think what i might have to do down here let me
+
+0:06:33.360,0:06:37.840
+just try to do a pass and look how many i call this
+
+0:06:36.319,0:06:43.440
+uh i'm gonna call things like this i'm gonna say like um
+
+0:06:39.600,0:06:50.240
+graph dot nodes of a dot find graph dot nodes of of b
+
+0:06:48.720,0:06:52.720
+okay can i do something like that maybe i'll even start with something really
+
+0:06:51.280,0:06:56.080
+simple i'll just say like well can i get from a to a and of course that
+
+0:06:54.560,0:06:58.560
+should be true right so i'm going to print that
+
+0:06:58.720,0:07:03.759
+and now i actually have to write some code up here and so
+
+0:07:02.080,0:07:09.919
+let me just handle that simple case right um you know
+
+0:07:05.440,0:07:17.360
+if uh if self equals my destination uh ea
+
+0:07:13.360,0:07:22.800
+i've arrived um you know do some recursive checks here
+
+0:07:20.720,0:07:26.000
+that's going to be the the fun right and then
+
+0:07:24.400,0:07:29.280
+at the very end i may return false right so if i'm already there uh
+
+0:07:27.520,0:07:32.880
+that's my base case right of course i can find it um
+
+0:07:31.280,0:07:36.720
+some complexity here and then otherwise false so let me just make sure this
+
+0:07:34.319,0:07:41.599
+thing even runs it does right so i can reach a from a um
+
+0:07:39.680,0:07:47.440
+can i reach like um c from from b
+
+0:07:44.720,0:07:50.240
+or i'm sorry i want to get to c uh from b
+
+0:07:48.319,0:07:56.000
+and uh and that's saying fall so maybe that's like the next thing i have to do
+
+0:07:52.400,0:07:59.759
+so so right i mean really when i'm on b i should check all my children and so so
+
+0:07:58.720,0:08:04.560
+i'm gonna write something here i'm gonna loop over my children
+
+0:08:01.120,0:08:11.520
+for child and self.children
+
+0:08:10.080,0:08:14.879
+maybe maybe even let me just kind of print my children first and try to see
+
+0:08:13.280,0:08:18.080
+how far we are so so i'm starting with b and i'm
+
+0:08:16.319,0:08:21.440
+looping over okay well there's c my child
+
+0:08:19.360,0:08:24.560
+and um and so what i want to do is what can i reach reach that child right so
+
+0:08:23.199,0:08:28.879
+maybe i'll say something like this like if
+
+0:08:25.520,0:08:35.760
+a child uh is is kind of like this target i'm trying to eventually reach
+
+0:08:31.120,0:08:39.519
+um then i could also return return true right um
+
+0:08:39.599,0:08:45.519
+and uh and i have to actually say return uh very well
+
+0:08:43.440,0:08:52.240
+okay and so let me kind of check this again so so i guess like you know b
+
+0:08:47.600,0:08:58.640
+can reach b uh b can reach c um b can reach d
+
+0:08:55.360,0:09:04.880
+and and that's a bug right uh b should be able to reach d
+
+0:09:03.360,0:09:11.680
+and so let me kind of look at this for a moment um
+
+0:09:08.480,0:09:15.360
+do you see what my problem is i'm looping over all my children
+
+0:09:13.600,0:09:19.120
+right so so in this case i'm moving over c and i'm trying to see well are any of
+
+0:09:17.200,0:09:22.880
+my children where i want to be and in this case the answer is no right
+
+0:09:21.519,0:09:26.640
+because you know i don't want to get to c i only
+
+0:09:24.240,0:09:31.680
+want to get to d and so this this check here is a little bit too simple
+
+0:09:28.800,0:09:37.680
+right uh i don't really want to ask if my child is the destination
+
+0:09:34.320,0:09:40.399
+but i want to ask if my child can find the destination and that's
+
+0:09:39.040,0:09:44.800
+where we have to have the recursion right so
+
+0:09:41.200,0:09:54.720
+so i should say if child.find of the destination let me return true
+
+0:09:51.600,0:09:59.519
+and then that seems to work okay let me try some other things like
+
+0:09:56.720,0:10:05.839
+can a find b that's false
+
+0:10:03.360,0:10:11.279
+so that seems to be working well can and like um can i get from d
+
+0:10:08.399,0:10:17.040
+to c that's true one thing i want you to look
+
+0:10:15.360,0:10:21.200
+at here and um and notice is that
+
+0:10:22.640,0:10:27.760
+is that when i when i find when my child finds around then i can return true
+
+0:10:26.000,0:10:30.399
+but if this had returned false i can't stop right i guess this is kind of a
+
+0:10:29.279,0:10:34.640
+simple example because i each node has only one child but you
+
+0:10:33.360,0:10:38.240
+know i can never return false until i've really checked all my
+
+0:10:36.079,0:10:45.120
+children and that's why i've written it this way
+
+0:10:40.320,0:10:48.560
+okay so so there's a bug here and and i guess i've seen a few cases that
+
+0:10:46.640,0:10:53.360
+works but let me let me try to do this what's going to happen if i if i do
+
+0:10:51.839,0:10:59.519
+something like this i want to see is there a path from b
+
+0:10:56.079,0:11:02.880
+to a and and you know what i want to do let's
+
+0:11:01.040,0:11:07.120
+just be very clear like you know what are we checking right
+
+0:11:04.880,0:11:12.959
+where i say check uh self dot name
+
+0:11:10.160,0:11:15.680
+what nodes am i checking and just think about this for a while what's going to
+
+0:11:14.079,0:11:18.880
+happen here when i try to do that
+
+0:11:26.000,0:11:32.000
+well it seems like not what i want it to do
+
+0:11:29.920,0:11:36.720
+uh let me try to straw all the way down here and kind of see what's happening
+
+0:11:34.480,0:11:42.640
+all the way to the end i wonder if this will run forever
+
+0:11:39.279,0:11:46.160
+let's see what happens seems pretty long right eventually
+
+0:11:44.800,0:11:49.839
+eventually it crashes right and i'm getting a maximum
+
+0:11:47.279,0:11:53.440
+recursion depth exceeded and and i can kind of see the recursion
+
+0:11:51.920,0:11:57.839
+here right i mean i crashed here right on the fine and um and this call
+
+0:11:56.480,0:12:00.880
+was called by another place and find which is called
+
+0:11:59.519,0:12:04.240
+by another uh place and find actually it says that
+
+0:12:02.560,0:12:08.000
+this is repeated um many times right so they're kind of
+
+0:12:06.320,0:12:11.920
+simplifying it for me uh depending on what version of python
+
+0:12:10.399,0:12:15.440
+right sometimes they might actually uh repeat this detail uh many different
+
+0:12:14.720,0:12:18.560
+times but but at the end of the day right i
+
+0:12:16.880,0:12:21.200
+can see that hey i keep calling myself and that's not
+
+0:12:19.200,0:12:25.600
+not good right and kind of if i look around it kind of keeps cycling like c d
+
+0:12:23.279,0:12:29.760
+b c d b c d b let me just get rid of this for a minute
+
+0:12:26.880,0:12:32.800
+do you see what happens uh b says i'm not a
+
+0:12:30.399,0:12:36.480
+so does my children have it yeah i'm not a so does my child have it
+
+0:12:34.240,0:12:40.720
+d says do i am i a node so does my children have it
+
+0:12:37.440,0:12:46.959
+because b uh is a b a no so bs of my children have it
+
+0:12:42.720,0:12:51.040
+you see my problem right like uh a node a node's child is also its grandparent
+
+0:12:49.440,0:12:54.560
+right so as i'm kind of exploring this i get stuck in that
+
+0:12:52.240,0:12:58.399
+in that cycle and this doesn't happen with every use case because
+
+0:12:56.480,0:13:01.200
+um you know when i start searching from a for example well there are no cycles
+
+0:13:00.160,0:13:04.800
+over here so there's some places i can start where
+
+0:13:02.639,0:13:08.160
+i'm safe even when i'm over here on the right
+
+0:13:05.519,0:13:10.959
+um sometimes i'm safe because i quickly find what i'm looking for right i get
+
+0:13:09.600,0:13:13.279
+from b to c and then i don't have to keep asking
+
+0:13:11.839,0:13:17.279
+it's really kind of only when i have these cycles
+
+0:13:15.680,0:13:20.000
+and i'm looking for something i'm never going to find and then i'm kind of in
+
+0:13:18.560,0:13:22.480
+big trouble and maybe there's some other cases too
+
+0:13:21.279,0:13:27.120
+maybe that's the most important one to understand
+
+0:13:23.360,0:13:34.240
+so just kind of backing up a minute uh let's imagine that um some evil villain
+
+0:13:30.959,0:13:37.519
+locked you in a maze um and you're trying to escape this maze so
+
+0:13:35.920,0:13:40.079
+you can kind of walk around feel your way around there's different
+
+0:13:38.240,0:13:46.079
+intersections in the maze you can turn left and right and whatever
+
+0:13:43.360,0:13:49.360
+and um and let's say you have like a bag of rice
+
+0:13:47.279,0:13:52.079
+or something like that like how how would you make sure
+
+0:13:50.480,0:13:55.600
+in this dark maze which looks very repetitive how would you make sure that
+
+0:13:54.320,0:13:59.600
+you aren't kind of walking around in circles and hitting the same place
+
+0:13:58.079,0:14:02.639
+um over and over again that you're kind of stuck forever how do you make sure
+
+0:14:00.639,0:14:05.920
+you're making progress and trying to explore the maze and find
+
+0:14:04.959,0:14:11.120
+an exit or a particular location and
+
+0:14:09.279,0:14:13.839
+i think the answer is that somehow we have to use the rice or whatever we have
+
+0:14:12.720,0:14:17.760
+with us to mark the locations we've been before
+
+0:14:16.720,0:14:20.880
+we have to mark hey i've been here before and so if i come back to that
+
+0:14:19.040,0:14:24.160
+same place i won't kind of you know leave that
+
+0:14:22.720,0:14:28.480
+place in the same way i left it before i might kind of explore in other
+
+0:14:25.839,0:14:31.600
+other directions right because otherwise i'm just going to keep going in cycles
+
+0:14:30.240,0:14:36.399
+and so we have to have that here we have to have some way of kind of marking
+
+0:14:34.880,0:14:41.120
+where we've been before in order to solve this problem
+
+0:14:38.160,0:14:42.880
+and and where would be a good place for that i i
+
+0:14:41.839,0:14:45.920
+you know i could have different data structures maybe i may have like a set
+
+0:14:44.800,0:14:50.639
+and it's going to be a set of all the nodes i visited
+
+0:14:47.680,0:14:54.399
+and i'm kind of doing a lot of recursion here right
+
+0:14:51.760,0:14:57.279
+uh between you know one node calls a method on another node called a method
+
+0:14:56.079,0:15:02.160
+on another node and so this would be a bad place to keep
+
+0:15:00.480,0:15:04.880
+track of my markers of what i've already visited
+
+0:15:03.120,0:15:09.760
+right because because really i kind of want to keep that shared
+
+0:15:06.880,0:15:15.120
+between all the different nodes and so maybe this is a good opportunity up here
+
+0:15:12.800,0:15:20.560
+right that i can um i can say up here well i want to have some sort of visited
+
+0:15:17.639,0:15:25.040
+south.visited uh and i may have a set and that sets maybe
+
+0:15:23.920,0:15:28.800
+empty and and then what i'm going to do down
+
+0:15:26.959,0:15:34.240
+here is is something like this before i
+
+0:15:32.560,0:15:38.320
+i kind of do my work up checking i know what i need to say if
+
+0:15:35.839,0:15:45.120
+something do something or something else
+
+0:15:43.600,0:15:47.519
+okay and so let's try to think through this so so what i ultimately want to do
+
+0:15:46.639,0:15:52.240
+is i want to make a note of that i've been there so i want
+
+0:15:49.759,0:15:56.320
+to add well actually no so what i want to do
+
+0:15:54.160,0:16:03.040
+here if self
+
+0:16:00.639,0:16:08.240
+is in this data structure right if i'm one of
+
+0:16:06.480,0:16:12.079
+the nodes that i have visited before so i'm gonna
+
+0:16:10.639,0:16:17.040
+say if self and well and how do i get to this how do i
+
+0:16:14.720,0:16:21.440
+get up to this thing this is a graph object and this kind of
+
+0:16:19.440,0:16:25.680
+comes back here whenever we create a new node
+
+0:16:22.320,0:16:29.839
+the new node dot graph refers back to this which gets us to
+
+0:16:27.839,0:16:34.240
+here right so so this thing is actually my key to getting back
+
+0:16:32.000,0:16:37.759
+that's why i had to do that earlier is in draft.visited
+
+0:16:36.160,0:16:42.240
+well what would be an appropriate thing to do if i kind of find myself in a
+
+0:16:40.000,0:16:45.120
+circle um well i definitely shouldn't do
+
+0:16:43.839,0:16:47.920
+anything else i should just return something
+
+0:16:45.600,0:16:51.759
+right you know if i didn't find it the last time i can't find it this time
+
+0:16:50.240,0:16:55.920
+and then there's like one more detail here like so so if i get to this line of
+
+0:16:53.839,0:17:00.399
+code i've decided that you know i'm going to check this node
+
+0:16:58.000,0:17:05.679
+but i have to do something else i have to i have to add myself to this
+
+0:17:03.279,0:17:09.120
+right i want to make sure that i never i never come here again so i'd say dot
+
+0:17:07.600,0:17:16.079
+append um self and um
+
+0:17:12.880,0:17:20.640
+you know what i think that visited was a if it was a list i'd do a pen but it's
+
+0:17:17.760,0:17:25.760
+not right i think visited was uh was a set so i am going to
+
+0:17:26.640,0:17:34.880
+add instead of append okay so i'm going to do that and i'm going to
+
+0:17:33.679,0:17:38.080
+try to see if this works any better than last
+
+0:17:36.799,0:17:43.120
+time and now i do b c d and then i don't come
+
+0:17:41.679,0:17:45.600
+back to b again after that i've already been there
+
+0:17:43.840,0:17:51.600
+and so i can conclusively say false there is no path
+
+0:17:47.440,0:17:54.799
+from b to a right so that seems good well let me try
+
+0:17:53.840,0:17:58.880
+another example um you know whenever i you know i've
+
+0:17:57.120,0:18:00.480
+tried sometimes i repeat examples right because
+
+0:17:59.200,0:18:03.039
+i know it used to work and then if i make a code change i want to see if it
+
+0:18:01.919,0:18:09.039
+still works and i get from from say b to d
+
+0:18:06.480,0:18:15.840
+and now that's saying false and that's a problem
+
+0:18:10.080,0:18:20.000
+right and the problem i'm having is that that i have this set i have this visited
+
+0:18:18.960,0:18:25.200
+set and i want to clear that out each time
+
+0:18:22.960,0:18:28.720
+i'm kind of starting a new search right um so so where can i clear that
+
+0:18:27.919,0:18:32.080
+out uh this would be a bad place to clear it
+
+0:18:30.880,0:18:35.679
+out because this gets called many times during a
+
+0:18:34.480,0:18:38.960
+search and i don't want to clear it out in the
+
+0:18:37.039,0:18:42.880
+middle of a search so this is actually a one of those nice
+
+0:18:41.360,0:18:46.320
+cases where i can use this thing again this is
+
+0:18:44.400,0:18:52.080
+trying to help me i'm going to create a new method up here
+
+0:18:48.720,0:18:57.600
+called find and i'm going to say source and destination
+
+0:18:54.840,0:19:01.360
+and i'm going to kick off the recursion here
+
+0:18:58.080,0:19:10.480
+right so i'm going to say return self dot nodes of source
+
+0:19:05.120,0:19:13.679
+dot find self.nodes of destination and um and the nice thing about doing
+
+0:19:13.120,0:19:16.480
+this here right i'm kind of doing this is my
+
+0:19:14.960,0:19:20.240
+recursion so i might think of this as analogous to a loop
+
+0:19:18.320,0:19:23.200
+and kind of things i might want to do before the loop
+
+0:19:21.520,0:19:27.360
+once i would put here right before i kick off my recursive call
+
+0:19:24.799,0:19:29.679
+so this is not recursive never calls itself
+
+0:19:28.080,0:19:33.200
+only this is the recursive one so by kind of doing some work up here before i
+
+0:19:32.000,0:19:38.320
+start the recursion i can make sure it happens only once
+
+0:19:34.880,0:19:45.520
+i'll just say like self.visited uh clear it out and
+
+0:19:41.600,0:19:48.080
+um and my problem here right is that i'm still kind of using the recursive
+
+0:19:46.720,0:19:50.880
+version i should never do that anymore i should use the version
+
+0:19:51.520,0:19:59.039
+i should use the version uh in my graph that i just created so that
+
+0:19:56.080,0:20:02.880
+this will you know graph find will clear the visited set
+
+0:20:00.640,0:20:06.000
+and then it'll do the recursive find with the nodes
+
+0:20:04.400,0:20:09.200
+okay and that's true right so this one was false b cannot
+
+0:20:08.000,0:20:14.960
+well let me actually just do the same thing up here print
+
+0:20:11.919,0:20:18.080
+uh g dot find b to a
+
+0:20:18.240,0:20:24.080
+okay that was false speaking out reach a uh b can reach d
+
+0:20:22.400,0:20:27.520
+right so i think i have this working so i'm just gonna come come up and look at
+
+0:20:25.600,0:20:31.840
+this again so we're doing pretty good right now um
+
+0:20:32.080,0:20:37.840
+i think though kind of going back to what we originally talked about
+
+0:20:35.440,0:20:42.400
+um imagine how terrible google maps would be if i say like hey i want to get
+
+0:20:40.080,0:20:46.240
+from madison to chicago and it just returns a boolean like yes
+
+0:20:44.559,0:20:49.520
+you can do that what i really want to know is how right
+
+0:20:48.080,0:20:53.280
+how do i uh get back from you know from madison to
+
+0:20:51.440,0:20:56.480
+chicago give me step-by-step directions what nodes or cities do i visit on the
+
+0:20:55.039,0:20:59.840
+way and um and so i'm gonna try to make this
+
+0:20:58.080,0:21:03.679
+more complicated right instead of just returning a boolean um i'm going to
+
+0:21:02.960,0:21:06.960
+return the specific path that i can use to get
+
+0:21:05.600,0:21:09.520
+there and i'm going to have that as a tuple of nodes right these are kind of
+
+0:21:08.400,0:21:12.480
+like the sequence of nodes you're going to have to visit
+
+0:21:10.640,0:21:20.240
+um if there is no path i'm going to return none
+
+0:21:17.120,0:21:24.000
+in those cases and um and so what am i going to do down here now
+
+0:21:22.320,0:21:27.280
+um instead of true i guess is the complicated taste right
+
+0:21:28.840,0:21:34.240
+um this is the easy one right i guess if
+
+0:21:31.919,0:21:38.640
+i'm kind of starting where i already am then there's only one node
+
+0:21:37.360,0:21:41.360
+on that path and really that's kind of myself right so i'm just going to say
+
+0:21:40.080,0:21:45.280
+self and um this is not a tuple right i mean
+
+0:21:43.440,0:21:49.440
+this is just a value in parentheses if i want to have a tuple with exactly
+
+0:21:47.840,0:21:52.400
+one one value in it then i have to have at least one comma in there that
+
+0:21:50.720,0:21:57.520
+trailing comma does nothing so this is a tuple with one value which
+
+0:21:55.120,0:22:00.799
+is myself let me just kind of do this so let me
+
+0:21:58.960,0:22:05.280
+kind of handle that case first if i do that and maybe i'm gonna
+
+0:22:03.280,0:22:09.840
+actually get rid of this as well right so so here you know i get the
+
+0:22:07.360,0:22:13.120
+tuple yeah the way you get from a to a you know you have just this path that
+
+0:22:11.520,0:22:16.720
+say um this is a more interesting case right
+
+0:22:14.880,0:22:20.640
+what do i return here um you know for one this is not
+
+0:22:19.200,0:22:24.720
+returning uh a boolean anymore right i mean it's
+
+0:22:22.880,0:22:28.080
+returning either path or it's returning none right so so
+
+0:22:27.039,0:22:30.000
+instead of just kind of using this in the condition
+
+0:22:28.799,0:22:32.559
+i should really kind of capture that right i should say something like child
+
+0:22:31.679,0:22:41.200
+path equals that and um
+
+0:22:37.120,0:22:46.000
+and there's two cases right i mean uh instead of kind of just checking if it's
+
+0:22:42.640,0:22:49.280
+true or false i should check if my child found a path right did you find a path
+
+0:22:48.240,0:22:54.559
+child um and and if we did well we're in good
+
+0:22:52.720,0:22:58.159
+shape right because if i know how to reach my child and my
+
+0:22:57.039,0:23:02.320
+child knows how to reach the destination i just kind of glue
+
+0:23:00.720,0:23:06.720
+together those two pieces of information and i know how to reach the destination
+
+0:23:05.520,0:23:10.960
+and so how do i do that how do i glue these things together um
+
+0:23:09.440,0:23:15.840
+i kind of want to do something like you know myself
+
+0:23:12.880,0:23:20.159
+plus child path and so this is kind of what i put here
+
+0:23:17.520,0:23:23.600
+this is a tuple and so if i want to put make a new tuple with myself at the
+
+0:23:21.840,0:23:27.280
+beginning do this like before and actually this is
+
+0:23:25.120,0:23:31.280
+going to be exactly the same right so if if my if my child says it's you
+
+0:23:30.960,0:23:38.080
+know cd and i'm b then i may return
+
+0:23:34.480,0:23:41.919
+b c d that make sense let me do this that works the same what
+
+0:23:40.240,0:23:48.799
+if i want to go from from a uh from like let's say uh
+
+0:23:45.200,0:23:52.960
+b to a that's none what if i want to get from b to d i see
+
+0:23:51.840,0:23:57.200
+that i start with b and i go to c and i go to d and i was
+
+0:23:55.360,0:24:02.000
+able to solve this solve this problem okay so
+
+0:24:00.559,0:24:06.400
+so this seems good i think that this code is correct this is a depth first
+
+0:24:04.080,0:24:11.279
+search depth first search yay we did it um very
+
+0:24:09.840,0:24:15.520
+useful algorithm um let me uh you know eventually learn
+
+0:24:14.159,0:24:21.520
+another one you know soon uh soon we're gonna learn
+
+0:24:18.880,0:24:25.520
+something called um next example the next video we're gonna
+
+0:24:22.960,0:24:27.840
+learn something called bfs breadth first search
+
+0:24:28.799,0:24:33.679
+and and to motivate that i wanna show you the one case where kind of depth
+
+0:24:32.880,0:24:37.279
+first search might not do what we want and so so let
+
+0:24:36.320,0:24:42.480
+me kind of go down here i guess i've been doing uh this graph
+
+0:24:39.440,0:24:46.000
+one a lot let me do this graph and um and so here i see that you know i
+
+0:24:45.120,0:24:49.039
+have a and then there's kind of these two paths
+
+0:24:47.440,0:24:52.159
+to get to e and um and so let's say well how do i
+
+0:24:50.720,0:24:56.720
+get to e and so i say i want to get from a to e
+
+0:24:54.240,0:25:06.240
+please do give me directions and um and well that's kind of
+
+0:25:00.880,0:25:10.159
+funny actually uh let me just a minute all right sorry i had to um what i was
+
+0:25:09.279,0:25:14.320
+doing with kind of the video on pause as i was
+
+0:25:12.000,0:25:17.360
+changing how how that that kind of graph is constructed and so i
+
+0:25:16.559,0:25:21.039
+have this now right and um and i'm saying hey find me
+
+0:25:20.080,0:25:26.240
+a path from a to e and well
+
+0:25:24.080,0:25:29.840
+what happens uh last time i got a nice path which wasn't demonstrating my point
+
+0:25:28.000,0:25:34.240
+here i have a really ugly path right i mean i could go straight from a to e
+
+0:25:32.559,0:25:38.960
+but instead i'm kind of told to go this long route you know go through b
+
+0:25:35.679,0:25:42.240
+c d and e um in order to get there and kind of assuming if i assume that
+
+0:25:40.480,0:25:45.840
+all these edges take the same amount of time to drive
+
+0:25:43.760,0:25:48.720
+well this is a horrible horrible way to get there
+
+0:25:47.200,0:25:51.840
+and so i want to talk about why this happens
+
+0:25:50.240,0:25:56.799
+depth first search sometimes finds the shortest path sometimes it doesn't
+
+0:25:54.000,0:25:59.840
+it's really not designed to care right so
+
+0:25:58.080,0:26:02.799
+what happens when i'm calling this right so i'm in here and i'm probably my find
+
+0:26:02.559,0:26:06.240
+on a right so i'm kind of coming along here
+
+0:26:04.720,0:26:09.440
+in a and i may reach down here i'm gonna loop
+
+0:26:07.520,0:26:15.919
+over all my children and what really matters is in this
+
+0:26:12.799,0:26:21.919
+list what is the first child of a is b the first child or is e the first child
+
+0:26:20.400,0:26:26.400
+and that's what i was fixing so let's say b is the first child
+
+0:26:24.240,0:26:31.840
+then what's going to happen here is we're going to recursively ask
+
+0:26:27.679,0:26:34.880
+b can you find a path and this is recursive so this is going
+
+0:26:33.600,0:26:38.640
+to do a whole bunch of stuff i'm going to go from b
+
+0:26:35.679,0:26:42.159
+all the way down and that's the depth right depth means that
+
+0:26:40.240,0:26:46.640
+i'm kind of following all these edges right so this is going to go
+
+0:26:43.679,0:26:49.919
+deep all the way down on the b path and you know what i'm going to end up
+
+0:26:47.520,0:26:52.799
+returning this even before i come to the second
+
+0:26:51.360,0:26:54.720
+iteration of the loop in the second iteration of the loop i would have
+
+0:26:54.000,0:26:59.679
+realized hey e is better you know faster but i didn't
+
+0:26:58.080,0:27:04.240
+do that right i kind of recursively checked
+
+0:27:00.080,0:27:07.600
+every descendant of my first child before i checked my second child right
+
+0:27:06.000,0:27:13.360
+i'm checking i'm checking um the children of my first children
+
+0:27:12.000,0:27:16.799
+i'm sorry i'm checking the children of my first child before i
+
+0:27:15.279,0:27:19.919
+check my second child and that's why we kind of get these yucky pads and so next
+
+0:27:18.159,0:27:23.200
+time i may be teaching another algorithm where we avoid
+
+0:27:21.840,0:27:26.559
+avoid this issue and we kind of come up with a more elegant path
+

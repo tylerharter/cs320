@@ -1,0 +1,951 @@
+0:00:02.879,0:00:07.120
+all right so in this video we're going to actually start running some real get
+
+0:00:05.839,0:00:11.120
+commands again and we're going to produce this worst
+
+0:00:09.040,0:00:14.719
+possible scenario where we have um a merge conflict between two
+
+0:00:13.519,0:00:18.480
+different versions and so the scenario you should really be
+
+0:00:16.400,0:00:22.320
+imagining here is that two different people are working on a paper
+
+0:00:20.480,0:00:25.039
+um editing it at the same time and they make contradictory changes and they want
+
+0:00:23.920,0:00:28.960
+to merge it all all together and so the first thing
+
+0:00:27.439,0:00:31.760
+we're going to start with is a sentence like this
+
+0:00:29.679,0:00:34.559
+and our paper.txt is trying to say my bike which is a broken seat is in the
+
+0:00:33.440,0:00:39.520
+garage um i didn't really learn this uh grammar
+
+0:00:37.600,0:00:43.040
+rule until i was um in graduate school but it turns out this
+
+0:00:41.200,0:00:45.920
+is not correct if i'm using the word which
+
+0:00:44.239,0:00:50.079
+then this is a parenthetical i need some commas if i change the word
+
+0:00:48.399,0:00:53.360
+which to that then i wouldn't need commas and so so imagine two people are
+
+0:00:52.079,0:00:58.079
+working on this one is on the on say an airplane so there's no wi-fi
+
+0:00:55.920,0:01:02.239
+access to be kind of collaborating and they both see this problem
+
+0:00:59.760,0:01:06.640
+and the first person who's working on the master branch
+
+0:01:03.840,0:01:09.520
+um adds some commas which is good and let's say they also add a period at the
+
+0:01:08.080,0:01:12.320
+end of a sentence so they made these two improvements
+
+0:01:10.880,0:01:17.119
+now let's say that somebody else who's working on another branch
+
+0:01:14.080,0:01:20.479
+um changes the word which to that and then they let's just say add some
+
+0:01:18.640,0:01:24.000
+other details maybe instead of saying my bike they say my mountain bike
+
+0:01:22.479,0:01:28.000
+right they have this different version and so at this point both of these have
+
+0:01:26.000,0:01:32.000
+some improvements that we might uh like um you know the first one added
+
+0:01:30.720,0:01:37.520
+the commas uh and it added a period the second one
+
+0:01:36.240,0:01:42.960
+changed which to that which is kind of solving the same problem as the commas
+
+0:01:40.000,0:01:47.119
+and then added the word mountain now the wrong thing to do
+
+0:01:44.720,0:01:51.600
+would be to have both commas and the word that
+
+0:01:48.320,0:01:55.200
+if we do that then then it's back to bad grammar
+
+0:01:52.479,0:01:57.520
+so and of course git doesn't understand you know grammatical rules in english so
+
+0:01:56.719,0:02:00.240
+it's not going to be able to do this automatically
+
+0:01:58.560,0:02:03.119
+what we really want is a human to come in and see that both of these have
+
+0:02:01.680,0:02:06.000
+something to offer uh but i can't just simply take all the
+
+0:02:04.960,0:02:10.879
+features right i want to end up with something like this my mountain bike
+
+0:02:08.239,0:02:13.440
+comma which has a broken seat comma is in the garage period
+
+0:02:12.080,0:02:16.480
+right now we kind of have the best of both without kind of breaking any
+
+0:02:15.440,0:02:20.720
+grammar rules that's what i'm going to be doing
+
+0:02:17.680,0:02:27.280
+in an actual in an actual repository so let me let me exit out of this
+
+0:02:24.640,0:02:31.519
+like so i might head over here to the terminal
+
+0:02:28.480,0:02:35.280
+and um and i'm going to hit the up arrow key until i can ssh to my virtual
+
+0:02:33.440,0:02:40.080
+machine so ssh my username at an ip address let me do
+
+0:02:38.560,0:02:44.480
+that and so here i am in my virtual machine
+
+0:02:43.280,0:02:48.879
+let me just clear this out so it's a little bit simpler
+
+0:02:45.920,0:02:52.080
+and i want to create a get repository here
+
+0:02:49.440,0:02:55.360
+and there's two ways to do that one is that i could first create a git
+
+0:02:53.280,0:03:00.000
+repository on github and after i created on github i could
+
+0:02:57.760,0:03:04.000
+basically download a copy here by putting the address it's also
+
+0:03:02.879,0:03:08.720
+possible for me to just create a repository on my
+
+0:03:06.640,0:03:11.280
+virtual machine only without ever using github
+
+0:03:09.760,0:03:14.879
+and just so to get some variety i'm going to do it that second way
+
+0:03:12.959,0:03:18.400
+so the way you create a repository without using github first
+
+0:03:17.120,0:03:22.800
+is that you have to first create a directory for your repository
+
+0:03:21.120,0:03:27.920
+and um and the way you make directories on linux is mk
+
+0:03:24.720,0:03:30.000
+or make dir for directory and then i have a given a name right so i'm going
+
+0:03:29.200,0:03:34.000
+to call this demo and i guess i already have that let
+
+0:03:33.040,0:03:37.440
+me tell this demo one two three i guess i
+
+0:03:35.760,0:03:42.400
+haven't done that many demos okay so i've done that and now i can go
+
+0:03:40.319,0:03:48.319
+inside of that directory so after make dur
+
+0:03:43.680,0:03:52.319
+i'm gonna do cd demo one two three okay so here i am and um and i'm gonna
+
+0:03:50.959,0:03:56.080
+do ls dash a just to see what's here and i see
+
+0:03:54.799,0:03:59.120
+there's nothing right i mean i always have these right that's the current
+
+0:03:57.200,0:04:05.360
+directory in one directory up but nothing else so now if i want to
+
+0:04:02.480,0:04:09.519
+kind of upgrade this directory into a git repository
+
+0:04:06.879,0:04:12.080
+uh it's simple i just have to say get a net right so this is kind of like clone
+
+0:04:10.959,0:04:15.519
+right was how i downloaded it get in it is how i create
+
+0:04:14.319,0:04:20.079
+one fresh uh right here right so i do that and um
+
+0:04:18.959,0:04:26.960
+and you say it's you can see it says initialized and empty get repository
+
+0:04:22.320,0:04:31.840
+and here and so if i run ls-a again sure enough i created a get repository
+
+0:04:29.840,0:04:36.639
+okay so what i want to do now is i want to um edit
+
+0:04:35.199,0:04:41.840
+edit this paper right so i'm going to say nano
+
+0:04:38.720,0:04:45.280
+and i can just it doesn't matter that this file doesn't exist yet as soon as i
+
+0:04:43.440,0:04:49.759
+say nano it's trying to create it i do that and um and somebody call this
+
+0:04:48.400,0:04:54.080
+my story and let me just head back here and copy
+
+0:04:51.840,0:04:57.440
+this my spike which has a broken seat is in
+
+0:04:56.160,0:05:03.280
+the garage sadly i can't write it
+
+0:05:00.560,0:05:08.720
+uh the end right so that's our story and um and
+
+0:05:06.479,0:05:12.560
+i'm gonna save it now so i'm gonna say well i guess down here right you can see
+
+0:05:11.039,0:05:17.919
+i i could say control o to save it um it turns out if i do
+
+0:05:15.600,0:05:21.840
+control x for exit it's going to let me automatically save it at the same time
+
+0:05:19.520,0:05:26.160
+so i'm just going to do control x and it's saying do i want to save before
+
+0:05:24.639,0:05:29.440
+i do this and answer is yes i want to save it and i want to call it paper.txt
+
+0:05:27.919,0:05:36.160
+so i'm going to hit enter and um now if i say ls-a
+
+0:05:32.960,0:05:41.199
+i see i have this paper.taxed if i um if i
+
+0:05:39.199,0:05:47.039
+cap that if i can't pay for that text i see well there's the story i wrote
+
+0:05:43.840,0:05:49.440
+and um and if i say get status right all these commands are kind of
+
+0:05:47.919,0:05:55.039
+let me see the work i've done if i say get status i see i haven't tracked this
+
+0:05:52.560,0:05:59.360
+file yet i'm gonna have to do a get ad um now before i do this as we are kind
+
+0:05:57.039,0:06:03.199
+of moving towards setting up a merge conflict when we're dealing with a merge
+
+0:06:02.240,0:06:07.199
+conflict get is gonna automatically open up on
+
+0:06:05.840,0:06:10.560
+the text editor and um and it could be something like
+
+0:06:09.280,0:06:15.039
+emacs or ven we want it to be nano and so the way we
+
+0:06:14.000,0:06:19.680
+can do that um so we're kind of working with
+
+0:06:16.400,0:06:26.160
+something familiar is we can say export dollar editor equals
+
+0:06:23.440,0:06:29.039
+nano and this is just this is actually a bash command
+
+0:06:27.039,0:06:31.680
+right in bash just like in python we have variables
+
+0:06:30.240,0:06:35.919
+uh but the variables are ugly right instead of saying editor
+
+0:06:33.360,0:06:39.199
+equals something right and in bash we have say export and we have to put a
+
+0:06:37.600,0:06:41.759
+dollar before our variable and then strangely we don't have
+
+0:06:40.319,0:06:46.880
+questions this kind of bash is weird compared to
+
+0:06:42.880,0:06:52.960
+on python but i am going to uh let me see i'm sorry i need to
+
+0:06:50.960,0:06:56.400
+not have a dollar sign there so export editor
+
+0:06:54.160,0:07:00.319
+nano that sets the variable and then if i said echo dollar editor i guess i just
+
+0:06:58.880,0:07:04.759
+have to use the dollar when i'm viewing it later i've set that up
+
+0:07:01.759,0:07:08.400
+and so just like now when i'm doing nano paper.text
+
+0:07:06.560,0:07:12.800
+right that's how i can edit it i'm going to say control x to exit
+
+0:07:10.080,0:07:14.639
+later when i'm doing my merge conflict git is going to automatically open up
+
+0:07:14.160,0:07:19.440
+nano and ask me to kind of manually resolve
+
+0:07:18.080,0:07:23.440
+some some conflicts that are going to arise
+
+0:07:21.120,0:07:26.080
+okay um so a little bit of an aside there so get status right i can see that
+
+0:07:25.520,0:07:29.759
+this file is not tracked yet i'm going to
+
+0:07:28.160,0:07:33.520
+track it and then make it part of my first
+
+0:07:30.080,0:07:40.479
+commit right so i'm going to say git add paper dot text
+
+0:07:37.280,0:07:44.080
+and then hit commit and and i could do a message here
+
+0:07:41.360,0:07:48.400
+i could say something but actually if i do it like this
+
+0:07:45.440,0:07:50.400
+it's trying to pop up the editor for me uh
+
+0:07:48.800,0:07:54.560
+so and this is one of those benefits since i just said editor equals nano
+
+0:07:52.960,0:08:00.879
+i don't always have to say dash m it'll open up nano for me and i can say
+
+0:07:57.120,0:08:04.960
+i'll just call this the first version of our story okay and i'm going to save
+
+0:08:04.560,0:08:11.599
+that and exit so control x yes please save
+
+0:08:08.639,0:08:15.840
+boom it did that and it's now at this point if i say get
+
+0:08:13.680,0:08:19.759
+well first let's say get status right if i say get status
+
+0:08:17.599,0:08:23.759
+nothing has changed relative to the last commit right nothing has changed since i
+
+0:08:21.520,0:08:29.120
+kind of wrote those changes in stone if i say get log i may see that commit i
+
+0:08:27.360,0:08:35.039
+just did and as usual right instead of something nice like c0 or c1
+
+0:08:31.440,0:08:38.320
+it has these ugly hexadecimal numbers i can see that currently the head is
+
+0:08:36.800,0:08:42.000
+looking at the master branch and the master branches on this commit
+
+0:08:40.320,0:08:46.000
+um i can see okay that was me that did it here's the date and then here's that
+
+0:08:44.000,0:08:52.399
+comment that i wrote inside of nano right the first version of of the story
+
+0:08:49.839,0:08:55.600
+okay so that's all good and um and let me
+
+0:08:53.440,0:08:58.000
+let me do something here i might say get branch
+
+0:08:56.720,0:09:00.959
+so so when i'm running get branch there's two things i could do right i
+
+0:08:59.200,0:09:04.320
+could just say get branch like that and it's going to show me what branches
+
+0:09:03.200,0:09:09.440
+i currently have i currently have a master branch which i'm on
+
+0:09:06.240,0:09:12.640
+or i could say get branch and then i could give it a name and i'm going to
+
+0:09:10.800,0:09:16.959
+call this um that branch and uh
+
+0:09:15.760,0:09:21.120
+you know i may actually yeah i'll just call it that and so if i say get branch
+
+0:09:19.360,0:09:28.000
+again i can see now i have two new branches
+
+0:09:25.600,0:09:32.560
+and i'm currently on the master branch and and if i run
+
+0:09:29.040,0:09:36.080
+if i run debt status again uh actually sorry i want to run jet log i run jet
+
+0:09:34.560,0:09:40.640
+log again i see that okay on this commit i have both the
+
+0:09:38.160,0:09:44.240
+master branch and the that branch and head refers to master which refers
+
+0:09:42.560,0:09:49.519
+to the commit okay so now what i'm going to do
+
+0:09:47.519,0:09:55.760
+is i'm going to make some changes to the story i'm going to say
+
+0:09:50.959,0:10:00.080
+nano paper dot text and um and i'm going to do a couple
+
+0:09:58.560,0:10:05.040
+things right i'm going to add the commas here
+
+0:10:00.399,0:10:12.480
+my bike which has a broken seat uh is in the garage period
+
+0:10:08.399,0:10:17.360
+okay okay i'm gonna save that so control x
+
+0:10:14.160,0:10:22.160
+and yes i want to save yep same thing so if i run get status i can see that
+
+0:10:20.959,0:10:25.200
+it's modified um now sometimes what i want to do
+
+0:10:23.680,0:10:27.839
+before i make changes is i want to review
+
+0:10:26.000,0:10:30.399
+all the changes i made relative to the last commit and the way i can do that is
+
+0:10:29.600,0:10:35.680
+i can say get death and what diff is doing is it's
+
+0:10:34.160,0:10:39.839
+showing me each file and in this case i only have
+
+0:10:37.279,0:10:43.279
+one file i have a paper.text and um in the black text it's showing me
+
+0:10:42.000,0:10:46.399
+some context around the changes right but black
+
+0:10:44.720,0:10:49.920
+doesn't mean any changes the red and green here are the changes
+
+0:10:48.640,0:10:53.680
+right and that's also represented by this minus and plus
+
+0:10:51.519,0:10:58.000
+and so what this means is that minus this instead of this
+
+0:10:55.600,0:11:00.399
+i ended up with this right and so by kind of comparing these two lines i can
+
+0:10:59.440,0:11:04.320
+see while um there were my commas and there were
+
+0:11:02.399,0:11:06.560
+my period and if there's a very large file this will actually save me a lot of
+
+0:11:05.600,0:11:10.800
+time right i don't have to worry about all these other changes
+
+0:11:08.480,0:11:14.160
+that were made to the file okay so these are the changes right everything right
+
+0:11:12.160,0:11:19.839
+here that's just this one line and um if i go back to get status
+
+0:11:18.320,0:11:22.959
+remember the next thing i have to do i edited the file and then i have to add
+
+0:11:21.600,0:11:31.279
+the file all right so i'm going to say git add paper dot text
+
+0:11:27.200,0:11:35.360
+and then get status okay and so now it's ready to be committed
+
+0:11:33.680,0:11:39.360
+right it's been modified and so now i can say get a commit and
+
+0:11:38.160,0:11:42.480
+remember if i just run it like this it'll pop up nano and ask me to say
+
+0:11:40.800,0:11:47.440
+something about it but i'm going to go back to using this i'm going to say that
+
+0:11:44.399,0:11:50.320
+um add punctuation
+
+0:11:50.480,0:11:55.040
+okay right because i added both the commas and the period all right so i'm
+
+0:11:53.600,0:12:02.320
+going to do that and now if i say get log
+
+0:11:58.720,0:12:05.360
+you can see i have two comments and um and since i was on since i'm on the
+
+0:12:03.760,0:12:08.480
+master branch the master followed me along this last commit
+
+0:12:08.079,0:12:12.480
+whereas that branch is stuck behind right so i
+
+0:12:11.040,0:12:17.519
+added my punctuation and i have these two commands all right
+
+0:12:14.560,0:12:20.720
+so that was what one person did the other person let me let me just go
+
+0:12:19.519,0:12:24.800
+back to this picture so we kind of have it uh fresh right so i
+
+0:12:23.040,0:12:29.040
+i've just done this part up here right ahead of the punctuation the other
+
+0:12:27.279,0:12:34.720
+person is changing which to that
+
+0:12:32.079,0:12:37.200
+and they added the word mountain right so
+
+0:12:35.680,0:12:40.399
+for me to do that i have to be working off of this initial one to make those
+
+0:12:38.880,0:12:45.519
+changes right so i'm going to head back here
+
+0:12:41.120,0:12:54.079
+i'm going to say get check out that okay i checked out that branch
+
+0:12:50.880,0:12:57.680
+and so a few things now if i say get log i'm only looking back i'm not looking
+
+0:12:55.600,0:13:01.279
+forward right so i i can't even see when i'm on this branch those other
+
+0:12:59.519,0:13:05.680
+changes that were made right as far as i'm concerned
+
+0:13:02.639,0:13:07.760
+there's only uh one commit in history and right and that kind of makes sense
+
+0:13:07.040,0:13:10.959
+right i'm on the plane right now i don't have
+
+0:13:08.880,0:13:15.839
+access to wi-fi i haven't seen what my friend did
+
+0:13:11.839,0:13:18.880
+right so i just have this one version um and i can make changes right if i say
+
+0:13:17.600,0:13:24.000
+get branch i can still see that oh there's these
+
+0:13:20.560,0:13:28.160
+two branches but this is the one i'm on and if i say get status well nothing has
+
+0:13:26.560,0:13:34.560
+been changed yet right it's clean okay so let me let me edit
+
+0:13:31.760,0:13:39.440
+that file again so i'm going to say nano paper dot text and now i'm making some
+
+0:13:38.240,0:13:48.240
+different changes right my mountain bike uh
+
+0:13:43.519,0:13:54.959
+my mountain bike that has a broken seat is in the garage
+
+0:13:51.680,0:14:01.519
+okay and um and so i'm going to save this control x
+
+0:13:57.120,0:14:06.079
+yes i want to save that yeah paper.text so now if i say git status i can see you
+
+0:14:04.320,0:14:10.639
+know it hasn't been uh staged staged yet right i have to do
+
+0:14:09.360,0:14:15.279
+a get add first and if i say get deaf well i can see
+
+0:14:13.760,0:14:18.240
+just like before right here here was the change i mean i replaced this line of
+
+0:14:17.120,0:14:22.399
+text with this other line of text took away
+
+0:14:20.240,0:14:29.279
+this minus added this loss okay and um and so i'm going to do
+
+0:14:26.240,0:14:31.839
+a get mit now and just to mix it up right last time i did
+
+0:14:30.639,0:14:37.519
+the message thing i'm going to do it without that again
+
+0:14:33.279,0:14:41.920
+and so um well what did i forget i needed to stage it get add
+
+0:14:39.680,0:14:47.120
+paper dot text remember the the three steps are edit
+
+0:14:43.519,0:14:51.120
+add comment so i did edit now i'm doing add and now i can actually
+
+0:14:49.839,0:14:58.720
+do my commit i do commit it pops it up and i'll say
+
+0:14:54.959,0:15:05.199
+what was my change i replace which with that uh and what else did i do
+
+0:15:02.079,0:15:08.959
+um i add word mountain right so i made those two
+
+0:15:08.240,0:15:16.800
+changes i'm gonna save this yes
+
+0:15:12.000,0:15:24.800
+yes okay and now if i say get get log i see that there's two
+
+0:15:20.800,0:15:28.800
+two versions right um there's um this last version which is associated
+
+0:15:27.199,0:15:32.880
+with the that branch and my head is looking at that currently and
+
+0:15:31.120,0:15:36.639
+then i have this first one and and so notice right even though
+
+0:15:35.120,0:15:39.759
+there's really three commits in the system
+
+0:15:38.240,0:15:42.880
+depending on which branch i'm i'm only seeing two all right let me let me just
+
+0:15:40.959,0:15:49.279
+head back to those slides right i'm i'm either seeing uh these two
+
+0:15:46.160,0:15:52.240
+on the top or these two on on the bottom right depending on what branch i'm in i
+
+0:15:50.880,0:15:55.199
+can't see it all that's what i really want to do now right the goal
+
+0:15:53.680,0:15:59.040
+is that i end up in this world where i have all the changes together
+
+0:15:57.040,0:16:02.880
+um on the on the master branch right that's the that's the dream
+
+0:16:00.800,0:16:05.199
+right okay so what i'm going to do now the plan has landed right we have all
+
+0:16:04.320,0:16:08.880
+the changes we have to merge them together as i'm
+
+0:16:06.880,0:16:14.560
+going gonna say get check out master
+
+0:16:12.480,0:16:18.320
+and let's just see where things are i run jet log all the time
+
+0:16:16.000,0:16:23.680
+right so now we're back to where were we before we had the punctuation
+
+0:16:20.320,0:16:27.199
+the first thing and um if i say get branch i can see there are
+
+0:16:25.279,0:16:30.639
+these two and what i want to do now is i want to pull the changes that my friend
+
+0:16:28.800,0:16:34.839
+made down here into the master branch right so i can
+
+0:16:32.959,0:16:39.519
+say get merge that
+
+0:16:37.759,0:16:45.040
+okay so everything into that branch is going to get pulled into here
+
+0:16:42.079,0:16:48.480
+and get is not smart enough to do that automatically
+
+0:16:46.480,0:16:52.000
+and so when i run that it first tries to automatically do it
+
+0:16:50.079,0:16:57.839
+but that's what there's a merge conflict and so i have to fix the
+
+0:16:54.959,0:17:03.120
+conflicts and then commit the result and so if i look here
+
+0:16:59.839,0:17:07.120
+let me do a get status you can see that i i now have this weird situation right
+
+0:17:05.600,0:17:11.039
+i had two different commits that were both editing this
+
+0:17:08.640,0:17:15.919
+and uh and i can't really fix it off and what it's telling me is that
+
+0:17:12.400,0:17:19.839
+i should manually fix it and after that i should use git add to kind
+
+0:17:18.959,0:17:23.439
+of patch this up so let's take a peek what happened in
+
+0:17:21.520,0:17:26.480
+this file.txt well let me let me do this i'm just
+
+0:17:25.520,0:17:31.919
+going to nanowit something nanopaper.text and
+
+0:17:29.840,0:17:34.160
+you kind of see this weird thing right where it's showing me two different
+
+0:17:32.960,0:17:38.400
+versions um you can see that there's a lot of
+
+0:17:36.000,0:17:43.120
+stuff in this file that i did not type that get automatically added and so what
+
+0:17:40.960,0:17:46.559
+it's trying to show me with this part is two different versions of the same
+
+0:17:45.039,0:17:51.120
+sentence right and so it's dividing the two versions
+
+0:17:49.039,0:17:55.120
+with these equal equal equal then it's saying well the head version
+
+0:17:53.840,0:18:00.799
+you know it's a branch i'm currently on that's the master branch has this
+
+0:17:57.520,0:18:04.080
+and then that branch as this other thing and it's my job as a human who
+
+0:18:02.880,0:18:09.760
+understands uh kind of natural languages is to edit
+
+0:18:07.360,0:18:13.440
+all of these this piece i have just one version that makes sense
+
+0:18:11.679,0:18:16.799
+and so maybe what i'm going to do first is i'm going to get rid of all of this
+
+0:18:14.880,0:18:23.679
+extra stuff that kind of get added for me
+
+0:18:20.880,0:18:26.480
+and clean all of that off and then i'm going to go through and as a human i can
+
+0:18:25.120,0:18:29.760
+think about it how i can have the best version i may
+
+0:18:28.000,0:18:33.840
+make the top version uh be both of them so uh mountain that
+
+0:18:32.559,0:18:39.039
+seems like a nice addition right so i'm gonna say mountain bike
+
+0:18:35.840,0:18:42.240
+let me go forward i have comma i see that
+
+0:18:39.440,0:18:45.120
+this one changed to that um which i don't want to do that should not be part
+
+0:18:43.840,0:18:49.679
+of this because if i both add a comma and make it that
+
+0:18:48.160,0:18:53.440
+then it would be grammatically incorrect so i'm not going to do that
+
+0:18:51.360,0:18:57.679
+and then is there anything else here i guess other than that
+
+0:18:54.480,0:19:00.400
+adding this mountain bike um this first version is better right i already had
+
+0:18:59.200,0:19:06.320
+the period at the end and i fixed up my other issues all right so
+
+0:19:02.720,0:19:10.000
+i'm going to do now is backspace this up and like so and you can kind of see like
+
+0:19:08.320,0:19:14.799
+well this is taking me a while to type one thing i can do is i can go to the
+
+0:19:13.120,0:19:18.640
+beginning and you can say down here right this ctrl k will cut the whole
+
+0:19:17.600,0:19:23.120
+line so ctrl k and i just delete it all at once
+
+0:19:21.760,0:19:25.919
+and so this is a good version of the story that has everybody's changes right
+
+0:19:24.640,0:19:30.960
+it says mountain which comma period um
+
+0:19:29.039,0:19:37.600
+everything that i want in my story and so i'm gonna say control x to save this
+
+0:19:33.600,0:19:40.799
+yes that's good yes i'm gonna write that and and so see that what i have to do is
+
+0:19:39.679,0:19:44.240
+after i've resolved the conflict which i did
+
+0:19:43.440,0:19:47.760
+manually i have to do a get ad right so i'm going
+
+0:19:46.080,0:19:53.280
+to say get add paper dot text just as if i was
+
+0:19:50.400,0:19:59.200
+making a normal change to it and so now if i say get status okay
+
+0:19:56.480,0:20:03.360
+so this is ready to be uh committed and it says i should run
+
+0:20:00.320,0:20:06.480
+git merge or i'm sorry it says i should run dit commit
+
+0:20:04.640,0:20:11.280
+to conclude the merge let me do that i might say get commit
+
+0:20:08.320,0:20:13.440
+and it pops up this and you can see that in this case
+
+0:20:12.080,0:20:17.039
+you know i could say more if i want and normally i say more but they already can
+
+0:20:15.679,0:20:20.960
+have a nice note for me they say like well the point of this thing is that i'm
+
+0:20:18.480,0:20:25.120
+doing this merging and um and they have some details down here about
+
+0:20:22.480,0:20:28.559
+what got changed right so for this one i'm going to take it just as it is
+
+0:20:26.799,0:20:31.919
+i don't have to say anything more because it's a merge commit i'm going to
+
+0:20:29.919,0:20:38.559
+say control x and it did it right so now at this point
+
+0:20:35.200,0:20:42.000
+right i might say get log and um and you can see while there's
+
+0:20:40.640,0:20:45.360
+actually four here now i can see that well this is the
+
+0:20:43.600,0:20:50.960
+version i'm currently on this was the merge and it has these two
+
+0:20:48.400,0:20:54.000
+parents right this one was a result of combining both this
+
+0:20:52.720,0:20:57.200
+piece and this piece right so history got a
+
+0:20:55.440,0:21:00.799
+little bit more complicated um which is fine and then it all kind of
+
+0:20:58.720,0:21:04.000
+comes back to this one here at the at the beginning right so i finished all
+
+0:21:02.480,0:21:09.840
+this up and so i say get status my environment
+
+0:21:07.440,0:21:13.440
+clean nothing has changed if i cat out pay for that text
+
+0:21:11.600,0:21:17.600
+i see it's this good version with everything and if i say
+
+0:21:15.039,0:21:20.320
+get branch well there's still these two branches
+
+0:21:18.320,0:21:24.400
+and at this point i'm done with the that branch everything
+
+0:21:21.600,0:21:27.200
+that i had improved over there is now part of the master branch so i can
+
+0:21:25.679,0:21:32.400
+delete it so i'm just going to say get branch and well remember that i created
+
+0:21:31.039,0:21:35.039
+it like this that's how i created a branch
+
+0:21:33.280,0:21:39.039
+um if i want to delete a branch i have to say dash
+
+0:21:36.480,0:21:42.799
+capital d this is wrong it has to be capital d
+
+0:21:39.919,0:21:47.039
+space that i'm going to do that when i say get branch
+
+0:21:44.799,0:21:50.640
+and now i'm on the master branch and everything is simple and i have all all
+
+0:21:48.559,0:21:53.760
+the changes right so that's how you can do merge confidence it's more
+
+0:21:51.760,0:21:56.960
+complicated than automatic merges and so one recommendation i'll have for
+
+0:21:55.200,0:21:59.679
+you is try to avoid these right try to sync up often
+
+0:21:58.159,0:22:04.000
+if you and a friend are working on the same project consider ways to divide it
+
+0:22:02.159,0:22:07.440
+right maybe you work on this file i work on that file
+
+0:22:05.360,0:22:10.720
+uh because this is a pain right it takes time uh but
+
+0:22:09.280,0:22:13.840
+sometimes you have to get into that situation where you do it
+

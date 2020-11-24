@@ -1,0 +1,849 @@
+0:00:00.880,0:00:05.680
+hello uh we've been spending a bunch of time on graphs
+
+0:00:03.760,0:00:09.440
+and uh we're going to move into a new topic now
+
+0:00:06.799,0:00:14.000
+uh which is the internet and um the internet we can really think of as
+
+0:00:11.360,0:00:17.600
+one big graph um we have all these pages which we might imagine
+
+0:00:15.040,0:00:21.520
+as nodes and um some pages linked to other pages so we could imagine
+
+0:00:19.359,0:00:25.199
+um those edges being like hyperlinks right so for here i have a hyperlink
+
+0:00:23.119,0:00:28.400
+from page a to page b and um so two things i want to talk
+
+0:00:26.880,0:00:31.519
+about that go uh kind of a lot farther than we went in cs
+
+0:00:30.400,0:00:35.360
+220 is first how do we scrape you know a
+
+0:00:34.000,0:00:38.160
+website or maybe a collection of websites where we can have this
+
+0:00:36.559,0:00:41.360
+complicated graph of pages and we're going to be using the
+
+0:00:39.920,0:00:45.840
+skills we learned with breadth first search and depth first search
+
+0:00:43.280,0:00:48.559
+um to do this and then the second thing is
+
+0:00:46.480,0:00:52.960
+um in cs220 we kind of just dealt with rather simple pages
+
+0:00:50.559,0:00:56.079
+and maybe we might call them static pages there's not
+
+0:00:53.840,0:00:58.000
+much happening on them here i want to talk about kind of more complicated
+
+0:00:57.600,0:01:02.000
+pages and i'll kind of introduce how more
+
+0:01:00.079,0:01:04.479
+complicated pages work before we get into that
+
+0:01:02.719,0:01:07.119
+and so today's focus is really on that second piece how do we deal with more
+
+0:01:05.840,0:01:10.240
+complicated pages and then we're going to be coming back
+
+0:01:08.320,0:01:15.759
+full circle and kind of using our graph algorithms to
+
+0:01:13.520,0:01:20.560
+search a collection of pages so let's review a little bit
+
+0:01:17.200,0:01:24.640
+from the previous course and starting by looking at the document object model or
+
+0:01:22.640,0:01:28.880
+the dom and when i'm in a web browser let's say
+
+0:01:26.159,0:01:32.320
+i type in a url and i hit go um i'm gonna get this response that
+
+0:01:30.479,0:01:35.439
+looks like like something on the right uh back from the server and that's gonna
+
+0:01:33.920,0:01:38.720
+get loaded into my browser right and maybe there's a bunch of html
+
+0:01:37.520,0:01:42.399
+there actually kind of looking at this
+
+0:01:40.159,0:01:46.560
+carefully i see that this is the html part
+
+0:01:43.360,0:01:50.399
+and it's inside of a broader response and this whole thing is an http response
+
+0:01:49.280,0:01:53.439
+hypertext transfer protocol this part is a hyper tax markup
+
+0:01:52.640,0:01:56.799
+language and this will kind of tell me other
+
+0:01:54.560,0:02:00.799
+details like you know is this a successful page load or is this an
+
+0:01:59.360,0:02:04.320
+error page it might tell me what kind of content is
+
+0:02:02.399,0:02:08.640
+it is an image or is it html what encoding are we using
+
+0:02:07.040,0:02:13.920
+how long is the page lots of details right but ultimately this html
+
+0:02:10.720,0:02:19.040
+lands back in the browser and so it's there and what the browser will
+
+0:02:16.720,0:02:22.560
+do is it'll construct a tree from from all of this over here and that
+
+0:02:21.360,0:02:26.800
+tree is called the document object model or dom tree and um
+
+0:02:25.760,0:02:29.599
+and so we introduced this in the previous course but now that you're all
+
+0:02:28.160,0:02:32.640
+familiar with trees uh maybe it's very clicked for you in a
+
+0:02:31.120,0:02:36.480
+way that you know it's often kind of hard to
+
+0:02:33.200,0:02:40.000
+conceptualize back then so so i get this tree
+
+0:02:37.440,0:02:43.840
+and uh and kind of to zoom in on the tree
+
+0:02:40.800,0:02:47.040
+i have all of these nodes and and each node as you can see is is
+
+0:02:46.239,0:02:50.800
+called an element and elements kind of closely
+
+0:02:49.760,0:02:55.519
+correspond to tags so for example i see my um you
+
+0:02:53.599,0:02:59.920
+know my html element here comes from the html tag my body element
+
+0:02:58.480,0:03:04.800
+comes from the body tag um so on and so forth and eventually
+
+0:03:02.159,0:03:07.840
+when i get to see some examples where we might be able to get elements that
+
+0:03:06.400,0:03:14.400
+kind of are not corresponding to any sort of tag in the html okay so
+
+0:03:11.440,0:03:17.920
+other parts of this tree um each of these
+
+0:03:14.879,0:03:21.680
+uh each of these elements so it can have attributes
+
+0:03:18.720,0:03:24.640
+so for example um you know a stands for anchor
+
+0:03:22.800,0:03:26.799
+and um anchors are just hyperlinks that's how we link from one page to
+
+0:03:25.920,0:03:30.959
+another and they have to have this href
+
+0:03:29.519,0:03:33.680
+attribute which actually tells us not only that hey this piece of text is a
+
+0:03:32.799,0:03:37.120
+link but here's where it goes to um so we
+
+0:03:35.920,0:03:40.400
+might have that um a lot of these are going to contain
+
+0:03:39.040,0:03:45.440
+uh text as well so for example um you know h1 contains a
+
+0:03:43.760,0:03:49.840
+text welcome so i'm drawing that like this over here
+
+0:03:47.760,0:03:52.959
+and um and then of course you know each element can
+
+0:03:50.799,0:03:57.360
+contain other elements and we're going to use the language of trees here you
+
+0:03:54.640,0:04:02.959
+know parent child ancestor descendant siblings that kind of thing to describe
+
+0:04:00.400,0:04:06.480
+this tree now something i want you to look at here
+
+0:04:05.360,0:04:10.560
+is is this little piece of code right here
+
+0:04:09.200,0:04:17.440
+inside of my um inside of my uh html page i have the
+
+0:04:14.080,0:04:22.320
+script tag and inside of the script tag i have javascript code and
+
+0:04:20.479,0:04:26.479
+javascript is is not just kind of a simple markup language like html
+
+0:04:24.560,0:04:31.280
+but it's more of a full language like python right so i actually have
+
+0:04:28.880,0:04:35.840
+some javascript code running and it can do things like make
+
+0:04:32.320,0:04:39.759
+changes uh to the dom so for example maybe that
+
+0:04:37.199,0:04:42.720
+maybe that javascript code adds this table
+
+0:04:40.960,0:04:47.680
+right here and kind of the thing to think about here is
+
+0:04:44.479,0:04:54.160
+i kind of traced this back right this is not in
+
+0:04:50.880,0:04:59.440
+the html right it got added by that javascript code and and so well
+
+0:04:57.440,0:05:03.759
+why does that matter for us um back in in the previous course we
+
+0:05:02.000,0:05:08.560
+learned about this request module right maybe you would do something like um
+
+0:05:05.199,0:05:15.360
+import import requests like this and then we would say
+
+0:05:11.919,0:05:21.759
+something like request.get and and when we do that
+
+0:05:19.759,0:05:25.280
+we would be getting back you know forgiven url
+
+0:05:22.880,0:05:28.479
+we'd be getting back some html something like this
+
+0:05:26.479,0:05:32.080
+and so the problem is is that you know if that javascript adds that table over
+
+0:05:30.400,0:05:34.800
+here when somebody actually views it and say
+
+0:05:32.800,0:05:38.560
+chrome we won't see that we're just going to get all this stuff
+
+0:05:36.720,0:05:43.120
+and we're gonna be missing that data right so for there's lots of web pages
+
+0:05:41.039,0:05:46.960
+on the internet where writing this kind of code is not gonna get us what we what
+
+0:05:45.120,0:05:51.600
+we hope to get right and of course the web browser will
+
+0:05:48.400,0:05:55.360
+be fine with that uh but we're not and um and so what we'd really kind of
+
+0:05:53.600,0:05:59.280
+like to do is um is kind of have some sort of javascript
+
+0:05:57.440,0:06:02.319
+engine when we're doing our web scraping so we can actually get data like this as
+
+0:06:01.199,0:06:06.639
+well so there's not a simple and complicated
+
+0:06:04.080,0:06:10.800
+web striping and so the simple tool is request which we've already learned
+
+0:06:09.199,0:06:14.560
+and uh and so let's try and look at that how how that works down here
+
+0:06:12.800,0:06:18.880
+so i have two computers on the left i have my computer
+
+0:06:16.639,0:06:24.479
+maybe it's my laptop or virtual machine and i'm running jupiter notebooks there
+
+0:06:21.120,0:06:28.160
+and and i'm doing this request.jet and and i'm talking to this other computer
+
+0:06:26.080,0:06:31.919
+over here this computer has an ip address and on that computer
+
+0:06:30.319,0:06:36.000
+there's this web server i can send requests like you know send
+
+0:06:33.680,0:06:39.759
+me it index.html please and it'll send me back this this kind of
+
+0:06:37.759,0:06:42.400
+data here and if i'm using the request module well i can just fetch different
+
+0:06:41.360,0:06:48.160
+types of files right i could fetch a javascript uh file
+
+0:06:45.520,0:06:52.400
+for example a.js file but nothing in the request module would
+
+0:06:50.240,0:06:57.280
+know how to actually run that code and kind of figure out what it does um
+
+0:06:55.759,0:06:59.680
+well what does the web browser do if the web browser is fetching this well the
+
+0:06:58.720,0:07:03.759
+web browser in this case we're trying to grab all
+
+0:07:00.880,0:07:06.319
+this html and then i might realize oh there's other resources here i have an
+
+0:07:05.360,0:07:10.160
+image completely separate file a dot png a
+
+0:07:09.039,0:07:13.840
+script you know here's a here's a javascript
+
+0:07:12.400,0:07:18.000
+file completely separate thing so if i was doing the the um you know
+
+0:07:16.800,0:07:21.599
+working in a web browser it'd be kind of multiple requests back and forth to get
+
+0:07:20.160,0:07:24.800
+all those different things but i don't have any of that here with
+
+0:07:22.720,0:07:27.759
+requests okay so now i'm showing something more complicated which is uh
+
+0:07:26.400,0:07:32.880
+selenium and selenium can do this stuff too it
+
+0:07:30.080,0:07:36.080
+can kind of fetch these basic files but it's also capable of running
+
+0:07:34.479,0:07:39.759
+javascript code in a web browser and if that javascript
+
+0:07:39.039,0:07:44.560
+code modifies the dom say by you know adding
+
+0:07:43.120,0:07:48.319
+some new elements then i can convert the new dom back to
+
+0:07:47.120,0:07:52.479
+html and read that so then i have some hope
+
+0:07:50.319,0:07:56.160
+of getting this extra content um kind of out of the page if i'm using
+
+0:07:54.960,0:07:59.759
+selenium and so when i'm looking at this here
+
+0:07:57.599,0:08:03.199
+there's a few parts to selenium um one you can see i'm importing the
+
+0:08:01.280,0:08:06.479
+selenium uh module and where i have to install that
+
+0:08:04.560,0:08:11.360
+with pip we also have the separate program on the
+
+0:08:08.319,0:08:15.440
+computer called a chrome driver and then finally we actually have uh the
+
+0:08:14.000,0:08:19.440
+chrome web browser and so the way this kind of works is
+
+0:08:17.199,0:08:25.199
+that the selenium i use the driver and then the driver is trying to use
+
+0:08:21.440,0:08:27.360
+uh the web browser so i'm going to come back to a little bit
+
+0:08:26.319,0:08:31.120
+in time talk about how we're going to install those things
+
+0:08:28.720,0:08:34.719
+uh but let me show you the benefits of this kind of the kinds of pages we're
+
+0:08:32.800,0:08:37.919
+going to be dealing with um so what i've done is on the website
+
+0:08:36.959,0:08:41.760
+i've uh the course website i've created all of
+
+0:08:39.919,0:08:45.279
+these kind of nasty uh web pages that are hard to get the
+
+0:08:43.279,0:08:48.880
+data off of and um and we're gonna use selenium to kind of
+
+0:08:47.120,0:08:51.920
+pull off the data from all of these and a bunch of examples
+
+0:08:50.399,0:08:56.480
+so in this first one you see there's one table and then
+
+0:08:53.519,0:08:58.880
+after one second another one gets added by javascript let me just refresh that
+
+0:08:58.240,0:09:03.440
+again i get this and there's a second one and
+
+0:09:01.440,0:09:07.360
+so if i was using the request module i'd only ever be able to read
+
+0:09:05.440,0:09:11.600
+this first table but when i'm using selenium i'm going to be able to grab
+
+0:09:09.440,0:09:15.440
+both of these let's look at another one you've
+
+0:09:13.120,0:09:17.600
+probably seen lots of pages like this where
+
+0:09:15.760,0:09:22.240
+maybe there's some data and you have to click keep hitting show more
+
+0:09:19.760,0:09:26.240
+to get the more additional content and then eventually gets done
+
+0:09:24.240,0:09:30.160
+what i'd like to do is to somehow simulate that button plaque
+
+0:09:27.920,0:09:35.040
+right it's all on the same page but i somehow have to automate that click
+
+0:09:32.160,0:09:37.680
+in order to get all of the data um here's one
+
+0:09:36.240,0:09:41.839
+uh that you have to be a little careful with um you know some
+
+0:09:39.680,0:09:44.800
+some content on the internet is kind of backed by accounts and you maybe have to
+
+0:09:43.600,0:09:50.000
+create an account and have a password uh before you can use it
+
+0:09:48.000,0:09:54.720
+so so let me just i can't remember my passwords was it secret
+
+0:09:52.000,0:09:59.440
+um nope i guess i named on my password after my dog fido
+
+0:09:56.240,0:10:03.279
+so let me try that again and i say fido and uh boom there's all of my table and
+
+0:10:02.079,0:10:06.959
+i can download it and you have to be careful with this one
+
+0:10:04.959,0:10:10.640
+because often when you create an account online
+
+0:10:09.040,0:10:14.720
+they might have some sort of user agreement that you're signing and
+
+0:10:12.320,0:10:18.240
+sometimes those user agreements will say um you can't do the kind of thing i did
+
+0:10:16.480,0:10:21.360
+just now so be careful and make sure you're not breaking any laws
+
+0:10:19.760,0:10:24.000
+of course on this web page that i've created you're more than welcome to kind
+
+0:10:22.880,0:10:28.560
+of play with it and automatically enter passwords but um
+
+0:10:26.720,0:10:32.399
+some sites that'll make you agree not to do that
+
+0:10:29.600,0:10:35.440
+when you create the account on the last one here
+
+0:10:33.440,0:10:38.959
+is maybe the site has some some kind of query and if i say something like you
+
+0:10:37.200,0:10:42.240
+know 1950 it might show me all the hurricanes that
+
+0:10:40.959,0:10:48.600
+occurred in that year if i say 1951 yes i was a good year no
+
+0:10:45.680,0:10:52.720
+hurricanes 1952 there's one 1953. and so you might imagine that i
+
+0:10:51.279,0:10:55.120
+want to automatically type different years in
+
+0:10:53.680,0:10:57.440
+and search and if i can do that well then i can ultimately pull out all of
+
+0:10:56.720,0:11:00.560
+the data all of these things are things that the
+
+0:10:58.959,0:11:05.279
+request module um would be bad at so the first thing we
+
+0:11:04.399,0:11:09.760
+have to think about um when we want to use selenium is how
+
+0:11:07.279,0:11:14.240
+to install it and um and so i have some examples here
+
+0:11:12.160,0:11:18.240
+right there are these three pieces um the easiest piece is just
+
+0:11:16.160,0:11:23.040
+you know the python module right i could say pip3 install selenium
+
+0:11:20.560,0:11:25.920
+uh and that's gonna be using the chrome driver though which ends up using the
+
+0:11:24.800,0:11:29.760
+web browser um the web browser to kind of go to the
+
+0:11:28.000,0:11:33.120
+last step is kind of simple as well i can just run the sudo apt install
+
+0:11:32.560,0:11:37.040
+crony chromium browser and um and then i would
+
+0:11:35.760,0:11:40.320
+be fine uh so so i think you can figure out
+
+0:11:38.640,0:11:44.320
+these two right that piece and that piece the more complicated
+
+0:11:42.320,0:11:49.519
+thing is actually installing uh installing this chrome driver
+
+0:11:47.440,0:11:53.920
+okay and uh and because the chrome driver has to
+
+0:11:50.560,0:11:56.480
+not match up the versions uh with the web browser
+
+0:11:55.040,0:12:00.079
+so let me you know i have this kind of here as a reference but i'm actually
+
+0:11:57.600,0:12:04.639
+going to head over to a terminal and uh and actually show you how to do
+
+0:12:03.600,0:12:11.839
+this install all right so i'm here i'm going to do my
+
+0:12:08.839,0:12:16.720
+ssh that should come up in just a minute and
+
+0:12:15.200,0:12:20.079
+um and i've already installed the chromium
+
+0:12:18.560,0:12:23.040
+uh browser right so i've already done this and and so the first thing i want
+
+0:12:21.839,0:12:26.320
+to do is i want to figure out well what version do i have
+
+0:12:24.000,0:12:31.920
+so i'm going to copy this here i'm going to say chromium browser
+
+0:12:28.480,0:12:34.720
+dash version and um and really i just kind of care about this major version so
+
+0:12:33.519,0:12:38.000
+i can see i'm on version 85 of chrome but we're not
+
+0:12:37.360,0:12:41.760
+trying to worry about this right here so so what i can tell
+
+0:12:40.399,0:12:46.800
+from this is that i need to get version 85
+
+0:12:43.200,0:12:51.120
+of the chrome driver and so i'm going to head back here and
+
+0:12:49.279,0:12:55.279
+that's on this page chromium driver downloads i'm going to open this
+
+0:12:53.519,0:12:59.200
+thing and uh and i can see they have different
+
+0:12:57.920,0:13:04.720
+versions on i want version 85 because
+
+0:13:03.040,0:13:07.200
+that was what i just saw on my virtual machine i wouldn't want version 86
+
+0:13:06.160,0:13:10.639
+that's too new i have to get version 85 so i'm going to
+
+0:13:08.959,0:13:14.480
+click on that and you see they have these different
+
+0:13:12.480,0:13:18.160
+things here um in some of my demos i might be running
+
+0:13:16.399,0:13:22.320
+uh running selenium on my mac right so for that i
+
+0:13:20.800,0:13:25.360
+had to do i'd install this one right here the
+
+0:13:24.160,0:13:29.680
+second one um i'm not trying to really talk how to
+
+0:13:27.839,0:13:33.040
+talk through how i set that up the only thing i'm going to do here is
+
+0:13:30.880,0:13:36.320
+to talk through how we would install it on the virtual machine so what i see is
+
+0:13:34.959,0:13:41.199
+that i need this file and so i'm going to right click on it
+
+0:13:37.519,0:13:45.199
+and say copy link address so i'm going to do that and then i'm
+
+0:13:42.959,0:13:48.320
+over here and um and you know what i already downloaded
+
+0:13:46.560,0:13:51.440
+something with that name before uh i guess it's right here so i'm going
+
+0:13:49.680,0:13:54.880
+to delete that thing first i'm going to remove you know you
+
+0:13:53.760,0:13:58.480
+probably don't already have it so you don't have to do that
+
+0:13:56.000,0:14:00.959
+i'm going to remove the old version and then
+
+0:13:59.040,0:14:05.920
+you know i had copied the link here right so i want to
+
+0:14:02.880,0:14:09.760
+download that so i'm going to say wget and then i'm going to download that
+
+0:14:07.760,0:14:15.199
+thing like so and uh let me see i can see it's here
+
+0:14:13.600,0:14:20.480
+so i'm going to unzip that thing so i'm going to say on zip
+
+0:14:16.800,0:14:24.000
+i'm going to paste that and i can see that it created this file
+
+0:14:21.920,0:14:29.040
+right here this chromium driver right let me just say ls and there it is
+
+0:14:27.440,0:14:33.600
+right there so i can say something like dot slash
+
+0:14:31.120,0:14:37.440
+you know chromium driver maybe i'll say dash dash version
+
+0:14:35.360,0:14:40.959
+and i can see it's version 85 which is good
+
+0:14:38.720,0:14:43.920
+um now what i want to do is i want to put this
+
+0:14:42.160,0:14:46.320
+file you know this whole file is a program i want to put it somewhere on my
+
+0:14:45.199,0:14:49.680
+computer where i can run it no matter what
+
+0:14:48.560,0:14:53.360
+directory i'm in i can run it now because my current
+
+0:14:51.760,0:14:58.160
+working directory is the same place where that file lives
+
+0:14:55.040,0:15:02.240
+okay on linux we have this thing called the path variable the way you see the
+
+0:14:59.440,0:15:07.279
+path variable is you say echo dollar path and it has all these paths here it
+
+0:15:05.600,0:15:13.760
+has like this as this they're separated by colons
+
+0:15:10.720,0:15:18.079
+for each of these it's a place that um that my computer will look
+
+0:15:15.360,0:15:22.000
+when i try to run run a name when i try to run a program
+
+0:15:19.680,0:15:24.959
+and so what i want to do is this chrome driver program
+
+0:15:23.440,0:15:27.920
+should end up in one of these and maybe i'll just put in that first one so i'm
+
+0:15:26.240,0:15:34.320
+going to say move chrome driver to this place
+
+0:15:31.759,0:15:36.560
+this first place that i have just like that and yours is going to be a little
+
+0:15:35.600,0:15:40.880
+bit different right because your username
+
+0:15:38.399,0:15:43.680
+is not trh you know actually this whole piece here
+
+0:15:42.000,0:15:48.560
+is just my home directory so kind of if i want to make this general for anybody
+
+0:15:46.000,0:15:52.480
+i might just say tilda tilda is another name for the home directory
+
+0:15:50.399,0:15:56.240
+so i'm going to do that and that'll be there now and so now if i run a command
+
+0:15:54.320,0:16:00.800
+like this if i say which chrome driver this is a program that
+
+0:15:59.279,0:16:04.240
+helps me figure out where other programs live
+
+0:16:02.079,0:16:07.600
+and it's going to tell me that it's finding it in this place right here
+
+0:16:06.320,0:16:11.440
+and so now it doesn't matter what directory i am on my computer it's going
+
+0:16:10.079,0:16:17.120
+to find it i can say something like chrome
+
+0:16:12.959,0:16:20.240
+uh driver dash dash version and uh and it works beautifully and i
+
+0:16:19.040,0:16:25.279
+have the same version as uh as chrome right if i kind of go
+
+0:16:22.720,0:16:30.160
+back to chromium uh browser version i can see that kind
+
+0:16:28.880,0:16:32.880
+of these minor versions are a little bit different i guess
+
+0:16:31.040,0:16:36.560
+you know just like this is 83 and 87 that doesn't really matter the main
+
+0:16:34.160,0:16:41.600
+thing is that the 85s match up um in this circumstance okay so if you
+
+0:16:39.360,0:16:44.160
+need ta help or office hour help um you know i think i or the tas or the mentors
+
+0:16:43.519,0:16:47.920
+are helping happy to help you get this installed on
+
+0:16:45.759,0:16:50.720
+your computer so coming back here i just want to kind
+
+0:16:49.839,0:16:55.519
+of talk a little bit about the architecture of this system and explain
+
+0:16:53.120,0:16:58.639
+um explain why we would want to have this separate chrome thing like why we
+
+0:16:57.040,0:17:02.480
+couldn't have one piece and um kind of what we're trying to do
+
+0:17:00.480,0:17:06.000
+is uh selenium wants people to be able to have many
+
+0:17:04.720,0:17:10.240
+different programming languages i mean we have python
+
+0:17:07.919,0:17:12.400
+but they want to support java and ruby and javascript all these different
+
+0:17:11.360,0:17:18.079
+languages and they all have a different module
+
+0:17:15.439,0:17:22.000
+for kind of using them and uh in the same way we want to be able to uh
+
+0:17:19.760,0:17:26.799
+kind of control different web browsers right maybe we want to
+
+0:17:23.120,0:17:30.320
+control chrome or firefox or edge and what they kind of are trying to
+
+0:17:28.799,0:17:33.600
+avoid is they don't want to write a piece of software for python and
+
+0:17:32.240,0:17:36.400
+chrome and then write another piece of software for java
+
+0:17:35.200,0:17:41.440
+and crawl and then write another piece of software for python and firefox
+
+0:17:39.120,0:17:44.880
+and so what they did is they kind of have all these
+
+0:17:42.400,0:17:49.760
+chrome drivers and all these chrome drivers have the same
+
+0:17:46.720,0:17:51.760
+um interface right so kind of you could talk to any different drivers in the
+
+0:17:51.039,0:17:55.039
+same way and so there's kind of like the
+
+0:17:52.720,0:17:57.440
+centralization point right so all the modules know how to talk to this
+
+0:17:56.400,0:18:00.640
+interface and all the drivers implement that
+
+0:17:58.840,0:18:03.360
+interface and that kind of saves a lot of time right
+
+0:18:01.760,0:18:06.960
+then we can kind of mix and match any programming language
+
+0:18:04.799,0:18:09.919
+uh and any driver we want okay so hopefully that's installed in kind of
+
+0:18:08.559,0:18:12.559
+you it makes sense why it's a complicated process that
+
+0:18:11.360,0:18:15.120
+it wasn't kind of unnecessarily complicated but they had a good reason
+
+0:18:14.480,0:18:20.000
+for it in the next video we'll actually be kind
+
+0:18:16.559,0:18:25.440
+of diving in and doing some of these demonstrations
+

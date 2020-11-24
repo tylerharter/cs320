@@ -1,0 +1,540 @@
+0:00:01.920,0:00:05.680
+all right so we're gonna pick up where we left
+
+0:00:03.600,0:00:09.679
+last time uh last time i was doing this example of matching
+
+0:00:07.120,0:00:11.519
+phone numbers and we got pretty close right we're able to grab all these
+
+0:00:10.800,0:00:14.719
+numbers well one tricky case was when i have a
+
+0:00:13.440,0:00:18.800
+phone number like this um it's definitely not a valid phone
+
+0:00:16.240,0:00:22.160
+number but there's a valid phone number contained within it
+
+0:00:20.000,0:00:26.080
+and so this is one of the limitations of regular expressions
+
+0:00:23.279,0:00:28.240
+right it's kind of ignoring that we have all of these differences before and
+
+0:00:27.599,0:00:31.359
+after and so there's actually a way to work
+
+0:00:29.519,0:00:35.040
+around this and it's a negative look behind assertion
+
+0:00:32.960,0:00:37.840
+and uh you can basically assert things like i want to match a valid phone
+
+0:00:37.120,0:00:42.399
+number that doesn't look like it's following
+
+0:00:39.760,0:00:46.399
+right after some digits or dashes i'm not going to cover that in class and
+
+0:00:44.879,0:00:48.879
+or ever expect you to know it but if you were trying to deal with
+
+0:00:47.520,0:00:52.160
+something like this well that's what you would look into
+
+0:00:50.320,0:00:57.199
+so to summarize from last time if i head over here to
+
+0:00:54.160,0:01:00.640
+um to my slides um these are some tables from that reading
+
+0:00:59.120,0:01:03.840
+i i gave you and so it makes sense to look over these
+
+0:01:02.079,0:01:07.520
+on some level um and so you can kind of remember what
+
+0:01:05.280,0:01:12.560
+different meta characters are available on what they correspond to and um
+
+0:01:10.640,0:01:16.640
+and then also all of these other patterns like what is a how is a
+
+0:01:14.320,0:01:21.439
+character class represented what are star plus these are the two
+
+0:01:19.360,0:01:25.280
+non-greedy equivalents that don't really get covered that well so make sure you
+
+0:01:22.880,0:01:29.439
+know those as well so we've been kind of working in this
+
+0:01:27.439,0:01:31.759
+debug mode where we can just see what's matching
+
+0:01:30.400,0:01:36.560
+but what we'd actually like to do in python is somehow uh
+
+0:01:33.680,0:01:40.159
+pull out what we match and so for that we're going to be importing the re
+
+0:01:38.479,0:01:44.399
+module which stands for for regular expression uh that comes built into
+
+0:01:42.479,0:01:47.439
+python and uh it has a lot of different
+
+0:01:46.079,0:01:50.799
+functions in it and they do different things right some
+
+0:01:49.200,0:01:54.079
+of them are just searching some are replacing
+
+0:01:52.399,0:01:58.880
+and if you were to just learn two of them i think the two would be
+
+0:01:55.840,0:02:01.280
+find all and substitute right so those are the two i may teach here
+
+0:02:00.000,0:02:04.799
+you probably want to on your own time maybe look at some other ones if you
+
+0:02:02.799,0:02:08.000
+ever need this for a project and so they're very similar i think
+
+0:02:06.399,0:02:13.120
+we've been doing especially find all find all takes in an expression
+
+0:02:11.440,0:02:15.599
+by a regular expression and then this string and then it's going to return a
+
+0:02:14.560,0:02:20.080
+list of that a substitute makes it a pattern what
+
+0:02:18.640,0:02:23.840
+we'd like to replace it to and then the string that we like to do
+
+0:02:21.520,0:02:27.280
+the replacement on so in this case when i do find all i'm
+
+0:02:25.840,0:02:31.440
+going to get a list of all the digit groups in here right so i'm
+
+0:02:29.599,0:02:35.200
+going to pull out this let me pull out 14 i guess i have a typo
+
+0:02:33.599,0:02:41.200
+there that's 14 7 uh 41 1000
+
+0:02:39.280,0:02:45.120
+and then 320. it'll pull those all things all out as strings
+
+0:02:43.519,0:02:50.000
+and then over here it's basically censoring it it's replacing all
+
+0:02:47.760,0:02:52.400
+digits whether it's one digit or five digits
+
+0:02:50.879,0:02:56.800
+it's replacing those with these three pound signs so
+
+0:02:53.920,0:02:58.959
+it's just blocking out those numbers now one of the things we're often going to
+
+0:02:58.000,0:03:02.319
+want to do when we find a pattern is pull out
+
+0:03:00.800,0:03:05.840
+something specific so for example maybe i'm interested in
+
+0:03:04.239,0:03:09.040
+looking for cases where i have a number and then some sort of
+
+0:03:07.440,0:03:12.319
+word after it right number word and if i do that then i can pull
+
+0:03:11.440,0:03:16.480
+out um uh what what that number is right
+
+0:03:15.440,0:03:19.040
+and so the way we'll do that is with parentheses parentheses mean different
+
+0:03:18.319,0:03:22.800
+things one of them means that i have a group
+
+0:03:21.280,0:03:28.000
+all within the regular expression right so this would be group one
+
+0:03:24.400,0:03:31.519
+and then this would be group two like so and then if i run that what will happen
+
+0:03:30.159,0:03:33.840
+is i'll instead of getting a list of strings
+
+0:03:32.400,0:03:38.400
+i'm going to get a list of tuples because each tuple is showing me those
+
+0:03:36.720,0:03:42.319
+two parts right and so this is you know the number and
+
+0:03:40.799,0:03:46.159
+this is the word and by doing that i can actually loop
+
+0:03:43.920,0:03:49.440
+over and i can very quickly find out how many uh what what the number is on
+
+0:03:48.319,0:03:52.319
+different kinds of work and of course i'd want to probably do
+
+0:03:50.560,0:03:55.840
+some filtering to avoid tricky stuff like that
+
+0:03:54.480,0:03:59.040
+um if i want to still get the whole thing there's no reason i can't have
+
+0:03:57.680,0:04:02.480
+nested groups right so i could put a parenthesis
+
+0:04:00.080,0:04:06.959
+around all of this and then in that case the first group
+
+0:04:04.239,0:04:09.680
+is the whole thing like so and then the two smaller groups are other places in
+
+0:04:08.560,0:04:12.319
+the tuple right so i have three parentheses here
+
+0:04:11.120,0:04:17.840
+representing the three groups and that's why i have three entries uh
+
+0:04:14.159,0:04:21.919
+in each tuple um down below okay so let's take a look at this other
+
+0:04:20.880,0:04:25.680
+one um let's say i went through and i wanted
+
+0:04:24.080,0:04:27.840
+to clean up something like this i wanted to
+
+0:04:26.320,0:04:31.680
+do a replacement wherever i have like two spaces or a tab or a new line
+
+0:04:30.160,0:04:35.199
+if i have any kind of weird garbage like that i just want a single space you can
+
+0:04:33.840,0:04:39.199
+imagine lots of reasons that might be helpful
+
+0:04:36.400,0:04:43.759
+for just regularizing the the format so if i do that i say i want to substitute
+
+0:04:41.360,0:04:48.000
+strings of any length single space like that and then
+
+0:04:44.720,0:04:53.199
+i'll convert this ugly string to this right down here
+
+0:04:49.600,0:04:57.520
+and that works just fine well something that's very tricky
+
+0:04:54.479,0:05:01.840
+is that sometimes i'm doing the replace maybe i still want to reference the
+
+0:04:59.759,0:05:06.240
+thing that got matched and um and and so for example imagine
+
+0:05:04.400,0:05:10.000
+that this string was html and i'm trying to put
+
+0:05:06.639,0:05:14.240
+a bold tag around each number so technically i don't want to just
+
+0:05:12.240,0:05:17.360
+replace the number with something else i want to replace
+
+0:05:15.600,0:05:21.520
+the number with itself plus some bold tags around it
+
+0:05:18.639,0:05:24.720
+and so the way we do that is we say backslash g
+
+0:05:22.400,0:05:29.440
+for group and then the brackets we say one so this is group one
+
+0:05:26.400,0:05:31.440
+and that would refer back to here you notice it's kind of weird how we number
+
+0:05:30.800,0:05:35.919
+these things um when i was looking at the tuple this
+
+0:05:34.160,0:05:38.960
+was at position zero in the tuple but most documentation will actually refer
+
+0:05:37.520,0:05:42.240
+to this as group one and in here i'm referring to
+
+0:05:41.280,0:05:45.680
+group one right so whenever i have a number i'm
+
+0:05:44.000,0:05:50.240
+replacing it with that number plus some bold tags around it in html so
+
+0:05:48.720,0:05:52.160
+i i'd run that and i did something like this
+
+0:05:50.800,0:05:57.199
+and then ultimately i might get some content like this that just makes all
+
+0:05:53.680,0:06:00.560
+the numbers pop out a little bit more okay so i'm gonna head back to the
+
+0:05:58.800,0:06:05.360
+notebook and do some examples here so let me head
+
+0:06:04.080,0:06:10.000
+over here and pull up my examples and and so i'm
+
+0:06:08.400,0:06:14.080
+going to do that first example to more completion
+
+0:06:11.280,0:06:19.600
+where i have string 3 and i actually want to pull out all of these numbers
+
+0:06:16.400,0:06:27.440
+right so what i'll do is i'll say um i'll say import re
+
+0:06:22.319,0:06:30.720
+and then i will say let me see here we will say find all on it right so i
+
+0:06:29.759,0:06:34.400
+want to do something like this i'm going to say
+
+0:06:31.680,0:06:38.639
+re dot find all then i want to have my pattern
+
+0:06:35.680,0:06:44.240
+and then and then my uh my text which is in this case just
+
+0:06:39.600,0:06:48.400
+s3 uh is my string and so my pattern uh for starters maybe we just look for
+
+0:06:46.240,0:06:51.599
+all digits right so i do that and now you actually see something that
+
+0:06:50.000,0:06:56.720
+was a little bit hard to see before which is uh before when we were
+
+0:06:55.520,0:06:58.400
+matching things and i'd highlight all this it's hard to tell if that's one
+
+0:06:58.080,0:07:02.479
+group or three different groups um here here
+
+0:07:00.880,0:07:05.599
+when i see i'm doing this i i get a lot of groups trying to
+
+0:07:04.400,0:07:09.280
+matching all of them but they're all their own digits so if i
+
+0:07:07.680,0:07:12.560
+say something like plus well now i'll actually uh get the
+
+0:07:11.280,0:07:15.759
+individual things i want if i said plus question mark well it
+
+0:07:14.400,0:07:17.840
+would go back to being small because each
+
+0:07:16.000,0:07:21.199
+group would be matching as little as possible so i do that i can actually get
+
+0:07:19.759,0:07:23.680
+all the different numbers pulled out of this list and of course
+
+0:07:22.400,0:07:27.440
+everything with uh that we're dealing with is a string so i'd have to
+
+0:07:25.919,0:07:32.639
+convert that to an integer before i could go further um if i put a tuple or
+
+0:07:31.360,0:07:36.240
+i'm sorry if i put a parenthesis around this to make it a
+
+0:07:34.080,0:07:40.800
+group well it would be doing the same thing because
+
+0:07:37.120,0:07:45.280
+um i only have one group um if however i added another group where i'm looking
+
+0:07:42.960,0:07:48.560
+for word characters you can see that i get the number and
+
+0:07:47.840,0:07:53.440
+then i get this over here right so i have a number
+
+0:07:51.520,0:07:57.120
+and then this piece so what i could do is i could try to
+
+0:07:55.599,0:08:01.120
+actually capture all of this in a dictionary you can see this is drawing
+
+0:07:59.120,0:08:05.599
+right here um i i could say something like this i could say
+
+0:08:02.160,0:08:10.319
+um maybe i'll just put in in multiple cells i'll have my groups there
+
+0:08:07.199,0:08:15.840
+i could say for t and groups um then i could print that thing
+
+0:08:13.440,0:08:19.120
+right that tuple um i could also if i want is to automatically unbox that so i
+
+0:08:18.160,0:08:22.879
+could i wanted to since i know there's two
+
+0:08:21.199,0:08:29.039
+pieces in each tuple i could say count and then uh and then
+
+0:08:26.000,0:08:33.519
+uh maybe event right so that i could print these things separately
+
+0:08:30.800,0:08:37.360
+the count and the event in each case and then you can imagine
+
+0:08:34.640,0:08:39.760
+i could pretty easily have a dictionary where
+
+0:08:38.000,0:08:45.040
+what i'm doing is actually like this i could say d of
+
+0:08:41.919,0:08:48.560
+event um equals and of count right i could do something like
+
+0:08:47.760,0:08:51.839
+that and then i'm all done i have this
+
+0:08:49.680,0:08:54.880
+dictionary and then it would be very easy right you can imagine that i could
+
+0:08:53.360,0:08:58.160
+run this regular expression on a lot of different people's syllabuses
+
+0:08:56.640,0:09:01.040
+and i could very easily say something like well how many quizzes does this
+
+0:08:59.920,0:09:04.959
+course have how many um how many uh projects does it
+
+0:09:04.480,0:09:08.000
+have that kind of thing i can very easily
+
+0:09:06.160,0:09:13.440
+analyze and figure out what is going on okay so let's try to do the
+
+0:09:11.760,0:09:17.760
+substitution um and and so i'm going to try to
+
+0:09:16.640,0:09:22.000
+ultimately make this font bold around the numbers right so i
+
+0:09:21.200,0:09:31.760
+have my s3 again and i can do an re
+
+0:09:26.720,0:09:35.120
+re dot sub and and i can have a pattern and i have something i replace it with
+
+0:09:33.440,0:09:39.600
+and then i have my my text that i'm working on
+
+0:09:36.160,0:09:43.519
+and so my text here is s3 and unless my pattern again is digits i may
+
+0:09:42.080,0:09:48.959
+say r uh digits and i'll replace those with
+
+0:09:46.959,0:09:55.200
+let's just say a pound sign for now so i was able to wipe all those out um
+
+0:09:52.480,0:09:57.360
+what i can also do is i could replace it with
+
+0:09:55.680,0:10:00.000
+that group if i wanted to i could say slash g
+
+0:09:58.800,0:10:05.200
+and i can say i want to replace it with group one and i think it's actually
+
+0:10:02.320,0:10:09.200
+unhappy because i need to do this right let me what does it say down
+
+0:10:07.040,0:10:12.640
+here invalid group reference yeah so it's not finding the group so
+
+0:10:10.880,0:10:16.720
+maybe if i do that well now it's actually doing it and so
+
+0:10:15.440,0:10:21.120
+really i'm doing nothing here i'm replacing every number
+
+0:10:18.640,0:10:25.200
+with itself but that gives me an opportunity right i mean i could put
+
+0:10:23.279,0:10:29.200
+uh i could put whatever i wanted around it let me just like put some
+
+0:10:26.399,0:10:34.079
+well not that something uh maybe some exclamation marks around every number
+
+0:10:31.519,0:10:36.160
+i do that and you can see i'm just i'm adding these around each number that i
+
+0:10:35.600,0:10:41.200
+found right and so this gives me that
+
+0:10:38.880,0:10:44.160
+opportunity if i'm dealing with html to replace it with something more
+
+0:10:42.399,0:10:48.240
+interesting right i can replace it with say
+
+0:10:45.040,0:10:53.120
+a bold font and somebody do that and that's pretty cool right i'm adding
+
+0:10:50.560,0:10:58.800
+these bold tags here like so and um and so if i wanted
+
+0:10:56.640,0:11:02.160
+to what i could actually do is i can generate this html where it's
+
+0:11:00.880,0:11:04.480
+starting with the plain string and then just putting
+
+0:11:03.040,0:11:10.720
+bold around all the tags and then if i wanted to i i could display that
+
+0:11:07.680,0:11:18.720
+and uh and to do that i have to say from i python.cor.display
+
+0:11:15.600,0:11:23.839
+i'll import html and and then i could create an html element
+
+0:11:21.440,0:11:31.360
+and remember just how this works um it works something like this
+
+0:11:29.360,0:11:34.399
+right i can put whatever i want in there um in this case i'm going to put that
+
+0:11:32.720,0:11:37.839
+html that i generated and now i get this beautiful string
+
+0:11:35.839,0:11:41.519
+where i have bold um for for all the numbers that that are
+
+0:11:39.839,0:11:48.160
+there um okay cool so i will uh
+
+0:11:44.959,0:11:51.519
+leave off there and um and we'll do more practice next time
+

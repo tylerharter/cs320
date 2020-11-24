@@ -1,0 +1,543 @@
+0:00:01.599,0:00:06.080
+all right so we've talked about the basics of nodes and edges
+
+0:00:04.560,0:00:09.920
+i want to start introducing some vocabulary that we can use to talk about
+
+0:00:08.160,0:00:13.759
+more complicated graphs um so right here i have a slightly more
+
+0:00:11.920,0:00:18.480
+complicated graph i guess i can have all these nodes that
+
+0:00:15.599,0:00:22.160
+kind of are in this loop and you can see the code for that up here
+
+0:00:20.240,0:00:25.439
+and in the context of this i want to introduce this notion of a path and a
+
+0:00:24.560,0:00:29.519
+path is just a sequence of edges to get from
+
+0:00:28.400,0:00:36.160
+one node to another so so maybe i might ask well
+
+0:00:32.559,0:00:43.200
+you know is there a path from let's say b to
+
+0:00:40.000,0:00:49.120
+to e and um and it turns out there is maybe i'll just draw that path
+
+0:00:45.039,0:00:52.559
+i'm trying to get from from b to e uh well i guess first i would go from b
+
+0:00:51.039,0:00:55.760
+to a is probably what i would do if i was driving
+
+0:00:53.360,0:00:59.840
+so maybe let me just kind of i'll make this red and maybe make the line width
+
+0:00:57.840,0:01:04.000
+larger i would maybe first um actually i wasn't
+
+0:01:02.000,0:01:07.760
+lined with that was pen width i would probably first do that and then
+
+0:01:06.320,0:01:14.640
+and then after getting to b i would probably go from b to
+
+0:01:11.680,0:01:18.720
+or i'm sorry i'd probably go from a to e which i guess is down here
+
+0:01:16.400,0:01:22.400
+i might do something like that and uh and in red i've just highlighted okay
+
+0:01:20.159,0:01:26.560
+well there's this path from from b to e right so there is a path between those
+
+0:01:24.080,0:01:28.799
+two and the path is i might write out using some sort of notation like this i
+
+0:01:28.159,0:01:35.759
+might say you know b to a
+
+0:01:32.079,0:01:40.000
+to e is a path um now if i look at this it turns out that's not the only path
+
+0:01:37.520,0:01:45.119
+right um i could have if i wanted to go to
+
+0:01:40.640,0:01:48.799
+go to b from b to c to d to e and um i guess in that case if i'm
+
+0:01:47.840,0:01:52.320
+driving uh maybe that takes longer maybe
+
+0:01:50.799,0:01:55.759
+depending on how long each of these edges are
+
+0:01:53.040,0:01:58.320
+maybe a shorter and so as we're kind of learning more about graphs we're going
+
+0:01:56.880,0:02:01.920
+to be asking a couple things where we often ask
+
+0:01:58.960,0:02:04.960
+well is there a path between two nodes um
+
+0:02:02.320,0:02:10.160
+or maybe a more complicated question is what is the shortest path between
+
+0:02:07.119,0:02:17.040
+between two nodes um now another thing i want to define is
+
+0:02:13.840,0:02:21.040
+connected and connected means there is a path
+
+0:02:17.680,0:02:24.959
+between any pair of nodes and so maybe looking at this graph right
+
+0:02:22.800,0:02:29.200
+here that's absolutely uh connected right i can start anywhere
+
+0:02:27.360,0:02:33.440
+and um and i can get anywhere now that doesn't have to be so i mean if
+
+0:02:31.440,0:02:38.319
+i if i kind of draw my um if i if i draw my edges a little
+
+0:02:36.560,0:02:42.160
+bit differently for example maybe i'll say that um
+
+0:02:40.720,0:02:46.000
+you know what i can even kind of simplify this a bit
+
+0:02:43.840,0:02:50.720
+one of the cool things here is if i um if i just start drawing edges
+
+0:02:47.760,0:02:54.319
+like this let's just say i try to draw an edge from a to b
+
+0:02:52.480,0:02:57.920
+uh it will automatically add those nodes for me it infers that i want those nodes
+
+0:02:56.720,0:03:01.599
+so i can have something like that and then i over here i could have something
+
+0:02:59.519,0:03:08.959
+else i could have something like c goes to d g dot edge
+
+0:03:05.599,0:03:14.720
+d goes to e and then e goes to d
+
+0:03:14.879,0:03:23.519
+uh oh that wasn't quite what i wanted i guess i wanted to have
+
+0:03:19.920,0:03:28.879
+uh egos to see like that great and so this picture it
+
+0:03:27.440,0:03:33.760
+you know maybe your first instinct is to call it two graphs but by definition
+
+0:03:30.959,0:03:39.680
+these tier i can say this is one graph and
+
+0:03:35.120,0:03:46.159
+and it's an example of a graph that is not it is not connected
+
+0:03:43.440,0:03:50.000
+why well between some nodes there's there's a path
+
+0:03:46.959,0:03:55.920
+right i mean i can go from c to e but i can never go from a to c right
+
+0:03:53.680,0:04:00.159
+um you could imagine if my graph represents some maybe
+
+0:03:57.360,0:04:02.799
+towns and the roads between them uh saying that there's connect
+
+0:04:01.360,0:04:05.920
+it's connected is like saying well there are no islands right so that's some
+
+0:04:04.560,0:04:10.959
+people often ask well is the graph connected
+
+0:04:07.040,0:04:18.799
+um or or is it not connected um a little bit more vocabulary
+
+0:04:15.840,0:04:23.440
+sometimes i'll talk about cycles right so
+
+0:04:19.120,0:04:30.639
+cycle cycle is a sequence of paths that
+
+0:04:26.479,0:04:37.520
+starts and ends at the same node right without really repeating right
+
+0:04:34.080,0:04:40.880
+without repeats right i can't use the same edge more
+
+0:04:38.880,0:04:46.160
+than once so let me just draw an example of a cycle here
+
+0:04:42.639,0:04:59.040
+i'll say color equals red pen width equals three
+
+0:04:56.639,0:05:02.400
+so so here's an example of a cycle right so the cycle is
+
+0:05:02.720,0:05:10.720
+let me just put my example up here here i'll kind of move my notes around
+
+0:05:09.120,0:05:12.800
+right so i had connected and then i gave an example of a graph that is not
+
+0:05:12.000,0:05:21.360
+connected and now with cycles um so c
+
+0:05:16.720,0:05:28.080
+to d to e to c is a cycle right because i kind of start
+
+0:05:25.360,0:05:30.800
+um i i started a node and i end at the same node
+
+0:05:28.800,0:05:32.960
+and i never have to reuse the same edge right each time i'm taking a different
+
+0:05:32.000,0:05:39.919
+edge um this would not be a cycle a to b
+
+0:05:36.639,0:05:44.560
+to a is not a cycle okay so just some some definition there
+
+0:05:45.600,0:05:52.479
+now we've been talking about all these graphs
+
+0:05:49.360,0:05:55.840
+and um and kind of all of these edges between nodes
+
+0:05:53.840,0:05:58.000
+don't really have any direction to them but i've been making this analogy to
+
+0:05:57.440,0:06:02.160
+streets and so uh the question is well how how
+
+0:06:01.039,0:06:06.560
+would we deal with um kind of one-way streets right i
+
+0:06:04.400,0:06:12.000
+convicted from a to b but i can't i can't kind of take it back
+
+0:06:08.720,0:06:16.080
+and um and so i might need a kind of a more specific kind of graph instead of
+
+0:06:13.680,0:06:20.800
+just creating a graph like this i am going to create a digraph okay just
+
+0:06:19.520,0:06:24.800
+like this and uh and then if i copy all this code
+
+0:06:24.160,0:06:28.880
+up here right let me let me kind of just grab
+
+0:06:26.319,0:06:33.039
+all of this and then i'm going to look at it at the
+
+0:06:31.039,0:06:38.080
+end here i'll just kind of start kind of simply
+
+0:06:34.400,0:06:43.120
+at least initially i'll do that and um and and you know my problem is way way
+
+0:06:41.199,0:06:46.880
+back at the top i have my problem from graphiz i import graph which is i
+
+0:06:45.600,0:06:51.840
+was using here and now i also have to import digraph
+
+0:06:49.599,0:06:55.120
+which stands for directed graph right you can see there's like the
+
+0:06:53.440,0:06:59.919
+di part directed graph so i'm going to run that
+
+0:06:57.199,0:07:03.919
+and then head back down here and now it matters a lot the order in
+
+0:07:02.319,0:07:07.120
+which i put these things so i put a first or b first right if i
+
+0:07:05.919,0:07:13.199
+you can see that there's this arrow right that points from a to b
+
+0:07:08.960,0:07:16.960
+if i switch this if i say b to a uh well that's kind of a confusing
+
+0:07:16.240,0:07:22.000
+picture right um the arrow is pointing in the other
+
+0:07:19.680,0:07:24.319
+direction now it just moved the nodes b and a
+
+0:07:22.400,0:07:28.000
+right but it changed directions right so i'll kind of switch that back
+
+0:07:26.319,0:07:32.800
+instead of pointing from b to a now it points from a to b and
+
+0:07:30.160,0:07:39.440
+uh and so then i'll also add back on i'll add back these nodes right
+
+0:07:35.360,0:07:44.720
+so i'll have that and um and so i can still ask this
+
+0:07:42.800,0:07:48.000
+question of um of of whether or not the graph is
+
+0:07:46.560,0:07:52.479
+connected right i guess this one would still not be connected
+
+0:07:49.840,0:07:55.759
+uh what about let me let me kind of throw in a twist here
+
+0:07:54.240,0:08:01.919
+and see what you think about this definition of of of connected
+
+0:07:58.879,0:08:08.879
+on let me go from you know let's just draw from b
+
+0:08:05.360,0:08:12.639
+to d okay that kind of moved everything around but
+
+0:08:11.120,0:08:19.759
+is that a connected graph and
+
+0:08:15.759,0:08:27.120
+the answer is no it connected no
+
+0:08:22.879,0:08:34.080
+because there is no path for example from d to a right if i start
+
+0:08:31.039,0:08:38.240
+in d i cannot get to a right because you know there's edges
+
+0:08:37.120,0:08:42.479
+here right but they're in the wrong direction i can't do it
+
+0:08:40.640,0:08:45.519
+right so that is is not an example right so i might still ask these questions
+
+0:08:43.760,0:08:50.080
+right is it connected or not and maybe it is or maybe it isn't um if
+
+0:08:48.320,0:08:56.560
+i added uh if i added an edge like this if i added
+
+0:08:53.519,0:09:02.080
+say from e back to a this would make it connected
+
+0:09:00.480,0:09:05.440
+right and not now even though it's kind of one-way streets right no matter where
+
+0:09:03.920,0:09:08.959
+i am you know i can kind of cycle around and
+
+0:09:07.360,0:09:12.560
+i can get anywhere i want right so that would make a connective i
+
+0:09:10.800,0:09:19.519
+don't have that right so so this is not a connected graph
+
+0:09:16.399,0:09:24.000
+okay the other piece of vocabulary i want to
+
+0:09:20.640,0:09:27.920
+introduce here right is um uh i guess there's a few more terms that
+
+0:09:26.399,0:09:33.440
+we need to cover one is weakly connected is it weekly
+
+0:09:31.200,0:09:38.240
+connected uh and for this we can and ignore
+
+0:09:38.320,0:09:44.480
+we can i'll say this way we can go backwards
+
+0:09:41.680,0:09:46.640
+take edges backwards right so basically when i asked if something's weakly
+
+0:09:45.760,0:09:50.480
+connected i'm saying well hey if i ignore the
+
+0:09:48.560,0:09:54.240
+direction of the edges uh then is it connected and yeah of
+
+0:09:52.720,0:09:58.320
+course it is right i mean in this case yeah i mean i could draw from d
+
+0:09:55.760,0:10:02.800
+to b to a if i'm willing to ignore that so then i can say yes
+
+0:10:00.720,0:10:06.560
+then it would be weakly connected right so when we had um
+
+0:10:05.200,0:10:10.640
+when we had kind of graphs like this where there is you know i'm not worrying
+
+0:10:08.320,0:10:14.320
+about the direction of the edges uh there's no need to talk about this
+
+0:10:12.800,0:10:18.399
+weakly connected because i can always go both ways right so so this idea of
+
+0:10:16.399,0:10:20.880
+connected i might use for either kind of graph
+
+0:10:19.440,0:10:26.720
+a weekly connect that i'm just trying to use for directed graphs like this
+
+0:10:23.600,0:10:31.680
+okay um so let me let me kind of um
+
+0:10:30.240,0:10:37.120
+some other things i want to talk about here uh for
+
+0:10:33.600,0:10:43.680
+directed uh edge source is called parent
+
+0:10:40.399,0:10:48.720
+and destination is called child right so um
+
+0:10:47.440,0:10:56.240
+well let me think about that in the context of here i guess i would say b
+
+0:10:51.839,0:11:02.560
+b is a child of its parent which is a i might also say something like um d
+
+0:10:59.279,0:11:07.680
+is a grandchild um of a to kind of borrow language from uh from
+
+0:11:04.800,0:11:11.680
+uh you know human family trees um i can also say things like um
+
+0:11:09.120,0:11:17.120
+you know d is its own great grandchild right so d
+
+0:11:15.040,0:11:25.200
+is the child d is the child of c the grandchild
+
+0:11:21.680,0:11:27.440
+of e and d is the great grandchild of itself
+
+0:11:25.760,0:11:31.040
+right such as some vocabulary that we'll be using um
+
+0:11:29.040,0:11:33.600
+now i could keep playing being specific and i could say oh it's a great great
+
+0:11:32.240,0:11:36.000
+great grandchild but um we're gonna be using the
+
+0:11:34.880,0:11:39.519
+vocabulary we'll just say it's an ancestor
+
+0:11:36.959,0:11:44.640
+right which i'm going back along the edges or an ascendant
+
+0:11:41.200,0:11:50.240
+going forward along the edges okay now
+
+0:11:48.320,0:11:53.360
+when i'm kind of looking at these graphs right
+
+0:11:51.920,0:11:58.000
+i want to introduce this new kind of graph which is
+
+0:11:54.959,0:12:01.760
+called a directed acyclic graph and where i abbreviate that so let me
+
+0:12:00.240,0:12:08.399
+let me head down here where i have a directed acyclic
+
+0:12:05.839,0:12:12.720
+graph and that's abbreviated dag and dags actually show off all all the time
+
+0:12:10.959,0:12:19.600
+and um and so let's just break down these uh these letters right this means
+
+0:12:15.680,0:12:26.560
+uh directed edges uh a means a cyclic
+
+0:12:22.880,0:12:29.600
+no cycles so you know this graph would not count
+
+0:12:28.480,0:12:34.720
+right uh b because um well
+
+0:12:32.720,0:12:38.480
+uh there's a cycle there right i can go d e
+
+0:12:35.760,0:12:40.079
+c d and then while it's just a graph right and
+
+0:12:39.040,0:12:43.760
+of course everything we're talking about now is a graph so maybe that's the least
+
+0:12:42.320,0:12:48.079
+interesting part of it so so let me give you an example of a
+
+0:12:45.839,0:12:56.720
+directed acyclic graph um so equals digraph
+
+0:12:53.440,0:13:00.399
+and i'll say g dot edge maybe i can say a
+
+0:12:56.959,0:13:03.519
+goes to b um maybe a goes to c
+
+0:13:03.920,0:13:10.000
+and then i'll have both of these nodes end up at d can you already start to
+
+0:13:07.440,0:13:15.360
+picture what the graph looks like uh b also goes to d and i have to put
+
+0:13:13.279,0:13:19.040
+that at the end to actually see it right i might get shapes like this right
+
+0:13:17.360,0:13:23.040
+we're kind of um you know i can go forward through the
+
+0:13:21.200,0:13:26.639
+system and i might branch out and merge back
+
+0:13:24.800,0:13:29.440
+together but there's really no going back
+
+0:13:27.519,0:13:34.639
+and um and you've actually already seen an example of this right
+
+0:13:30.800,0:13:40.800
+on a get is an example of a dag
+
+0:13:39.199,0:13:43.760
+right so so dags are going to show up all the time um
+
+0:13:42.399,0:13:51.040
+and that's going to be kind of useful for us
+
+0:13:48.320,0:13:53.360
+all right so i'm trying to think what other
+
+0:13:51.519,0:13:57.279
+uh what else i want to cover in this video the next time i may be talking
+
+0:13:54.720,0:14:00.800
+about more specific kinds of dags uh and in particular maybe talking about
+
+0:13:58.959,0:14:03.519
+trees and then when i spend a lot of time you know an upcoming lecture is
+
+0:14:02.160,0:14:07.199
+actually talking about how we can write code for trees
+

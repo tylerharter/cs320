@@ -1,0 +1,537 @@
+0:00:02.639,0:00:06.319
+all right in this video we're going to look at
+
+0:00:04.960,0:00:09.360
+recursion uh that's working with methods we've seen
+
+0:00:07.839,0:00:12.960
+lots of examples of functions this is our first one with methods
+
+0:00:11.280,0:00:17.680
+and where i use it for something very practical um
+
+0:00:15.200,0:00:20.480
+so currently in python right we've been working with lists and lists are built
+
+0:00:19.199,0:00:23.519
+into python but it's interesting to think about what
+
+0:00:22.000,0:00:27.279
+we would do if lists were not built into python and
+
+0:00:25.840,0:00:31.679
+we had to kind of build them on ourselves using classes how would we
+
+0:00:29.279,0:00:35.760
+do that there's different ways um i may show one strategy here it's
+
+0:00:33.760,0:00:39.200
+called a length list linked lists are much slower than python
+
+0:00:37.920,0:00:43.200
+lists especially if i kind of want to look up a value in
+
+0:00:40.879,0:00:47.360
+the middle the complexity of doing that is different than a real python list
+
+0:00:45.440,0:00:51.840
+but in terms of kind of producing the correct result
+
+0:00:48.559,0:00:55.520
+we'll get that albeit slowly okay so the strategy for a linked list is that
+
+0:00:53.920,0:01:01.199
+we're going to have these things called nodes
+
+0:00:57.600,0:01:04.960
+then we represent each item in our last okay and i'm going to draw a picture
+
+0:01:03.359,0:01:08.560
+over here on the right of what it looks like when we run the
+
+0:01:06.880,0:01:13.200
+code i already have a partially complete picture here
+
+0:01:09.840,0:01:17.119
+but there's more code that needs to run to kind of make this happen so at least
+
+0:01:15.040,0:01:20.479
+for now ignore these two methods right i'm not using them yet just look
+
+0:01:18.960,0:01:26.080
+at the constructor the constructor sets a value attribute
+
+0:01:24.320,0:01:29.840
+based on which it's passed in and then it sets next equal to none
+
+0:01:28.320,0:01:33.680
+and and so right now i'm kind of creating this uh
+
+0:01:31.360,0:01:37.680
+this um node with the value three and i'm putting out an a variable
+
+0:01:35.280,0:01:41.200
+and i've shown that over here and i want to kind of just think through
+
+0:01:38.560,0:01:44.079
+what the rest of this code does and then draw that picture over here
+
+0:01:43.040,0:01:46.560
+so the next thing i'm going to do is i'm going to create a b variable and a c
+
+0:01:45.680,0:01:50.880
+variable and we have the values 5 and 7.
+
+0:01:49.680,0:01:55.600
+and so that's going to be very similar over here right i may have
+
+0:01:53.040,0:01:59.520
+some additional node instances or objects
+
+0:01:56.640,0:02:04.240
+and b and c are going to refer to those all right so let me draw these over here
+
+0:02:01.600,0:02:08.720
+so this will look something like this i'm going to draw a little bit bigger
+
+0:02:05.920,0:02:14.080
+than the original one um this is also going to have a next
+
+0:02:10.720,0:02:20.239
+and a value and and the next will be none
+
+0:02:16.160,0:02:25.760
+and the value will be five right so five passes to here
+
+0:02:22.560,0:02:30.640
+and then my object on next equals object on x equals five all right so i'm
+
+0:02:28.400,0:02:34.319
+going to get five here and then let me draw one more of these
+
+0:02:34.840,0:02:42.239
+things this one is going to be next um is none
+
+0:02:40.080,0:02:45.760
+again right in both cases i'm saying self.next
+
+0:02:44.400,0:02:50.879
+equals 1 and and then i have my value which is
+
+0:02:48.720,0:02:56.480
+going to be seven and so i have you know up here in my
+
+0:02:53.440,0:03:00.159
+frame right i have b which is a variable c which is a
+
+0:02:59.200,0:03:04.400
+variable both of those are in my global frame
+
+0:03:02.480,0:03:08.400
+which is kind of grown and those are going to be referring to
+
+0:03:06.319,0:03:14.000
+my two um two new objects okay
+
+0:03:11.920,0:03:16.319
+so so i've i've run these first three lines of code i've created my three
+
+0:03:15.360,0:03:21.920
+objects and so a b and c a b and c refer to
+
+0:03:19.760,0:03:26.400
+those three objects and now i start to get some structure
+
+0:03:24.080,0:03:33.599
+here right i say a dot next equals b and b dot next equals c so a
+
+0:03:30.720,0:03:36.239
+dot next is none but i'm saying what i really want to do is i want to set this
+
+0:03:34.879,0:03:39.920
+equal to b and so when i say a dot next equals b
+
+0:03:38.239,0:03:44.640
+what i mean is i should have an arrow from here to the place b refers to
+
+0:03:43.440,0:03:49.120
+so from here to here i need to have an arrow and i'm
+
+0:03:46.879,0:03:53.920
+going to do that red so instead of none not not anymore now it's an arrow like
+
+0:03:51.760,0:03:57.680
+that and then the same thing here b dot next
+
+0:03:56.720,0:04:05.120
+equals c so b dot next
+
+0:04:01.760,0:04:07.040
+equals whatever c points to so c pointed to here
+
+0:04:05.680,0:04:14.799
+so i should have an arrow from here to here right so that's not not anymore
+
+0:04:10.000,0:04:19.280
+that's an arrow just like that okay and so how can we use this to represent
+
+0:04:16.799,0:04:22.560
+a list well the idea is that a will be at the beginning of the list right so we
+
+0:04:20.799,0:04:25.680
+have three at the beginning and then i can use these next to kind of
+
+0:04:24.400,0:04:30.240
+chain along so so three is the first value 5 is the
+
+0:04:28.800,0:04:36.160
+next value and then 7 is the next value so really
+
+0:04:32.800,0:04:40.840
+kind of what this list is like i basically have built a list something
+
+0:04:37.840,0:04:45.680
+like this kind of a simple list like 3 5 seven
+
+0:04:42.960,0:04:48.160
+right is what i'm going for and um and of course i'm gonna have to do things
+
+0:04:46.720,0:04:52.240
+like complement get item and things like that for it to work fully
+
+0:04:50.400,0:04:54.639
+now uh before we do that before we get to the brackets we have some questions
+
+0:04:53.840,0:04:59.280
+here like what is c dot total what is b total what is a
+
+0:04:57.360,0:05:03.120
+dot total let's start with c dot total so i'm
+
+0:05:02.080,0:05:09.759
+calling the total method you know c dot total
+
+0:05:07.199,0:05:14.479
+so i guess the c object is going to be referring i'm sorry so c will refer to
+
+0:05:11.600,0:05:20.080
+the same thing that self refers to right so so i guess for now self
+
+0:05:18.000,0:05:25.600
+is referring to this object right here as i'm running the code
+
+0:05:21.919,0:05:31.199
+right so self.next equal equal to none so so this is self
+
+0:05:29.120,0:05:33.919
+and self.next yeah that's equal equal to none
+
+0:05:32.240,0:05:38.320
+and and so what i'm going to do i'm just return self.value
+
+0:05:35.360,0:05:43.919
+right and so this is myself my value is seven
+
+0:05:39.440,0:05:47.440
+right so maybe and i uh a little bit crowded huh but i'm just
+
+0:05:45.680,0:05:55.680
+trying to say well that's that's seven right okay
+
+0:05:52.320,0:06:01.120
+what is b dot total okay so b dot total so i'm running the total method
+
+0:05:57.840,0:06:04.720
+and then you know b goes to self so self is referring whatever b refers to
+
+0:06:03.280,0:06:08.960
+right so so right now b is this thing right
+
+0:06:09.520,0:06:20.160
+okay if it's self.x or i can think of it as b
+
+0:06:16.319,0:06:23.440
+on x if b dot x equals to none may do something that's not true right
+
+0:06:21.680,0:06:28.160
+it used to be none but not anymore right you know self.next is not equal to
+
+0:06:26.880,0:06:32.080
+none so i'm going to run this down here so
+
+0:06:29.360,0:06:40.960
+i'm going to return b dot value i mean return 5
+
+0:06:36.720,0:06:44.080
+plus self.next.total okay so this is self
+
+0:06:44.720,0:06:52.160
+and then self.next is this so self dot next dot total is the same
+
+0:06:51.599,0:06:57.520
+thing as c dot total
+
+0:06:55.520,0:07:01.599
+which i already know that was seven right so
+
+0:06:58.639,0:07:04.160
+so if this is self then self dot next total
+
+0:07:02.000,0:07:09.000
+gives me seven and so when i have this line of code here
+
+0:07:05.759,0:07:13.520
+no self.value is five self.next.total is seven and so i guess
+
+0:07:12.240,0:07:21.199
+i'm gonna get 12 right so this b dot total
+
+0:07:18.479,0:07:28.160
+is 12. okay what about a dot total
+
+0:07:25.360,0:07:31.440
+what does that do okay so i'm going to run this self is
+
+0:07:30.240,0:07:36.960
+the same thing as a right so this is myself
+
+0:07:34.720,0:07:40.800
+this is false right because next actually refers to something
+
+0:07:38.960,0:07:46.160
+so i'm going to return this you know self.value is
+
+0:07:42.840,0:07:52.240
+three plus self.next dot total so self dot next
+
+0:07:50.560,0:07:56.160
+so i'm doing the total for this so really this is b
+
+0:07:53.680,0:08:00.560
+no self.next dot total is the same thing as b dot total
+
+0:07:57.599,0:08:05.759
+which i already know right so this is now
+
+0:08:00.960,0:08:10.479
+12 right getting the total for this and so that value is 3. so i guess i'm
+
+0:08:07.520,0:08:17.520
+going to get 15 this time right so this is going to be 15
+
+0:08:15.199,0:08:21.840
+right so i can i can kind of get the total sum of everything in my list if i
+
+0:08:19.280,0:08:28.000
+wanted to okay uh
+
+0:08:24.960,0:08:33.120
+let's come down to this so what is a of 2 of 0 what is a of 0 and so
+
+0:08:31.520,0:08:38.159
+this is one of those cases where i have a special method
+
+0:08:34.719,0:08:41.360
+um putting 0 in brackets is like calling git
+
+0:08:38.839,0:08:47.040
+item with whatever is inside of those brackets right so
+
+0:08:42.640,0:08:50.480
+so really i say a of zero so so myself is going to be whatever a
+
+0:08:48.959,0:08:54.240
+refers to so i'm i'm looking at this this is myself and
+
+0:08:52.240,0:09:00.560
+i'm running this okay so self is this an index
+
+0:08:58.480,0:09:06.399
+is zero so i'm going to come along here and say well if index is zero
+
+0:09:02.959,0:09:12.800
+return self.value so cell that value gives me gives me three
+
+0:09:09.680,0:09:19.839
+right so so a of zero is three and
+
+0:09:15.839,0:09:24.560
+what is this next piece what is a of two okay so let me kind of look at this
+
+0:09:22.160,0:09:28.080
+right so so now if i have af2 this is false right so i come down here
+
+0:09:30.040,0:09:37.839
+self.next so here my index is 2 and i'm going to figure out self.next
+
+0:09:38.160,0:09:46.720
+of one so self.next is this guy right that's really like b
+
+0:09:44.959,0:09:53.279
+right so so really a of two is a lot
+
+0:09:50.000,0:09:59.440
+like saying b of one so well let's think about what b of one
+
+0:09:57.279,0:10:05.360
+is so if i say b brackets one this would be
+
+0:10:03.680,0:10:09.680
+false and so i'd say b dot next
+
+0:10:10.000,0:10:19.760
+of 0 you know 1 minus 1 is 0. so so b dot next that's c so really i'm
+
+0:10:16.720,0:10:25.839
+saying c of zero c bracket zero well
+
+0:10:24.079,0:10:29.279
+what do i get there right i mean if i self is c and this is zero i just come
+
+0:10:27.760,0:10:38.079
+here and i get the the c dot value right so i get seven
+
+0:10:33.360,0:10:41.519
+right so a of two just gives me seven right so really you know if i wanted to
+
+0:10:40.560,0:10:46.000
+i guess i have like like the a and the b and c um
+
+0:10:44.560,0:10:49.360
+i could get rid of these variables if i wanted the b and the c because i could
+
+0:10:47.839,0:10:53.279
+get to all of these from a right this is a of zero this is a
+
+0:10:51.839,0:10:57.839
+of one this is a of two right so really a is
+
+0:10:55.839,0:11:00.959
+kind of like my list right and i can get everything i
+
+0:10:59.600,0:11:03.680
+need from that and i kind of just have these extra
+
+0:11:02.079,0:11:06.640
+variables too so i can kind of talk about a little bit easier
+
+0:11:08.000,0:11:15.279
+uh what about negative indexing what kind of error do i get
+
+0:11:11.040,0:11:19.120
+if i say a bracket negative one okay so remember a bracket negative one
+
+0:11:17.200,0:11:23.360
+is just like calling this method with negative one now the base case here
+
+0:11:22.800,0:11:27.440
+is when index is zero right that's when i don't
+
+0:11:25.519,0:11:31.519
+have the recursion okay but i have negative one so then i'm
+
+0:11:29.760,0:11:37.279
+going to make a call with negative two and a negative three and a negative four
+
+0:11:36.000,0:11:40.320
+really it kind of looks like it would be negative recursion right because i would
+
+0:11:39.279,0:11:43.440
+uh it feels like that negative number is
+
+0:11:41.920,0:11:47.600
+going to get smaller and smaller and smaller and i never only have zero
+
+0:11:45.680,0:11:51.839
+but but it's not quite and the reason why is when i do the self.next
+
+0:11:50.000,0:11:54.560
+what happens i do self.next right so i kind of come here
+
+0:11:53.120,0:11:58.399
+and then i'm calling on the next i'm here probably in the next time here and
+
+0:11:56.480,0:12:03.279
+then i'm on here and i'm at none and i maybe say none dot next right i'm
+
+0:12:02.000,0:12:06.399
+gonna say none dot next and that's where i may really run into
+
+0:12:05.839,0:12:10.639
+trouble right so this will actually i may get an
+
+0:12:09.040,0:12:13.920
+error about nun type right so this is going to crash
+
+0:12:14.959,0:12:21.040
+that's one type of error okay five what would happen
+
+0:12:18.160,0:12:24.880
+or how would python tutor change if we said c
+
+0:12:21.600,0:12:30.959
+dot next equals a so c dot next
+
+0:12:29.279,0:12:36.839
+equals a so this should point to whatever a points to
+
+0:12:32.480,0:12:39.839
+right so this i guess i would change this
+
+0:12:38.240,0:12:44.959
+and now something pretty wild has happened right because
+
+0:12:41.920,0:12:51.680
+i have a cycle right a dot next dot next
+
+0:12:48.720,0:12:55.519
+dot next dot next right you can see that there's a cycle right i could keep
+
+0:12:52.959,0:12:59.440
+saying a dot next on x dot next on next and i'm always going to be landing on a
+
+0:12:56.880,0:13:03.040
+node right so i kind of ended up in a weird
+
+0:13:00.639,0:13:05.839
+situation and well what that means is that something
+
+0:13:04.320,0:13:11.040
+like this is actually a work right because
+
+0:13:08.000,0:13:17.279
+well let's think about that c of 3 you know c of 0 was this
+
+0:13:13.600,0:13:21.760
+c of 1 is this c of 2 is this c of 3 is this cf4 is a so i guess c of
+
+0:13:20.480,0:13:24.079
+3 is just c right
+
+0:13:25.600,0:13:30.639
+so this would actually not crash now i want to be going past then there is no
+
+0:13:28.720,0:13:34.079
+end to my last it's an infinite list because
+
+0:13:31.360,0:13:36.959
+these three things just keep repeating um
+
+0:13:35.040,0:13:41.920
+so this would be fine right c of three is just gonna give me seven
+
+0:13:39.760,0:13:45.760
+like before okay one last one what would happen if i if i say a dot total
+
+0:13:45.920,0:13:51.519
+what will happen there well now i'm in trouble right because
+
+0:13:49.760,0:13:55.519
+i've effectively by creating this cycle i've created uh
+
+0:13:53.040,0:13:58.399
+an infinitely long sequence and it's going to keep trying to sum those things
+
+0:13:56.639,0:14:03.839
+up but i'm going to get a stack overflow art um so that would just crash
+

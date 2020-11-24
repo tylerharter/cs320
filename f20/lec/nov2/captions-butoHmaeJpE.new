@@ -1,0 +1,1017 @@
+0:00:01.839,0:00:07.919
+so we've been looking at a lot at geographic maps
+
+0:00:04.799,0:00:14.160
+and geographic maps are based on geopandas which extends regular pandas
+
+0:00:11.440,0:00:20.080
+right so a geo pandas data frame is a subclass of a regular data frame
+
+0:00:17.520,0:00:23.920
+a geopanda series is a subclass of a regular series
+
+0:00:21.840,0:00:28.880
+and um and so here i have an example of a geopandas data frame
+
+0:00:26.000,0:00:33.920
+and you can see it right here and we've talked a little bit about this before
+
+0:00:30.320,0:00:38.239
+but inside of this i have um this geometry column and if i want to
+
+0:00:36.559,0:00:42.160
+pull one of those items out i could go to
+
+0:00:38.640,0:00:47.120
+say um you know i have raw column here i could go in the first row
+
+0:00:44.320,0:00:50.239
+and uh in the last column and i could pull out that piece and i could draw
+
+0:00:48.719,0:00:54.719
+another rows too and see the different parts of the city
+
+0:00:52.000,0:01:00.079
+and then well there's most of madison and um and so what i want to do here is
+
+0:00:57.760,0:01:02.559
+talk a little bit more about these objects these are what we call shapely
+
+0:01:01.920,0:01:07.040
+objects geopandas is based on the shapely
+
+0:01:06.000,0:01:10.159
+package and uh shapely is really let us do a lot
+
+0:01:08.720,0:01:12.479
+of interesting things if we have two lines we can figure out where they
+
+0:01:11.439,0:01:16.159
+intersect if we have two polygons we can figure
+
+0:01:14.240,0:01:20.240
+out what area of them overlaps um you could totally imagine
+
+0:01:18.799,0:01:24.080
+maybe i want to figure out on you know what districts in the city
+
+0:01:22.880,0:01:27.439
+overlap with what school districts that's a lot of kind of
+
+0:01:26.320,0:01:31.439
+political reasons you might want to imagine
+
+0:01:28.320,0:01:34.640
+um exploring these shapes um and uh and and so to kind of do this i may
+
+0:01:34.320,0:01:38.880
+be working not with maps but with a simpler
+
+0:01:37.040,0:01:43.200
+case where i just want to create a visualization that looks like
+
+0:01:40.400,0:01:48.240
+this it's a simple little venn diagram uh with categories a and b and it's
+
+0:01:46.079,0:01:50.479
+showing me how many categories are in each section right so i can see there's
+
+0:01:49.840,0:01:55.200
+one thing that's at the intersection of a and b
+
+0:01:53.040,0:02:00.960
+and uh the color of these um areas uh also matches while the quantity
+
+0:01:58.960,0:02:04.880
+and so the general strategy i'm gonna do to build this is i'm going to create two
+
+0:02:03.280,0:02:08.319
+shapely circles and those are both polygons it turns out
+
+0:02:07.680,0:02:11.280
+and i can take these two circles and find
+
+0:02:09.840,0:02:13.840
+the intersection of them and then i can independently
+
+0:02:12.319,0:02:17.680
+create a shape that's the intersection and set that color independently
+
+0:02:16.400,0:02:21.440
+of the rest right so it's kind of a little bit of a toy example which might
+
+0:02:19.760,0:02:26.000
+be useful if you later want to kind of do some computation dealing with
+
+0:02:24.080,0:02:28.720
+geographic regions that might sometimes be
+
+0:02:27.280,0:02:30.959
+actually quite messy right when i'm looking at something like this i may
+
+0:02:30.480,0:02:34.959
+want to have some help if i'm looking at um kind
+
+0:02:33.360,0:02:39.680
+of how this interacts with other shapes so the first thing i'm
+
+0:02:38.400,0:02:46.800
+going to do here is import my uh my shapely shapes
+
+0:02:43.599,0:02:54.800
+and those are in a package called shapely so i'm going to say from
+
+0:02:50.800,0:02:58.800
+shapely uh import a polygon we've seen polygon before another one is
+
+0:02:56.560,0:03:02.319
+point kind of surprisingly they don't have a a circle and i may be kind of
+
+0:03:00.879,0:03:06.080
+explaining why um so let me start with this i'm going
+
+0:03:04.640,0:03:10.080
+to create a point and uh when i create a point i guess i
+
+0:03:08.000,0:03:16.400
+should actually run this uh from shapely.geometry
+
+0:03:14.000,0:03:20.080
+import these things when i'm creating a point
+
+0:03:17.519,0:03:22.080
+i need to pass in some coordinates for it right
+
+0:03:20.640,0:03:26.159
+and then at the minimum i need to have an x and y you can also imagine
+
+0:03:23.920,0:03:30.000
+passing in a z and somebody say i may have one one
+
+0:03:27.599,0:03:34.000
+and uh and sure enough that looks like a nice little point right there
+
+0:03:32.000,0:03:38.400
+as i mentioned there's not a separate circle
+
+0:03:35.120,0:03:41.599
+and that's because i can uh create a circle by making a border
+
+0:03:40.400,0:03:46.080
+around a point and so i can create this area around it
+
+0:03:43.840,0:03:50.080
+which i might call a buffer like this and i can specify well how
+
+0:03:48.159,0:03:54.959
+large do i want that buffer and there i have a nice little circle
+
+0:03:51.280,0:03:58.400
+if i take a peek at the type of this um you can see that's actually showing up
+
+0:03:56.080,0:04:02.080
+as a polygon the reason is that it's just
+
+0:03:58.720,0:04:05.439
+easier to deal with things like um kind of the intersection of two shapes
+
+0:04:03.680,0:04:09.840
+everything is a polygon and uh how do we do a circle well we
+
+0:04:07.680,0:04:13.599
+just have an approximation of a circle where we have a polygon with a bunch of
+
+0:04:11.280,0:04:18.720
+very tiny um size that's just how shapely uh does things
+
+0:04:16.959,0:04:21.199
+now uh to work towards my ultimate goal of making the venn diagram i need to
+
+0:04:20.160,0:04:26.160
+somehow get these on a matplotlib area and so
+
+0:04:24.240,0:04:30.960
+you can see i've already created plt up here and so i could do this
+
+0:04:28.000,0:04:34.800
+i could say something like fig ax equals that
+
+0:04:31.440,0:04:39.199
+dot subplots and uh and you can see what's happening right now
+
+0:04:35.840,0:04:43.199
+is it's drawing both of these separately what i'd really like to do is i'd like
+
+0:04:40.479,0:04:47.360
+to draw this circle on top of this area down here right
+
+0:04:45.520,0:04:51.919
+that's my goal and um so how can i do that well we've
+
+0:04:49.919,0:04:55.360
+seen before that we can have if we have like some sort of plotting
+
+0:04:53.520,0:05:00.240
+region like ax i can do something like um add
+
+0:04:56.800,0:05:03.840
+a patch or uh or maybe more generally i could add artist
+
+0:05:01.280,0:05:06.400
+and then i could add something here and and so let me try
+
+0:05:04.880,0:05:09.440
+and see if i can get lucky in how i'm doing this what if i just try to capture
+
+0:05:07.840,0:05:15.199
+that point object there then add this down here and run it and
+
+0:05:12.479,0:05:18.560
+it's going to complain and i guess polygon
+
+0:05:16.080,0:05:23.759
+has no attribute set figure you know actually when i've run this before
+
+0:05:20.639,0:05:27.199
+um you know it doesn't have z order uh i i've gotten different errors before
+
+0:05:25.280,0:05:31.039
+but the the gist of it is across different versions
+
+0:05:28.240,0:05:34.479
+you can't do that because this is not an artist
+
+0:05:31.600,0:05:37.600
+object as far as matplotlib is concerned and in matplotlib they have this artist
+
+0:05:36.479,0:05:41.759
+class and and if you want to have shapes you
+
+0:05:39.280,0:05:45.840
+have to be descending from that and and so fortunately there's another
+
+0:05:44.400,0:05:49.199
+package that i'm going to introduce i'm kind of
+
+0:05:46.639,0:05:53.840
+introducing packages left and right here but there's another one called descartes
+
+0:05:50.800,0:05:57.600
+that will actually let us tie um tie this all together
+
+0:05:55.440,0:06:01.600
+and uh and descartes integrates both with matplotlib
+
+0:05:58.960,0:06:07.199
+and uh and shapely so i'm gonna say from a
+
+0:06:02.000,0:06:11.199
+cart uh import polygon patch okay and what i can do down here
+
+0:06:10.479,0:06:16.560
+is i can when i'm creating this uh circle i can
+
+0:06:14.560,0:06:21.840
+basically convert that to a polygon patch so i can i can draw like this
+
+0:06:19.120,0:06:27.039
+and uh polygon patch can understand these underlying shapely things
+
+0:06:23.919,0:06:32.000
+and uh and it also is an artist type so maybe actually let me just try to uh uh
+
+0:06:30.639,0:06:38.479
+maybe the better way for me to show that is to put this here
+
+0:06:35.440,0:06:41.600
+right if i look at this and and i have that thing
+
+0:06:39.680,0:06:46.960
+and i i could look at this i could look at the type of c
+
+0:06:43.840,0:06:50.479
+a poly ball path patch and then i could say
+
+0:06:47.680,0:06:55.599
+method resolution order and uh and you can see that this thing
+
+0:06:52.319,0:06:59.840
+inherits from a matplotlib artist uh and well it inherits from a patch
+
+0:06:58.400,0:07:03.039
+which is a kind of artist right and that's why it's going to be
+
+0:07:00.880,0:07:07.280
+happy if i want to draw it like this i can draw that circle
+
+0:07:05.680,0:07:12.240
+on top of this area um and of course it's huge because um
+
+0:07:10.800,0:07:15.280
+when i'm looking at this here i can see that it's centered at 1 1 and has a
+
+0:07:13.919,0:07:19.280
+radius of and uh and that's actually all the area
+
+0:07:17.039,0:07:23.919
+i have here so so maybe let me try to set a different uh x limit here i
+
+0:07:21.520,0:07:30.080
+mean maybe say x limit equals zero to three and maybe y limit will be
+
+0:07:27.039,0:07:35.360
+um something like zero to two and uh um is it is it x limit
+
+0:07:36.880,0:07:43.440
+um sorry i think uh maybe i'm i'm misremembering i i usually do that
+
+0:07:41.840,0:07:47.520
+with uh pandas but i think i can do something like that
+
+0:07:45.280,0:07:51.759
+set x slim limit maybe let me try this
+
+0:07:51.840,0:07:58.080
+otherwise if that doesn't work i'll refer to my notes rather than
+
+0:07:55.039,0:08:02.160
+forcing you to watch me guess okay so what do i do here i'm sorry so
+
+0:08:00.639,0:08:07.280
+it's set x limb and then i just pass in not a tuple
+
+0:08:05.280,0:08:11.520
+but just my my two values right so i'm gonna do that
+
+0:08:08.879,0:08:16.479
+and uh oh well that's kind of funny it uh
+
+0:08:13.039,0:08:20.479
+oh yep sorry wow how can i make it so hard
+
+0:08:17.199,0:08:29.759
+i i could do that and then i can also do uh ax.set ylim and i can do uh
+
+0:08:26.160,0:08:33.839
+that as well if i i do that okay finally i actually have a
+
+0:08:31.680,0:08:38.080
+decent um circle and uh and so that's great right so this
+
+0:08:35.919,0:08:42.399
+is progress towards my venn diagram and if i want to i can draw two circles
+
+0:08:40.399,0:08:47.040
+right so i can have a circle there um let's get another one um
+
+0:08:45.440,0:08:53.440
+maybe i'll shift this one over instead of having um x1 and y1 i'll have
+
+0:08:49.760,0:08:58.160
+x2 and y1 and then i'll add this down here
+
+0:08:54.640,0:09:02.320
+add artist c2 and great i have that other circle on
+
+0:09:00.240,0:09:08.000
+top of it and and you can kind of see if i set an alpha here or two
+
+0:09:04.640,0:09:15.680
+um b something like that actually wrong place to have an alpha uh i think
+
+0:09:11.279,0:09:18.880
+um where would i set the alpha here let me just check my notes
+
+0:09:19.920,0:09:25.760
+they're not not an alpha it must be up here
+
+0:09:23.680,0:09:29.120
+where i create this one should i do that alpha equals 0.5
+
+0:09:27.519,0:09:34.080
+great okay and i can kind of see both of them but that's not quite what i want to
+
+0:09:31.200,0:09:38.320
+do i ultimately want to have three different shapes for my venn
+
+0:09:35.279,0:09:42.320
+diagram that i can independently draw on okay and uh and so maybe what
+
+0:09:41.360,0:09:47.680
+i'm gonna do is i'm just gonna start calling them
+
+0:09:42.959,0:09:52.720
+um a b and i have those two a b and then i want to have the center
+
+0:09:50.480,0:09:56.640
+piece which i'm going to call a b and uh a b is going to be the
+
+0:09:54.800,0:10:00.480
+intersection of these two two pieces so if i actually just comment
+
+0:09:58.959,0:10:05.519
+all this out for a moment um there are all these nice um functions
+
+0:10:03.120,0:10:12.720
+like i can have the intersection between uh a and b right and you can see
+
+0:10:10.320,0:10:17.519
+actually i kind of goofed this up a little bit here
+
+0:10:14.240,0:10:20.720
+i can only do intersection before i've gone
+
+0:10:18.000,0:10:24.880
+to polygon patch right so i feel careful here
+
+0:10:21.839,0:10:27.600
+let me let me do that i can do that i can hit the the intersection there i
+
+0:10:26.240,0:10:31.519
+could also get the difference if i wanted to
+
+0:10:28.640,0:10:35.680
+so that's the stuff in a that's not in b i could get the stuff in b
+
+0:10:32.800,0:10:39.839
+that is not an a kind of these moon shapes
+
+0:10:36.800,0:10:44.560
+and so when i want the a b area that's going to be the intersection
+
+0:10:41.920,0:10:48.720
+piece right so i'm going to do that like so and uh and then i think what i
+
+0:10:47.440,0:10:54.320
+want to do is i want to clean up
+
+0:10:52.480,0:10:57.360
+a and b here right i want those to really be um
+
+0:10:56.000,0:11:04.880
+separate right so i'm going to say a equals a dot difference
+
+0:11:00.560,0:11:09.760
+b i want to subtract that off and from b goes b dot difference i want to subtract
+
+0:11:08.240,0:11:15.200
+off a right so let me actually is that going
+
+0:11:13.120,0:11:21.279
+to work um not quite right because after i modify
+
+0:11:19.360,0:11:24.800
+a what am i left with with b let's take a peek at that so i'm going to say that
+
+0:11:23.440,0:11:28.959
+what do i have there i really have the whole circle and the reason why is
+
+0:11:26.399,0:11:33.279
+because while i i subtract off a um i i just have that there so so maybe
+
+0:11:32.000,0:11:35.360
+what i'm going to do is let me actually have these two
+
+0:11:34.160,0:11:38.880
+go back to how it was i'm just going to have my original circles
+
+0:11:37.360,0:11:42.640
+and here i'm going to say well i have that region which is the intersection of
+
+0:11:40.480,0:11:47.360
+the two circles and then a can be one circle minus the other
+
+0:11:45.680,0:11:53.440
+and vice versa all right i guess i was trying to i'm trying to optimize on the
+
+0:11:49.920,0:11:57.760
+fly and kind of making it worse um okay so i'm going to do that that's a
+
+0:11:55.440,0:12:01.760
+good piece that's a good piece and then i do that
+
+0:12:00.000,0:12:06.639
+and i have both pieces and then i can also add my a b piece in
+
+0:12:04.079,0:12:10.399
+the middle right so i'm gonna have a b right here and that's looking pretty
+
+0:12:08.240,0:12:15.200
+good and um and maybe i want to just get rid of that
+
+0:12:12.079,0:12:19.120
+border so i'm going to say plt.axis off like that and i have these two nice
+
+0:12:18.160,0:12:22.639
+circles and i can kind of do the next step of actually
+
+0:12:20.560,0:12:27.519
+trying to convert them into um a venn diagram um so maybe the first
+
+0:12:26.079,0:12:31.279
+thing i'm going to do is i'm going to set some color for each
+
+0:12:30.240,0:12:35.839
+of them um just so that uh uh
+
+0:12:34.480,0:12:38.800
+i i can see them a little bit more easily right because i may want to put
+
+0:12:37.040,0:12:42.240
+some text on top of it so what i'm going to do is i'm going to
+
+0:12:40.720,0:12:46.399
+say um when i create this polygon patch i
+
+0:12:44.959,0:12:50.240
+can actually change the color so i can say well what is the face color
+
+0:12:48.079,0:12:52.079
+you know there's the border color which is the line around the face color is on
+
+0:12:51.760,0:12:55.200
+top of it so i could say that's like you
+
+0:12:53.200,0:13:00.959
+know something 0.7 and change that one i can change all of
+
+0:12:56.800,0:13:05.680
+them and so i'm going to do that and that's all good and then i want to
+
+0:13:04.079,0:13:08.000
+actually draw the numbers on top of there
+
+0:13:06.000,0:13:11.680
+what are the quantities i'm i'm dealing with and so
+
+0:13:10.160,0:13:13.839
+i have to for my venn diagram i have to have some sort of quantity so we have
+
+0:13:13.040,0:13:20.720
+quantity a equals i don't know two quantity a b
+
+0:13:17.600,0:13:25.279
+equals three quantity b equals 4 something like that
+
+0:13:23.519,0:13:29.200
+and i want to draw those on top of each of these areas
+
+0:13:27.600,0:13:33.120
+so one of the things i'm going to do is i want to figure out how i can loop over
+
+0:13:30.800,0:13:36.880
+all of my areas and my numbers and and then add them as appropriate so
+
+0:13:35.600,0:13:39.040
+so instead of having all this i'm going to figure out how i can put that in a
+
+0:13:38.079,0:13:41.920
+loop because i'm going to have to have to
+
+0:13:39.360,0:13:44.079
+have a lot of similar code for each case so i could say something like this i
+
+0:13:43.120,0:13:48.079
+could say something like for area and i could have a list here right
+
+0:13:47.360,0:13:54.320
+i mean i could have um a b a b
+
+0:13:51.519,0:13:58.240
+i can add those well maybe yeah i'm going to add them
+
+0:13:55.760,0:14:04.079
+like this let me add that uh area is this the same
+
+0:14:03.360,0:14:07.120
+thing so far let me just try to test this before i go
+
+0:14:05.920,0:14:10.880
+too much farther that looks good and um then what i
+
+0:14:09.600,0:14:16.079
+really want to do is i want to kind of loop over these
+
+0:14:12.000,0:14:20.160
+numbers um in lockstep with these areas and so one of the ways i can do that is
+
+0:14:18.480,0:14:24.320
+instead of having these three entries in the list
+
+0:14:21.199,0:14:28.240
+i could have three tuples and so i could say like quantity a and
+
+0:14:26.320,0:14:33.120
+then region a quantity b and region b and then a
+
+0:14:31.519,0:14:37.920
+quantity a b and region a b and when i do that here i
+
+0:14:36.079,0:14:41.360
+might get a tuple here and if i wanted to then i could draw
+
+0:14:39.760,0:14:45.600
+inside and maybe if i wanted to i could get like t t0 or
+
+0:14:44.240,0:14:49.440
+t1 um i can automatically pack on pack t0
+
+0:14:48.560,0:14:54.160
+and t1 right here if i want by just saying i
+
+0:14:51.600,0:14:57.680
+have my quantity and my area then i'm going to be getting
+
+0:14:56.880,0:15:02.160
+both of those so maybe i'm just going to print the uh
+
+0:14:59.519,0:15:09.920
+print the quantities here and then add the add the areas
+
+0:15:05.279,0:15:14.320
+and that's not how i spell that qa qax how did i get that okay so i'm
+
+0:15:12.720,0:15:19.440
+getting those i want to draw this text on top of uh on
+
+0:15:17.040,0:15:24.720
+top of the shapes and um and so remember that when i want
+
+0:15:22.480,0:15:27.519
+to draw the text on top of a shape i i can do this i can say a dot text and
+
+0:15:26.720,0:15:32.399
+here i can say well i have my x position my y position
+
+0:15:30.720,0:15:37.199
+and then i actually have i have the text right and um and so
+
+0:15:35.759,0:15:41.519
+the text i know what i want that to be it's whatever the quantity is
+
+0:15:39.920,0:15:44.320
+the x and y are going to be a little bit trickier one of the things that's going
+
+0:15:43.680,0:15:47.920
+to help me is that whenever i have one of these
+
+0:15:46.399,0:15:52.079
+shapely shapes it has a centroid right so i could say
+
+0:15:50.079,0:15:56.880
+area dot centroid like that and i can see while i
+
+0:15:54.800,0:16:00.320
+have all these points here and that's going to help me figure out
+
+0:15:58.720,0:16:05.600
+what my x and y are right because i can say centroid.x
+
+0:16:02.399,0:16:09.440
+or centroid.y and um and so if i want to draw the numbers kind of on the
+
+0:16:06.959,0:16:13.600
+geographic centroid of these i can just paste this up here
+
+0:16:11.279,0:16:18.320
+right i'm going to say i want to get the the x and the y
+
+0:16:14.800,0:16:21.199
+just like so let me do that and and you can see i get these nice
+
+0:16:19.759,0:16:26.560
+numbers on top of it maybe i should make those a little bit larger
+
+0:16:22.639,0:16:30.079
+i can say size equals size equals 16. something like that
+
+0:16:27.440,0:16:34.000
+right so that's pretty good i'm getting the numbers on top of my venn diagram
+
+0:16:32.240,0:16:40.079
+well while i'm on and i'm kind of on the roll with some text let me add some
+
+0:16:37.040,0:16:44.000
+um some text on the top of here too so i can see
+
+0:16:41.040,0:16:49.519
+that my two circles are a and b so i'm just going to do
+
+0:16:46.320,0:16:53.440
+um up here i'm going to say actually let's just
+
+0:16:50.399,0:16:57.040
+yeah i'll do that right here ax dot text and uh i know where my circles are right
+
+0:16:56.320,0:17:00.880
+i know that i um had the first one at that was like
+
+0:16:59.920,0:17:05.360
+the center of it so 1 2 would be the top of it that's an
+
+0:17:04.240,0:17:10.160
+a it's really kind of tiny right let me
+
+0:17:08.160,0:17:14.559
+make that much larger i might say size equals
+
+0:17:10.880,0:17:18.319
+20 and actually make it look nice i can worry about the
+
+0:17:15.919,0:17:21.679
+the vertical alignment which i want to be
+
+0:17:19.600,0:17:26.079
+not the top top would look bad right i want it to be aligned with the bottom
+
+0:17:24.559,0:17:31.120
+and then in terms of horizontal alignment i want it to be centered
+
+0:17:28.559,0:17:33.440
+not left aligned so now i get a kind of nicely on the top
+
+0:17:32.000,0:17:39.280
+of that i i could actually make that quite a bit larger quickly
+
+0:17:35.760,0:17:43.919
+and uh and the same deal same deal for the other ones that one's going to
+
+0:17:40.720,0:17:48.559
+be at b and uh and i if i remember that circle the circle two which is right
+
+0:17:46.960,0:17:51.200
+here this is circle two is that position two
+
+0:17:49.520,0:17:56.320
+so i guess i'm gonna start at position two here and so i have this nice fun
+
+0:17:53.679,0:17:59.600
+diagram where i have the numbers and uh i think i have all the text that i wanna
+
+0:17:57.840,0:18:04.000
+really add here um the other thing i want to put uh into
+
+0:18:02.400,0:18:09.600
+this is i want the shading to be based on um the quantity
+
+0:18:07.120,0:18:13.120
+basically i want a bigger number to look darker right so this uh this area over
+
+0:18:11.600,0:18:18.480
+here in region 4 should be darker than say the region
+
+0:18:16.000,0:18:22.799
+area 2. and um and so what i think i'll do is
+
+0:18:21.600,0:18:26.080
+i'll base it i'll get some sort of like percentage
+
+0:18:24.160,0:18:29.600
+here i might say like you know what is the percentage of max
+
+0:18:27.520,0:18:35.360
+you know just abbreviate that percentage this may be uh the quantity
+
+0:18:31.919,0:18:38.799
+divided by well i guess what what the ever the largest max is so so maybe up
+
+0:18:37.840,0:18:42.000
+here i'm just going to create like a quantity max
+
+0:18:40.320,0:18:48.160
+it's going to be the max of these three things
+
+0:18:44.240,0:18:52.240
+quantity b and quantity avb all right so i'm going to do that that's
+
+0:18:49.280,0:18:55.919
+my quantity a b and uh and now this is actually more
+
+0:18:54.640,0:19:00.240
+nice because this percentage is going to be a number between 0 and 1 and i can
+
+0:18:57.679,0:19:03.280
+use numbers between 0 and 1 as a color so i'm going to do that i'm
+
+0:19:01.760,0:19:09.760
+just going to say well let's convert that percentage to um
+
+0:19:06.640,0:19:17.760
+to that and what is it unhappy about invalid string grayscale is 1.33
+
+0:19:15.120,0:19:24.400
+how did i how did i get something that was bigger than any of these
+
+0:19:21.039,0:19:27.440
+because i divided by this instead of the maximum
+
+0:19:26.000,0:19:31.120
+okay great let me actually divide by the maximum so i'm actually between zero and
+
+0:19:29.039,0:19:36.400
+one and uh and i see that well it's kind of
+
+0:19:34.559,0:19:42.000
+the opposite of what i want to do right um one means the brightest right
+
+0:19:40.000,0:19:46.240
+so that's why it's white over here really when i have more quantity in that
+
+0:19:44.080,0:19:48.880
+area i'd like that to be darker and um and so maybe what i could do is i
+
+0:19:48.080,0:19:51.679
+could do something like this i could just say like you know one minus all of
+
+0:19:50.640,0:19:55.760
+that and that looks pretty good right i mean
+
+0:19:54.160,0:20:03.039
+the color is right um but but it's kind of saturating at uh
+
+0:19:59.679,0:20:08.960
+uh it's saturating too soon right i want the darkest color to be like a gray
+
+0:20:06.240,0:20:12.799
+instead of instead of a black so maybe what i
+
+0:20:09.360,0:20:18.480
+will do is i'll have this and i want to multiply it by something
+
+0:20:16.000,0:20:22.480
+to kind of rescale it so so i do kind of like
+
+0:20:19.120,0:20:28.960
+you know times 0.6 and now my color here is going to be between
+
+0:20:25.840,0:20:32.080
+0 and 0.6 which i guess is still not quite what i
+
+0:20:30.640,0:20:36.799
+want because um you know originally i had this
+
+0:20:33.840,0:20:40.240
+spectrum from uh from black to white and uh and then by multiplying this by
+
+0:20:38.640,0:20:42.159
+point six now i'm getting from black to gray
+
+0:20:40.720,0:20:44.880
+and really what i wanted was gray to white so i'm gonna actually add
+
+0:20:44.000,0:20:51.440
+something here and so since this was zero to six
+
+0:20:48.240,0:20:58.000
+this is point four to one so it'll be point four gray to
+
+0:20:54.480,0:21:00.720
+one white right so i'm gonna do that and now i actually get kind of these
+
+0:20:59.360,0:21:05.919
+nice colors right i can see that the darker areas
+
+0:21:02.559,0:21:08.880
+correspond to a larger portion of the venn diagram
+
+0:21:07.600,0:21:12.080
+okay so i can try to think carefully about how i'm going to do that uh that
+
+0:21:10.320,0:21:16.559
+color scheme now just to make this whole example
+
+0:21:13.679,0:21:21.120
+complete um what i really like to do is to think about not about you know me
+
+0:21:19.039,0:21:24.480
+putting in these numbers exactly but how would i do this if i actually
+
+0:21:23.280,0:21:28.240
+had some sort of set right how would i get
+
+0:21:26.640,0:21:31.600
+these numbers and so let me create two sets i'll make
+
+0:21:30.640,0:21:37.520
+sure you have like an a set equals you know one two three
+
+0:21:35.679,0:21:43.360
+and then the b set should probably have some overlap so it has like three
+
+0:21:39.520,0:21:47.200
+four five six seven eight and how can i get these quantities right
+
+0:21:46.080,0:21:51.200
+um the wrong thing to do for the quantity a
+
+0:21:49.600,0:21:57.120
+would be to say a length of a set because
+
+0:21:54.240,0:22:00.000
+quantity a means you're an a but not b right and so this should really be two
+
+0:21:58.400,0:22:03.360
+right i don't want to count this number three that's in both of them
+
+0:22:01.760,0:22:07.440
+and uh it's actually kind of cool just like um with shapely shapes we have this
+
+0:22:05.760,0:22:11.679
+intersection and difference the same thing works for python sets so
+
+0:22:10.320,0:22:16.240
+so i could actually do this right i mean here's my a set
+
+0:22:13.200,0:22:20.559
+and i could say asat dot difference b set right now i just get one two the
+
+0:22:18.960,0:22:25.760
+stuff that's in a but is not in b um in the same way i can
+
+0:22:24.080,0:22:30.480
+you know get the opposite of that what is in b that's not an a
+
+0:22:28.480,0:22:35.200
+right i have that there and then finally i can say well
+
+0:22:31.760,0:22:40.159
+uh what is in what is in both of them right which should just be three
+
+0:22:38.480,0:22:43.120
+okay so down here what do i want to do i want to get the length of these three
+
+0:22:41.600,0:22:48.320
+things and uh and so i'm going to work on that
+
+0:22:46.000,0:22:55.200
+i'm going to say that first stuff that's just an a is that
+
+0:22:52.159,0:22:57.120
+and then the stuff that's just in b is that
+
+0:22:55.679,0:23:02.240
+and then the stuff that's in both of them is the intersection
+
+0:23:00.720,0:23:04.880
+and maybe you know i was trying to work there separately to keep it cleaner but
+
+0:23:03.840,0:23:08.559
+i'm just trying to end up with everything in one big cell
+
+0:23:07.440,0:23:13.919
+and i'm going to do that and let's just try to think of it for a
+
+0:23:10.000,0:23:17.600
+moment what we want this to look like and uh and it's kind of actually not
+
+0:23:15.919,0:23:22.640
+what i thought it's going to look like because when i
+
+0:23:20.799,0:23:26.480
+was looking at this here i'm like huh b should be the darkness right there's a
+
+0:23:24.080,0:23:30.320
+bunch of stuff in b that's not in anything else a should be
+
+0:23:29.200,0:23:32.720
+the second darkest because there's two things there
+
+0:23:30.960,0:23:38.640
+and then i expected the lightest in the middle which is not what it is at all
+
+0:23:35.600,0:23:42.720
+and why is that so the quantities are wrong for one i run
+
+0:23:41.440,0:23:48.880
+this i have five in the intersection
+
+0:23:46.400,0:23:54.240
+which is because i just mixed all of these up right like i think that
+
+0:23:50.880,0:24:00.080
+intersection is the quantity a b and then this one is the quantity b
+
+0:23:58.080,0:24:04.400
+right the stuff that's just in b and then 20 a is the stuff that's just an
+
+0:24:01.919,0:24:08.320
+a do i get that right okay that actually looks
+
+0:24:05.200,0:24:11.760
+correct right i can see that um most of the stuff is b and b so i have
+
+0:24:10.640,0:24:15.120
+five there and then that's also the darkest shape
+
+0:24:13.600,0:24:18.960
+so this is a good venn diagram and we were able
+
+0:24:17.840,0:24:22.400
+to do this because we could kind of deal with the custom shapes and
+
+0:24:20.240,0:24:27.440
+and reason through how to base the color based on the data
+
+0:24:23.919,0:24:32.320
+uh and do the the intersections okay so i'll leave it off there
+

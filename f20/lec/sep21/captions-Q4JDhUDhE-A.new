@@ -1,0 +1,561 @@
+0:00:02.240,0:00:07.200
+all right um in this video i want to do a little bit of review we're going to
+
+0:00:05.279,0:00:10.719
+talk about methods some more and we're also going to talk a little
+
+0:00:09.200,0:00:15.599
+bit more about special methods and i'll end with a coding example
+
+0:00:12.480,0:00:18.000
+and um for this i have a little piece of code i may ask you some questions about
+
+0:00:17.199,0:00:21.600
+it and um after i asked a question just
+
+0:00:20.320,0:00:25.519
+pause the video and think about it um until you think
+
+0:00:23.760,0:00:29.199
+you have an answer and then and then you know replay it again and i'll talk
+
+0:00:27.519,0:00:36.079
+about what i think the answer is so here i have here i have a dog class
+
+0:00:34.000,0:00:40.640
+and um i have the net method which is giving the dog a name
+
+0:00:37.840,0:00:42.960
+and so this is a constructor such it's automatically called when a dog is
+
+0:00:42.079,0:00:46.480
+created and i'm just setting the dog attribute
+
+0:00:45.520,0:00:50.719
+name based on whatever it's passed in i have
+
+0:00:48.960,0:00:55.920
+a method here that does um the actual uh speaking or barking of the
+
+0:00:53.680,0:00:59.680
+dog it's very bark some number of times and then down here i'm actually creating
+
+0:00:57.199,0:01:03.600
+two different dogs and so down here i have three different
+
+0:01:01.280,0:01:07.920
+ways that i could call the bark method with varying number of arguments passed
+
+0:01:05.680,0:01:11.439
+in and so the question is if i get this type error three
+
+0:01:10.159,0:01:15.840
+positional arguments but four were given or it takes three
+
+0:01:13.520,0:01:21.200
+positional but forward given which of these three was causing that
+
+0:01:20.080,0:01:24.560
+so i'll give you a moment to think about it then i'll then i'll walk you through
+
+0:01:22.560,0:01:27.680
+it okay so i'm going to assume you unpaused
+
+0:01:26.560,0:01:33.040
+and we're back and so let's first look at this three it
+
+0:01:30.720,0:01:36.799
+takes three positional arguments and is that true well let's see what we
+
+0:01:35.520,0:01:41.920
+have here so this is the one this is the two and that's the three
+
+0:01:40.400,0:01:46.960
+those are the three positional arguments in question
+
+0:01:43.200,0:01:53.439
+and so what about this how did we have war given and the answer
+
+0:01:50.240,0:02:00.320
+is number two right it's this right here how do we get to that well here i have
+
+0:01:56.799,0:02:03.600
+one two three and four so even though it looks
+
+0:02:02.640,0:02:07.360
+like there's three here i need to count what's before the
+
+0:02:05.280,0:02:10.879
+parentheses so just be careful when you're getting these error message right
+
+0:02:08.959,0:02:14.480
+it says there are four given uh you know keep staring at it and
+
+0:02:12.640,0:02:19.599
+saying oh i like past three you know make sure you count that one
+
+0:02:16.640,0:02:24.000
+kind of at the beginning as well okay so that's wrong next question is
+
+0:02:22.800,0:02:27.360
+which of these is right and of course we know this one is is not
+
+0:02:25.840,0:02:31.760
+right because we already talked about that
+
+0:02:28.400,0:02:38.720
+um well the first one the first one has exactly three has exactly three
+
+0:02:35.280,0:02:43.519
+arguments being passed and it's one two three exactly what we were hoping for
+
+0:02:44.400,0:02:49.200
+okay uh take a moment to think about this
+
+0:02:48.000,0:02:54.879
+very carefully right it's a bit of a trick question but what prints
+
+0:02:51.920,0:03:05.840
+when i run this correct line of code of these three options below
+
+0:03:07.519,0:03:14.959
+okay so well what happens here when i say fido
+
+0:03:12.040,0:03:18.560
+fido.bark well it's going to put these arguments
+
+0:03:17.599,0:03:25.760
+in like this so fido is going to go to self
+
+0:03:23.040,0:03:30.319
+5 is going to go to multiply and then false is going to go to
+
+0:03:27.840,0:03:34.799
+uppercase and so what does that mean that means that
+
+0:03:31.440,0:03:38.720
+phyto is a variable that's going to refer to an object
+
+0:03:36.560,0:03:41.519
+and self is is really just a special variable that may refer to that same
+
+0:03:40.239,0:03:45.760
+object so well what is that object well that's
+
+0:03:43.920,0:03:48.640
+you know fido equals the dog named sam that's kind of the trick part
+
+0:03:47.200,0:03:52.959
+and so i'm just going to kind of clear all this off and go to the next slide
+
+0:03:50.480,0:03:56.560
+if you were running this in python tutor um you would see something like this at
+
+0:03:54.480,0:04:03.840
+the moment that we enter the bark method you'll see that you'll see that the the
+
+0:04:00.400,0:04:09.200
+self variable inside of the bark method is the same as fido in the global
+
+0:04:06.560,0:04:13.760
+namespace because we said fido.bark and so then of course it's trying to get
+
+0:04:10.319,0:04:17.440
+the the name sam there and so like well what is the final
+
+0:04:15.280,0:04:19.600
+answer so i guess it's just this one right
+
+0:04:17.919,0:04:23.120
+that's the only one that does sam and then we're also doing lowercase so we
+
+0:04:21.280,0:04:28.720
+have that okay so let me i have just a couple more
+
+0:04:26.080,0:04:31.759
+questions here special methods well what is a special
+
+0:04:30.320,0:04:37.440
+method do they get called explicitly or implicitly
+
+0:04:35.840,0:04:42.880
+and the answer is that special methods are the ones that it called
+
+0:04:39.840,0:04:47.520
+implicitly for example let's say i say something like this
+
+0:04:43.919,0:04:51.040
+x less than five it doesn't look like i'm calling a
+
+0:04:49.360,0:04:54.880
+method but i actually am the method i am calling is underscore
+
+0:04:53.919,0:04:59.680
+underscore less than underscore underscore
+
+0:04:58.320,0:05:04.080
+that's an explicit that's a special method you know the explicit methods are
+
+0:05:02.240,0:05:08.240
+are examples of like well the bark method or something like that so special
+
+0:05:06.400,0:05:12.479
+methods by definition get called even though it doesn't look
+
+0:05:09.759,0:05:20.479
+like we're calling them okay second uh what does print
+
+0:05:16.720,0:05:25.840
+use to represent an object and the answer is it uses stir
+
+0:05:26.240,0:05:31.759
+so when we're printing things that's usually meant for a user of the program
+
+0:05:29.199,0:05:35.600
+not necessarily an actual programmer and so the stir is what's kind of
+
+0:05:33.919,0:05:40.880
+traditionally used for that these other two wrapper and html wrapper
+
+0:05:38.880,0:05:45.600
+are for things a programmer might look at and that's where you're gonna get um
+
+0:05:42.800,0:05:48.639
+you know at the end of a cell if you put that there you're gonna see
+
+0:05:46.880,0:05:53.199
+the wrapper and and so you know either with this regular
+
+0:05:51.840,0:05:57.840
+wrapper call maybe i'm just doing some sort of string representation
+
+0:05:54.800,0:06:01.440
+that gets output with wrapper html um there's a lot of flexibility it could be
+
+0:05:59.520,0:06:05.520
+like an html table you get that with a pandas data frame or
+
+0:06:03.680,0:06:11.039
+maybe an image you get that with a plot so lots of flexibility there
+
+0:06:08.560,0:06:17.759
+okay last question what special method must you implement
+
+0:06:12.720,0:06:25.440
+for sorting to work which of these four and the answer is less than
+
+0:06:23.120,0:06:28.080
+um if i want to do something like um if i want to be able to run code like this
+
+0:06:26.960,0:06:32.639
+where x is some object of kind of my own type if i want
+
+0:06:30.960,0:06:36.479
+to run that i need to implement this method right
+
+0:06:35.199,0:06:42.400
+this one really kind of gives me multiple things it lets me do x
+
+0:06:38.960,0:06:44.880
+um less than five and then it can also if i have a list of these objects i can
+
+0:06:44.160,0:06:50.000
+say you know l dot sort and it will use that
+
+0:06:48.400,0:06:55.680
+less than comparison for that so if you just care about sorting then
+
+0:06:53.120,0:06:57.919
+in that case then the less than lt is the only thing you care about
+
+0:06:56.880,0:07:01.039
+if you kind of care about other comparisons in general then you have to
+
+0:06:59.919,0:07:05.360
+implement greater than greater than or equal to all the other
+
+0:07:02.800,0:07:12.960
+goodies inside of your class okay so i'm gonna head over here uh to
+
+0:07:09.599,0:07:18.240
+to my notebook and let me see did i do that correctly yes i switched
+
+0:07:15.280,0:07:21.039
+and i want to talk about how we can use indexing and kind of make it a little
+
+0:07:19.599,0:07:24.560
+bit more flexible so here i just have a regular python
+
+0:07:22.960,0:07:29.199
+list l and i have these values in it and if i
+
+0:07:27.039,0:07:34.720
+look at position 2 i get 100 position 3 i get 200 um
+
+0:07:32.319,0:07:39.840
+pretty intuitive and as you all know if i put in a float like 2.5
+
+0:07:37.039,0:07:43.599
+um it complains now you could imagine that if i put something like 2.5
+
+0:07:42.400,0:07:47.599
+wouldn't it be kind of cool if it took something like halfway between
+
+0:07:45.440,0:07:51.440
+these two values you could imagine that uh it would be kind of a cool feature if
+
+0:07:49.280,0:07:57.280
+i got 150 or if i did this maybe i would get 130
+
+0:07:55.360,0:08:02.080
+right so python lists don't do that as you can see i'm doing that error
+
+0:07:58.800,0:08:06.879
+but now that we learned about the get item special method i can do that
+
+0:08:05.360,0:08:10.879
+and so kind of a common thing that you might do
+
+0:08:08.639,0:08:16.240
+is you might have a class i may call this continuous
+
+0:08:13.280,0:08:20.400
+list you might have a class that just wraps
+
+0:08:18.479,0:08:25.680
+another data structure right so i may say l and by wrapping i mean that i just
+
+0:08:22.800,0:08:29.199
+have an attribute inside of it that is really kind of containing that
+
+0:08:27.599,0:08:32.959
+last right so well what am i going to do here
+
+0:08:30.240,0:08:37.200
+um maybe i'll say something like cl equals
+
+0:08:34.080,0:08:43.760
+continuous list of l right so i'm going to do that
+
+0:08:40.800,0:08:48.800
+and and then the idea is if i want to look up continuous list of this
+
+0:08:46.640,0:08:52.560
+i'm going to do these things and normally when i'm kind of doing indexing
+
+0:08:50.480,0:08:56.800
+in the traditional way the continuous list which is one of
+
+0:08:54.000,0:09:02.000
+these will just look an l like normal if i do some sort of indexing like this
+
+0:08:59.600,0:09:05.360
+i want my continuous list to get some sort of average between
+
+0:09:03.839,0:09:11.200
+these values right so let me just try and run this
+
+0:09:07.120,0:09:16.000
+and it says that my continuous list does not support indexing right and the
+
+0:09:14.240,0:09:21.600
+reason why is i haven't implemented this method yet i haven't implemented
+
+0:09:18.240,0:09:26.800
+uh i i haven't implemented the get item method
+
+0:09:23.839,0:09:30.160
+itself and then i may pass in an index okay
+
+0:09:27.360,0:09:34.320
+and so maybe it's the first step since i'm wrapping
+
+0:09:31.040,0:09:38.160
+right so if i in my class did an index so i'm just going to
+
+0:09:36.240,0:09:42.480
+use that as an index in here right so for now maybe i'll just say
+
+0:09:39.360,0:09:48.880
+this i'll say self.l of index whatever i get may pass a one
+
+0:09:46.399,0:09:53.519
+right so let me kind of run this and so these things work the same
+
+0:09:50.640,0:09:57.279
+way do you see what's happening there when i
+
+0:09:54.000,0:10:01.360
+run this piece of code it's like well cl is a continuous list and so this is
+
+0:09:59.839,0:10:07.040
+actually a method called here right so i'm passing in
+
+0:10:03.279,0:10:11.440
+passing in two index and my continuous list to self
+
+0:10:09.519,0:10:15.839
+all right so self is my continuous list and while i have this uh
+
+0:10:14.079,0:10:18.480
+l which now refers back to the thing i set it up with
+
+0:10:17.120,0:10:21.279
+right so i'm just trying to calling on the thing beneath so i can make it work
+
+0:10:20.079,0:10:24.720
+the same way and of course i haven't done anything
+
+0:10:22.880,0:10:28.000
+fancy to deal with this yet right and so to deal with that what do i
+
+0:10:27.120,0:10:32.959
+want to do um i first need to get the values
+
+0:10:31.360,0:10:37.519
+to kind of compute this i need to get the values at index two and then three
+
+0:10:35.760,0:10:40.959
+and then take some sort of um interpolation between those
+
+0:10:39.440,0:10:43.120
+and so i need to be able to round this off but i need to be able to round it
+
+0:10:42.160,0:10:46.240
+down and so what i'm gonna do is i may say
+
+0:10:44.959,0:10:51.440
+from math import upper and lower
+
+0:10:49.519,0:10:57.330
+and let me just try and make sure i know how these work so
+
+0:10:52.640,0:11:02.720
+upper of 1.2 and lower of 1.2 [Music]
+
+0:10:59.279,0:11:08.240
+um and uh and why is that not working um oh i'm sorry
+
+0:11:05.839,0:11:12.640
+um upper is the ceiling right a ceiling is above us
+
+0:11:09.440,0:11:16.959
+and the floor is below us my apologies i shouldn't draw from my
+
+0:11:15.600,0:11:20.560
+memory i should check my notes and i see well if i round 1.2 up i get
+
+0:11:19.839,0:11:25.200
+2. i round 1.2 down i get 1. and so i can
+
+0:11:23.760,0:11:29.680
+do that with that index here right i can say something like
+
+0:11:26.160,0:11:36.800
+index 1 equals the floor of my index index 2
+
+0:11:33.040,0:11:39.839
+equals um equals the ceiling of my index i might round that up and
+
+0:11:38.480,0:11:43.200
+down and uh and i guess for now maybe let me
+
+0:11:41.760,0:11:49.440
+just kind of do my my lower index so this will just run
+
+0:11:46.640,0:11:53.760
+and let me clean this up a little bit so you can see more
+
+0:11:51.120,0:11:56.800
+and what i see is that right now if i put in a float
+
+0:11:55.120,0:12:02.079
+it's at least not crashing now but it's just kind of rounding 2.3
+
+0:11:59.839,0:12:04.560
+down okay so what i'm going to do now is i'm going to get the two values i'm
+
+0:12:03.200,0:12:12.000
+going to get value 1 equals self.l of
+
+0:12:08.320,0:12:17.839
+index 1. and value two will be self.l of uh index two
+
+0:12:15.120,0:12:21.040
+and then i need to take some sort of um some sort of average of these right so i
+
+0:12:19.760,0:12:24.399
+think that well maybe what i'll do is i'll actually
+
+0:12:23.120,0:12:28.000
+just figure out what the difference between these two is first how much
+
+0:12:26.320,0:12:34.320
+bigger is value two than value one
+
+0:12:32.399,0:12:39.360
+okay so so so i think what i'm going to do is well first i'll kind of
+
+0:12:35.680,0:12:44.160
+return as if i'm rounding down right so this is the the position at value two
+
+0:12:42.480,0:12:48.800
+and then i want some portion of this difference right so i want
+
+0:12:46.160,0:12:53.519
+some portion of this difference and um and i need to multiply this by something
+
+0:12:50.880,0:12:57.680
+right kind of what i want to do is well if uh
+
+0:12:54.399,0:13:02.240
+if this is like 2.1 then i only want to have 10 percent of the difference added
+
+0:12:59.680,0:13:09.200
+on right 71 0.1 there um if this is something like 2.9
+
+0:13:06.240,0:13:12.480
+well then i want to add you know 0.9 of this i want to kind of capture most of
+
+0:13:10.639,0:13:15.920
+that difference between these n right and kind of above and beyond value
+
+0:13:14.480,0:13:21.279
+1. and so what is the exact exact formula here it's well
+
+0:13:18.320,0:13:25.120
+whatever my original index was minus index one right so that will get
+
+0:13:23.440,0:13:31.120
+me like the point one or the point nine so i'll say index minus
+
+0:13:26.399,0:13:36.959
+index one and let's see if this works and it works beautifully right if i say
+
+0:13:34.160,0:13:42.880
+2.5 well i get 150 that's straight that's in between these two
+
+0:13:38.959,0:13:48.560
+um if i say something like 0.5 well let's just think about that i guess
+
+0:13:45.760,0:13:52.800
+that will get me halfway between one and three so hopefully this gives me
+
+0:13:50.160,0:13:59.760
+two and it does and and if i say something like 0.00101
+
+0:13:57.680,0:14:03.440
+that should be very close to one right i'm mostly there i'm going to
+
+0:14:01.360,0:14:05.839
+interpolate and so you can see that you can do very fancy things right once you
+
+0:14:04.959,0:14:09.279
+can use get item you can uh you know for example
+
+0:14:07.920,0:14:12.399
+add interpolation to list and kind of build features that
+
+0:14:10.800,0:14:15.680
+python doesn't automatically come with
+

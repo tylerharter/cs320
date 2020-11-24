@@ -1,0 +1,1020 @@
+0:00:01.920,0:00:06.720
+so we've already talked a little bit about these um kind of general
+
+0:00:04.799,0:00:10.400
+principles of version control um in this video what i want to do is
+
+0:00:08.480,0:00:14.960
+get a lot more hands-on and look at an actual tool which is uh get um
+
+0:00:13.599,0:00:18.160
+so there's lots of different version controls uh control system tools out
+
+0:00:17.440,0:00:22.240
+there um there's some open source ones like
+
+0:00:19.920,0:00:28.400
+svn jet mercurial microsoft has one called team foundation
+
+0:00:25.519,0:00:32.399
+and and by far the most popular one is get which is why i want to use it
+
+0:00:30.000,0:00:35.360
+in this course now there's nothing stopping you from installing get on your
+
+0:00:34.320,0:00:38.399
+computer and kind of creating repositories with
+
+0:00:38.000,0:00:42.239
+um with your code in them and start using
+
+0:00:39.920,0:00:45.680
+that but what a lot of people often want to do
+
+0:00:42.719,0:00:48.960
+is to have other repositories also online
+
+0:00:46.879,0:00:52.480
+um both in terms of like well if my laptop dies i don't want to lose my code
+
+0:00:51.280,0:00:55.760
+and i want to make it easy for other people to see my code and so all of
+
+0:00:54.640,0:00:59.840
+these different providers have emerged that provide you
+
+0:00:58.800,0:01:04.479
+know often some free and then paid tier of get hosting
+
+0:01:02.800,0:01:07.920
+and some of the big ones are get lab bitbucket
+
+0:01:05.680,0:01:11.760
+and uh github which not too long ago microsoft
+
+0:01:08.799,0:01:13.760
+actually bought um and so where i'm using github is that's kind of the
+
+0:01:13.119,0:01:18.799
+dominant uh uh kit provider um as well
+
+0:01:17.200,0:01:21.759
+and so what i'll encourage you all to do is to go to github and sign up for a
+
+0:01:20.560,0:01:26.400
+free account on you know either during the next lab
+
+0:01:23.920,0:01:29.840
+or now if you like and when you do that you have to choose
+
+0:01:27.840,0:01:34.799
+a name and so one advice i'll give is choose a name that won't embarrass you
+
+0:01:31.840,0:01:40.320
+um it's not uncommon to put a link to your jet hub account on say a resume
+
+0:01:37.360,0:01:43.920
+right so you know i appreciate humorous names but just think about
+
+0:01:41.759,0:01:47.360
+you know if you're uh somebody interviewing you will appreciate it
+
+0:01:45.600,0:01:51.920
+and then the other thing is is well you can create sometimes
+
+0:01:48.880,0:01:54.960
+private repositories on jet hub but by default they're going to be
+
+0:01:53.360,0:01:59.040
+public and so uh be careful don't when i'm teaching
+
+0:01:57.439,0:02:03.360
+you how to use get in this class don't use it to post
+
+0:02:00.399,0:02:06.799
+um you know project work um that other people could use because we reuse
+
+0:02:04.719,0:02:09.759
+projects across semesters i want to keep that private
+
+0:02:08.160,0:02:13.040
+so a little bit of a backstory on where jet came from
+
+0:02:11.200,0:02:17.440
+um it was actually written by this guy linus torvalds
+
+0:02:14.720,0:02:20.560
+um linus is actually from his name we got linux
+
+0:02:18.319,0:02:23.840
+but he was the developer um for the linux open source operating system we're
+
+0:02:22.239,0:02:27.840
+going to be using this semester as you can imagine you know an operating
+
+0:02:25.920,0:02:31.200
+system is a huge software project lots of people involved lots of code
+
+0:02:29.760,0:02:34.160
+and so absolutely something you would want in version control
+
+0:02:32.879,0:02:38.879
+and so everybody was kind of wondering well where what version control will use
+
+0:02:36.959,0:02:44.000
+um hopefully some sort of open source one maybe like svn or something
+
+0:02:41.120,0:02:46.959
+and um and linus he's kind of this cranky
+
+0:02:44.800,0:02:50.000
+person um actually when i was searching for a photo to put on here the first
+
+0:02:48.480,0:02:56.480
+photo i saw was of him giving the camera the middle finger and so
+
+0:02:53.280,0:02:59.200
+he kind of decided to everybody's dismay well i might put in a close source
+
+0:02:58.080,0:03:02.800
+system um you know he said that he liked open
+
+0:03:01.280,0:03:06.159
+source stuff like open source operating systems but
+
+0:03:04.080,0:03:10.239
+you know he decided to put linux source code this
+
+0:03:07.360,0:03:14.640
+most famous open source project and a bit keeper for version control
+
+0:03:12.640,0:03:18.879
+which was a closed source and he thought the best at the time
+
+0:03:16.800,0:03:22.000
+and uh anyway it kind of blew up in his face because
+
+0:03:20.319,0:03:26.720
+a bit deeper eventually for political reasons stopped letting
+
+0:03:23.680,0:03:29.120
+certain linux developers use it but he was kind of in this tricky
+
+0:03:27.760,0:03:31.680
+place now where he made this decision that everybody disliked and then it
+
+0:03:30.480,0:03:37.680
+turned bad and so um to fix it he
+
+0:03:34.799,0:03:42.560
+uh built a new version control system from scratch and that was getting that
+
+0:03:39.360,0:03:46.000
+that is where linux now lives of course and so famous guy for both you know
+
+0:03:44.959,0:03:51.920
+linux and now also get very successful projects
+
+0:03:49.760,0:03:55.200
+so i'm going to be pretty hands-on here and doing some things pretty related to
+
+0:03:54.000,0:03:59.439
+what you're going to be doing for project one um for project one i've
+
+0:03:58.560,0:04:02.959
+created this kind of play repo that we're going to be
+
+0:04:02.159,0:04:07.280
+using and and i'm actually just going to go
+
+0:04:04.799,0:04:11.599
+and look at that on github right now so i'm going to just open this link and
+
+0:04:10.720,0:04:15.360
+i'm not going to be spending a lot of time on the slides that's more for your
+
+0:04:13.680,0:04:20.320
+um kind of reference so i'm going to come here um to github
+
+0:04:18.560,0:04:23.040
+and if you look in these urls there will usually be two parts to them the first
+
+0:04:21.919,0:04:26.800
+part is a username so my github username is
+
+0:04:25.520,0:04:30.639
+just tyler harder and then i might have multiple
+
+0:04:28.080,0:04:36.160
+repositories that are public on here and this one is just cs320-p1
+
+0:04:34.160,0:04:42.800
+and so in this repository i can see the code and there's this one file
+
+0:04:38.720,0:04:47.120
+wc dot pi that stands for word count dot pi and there's some code there and
+
+0:04:45.680,0:04:50.560
+if i hit back um i can see while there's no releases
+
+0:04:48.960,0:04:55.600
+there's no tags um i can look at these commits if i want
+
+0:04:53.280,0:05:00.240
+so let me head over here to the commits and um and i see that there's these
+
+0:04:57.520,0:05:05.759
+three developers right i have steve um linus ada we're all kind of doing
+
+0:05:03.280,0:05:09.360
+these different changes right and if i want i can click on
+
+0:05:07.280,0:05:12.880
+on one of these and see what what change was made
+
+0:05:10.720,0:05:15.520
+so and this one i can see that on the left i see the old version so i see that
+
+0:05:14.720,0:05:21.680
+instead of this line of code it got a change to these
+
+0:05:19.280,0:05:25.840
+lines of code if i go back to the very first one
+
+0:05:23.360,0:05:30.720
+which i guess is this one and i see nothing on the left hand side because
+
+0:05:28.000,0:05:33.280
+this was a brand new file right so i only see the new file
+
+0:05:32.160,0:05:38.639
+on the right hand side so i can kind of go back and see all of these changes
+
+0:05:35.600,0:05:43.039
+um over time okay so i want to get this code on
+
+0:05:39.680,0:05:48.080
+to my computer or specifically the linux virtual machine that you set up in lab
+
+0:05:45.680,0:05:53.280
+so i'm going to head over to my um my terminal
+
+0:05:50.000,0:05:56.240
+and here i'm going to say uh i have the command handy you know
+
+0:05:54.560,0:06:01.039
+this is actually a good trick if i hit control r
+
+0:05:58.000,0:06:04.960
+and i start typing say like ssh it'll take me back to the last
+
+0:06:02.240,0:06:08.720
+command where i ran that so this is gonna let me connect to my virtual
+
+0:06:06.240,0:06:12.800
+machine so i'm gonna do ssh um this is the ip address of that
+
+0:06:10.240,0:06:17.360
+machine and then this is my username on that so i'm gonna connect
+
+0:06:14.080,0:06:20.880
+like that and now let me actually just type clear here so it's kind of clean
+
+0:06:19.360,0:06:23.600
+remember anything i'm typing here right now
+
+0:06:21.600,0:06:28.160
+is not running on my laptop it's running on that large
+
+0:06:24.720,0:06:31.840
+virtual machine in google's cloud and it just so happens that
+
+0:06:29.520,0:06:34.319
+based on the directions we gave a get is already installed here so i can just run
+
+0:06:33.520,0:06:39.199
+jet like that and i get maybe more uh
+
+0:06:37.360,0:06:42.720
+directions than i'd like right i get this usage line
+
+0:06:40.720,0:06:45.360
+get all these things in brackets are optional
+
+0:06:44.160,0:06:47.759
+right so i can run all those things and there's all these different commands and
+
+0:06:47.280,0:06:50.880
+so maybe i'll do that first i'll say get
+
+0:06:50.000,0:06:54.160
+dash dash version and see what that gives me so
+
+0:06:52.880,0:06:58.759
+i'll say get dash dash version and i can see i'm on
+
+0:06:56.639,0:07:01.520
+version 2.17.1 and
+
+0:07:00.319,0:07:04.639
+that's a little important to note sometimes i mean get is evolving over
+
+0:07:03.759,0:07:07.039
+time so if you're looking for tutorials you
+
+0:07:05.840,0:07:09.039
+might want to make sure you're on the right
+
+0:07:07.680,0:07:12.800
+the right version but hopefully most of the stuff i'm showing hasn't isn't kind
+
+0:07:10.720,0:07:19.440
+of changing a lot currently um so if i say ls
+
+0:07:16.240,0:07:22.960
+here i am i'm in let me run pwd i'm in my home directory i have a bunch
+
+0:07:21.440,0:07:30.319
+of stuff here and um and i want to get this code from
+
+0:07:26.720,0:07:33.919
+github onto my virtual machine and so the way i'm gonna do that is i'm
+
+0:07:31.440,0:07:36.080
+gonna head back here and and go back to the project
+
+0:07:34.800,0:07:41.199
+and you see there's this button here that says get the code
+
+0:07:38.240,0:07:45.840
+and and here you can see that this ends uh
+
+0:07:42.720,0:07:50.000
+in uh dot debt and it's saying with ssh i actually don't want that one
+
+0:07:46.960,0:07:55.120
+make sure that i'm using https so i can do that i can see it starts with https
+
+0:07:52.639,0:07:59.039
+actually still ends with get and i want to copy that i can actually click this
+
+0:07:56.720,0:08:02.960
+button or copy like normal and i can use this to pull down the code
+
+0:08:01.759,0:08:06.560
+uh to my computer so so let me do that i'm going to say
+
+0:08:05.840,0:08:10.479
+get clone a clone is like a download of the
+
+0:08:09.520,0:08:13.680
+code and i'm going to paste you know this
+
+0:08:12.000,0:08:19.520
+thing that i copied i'm going to copy that and paste that over here
+
+0:08:16.800,0:08:27.199
+and and basically it downloaded it and it created a directory
+
+0:08:21.759,0:08:31.120
+called cs320-p1 after i ran this get clone command and
+
+0:08:29.360,0:08:37.200
+so i'm going to cd to that cd to the 320-p1
+
+0:08:34.159,0:08:40.479
+directory and i say ls and sure enough here i see that same word
+
+0:08:39.599,0:08:44.000
+count.hi file that that we saw on the on the
+
+0:08:42.959,0:08:46.880
+website and so maybe actually let me just try
+
+0:08:45.519,0:08:52.959
+running that thing i'm going to say python3
+
+0:08:49.480,0:08:57.200
+wordcount.pie and i get this nice usage line
+
+0:08:54.080,0:09:00.480
+python3 wordcount.pi you see now this is just kind of a convention right
+
+0:08:58.560,0:09:04.399
+when i have these kinds of brackets i means i actually need something here um
+
+0:09:03.440,0:09:07.839
+this means like an or so i see that i can say something
+
+0:09:06.880,0:09:13.040
+like word count dot three word count dot pi
+
+0:09:11.040,0:09:17.040
+and then i have to put a file name here and then i can say either all
+
+0:09:14.560,0:09:19.519
+or a specific word all right so let me back this off
+
+0:09:18.000,0:09:23.200
+i i have to get some sort of file here to run this on so i'm gonna do this i'm
+
+0:09:21.200,0:09:29.440
+going to say echo a a a b c c
+
+0:09:27.200,0:09:33.839
+and uh well remember if i do echo that just drove straight to the screen
+
+0:09:31.360,0:09:42.519
+or i can put it in a file and i'm going to put that in a file called example.txt
+
+0:09:39.040,0:09:46.560
+and now if i use cat to look inside of example.txt
+
+0:09:44.240,0:09:50.560
+i see that i get the same stuff that i echoed
+
+0:09:47.440,0:09:55.360
+into that file okay so now i'm gonna run this thing
+
+0:09:51.040,0:10:02.240
+python wordcount.pi example.txt all python3 wordcount.pi
+
+0:09:59.160,0:10:05.519
+example.txt and then all and i can kind of see what this program
+
+0:10:04.560,0:10:11.120
+is doing right it uh is taking in a file and
+
+0:10:08.880,0:10:14.640
+counting the words in it i mean a word is something with a space between it
+
+0:10:12.959,0:10:18.480
+and giving me back a dictionary to show me how often each word occurs i guess i
+
+0:10:16.320,0:10:24.160
+get three a's um you know one b and uh and two c's
+
+0:10:22.320,0:10:27.279
+right so that's the program and um and you're gonna be using this
+
+0:10:25.760,0:10:31.200
+for your for your project are you gonna be analyzing
+
+0:10:28.720,0:10:35.120
+uh different versions of this program okay so that's the current version
+
+0:10:33.279,0:10:39.600
+um let me try doing this i want to actually
+
+0:10:36.560,0:10:42.959
+see um i kind of want to see like the different
+
+0:10:40.800,0:10:46.240
+versions and so if i say ls i just see that there's these two things here
+
+0:10:44.560,0:10:52.640
+let me show you another version of ls if i say ls dash
+
+0:10:48.240,0:10:56.720
+a that's saying show me all the files and so when i do that i get these things
+
+0:10:54.320,0:11:00.399
+too and i also get some other stuff so it turns out on linux anything that
+
+0:10:58.240,0:11:04.880
+starts with a period is a hidden file right so i don't get to
+
+0:11:02.720,0:11:10.160
+see those hidden files unless i say um dash a so what are these three things
+
+0:11:08.000,0:11:15.680
+um dot is a little silly that just means that's the current directory i'm in
+
+0:11:12.560,0:11:19.839
+dot dot means um one directory up and then i have this dot get and it
+
+0:11:17.440,0:11:23.760
+turns out that this dot get directory contains all the information about all
+
+0:11:21.760,0:11:27.040
+the previous versions of this code and so it's kind of nice
+
+0:11:25.920,0:11:30.720
+right when i'm working here i'm just acting like i'm working with
+
+0:11:28.399,0:11:34.000
+regular files and um and then there's other versions kind of
+
+0:11:32.079,0:11:37.200
+hidden here that i can access if i run various tools but i
+
+0:11:35.519,0:11:42.800
+don't have to think about kit all the time i can just work with my files
+
+0:11:39.760,0:11:47.440
+um like i normally would so you know what is not very uh convenient
+
+0:11:45.839,0:11:50.880
+would be to look in there directly and suddenly run my git commands and so
+
+0:11:49.360,0:11:54.800
+one bit command that you're going to use a lot is called
+
+0:11:52.560,0:11:59.279
+get log and what that log does is it shows me a
+
+0:11:58.000,0:12:03.279
+history of all the commits and so i can use the
+
+0:12:01.279,0:12:07.279
+arrow keys to go up and down and these are the same commits um that
+
+0:12:05.920,0:12:11.360
+we saw on the website and let me just look at what's going on
+
+0:12:08.880,0:12:16.480
+here there's four pieces of information one is that i can see a message for each
+
+0:12:14.800,0:12:19.839
+command maybe let me just go back here too
+
+0:12:16.880,0:12:24.000
+and um i can see like this this one right
+
+0:12:20.399,0:12:27.040
+only make one pass over list account all i have the exact same thing here only
+
+0:12:26.160,0:12:31.440
+make one pass over list to commit all um what else do
+
+0:12:29.360,0:12:36.399
+i have here i have um the date i think that's the self-explanatory
+
+0:12:33.600,0:12:40.240
+um who did it and their email address and
+
+0:12:36.880,0:12:42.399
+then finally i have up here a commit number and it's kind of a funny looking
+
+0:12:41.680,0:12:45.519
+number right it's not a nice number like one
+
+0:12:44.079,0:12:48.800
+two three four and and you can see it's it's what's
+
+0:12:47.040,0:12:53.440
+funny about is it actually has letters in it and that's because it's what we
+
+0:12:51.519,0:12:57.760
+call a hexadecimal number and and you're familiar with
+
+0:12:55.440,0:13:02.800
+decimal numbers the decimal numbers have digits 0 1 2 all the way up to 9 right
+
+0:13:01.680,0:13:06.320
+there's 10 digits in the decimal system in a hexadecimal
+
+0:13:05.440,0:13:11.360
+system there's actually 16 different digits
+
+0:13:09.600,0:13:16.160
+and and so what that means is that well we have 0 1 2
+
+0:13:12.959,0:13:20.639
+3 all the way up to 9 but then 10 instead of having a 1 0 for 10 we have
+
+0:13:18.800,0:13:25.120
+just a single character that represents 10
+
+0:13:21.440,0:13:28.560
+and that character is a and uh and we have a single character which represents
+
+0:13:26.880,0:13:32.240
+11 and that's b and then you know c is 12 and all the
+
+0:13:31.200,0:13:35.519
+way up to f and that's why you're going to see the
+
+0:13:33.519,0:13:39.199
+letters a through f and this number in addition to
+
+0:13:36.800,0:13:42.160
+uh regular digits that we're familiar with so don't overthink it right it's
+
+0:13:40.639,0:13:45.760
+just a number it just looks a little weird
+
+0:13:42.959,0:13:49.120
+um it's a hexadecimal number um but it doesn't hurt us
+
+0:13:47.120,0:13:53.199
+okay so that's all the information there and i can scroll down
+
+0:13:51.120,0:13:56.880
+now let's say i wanted to go back and see
+
+0:13:54.720,0:14:02.000
+see an earlier version of the code like let's say i want to see this version
+
+0:13:58.560,0:14:05.920
+what i can do is i can copy that like so my clipboard and i somehow have to get
+
+0:14:04.240,0:14:09.440
+out of this now and the way i'm going to escape out of
+
+0:14:07.519,0:14:13.440
+this is i'm going to hit the q on the keyboard q is for quit so i type
+
+0:14:12.480,0:14:19.440
+q and i'm back to normal now okay
+
+0:14:16.639,0:14:22.959
+and so what i can do is i can say get checkout
+
+0:14:21.040,0:14:27.120
+and then i paste this thing right that i just copy and i paste this down here
+
+0:14:25.360,0:14:30.079
+and this is going to take me to that version don't mix this up the other
+
+0:14:28.720,0:14:32.880
+command we used earlier to download everything was
+
+0:14:30.720,0:14:35.519
+clone the clone kind of pulled everything down
+
+0:14:33.760,0:14:40.880
+checkout is taking me to a specific version so i'm going to run that
+
+0:14:38.160,0:14:43.920
+and i get a lot of information here i'm in detached head state
+
+0:14:42.720,0:14:49.199
+we'll learn what that is it's not as gruesome as it sounds
+
+0:14:45.920,0:14:53.360
+and i can say ls and i still have this file here
+
+0:14:50.320,0:14:56.079
+now if i go back and i run that program again
+
+0:14:53.760,0:14:59.440
+like i did before you see that i'm getting different output before
+
+0:14:58.079,0:15:03.199
+because when i went back to an earlier version well
+
+0:15:01.199,0:15:08.399
+this program is different right and it behaves a little bit differently
+
+0:15:05.120,0:15:12.639
+um that's to be expected okay now let's say i want to go back to
+
+0:15:10.800,0:15:15.440
+that latest version i can kind of switch any version i want
+
+0:15:13.680,0:15:20.000
+actually one more thing let me run jet log here this is confusing to people
+
+0:15:20.480,0:15:24.880
+hey this is the one i had checked out right
+
+0:15:25.279,0:15:32.240
+60 something right that's what i checked out notice that when i run get log
+
+0:15:29.519,0:15:34.560
+it shows me the one i'm currently on and everything before that and since this is
+
+0:15:33.759,0:15:39.600
+the first one there is nothing before that right
+
+0:15:37.600,0:15:42.639
+so that can be a little confusing but if i if i want to get back to kind of the
+
+0:15:41.040,0:15:47.680
+latest history right i can start all the way up here
+
+0:15:43.920,0:15:53.600
+um i know that i can do get checkout and this thing okay now
+
+0:15:51.040,0:15:56.560
+it turns out that that there are actually
+
+0:15:54.320,0:16:00.880
+um some shortcuts for that and one of them is i can
+
+0:15:57.360,0:16:06.959
+say master or master right now is another name or this commit number
+
+0:16:03.920,0:16:10.079
+right so i could say get check out and paste that thing get back to the
+
+0:16:08.959,0:16:13.440
+latest actually i think i didn't copy it that
+
+0:16:11.440,0:16:18.320
+was the wrong one but i could paste that or i can just say get check out master
+
+0:16:15.839,0:16:22.240
+and now if i say get log again i have that same history i had be
+
+0:16:20.079,0:16:26.079
+before right and the master is kind of the end
+
+0:16:23.360,0:16:29.680
+um and like i've said uh you know that's going to eventually be
+
+0:16:26.959,0:16:35.040
+renamed uh maine which i think is a more appropriate
+
+0:16:30.800,0:16:39.120
+um name okay so so here i am i'm at the most recent history again and let's say
+
+0:16:37.279,0:16:44.560
+i want to make some changes right i want to write some new history
+
+0:16:40.880,0:16:49.680
+um how can i do that right how can i edit this file well it turns out that
+
+0:16:46.959,0:16:54.160
+since we're in an ssh session um i can't open up something like idle
+
+0:16:52.320,0:16:58.560
+or any sort of program that has a graphical user interface
+
+0:16:56.160,0:17:03.199
+i need to use what is is basically called like a terminal
+
+0:17:00.160,0:17:07.760
+um editor right i have to do everything inside of this terminal window
+
+0:17:05.280,0:17:12.559
+and um and it turns out well there's a few of them
+
+0:17:09.039,0:17:14.880
+um one that i use uh you know all the time
+
+0:17:12.959,0:17:19.679
+personally is emacs i couldn't if i wanted to say uh
+
+0:17:16.400,0:17:23.120
+emacs word wordcount.pi and that would bring up on the file and i could edit it
+
+0:17:22.079,0:17:27.439
+in here i'm not going to recommend that because
+
+0:17:24.959,0:17:31.360
+it kind of has a steep learning curve other ones that people are use are word
+
+0:17:29.600,0:17:35.760
+them i do ven apply also a steep learning curve for
+
+0:17:33.679,0:17:40.000
+this class where i use nano nano is kind of easy to pick up
+
+0:17:37.200,0:17:43.360
+for now somebody say nano word count dot pi
+
+0:17:41.039,0:17:48.080
+and i can see oh here's a file and i can edit it i can just have use
+
+0:17:44.840,0:17:53.120
+the keyboard move around if i use the mouse that does nothing right i'm
+
+0:17:50.400,0:17:56.559
+clicking down here um i only can use the keyboard
+
+0:17:53.840,0:18:00.080
+to get around the arrow keys okay so this is the program
+
+0:17:58.000,0:18:06.720
+and um let me just make a make some sort of change
+
+0:18:01.520,0:18:10.880
+um like maybe oh i'm going to print below here just to show that i'm making
+
+0:18:09.520,0:18:16.640
+some sort of change and and i want to save this file and
+
+0:18:14.240,0:18:19.440
+what i like about nano is that all of these things down here at the bottom are
+
+0:18:18.160,0:18:24.000
+shortcuts and and it turns out that the way the
+
+0:18:22.320,0:18:30.400
+shortcuts work is that the little hat symbol means
+
+0:18:27.120,0:18:35.360
+the control on on my keyboard right so when i want to save this file i
+
+0:18:33.760,0:18:40.559
+want to write it out so i'm going to say control
+
+0:18:37.120,0:18:44.400
+control oh and and then it asks me what i want to save it as the same thing
+
+0:18:42.000,0:18:47.919
+word count top pi so i'm gonna hit enter and um and it saved it okay so how do i
+
+0:18:46.720,0:18:55.440
+get out of here um i can do control x
+
+0:18:51.200,0:19:02.400
+to exit so control x and i'm out of here and now if i actually run run
+
+0:18:58.799,0:19:06.960
+word count dot pi again python 3 word count top hi
+
+0:19:03.919,0:19:12.080
+i can see that i actually made my change and everything is good
+
+0:19:08.840,0:19:16.799
+okay now if i run let me teach you a new command
+
+0:19:15.360,0:19:19.919
+here i'm gonna run get status
+
+0:19:20.080,0:19:28.640
+what i see is that it recognizes that i modified this file
+
+0:19:24.960,0:19:32.480
+okay but it's not really quite ready to be committed yet
+
+0:19:29.760,0:19:35.679
+right it's not part of the history and and so
+
+0:19:34.480,0:19:39.840
+what i really want to do is i want to say hey the file is a good version of it
+
+0:19:37.440,0:19:42.240
+i want to lock it and into my history and so the first step i'm going to have
+
+0:19:41.200,0:19:45.600
+to do is i'm going to have to have this get add
+
+0:19:43.360,0:19:50.960
+and then a file name and so i'm going to do that add
+
+0:19:47.679,0:19:54.480
+and then word count dot pi let me run get status again
+
+0:19:52.799,0:19:57.440
+and now i can see hey this one is ready to be emitted
+
+0:19:56.400,0:20:00.640
+and the reason why i have to specifically add certain files
+
+0:19:59.520,0:20:05.919
+is that there are other files that i don't want to be part of this right
+
+0:20:03.440,0:20:08.640
+for example on track files example.txt i was just playing around with that
+
+0:20:07.360,0:20:13.440
+i don't want that to be a part of the official history for this project
+
+0:20:11.520,0:20:18.480
+right so after i've done that i can run another command which is git
+
+0:20:15.280,0:20:20.960
+commit and and so after i've added i have to do that
+
+0:20:19.200,0:20:23.200
+and notice that i'm adding this file even though it was already part of the
+
+0:20:22.159,0:20:26.480
+project whenever i change something i have to add it again
+
+0:20:25.280,0:20:32.080
+so just get used to that let me do git commit and then
+
+0:20:29.600,0:20:35.440
+uh what do i want to do here well i'm going to say git commit and then dash
+
+0:20:33.760,0:20:40.880
+m for message and i can put a string here and
+
+0:20:37.039,0:20:44.080
+um and i may say my new changes right so i'm going to commit my new
+
+0:20:42.159,0:20:48.080
+changes just like so and i run into a problem it says please
+
+0:20:46.799,0:20:52.400
+tell me who you are all right this is my first time using it
+
+0:20:50.559,0:20:55.919
+and so i need to make sure that um i have both my email address and my
+
+0:20:55.200,0:20:59.200
+name as part of the project and they're
+
+0:20:56.880,0:21:04.480
+giving me these nice commands to run when i copy and paste this thing
+
+0:21:02.240,0:21:10.480
+and let me back off that's not my email address i'm going to fix that
+
+0:21:07.120,0:21:13.360
+or at west.edu and then i have to run this other thing
+
+0:21:14.159,0:21:25.679
+right like that i'm going to say tyler fine for now and then if i go up again i
+
+0:21:22.720,0:21:29.280
+can actually run well where was it here it was i'm just
+
+0:21:27.919,0:21:33.200
+using the up and down arrow to see previously what i had
+
+0:21:30.720,0:21:36.080
+i made run this again get commit and then a message and then my changes when
+
+0:21:35.039,0:21:41.440
+i do that and it worked and um and so now if i say
+
+0:21:39.280,0:21:44.320
+git status you know there's nothing really changed
+
+0:21:42.799,0:21:48.240
+right i mean i'm not tracking that still but there's no changes
+
+0:21:45.679,0:21:52.960
+and if i say get log what i see at the top is that the most recent commit
+
+0:21:50.960,0:21:59.120
+was what i did today right here are my new changes and i can see the other ones
+
+0:21:55.280,0:22:04.559
+as well okay so let me let me head back here briefly
+
+0:22:02.640,0:22:09.440
+to what i want to talk about now before i wrap up are these kind of horrible
+
+0:22:07.360,0:22:12.000
+um commit numbers those are hard to keep track of so we want more convenient
+
+0:22:11.600,0:22:15.280
+names for them we've already seen one right we
+
+0:22:13.760,0:22:20.159
+see that the master uh refers to this most recent one it's
+
+0:22:17.919,0:22:25.600
+kind of a shortcut name for it and so let me just head down here
+
+0:22:24.000,0:22:29.360
+right where i have i kind of all these um myths
+
+0:22:27.120,0:22:33.120
+and each commit is kind of based off another one
+
+0:22:30.559,0:22:37.200
+and we can give them names or labels and there's two kinds of names
+
+0:22:34.400,0:22:41.919
+uh there's tags and there's branches and and there's always this default
+
+0:22:39.360,0:22:46.159
+branch called master and that refers to mostly recent work
+
+0:22:44.080,0:22:49.440
+i can for example here i have an intern branch maybe that's for a subproject or
+
+0:22:47.760,0:22:54.159
+an experimental branch so i can add these labels manually to
+
+0:22:51.600,0:22:58.080
+these or i can also create tags tags are also a manual label and the
+
+0:22:56.080,0:23:01.440
+difference is you saw that with master when i did a commit
+
+0:22:59.280,0:23:06.080
+it moved to my new commit so as i keep committing
+
+0:23:02.320,0:23:09.600
+branches move along with me whereas tags are permanently stocked to the same
+
+0:23:08.240,0:23:13.200
+commit number so what i'll do is i'll use tags for
+
+0:23:11.679,0:23:16.000
+releases right because that's a long-term thing
+
+0:23:14.400,0:23:20.080
+and i'll use branches to kind of keep track of where i'm currently
+
+0:23:18.080,0:23:22.720
+working and overall i'm rarely going to be actually using
+
+0:23:21.440,0:23:27.120
+specific commit numbers i'm going to be using these labels instead
+
+0:23:25.120,0:23:35.280
+we're going to pick up more next week with some more
+
+0:23:28.400,0:23:35.280
+examples of merging i'll break off here
+

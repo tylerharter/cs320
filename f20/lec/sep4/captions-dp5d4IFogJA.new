@@ -1,0 +1,1026 @@
+0:00:02.800,0:00:07.359
+hello so we're gonna pick up where we left off
+
+0:00:05.040,0:00:10.080
+last time uh answering this big question will my program
+
+0:00:08.400,0:00:13.840
+run on someone else's computer this is a question of reproducibility
+
+0:00:11.920,0:00:17.520
+and so last time we saw that well we have to make sure the hardware fits and
+
+0:00:16.000,0:00:20.240
+that's not so much our concern because the python interpreter takes care of
+
+0:00:19.039,0:00:22.960
+that for us um what we have to worry about more is
+
+0:00:21.520,0:00:25.760
+the operating system so we learned about how
+
+0:00:23.760,0:00:30.400
+um if we're using virtual machines it's a little bit easier to tell somebody you
+
+0:00:27.519,0:00:34.480
+must use ubuntu linux or whatever i used to run my software it makes it kind of
+
+0:00:31.920,0:00:37.440
+more acceptable and not as expensive the third thing that we have to worry
+
+0:00:35.680,0:00:42.079
+about matching up to make sure our program runs the same for somebody else
+
+0:00:39.520,0:00:45.200
+are dependencies and by dependencies i mean
+
+0:00:43.040,0:00:48.879
+for example the things you might import when you're running your program right
+
+0:00:46.960,0:00:52.079
+maybe i import pandas maybe import sqlite
+
+0:00:49.920,0:00:54.719
+a lot of these dependencies are modules that i'm importing those modules are in
+
+0:00:53.760,0:00:59.120
+packages by packages that i installed with pep
+
+0:00:56.960,0:01:02.320
+and so what i really have to worry about is not necessarily that somebody has the
+
+0:01:00.800,0:01:06.000
+exact same packages that i have but they have the
+
+0:01:04.320,0:01:09.360
+same versions of those packages all these things
+
+0:01:06.640,0:01:11.920
+are being updated over time so let me give you an example here
+
+0:01:10.640,0:01:16.720
+right so here i have my sample program.pi i am importing
+
+0:01:14.080,0:01:19.920
+uh my pandas module right so this program depends on pandas
+
+0:01:18.720,0:01:22.640
+and one of the coolest things that we can actually do is we can see what
+
+0:01:21.200,0:01:26.000
+version we have so you can see i'm doing this print here
+
+0:01:23.759,0:01:28.640
+i do pandas dot underscore underscore version
+
+0:01:26.799,0:01:32.240
+underscore underscore that's a great debugging thing to do with it you can
+
+0:01:30.960,0:01:35.680
+share your code with somebody you get the sense that it's running a little bit
+
+0:01:34.240,0:01:39.920
+differently for them right and so how do you get different
+
+0:01:37.439,0:01:42.479
+versions well when i do a pip install pandas
+
+0:01:40.799,0:01:46.320
+that's probably going to grab the latest version of the software for me
+
+0:01:44.799,0:01:49.360
+but if i wanted to i could do something else i could say pip install pandas
+
+0:01:48.079,0:01:52.799
+equal equal and then put a specific version number
+
+0:01:51.600,0:01:56.240
+and by doing that i could do different versions of the software
+
+0:01:55.119,0:01:59.200
+and then so one thing that you might want to think about doing is if you're
+
+0:01:57.439,0:02:01.680
+starting a new project and you want your code to
+
+0:02:00.159,0:02:04.880
+kind of have a long life span where it keeps working is you might want to
+
+0:02:03.600,0:02:08.080
+figure out what the most recent version of the
+
+0:02:05.439,0:02:10.560
+package is say pandas write your code for that version
+
+0:02:09.360,0:02:14.720
+and then tell anybody who wants to use your tone in the future that they still
+
+0:02:12.160,0:02:18.160
+have to use that version that you used even if um there are newer versions
+
+0:02:16.800,0:02:23.680
+available right that might not be compatible with your code anymore
+
+0:02:21.599,0:02:26.480
+so you can see this idea of versioning is really important to
+
+0:02:24.879,0:02:28.720
+reproduce ability so let me motivate a little bit more while we care about
+
+0:02:27.440,0:02:32.239
+different versions there's actually lots of use cases here and lay down some
+
+0:02:30.319,0:02:35.599
+basic concepts um in this video and then the next video
+
+0:02:34.160,0:02:37.360
+we're actually looking at a real tool which is
+
+0:02:36.080,0:02:43.120
+get but for now i'm just trying to kind of keep things general
+
+0:02:39.599,0:02:45.760
+um so versions uh we are really kind of about tracking history right i mean
+
+0:02:44.560,0:02:49.280
+there's different versions or kind of checkpoints of some piece of
+
+0:02:48.080,0:02:53.360
+work over time and i'm guessing most of you have seen
+
+0:02:50.959,0:02:56.640
+this in other tools that automatically track history
+
+0:02:54.560,0:03:00.239
+um for example if you are using google documents
+
+0:02:58.000,0:03:02.800
+um there's this option to see history like on the right
+
+0:03:01.360,0:03:05.840
+and you can see a number of things there right it'll mark up maybe crossing off
+
+0:03:04.720,0:03:09.519
+or highlighting what has changed between different
+
+0:03:07.519,0:03:13.599
+versions of the document um you can on the right see who is
+
+0:03:12.000,0:03:17.840
+changing it right maybe i'm working with my friends on
+
+0:03:14.800,0:03:19.760
+kind of a team paper and different people made different edits and i kind
+
+0:03:18.959,0:03:22.959
+of want to when i come back to the document see
+
+0:03:21.519,0:03:26.000
+what other people have done and of course we can also see when these
+
+0:03:24.799,0:03:29.200
+things have changed right so this is all happening
+
+0:03:27.200,0:03:32.400
+automatically it's nice it's easy to use it happens even if you don't think about
+
+0:03:30.640,0:03:35.440
+it um a more heavyweight alternative is
+
+0:03:34.000,0:03:39.680
+version control systems which is abbreviated vcs
+
+0:03:37.599,0:03:42.560
+and these are not happening automatically but they're doing a lot of
+
+0:03:41.440,0:03:46.959
+the same um things and they're kind of useful for
+
+0:03:45.360,0:03:51.200
+larger projects um and that could be anything right it
+
+0:03:48.799,0:03:56.480
+could be code as maybe the main example um and these are going to be useful when
+
+0:03:52.720,0:04:00.560
+we're writing projects that maybe have dozens of different python files um you
+
+0:03:59.360,0:04:03.680
+could use it for papers right kind of more complicated papers or you
+
+0:04:02.239,0:04:07.200
+can imagine books might have many files right maybe
+
+0:04:05.200,0:04:10.400
+there's images and other things um websites you can use version control
+
+0:04:09.200,0:04:13.680
+for all of this and instead of just managing this one
+
+0:04:12.000,0:04:16.639
+document the version control will have a consistent point of history
+
+0:04:15.200,0:04:20.799
+that looks across all these different files um at the same time and all these
+
+0:04:18.720,0:04:24.320
+things will be long in something called a repository for each project i might
+
+0:04:22.639,0:04:27.199
+create a repository and put all my files in there
+
+0:04:24.880,0:04:30.639
+and start tracking the history okay so another difference and besides having
+
+0:04:28.880,0:04:35.280
+additional more files is that i as the user decide when i
+
+0:04:33.680,0:04:40.000
+should take a checkpoint at a specific point in time right and
+
+0:04:38.320,0:04:43.520
+in the google documents it was kind of automatically happening
+
+0:04:41.600,0:04:45.840
+which was easy but there's lots of reasons i might want to do that manually
+
+0:04:44.880,0:04:49.120
+for example um if google is doing it maybe they
+
+0:04:47.360,0:04:53.120
+choose a bad point to choose you know kind of a snapshot and history
+
+0:04:51.759,0:04:55.600
+maybe i was in the middle of writing a paragraph and they kind of took a
+
+0:04:54.240,0:04:58.800
+snapshot right in the middle when we do it manually i can choose like
+
+0:04:57.120,0:05:03.440
+okay this is a good version of the work that isn't somehow
+
+0:05:00.639,0:05:07.840
+you know semi-complete right if i make sense in and of itself even though i'm
+
+0:05:05.120,0:05:11.520
+gonna keep working on it and so in this new language of version control systems
+
+0:05:09.680,0:05:16.800
+these snapshots or checkpoints are comments commit is the
+
+0:05:12.880,0:05:20.639
+word i may be using um going forward um another difference with these version
+
+0:05:18.880,0:05:24.479
+control systems is that you have to have a little bit of documentation you have
+
+0:05:22.160,0:05:27.759
+to say what you are doing um before with google docs we could see you know the
+
+0:05:25.919,0:05:30.720
+who the what and the when um we're gonna get all that with real
+
+0:05:29.120,0:05:32.800
+version control systems but we'll also be writing some comments like why i made
+
+0:05:32.320,0:05:38.720
+these changes or what the changes were
+
+0:05:36.320,0:05:43.520
+um another uh difference that kind of gets a little bit hairy
+
+0:05:39.759,0:05:46.720
+is that history is not just the simple sequence of versions right history can
+
+0:05:45.759,0:05:50.320
+actually uh branch out and then kind of be merged
+
+0:05:48.720,0:05:53.840
+back together and so let me just give it a concrete example here
+
+0:05:52.240,0:05:59.680
+let's say there's two project partners who are working together on
+
+0:05:56.000,0:06:03.280
+this homework.pie and one of the partners is diligently at school maybe
+
+0:06:01.759,0:06:06.319
+in the lab working at this and let's say the other one is going on
+
+0:06:04.720,0:06:08.400
+vacation but still trying to help out from
+
+0:06:06.800,0:06:12.080
+from the plane and let's say that this plane does not have
+
+0:06:10.240,0:06:14.639
+wi-fi becoming less and less common but let's say for the sake of argument no
+
+0:06:13.520,0:06:18.560
+wi-fi and and so they're both working this at
+
+0:06:16.479,0:06:23.280
+the same time but there's no networking connectivity between them and they might
+
+0:06:21.199,0:06:26.960
+both make a bunch of changes to the code and so the big question is here is what
+
+0:06:25.120,0:06:30.400
+will happen when the plane lands they've kind of branched out and
+
+0:06:28.720,0:06:33.440
+made different changes how can we make one
+
+0:06:31.120,0:06:35.759
+a good version now it's possible that they were editing completely different
+
+0:06:34.720,0:06:40.400
+parts of the file and we can automatically kind of
+
+0:06:38.000,0:06:42.479
+reconcile that these tools can often do that
+
+0:06:41.280,0:06:47.840
+but it's also possible there's going to be a conflict maybe
+
+0:06:44.720,0:06:50.240
+uh maybe um they were making kind of incompatible
+
+0:06:48.880,0:06:52.960
+changes maybe they're editing the same function at the same time and it doesn't
+
+0:06:51.680,0:06:55.120
+really make sense to kind of combine that code it's like one version or the
+
+0:06:54.400,0:06:58.240
+other um in those cases where i actually have
+
+0:06:56.560,0:07:02.240
+to have a human that looks at it and figures out how to merge these
+
+0:06:59.759,0:07:05.120
+uh kind of conflicts back together so so when we have these more complicated
+
+0:07:03.360,0:07:07.759
+tools we can have this kind of different working environments where maybe not
+
+0:07:06.479,0:07:12.479
+everybody is online um at the same time um
+
+0:07:11.039,0:07:15.360
+as i try to explain these concepts i'm going to be drawing a lot of pictures
+
+0:07:13.840,0:07:20.240
+like this i may have a an x-axis which is time
+
+0:07:18.560,0:07:24.400
+and then i may have each of these versions or commits as a as a gray box
+
+0:07:22.720,0:07:28.720
+and you can see on top of the gray boxes i see what's changing in each version
+
+0:07:26.479,0:07:31.840
+and then inside you can see some version of the files
+
+0:07:29.520,0:07:34.800
+so for example in the version one or i might just start
+
+0:07:32.639,0:07:38.319
+saying commit one um i have one file hello.pi
+
+0:07:35.680,0:07:41.599
+and that prints something it prints hi um
+
+0:07:38.800,0:07:47.039
+in the next version i made some changes to that file i print hello and world
+
+0:07:44.319,0:07:50.319
+um in the third version i not only make changes that file but i add this new
+
+0:07:49.280,0:07:53.039
+module right so and you can see why it's
+
+0:07:51.840,0:07:56.319
+important here that i have some sort of consistent view across multiple files
+
+0:07:54.560,0:08:01.120
+right it doesn't make sense for um hello.pi to call uh a method or i'm
+
+0:08:00.080,0:08:05.440
+sorry a function and drug.pi and this i also have that
+
+0:08:03.520,0:08:08.960
+same version of dog.pine right so the version control system is
+
+0:08:06.879,0:08:12.319
+going to keep track of all of these uh different versions and it's going to
+
+0:08:10.479,0:08:16.000
+let us switch between them but when you're actually kind of working
+
+0:08:14.560,0:08:19.120
+in the code at any given point in time you're just going to see
+
+0:08:16.720,0:08:21.919
+like one version that you're working on right so normally you can kind of forget
+
+0:08:20.479,0:08:26.160
+about these all these old older versions unless you want to say go
+
+0:08:24.720,0:08:28.400
+back to them or kind of do some other things
+
+0:08:28.879,0:08:33.760
+okay so there's three use cases i want to talk about for why we want to keep
+
+0:08:32.240,0:08:38.159
+track of this history and one has to do with blaming people
+
+0:08:36.399,0:08:42.240
+for bugs which is maybe not as mean as it sounds
+
+0:08:39.279,0:08:45.839
+so um here uh instead of just drawing all these files i'm going to draw both
+
+0:08:43.839,0:08:49.760
+light bulbs and bugs the light bulbs represent features in
+
+0:08:47.680,0:08:53.120
+the software good stuff which changes and evolves over time and
+
+0:08:51.519,0:08:56.800
+the bugs represent well you know what bugs are
+
+0:08:54.160,0:09:00.480
+so this first version of this code um here's me tyler
+
+0:08:58.160,0:09:03.760
+uh i i you can see there's a candle there's a kind of a basic maybe
+
+0:09:02.000,0:09:07.360
+prototype kind of thing um and uh and i want to improve that so
+
+0:09:06.080,0:09:10.880
+maybe i made some changes to the code and kind of that
+
+0:09:09.200,0:09:13.760
+improvement is represented by going from a candle to an
+
+0:09:11.680,0:09:17.360
+actual light bulb and of course whenever you're adding fancy new features
+
+0:09:15.680,0:09:19.600
+there's more opportunities to write bugs so let's say i actually introduced a bug
+
+0:09:18.880,0:09:23.440
+there but you know it wasn't a very obvious
+
+0:09:21.200,0:09:27.519
+bug and uh for most cases where you run the program you don't see it
+
+0:09:25.040,0:09:29.279
+maybe only for very particular csv files when i kind of feed those into my
+
+0:09:28.560,0:09:32.880
+program does this show up so there's a bug but
+
+0:09:31.440,0:09:36.320
+nobody knows about it it's just kind of hiding there
+
+0:09:34.160,0:09:40.959
+um no now let's say after that somebody else comes along and makes even
+
+0:09:37.760,0:09:44.080
+more improvements and they don't get rid of any bugs and don't introduce any new
+
+0:09:42.399,0:09:47.360
+bugs and so that's uh sri shruti let's say she did that
+
+0:09:45.760,0:09:51.680
+and um and let's say after she did that somebody finally notices that
+
+0:09:49.040,0:09:53.680
+hey there's a bug in this software and and so they kind of look back at the
+
+0:09:52.720,0:09:57.600
+history and who are they going to blame are they
+
+0:09:55.519,0:10:01.519
+going to be like me or sri shruti um the inclination will be to bring free
+
+0:10:00.160,0:10:05.519
+shooting it's like well you just changed the code and now it's not working for me
+
+0:10:03.600,0:10:09.920
+uh but we actually know that that's not right and i was the one who introduced
+
+0:10:07.360,0:10:12.160
+bob tyler right and so how can we figure this out
+
+0:10:10.640,0:10:17.200
+well if we have all these versions of history what we can do is we can write
+
+0:10:14.399,0:10:21.600
+you know maybe some sort of test.pie and add some new test cases in there
+
+0:10:19.279,0:10:26.240
+that actually kind of exercise this bug that when you run the test
+
+0:10:23.040,0:10:28.079
+um they will crash because that bug is there
+
+0:10:26.800,0:10:32.079
+so what we could do is we could go back and we could run that
+
+0:10:29.839,0:10:35.040
+new tester on all of these three versions we have
+
+0:10:33.519,0:10:38.480
+and that's going to be very informative because we'll see well uh it worked fine
+
+0:10:37.440,0:10:41.519
+in version one so the problem actually started in
+
+0:10:39.760,0:10:44.800
+version two and then so we're kind of blaming version
+
+0:10:43.120,0:10:48.880
+two not to be mean but to well tell me tyler hey you're the
+
+0:10:47.680,0:10:51.839
+one who should probably fix this because you introduced it you know everybody
+
+0:10:50.000,0:10:54.240
+makes bugs but this one's your job to fix
+
+0:10:52.720,0:10:57.360
+um and also kind of narrowing it down it's like well i didn't have the
+
+0:10:56.000,0:11:00.000
+vlogging commit one i had the vlogging commit too so i can look at exactly what
+
+0:10:59.040,0:11:04.000
+i changed there and that's trying to help me quickly
+
+0:11:01.519,0:11:06.240
+figure out how to fix it so that's a you first use case right we can kind of
+
+0:11:05.360,0:11:09.600
+debug more effectively especially when you
+
+0:11:07.440,0:11:14.000
+have these kind of tricky bugs that we don't really discover until you know
+
+0:11:12.560,0:11:18.000
+a long time passes right and i i've had bugs right where it was there
+
+0:11:16.160,0:11:21.600
+for over a year before anybody noticed a bunch of people are using it but it just
+
+0:11:19.839,0:11:25.040
+didn't show up okay then finally i fixed this i have my
+
+0:11:23.360,0:11:30.880
+new version that makes everything good again
+
+0:11:27.040,0:11:35.920
+um another thing that we want to do uh when we have this long history uh
+
+0:11:33.839,0:11:39.279
+there might be trade-offs between different commits right that somebody
+
+0:11:37.760,0:11:42.560
+might want to do so so here i'm kind of showing that
+
+0:11:40.480,0:11:46.480
+uh you know i have the candles at first and making a little bit better
+
+0:11:44.399,0:11:49.440
+and then in version three i both fix a bug and i make a
+
+0:11:47.680,0:11:52.720
+kind of a fundamental switch to how it works i have maybe something more
+
+0:11:50.720,0:11:56.480
+efficient like a light bulb and um and then kind of over time i'm
+
+0:11:55.360,0:12:00.560
+adding more features and uh and then you know possibly
+
+0:11:58.800,0:12:05.200
+reducing some bugs and then by version eight or commit eight i've
+
+0:12:03.760,0:12:09.200
+kind of gotten rid of some white bugs so the question here is here
+
+0:12:06.959,0:12:14.399
+which one of these would i want to use if i was a user of the software
+
+0:12:11.920,0:12:18.480
+and and i think there are some multiple uh right answers
+
+0:12:16.240,0:12:22.560
+maybe one right answer is that i want version 8
+
+0:12:19.839,0:12:27.040
+because um you know it has the most features and and there's only one bug
+
+0:12:25.600,0:12:31.279
+there's some bad answers right like maybe um nobody should ever use uh
+
+0:12:29.760,0:12:34.480
+version seven right because version seven is just
+
+0:12:32.160,0:12:38.079
+plain and simple it's worse than version eight
+
+0:12:35.600,0:12:40.800
+a reasonable person might want to use version
+
+0:12:38.800,0:12:43.920
+three right version three is the latest version uh that doesn't have any any
+
+0:12:43.279,0:12:47.200
+bugs and so well what are you gonna use you
+
+0:12:45.680,0:12:50.160
+wanna use version three or version eight i mean that might depend some on your
+
+0:12:48.639,0:12:52.399
+personality or maybe you really hate bugs
+
+0:12:50.959,0:12:55.760
+but more often it's going to depend on what you're doing um if i'm making a
+
+0:12:54.399,0:12:59.040
+video game maybe it's more important that i have
+
+0:12:56.959,0:13:03.839
+more features and some bugs are okay right a video game is not
+
+0:13:00.160,0:13:09.680
+high stakes if i'm in banking or maybe i'm writing medical software
+
+0:13:07.120,0:13:12.880
+uh then version three probably is pretty appealing right and in the kind of these
+
+0:13:11.040,0:13:16.160
+high stakes environments it's very important to have no bugs
+
+0:13:15.279,0:13:20.399
+right even even if it means that i don't have as
+
+0:13:17.440,0:13:24.480
+many features so what we'll do right um typically over
+
+0:13:22.880,0:13:26.720
+time on a software project that's under active development
+
+0:13:25.519,0:13:29.519
+is you have all these people are working on it and making changes and you have
+
+0:13:28.160,0:13:32.880
+all this history and there's the development team who is
+
+0:13:31.279,0:13:35.600
+kind of you know understands that code understand
+
+0:13:33.440,0:13:38.240
+bugs and they might always be in the latest version
+
+0:13:36.560,0:13:41.600
+but there's people who are not on the team who
+
+0:13:39.839,0:13:44.079
+want to choose well what version of the software should they do and so these
+
+0:13:43.360,0:13:46.880
+developers or these outsiders will go through and
+
+0:13:45.519,0:13:50.240
+say well maybe this is a good commit you might want to use that's version
+
+0:13:48.000,0:13:54.240
+one you know i might say that commit three is version two
+
+0:13:51.760,0:13:58.560
+comment four is version 2.1 then maybe i get all the way up to um
+
+0:13:55.839,0:14:00.320
+version 8 and that's 2.2 and then we'll tell
+
+0:13:58.880,0:14:03.120
+outsider i'm like hey unless you're actually programming this project you
+
+0:14:01.680,0:14:06.079
+just want to use it you know choose one of these four right
+
+0:14:04.720,0:14:09.920
+it doesn't make sense for you to ever use
+
+0:14:06.800,0:14:13.680
+um a version seven right and so uh in version control systems there's often
+
+0:14:11.360,0:14:17.360
+this ability like tag specific comments and that's how you
+
+0:14:14.800,0:14:19.600
+release a version of your software right that takes time to figure out which ones
+
+0:14:18.880,0:14:23.199
+are the are the right ones let me show you an
+
+0:14:21.680,0:14:27.920
+example of a real project um panda sorry my kind of go to example
+
+0:14:26.399,0:14:33.279
+and so i'm going to click this link down here this is on
+
+0:14:30.480,0:14:38.000
+ipi right you can see i pronounce this up here pi pi
+
+0:14:35.199,0:14:42.000
+um when i'm installing packages with pip it's installing things from pi pi
+
+0:14:39.920,0:14:44.240
+and you can see that this is the pandas project
+
+0:14:43.440,0:14:47.199
+you can see that there's all these different versions right you know i
+
+0:14:46.560,0:14:50.320
+think when i uh first started teaching we weren't
+
+0:14:48.959,0:14:54.639
+even to version one yet right now we've kind of stabilized one
+
+0:14:51.760,0:14:59.760
+version the latest version is what about 1.1 was released on on july
+
+0:14:58.320,0:15:04.480
+28th right so any of these versions would be kind of reasonable for me
+
+0:15:01.680,0:15:08.079
+um to use but in between these versions the developers of this package
+
+0:15:06.639,0:15:12.560
+um we're making lots of different changes and i can do that if i head over
+
+0:15:09.920,0:15:16.000
+here and i click on source code that's going to show me on this site
+
+0:15:14.880,0:15:18.720
+github which we're going to be talking more about
+
+0:15:16.800,0:15:23.199
+about all the history that's been going on with those projects
+
+0:15:20.480,0:15:25.839
+so a few things that i can see well first off let's scroll down here a
+
+0:15:24.480,0:15:29.279
+little bit we can see contributors these
+
+0:15:27.199,0:15:33.199
+contributors are people who have actually been making changes
+
+0:15:31.680,0:15:35.920
+uh to the code and there's over two thousand right so you can see the great
+
+0:15:34.560,0:15:39.519
+complexity here um and the need for these kind of tools
+
+0:15:38.000,0:15:42.720
+to track who is doing uh what it's a huge project right so i
+
+0:15:41.519,0:15:49.199
+have all these people and across all of them they have
+
+0:15:46.000,0:15:53.920
+made 24 000 comments right so they've been really 24
+
+0:15:51.360,0:15:58.320
+000 different versions of the software uh that we can see
+
+0:15:55.759,0:16:02.560
+and um and each of them has you can see over here on the right
+
+0:15:59.519,0:16:05.199
+this is a commit number and uh and we're gonna talk more later why those numbers
+
+0:16:04.000,0:16:08.639
+look so weird right it's not i've been trying doing
+
+0:16:06.639,0:16:11.920
+nice numbers like one two three four uh these actual commit numbers are kind
+
+0:16:10.320,0:16:15.279
+of weird um another thing i can see here right is
+
+0:16:13.279,0:16:19.440
+that uh i can see who did it right i can see the names of these
+
+0:16:16.560,0:16:23.920
+people i can see when they did it um and then i can see these comments up
+
+0:16:21.440,0:16:27.360
+here like what were they trying to do avoid post processing and block wise op
+
+0:16:26.079,0:16:30.480
+i have no idea what that means because i'm not part of this project
+
+0:16:28.959,0:16:34.079
+um and then the last interesting thing here right as you can see i
+
+0:16:32.160,0:16:38.560
+maybe make this a little bit larger you can see some of these have um
+
+0:16:35.519,0:16:44.079
+an x by them a red x and then other ones have uh this green green check
+
+0:16:41.680,0:16:48.399
+and what this means is is this version of the code
+
+0:16:45.360,0:16:51.440
+um passing um all the tests right and so what i could see right away
+
+0:16:50.639,0:16:54.560
+is that if i was trying to create a release for
+
+0:16:53.519,0:16:59.759
+um other people to use pandas um i would never have them
+
+0:16:58.160,0:17:02.959
+use this latest version right because this latest version
+
+0:17:01.360,0:17:06.000
+has bugs in it this version of pandas has plugs in right so i would never tag
+
+0:17:04.400,0:17:11.039
+that for release okay so of those 24 000 comments if i
+
+0:17:09.600,0:17:15.919
+scroll down here i can see that there's only 119 uh releases right that have
+
+0:17:14.480,0:17:21.120
+kind of been tagged and these are the ones that outsiders
+
+0:17:17.520,0:17:25.120
+would actually actually do um okay so i'm gonna head back here to
+
+0:17:22.640,0:17:27.360
+the slides um so i was trying to have a sense of a real
+
+0:17:25.919,0:17:30.640
+project what people are doing here and that's the second use case right i won't
+
+0:17:28.559,0:17:35.120
+have these version releases um on that note uh
+
+0:17:33.679,0:17:38.960
+something that i can actually do is i can actually branch off in history so
+
+0:17:37.120,0:17:43.440
+so let's say we were going along in time and we got to version four
+
+0:17:40.799,0:17:46.000
+and uh maybe the team has a debate now um
+
+0:17:44.720,0:17:49.200
+some people feel like hey maybe there's a bug there we haven't quite pinpointed
+
+0:17:47.840,0:17:51.440
+it yet but it would be good to fix that bug
+
+0:17:50.000,0:17:53.840
+and maybe the other people are like well the bugs aren't that bad it would be
+
+0:17:52.640,0:17:57.520
+great to add some new features what we can actually do is we
+
+0:17:55.760,0:18:02.400
+can kind of split off right one person goes along adding new features
+
+0:17:59.039,0:18:05.120
+and maybe somebody else says um i want to
+
+0:18:03.360,0:18:07.679
+uh kind of work on removing that bug right so maybe instead of having just
+
+0:18:06.320,0:18:11.600
+you know one commit number five i might have you know
+
+0:18:09.360,0:18:14.799
+a 5a and a 5b they're kind of working on different
+
+0:18:12.799,0:18:17.520
+things and so what i'll often do then is i'll be tagging those versions or just
+
+0:18:16.480,0:18:20.480
+kind of clean up so so kind of the way this process might
+
+0:18:18.720,0:18:23.039
+work is i have all this history i choose some good starting commits and then
+
+0:18:21.679,0:18:25.360
+maybe some of them might clean them up a little bit
+
+0:18:23.679,0:18:30.400
+and i actually kind of create these nice releases that other people
+
+0:18:27.360,0:18:33.840
+might use because that's one use of branching right where one permit
+
+0:18:32.559,0:18:38.000
+instead of having like a next version it might have two next versions
+
+0:18:35.919,0:18:41.919
+okay so there's another use case for this branching
+
+0:18:39.039,0:18:44.160
+feature and that is for uh giving feedback
+
+0:18:42.559,0:18:46.640
+right so so kind of the scenario i'm imagining here is that you have a team
+
+0:18:45.919,0:18:50.400
+of you know senior developers and they've been
+
+0:18:47.919,0:18:55.360
+working on this project and uh they're very good and they get this intern
+
+0:18:52.480,0:18:56.880
+um who uh maybe writes some buggy code i mean they're still kind of getting used
+
+0:18:56.400,0:19:01.679
+to it right and they have an intern project
+
+0:18:59.919,0:19:06.400
+and so maybe what you want to have them do instead of writing all their code
+
+0:19:03.600,0:19:10.880
+directly on this main chain of history is they might create off on a separate
+
+0:19:08.720,0:19:14.080
+branch and kind of over their summer uh make their changes maybe they have
+
+0:19:12.640,0:19:17.679
+the feature and a bug and eventually they clean up the bug
+
+0:19:15.600,0:19:20.799
+and what they'll eventually do is they'll say hey i made some stuff on my
+
+0:19:19.760,0:19:27.120
+private chain of history can i merge that back
+
+0:19:24.080,0:19:29.440
+into the main branch and i guess like currently in a lot of tools that's
+
+0:19:28.240,0:19:32.080
+called the master branch i have a reading about
+
+0:19:30.640,0:19:35.200
+that terminology eventually that'll be called the main branch but they'll say
+
+0:19:33.760,0:19:38.720
+hey can i merge this back to the main or the master branch
+
+0:19:36.480,0:19:41.440
+and at that point um one of these senior developers might read their code and
+
+0:19:39.919,0:19:44.720
+give feedback on it and uh and then have decide well whether
+
+0:19:43.360,0:19:47.360
+or not they can pull it back in and they might ask them to make color changes
+
+0:19:46.000,0:19:51.360
+first before they pull that back into the into the
+
+0:19:49.440,0:19:54.799
+main into the main branch and and so this is a very common
+
+0:19:52.559,0:19:59.520
+practice this is called peer review uh or code review and um
+
+0:19:58.240,0:20:01.760
+you know i just kind of setting it up as like the intern making a mistake but
+
+0:20:00.799,0:20:05.919
+really you know uh everybody will do this like in a big
+
+0:20:04.000,0:20:08.400
+software company at microsoft you know you could be however senior and
+
+0:20:07.360,0:20:10.640
+somebody's going to have to review your code before it gets in because everybody
+
+0:20:09.760,0:20:14.720
+makes mistakes right those are the three cases um in
+
+0:20:13.520,0:20:17.600
+the next video we're actually going to learn
+
+0:20:15.280,0:20:21.840
+about how to use uh get and have actually run some commands
+

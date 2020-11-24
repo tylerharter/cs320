@@ -1,0 +1,621 @@
+0:00:02.399,0:00:07.040
+in the last video we learned a little bit about confusion
+
+0:00:05.600,0:00:10.080
+matrices and confusion matrices give you the
+
+0:00:09.120,0:00:13.519
+whole picture but often we want to summarize things in
+
+0:00:12.000,0:00:17.600
+just one or two numbers and one of those most important numbers
+
+0:00:15.040,0:00:22.560
+which we've already seen is accuracy um accuracy tells us what percentage of
+
+0:00:19.520,0:00:25.920
+the time our model is tracked and uh but when it gets wrong it doesn't
+
+0:00:24.960,0:00:29.760
+really tell us what kind of mistakes are being made and
+
+0:00:28.320,0:00:33.760
+so we're gonna be learning two metrics recall and precision
+
+0:00:31.679,0:00:37.200
+um which really you can think of as accuracy
+
+0:00:35.280,0:00:42.399
+on a subset of the data right so there's still going to be fractions
+
+0:00:39.120,0:00:45.200
+uh between zero and one and um but they'll kind of help us pinpoint
+
+0:00:43.680,0:00:47.920
+where the mistakes are actually being made
+
+0:00:46.239,0:00:51.840
+okay so to review here's a confusion matrix um
+
+0:00:50.000,0:00:56.879
+along the rows i have what the data actually is along the columns i have
+
+0:00:54.160,0:01:00.000
+what the model thinks it is and so right now i have zeros in all
+
+0:00:58.640,0:01:05.760
+these places uh but if i were to see an actual mouse
+
+0:01:03.440,0:01:08.640
+and um and the model predicted that it's a mouse
+
+0:01:06.799,0:01:12.640
+then i would go to the mouse row and the mouse column and
+
+0:01:09.840,0:01:15.680
+and increment that number by one right and that's good any time we're
+
+0:01:13.840,0:01:20.960
+incrementing numbers on the diagonal or confusion matrix oh that means we
+
+0:01:18.960,0:01:25.280
+made the right decision um here's an example of a wrong decision
+
+0:01:23.360,0:01:30.240
+if our model took a look at that picture which is clearly a dog
+
+0:01:27.840,0:01:33.280
+um it needs need of some grooming and it predicted as a cat
+
+0:01:31.600,0:01:37.280
+then we go to the dog row because it's actually a dog and the cat column
+
+0:01:35.759,0:01:41.200
+because that's what was predicted and increment that and so we might do
+
+0:01:39.360,0:01:47.119
+this over our whole data set and we have a bunch of numbers there now
+
+0:01:44.560,0:01:50.240
+from that we might want to figure out what the accuracy is
+
+0:01:48.720,0:01:53.360
+the accuracy is well what percentage of the times where we correct and so the
+
+0:01:52.320,0:01:56.640
+way i think of that is adding up all the numbers on my diagonal
+
+0:01:55.040,0:02:00.640
+that's how many we got correct and then dividing by all the numbers in
+
+0:01:58.560,0:02:04.719
+the matrix right so then look at 8 over 10 or 80 percent and some
+
+0:02:03.200,0:02:09.280
+observations here is that you know this number is a fraction of
+
+0:02:06.560,0:02:13.440
+kind of a subset over a larger amount it's always be going to be between zero
+
+0:02:10.879,0:02:17.120
+and one and uh the good number is always in the numerator
+
+0:02:14.480,0:02:19.920
+for accuracy so uh one is the best possible number
+
+0:02:18.400,0:02:22.879
+and so precision and recall have those same properties but they're gonna be a
+
+0:02:21.120,0:02:26.000
+lot of different subsets of the matrix right we're going to be
+
+0:02:24.160,0:02:30.239
+taking the whole diagonal divided by the whole
+
+0:02:26.560,0:02:32.879
+whole matrix um so precision and recall it turns out we can actually have these
+
+0:02:31.599,0:02:36.319
+metrics for each class right so i'm actually
+
+0:02:34.560,0:02:39.760
+going to um six different metrics here i have dog
+
+0:02:38.879,0:02:44.400
+recall cat recall mouse recall and then similar dog
+
+0:02:42.879,0:02:46.480
+precision tab precision and mouse precision
+
+0:02:45.280,0:02:50.239
+and so i'm just gonna look at a few of these so when i'm asking well what does
+
+0:02:48.800,0:02:54.239
+the cat recall what i want to know is when we actually
+
+0:02:51.840,0:02:58.400
+have a cat what percentage of the time is the model
+
+0:02:54.959,0:03:02.159
+right and so since i'm asking about what is actually the case
+
+0:03:00.560,0:03:06.720
+what i'm really doing is i'm dividing by the sum of numbers in a row
+
+0:03:04.000,0:03:10.640
+right because each row represents what um
+
+0:03:07.760,0:03:14.159
+what the data actually is so in this case right so the denominator will be
+
+0:03:12.560,0:03:18.239
+the sum of the row and the numerator will just be a single
+
+0:03:16.159,0:03:21.680
+number which is at cat how many times do we actually
+
+0:03:20.239,0:03:26.159
+call a cat a cat in this case we'll get two over four um
+
+0:03:24.560,0:03:31.200
+and so this is actually one easy way to remember recall versus precision
+
+0:03:28.319,0:03:36.239
+is because recall has an r and rho also has an r
+
+0:03:33.360,0:03:39.519
+um if i'm looking at dog recall okay so when we actually have a dog
+
+0:03:38.080,0:03:42.400
+what percentage of the time is the model right i'm just looking at that top dog
+
+0:03:41.680,0:03:45.519
+row and i'm dividing dog dog by the sum of
+
+0:03:44.879,0:03:50.319
+everything else in this case we always get it right when
+
+0:03:48.080,0:03:55.200
+we see a dog right so a four over four a hundred percent dog recall
+
+0:03:53.599,0:03:58.080
+uh the precision questions are asking something a little bit different what
+
+0:03:57.040,0:04:02.560
+we're asking here is say for dog precision when the model
+
+0:04:00.879,0:04:05.920
+predicts that it's a dog what percentage of the time is that
+
+0:04:03.840,0:04:08.560
+right and uh so when we're kind of looking at all the predictions now
+
+0:04:07.360,0:04:10.959
+we're talking about columns right because each each prediction is a long
+
+0:04:10.080,0:04:14.560
+column so in this case we're we're dividing dog
+
+0:04:12.799,0:04:17.919
+dog top left by the dog column of all the different
+
+0:04:16.720,0:04:21.919
+things we predicted when we get four over six
+
+0:04:19.280,0:04:25.600
+and then similarly for cat precision we're dividing cat cat
+
+0:04:24.080,0:04:29.600
+by that chat column we see that there's perfect precision here
+
+0:04:27.120,0:04:32.000
+and hopefully what you can see is that um
+
+0:04:30.320,0:04:36.720
+that they are making different kinds of mistakes right the
+
+0:04:33.840,0:04:41.199
+for the cat we're great on precision but we have a recall problem
+
+0:04:38.880,0:04:45.840
+for the dog it's the opposite we have perfect recall
+
+0:04:42.639,0:04:49.120
+uh but poorer uh poorer precision and so these kind of two metrics that
+
+0:04:47.360,0:04:55.120
+are kind of showing an error right cat recall and drawing precision are two
+
+0:04:52.400,0:04:59.120
+ways of looking at that same problem sometimes we see a cat and we think it's
+
+0:04:57.360,0:05:03.440
+a dog the opposite is not true i'm not going
+
+0:05:02.160,0:05:07.680
+to talk about it more here but i just want
+
+0:05:03.840,0:05:12.080
+uh to give you some exposure to it often people try to reduce these numbers
+
+0:05:10.240,0:05:16.080
+down to a single score um for example there's something popular
+
+0:05:13.680,0:05:20.240
+machine learning called the f1 score and a lot of these kind of simple scores
+
+0:05:18.400,0:05:23.759
+are just combinations of these other metrics like precision
+
+0:05:21.919,0:05:27.759
+um and and recall so these are kind of building blocks for other metrics
+
+0:05:26.080,0:05:32.240
+let me head over and write some code for this uh to jupiter notebook
+
+0:05:32.960,0:05:40.400
+and um in this case um i have uh i have my confusion matrix
+
+0:05:38.720,0:05:45.759
+converted to a data frame and i'm and i'm showing it down here uh
+
+0:05:43.520,0:05:49.600
+like so um kind of similar to one in the slides but the numbers are larger now
+
+0:05:47.600,0:05:53.840
+and i also have a horse and um and so the diagonal is good right
+
+0:05:52.320,0:05:57.039
+so i can see this is actually not doing too bad right i have a lot of large
+
+0:05:55.120,0:06:04.720
+numbers on the diagonal um i see that there's a horse problem
+
+0:06:00.880,0:06:08.400
+um when i see a horse it actually ninety percent of the time thinks that's
+
+0:06:06.160,0:06:11.759
+a dog on the other problem i have right i thought a big number that's on the
+
+0:06:09.759,0:06:18.240
+diagonal is right here about half of the cats it sees get
+
+0:06:14.960,0:06:21.440
+misclassified as dogs okay that's a problem so what i'm going to do
+
+0:06:20.240,0:06:25.039
+is i'm going to look at i've already produced this confusion matrix
+
+0:06:23.039,0:06:29.199
+i want to look at things like accuracy score recall score precision score
+
+0:06:27.199,0:06:33.039
+and finally this new metric balance score that i'll introduce
+
+0:06:30.960,0:06:38.319
+so first let's take a look at the accuracy score
+
+0:06:34.960,0:06:43.280
+so i'm going to run accuracy score and i need to feed in the actual values
+
+0:06:40.639,0:06:49.440
+and the predicted value so i'll do that actual and predicted
+
+0:06:46.800,0:06:54.960
+these are the two lists that i use to construct my
+
+0:06:51.199,0:06:59.599
+confusion matrix and i see that uh oh let me just run this again and i and
+
+0:06:58.160,0:07:05.280
+i see that the accuracy is is 78 well it's about 80 percent
+
+0:07:02.720,0:07:09.039
+right so that seems pretty good and um and the key thing to note here
+
+0:07:06.639,0:07:12.080
+right is that uh when we have all these different classes right it might seem
+
+0:07:10.639,0:07:15.360
+like we're doing good overall but there might be cases where we are
+
+0:07:13.759,0:07:19.440
+making a lot of mistakes right so for example when we see a cat
+
+0:07:17.199,0:07:23.440
+we end up being wrong half of the time worse when we see a horse
+
+0:07:21.199,0:07:27.440
+we're wrong 90 percent of the time and so these other metrics are going to help
+
+0:07:25.039,0:07:33.919
+us dig in and actually identify that okay so let's say i wanted to look at um
+
+0:07:31.680,0:07:36.479
+recall for the horse which i'm expecting to be ten percent right when i see a
+
+0:07:35.440,0:07:40.639
+horse uh we only know what ten percent of the
+
+0:07:38.000,0:07:46.080
+time so one way i could do that is i could
+
+0:07:42.160,0:07:51.280
+um in my confusion matrix i could get the horse
+
+0:07:48.240,0:07:56.800
+uh horse value right from that bottom right
+
+0:07:52.479,0:08:00.800
+and um and i could divide it by the sum of all the values in the horse
+
+0:07:58.720,0:08:06.000
+row right so i could do that and i get 10 just as i expected right
+
+0:08:04.319,0:08:10.639
+the shorter way to do that would be to use um
+
+0:08:07.680,0:08:13.919
+the this precision score function that's actually built in
+
+0:08:12.080,0:08:17.759
+onto sklearn right so i'm going to call this thing
+
+0:08:15.599,0:08:21.039
+and um and so i have the true values of the predicted value so i'll say actual
+
+0:08:19.599,0:08:25.759
+predicted and i actually get an error here and
+
+0:08:24.400,0:08:30.879
+it's complaining about something called multi-class versus binary
+
+0:08:28.560,0:08:34.240
+these metrics are kind of set up for the simple cases where our two classes are
+
+0:08:32.719,0:08:38.240
+just false and true as opposed to four cases like dog cat
+
+0:08:36.800,0:08:42.240
+mouse horse and so i have to clean that up a little
+
+0:08:39.760,0:08:46.399
+bit and uh and the way i'm going to do that
+
+0:08:42.640,0:08:50.720
+is oh well first off let me expand this a little bit um i
+
+0:08:48.560,0:08:53.360
+have to change this average value right so there's different ways to kind of
+
+0:08:51.760,0:08:57.760
+summarize information i'm just going to set average to none
+
+0:08:56.320,0:09:02.399
+and i'll actually know it's um unlike that and then what it's doing
+
+0:09:00.640,0:09:07.120
+is it's actually giving me four recalls one for each of these classifications
+
+0:09:05.040,0:09:09.839
+um now the order might not be the same as up here
+
+0:09:08.399,0:09:14.720
+and so i'm actually going to pass in these labels as well
+
+0:09:11.920,0:09:17.839
+to make sure that that i can kind of actually compare
+
+0:09:16.160,0:09:19.839
+these numbers to the different values right so what i see here is that in
+
+0:09:19.120,0:09:24.080
+terms of actually i want to do recall first i'm
+
+0:09:21.519,0:09:27.600
+sorry i do recall first and uh and so for this recall right i'm
+
+0:09:25.920,0:09:31.040
+going roll by row and uh and what i see is that recall for
+
+0:09:29.760,0:09:35.279
+the dog is perfect if i see a dog the model is
+
+0:09:33.120,0:09:38.880
+being recognized as a dog it's also perfect for mice right if it
+
+0:09:37.440,0:09:43.920
+sees a mouse it's trying to recognize it as a mouse
+
+0:09:40.399,0:09:46.959
+for cats right if it sees a cat 50 50 on weather it will
+
+0:09:44.720,0:09:50.080
+correctly identify it and then for horse only a 10 percent chance that it
+
+0:09:48.839,0:09:54.320
+correctly identifies it okay those are my four
+
+0:09:53.279,0:09:58.880
+recall numbers sometimes what i'll want to do is i'll
+
+0:09:57.680,0:10:02.240
+want to kind of see how i'm doing overall
+
+0:09:59.680,0:10:06.320
+by taking an average of those and i get 65 percent in that taste
+
+0:10:04.399,0:10:11.440
+and um it turns out there's a special name for this average of recall scores
+
+0:10:09.279,0:10:14.880
+and that special name is the balanced accuracy score
+
+0:10:13.120,0:10:21.279
+right so before this accuracy score was saying hey we're doing um 80 percent
+
+0:10:17.519,0:10:26.800
+uh but now i actually do this balanced accuracy score uh it's only 65
+
+0:10:24.480,0:10:32.000
+much worse and in some ways this is more meaningful the only reason
+
+0:10:28.800,0:10:36.079
+we were very accurate before is we were seeing very few horses right
+
+0:10:34.000,0:10:38.720
+even though our model is terrible with horses
+
+0:10:37.040,0:10:42.480
+we could just a good score because there are not many horses in the in the model
+
+0:10:41.040,0:10:45.600
+right so when we're using these balanced metrics it's trying to take into account
+
+0:10:44.480,0:10:50.000
+for that industry say even though we have more dogs than
+
+0:10:48.480,0:10:53.120
+anything else really um where i consider these four classes
+
+0:10:52.800,0:10:56.399
+uh equally important in terms of coming up
+
+0:10:54.640,0:10:59.760
+with our score this will be a great one to use
+
+0:10:56.959,0:11:03.760
+if you have a lot of imbalance in your data center right and accuracy can be a
+
+0:11:01.279,0:11:08.880
+little bit misleading in that case okay so that was the the recall score
+
+0:11:06.560,0:11:11.519
+let me similarly instead of this i'm going to actually do
+
+0:11:10.240,0:11:16.959
+the precision which i guess i was already
+
+0:11:12.240,0:11:21.920
+uh doing uh earlier inadvertently uh what happened there there we go
+
+0:11:20.079,0:11:27.200
+so i'm gonna paste that and instead of that i'm gonna get this precision score
+
+0:11:25.519,0:11:32.320
+and now i see something different right i see that
+
+0:11:29.279,0:11:38.560
+i see that actually we do perfect on everything except the drawing and
+
+0:11:35.360,0:11:41.760
+then why is that so when i'm talking about precision i'm really going column
+
+0:11:40.399,0:11:45.040
+by column and what i actually see here is great
+
+0:11:43.920,0:11:48.240
+right i uh except on the diagonal i only have zeros
+
+0:11:46.800,0:11:51.519
+in each of these columns and so that means if this model is
+
+0:11:50.399,0:11:58.079
+predicting a cat a mouse or a horse it's probably right
+
+0:11:54.880,0:12:01.200
+only when it's predicting a dog is there a good chance that it's making a mistake
+
+0:11:59.920,0:12:04.480
+right in that case you know only two-thirds chance that
+
+0:12:02.800,0:12:07.839
+it's actually a dog right so this model likes to predict dogs a lot
+
+0:12:06.399,0:12:11.200
+um if it predicts something else it's it's sure
+
+0:12:09.440,0:12:15.279
+predicts the dog it's only kind of two-thirds sure
+
+0:12:13.519,0:12:19.680
+all right so that's the uh we talked about accuracy
+
+0:12:16.639,0:12:22.720
+uh recall balance accuracy which is an average of the recalls and then
+
+0:12:20.880,0:12:28.079
+precision oh one last thing i want to talk about
+
+0:12:24.959,0:12:32.320
+is a binary classification and so for binary classifications
+
+0:12:29.920,0:12:37.040
+instead of cat dog mouse we have just false and true
+
+0:12:34.079,0:12:41.680
+and um and so i'm computing the confusion matrix
+
+0:12:38.079,0:12:46.639
+here for that and uh and if i want to i can i can compute these same metrics
+
+0:12:44.880,0:12:51.360
+like i did before so for example if i if i do a recall
+
+0:12:47.839,0:12:56.399
+score down here i can pass in you know false and true
+
+0:12:54.560,0:13:02.079
+for my labels and um why is that unhappy
+
+0:12:59.839,0:13:05.839
+maybe because i didn't run this yet there we go i can run that
+
+0:13:03.760,0:13:10.720
+and um and it's telling me okay row by row
+
+0:13:06.880,0:13:14.880
+um and that first row of one-third is tracked all right so in the second
+
+0:13:13.519,0:13:18.160
+one 70 is correct right those are my two
+
+0:13:16.880,0:13:22.800
+recall um scores i can do that just like before
+
+0:13:20.880,0:13:26.720
+um but it turns out when we're dealing with binary
+
+0:13:23.680,0:13:32.399
+classification metrics um people will often just talk about uh predicted
+
+0:13:30.079,0:13:36.639
+i'm sorry they'll just talk about recall and precision without specifying
+
+0:13:34.880,0:13:39.360
+what class they mean and when they're doing that
+
+0:13:38.160,0:13:42.720
+what they're talking about is the positive class right so if i just talk
+
+0:13:41.279,0:13:47.839
+about recall in general oh i don't want that
+
+0:13:45.920,0:13:51.920
+i'm just trying to talk about uh recall in general look i'm talking about
+
+0:13:50.320,0:13:55.360
+uh that positive class and the same thing for precision and actually this is
+
+0:13:54.000,0:13:58.399
+probably the majority of the cases you'll see
+
+0:13:56.079,0:14:01.519
+precision and recall views this time in this special case
+
+0:13:59.920,0:14:04.720
+um where i'm having a binary classifier so just know that when we're doing that
+
+0:14:03.199,0:14:11.279
+we're talking about the positive class
+

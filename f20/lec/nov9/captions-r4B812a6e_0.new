@@ -1,0 +1,990 @@
+0:00:00.960,0:00:05.839
+oh in the last lecture we talked a lot about matrices
+
+0:00:04.319,0:00:09.519
+um and also vectors and how we represented those in numpy
+
+0:00:07.680,0:00:14.080
+um in this lecture i may talk about multiplying
+
+0:00:11.120,0:00:16.880
+either matrices or vectors together and it turns out there's lots of different
+
+0:00:15.440,0:00:20.800
+ways you can do it um one kind of multiplication that where
+
+0:00:18.800,0:00:24.000
+i have is called element-wise multiplication
+
+0:00:22.240,0:00:28.080
+and uh and it's probably most similar to what most of you have seen unless you've
+
+0:00:25.519,0:00:31.599
+taken a linear algebra course before um i'm also going to be introducing a
+
+0:00:30.080,0:00:34.399
+kind of multiplication called the dot product
+
+0:00:33.120,0:00:38.000
+and you can see i'm using a slightly different symbol down here
+
+0:00:36.239,0:00:41.680
+and uh and so it turns out these four different multiplications i'm doing
+
+0:00:39.280,0:00:44.640
+between these different vectors um all mean slightly different things
+
+0:00:43.360,0:00:49.039
+and we need to learn how to interpret them and also learn
+
+0:00:47.120,0:00:51.680
+what their use cases are when i when i want to do these kinds of
+
+0:00:49.920,0:00:55.199
+multiplications so i'm going to start with the top one
+
+0:00:53.360,0:00:58.000
+which is uh element-wise um multiplication
+
+0:00:56.559,0:01:01.359
+and one of the things that i'm going to be talking about soon that i want you to
+
+0:00:59.840,0:01:04.159
+notice is that these two are the same vectors
+
+0:01:02.559,0:01:09.920
+but i'm worried a little bit here about whether my vectors are vertical
+
+0:01:06.479,0:01:13.520
+um or horizontal okay so here i am i'm importing numpy
+
+0:01:11.439,0:01:16.479
+i'm creating a numpy array here one two three
+
+0:01:14.560,0:01:21.280
+i'm training on pi here all right here four five six
+
+0:01:18.240,0:01:26.159
+and if i multiply them i can do do it like this v1
+
+0:01:22.560,0:01:31.840
+times v2 and uh and you can see what i got here right it's basically doing
+
+0:01:28.640,0:01:35.840
+uh you know one times four so i get uh you know one times four
+
+0:01:33.520,0:01:38.960
+and then the next element is two times five
+
+0:01:36.880,0:01:43.439
+i get two times five and the third one is three times
+
+0:01:40.079,0:01:48.880
+six since i have three times six here uh and uh and so really i mean it's just
+
+0:01:45.840,0:01:53.360
+pairing up items and drawing one by one now uh as i said uh we are often gonna
+
+0:01:51.439,0:01:57.600
+worry about whether our vectors are horizontal or vertical right
+
+0:01:56.560,0:02:00.960
+vectors are inherently these one-dimensional things and in a lot of
+
+0:01:59.360,0:02:04.159
+math classes we'll talk about it as one-dimensional and then we'll say which
+
+0:02:02.799,0:02:08.160
+angle it goes um in python and numpy in particular the
+
+0:02:07.040,0:02:12.239
+way we deal with this orientation of the
+
+0:02:09.840,0:02:16.879
+vectors is we actually create two-dimensional um tensors and we
+
+0:02:15.360,0:02:21.440
+just make sure that while there's either one column
+
+0:02:18.160,0:02:25.840
+or on or or there might be on one uh one row for horizontal and so
+
+0:02:24.640,0:02:29.360
+there's different ways i could do it i mean i could do something like this if i
+
+0:02:27.360,0:02:33.680
+wanted to to create it vertically and now you can
+
+0:02:31.760,0:02:38.000
+see while this is a vertical vector this is a horizontal vector i
+
+0:02:35.840,0:02:41.360
+mean technically this is a matrix but um this is the way i would represent a
+
+0:02:39.760,0:02:45.680
+lot of vectors if i was trying to translate from math into code
+
+0:02:43.840,0:02:49.280
+now this is a pain so that's not how a person would normally do it
+
+0:02:47.599,0:02:52.480
+um what we'll do instead is we'll do a reshape so
+
+0:02:50.879,0:02:56.480
+when i do the reshape i can say how many rows do i want and how many columns do i
+
+0:02:54.879,0:03:01.760
+want and uh in this case i want one column
+
+0:02:59.840,0:03:06.000
+and three rows and i could do that and i get the same result
+
+0:03:03.680,0:03:09.040
+um now the really important part for this to be a vertical vector was that i
+
+0:03:07.599,0:03:12.959
+have exactly one um column and um and so if i add more
+
+0:03:12.239,0:03:16.560
+things here right like this wouldn't quite work
+
+0:03:14.319,0:03:20.080
+because i'd have to change this this here as well and so what people
+
+0:03:18.400,0:03:23.120
+typically do is they'll say a negative one and just to remember
+
+0:03:22.319,0:03:28.239
+negative one means however many are needed
+
+0:03:26.319,0:03:33.120
+all right so that is a very common pattern here i see i say reshape
+
+0:03:30.560,0:03:37.440
+negative 1 1 that's basically a shorthand or kind of a
+
+0:03:34.720,0:03:40.080
+a pattern for saying give me a vertical vector
+
+0:03:38.799,0:03:44.840
+okay so i have these two vertical vectors now and uh well i may actually
+
+0:03:42.080,0:03:50.000
+make this one vertical as well reshape a negative one and one
+
+0:03:48.159,0:03:53.760
+and uh and that's straight and so then i'm if i multiply these again
+
+0:03:52.000,0:03:59.360
+it's still just lining them up bit by bit
+
+0:03:55.360,0:04:02.720
+now um what i cannot do is uh well first off well what matters here
+
+0:04:01.200,0:04:06.640
+right i mean it matters what the shape of both of these are
+
+0:04:04.480,0:04:08.720
+right the they are both the same shape and when you have two things that are
+
+0:04:07.519,0:04:12.080
+the same shape you can do an element-wise operation
+
+0:04:11.120,0:04:15.760
+what if i do something that's a different shape what if i
+
+0:04:13.120,0:04:19.040
+delete an item here it's going to complain
+
+0:04:16.400,0:04:22.880
+it's going to say operands cannot be broadcast together
+
+0:04:20.959,0:04:26.400
+with these shapes right three by one was the matrix of the first shape
+
+0:04:24.479,0:04:31.040
+two by one was the matrix of the other shape and so what is this broadcasting
+
+0:04:29.280,0:04:33.919
+that it speaks of well i already said that if they have
+
+0:04:32.479,0:04:39.280
+the same shape element-wise multiplication will work
+
+0:04:35.600,0:04:42.880
+and there are certain cases where where numpy can basically stretch
+
+0:04:41.440,0:04:46.960
+matrices to make it work even if they're even if
+
+0:04:45.360,0:04:50.639
+they're different sizes and they can't always do this and i can't do it here
+
+0:04:49.360,0:04:55.600
+but there's a number of cases where we talk about where it can do it and so
+
+0:04:52.880,0:04:57.199
+somewhat surprisingly if i actually simplify
+
+0:04:56.000,0:05:01.520
+this a little bit more if i just have this be a size one
+
+0:04:59.199,0:05:05.600
+and then i run this well then it would be working just fine it
+
+0:05:02.880,0:05:08.840
+what is it doing well it's reusing this five right it's
+
+0:05:06.800,0:05:14.639
+using it for this position for this position um and for this position and so
+
+0:05:11.199,0:05:19.600
+if i look at the shape of these two like this basically what it's doing is
+
+0:05:18.479,0:05:23.199
+it's saying that this part is fine right i mean in this
+
+0:05:21.199,0:05:26.960
+dimension they both have one and then when i'm trying to check for
+
+0:05:25.360,0:05:30.320
+the first dimension is it okay to match a three with
+
+0:05:27.840,0:05:33.680
+whatever is down here it's okay under two circumstances it's okay if it's the
+
+0:05:32.160,0:05:36.720
+same number and uh and it's also okay if one of the
+
+0:05:35.600,0:05:40.880
+numbers is one because if it's one then python realizes
+
+0:05:39.440,0:05:44.479
+oh i can just stretch it out i can repeat that one number
+
+0:05:42.800,0:05:47.840
+um a bunch of times so so really kind of what python is doing is it's
+
+0:05:46.400,0:05:50.639
+converting it to this for us automatically and uh and you can see all
+
+0:05:50.160,0:05:56.240
+that gives the exact same result okay so let me
+
+0:05:53.360,0:05:59.919
+clean this up a bit oh that was that was all fine all right
+
+0:05:58.880,0:06:04.319
+so negative one comma one um one of the things i can do
+
+0:06:02.639,0:06:10.479
+with these vectors if i like oh is that is that what i had uh
+
+0:06:08.319,0:06:15.759
+yeah i think that's back to where i was let me just look at both of these now
+
+0:06:13.199,0:06:18.479
+okay that's all fine um one of the things i can do is i can
+
+0:06:16.960,0:06:20.639
+rotate these vectors back and forth and the way i would do that is i'd say
+
+0:06:19.840,0:06:27.759
+transpose so dot capital t stands for transpose
+
+0:06:24.880,0:06:31.759
+and transpose like that and it just flips the direction of it
+
+0:06:29.120,0:06:34.800
+and you know if i wanted to if i transpose once i
+
+0:06:32.880,0:06:39.840
+make it horizontal if i transpose again it's back to vertical
+
+0:06:37.120,0:06:44.639
+um so that's all fine so something that'll be interesting here
+
+0:06:41.039,0:06:49.280
+is what if i do that so v1 dot transpose dot shape is a one by
+
+0:06:48.319,0:06:56.319
+three and v two dot shape is a three by one
+
+0:06:53.120,0:07:01.120
+what is going to happen if i say v one times v two well it's actually gonna
+
+0:06:59.440,0:07:03.840
+work so let's try to compare these two and it's like well
+
+0:07:02.160,0:07:07.199
+they don't match but when i just have one i can stretch it out
+
+0:07:05.759,0:07:09.520
+again up here it's one and three it doesn't match but i can stretch the
+
+0:07:08.560,0:07:14.240
+first one out and so so if i do this i actually see oh
+
+0:07:12.479,0:07:20.160
+that wasn't what i wanted i wanted to multiply v1 transpose by v2
+
+0:07:18.400,0:07:24.479
+i i see i'm actually able to do it uh it's basically stretching them
+
+0:07:21.520,0:07:28.160
+both out to three by threes and uh and then it's doing the
+
+0:07:26.319,0:07:31.599
+um it's doing the element-wise multiplication but let me be very
+
+0:07:30.000,0:07:37.199
+clear about what's happening here so i have my v one dot transpose
+
+0:07:34.000,0:07:41.360
+and uh basically what python is doing is it's tiling this down three times and
+
+0:07:40.319,0:07:47.199
+so i can actually show this with the np concatenate
+
+0:07:44.800,0:07:53.199
+function which can take in a list of vectors kind of like this
+
+0:07:49.199,0:07:57.919
+and it's basically repeating these three on top of each other like
+
+0:07:56.319,0:08:01.360
+that so it's basically creating that so maybe i'll say
+
+0:07:58.639,0:08:05.840
+well what this is this is my v1 broadcast
+
+0:08:03.120,0:08:11.199
+is like that right because because when i multiply by
+
+0:08:09.039,0:08:14.160
+v2 it wants three rows right so it's kind of stretching it out like that
+
+0:08:12.800,0:08:18.000
+it doesn't actually do all this computation but it does a logical
+
+0:08:16.400,0:08:21.680
+equivalent so this is the way you should think of it not in terms of performance
+
+0:08:19.919,0:08:26.960
+but in terms of what what result we get when i have v2
+
+0:08:24.800,0:08:31.120
+what it's doing there is it's tiling it from left to right because
+
+0:08:29.440,0:08:34.320
+uh when i look at this first piece i'm like well i need three columns and i
+
+0:08:32.800,0:08:38.839
+only have one here so i better do a repeat so that would be kind of
+
+0:08:36.399,0:08:44.000
+like this np numpy.contain and then then i have three
+
+0:08:41.599,0:08:48.320
+of these just like that and well you actually see
+
+0:08:47.200,0:08:51.279
+i kind of have a problem just like before it's putting them one on top of
+
+0:08:49.920,0:08:55.760
+alder and that's because um there's this axis
+
+0:08:54.320,0:08:59.600
+and by default it's zero and um right so that does the
+
+0:08:58.320,0:09:03.839
+exact same thing that's happening by default so
+
+0:09:00.720,0:09:08.240
+zero is down one is over and so if i convert this to one well i
+
+0:09:06.560,0:09:13.040
+would get this little piece here which i could put into v2 broadcast
+
+0:09:11.279,0:09:18.640
+like that and then i could peek at that if i wanted to v2
+
+0:09:15.760,0:09:21.680
+v2 broadcast and i see this piece right here
+
+0:09:19.680,0:09:26.560
+and so then what's really happening when i say v1 dot
+
+0:09:23.040,0:09:31.760
+transpose times v2 it's really taking this matrix
+
+0:09:29.680,0:09:35.440
+here right it's transposing well it's broadcasting it to that shape
+
+0:09:33.760,0:09:40.399
+and it's broadcasting this one to this other shape
+
+0:09:36.880,0:09:44.080
+and then it's drawing on uh what happened there um did i not spell
+
+0:09:43.279,0:09:48.880
+that correctly so let me see there we go i must not run
+
+0:09:46.959,0:09:51.519
+my cell or something right what it's doing is it's saying
+
+0:09:50.240,0:09:53.920
+well in the top left i'm going to have four
+
+0:09:51.920,0:09:56.880
+times one in the middle i'm gonna have five times two
+
+0:09:55.440,0:10:01.600
+and so on basically for all nine of these cells and it works just fine
+
+0:09:59.200,0:10:05.600
+so let's talk about some practical um uh implications for this and i actually
+
+0:10:04.240,0:10:12.399
+see that i kind of put all this in the wrong section let me let me just do this
+
+0:10:08.399,0:10:17.800
+and i i did my transposes i wanted to talk about the broadcasting
+
+0:10:14.800,0:10:20.959
+here so let me just make a note of this broadcasting
+
+0:10:19.440,0:10:23.839
+greatest i have a more orderly notebook i talked about transposing i talked
+
+0:10:22.240,0:10:27.920
+about broadcasting um the other thing i would talk about
+
+0:10:25.839,0:10:33.600
+with broadcasting is um some practical applications and then what happens
+
+0:10:30.480,0:10:36.959
+if these things are not the same uh number of dimensions right so so i see
+
+0:10:35.600,0:10:39.920
+that the dimensions are different sizes but they still both were two-dimensional
+
+0:10:38.720,0:10:42.640
+structures what happens if i multiply say like a
+
+0:10:41.440,0:10:47.920
+three-dimensional structure by a two-dimensional structure
+
+0:10:44.640,0:10:52.399
+so so one way i could use this is if i want to have something like um
+
+0:10:49.440,0:10:54.160
+you know a times table so you know let me
+
+0:10:52.720,0:11:00.079
+grab some digits here i might say and numpy dot arrange um
+
+0:10:56.160,0:11:03.920
+digits from you know 1 to 10. and we peek at that and you've all seen
+
+0:11:02.160,0:11:07.760
+these tables where it's like 1 times 1 is 1 1 times 2 is
+
+0:11:05.360,0:11:11.120
+is 2. so on and so forth for every combination of one digit numbers
+
+0:11:09.680,0:11:14.160
+that's how we probably a lot of us learned to multiply things when we were
+
+0:11:12.959,0:11:18.399
+children and so the one way i could do this i
+
+0:11:15.839,0:11:22.000
+could say like reshape one comma one negative one actually is
+
+0:11:20.880,0:11:26.000
+that right i want um however many rows are
+
+0:11:24.079,0:11:32.240
+necessary in one column it's like that and so so i could say uh
+
+0:11:29.399,0:11:35.920
+digits.transpose times digits and now you can see it's kind of going
+
+0:11:34.079,0:11:40.320
+both directions right i'm kind of going in this direction from one to nine
+
+0:11:38.880,0:11:43.440
+and then i'm drawing in this direction from one to nine and if i wanted to i
+
+0:11:42.560,0:11:48.320
+could look on here right when i'm in this cell what
+
+0:11:45.760,0:11:52.560
+does this mean i'm multiplying four by three and i get twelve right down
+
+0:11:50.800,0:11:54.839
+here i'm multiplying nine by nine i get eighty one
+
+0:11:53.360,0:11:58.639
+i can create these nice little times tables
+
+0:11:56.639,0:12:00.320
+another way we can use broadcasting is when we're dealing with images like we
+
+0:12:00.000,0:12:03.760
+were last time and uh and so let me just kind
+
+0:12:03.040,0:12:07.360
+of do some i forgot to do this at the top
+
+0:12:06.560,0:12:14.880
+um from matt actually yeah from
+
+0:12:11.680,0:12:22.320
+matt plot lib import pie plot as plt
+
+0:12:19.120,0:12:26.959
+and um i could say plt dot maybe i just run that first
+
+0:12:24.240,0:12:32.480
+i can say plt.imageread and i already downloaded a file here called blog.jpg
+
+0:12:29.839,0:12:36.160
+same thing we used last time so we call this bug
+
+0:12:33.360,0:12:40.079
+and peek at it and uh and you can see i have all these
+
+0:12:38.560,0:12:45.040
+numbers like before uh i have my red values my green values
+
+0:12:42.399,0:12:49.040
+and my blue values and uh and and just a little bit more
+
+0:12:48.000,0:12:55.680
+detail here how uh matplotlib deals with these images
+
+0:12:52.079,0:13:03.600
+is for the three colors it will um four colors it will have uh
+
+0:12:59.120,0:13:11.920
+have on you know zero to one for floats or it'll have zero to 255
+
+0:13:08.639,0:13:14.800
+for integers and so i can see i'm reading the same as integers
+
+0:13:13.279,0:13:20.639
+i think it'll be a little bit more intuitive if i just divide this by
+
+0:13:16.959,0:13:27.360
+255 like that and uh and then use that to show it so i'm gonna say plt dot
+
+0:13:22.560,0:13:31.519
+image show and show that bug and that works great it's i'm gonna be
+
+0:13:29.839,0:13:34.160
+using some element-wise operations on here and one of the things that's gonna
+
+0:13:32.959,0:13:37.600
+help me is if i make this a little bit smaller
+
+0:13:35.680,0:13:41.600
+so right now the bug is pretty big right it's a
+
+0:13:39.040,0:13:43.760
+it's pretty high uh uh high resolution image
+
+0:13:42.399,0:13:46.880
+and so actually one thing i'm going to do is i'm just going to shrink it down
+
+0:13:45.040,0:13:51.279
+so i'm going to say the bug um i'm going to take a slice of my
+
+0:13:49.360,0:13:54.320
+bargain so i have like a row slice here column slice here and then a channel
+
+0:13:52.959,0:14:00.480
+slice here um i want all my channels um for rows
+
+0:13:58.560,0:14:04.560
+here's going to be my slice i'm only going to take like every 10th
+
+0:14:01.839,0:14:07.839
+um row and then to keep the the dimensions kind of proportional i'm
+
+0:14:06.320,0:14:11.360
+going to take every 10th column so i'm going to do that and uh and you
+
+0:14:10.079,0:14:14.240
+can see it's just kind of a grainier image and that's trying to make my
+
+0:14:12.480,0:14:17.120
+multiplication faster right if i look down here
+
+0:14:15.360,0:14:21.920
+you know tenth of the pixels are involved now
+
+0:14:18.480,0:14:26.320
+okay great so um i said i want to do element-wise operations on it
+
+0:14:24.000,0:14:29.519
+and um and so i can one of the things i could do is i could say something like
+
+0:14:27.600,0:14:34.079
+this if i say plot dot image show
+
+0:14:32.800,0:14:38.160
+i mean i could multiply the whole thing by like half and just in a much darker
+
+0:14:37.040,0:14:42.720
+image what if i wanted to mess around and uh
+
+0:14:40.480,0:14:46.639
+and make the uh the red kind of uh stand out more
+
+0:14:45.120,0:14:51.600
+than the other colors so if i'm looking at this i have my bug
+
+0:14:49.760,0:14:55.680
+which is this shape and um and what i really want to do is i
+
+0:14:53.760,0:14:58.720
+want to multiply say like the red by one and then multiply the green and
+
+0:14:57.839,0:15:02.480
+the blue by 0.5 to just kind of really make it look
+
+0:15:01.600,0:15:05.920
+extra red as kind of some sort of special effect
+
+0:15:05.120,0:15:09.680
+so how could i do that well one way is i
+
+0:15:07.839,0:15:12.959
+could try to create a shape where i have a number in each of these
+
+0:15:11.279,0:15:18.480
+things um you know 169 times 250 three times three
+
+0:15:16.800,0:15:22.720
+but that would be kind of uh difficult right i mean that's a lot of um
+
+0:15:20.560,0:15:26.000
+that's a large tensor but what i really like to do is i want to multiply all the
+
+0:15:24.399,0:15:29.759
+reds by one color all the blues by another color and so on
+
+0:15:27.920,0:15:32.800
+and uh and numpy's actually make that easy for me i can create a numpy array
+
+0:15:31.680,0:15:36.560
+like this and i can say i want to multiply all the
+
+0:15:34.320,0:15:43.360
+reds by one i want to multiply all the um
+
+0:15:40.240,0:15:46.800
+blues by or all the greens by 0.5 and all the blues by that so so maybe
+
+0:15:46.079,0:15:52.880
+i'm going to call that my filter something like that
+
+0:15:49.839,0:15:57.680
+and uh i'm going to put this up here i'm going to put this
+
+0:15:54.000,0:16:00.320
+uh here and actually let me just do this i'm going to print both of the shapes so
+
+0:15:59.120,0:16:03.360
+i'm going to print oh what happened there
+
+0:16:03.440,0:16:07.519
+okay i'm going to print the bug dot shape and i'm going to print the filter
+
+0:16:07.120,0:16:14.720
+dot shape and uh and there i go
+
+0:16:11.040,0:16:17.839
+and so what is what is um numpy going to do
+
+0:16:16.320,0:16:21.519
+what what it's going to do is it's going to take this 3
+
+0:16:19.759,0:16:24.320
+and uh it's going to start from the end of both of these right it's trying to
+
+0:16:22.880,0:16:27.040
+pair them up it's trying to say oh three matches up with this three
+
+0:16:26.160,0:16:30.000
+and then what am i going to do about these extra dimensions i'm just going to
+
+0:16:29.279,0:16:32.959
+create them right so so it's really kind of what i
+
+0:16:31.519,0:16:37.360
+would do is you can imagine doing a reshape
+
+0:16:34.240,0:16:41.199
+where i'm like um where i say something like hey i want it to end with three
+
+0:16:39.199,0:16:44.959
+and then um other dimensions i'll just have one right so if i do that
+
+0:16:43.199,0:16:48.000
+you can see why broadcasting will work here right because a three will match
+
+0:16:46.240,0:16:52.000
+with three i can stretch from my 1 to 253 and i can
+
+0:16:50.880,0:16:56.639
+stretch from my 1 to 169 i can absolutely do that
+
+0:16:55.120,0:17:00.240
+uh but i don't have to do any reshaping here because i do that automatically for
+
+0:16:58.720,0:17:02.399
+me to line up the 3 and then kind of just fill in
+
+0:17:01.360,0:17:05.919
+whatever i need for those other dimensions and so if i want to right i
+
+0:17:04.799,0:17:10.559
+can multiply this down here by my filter and uh
+
+0:17:08.959,0:17:14.559
+and i can see that this a little bit extra red
+
+0:17:12.480,0:17:18.400
+relative to other ones the blues and the greens
+
+0:17:16.079,0:17:22.240
+are more faded now that's one thing i can do
+
+0:17:19.360,0:17:26.240
+um let me do one more example which is um what would happen if i wanted to try
+
+0:17:23.839,0:17:30.400
+to have some sort of fade effect where um i i don't know i wanted to go from
+
+0:17:28.960,0:17:33.840
+you know kind of black on the left you know let's
+
+0:17:32.640,0:17:37.039
+try all black and then as i go to the right
+
+0:17:34.240,0:17:42.160
+the image kind of fades in so i want to create some sort of fade
+
+0:17:38.320,0:17:48.720
+like this and uh and i'll say np dot a range and um
+
+0:17:46.960,0:17:51.760
+i'm going from left to right so i'm kind of dealing with columns right i'm going
+
+0:17:50.480,0:17:55.120
+over the column so i have this many columns i can
+
+0:17:53.600,0:17:59.440
+do it something like that let me just take a peek at this fade
+
+0:17:57.280,0:18:04.320
+and um and i want it to be from zero to one right so zero is completely black
+
+0:18:02.000,0:18:09.600
+uh one is the original color so i'm gonna divide this by 253
+
+0:18:06.240,0:18:14.559
+and i get this nice fade going on and of course the fade
+
+0:18:11.600,0:18:21.280
+is just this one-dimensional thing and so if i want to do something like this
+
+0:18:18.160,0:18:25.919
+if i want to say um if i want to say like
+
+0:18:21.760,0:18:30.480
+you know my bug image times fade then it's trying to line up by the end
+
+0:18:27.520,0:18:37.679
+so this 253 needs to match up with this like 3 here and it doesn't
+
+0:18:34.240,0:18:43.760
+um write the last entry in my fade
+
+0:18:41.440,0:18:46.160
+tensor does not necessarily have to be three it could also be one
+
+0:18:45.039,0:18:50.160
+because then it's trying to stretch it out for me and uh and so i'm actually
+
+0:18:48.640,0:18:56.799
+gonna do that i may say fade equals fade dot reshape
+
+0:18:53.440,0:19:02.080
+and i know i have to end in three and before that i can put however many i
+
+0:18:59.600,0:19:07.840
+want so i'm going to do that and uh and i'm sorry i want to
+
+0:19:06.000,0:19:10.559
+have it be one right because of my one to match up with my three
+
+0:19:09.520,0:19:13.039
+and so this is something that's going to actually let the multiplication work
+
+0:19:11.840,0:19:17.520
+right because i can expand out this one to match the three
+
+0:19:15.679,0:19:19.760
+and then 250 three matches up nicely here
+
+0:19:18.400,0:19:22.559
+and then well it doesn't matter if i have extra dimensions at the beginning
+
+0:19:21.280,0:19:25.520
+it's trying to assume that those are all filled in with the
+
+0:19:24.080,0:19:28.960
+same thing it's doing that stretching effect
+
+0:19:26.720,0:19:34.880
+so i can do that and the multiplication works
+
+0:19:30.080,0:19:38.720
+and if i want to say plot dot image show i try to do that and actually see how
+
+0:19:36.160,0:19:42.160
+the effect works uh it works great right i mean it starts black here on the left
+
+0:19:40.080,0:19:45.600
+and then it fades into the full color on the right and if i
+
+0:19:44.160,0:19:49.440
+wanted to reverse that i mean i could just say you know one minus all this
+
+0:19:47.760,0:19:53.520
+and then i guess it kind of fades to showing the the bug on the left and two
+
+0:19:51.840,0:19:56.960
+uh black on the right right so it's very powerful right i can kind of
+
+0:19:55.039,0:20:03.200
+do this multiplication but then it actually affects the way that i see
+
+0:19:59.600,0:20:08.000
+um images okay let's talk about the dot product so shifting gears a bit
+
+0:20:05.360,0:20:13.280
+here so i have this v1 here and i have this v2 here and um the most
+
+0:20:11.840,0:20:20.799
+common pattern when i'm doing two vectors by each other
+
+0:20:17.200,0:20:23.280
+is that i will have um basically like a vertical
+
+0:20:21.760,0:20:26.559
+or i'm sorry i might have a horizontal vector by a vertical so
+
+0:20:25.440,0:20:29.840
+so maybe i'm going to put this a transpose like this
+
+0:20:28.559,0:20:33.760
+and i want to multiply these two together and uh and i'm just going to do
+
+0:20:32.400,0:20:37.360
+it first i'm going to talk about what computation actually happened right so
+
+0:20:35.600,0:20:43.039
+we have v1 transpose times v2
+
+0:20:41.280,0:20:46.320
+and uh and this is going to be very different than what happened when i
+
+0:20:44.320,0:20:50.559
+did the other multiplication together maybe let's to kind of have
+
+0:20:48.000,0:20:54.720
+uh the contrast let's do it the old way the element-wise way
+
+0:20:52.799,0:20:59.200
+and you see i get that big thing when i do this dot product multiplication
+
+0:20:56.880,0:21:03.760
+i actually just did a single number which is 32.
+
+0:21:00.880,0:21:09.919
+so what in the world is going on here um it is doing this it's it's taking
+
+0:21:05.760,0:21:13.760
+one times four so i was taking one times four
+
+0:21:11.200,0:21:17.440
+plus and it's taking the second numbers one
+
+0:21:15.120,0:21:20.799
+times or i'm sorry two times five so two times five
+
+0:21:19.360,0:21:26.559
+and uh and then it's taking the third numbers three times six
+
+0:21:23.760,0:21:29.360
+plus three times six and it's adding them all up and that's how i end up with
+
+0:21:28.080,0:21:33.360
+just one number and so maybe if i actually just do this
+
+0:21:31.440,0:21:37.200
+i'll kind of prove it's true sure enough i got 32 here which kind of
+
+0:21:36.400,0:21:42.559
+ignoring the the shape of it is the same right so i'm
+
+0:21:40.720,0:21:45.600
+able to get 32 by that so so i use a dot product when i
+
+0:21:44.720,0:21:48.960
+want to add a multiply a bunch of pairs of numbers
+
+0:21:47.919,0:21:52.000
+together and uh and then add up the result then
+
+0:21:50.640,0:21:54.799
+there's going to be various use cases where i talk about that
+
+0:21:53.440,0:21:58.640
+so just like the one last thing i want to talk about here is
+
+0:21:57.200,0:22:02.159
+something that's actually relatively new to python it used to be that
+
+0:22:00.559,0:22:06.240
+um you would always do the dot product with numpy dot dot
+
+0:22:04.000,0:22:09.039
+and in other versions of python that was your only option
+
+0:22:07.679,0:22:13.280
+in newer versions of python they actually use the at symbol for dot and
+
+0:22:12.240,0:22:16.720
+you get the same thing right so you know you see a lot of
+
+0:22:15.360,0:22:19.280
+examples in the real world where they're doing this
+
+0:22:17.600,0:22:22.799
+a newer python code is probably going to be doing the dot product with the at
+
+0:22:21.120,0:22:29.280
+symbol so that is dot product for matrices
+
+0:22:26.880,0:22:34.559
+or vectors all right so we'll be talking more about how where i actually use this
+
+0:22:30.880,0:22:34.559
+in upcoming videos
+

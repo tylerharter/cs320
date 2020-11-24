@@ -1,0 +1,408 @@
+0:00:01.360,0:00:07.120
+in this video i want to keep building our model of how
+
+0:00:04.480,0:00:11.440
+web pages work and in particular i want to differentiate between what a page is
+
+0:00:09.840,0:00:16.160
+and what a file is they're very related concepts
+
+0:00:13.920,0:00:20.800
+so here i have you can see there was a request sent
+
+0:00:17.199,0:00:25.039
+to the web server right and we're getting a response back for page a
+
+0:00:23.119,0:00:30.560
+dot html and so you can see this picture here of
+
+0:00:27.680,0:00:34.000
+this python web server that's listening and probably the way it gave me the
+
+0:00:32.559,0:00:38.000
+response to that was by reading in a file and then kind
+
+0:00:36.239,0:00:41.920
+of sending that back to the client and so if i had code for
+
+0:00:40.879,0:00:44.719
+that it might look approximately something like this this is actually
+
+0:00:43.040,0:00:48.160
+probably closer to the real thing than you might imagine
+
+0:00:46.719,0:00:51.760
+but i have some sort of function like this that says
+
+0:00:49.120,0:00:55.680
+get page and then i pass in a resource name so maybe the resource name is
+
+0:00:53.320,0:00:59.440
+page.html and then maybe i open up that file for
+
+0:00:58.399,0:01:04.400
+reading and and then while i read whatever it is
+
+0:01:01.600,0:01:08.159
+right if i get page 8.html all then that's the thing i'm opening
+
+0:01:05.840,0:01:11.280
+and reading right and if i got you know let's say this was instead like
+
+0:01:09.720,0:01:15.439
+logo.png and i'd read that one and you can see
+
+0:01:14.400,0:01:19.600
+here that not only am i opening it for reading but i'm
+
+0:01:18.799,0:01:24.640
+using this p which means that it contains bytes data
+
+0:01:22.000,0:01:28.400
+in general it's not necessarily text these html pages just contain letters or
+
+0:01:27.360,0:01:32.320
+text uh but images right are kind of bytes in
+
+0:01:30.720,0:01:35.040
+general if i try to open that in a text editor
+
+0:01:33.520,0:01:40.240
+a human couldn't make sense of it which is why i have to do you know both
+
+0:01:36.880,0:01:44.600
+read and then have a b for bytes okay um
+
+0:01:43.360,0:01:49.119
+how do i deal with something like index.html i already told you that
+
+0:01:46.960,0:01:52.320
+um if we pass in just a slash for the use for the resource name then i end up
+
+0:01:51.040,0:01:56.240
+with that it's easier to imagine kind of a code
+
+0:01:54.479,0:02:02.880
+like this down in that jet page file just you know if we get a slash
+
+0:01:58.159,0:02:08.239
+replace it with uh index.html now something that we could do that's
+
+0:02:05.680,0:02:12.959
+kind of interesting is that this python server has the option to
+
+0:02:11.039,0:02:16.560
+return some data for a page even if there's no
+
+0:02:15.200,0:02:23.360
+corresponding file so for example
+
+0:02:20.080,0:02:28.200
+let's say i have this huh.html and uh and that's the page so even though
+
+0:02:25.520,0:02:32.480
+there's a hot.html page there's no ah.html file and so how would this
+
+0:02:30.959,0:02:35.040
+function down here work for the web server
+
+0:02:33.440,0:02:38.720
+well i would check if that's the file i have then i just kind of generate this
+
+0:02:37.519,0:02:42.800
+string on the fly and i return that and so the
+
+0:02:41.360,0:02:50.400
+vocabulary i'll use here is that ha dot html is a dynamic page
+
+0:02:47.760,0:02:54.239
+some code and the web server runs to figure out
+
+0:02:51.519,0:02:58.560
+uh what that page should be and in contrast right all these other ones down
+
+0:02:55.760,0:03:02.239
+here are static pages static pages are basically corresponding to some sort
+
+0:03:00.560,0:03:06.959
+of file that is sitting somewhere near the web
+
+0:03:04.560,0:03:11.599
+server um there's also this interesting hybrid
+
+0:03:10.879,0:03:15.519
+um where maybe i have a file that contains
+
+0:03:13.920,0:03:19.120
+most of what i want but then i want to inject a little bit
+
+0:03:17.200,0:03:22.560
+of dynamic content so for example maybe i have a web page
+
+0:03:21.040,0:03:25.680
+that you know it looks kind of the same to everybody
+
+0:03:24.000,0:03:31.280
+except that there's a small piece of text that says today's date
+
+0:03:28.400,0:03:33.360
+right so hi today is and then some date and
+
+0:03:31.599,0:03:38.480
+and so the way i would do that is i might put some sort of text in my
+
+0:03:36.400,0:03:42.640
+um in my file that looks like this right so i have a bunch of html
+
+0:03:40.400,0:03:47.200
+and and then you can see that i have have like this little slot here
+
+0:03:44.560,0:03:51.519
+right that i can use with python's format
+
+0:03:48.560,0:03:54.159
+function right so what will happen uh when i'm running this i'm going to step
+
+0:03:53.040,0:03:58.640
+through and then i might open and read the file
+
+0:03:56.400,0:04:03.040
+and then when it's page.html may say no well first s is all the stuff
+
+0:04:02.239,0:04:07.519
+in here and i say s equals s dot format with
+
+0:04:05.760,0:04:11.840
+today's date so today's date is going to get injected where this
+
+0:04:09.519,0:04:14.720
+kind of slot is in the string and then ultimately that's what i'm going to do
+
+0:04:13.439,0:04:17.440
+right this is called templating right because it's mostly static except i kind
+
+0:04:16.880,0:04:20.639
+of just inject a little bit of dynamic content
+
+0:04:19.359,0:04:24.000
+and if i was really being technical at the end of the day
+
+0:04:22.000,0:04:29.520
+this is a dynamic page even though i kind of have a file sitting here other
+
+0:04:28.160,0:04:33.600
+thing i want to talk about in terms of our model
+
+0:04:30.720,0:04:37.919
+is sometimes we have pages that involve multiple files or multiple resources
+
+0:04:36.320,0:04:42.639
+and so just now let's step through and see how that might happen
+
+0:04:39.919,0:04:48.080
+um so here i am on my laptop and i send a request for index.html i say get it
+
+0:04:45.120,0:04:52.880
+please to the web server and the web server says here you go here's your file
+
+0:04:51.040,0:04:58.400
+it contains a bunch of html and as i'm kind of reading through this i see
+
+0:04:54.560,0:05:01.360
+oh well this file or this page should have some sort of image on it
+
+0:05:00.160,0:05:04.639
+and i go a little bit farther and i'm like oh i have this strip tag i guess
+
+0:05:03.680,0:05:08.960
+there's some like code some javascript code and b.js
+
+0:05:07.600,0:05:13.600
+that ought to run and so the web uh the web client maybe
+
+0:05:12.479,0:05:17.199
+like chrome or something sees like oh i need these two other
+
+0:05:14.960,0:05:21.360
+files before i can actually show the page to the you to the user
+
+0:05:19.199,0:05:25.759
+and so it issues two more requests like this uh
+
+0:05:22.479,0:05:29.520
+a dot p and g and then b dot j s and so we have both of those things sent over
+
+0:05:27.919,0:05:33.120
+and uh and then it's going to get two responses for those
+
+0:05:31.440,0:05:36.240
+and um and at that point right we have kind of the html and we have the image
+
+0:05:34.880,0:05:40.320
+to insert in it um so the web browser will do that it
+
+0:05:38.639,0:05:44.160
+also has some sort of engine javascript engine that will start
+
+0:05:42.000,0:05:47.680
+running the javascript code and um and so that seems well maybe that
+
+0:05:46.080,0:05:52.160
+might be where we finish um it's also possible that some code in
+
+0:05:50.840,0:05:56.639
+javascript can choose to issue other requests over
+
+0:05:54.800,0:06:01.600
+the web server for example uh maybe the javascript code wants to
+
+0:05:59.360,0:06:04.720
+load some sort of json file and put it in a table and then show that
+
+0:06:03.280,0:06:07.520
+to users that might generate other requests and then we might get other
+
+0:06:06.160,0:06:11.600
+responses then the javascript code might generate
+
+0:06:09.440,0:06:17.280
+something something like that and so this is a hard thing to scrape
+
+0:06:14.319,0:06:20.960
+right this is kind of why we had to um learn selenium right instead of just
+
+0:06:19.680,0:06:25.120
+the requests if i just use something like request.debt
+
+0:06:22.960,0:06:28.960
+here then the only thing i would have ever had was index.html
+
+0:06:29.120,0:06:34.240
+i needed this javascript engine which i get with selenium
+
+0:06:32.720,0:06:39.199
+in order to actually kind of get this content on the on the
+
+0:06:36.000,0:06:41.600
+page and be able to deal with that um it's also possible this javascript thing
+
+0:06:41.039,0:06:46.160
+might be uploading some data with some with some
+
+0:06:43.440,0:06:49.599
+sort of post so let's review all the this kind of
+
+0:06:48.080,0:06:54.000
+concepts that have come up there's a lot of them
+
+0:06:50.639,0:06:57.199
+um every computer in the world uh has um an ip address you can that's mostly
+
+0:06:56.720,0:07:01.360
+true right so we have ip address we can talk
+
+0:06:59.039,0:07:04.479
+to them really if i was being technical computers have network cards and network
+
+0:07:03.360,0:07:08.160
+cards have ip addresses so you can imagine my
+
+0:07:06.880,0:07:10.639
+computer that some for some reason doesn't have a network card or has more
+
+0:07:09.599,0:07:14.400
+than one um and if it had more than one i would
+
+0:07:12.479,0:07:19.599
+have multiple ip addresses um on a single computer uh there might
+
+0:07:17.520,0:07:22.560
+be multiple processes running and so they'll each attach to a port
+
+0:07:21.280,0:07:24.880
+number that's kind of like an apartment number
+
+0:07:23.280,0:07:28.560
+um it's how we can route traffic not just to a specific computer
+
+0:07:26.960,0:07:33.919
+but to a specific program on that computer but we learned about firewalls
+
+0:07:30.960,0:07:37.120
+firewalls block certain requests possibly based on different
+
+0:07:35.120,0:07:42.160
+characteristics but often uh to very specific port numbers
+
+0:07:40.479,0:07:46.879
+listening is a verb it means that a process is ready to receive requests on
+
+0:07:45.199,0:07:50.960
+some sort of port we learned about the domain name service
+
+0:07:48.639,0:07:54.400
+which was like this giant dictionary uh the keys in the dictionary were
+
+0:07:52.479,0:07:58.400
+domain names you know like maybe google.com
+
+0:07:56.000,0:08:01.280
+and uh and then the values were ip addresses right and that's how we
+
+0:08:00.080,0:08:04.960
+don't have to be dealing with ip addresses all the time when we're
+
+0:08:02.400,0:08:08.080
+surfing the web right we use a dns um service to automatically convert
+
+0:08:06.639,0:08:12.160
+those for us but we learned about https which is just
+
+0:08:10.160,0:08:16.319
+an encrypted version of http uh without it people could snoop on you
+
+0:08:14.960,0:08:20.080
+on wi-fi we learned about static and dynamic
+
+0:08:18.080,0:08:25.199
+pages static pages directly correspond to a file on the server
+
+0:08:21.759,0:08:28.319
+dynamic pages are generated on the fly by some python
+
+0:08:26.000,0:08:30.879
+code and to simplify that process these dynamic pages are often based on
+
+0:08:29.919,0:08:34.719
+templating maybe we uh try to grab some sort of um
+
+0:08:33.839,0:08:38.959
+uh partial file uh from from our file
+
+0:08:38.240,0:08:42.240
+system and then we inject some key content
+
+0:08:40.560,0:08:45.839
+making it dynamic and then finally these are things that
+
+0:08:43.360,0:08:49.760
+we learned in 220 but i want to review it here
+
+0:08:47.040,0:08:53.600
+when we're doing http requests or maybe as part of an https
+
+0:08:51.839,0:08:56.800
+we might either get data which means we're downloading information
+
+0:08:55.120,0:08:59.040
+or post data which means we're uploading it and then there's some other ones too
+
+0:08:58.480,0:09:02.480
+that i uh i won't be talking about in this
+
+0:09:00.800,0:09:05.040
+course so hopefully that gives you kind of a good
+
+0:09:03.120,0:09:09.360
+conceptual understanding of how the internet works
+

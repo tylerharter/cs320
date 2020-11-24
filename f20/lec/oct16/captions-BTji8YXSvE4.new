@@ -1,0 +1,651 @@
+0:00:01.199,0:00:05.839
+hello in this video where we talk about how we can be with respectful web
+
+0:00:04.799,0:00:10.480
+scrapers um it's very easy when we're writing a
+
+0:00:07.839,0:00:14.719
+program to kind of hit a website too hard and maybe if the owners are
+
+0:00:12.160,0:00:18.480
+okay with it uh and kind of in general maybe it's well there's some limit at
+
+0:00:16.240,0:00:21.680
+which point it brings down the server and um and so there's ways that web
+
+0:00:20.640,0:00:26.000
+servers can uh tell us to hey back off you're
+
+0:00:24.000,0:00:30.080
+sending us too much traffic and and so what i want to do here is
+
+0:00:28.240,0:00:33.760
+think about how we can uh build that feature i may start on the
+
+0:00:31.519,0:00:35.680
+flask side and we'll see what it looks like
+
+0:00:34.160,0:00:40.239
+um kind of when we're visiting the web page okay so over here i have the same
+
+0:00:38.320,0:00:44.399
+example from last time i'm actually going to simplify it a
+
+0:00:41.520,0:00:48.320
+little bit um maybe for this page i'm just going to return
+
+0:00:46.000,0:00:54.960
+uh maybe i'll return the word home and then for this hot page
+
+0:00:50.640,0:00:57.840
+i'll return the string haha like so and um and then over here i'm going to
+
+0:00:56.480,0:01:01.920
+start it like usual i'm going to say python
+
+0:00:59.039,0:01:06.000
+3 server dot pi is the name of the file i'm running
+
+0:01:04.080,0:01:10.000
+and then what i'd like to do is i'm going to grab my ip address
+
+0:01:08.320,0:01:18.320
+and i see that i'm listening on port 5000 let me type this and then say five
+
+0:01:13.840,0:01:24.479
+colon five thousand and i have that page and i have the other page
+
+0:01:21.439,0:01:27.920
+and that all looks good now one of the things i want to look at
+
+0:01:26.080,0:01:31.600
+inside of this web browser are what we call the chrome development
+
+0:01:29.600,0:01:36.240
+tool so if i if i go to the menu i go to more tools um i can click on
+
+0:01:34.720,0:01:39.439
+developer tools and there's maybe something similar in
+
+0:01:38.079,0:01:44.320
+any browser and when i refresh this what it's trying
+
+0:01:42.079,0:01:47.680
+to show me down in this box here are all the web requests that are
+
+0:01:46.000,0:01:51.280
+involved in visiting this page and if you go and visit a real page you
+
+0:01:49.360,0:01:53.759
+might see dozens of requests there because
+
+0:01:52.000,0:01:59.200
+loading the page involves images and javascript files and other things
+
+0:01:56.479,0:02:03.520
+and so if i click on this thing maybe make this a little bit larger
+
+0:02:00.960,0:02:06.479
+i mean there's a few pieces here um one is that i actually have the response
+
+0:02:04.960,0:02:09.599
+right i can see the i can see the data there for the
+
+0:02:07.840,0:02:12.959
+response and that's the data that i'm getting back
+
+0:02:11.120,0:02:15.440
+but there's also this stuff called metadata
+
+0:02:14.160,0:02:17.920
+and the metadata is just a little bit about extra information about what i'm
+
+0:02:17.040,0:02:23.040
+getting um so for example uh there are these
+
+0:02:20.319,0:02:26.800
+response headers that come along with the response and that tells me
+
+0:02:24.319,0:02:30.400
+things like well how long is the data um what kind of file is it um here i
+
+0:02:30.000,0:02:34.800
+typed html at the end so you might guess it's
+
+0:02:33.120,0:02:38.000
+an html file but that's just kind of a convention i
+
+0:02:36.160,0:02:42.480
+mean i could have something that ends in html and then it ends up being a pdf
+
+0:02:40.319,0:02:45.200
+right this content type here is how chrome actually figures out what kind of
+
+0:02:44.080,0:02:48.879
+data it is um you can also see there's a little bit
+
+0:02:46.400,0:02:51.760
+of information there about the encoding and there's some other details about i
+
+0:02:50.560,0:02:56.239
+don't know the date the page was modified stuff like that
+
+0:02:53.440,0:02:59.440
+uh what server we're using and um and and so i have all that the other thing i
+
+0:02:57.840,0:03:03.440
+can see is that this was a good page right i got back uh
+
+0:03:02.000,0:03:09.200
+status code on 200 and so where all
+
+0:03:06.560,0:03:13.280
+is all this stuff coming from well it turns out over here in my code
+
+0:03:11.120,0:03:17.920
+even though i'm just returning a string um this is a shorthand
+
+0:03:15.519,0:03:20.400
+and it's the shorthand for returning a response object it's kind of strange
+
+0:03:19.440,0:03:23.760
+right so within the flask module we have
+
+0:03:22.480,0:03:27.120
+lowercase request and then there's also this uppercase
+
+0:03:25.280,0:03:31.040
+response and and we have these response objects and
+
+0:03:29.760,0:03:34.799
+what i'm doing here i'm just going to be turning a string
+
+0:03:32.400,0:03:39.680
+but that's the equivalent of saying return a new response object
+
+0:03:36.879,0:03:43.440
+where i have home for that information and uh and then i have like a status
+
+0:03:41.360,0:03:48.239
+which i guess is 200 and then i have a headers equals this
+
+0:03:46.799,0:03:52.080
+empty dictionary um when i'm kind of looking at these
+
+0:03:49.920,0:03:56.159
+header values over here uh i think of like content length as a
+
+0:03:54.159,0:04:01.519
+key and then four is a value i think content of content type is a key
+
+0:03:59.280,0:04:04.080
+and then this stuff stuff is a value and and so there's some that it's creating
+
+0:04:02.879,0:04:07.760
+automatically and and i have the option of putting
+
+0:04:05.439,0:04:09.840
+more in if i like right so this line of code here is really just kind of
+
+0:04:08.879,0:04:15.439
+equivalent uh to this right so that's kind of cool
+
+0:04:13.120,0:04:20.320
+um what it means is i could put extra information in here
+
+0:04:16.959,0:04:27.120
+um if i wanted to so for example um maybe i'll create another page
+
+0:04:23.360,0:04:34.160
+uh that's like um you know don't do not visit
+
+0:04:31.199,0:04:38.880
+and maybe what i'll return here is something like you know go away
+
+0:04:36.080,0:04:43.600
+and the status code will be like 404 right that's right what we get
+
+0:04:40.320,0:04:46.800
+for a missing um page and then if i want i could put whatever i really want in
+
+0:04:44.800,0:04:52.720
+here i could put something like um you know some key draws to some
+
+0:04:51.040,0:04:57.040
+some value it doesn't really matter i can shove anything in there i want
+
+0:04:54.560,0:05:02.800
+and then if i restart my web server control c and then run it again
+
+0:04:59.600,0:05:05.840
+and um it's complaining right because i have two endpoints both named
+
+0:05:04.960,0:05:10.320
+home um so let me uh i'm just trying to
+
+0:05:09.120,0:05:13.840
+change the name of that function and then i think it'll be happy
+
+0:05:12.000,0:05:18.639
+and so i'm going to do that and then in this page
+
+0:05:15.280,0:05:25.919
+i am going to go to all of this slash do not visit
+
+0:05:22.960,0:05:29.360
+and um and you can see here while i get the text like before let me shrink this
+
+0:05:28.000,0:05:35.759
+down just a little bit but i get the the text to go away
+
+0:05:32.560,0:05:41.840
+uh like that um if i click on under network if i click on this thing i can
+
+0:05:38.240,0:05:44.960
+see that it was a 404 response and then if i come down to these
+
+0:05:43.039,0:05:48.880
+response headers down here i can see that for the headers
+
+0:05:47.360,0:05:53.919
+there's this extra key in this extra value so i have some key
+
+0:05:50.800,0:05:56.560
+and uh and some value there and um and so i still get the data right i mean
+
+0:05:55.360,0:05:59.919
+this is the data but then i kind of have all this
+
+0:05:58.000,0:06:03.600
+metadata both the status and and all of these headers so in general
+
+0:06:03.199,0:06:07.360
+right even though i'm returning a string you
+
+0:06:05.199,0:06:11.120
+know flask will create a response object if i'm not doing it explicitly
+
+0:06:09.680,0:06:14.560
+um so why would we ever want to do it explicitly well it turns out there's a
+
+0:06:13.360,0:06:18.400
+lot of things we could do with this status and
+
+0:06:16.000,0:06:22.720
+and kind of these headers and and for example if you if you kind of google
+
+0:06:20.000,0:06:25.440
+all the different http uh response codes i only know a couple of them
+
+0:06:24.400,0:06:28.800
+one of the ones you're gonna see that's important is 429 and that says too many
+
+0:06:27.520,0:06:32.400
+requests and this is what a web server should
+
+0:06:30.880,0:06:36.160
+send back um if it's kind of getting hit too
+
+0:06:34.400,0:06:41.039
+heavily by a specific um let's say web scraper and uh and so it's
+
+0:06:39.199,0:06:45.039
+okay 429 too many requests if i scroll down a little bit i see that
+
+0:06:42.960,0:06:48.400
+there's also this optional header which says retry after and that's in
+
+0:06:47.360,0:06:52.400
+seconds and so that's kind of a polite way to
+
+0:06:50.160,0:06:55.759
+tell a web scraper that hey i'm busy right now you've been
+
+0:06:53.759,0:06:59.280
+sending me too many requests but wait a bit and then i'll be okay with
+
+0:06:57.039,0:07:06.639
+some more requests okay so let's try to do this i'm going to say
+
+0:07:03.280,0:07:11.520
+so 420 429 is the number so so here i'm going to say 429
+
+0:07:08.880,0:07:18.319
+and and then down here what is my key i guess my key
+
+0:07:13.199,0:07:22.240
+is this thing retry after and and i'll say well i want you to
+
+0:07:20.960,0:07:26.160
+retry after i don't know three seconds maybe i'll
+
+0:07:24.800,0:07:33.120
+try that okay let me restart this web server
+
+0:07:29.280,0:07:39.199
+and hit that and um and then let me let me kind of refresh this page
+
+0:07:37.440,0:07:43.039
+you can see it's uh it's not saying the same thing if i click on this well i'm
+
+0:07:41.599,0:07:50.879
+getting that 422 429 too many requests and retry after
+
+0:07:46.879,0:07:54.160
+three seconds okay so what i'd like to do here kind of big
+
+0:07:53.280,0:07:59.120
+picture is to have something like this but
+
+0:07:57.360,0:08:03.120
+i want it to work across all my different functions
+
+0:08:01.120,0:08:08.720
+okay and so kind of what i'm trying to do is i want to have a new
+
+0:08:04.960,0:08:13.680
+uh decorator that will do these response objects if i'm getting too
+
+0:08:09.919,0:08:18.400
+hit too heavily so how can i do that so um maybe what is this thing called here
+
+0:08:17.280,0:08:26.720
+it's too many so maybe i'll say define too many
+
+0:08:22.879,0:08:29.440
+and uh and you know it's just kind of a general function
+
+0:08:28.160,0:08:31.520
+and so i'm going to use this as a decorator right i'm going to be doing
+
+0:08:30.479,0:08:35.919
+something like this i might say something like at too
+
+0:08:33.599,0:08:41.039
+many and maybe here i'm just going to say like you know let's return
+
+0:08:38.479,0:08:43.919
+uh hi for now but i'm going to use this decorator so hopefully it kind of sends
+
+0:08:43.120,0:08:46.959
+that and and so this is where i have to take
+
+0:08:45.760,0:08:51.279
+a function and then it's going to have to return a
+
+0:08:49.839,0:08:54.399
+different function and so maybe what i should do here is i
+
+0:08:52.880,0:08:59.839
+should create some sort of wrapper and say death wrapper
+
+0:08:56.399,0:09:03.680
+and um and i'm wrapping something that doesn't really take any argument so i
+
+0:09:01.200,0:09:08.640
+guess that'll be fine just like so um i'm gonna call this thing maybe i'll
+
+0:09:06.399,0:09:11.839
+say like rv equals that you know what i think it's
+
+0:09:10.640,0:09:15.519
+fine to even just trying to return whatever that thing
+
+0:09:13.760,0:09:20.720
+returns and let me return this wrapper here right right so what will happen
+
+0:09:18.880,0:09:24.959
+is that this function is going to get swapped out for this wrapper
+
+0:09:22.560,0:09:28.880
+which basically does the same thing and then up here what i'm going to do
+
+0:09:26.640,0:09:34.800
+is sometimes i'm going to return a response object
+
+0:09:30.800,0:09:41.120
+that will say um you know go away um and the status will equal
+
+0:09:38.080,0:09:46.959
+429 and then i'll say something like you know headers
+
+0:09:43.040,0:09:52.000
+equals retry after let's say like three seconds
+
+0:09:50.240,0:09:57.920
+okay so let's let's try this and see if i can kind of get this behavior
+
+0:09:54.399,0:10:01.680
+on so i'm going to run this thing and of course right you know to do
+
+0:10:02.079,0:10:07.360
+only sometimes do this right i don't always want to tell people to go away
+
+0:10:05.760,0:10:11.279
+just tell me when i'm too busy all right so i'm going to run this and
+
+0:10:09.360,0:10:14.480
+then i'm going to refresh this page and you see it works beautifully i'm
+
+0:10:12.800,0:10:18.880
+doing the same thing that i had before um what if i want to
+
+0:10:17.519,0:10:20.880
+have it applied all my pages right so let's say i want to have it be for this
+
+0:10:20.079,0:10:26.880
+one um what i can do is i can
+
+0:10:25.360,0:10:30.240
+i can put it here for the other ones as well um
+
+0:10:28.880,0:10:33.760
+this is kind of weird right when i'm having multiple decorators because
+
+0:10:32.000,0:10:37.680
+each one has a chance to kind of swap out uh the function and it works from
+
+0:10:36.079,0:10:40.399
+the inside out so i kind of this is the original one
+
+0:10:38.640,0:10:44.640
+and this has a shot to swap out or register it and then this has a
+
+0:10:42.399,0:10:49.440
+shot to kind of swap out or register it so it's important that i'm putting this
+
+0:10:46.480,0:10:52.240
+directly before i have this otherwise this would just kind of bypass and jump
+
+0:10:50.880,0:10:57.360
+straight to the page so i have this thing and i'm going to
+
+0:10:54.800,0:11:03.279
+kind of run it again and you see this issue i'm heading
+
+0:11:00.880,0:11:06.480
+right is that says view function mapping is overwriting the existing endpoint
+
+0:11:04.880,0:11:10.880
+which is wrapper uh well what's going on here well each
+
+0:11:08.959,0:11:14.000
+of these are swapping out each of these functions with a new
+
+0:11:13.279,0:11:19.600
+function that's called wrapper right and and flask does
+
+0:11:17.360,0:11:23.600
+not like that right flask likes each endpoint to go to a different
+
+0:11:22.399,0:11:26.320
+function and so one of the things i'm going to
+
+0:11:25.120,0:11:29.279
+have to do here that's a little bit tricky
+
+0:11:27.360,0:11:35.040
+is when i return this wrapper function i have to give it a new name
+
+0:11:30.880,0:11:38.720
+actually something like wrapper dot name equals and i can make up whatever i want
+
+0:11:37.440,0:11:42.160
+but i think i'm just going to steal the name
+
+0:11:40.240,0:11:46.720
+from the function that i'm wrapping just kind of like that
+
+0:11:44.160,0:11:51.519
+so let me run this now and uh and now cool so i get that on the home page
+
+0:11:49.360,0:11:56.639
+i get this on hot.html i'm getting it on all the pages
+
+0:11:52.560,0:12:02.880
+right and so that's all good um let's work on this to do right uh
+
+0:12:00.720,0:12:05.680
+you know let's try to think about how we can only do it if we haven't had a
+
+0:12:04.399,0:12:09.360
+request for a while so you can see i'm already importing
+
+0:12:07.519,0:12:13.839
+time and so i'm gonna have something here called like
+
+0:12:10.079,0:12:18.079
+last time uh maybe i'll start it off at zero
+
+0:12:15.120,0:12:23.360
+and uh and then what i'm gonna do here is i'm gonna figure out well
+
+0:12:20.000,0:12:30.160
+uh what is the current time equals time that time
+
+0:12:24.880,0:12:35.279
+right this is the seconds since 1970 and then i might figure out how many
+
+0:12:32.480,0:12:42.480
+seconds have passed let me say elapsed equals curve time minus the last time
+
+0:12:41.040,0:12:47.040
+right so this is how many seconds it's been since this thing was updated
+
+0:12:45.360,0:12:53.040
+and then i may update them i say last time equals
+
+0:12:48.800,0:12:56.240
+cur time okay so what this is elapsed thing is going to do is it's
+
+0:12:54.639,0:13:00.560
+going to be telling me well how long has it been
+
+0:12:57.279,0:13:05.120
+since some other page was requested and so what i'll say is
+
+0:13:02.880,0:13:08.240
+you know if you've already asked for one page
+
+0:13:06.079,0:13:11.680
+within the last three seconds you're just gonna have to wait
+
+0:13:09.360,0:13:16.079
+so i'm gonna say if he lapsed is this kind of less than three
+
+0:13:12.959,0:13:19.120
+so so you've kind of asked recently oh i'm gonna do this and maybe just to be
+
+0:13:18.320,0:13:23.600
+kind of nice um i'm not going to count it as a new
+
+0:13:22.160,0:13:28.079
+request with this last time uh
+
+0:13:26.720,0:13:30.160
+unless i actually kind of gave you something so let me put this down here
+
+0:13:29.519,0:13:33.440
+right it doesn't reset the clock of when you
+
+0:13:32.320,0:13:36.560
+last um asked for something unless we're
+
+0:13:34.880,0:13:40.560
+actually giving you something okay so let me let me kind of refresh
+
+0:13:38.320,0:13:45.839
+this let me come back here and and well that's horrible
+
+0:13:43.680,0:13:52.240
+um let me kind of see i have some sort of well it's not running
+
+0:13:47.839,0:13:56.720
+okay we run it we refresh this page and still still not go a local variable
+
+0:13:56.000,0:14:01.519
+last time referenced before assignment oh yeah
+
+0:14:00.079,0:14:04.160
+because i guess this is kind of a global variable
+
+0:14:02.320,0:14:06.639
+and uh and i'm making a local variable here let me just do this i'm gonna say
+
+0:14:05.680,0:14:13.760
+global last time like this and
+
+0:14:09.920,0:14:17.680
+restart this thing then i refresh it and it says haha you see i refresh again
+
+0:14:16.240,0:14:21.680
+and it says go away i keep hitting refresh it only lets me
+
+0:14:19.920,0:14:27.839
+really kind of get my data once every three seconds and that's true
+
+0:14:24.320,0:14:32.079
+even if i jump to a different page right and uh
+
+0:14:30.639,0:14:36.800
+and so i can kind of use this for all of them this is a way to do what we call
+
+0:14:34.880,0:14:39.920
+rate limiting right i kind of limit how many requests i'll take and i guess now
+
+0:14:38.399,0:14:44.160
+it's very slow like i get one request every three seconds um now
+
+0:14:42.480,0:14:47.680
+i'm gonna leave it here but with kind of one to do
+
+0:14:44.880,0:14:51.519
+i mean it's not very fair that i would refuse
+
+0:14:48.560,0:14:54.800
+one client service just because another client recently
+
+0:14:52.639,0:15:00.000
+kind of sent me a bunch of traffic so to really do this properly
+
+0:14:56.639,0:15:04.240
+uh keep track of um of kind of you know the last time on a
+
+0:15:02.880,0:15:08.000
+per client basis and there's different ways
+
+0:15:07.120,0:15:12.480
+i could do that um i think like you know and in flask i
+
+0:15:10.880,0:15:15.920
+can get the ip address of the computer that's sending me the traffic
+
+0:15:14.240,0:15:19.360
+and then i could pretend to make it fair i could say well um
+
+0:15:17.760,0:15:22.240
+i'm only going to kind of send you away if if i've been getting a lot of
+
+0:15:20.800,0:15:27.519
+requests from the same ip address for a while
+

@@ -1,0 +1,876 @@
+0:00:01.839,0:00:08.080
+so in cs 220 uh we learned some basic web
+
+0:00:05.040,0:00:12.000
+scraping stuff and in this course we've done more we've used selenium so
+
+0:00:10.559,0:00:15.120
+we can straight pages that have javascript on them
+
+0:00:13.440,0:00:18.160
+and and we've also thought about how we can do some general web crawling across
+
+0:00:16.720,0:00:21.760
+many pages but all these things that we've done in
+
+0:00:19.439,0:00:25.920
+both the courses so far have been what we might call a client
+
+0:00:22.880,0:00:28.880
+side we're writing programs that ask for data
+
+0:00:26.640,0:00:31.119
+from some web servers and so what i want to spend at least a little bit of time
+
+0:00:30.000,0:00:34.239
+in this course doing is thinking about the other side of the
+
+0:00:32.640,0:00:38.079
+picture um how do we build an application
+
+0:00:35.440,0:00:41.040
+that might respond with data when people ask for it
+
+0:00:39.200,0:00:43.120
+and um there's lots of reasons why this might make sense in a data science
+
+0:00:42.640,0:00:46.239
+course um if you have some sort of data set and
+
+0:00:44.719,0:00:49.360
+you want to share it with the world maybe you have to have some sort of web
+
+0:00:47.840,0:00:52.960
+api uh where various clients can kind of make
+
+0:00:50.960,0:00:57.520
+queries and grab different pieces of data right so and so that's one piece
+
+0:00:55.920,0:01:00.960
+you might end up writing applications like that that kind of serve up data
+
+0:00:59.520,0:01:04.640
+um and then other pieces is if you understand how that back end works uh
+
+0:01:02.800,0:01:08.240
+it's gonna make more sense to you how you might write a client that
+
+0:01:05.920,0:01:11.360
+requests data and so i'm gonna talk a little bit about how the internet works
+
+0:01:09.520,0:01:15.520
+in general and networks work and some of this is has an overlap from
+
+0:01:13.119,0:01:20.320
+cs220 but i think it's good to see again um
+
+0:01:18.320,0:01:25.360
+the way you should think of computers is as maybe these buildings
+
+0:01:23.680,0:01:30.079
+that have some sort of street address but instead of a street address
+
+0:01:27.280,0:01:31.840
+they have what we call an ip address and there's different kinds of ip address
+
+0:01:31.520,0:01:35.200
+but a very common format is where we have
+
+0:01:33.600,0:01:38.880
+kind of like these four um parts right these four numbers
+
+0:01:36.880,0:01:42.079
+separated by periods your laptop actually i'm not showing it
+
+0:01:40.479,0:01:46.799
+here but that will also have um some sort of ip address and so a
+
+0:01:45.119,0:01:49.520
+network right is any case where we have two computers
+
+0:01:47.920,0:01:53.520
+or more in the world that are talking to each other and um and so here i have
+
+0:01:51.920,0:01:56.640
+this laptop that's talking with this computer over
+
+0:01:55.280,0:02:01.759
+here that i'm kind of drawing as as this big building and um and so when
+
+0:01:59.439,0:02:05.600
+you send a request from a program uh you have to say well what ip address
+
+0:02:03.600,0:02:08.560
+do i want to send that request to and we won't get into the details of
+
+0:02:07.040,0:02:11.120
+routing but somehow the internet figures out if i send a request to this ip
+
+0:02:10.160,0:02:14.879
+address ultimately you'll end up at that at that
+
+0:02:13.599,0:02:18.319
+computer there right and and so that's all and i could
+
+0:02:17.120,0:02:22.800
+have different programs i could send these requests from my laptop maybe i
+
+0:02:19.760,0:02:27.120
+have my chrome browser um maybe i have like an ssh session running
+
+0:02:25.680,0:02:32.800
+maybe i have a python program it could look like lots of different things
+
+0:02:29.760,0:02:36.480
+okay so why have i drawn this computer as an apartment building uh well because
+
+0:02:35.120,0:02:40.959
+i want you to think of it as having these kind of different components
+
+0:02:38.560,0:02:46.000
+um inside of it uh they're gonna be different programs
+
+0:02:42.640,0:02:48.800
+um running on a computer and and i kind of think of them as occupying different
+
+0:02:47.360,0:02:52.000
+apartments within a building and so if i want to send a request to
+
+0:02:50.720,0:02:54.080
+somebody i can't just send it to the building
+
+0:02:52.720,0:02:57.360
+i have to say what apartment number i want and kind of
+
+0:02:55.840,0:03:01.440
+working with that analogy what we'd call that here is a port number right so when
+
+0:02:59.920,0:03:04.959
+i send that request i'm going to say both the ip address
+
+0:03:02.879,0:03:10.000
+and colon and then the port number to make sure it actually ends up talking
+
+0:03:07.040,0:03:12.159
+um to the program i'm interested in okay so so let's
+
+0:03:10.800,0:03:15.120
+try to get away from apartment buildings and kind of have a closer look at this
+
+0:03:13.760,0:03:18.800
+picture in order to really understand um ports
+
+0:03:17.280,0:03:22.080
+and what it takes to get a message to a program
+
+0:03:19.920,0:03:26.720
+um i may talk about some different problems that could arise
+
+0:03:23.920,0:03:29.280
+um one problem that could arise is that there could be a firewall here i have a
+
+0:03:28.400,0:03:33.760
+firewall that might block requests and um and
+
+0:03:32.319,0:03:39.360
+it's possible a firewall could block certain requests like maybe
+
+0:03:35.120,0:03:43.440
+to 2020 but not to port 22. right and so in that case maybe i can't
+
+0:03:41.599,0:03:47.680
+reach jupiter but i could reach this ssh program
+
+0:03:45.920,0:03:52.480
+actually on all your vms there's an ssh program running all the time
+
+0:03:49.440,0:03:57.519
+and when you run ssh on your laptop what you're doing is you're trying to
+
+0:03:53.599,0:04:00.720
+talk um talk to that program over here on the right and just kind of the
+
+0:03:59.120,0:04:06.480
+tradition is that ssh always listens on port 22
+
+0:04:03.840,0:04:09.840
+right um but you know you can configure it otherwise
+
+0:04:08.000,0:04:15.519
+okay and so you can punch different holes in the firewall by configuring it
+
+0:04:13.200,0:04:17.840
+in our course uh you know we're more worried about kind of convenience and
+
+0:04:17.040,0:04:21.519
+security it's like the first thing i had to do on
+
+0:04:19.199,0:04:23.840
+lab one was just to completely disable this firewall
+
+0:04:22.560,0:04:26.720
+and that would not be a good thing to do like if you're working in you know a
+
+0:04:25.680,0:04:29.520
+company maybe you're working with banking information or something else
+
+0:04:28.400,0:04:33.600
+very private um it'd be better kind of being very
+
+0:04:31.919,0:04:38.080
+judicious about what you open up and what you don't
+
+0:04:35.280,0:04:40.240
+now there might be other issues um about kind of getting through even if i open
+
+0:04:39.360,0:04:44.400
+up that port number 2020 uh maybe there is no
+
+0:04:43.199,0:04:47.600
+process listening here right so i might send
+
+0:04:46.080,0:04:51.120
+this request but it doesn't really get anywhere
+
+0:04:49.440,0:04:56.000
+so okay so i'll start a process and i say that process is listed
+
+0:04:52.479,0:04:58.800
+on port 2020 and uh and then there's this kind of funny
+
+0:04:57.120,0:05:02.560
+thing you can show that i have this ear which represents listening
+
+0:05:00.639,0:05:07.280
+and there's multiple ways to listen when you're running on on a computer
+
+0:05:04.720,0:05:10.000
+and um one way to listen is just to kind of listen
+
+0:05:08.080,0:05:14.160
+to other programs on on the same computer and so even though every
+
+0:05:11.919,0:05:20.479
+machine has an ip address like this every machine also has an ip address
+
+0:05:17.039,0:05:24.560
+which is 127.0.0.1 um that's actually a good number to
+
+0:05:21.680,0:05:28.160
+remember that's like the local host address and if i start a program like
+
+0:05:26.880,0:05:33.120
+let's say i started jupiter notebooks like this i say python3
+
+0:05:30.080,0:05:36.960
+run notebooks no browser ip equals this and this port 2020. i'll start that
+
+0:05:35.440,0:05:39.759
+process but it's only listening to other programs on here
+
+0:05:38.240,0:05:44.720
+so you know if somehow i was able to start chrome on the same laptop
+
+0:05:42.560,0:05:48.320
+then i could use jupyter but if i have a separate computer over here who's trying
+
+0:05:46.240,0:05:53.600
+to access it via this ip address well nobody's trying to respond to me um
+
+0:05:51.199,0:05:56.800
+right so that would be kind of my third third issue right so the the key when i
+
+0:05:55.840,0:06:01.600
+start up is to listen on this ip address that's
+
+0:05:59.440,0:06:06.720
+kind of public facing and um a convenient way to do that is
+
+0:06:03.520,0:06:10.080
+just say 0.0.0.0 that's kind of just a shortcut to say
+
+0:06:08.560,0:06:14.240
+hey listen on well i guess really everywhere including
+
+0:06:12.400,0:06:17.280
+kind of this public facing one so so that's why in lab one i told you to
+
+0:06:16.000,0:06:21.120
+start it up this way right we want to listen on port 2020
+
+0:06:19.280,0:06:23.280
+right so i'm doing that and we want to kind of listen to outside traffic so i'm
+
+0:06:22.639,0:06:26.639
+doing that and then i told you to open up the
+
+0:06:24.400,0:06:28.400
+firewall and if you did all those things correctly well then hopefully you can
+
+0:06:27.919,0:06:31.840
+connect next to your jupiter process and see
+
+0:06:30.000,0:06:35.840
+what's going on and then at the same time you're connecting with ssh on port
+
+0:06:34.000,0:06:38.960
+22 to the ssh program so you can both run kind of bash
+
+0:06:37.759,0:06:43.840
+commands via ssh and then and then run kind of
+
+0:06:41.600,0:06:48.160
+your jupiter jupiter notebooks so at this point we have success so we
+
+0:06:45.360,0:06:51.919
+can talk to both programs okay so i'm gonna do a little demo here
+
+0:06:50.319,0:06:56.000
+uh where i'm gonna start up another process and uh and then i'm gonna see
+
+0:06:54.560,0:07:00.560
+how i can connect to it from from chrome and uh
+
+0:06:59.199,0:07:03.280
+it's a little bit dangerous right i mean if you don't do it right it's very easy
+
+0:07:02.080,0:07:06.639
+that you could kind of accidentally share
+
+0:07:03.680,0:07:09.520
+all your private data um you know on the internet with people and
+
+0:07:07.759,0:07:12.240
+well you know i've had people do this before and not necessarily in this class
+
+0:07:11.599,0:07:16.000
+but you know it's not the chances aren't
+
+0:07:14.240,0:07:20.479
+tiny that somebody will take advantage of that and kind of exploit your virtual
+
+0:07:18.880,0:07:24.639
+machine anyway i'm gonna head over here and let
+
+0:07:23.360,0:07:28.639
+me go to my let me go to
+
+0:07:29.520,0:07:33.919
+i'm gonna my over to my virtual machine like so
+
+0:07:34.400,0:07:43.919
+and what am i gonna do here i'm gonna make a simple website
+
+0:07:39.759,0:07:47.840
+and um and kind of have it be public on the internet
+
+0:07:45.840,0:07:50.879
+okay so what i'm going to do is i'm going to make a new directory and i say
+
+0:07:49.440,0:07:55.120
+make directory website demo and this is very important
+
+0:07:54.560,0:07:58.879
+that i do the new directory first and then cd
+
+0:07:57.440,0:08:02.800
+to it let me do ls and good so i see there's
+
+0:08:01.599,0:08:06.080
+nothing here uh before you do what i do next make
+
+0:08:05.039,0:08:08.800
+sure um you're kind of in a directory where
+
+0:08:07.759,0:08:11.599
+there is nothing otherwise you're going to be kind of
+
+0:08:09.840,0:08:15.440
+making public whatever is in the directory where i run this thing
+
+0:08:14.080,0:08:19.680
+okay so what i'm going to do is i'm going to say sudo but actually let me
+
+0:08:17.199,0:08:25.680
+just try this first let me say python 3 and then dash mod dash
+
+0:08:22.720,0:08:28.479
+m and when i do dash m i can have any sort of module here
+
+0:08:27.120,0:08:32.320
+and so this is a way that people actually kind of run python programs so
+
+0:08:30.720,0:08:36.080
+for example if i ran this i'd be running the pip
+
+0:08:34.320,0:08:41.039
+module and i might use that to install something like pandas if i say
+
+0:08:38.839,0:08:44.399
+notebook well then i'd be running the jupyter notebook module and
+
+0:08:42.640,0:08:48.880
+kind of running bad and so another module that comes with
+
+0:08:46.000,0:08:53.360
+python is called http dot server and uh and so i'm going to
+
+0:08:51.839,0:08:57.760
+run that and and what do i see here i see that
+
+0:08:55.760,0:09:03.279
+it's it's serving http traffic on zero zero zero so that's good
+
+0:09:00.880,0:09:08.000
+that means it's public right so that's good and then i'm i'm
+
+0:09:06.080,0:09:11.279
+doing it on port 8000 um if i wanted to i could have tried a
+
+0:09:09.440,0:09:15.279
+different port like i could have said uh port 80 and it'll actually complain
+
+0:09:14.720,0:09:18.240
+because uh you need to have special permit
+
+0:09:17.120,0:09:22.480
+missions to do that i'd have to say something like
+
+0:09:18.959,0:09:26.480
+sudo plus on port 80. uh there's certain small port numbers that
+
+0:09:24.399,0:09:29.680
+require extra permissions but i'm just going to run it like this
+
+0:09:28.560,0:09:33.279
+for now and then what i'm going to do is head
+
+0:09:32.320,0:09:37.839
+over to chrome and uh let's just kind of see
+
+0:09:36.240,0:09:41.600
+what's going on here um i want to visit my my website right
+
+0:09:40.880,0:09:45.040
+so so maybe i'm just gonna head here so i
+
+0:09:42.880,0:09:49.760
+can remember my ip address and this is my ip address here and so
+
+0:09:47.760,0:09:54.320
+i'm gonna open up a new tab and i type that and i'm not going to get
+
+0:09:52.880,0:09:58.240
+anything because by default when i just type an ip
+
+0:09:56.160,0:10:05.200
+address it's looking at port um 80 and i'm actually on port
+
+0:10:01.760,0:10:07.920
+you know 8 000 right so let me i see all of this still
+
+0:10:06.399,0:10:13.200
+so i'm actually going to try typing this now i'm going to say port
+
+0:10:10.079,0:10:16.240
+colon 8 000 and now i can actually see i have this sort
+
+0:10:14.560,0:10:20.640
+of directory uh listing thing right and what is this so
+
+0:10:19.040,0:10:23.120
+let me head back here and kind of see where i
+
+0:10:21.200,0:10:28.000
+i was i was inside of this directory called web demo
+
+0:10:25.839,0:10:30.959
+and there's nothing really here and that's why i'm not seeing anything here
+
+0:10:29.440,0:10:36.240
+right so in this web demo directory let me actually create a file
+
+0:10:33.040,0:10:41.360
+i'm going to call that file uh let me rename it i'm going to call it um
+
+0:10:38.079,0:10:47.920
+let's say like page1.html and then i'll say something like hello
+
+0:10:44.800,0:10:51.120
+world maybe let me make it like bold like this just so it's a little bit more
+
+0:10:49.279,0:10:56.240
+exciting and um and so then if i come back here
+
+0:10:54.320,0:11:00.560
+and i refresh i can see while there actually is this file
+
+0:10:57.839,0:11:03.200
+and if i want to well what am i doing here so
+
+0:11:02.000,0:11:07.760
+let me just try to type something here and i'll talk about what it's doing so
+
+0:11:04.480,0:11:12.320
+if i say like page1.html um there's like three parts here when i
+
+0:11:10.959,0:11:15.920
+when i hit enter it's going to send a request
+
+0:11:12.959,0:11:18.959
+to my web server so so what this does is it gets it to my virtual machine right
+
+0:11:17.680,0:11:23.920
+that's the ip address in my virtual machine
+
+0:11:20.160,0:11:26.959
+and then this port number well it'll kind of figure out who's listening
+
+0:11:25.360,0:11:31.440
+there and guess what the the web server is listening there on
+
+0:11:30.079,0:11:37.040
+port 8000 and then it finally says to the web
+
+0:11:33.279,0:11:41.279
+server please send me page 1.html so let me do that and now i can actually
+
+0:11:39.279,0:11:44.640
+see while it gave me back that page and i can
+
+0:11:42.079,0:11:47.519
+see what's going on just fine right and actually let me just try to refresh this
+
+0:11:45.839,0:11:52.240
+again i think it kind of got wacky you can see every time i i refresh it
+
+0:11:50.320,0:11:56.079
+can show what page i'm looking for and of course if i look for something
+
+0:11:53.440,0:11:59.440
+like you know page2.html um you can see up here right that the
+
+0:11:58.160,0:12:02.959
+web server.that request for a file doesn't have so kfba
+
+0:12:01.279,0:12:06.240
+backup 404 and then that's what i see below on as
+
+0:12:05.760,0:12:10.160
+well right so so again right the reason why i
+
+0:12:08.480,0:12:14.480
+ran this in this empty directory where i only have my html stuff
+
+0:12:12.160,0:12:17.920
+is like well you know imagine you had like your project code here right maybe
+
+0:12:15.920,0:12:20.480
+somebody would like look for you know p1 dot
+
+0:12:18.480,0:12:24.399
+i pi and b and and pretty soon they would steal your um
+
+0:12:22.240,0:12:27.600
+steal your work right well i guess they would do that here right they could look
+
+0:12:25.440,0:12:31.839
+for like you know p1.i pi and b and steal your code
+
+0:12:29.040,0:12:37.600
+uh or or worse your your ssh keys that would be very terrifying actually
+
+0:12:34.480,0:12:39.920
+um so one more detail here that i think is worth
+
+0:12:38.000,0:12:43.680
+noting is that let's say i just started this page right here just trying to
+
+0:12:41.440,0:12:46.880
+directly go to that site um this is kind of just giving me some
+
+0:12:45.360,0:12:51.600
+sort of default thing but i'd really like to have some sort of home page here
+
+0:12:48.880,0:12:58.079
+and so so it's traditional that if i create a file
+
+0:12:53.680,0:13:02.399
+called index.html then that is going to be my home page
+
+0:13:00.720,0:13:06.000
+right so i'm going to say welcome to my home page like that and i may use
+
+0:13:05.760,0:13:10.320
+these h1 headers so it's really big and
+
+0:13:09.120,0:13:12.959
+then if i refresh that instead of getting a directory listing i'll
+
+0:13:11.519,0:13:17.680
+actually kind of see um see whatever i have on that page
+
+0:13:16.480,0:13:20.000
+now i want to be very clear right this is not kind of a demo i'm just running
+
+0:13:19.040,0:13:24.480
+on my computer uh i'm going to turn off the server soon
+
+0:13:23.040,0:13:28.079
+and actually maybe i'll just do it now i'll hit
+
+0:13:25.120,0:13:31.839
+ctrl c here and after i do control c until my server
+
+0:13:29.600,0:13:34.639
+well the website is gone but while it was up i mean if we were doing this to
+
+0:13:33.440,0:13:37.760
+the live lecture you could have absolutely
+
+0:13:36.000,0:13:41.519
+typed in this ip address and the support number and uh and visited my website so
+
+0:13:40.320,0:13:44.880
+it's not actually that hard to kind of create a website
+
+0:13:42.880,0:13:48.000
+uh that other people on the internet can visit and find and of course that's why
+
+0:13:46.560,0:13:50.639
+we want to be careful about what files we have there
+
+0:13:51.680,0:13:57.120
+so i think i'm imagining people are kind of curious about what else it would take
+
+0:13:54.880,0:14:00.880
+to turn this into a real website so um well first off okay just a little
+
+0:14:00.480,0:14:04.800
+bit of detail here so on p4 you are going to
+
+0:14:03.279,0:14:08.480
+be building a real website that will kind of listen on a port like
+
+0:14:06.320,0:14:11.279
+this but what would it take to kind of make this
+
+0:14:09.040,0:14:15.519
+um more real i think one thing i would take is that you know these ip addresses
+
+0:14:14.240,0:14:18.480
+are kind of weird i think people are a little sketched out if you say like oh
+
+0:14:16.959,0:14:22.320
+type in this number in your chrome browser people are used
+
+0:14:20.240,0:14:26.480
+to typing things like you know google.com or example.com um things like
+
+0:14:25.760,0:14:30.079
+that and and so how is it that we have both
+
+0:14:28.160,0:14:35.440
+ip addresses and then also these nice um domain names we might call them and
+
+0:14:33.279,0:14:40.560
+the answer is that the internet has has this service called the domain name
+
+0:14:37.920,0:14:44.800
+service and you can see here i'm running this machine
+
+0:14:42.240,0:14:47.760
+down here um that's running a domain name service and just like other
+
+0:14:46.320,0:14:52.399
+machines it has an ip address so for example this one has 8.8.8.8
+
+0:14:50.880,0:14:56.720
+that's actually the ip address of google's domain name service
+
+0:14:55.360,0:14:59.680
+and the way you should think of a domain name service is that it kind of has this
+
+0:14:59.120,0:15:05.279
+giant dictionary right and so
+
+0:15:02.800,0:15:10.079
+so you can see here right i have like a python dictionary here
+
+0:15:07.199,0:15:12.000
+and um and there's like a domain name here and it's saying well this is the ip
+
+0:15:11.600,0:15:17.199
+address for that domain name and so what happens
+
+0:15:15.199,0:15:20.720
+when i'm on my web browser and i say go to example.com
+
+0:15:19.040,0:15:26.480
+the first thing it's going to do is it's going to send a request to
+
+0:15:23.440,0:15:28.880
+to a domain name service at a specific ip address there's a good chance a lot
+
+0:15:27.920,0:15:32.720
+of you um have computers that are configured to
+
+0:15:30.880,0:15:34.880
+use this is your domain name service even though
+
+0:15:33.600,0:15:37.759
+you haven't really thought about it right but it'll kind of send it here
+
+0:15:36.639,0:15:41.360
+and then it will figure out well example.com is actually this ip address
+
+0:15:39.759,0:15:45.120
+and it's going to send that back and then chrome will be smart enough to
+
+0:15:43.680,0:15:48.720
+send the request here right and so it'll kind of get to that
+
+0:15:46.320,0:15:51.680
+machine and um and you as a user right whoever is
+
+0:15:50.320,0:15:55.199
+typing in chrome never really had to even realize that that was what the ip
+
+0:15:52.959,0:16:01.519
+address was it just kind of all happens uh seamlessly um now these dns servers
+
+0:15:59.279,0:16:05.600
+actually anybody could create one and you could put whatever you wanted in
+
+0:16:03.519,0:16:09.360
+it so so for example if i kind of create my own donut main name service
+
+0:16:07.600,0:16:13.120
+and then i configured my web browser or my computer to use it
+
+0:16:10.880,0:16:16.480
+well that'd be kind of awesome because i could
+
+0:16:13.920,0:16:20.800
+for myself i could reserve to google.com or face.book.com
+
+0:16:18.560,0:16:23.680
+anything i wanted and uh well nobody else would see it but
+
+0:16:22.000,0:16:26.320
+but i guess i would right so there's kind of like an official version of what
+
+0:16:25.199,0:16:31.360
+should go um inside of this dictionary and um
+
+0:16:29.680,0:16:36.880
+and the way you get your domain name in there is you pay some small fee
+
+0:16:33.600,0:16:40.880
+you know maybe 10 to 15 a year and then you'll be kind of in all the domain name
+
+0:16:39.120,0:16:44.720
+uh service dictionaries whether that's uh you know google's one or other ones
+
+0:16:43.279,0:16:48.079
+and so it's not very expensive right i mean that's kind of less than
+
+0:16:46.639,0:16:50.800
+uh much less than it would cost to actually be running a vm right that's
+
+0:16:49.600,0:16:54.720
+kind of a nominal nominal fee you would pay to get in
+
+0:16:52.399,0:16:57.360
+there okay so that's kind of the setup that's how we would get there
+
+0:16:55.839,0:17:02.320
+one other detail that i want to talk about is um
+
+0:16:58.880,0:17:06.880
+http versus https um and uh so we used to have http a
+
+0:17:05.199,0:17:10.880
+hypertext transfer protocol and it was a protocol where i would try to say
+
+0:17:08.400,0:17:12.880
+you know send a get request to this ip address
+
+0:17:11.439,0:17:16.959
+and then to this server and then we would say a resource that we want like
+
+0:17:14.319,0:17:22.160
+maybe i want page1.html and uh and so that would work fine uh
+
+0:17:20.000,0:17:25.520
+but this traffic wasn't encrypted so if i was on wi-fi or something
+
+0:17:23.839,0:17:29.360
+uh totally possible somebody else in the room um
+
+0:17:27.120,0:17:32.480
+could uh could on their laptop install program
+
+0:17:30.240,0:17:34.480
+for example there's one called wireshark and they could basically see all your
+
+0:17:33.840,0:17:38.240
+http traffic they could read your emails they
+
+0:17:36.400,0:17:41.039
+could see what pages you're visiting um any of that you know i remember i
+
+0:17:40.080,0:17:43.679
+mean my friends are trying to do that for fun we'd be in a class and we just
+
+0:17:42.320,0:17:46.160
+kind of have this open and then we'd see what everybody is
+
+0:17:44.960,0:17:49.120
+browsing instead of kind of paying attention to the lecture
+
+0:17:47.600,0:17:54.320
+right so that's not great right that's not very private and so
+
+0:17:51.039,0:17:58.480
+instead of http uh they eventually uh switched over to https is more now
+
+0:17:56.880,0:18:03.200
+it's now more common and that's just hypertext transfer protocol
+
+0:18:00.559,0:18:06.320
+secure meaning it's encrypted so you can do that still and then you know
+
+0:18:04.960,0:18:09.679
+if anybody's snooping they won't really see what's there
+
+0:18:08.240,0:18:14.000
+um now to encrypt like that you have to pay for something called an ssl
+
+0:18:11.840,0:18:16.960
+uh certificate uh for for that encryption
+
+0:18:15.039,0:18:19.440
+and again that's not too expensive i mean that might be like five to ten
+
+0:18:18.240,0:18:23.520
+dollars a year right so kind of end to end right if you
+
+0:18:21.120,0:18:28.080
+wanted to i'll create a website what would you do you'd probably uh pay
+
+0:18:25.840,0:18:32.160
+for a virtual machine uh start running some server on there maybe
+
+0:18:29.919,0:18:36.400
+like a python server pay for a dns name that maps to your ip
+
+0:18:34.640,0:18:41.200
+address of your virtual machine and then maybe pay for and configure an
+
+0:18:38.640,0:18:45.120
+ssl certificate so you could have https and while you would have a legitimate
+
+0:18:42.640,0:18:51.600
+site kind of up and running for the world
+

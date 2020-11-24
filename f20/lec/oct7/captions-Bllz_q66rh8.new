@@ -1,0 +1,1029 @@
+0:00:01.599,0:00:05.600
+so we've been learning about breadth first search
+
+0:00:04.000,0:00:08.080
+and in breadth first search we learned this new strategy where we would have a
+
+0:00:06.960,0:00:12.240
+to-do list um the to-do list would basically list
+
+0:00:10.639,0:00:16.000
+all of the nodes um that we still had to check and and so
+
+0:00:15.200,0:00:19.359
+ultimately right we're searching for some destination so we'll
+
+0:00:17.440,0:00:22.800
+check well does this node uh is it equal to my destination um and
+
+0:00:22.240,0:00:26.240
+if not well we might discover some new nodes
+
+0:00:24.640,0:00:29.679
+right and maybe that node wasn't what i'm looking for
+
+0:00:27.439,0:00:32.480
+but i'll add all of its children to my to-do list because maybe
+
+0:00:31.199,0:00:37.360
+they're going to have what i'm looking for and um and so let me look back and
+
+0:00:35.440,0:00:40.719
+kind of review that to-do list um here's my code for my breadth-first
+
+0:00:39.360,0:00:44.079
+search um and there's my to-do list it's just a
+
+0:00:42.239,0:00:47.280
+regular python list and and i start at the node where i'm
+
+0:00:46.640,0:00:52.879
+you know doing my search initially and and then i
+
+0:00:50.559,0:00:56.079
+keep looping until that list is empty and then inside of that list well i
+
+0:00:54.399,0:01:00.239
+start working off of the beginning right i keep popping uh from the
+
+0:00:58.320,0:01:04.239
+beginning of my to-do list and then whenever i discover new work i
+
+0:01:02.320,0:01:08.720
+add it to the end of my um to-do list and appending to the end
+
+0:01:07.200,0:01:12.560
+is pretty fast right in general you can append to the end of a list and that's
+
+0:01:10.000,0:01:16.240
+going to be constant time uh but this is going to be a slow
+
+0:01:14.320,0:01:20.000
+um operation right kind of pulling something off the front of the list
+
+0:01:17.680,0:01:23.040
+that's an order in operation and and so even though this code
+
+0:01:21.520,0:01:25.520
+is correct right i mean i get the right answer it's going to be slow and i have
+
+0:01:25.119,0:01:30.000
+a pretty big graph and so one of the
+
+0:01:27.840,0:01:34.159
+things i want to think about today is is there a better data structure for
+
+0:01:31.920,0:01:37.680
+this besides a python list that's going to be a little more
+
+0:01:35.600,0:01:41.520
+efficient now the other thing i want to think about
+
+0:01:38.840,0:01:44.479
+is what if i don't want to work through my list in order right i mean we
+
+0:01:43.280,0:01:47.360
+all have to do lists and sometimes we jump around
+
+0:01:45.520,0:01:51.280
+and we might have some policy for uh determining how to do that
+
+0:01:49.520,0:01:56.399
+what would happen for example if instead of working from the beginning of my
+
+0:01:53.360,0:02:00.079
+to-do list i worked from the end or if i had some sort of sense of like
+
+0:01:58.479,0:02:05.040
+well this is a better thing to do first um different scenarios might be
+
+0:02:03.280,0:02:08.080
+faster for example if i was popping off the end
+
+0:02:06.159,0:02:12.000
+that'd be fast but maybe not what i'm looking for in other cases if i have
+
+0:02:10.000,0:02:15.520
+some sort of sense of priority um i'll get yet another behavior and i
+
+0:02:14.239,0:02:18.560
+might need a different structure to make that efficient right
+
+0:02:17.360,0:02:22.480
+so we're gonna learn about all these strategies
+
+0:02:19.760,0:02:25.599
+on the result in terms of what we do like what order we search things
+
+0:02:24.160,0:02:29.599
+and then finally well what is the best data structure to make
+
+0:02:27.440,0:02:33.360
+each of our strategies efficient so let me head back here
+
+0:02:30.959,0:02:37.360
+and just kind of give you a picture uh to get you in the right mindset
+
+0:02:35.200,0:02:41.440
+so here i have a graph and i want to get from
+
+0:02:38.319,0:02:44.879
+a to e and as you can see there's three paths
+
+0:02:42.480,0:02:48.800
+and dfs and bfs are going to choose different
+
+0:02:45.519,0:02:52.400
+paths and so i guess for dfs let's just say for the
+
+0:02:50.800,0:02:57.040
+sake of the argument that the the children
+
+0:02:53.360,0:03:02.560
+in order are b e and d so what path will dfs choose uh well
+
+0:03:01.040,0:03:07.360
+dfs the very first thing it's trying to do is check its first child
+
+0:03:04.319,0:03:11.280
+which is b and b is not what we're looking for
+
+0:03:08.080,0:03:15.040
+but since we have a recursive function what will happen is b will check c right
+
+0:03:14.239,0:03:18.159
+so c will be the second thing we check and
+
+0:03:16.959,0:03:22.640
+then after c while c is going to check e and well we found
+
+0:03:20.560,0:03:27.360
+our path our path is a b c e and it's not a great path right it's
+
+0:03:26.080,0:03:33.760
+actually kind of long uh but but at least we did find a path
+
+0:03:30.560,0:03:37.599
+um so when i introduced bfs i gave it as an example where we might be able to
+
+0:03:35.760,0:03:42.159
+find um on shorter paths in terms of the number
+
+0:03:40.080,0:03:45.440
+of nodes we have to traverse and and so when we're doing this well
+
+0:03:43.760,0:03:50.720
+we'll check all of the children of a before we check any grandchildren
+
+0:03:48.239,0:03:56.080
+well an a has three children has b e and d and since we're looking for e
+
+0:03:54.560,0:04:01.920
+we're going to take that middle edge straight from e until straight from a
+
+0:03:58.319,0:04:05.680
+until e and kind of just one hop now i i've added extra detail here which
+
+0:04:04.159,0:04:09.760
+i've been ignoring and that is well what is the distance or
+
+0:04:07.519,0:04:13.840
+cost of each of these edges um you know maybe just because there's a
+
+0:04:12.159,0:04:18.079
+road directly connecting two cities not all roads are
+
+0:04:16.799,0:04:21.519
+the same length um if i kind of going beyond distance
+
+0:04:20.320,0:04:24.800
+you might imagine that i might want to take
+
+0:04:22.320,0:04:29.360
+uh speed into account so kind of what is the cost of traveling a certain road
+
+0:04:26.560,0:04:32.960
+maybe it's the um maybe it's like the distance divided by
+
+0:04:31.040,0:04:38.720
+the speed or something like that and so kind of strangely in this case uh
+
+0:04:36.320,0:04:41.440
+a to e found the path with the fewest hops
+
+0:04:39.919,0:04:46.720
+but that's actually the worst one right that has a cost of 100
+
+0:04:43.440,0:04:48.639
+and dfs has a has a cost of three and and so
+
+0:04:47.199,0:04:52.080
+when you look at this intuitively as a human you wouldn't take either of these
+
+0:04:51.040,0:04:56.720
+right you'd want to take a d e uh which would have a have a cost
+
+0:04:55.680,0:04:59.919
+of two right so we have to have some sort of
+
+0:04:58.639,0:05:02.880
+way of thinking about that and i'm ultimately not going to write
+
+0:05:01.199,0:05:07.680
+code for that in this course i mean that's something you might learn
+
+0:05:04.880,0:05:10.240
+um in an artificial intelligence course but i want you to at least start
+
+0:05:08.639,0:05:16.880
+thinking about it so the way we can achieve different
+
+0:05:13.280,0:05:20.320
+patterns like this is by kind of making decisions about how we
+
+0:05:18.400,0:05:25.759
+use our to-do last right and starting in the middle
+
+0:05:24.000,0:05:29.680
+we can use our to-do list as what we call a queue
+
+0:05:27.520,0:05:35.120
+and um in a queue the way it works is whenever there's a new job
+
+0:05:32.080,0:05:38.479
+we add it to the end and whenever i have to do some work
+
+0:05:36.479,0:05:42.080
+i pull it off the beginning right this is just like a queue
+
+0:05:40.160,0:05:44.960
+um in a grocery store right i'm trying to check out i i
+
+0:05:43.440,0:05:46.800
+join the end of the queue i wait a while eventually i get to the front of the
+
+0:05:46.080,0:05:50.400
+queue and then i can do my task of actually
+
+0:05:49.120,0:05:54.000
+actually checking out and and so when we have a queue like
+
+0:05:51.919,0:05:56.080
+that um we end up with breadth first search and that's the one example i've
+
+0:05:55.440,0:05:59.759
+given other people might call this other
+
+0:05:57.280,0:06:03.520
+things maybe um somebody might call this uh
+
+0:06:00.080,0:06:09.039
+fifo f i f o um stands for first and uh first out
+
+0:06:06.720,0:06:12.080
+and um and so that's a very common pattern right it kind of has some sense
+
+0:06:10.400,0:06:15.840
+of fairness to it on the top we have a different pattern
+
+0:06:14.160,0:06:21.520
+and in this pattern we kind of add new work to the end
+
+0:06:19.280,0:06:27.840
+and then when it's over time to do work we pull that work off the end
+
+0:06:23.759,0:06:31.120
+and you can imagine in terms of work it's actually kind of bad to get on the
+
+0:06:29.600,0:06:34.880
+list early on because maybe you're buried there and
+
+0:06:32.720,0:06:38.639
+you kind of sit there for a long long time right it kind of it's kind of
+
+0:06:37.120,0:06:41.600
+like imagine you're working your to-do list and you get very excited about
+
+0:06:40.479,0:06:47.520
+working whatever on whatever you recently added to it um
+
+0:06:44.880,0:06:49.599
+now there's some advantages to this one is that
+
+0:06:48.000,0:06:52.960
+appending and popping from the end of a list
+
+0:06:51.120,0:06:57.840
+is really fast right so kind of accessing the to-do list would be faster
+
+0:06:55.759,0:07:03.840
+in this situation so kind of an interesting thing
+
+0:06:59.919,0:07:08.000
+if we took the bfs algorithm and instead of using our list like a queue
+
+0:07:05.599,0:07:11.919
+we started using it like a stack then we would actually get the same
+
+0:07:09.840,0:07:15.599
+order of node visits as in what we first saw when we learned
+
+0:07:13.520,0:07:19.680
+dfs right so dfs whenever it kind of
+
+0:07:18.000,0:07:23.120
+explores one child it gets very excited about all exploring those
+
+0:07:21.039,0:07:26.639
+that child's grandchildren and those grandchildren's
+
+0:07:24.400,0:07:30.400
+a great grandchildren and that's kind of this behavior of kind of popping and
+
+0:07:28.639,0:07:34.479
+pushing at the end of the list another name for this one is uh a lifo
+
+0:07:33.120,0:07:38.880
+last n is the first out right and so
+
+0:07:37.520,0:07:44.400
+kind of it's elegant right i mean i guess the dfs algorithm as we learned it
+
+0:07:41.520,0:07:48.400
+was simpler than bfs but if i could just tweak bfs like one line of code
+
+0:07:46.560,0:07:51.680
+i can have it kind of show either behavior um
+
+0:07:50.000,0:07:55.919
+well why is that actually when we were doing dfs it was recursive and we'd have
+
+0:07:53.919,0:08:00.879
+kind of all these stack frames and um and whenever i make a recursive
+
+0:07:59.199,0:08:03.440
+call i kind of add a frame to the end of the stack
+
+0:08:01.599,0:08:06.000
+whenever i return i kind of pop that off from the end of the stack
+
+0:08:04.720,0:08:08.720
+so so here we'd actually be kind of doing the same thing right but instead
+
+0:08:07.680,0:08:12.080
+of having a stack of frames we would just kind of
+
+0:08:10.639,0:08:16.639
+have a stack of tasks we need to do right so there's
+
+0:08:13.759,0:08:20.240
+kind of an analogy there so so those first two structures right
+
+0:08:19.360,0:08:25.280
+are for um uh for dfs and bfs
+
+0:08:23.520,0:08:28.639
+the last one is the most interesting perhaps and
+
+0:08:26.720,0:08:32.719
+uh here we'll always add things to the end but
+
+0:08:30.080,0:08:35.839
+when we decide what we're going to work on it has some sort of priority we'll
+
+0:08:34.560,0:08:39.919
+either choose like the biggest thing or the smallest thing and and so
+
+0:08:38.399,0:08:43.360
+priority queues would help us if we wanted to
+
+0:08:41.120,0:08:47.440
+try to find the shortest um kind of map directions from steady a to city b
+
+0:08:45.920,0:08:52.320
+uh to kind of taking into account things like tolls or speed or road blank
+
+0:08:50.480,0:08:56.160
+so so for these three patterns i'm showing some code here how i could do
+
+0:08:53.760,0:09:00.160
+all of these with a list and so for the stack i'm appending to
+
+0:08:58.560,0:09:05.600
+the end and popping from the end both fast operations for the queue i'm
+
+0:09:02.959,0:09:09.360
+appending to the end which is fast and popping from the beginning and then
+
+0:09:07.920,0:09:11.760
+for the last one i could append to the end
+
+0:09:10.240,0:09:17.279
+and then when i want to pull something out i guess i'd have to like sort it
+
+0:09:14.320,0:09:20.000
+um before i pop something from either the end or the beginning
+
+0:09:18.560,0:09:25.760
+and so which of these operations are slow uh sorting is very
+
+0:09:22.000,0:09:29.040
+slow that's an order in login operation and popping from the beginning is also
+
+0:09:27.519,0:09:33.760
+slots on order and operation so so even though we could
+
+0:09:31.680,0:09:36.959
+use a list as a stack and we can use a list of the queue
+
+0:09:34.640,0:09:42.399
+we could use a list as a priority queue only one of these things is a good idea
+
+0:09:38.800,0:09:45.519
+you should only use um the list as a stack
+
+0:09:42.880,0:09:47.920
+right that's the only place a list will be fast
+
+0:09:46.240,0:09:52.399
+for these other two we want to learn how to use um other other data
+
+0:09:50.000,0:09:55.760
+structures for both the queue and the priority key right a list is not very
+
+0:09:54.399,0:09:58.959
+good at those things and yeah and i'll admit that last
+
+0:09:57.040,0:10:00.880
+example i did i was using a list as a queue
+
+0:09:59.440,0:10:03.600
+because that's what we're familiar with but definitely not very efficient
+
+0:10:02.399,0:10:07.279
+because i'm popping from the beginning of a list
+
+0:10:04.000,0:10:12.240
+which is a big no-no so let's head over to write some code and i'm going to
+
+0:10:10.240,0:10:16.079
+introduce some some new python data structures that we
+
+0:10:14.160,0:10:23.040
+can use instead of the list to deal with these and so so let me
+
+0:10:19.279,0:10:27.279
+head over here to my um to my uh notebook and the first one i want to
+
+0:10:26.000,0:10:32.160
+talk about is this one the dq
+
+0:10:30.320,0:10:37.120
+or you know some people call it dac but i may be calling it a dq
+
+0:10:34.079,0:10:41.200
+and a dq the big advantage it has is that you can
+
+0:10:38.480,0:10:46.560
+um you know kind of add and remove things to either the beginning
+
+0:10:43.200,0:10:49.680
+or the end of the structure right and both those will be very efficient
+
+0:10:48.079,0:10:55.279
+so so the terminology gets a little strange here right because
+
+0:10:52.480,0:10:58.160
+right i want to have a queue and there's different ways i could
+
+0:10:56.480,0:11:02.640
+implement that queue i could use a list as a queue or i could use
+
+0:11:00.079,0:11:05.279
+a dq as a queue right so kind of weird terminology
+
+0:11:03.680,0:11:08.000
+using a dq as a queue is going to be faster because i can pop things off from
+
+0:11:07.040,0:11:11.920
+the beginning so let me head back here and look at the
+
+0:11:09.600,0:11:15.200
+the directions so i can see i can create a dq object
+
+0:11:13.440,0:11:18.640
+um from anything that i could iterate over and
+
+0:11:16.880,0:11:23.120
+then i see i can append to either the left or the right
+
+0:11:20.240,0:11:24.959
+and i can pop from either uh the left or the right
+
+0:11:23.760,0:11:31.360
+so let me just come here and i'm going to show how to do this i'm going to say
+
+0:11:26.880,0:11:35.200
+from collections import dq and i say dq oh maybe i'll just say like
+
+0:11:34.720,0:11:41.760
+this um d equals dq and maybe i'll just start
+
+0:11:38.880,0:11:45.920
+with an empty list and so i'm going to look
+
+0:11:42.000,0:11:49.519
+at it and um and i added too many they're trying to be brief right so they
+
+0:11:47.519,0:11:52.800
+kind of dropped two of the letters there and so i could do things like this i
+
+0:11:50.800,0:11:58.240
+could say something like a d dot you know push
+
+0:11:56.000,0:12:03.360
+or i think it's append actually i'll say like append one
+
+0:11:59.839,0:12:07.279
+maybe i just pinned a few things okay so that's good if i try to do
+
+0:12:06.240,0:12:10.800
+something like this like what is that position one
+
+0:12:08.560,0:12:13.120
+that can still work um this is going to generally be a slower operation than was
+
+0:12:12.480,0:12:16.959
+a list um when i'm dealing with the dq um
+
+0:12:15.200,0:12:20.240
+ideally i only want to be operating on the beginning
+
+0:12:18.079,0:12:24.480
+or into the list so i could do something like this i could say d dot pop
+
+0:12:23.200,0:12:29.680
+maybe maybe i'm just going to print that off uh
+
+0:12:27.839,0:12:34.160
+here i'll do a few prints i'll print the whole thing may pop from the left
+
+0:12:32.240,0:12:37.920
+and it'll print the whole thing again you can see i was able to pop off one
+
+0:12:36.079,0:12:42.959
+and so the great thing here is that these are an order one operation
+
+0:12:40.880,0:12:49.200
+which is really fast of course then popping left
+
+0:12:45.760,0:12:52.959
+is also an order one operation that's fast too right whereas a list
+
+0:12:50.959,0:12:56.720
+only a pending would be fast and popping from the left would be
+
+0:12:54.720,0:13:01.760
+slow so this would be a great thing to do um
+
+0:12:58.240,0:13:07.440
+over here when i had my to-do list and i'm just going to change this right now
+
+0:13:04.240,0:13:10.639
+it's not hard and um and i just have to import that so
+
+0:13:08.320,0:13:14.880
+so heading back here maybe i'll go up to the beginning
+
+0:13:11.519,0:13:22.800
+or of this cell i'll say from collections import dq
+
+0:13:20.480,0:13:26.800
+okay and so then instead of having a list down here
+
+0:13:23.760,0:13:31.120
+for my to-do list i can just create a dq from that list and
+
+0:13:29.839,0:13:34.240
+then i just have these other two lines of code to change i you know i'm popping
+
+0:13:32.959,0:13:37.440
+from the beginning and appending to the end i think append
+
+0:13:36.079,0:13:43.519
+works fine still but when i pop i want to pop from
+
+0:13:40.480,0:13:45.680
+the left like that the api is slightly different
+
+0:13:44.320,0:13:50.639
+and let's just make sure this still works fine maybe what i'll do is i'll
+
+0:13:47.839,0:13:55.360
+kind of just comment this out so it's a little bit cleaner let me come
+
+0:13:52.560,0:13:59.440
+down here and it still works great i get a
+
+0:13:55.680,0:14:04.800
+c z um as my path um if i wanted to
+
+0:14:02.480,0:14:09.600
+let's try to do so i kind of made this comment right that
+
+0:14:06.399,0:14:13.199
+um that if i wanted to change this to be a stack
+
+0:14:12.480,0:14:17.440
+then i would be doing a depth first search
+
+0:14:15.279,0:14:21.040
+even without having any recursion right so if i wanted to change this to a
+
+0:14:18.720,0:14:23.920
+depth first search that's really easy i'm just going to pop
+
+0:14:22.800,0:14:28.399
+pop from the right so i'm going to do that and um
+
+0:14:26.560,0:14:33.120
+actually sorry let me just check the thing here so i guess regular pop
+
+0:14:31.279,0:14:39.920
+uh returns from the right side of the queue all right so let me do that
+
+0:14:35.600,0:14:42.320
+i'm just going to say pop which is right
+
+0:14:43.279,0:15:00.800
+and then what happens um excuse me i just had to pause there
+
+0:14:58.959,0:15:06.399
+um uh for a moment uh to to debug that and and so
+
+0:15:05.279,0:15:10.480
+you know something actually kind of funny right is that the depth first
+
+0:15:08.639,0:15:13.920
+search is doing the same thing as the breadth first search for this one
+
+0:15:12.720,0:15:17.199
+and um and so it was exploring c first and and
+
+0:15:16.320,0:15:22.480
+so maybe just to kind of demonstrate um
+
+0:15:20.880,0:15:26.399
+how it's true that it's a depth first search i'm just going to reverse
+
+0:15:24.560,0:15:30.079
+the order which i consider the children right it was kind of considering
+
+0:15:27.920,0:15:34.240
+see first i'm going to do that and um actually reversed
+
+0:15:31.920,0:15:39.759
+when i do that and now you can see that i'm getting this longer path
+
+0:15:37.360,0:15:44.399
+right because i'm popping from right it's kind of exploring b
+
+0:15:42.000,0:15:48.240
+um first whereas if i had been kind of working off the left first and first out
+
+0:15:46.480,0:15:52.800
+then i'm guaranteed to find the shortest path whereas for depth first search
+
+0:15:50.240,0:15:57.680
+maybe i do maybe i i don't sorry about that confusion there
+
+0:15:54.560,0:16:00.880
+okay so that was the um that's how we can use the dq
+
+0:15:58.880,0:16:04.320
+right we can get going back to the slides
+
+0:16:01.920,0:16:08.560
+let me grab that i can either get the the stack behavior or the hue behavior
+
+0:16:07.360,0:16:10.560
+what about this one when we have a priority queue i'm not going to
+
+0:16:09.680,0:16:14.720
+integrate this with our search um for this course but
+
+0:16:13.199,0:16:18.000
+at least want to demonstrate how it works
+
+0:16:15.920,0:16:20.880
+and um this one's a little bit funny right so if i go over to the directions
+
+0:16:19.839,0:16:28.160
+here i'm looking for the heap cue algorithm
+
+0:16:24.560,0:16:32.480
+and this one i don't actually have a new type it's just a bunch of functions and
+
+0:16:31.519,0:16:37.920
+what i'm going to do is i'm going to give it a list and
+
+0:16:34.880,0:16:42.160
+that list is called the heap and the heap is going to be where
+
+0:16:39.440,0:16:45.680
+uh it works right so the heap cue is an algorithm
+
+0:16:43.199,0:16:48.480
+for implementing priority here writing i could have used a list as a priority
+
+0:16:47.040,0:16:52.079
+queue and that would be very slow i can use um this heap cue pattern for
+
+0:16:51.600,0:16:55.360
+my priority queue and that will be fast let
+
+0:16:54.079,0:16:59.680
+me just show you how this is going to work
+
+0:16:57.360,0:17:02.560
+so i'm going to say just going to have a regular list
+
+0:17:01.120,0:17:05.360
+and i'm just going to call that my heap to kind of be consistent with the
+
+0:17:03.759,0:17:12.880
+terminology and um and i'm going to import
+
+0:17:09.120,0:17:17.520
+eq and and so here here's the idea i'm going to say
+
+0:17:13.520,0:17:21.439
+q dot heap push and i can push different things on that
+
+0:17:19.199,0:17:25.199
+heap somebody made me say like you know uh five i might do something like this
+
+0:17:24.640,0:17:32.160
+i'm gonna say four x and you know five three
+
+0:17:28.559,0:17:34.559
+one four two i'm going to push all these values on
+
+0:17:33.520,0:17:40.240
+and then when i'm all done i'm going to look at it and
+
+0:17:37.600,0:17:44.799
+what you're going to notice is that the smallest
+
+0:17:41.600,0:17:48.799
+value bubbles to the front and the smallest value will always be at
+
+0:17:46.640,0:17:55.760
+the front but it's not quite sorted right you can see that um five and four
+
+0:17:52.640,0:17:58.960
+are out of order and and so before right when i was sorting a list
+
+0:17:57.679,0:18:04.400
+that would be an order um n login operation
+
+0:18:02.080,0:18:09.360
+and just pushing something on here is an order
+
+0:18:05.360,0:18:15.679
+log n so this is much faster than order and login or search
+
+0:18:13.360,0:18:21.039
+right so uh maybe i'm just going to kind of put this on the previous thing
+
+0:18:17.280,0:18:24.559
+so i can insert things much faster and then and i have some instruction
+
+0:18:23.440,0:18:27.679
+kind of structure here i'm not going to get into the details but it's kind of
+
+0:18:25.679,0:18:33.520
+shuffling things around then when i'm down here if i wanted to
+
+0:18:31.679,0:18:38.880
+um you know let's say five times i'm gonna pull something out
+
+0:18:35.840,0:18:43.760
+um for i and range of five or here i'll do it like this i'll say
+
+0:18:40.000,0:18:50.320
+wall length of the heap is greater than that what i'll do is i'll do heap
+
+0:18:46.880,0:18:56.720
+q dot heap pop my heap and i'll just print off what
+
+0:18:52.880,0:19:00.400
+that is okay and you see i get the items out
+
+0:18:58.799,0:19:03.919
+exactly in a sorted order and maybe i'm just going
+
+0:19:02.480,0:19:08.240
+to print off here too like what is remaining
+
+0:19:05.280,0:19:12.720
+right so let me i guess i have to reinsert everything before i can pull
+
+0:19:10.160,0:19:16.400
+anything out what you're going to see here is that
+
+0:19:14.720,0:19:20.320
+these things kind of get shuffled around a bit
+
+0:19:17.919,0:19:24.559
+as i'm pulling them out right you can see that
+
+0:19:21.840,0:19:27.280
+three for example it's moved up to the front
+
+0:19:25.120,0:19:29.919
+after i pull things and so the idea is that when i'm pushing things on i do a
+
+0:19:28.640,0:19:33.120
+little bit of shuffling when i'm pulling things out off i do a
+
+0:19:31.360,0:19:38.480
+little bit of shuffling and in both cases right it's going to be
+
+0:19:36.160,0:19:42.559
+in order log and operation so both adding things and
+
+0:19:40.960,0:19:46.160
+removing things um is pretty fast much faster than
+
+0:19:44.960,0:19:49.760
+actually doing um a full sort and that's because the
+
+0:19:48.400,0:19:53.200
+whole thing is never sorted right it has this fancy algorithm that
+
+0:19:51.840,0:19:57.440
+all it really guarantees is that the smallest item
+
+0:19:54.640,0:20:00.799
+uh is in the front okay so this is going to be
+
+0:19:58.480,0:20:04.880
+much faster for that so so kind of heading up here
+
+0:20:02.240,0:20:08.559
+what i want to do to wrap up here is just show you how much benefit we can
+
+0:20:06.720,0:20:12.400
+get from these different things and so what i've done is i've written a
+
+0:20:10.480,0:20:17.120
+little benchmark function that takes a data structure and then it
+
+0:20:15.600,0:20:19.360
+can do different operations on it some sort of pattern
+
+0:20:18.080,0:20:24.080
+and it's trying to do a thousand operations and so if i'm
+
+0:20:21.520,0:20:27.280
+a stack i'm gonna append and pop from the end
+
+0:20:25.360,0:20:32.640
+and i do that a thousand times and i get the average time
+
+0:20:28.880,0:20:35.760
+and then i'm gonna return that back okay and so that's what i'm doing down here
+
+0:20:33.840,0:20:39.039
+i'm i have this data frame i'm going to loop over different sizes
+
+0:20:37.280,0:20:42.400
+of lists and um and so you can see like here i'm
+
+0:20:40.480,0:20:45.679
+creating my list and then i want to perform a thousand
+
+0:20:44.159,0:20:48.080
+stack operations on that list it doesn't really matter what's in the
+
+0:20:46.640,0:20:51.280
+list i'm just gonna put like you know a thousand ones up
+
+0:20:49.120,0:20:56.720
+um in there up here i'm just trying to put in a variety of different numbers
+
+0:20:53.360,0:21:00.320
+and so i do that and if i plot it you can see that the stack is pretty
+
+0:20:58.400,0:21:04.320
+fast for a list okay what if i want to do something else
+
+0:21:02.960,0:21:10.640
+like instead of um having this you know first and
+
+0:21:08.480,0:21:14.159
+last out what if i had another structure what if i said lf pattern
+
+0:21:14.840,0:21:20.960
+equals oh instead of a stack what if i had a
+
+0:21:18.400,0:21:24.240
+hue right so in this case i'd have the same code
+
+0:21:24.960,0:21:30.640
+right and then i remember this is what i had originally done in that previous
+
+0:21:28.960,0:21:35.840
+video when i was actually kind of doing a bfs and efficiently
+
+0:21:33.919,0:21:39.760
+in this case i'm going to pop from the beginning and by the way right
+
+0:21:37.919,0:21:41.919
+normally i could put a variable here this is kind of a way that people signal
+
+0:21:41.600,0:21:45.840
+that hey this function is returning something
+
+0:21:44.240,0:21:49.919
+but i don't really care about what that value is i just wanted to
+
+0:21:47.280,0:21:53.280
+to remind you that um i i'm returning something still
+
+0:21:50.960,0:21:56.240
+right so pull off from the end is a stack pull off the beat from the
+
+0:21:54.720,0:22:00.960
+beginning as a queue and so if i copy all of this down here
+
+0:21:58.880,0:22:05.760
+and i perform that um same experiment but i'm doing with a q
+
+0:22:03.520,0:22:09.280
+oh let's see how that looks what you can see is that the q pattern
+
+0:22:08.080,0:22:13.360
+scales linearly right it's much slower than the stack
+
+0:22:12.720,0:22:16.799
+pattern it's going to keep getting slower and
+
+0:22:14.799,0:22:20.559
+slower as my um as my list gets bigger okay so that's no
+
+0:22:19.600,0:22:26.720
+good um let's do the last one let's say i
+
+0:22:23.120,0:22:30.480
+wanted to have like a priority queue it's going to be even worse so i'll just
+
+0:22:29.280,0:22:34.400
+say maybe like prio for priority in this case each time i
+
+0:22:33.120,0:22:38.559
+append something i would sort it right so and just be
+
+0:22:37.280,0:22:45.280
+very clear here so i'm trying to measure bad ways to
+
+0:22:41.679,0:22:48.720
+implement the patterns all with the list right because this is the motivation i
+
+0:22:46.720,0:22:52.480
+want to show how bad it is with a list to justify why we need these other
+
+0:22:50.320,0:22:57.440
+things let me do this and then maybe i'll pop off from the beginning
+
+0:22:55.679,0:23:01.440
+and um and so i'm going to add this down here right these are
+
+0:22:58.880,0:23:06.880
+kind of three patterns i'm going to have the priority queue pattern
+
+0:23:04.080,0:23:09.440
+what do i get and i see that one's even horrible i mean that priority hue
+
+0:23:08.480,0:23:15.200
+pattern uh makes the cue pattern um look fast
+
+0:23:13.039,0:23:21.200
+so there's gonna be a lot of benefit to using things like heap cue
+
+0:23:17.280,0:23:24.640
+or or say um uh or the dq and so that's what we're going
+
+0:23:23.360,0:23:28.720
+to do to practice after this you're going to try
+
+0:23:25.280,0:23:32.880
+changing this function up here to use faster data structures
+
+0:23:30.159,0:23:37.840
+and then um kind of get some benchmark results and show how much better it's
+
+0:23:34.840,0:23:37.840
+doing
+

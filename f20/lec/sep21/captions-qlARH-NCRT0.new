@@ -1,0 +1,945 @@
+0:00:01.280,0:00:07.440
+all right in this video i want to introduce a new object-oriented
+
+0:00:04.880,0:00:10.719
+concept called inheritance uh this is really
+
+0:00:07.919,0:00:14.719
+key um i think what very often find when you have different types of data
+
+0:00:12.400,0:00:19.279
+is that some types of data are more kind of similar to each other than others
+
+0:00:16.720,0:00:23.199
+so for example you know maybe five is an integer
+
+0:00:20.320,0:00:25.760
+and three point one four is a float so those are two different types i have end
+
+0:00:24.560,0:00:28.960
+and float but more broadly i might say they're
+
+0:00:27.359,0:00:32.079
+both numeric types and that means i can do a lot of the
+
+0:00:30.480,0:00:37.680
+same things to both floats and so i can add them divide whatever
+
+0:00:35.440,0:00:40.480
+and so as we're building new types we're also going to want to think about what
+
+0:00:38.640,0:00:45.200
+kind of hierarchy do we have what what is kind of specific
+
+0:00:42.399,0:00:47.360
+to this new type and what do some types uh
+
+0:00:45.840,0:00:50.960
+have in common that's maybe kind of a more general type
+
+0:00:49.440,0:00:55.680
+and so maybe one picture that we could have is kind of a hierarchy like this
+
+0:00:53.600,0:00:59.199
+where we have all these different types and then kind of at the bottom
+
+0:00:57.600,0:01:03.359
+from these different types we might make actual objects
+
+0:01:01.039,0:01:06.960
+right so this hierarchy of type i think those as classes
+
+0:01:04.960,0:01:10.640
+and then while we create objects from classes right so you can see that
+
+0:01:08.720,0:01:14.240
+you know from a class i might kind of have a another more specific kind of
+
+0:01:12.720,0:01:18.720
+class underneath that or i might take a class and use it to
+
+0:01:15.840,0:01:23.200
+make um make objects and well let's just take people for
+
+0:01:20.799,0:01:26.479
+example maybe i have a person class and maybe all persons have some things
+
+0:01:25.040,0:01:31.040
+in common maybe um everybody has a name and an age maybe
+
+0:01:29.600,0:01:33.680
+most people have a social security number
+
+0:01:31.920,0:01:36.159
+um you can imagine there's a lot of things you might want to have for for
+
+0:01:35.119,0:01:38.799
+all people but of course there's different kinds of
+
+0:01:37.360,0:01:41.600
+persons in the world like you could imagine
+
+0:01:39.439,0:01:45.200
+um maybe even just with respect to the university
+
+0:01:42.880,0:01:47.759
+uh we might have people related to a course and within the course we might
+
+0:01:46.960,0:01:52.079
+have um you know students instructors tas and
+
+0:01:50.720,0:01:55.200
+and they all might have some kind of information in common but
+
+0:01:53.920,0:01:58.560
+there's gonna be specific things like maybe um
+
+0:01:56.320,0:02:01.680
+uh maybe for instructor and ta there's some information about what they're paid
+
+0:02:00.320,0:02:04.399
+maybe for students there's some information about well what their grade
+
+0:02:03.759,0:02:08.000
+is um and so on and so forth maybe there's
+
+0:02:06.960,0:02:11.920
+other kinds of employees right maybe there's administrators and
+
+0:02:09.920,0:02:16.160
+janitors and so we can see that even though we have person very generally
+
+0:02:13.760,0:02:20.879
+we have kind of subtypes of person and then some subtypes
+
+0:02:18.080,0:02:24.080
+and just a little vocabulary there person is an example we might call a
+
+0:02:22.640,0:02:27.920
+parent class or a base class and then we have a more
+
+0:02:26.319,0:02:32.560
+specific type we'll call that a child class now one thing i want you to
+
+0:02:31.519,0:02:37.280
+think about is that can a person ever be more than
+
+0:02:36.160,0:02:40.640
+one kind of thing and the answer is absolutely they can
+
+0:02:39.360,0:02:44.080
+instructor uh is a course person right i have
+
+0:02:43.280,0:02:48.720
+information about the course as a course person
+
+0:02:47.120,0:02:52.000
+and i'm also an employee thankfully i get paid right so so
+
+0:02:50.480,0:02:55.519
+you might imagine hierarchies that show up in the real world where it's kind of
+
+0:02:53.680,0:02:59.599
+you have two parent classes the same now not every programming
+
+0:02:57.440,0:03:03.120
+language in the world allows this uh but it's allowed in python right so
+
+0:03:02.000,0:03:06.560
+we're gonna learn at least a little bit about that
+
+0:03:04.480,0:03:11.519
+this semester it's called multiple um inheritance we might say a child class
+
+0:03:08.800,0:03:14.159
+inherits from a parent or base class where i see cases where you inherit from
+
+0:03:13.040,0:03:17.440
+multiple base classes now the one last thing i
+
+0:03:16.480,0:03:20.640
+want you to notice here is that at the very top i
+
+0:03:20.000,0:03:27.840
+have a class with a very confusing name
+
+0:03:24.560,0:03:32.879
+and the name of that class is is object object is the most general class and
+
+0:03:31.040,0:03:35.840
+every every class we ever make we'll somehow inherit from that
+
+0:03:34.560,0:03:39.200
+uh whether or not we're kind of explicitly trying to do that
+
+0:03:37.599,0:03:43.440
+i don't like that name because at the bottom i have these blue
+
+0:03:40.640,0:03:47.280
+boxes which are actual objects and uh well the thing at the top isn't an
+
+0:03:44.640,0:03:50.159
+object it's a class okay so i'm going to head over and
+
+0:03:48.720,0:03:52.560
+actually do some coding examples to make this more concrete
+
+0:03:51.280,0:03:57.040
+and try to demonstrate some of these principles
+
+0:03:54.799,0:04:01.840
+so i'm going to head over here and uh and i have my good old dog class again
+
+0:03:59.120,0:04:06.000
+that we're all getting so familiar with i have a constructor
+
+0:04:03.760,0:04:09.920
+the dog can speak i have some stir methods
+
+0:04:07.360,0:04:11.840
+and and so a wrapper method so when i kind of put this down here i'm calling
+
+0:04:11.439,0:04:14.959
+stir automatically when i put this here i'm
+
+0:04:13.360,0:04:19.040
+calling repper automatically and let's say that i want
+
+0:04:17.120,0:04:22.479
+to create a cat class and so i'm going to do that let me
+
+0:04:20.400,0:04:26.960
+create my cat class and cats have a lot in common with dogs
+
+0:04:25.520,0:04:29.759
+maybe maybe they're quieter so maybe i don't want to speak
+
+0:04:28.240,0:04:34.960
+but you could easily imagine that i might put all of these things
+
+0:04:32.000,0:04:37.520
+up here uh just like before and maybe i would try to change it maybe this is a
+
+0:04:36.479,0:04:42.000
+cat and this is a cat and not just for the
+
+0:04:40.400,0:04:45.919
+sake of example let's see if it works or something i say
+
+0:04:43.680,0:04:51.759
+kevin equals a cat named kevin and well let me just print both my
+
+0:04:49.280,0:04:55.360
+animals and that works just fine right but i
+
+0:04:54.240,0:04:58.720
+copied and pasted and one of the things that we stressed a
+
+0:04:56.639,0:05:02.400
+lot in the last course is that whenever you're copying and pasting
+
+0:05:00.720,0:05:04.960
+it probably means you aren't doing things the most elegant way i mean it's
+
+0:05:04.080,0:05:09.039
+more work and then of course you can imagine well
+
+0:05:06.400,0:05:12.240
+if i have a bug in my dog class and i fix it does that mean i have yet
+
+0:05:10.560,0:05:16.400
+another bug i have to go fit in my fix in my cat class and generally we
+
+0:05:14.240,0:05:21.600
+want to avoid copy and pasting okay and so how do we do that i mean
+
+0:05:19.440,0:05:25.120
+i don't want to have just one class called animal because there's some
+
+0:05:23.120,0:05:28.479
+differences right i mean the dog speaks differently than the cat
+
+0:05:26.960,0:05:30.960
+but there are also some things in common right like these stir and wrapper
+
+0:05:29.840,0:05:35.360
+methods are pretty pretty similar and and so what we'll do
+
+0:05:33.919,0:05:39.360
+right even though i really only want two classes here well i'm gonna make a
+
+0:05:37.759,0:05:44.960
+third class which is kind of a more general category
+
+0:05:40.960,0:05:49.199
+and i'll call that animal and um and well i should actually be specific
+
+0:05:46.479,0:05:52.720
+here because like these cats and dogs um they both have names and that's kind
+
+0:05:51.360,0:05:57.759
+of what i'm having in common so maybe i'll call it pet
+
+0:05:54.160,0:06:00.560
+somebody have a pet class and um pets are just gonna well maybe i might even
+
+0:05:59.360,0:06:05.120
+call it patty may make it a little bit more general named animal
+
+0:06:03.360,0:06:10.240
+and uh named animals i can do things like this i can convert them to a string
+
+0:06:07.440,0:06:14.240
+or a wrapper and what i'm going to do is instead of having
+
+0:06:11.120,0:06:17.759
+two copies of these methods is i'm just going to put it in one
+
+0:06:15.440,0:06:22.800
+one place all right so let me put all of this up here
+
+0:06:19.520,0:06:25.840
+like so and um i guess i shouldn't call it cat anymore
+
+0:06:24.639,0:06:29.680
+it's trying to work generally should i say
+
+0:06:26.160,0:06:34.160
+animal and animal and and what i would like
+
+0:06:30.080,0:06:38.479
+is for for these methods these things that are common to all
+
+0:06:35.759,0:06:42.400
+named animals to get pulled into both my cat and my dog class
+
+0:06:40.080,0:06:45.199
+and the way i pull these methods in is i say well
+
+0:06:43.360,0:06:49.520
+in parentheses after the class name i say named animal
+
+0:06:47.440,0:06:53.039
+named animal up here okay so i'll pull all these things into my
+
+0:06:50.960,0:06:57.440
+cat class and the same thing down here right i may have
+
+0:06:54.960,0:07:01.680
+named animal i may get a copy of these methods
+
+0:06:58.720,0:07:04.000
+down in my dog class right so i run this and
+
+0:07:02.000,0:07:08.960
+i see great it's working for both of them i have animal phyto
+
+0:07:05.759,0:07:13.280
+um and animal kevin um now i guess i kind of lost a feature
+
+0:07:12.080,0:07:16.319
+there right i mean i'd still like to know that fido as a dog and heaven is a
+
+0:07:15.199,0:07:21.199
+cat and and so i i can go up here and i can
+
+0:07:19.599,0:07:26.479
+i can deal with this and the way i'll deal with that is i'll
+
+0:07:23.120,0:07:30.240
+kind of think about what type what type of object i'm dealing with
+
+0:07:28.639,0:07:39.039
+right so when i do this print it calls stir
+
+0:07:34.720,0:07:41.360
+on on phyto and fido is a dog object right so
+
+0:07:39.599,0:07:46.240
+when i get the type of cell that's like saying the type of phyto
+
+0:07:43.039,0:07:49.599
+and guess what that's a dog and and then the same thing down here when i when i
+
+0:07:47.759,0:07:56.319
+call print kevin it falls stir on kevin
+
+0:07:54.160,0:07:59.199
+right so self refers to this cat here right so that i can see if i get the
+
+0:07:57.440,0:08:03.039
+type of that i get cat and so one of the things i can do is
+
+0:08:00.960,0:08:06.319
+when i have a class like this um i can pull out a name right so this
+
+0:08:05.680,0:08:09.520
+type here that's giving me a class not an object
+
+0:08:08.639,0:08:13.520
+and i can say dot dot underscore underscore name and i
+
+0:08:13.039,0:08:18.800
+can do dog um or cat now now
+
+0:08:16.639,0:08:24.000
+notice that we have all these special methods right that are the underscores
+
+0:08:21.360,0:08:27.680
+and um and this is not a method if this were a method
+
+0:08:25.520,0:08:33.039
+uh i would do that so it's not a special method this is a special attribute
+
+0:08:30.560,0:08:37.120
+right so remember that um you know classes have both methods and attributes
+
+0:08:35.599,0:08:40.000
+uh just like we have special methods we have special attributes
+
+0:08:38.719,0:08:45.839
+and they kind of have the same weird naming with the double underscore
+
+0:08:42.959,0:08:49.519
+okay so so i think what i can do now um since i'm able to get dog or cannon
+
+0:08:47.760,0:08:57.200
+figure out what it is instead of saying animal here i can
+
+0:08:52.839,0:09:04.800
+just what this just like so and um and so i can run that and uh
+
+0:09:01.120,0:09:08.480
+and um you know what i'm doing i'm mixing up my styles i have to put that
+
+0:09:06.480,0:09:13.680
+over here okay well what does this do remember the
+
+0:09:12.160,0:09:17.120
+format method that that kind of plugs values into
+
+0:09:15.519,0:09:21.680
+where i have parentheses right so let's try
+
+0:09:17.440,0:09:25.760
+plugging this in here and so i get dog and i'm plugging this in here and so i
+
+0:09:24.800,0:09:30.720
+get fido um how was i mixing fi uh uh formats
+
+0:09:28.720,0:09:36.720
+well instead of saying dot format the alternative to this is i can put
+
+0:09:34.800,0:09:40.240
+i can put these pieces directly inside of here
+
+0:09:38.480,0:09:42.800
+like this i can do this this is kind of the same thing these two two ways i'm
+
+0:09:41.760,0:09:45.519
+doing it and if i don't want to call that format
+
+0:09:44.399,0:09:49.200
+method then i have to say at the beginning that this is a format string
+
+0:09:47.519,0:09:52.800
+this is kind of a more advanced python feature and so these two things are just
+
+0:09:51.200,0:09:57.200
+doing exactly the same thing let me delete this and that works great
+
+0:09:56.000,0:10:00.080
+and so i'm going to do the same format string for wrapper
+
+0:10:00.320,0:10:06.000
+okay great so i'm able to get these two methods
+
+0:10:04.240,0:10:10.640
+they're being basically pulled into both cat and dog
+
+0:10:07.839,0:10:15.120
+and that's all fine and well now there's a bit of a mystery here
+
+0:10:12.160,0:10:18.640
+and it's it's like well this works but how come it works
+
+0:10:16.399,0:10:22.640
+if i do well let's say i just have nothing here
+
+0:10:21.200,0:10:26.800
+i mean i get something different right but it doesn't crash right
+
+0:10:25.040,0:10:30.240
+how is it that i'm calling the stir method
+
+0:10:28.240,0:10:33.839
+and i'm getting something even though right now all my stir and wrapper
+
+0:10:32.079,0:10:38.800
+methods are commented out okay that's a mystery and
+
+0:10:37.040,0:10:45.279
+let me kind of show you what's happening here so
+
+0:10:41.120,0:10:48.320
+if i have a class let's say dog it turns out just like objects can have
+
+0:10:47.040,0:10:51.360
+special attributes uh classes can have special attributes
+
+0:10:50.320,0:10:54.800
+too and an important one to remember for
+
+0:10:54.079,0:11:03.120
+classes is the method resolution order
+
+0:10:59.839,0:11:07.519
+resolution order great and what that will give me is it's
+
+0:11:05.680,0:11:13.200
+a tuple and it's giving me a tuple of types and what this means is that
+
+0:11:11.040,0:11:16.560
+let's say i have a dog object right like for kevin
+
+0:11:14.480,0:11:22.720
+right or i guess fido find it as a dog object
+
+0:11:17.839,0:11:29.360
+if i call fido dot speak it will first check does my dog class
+
+0:11:26.399,0:11:32.399
+have a speed well it does well if it didn't then it would check does named
+
+0:11:31.040,0:11:35.279
+animal have a speak that's kind of like the
+
+0:11:33.600,0:11:38.560
+second choice that's why it's the second place in the tuple
+
+0:11:37.279,0:11:42.959
+well and if that doesn't have a speak it'll check if the object class
+
+0:11:41.440,0:11:45.360
+remember that object is the weird name for for the class that's kind of the
+
+0:11:44.399,0:11:49.920
+parent of everything it'll check if object has a speak method
+
+0:11:47.839,0:11:53.279
+and object doesn't have a speak method but it does have a stir method and
+
+0:11:51.920,0:11:58.560
+that's why even though i haven't done any stirs up here
+
+0:11:55.120,0:12:02.320
+well object dot stir is what's printing this thing out
+
+0:11:59.279,0:12:11.839
+and what's printing this thing out and so what what happens here well when i do
+
+0:12:04.399,0:12:17.279
+this when i kind of bring this back kind of uh strangely there we go
+
+0:12:14.959,0:12:21.040
+when i bring that back it turns out that dog doesn't have stir
+
+0:12:19.200,0:12:26.480
+but named animal and object both do and it's choosing the one and named animal
+
+0:12:24.480,0:12:30.000
+right and so well what that means is that i have this opportunity
+
+0:12:28.320,0:12:33.279
+well what am i saying so i have the method here when this one which has
+
+0:12:32.000,0:12:36.800
+higher priority as i say method i say that named animal
+
+0:12:35.360,0:12:41.600
+is overriding the stir method and i can do that same
+
+0:12:39.600,0:12:46.160
+thing here so for example um uh let's say for
+
+0:12:44.720,0:12:49.040
+dog right i'm just going to do that let me say stir
+
+0:12:50.839,0:12:56.240
+self i'm just going to return like something silly for now
+
+0:12:56.639,0:13:05.519
+so even though dog is pulling in stir from named animal that's not going
+
+0:13:03.440,0:13:09.200
+to be the one that it's called when i print my dog it's going to be
+
+0:13:07.360,0:13:13.680
+this one right because in the method resolution order dog is
+
+0:13:11.600,0:13:18.399
+taking precedence over that over this so i do that and i get test right but
+
+0:13:16.880,0:13:22.320
+um so just for an example i don't actually want to do that in this case
+
+0:13:19.440,0:13:25.519
+i'm going to get rid of this this method resolution order is really
+
+0:13:24.399,0:13:30.240
+useful to understand new classes that you're kind of
+
+0:13:26.959,0:13:34.639
+exploring and learning about okay so we talked about inheriting
+
+0:13:32.959,0:13:37.839
+methods right so when i do this inherit method
+
+0:13:35.360,0:13:40.240
+we talked about overwriting methods and how
+
+0:13:38.639,0:13:45.519
+uh the method resolution order can kind of help us see when that's happening
+
+0:13:42.720,0:13:48.959
+um another thing i want to talk about is um
+
+0:13:46.000,0:13:52.800
+for our init method how could we call um init or other methods
+
+0:13:50.639,0:13:56.160
+and a parent right maybe we want to both overwrite it
+
+0:13:54.160,0:13:59.199
+and still call the parent one right now i haven't really given you a choice like
+
+0:13:57.279,0:14:04.560
+either we are overwrite it or not how can we have a choice to do both
+
+0:14:02.959,0:14:09.839
+so so let's think about how we do this here
+
+0:14:06.240,0:14:13.519
+let's say that well let's do this first i'm going to say that i want to put this
+
+0:14:11.120,0:14:18.800
+up here and how did i get this all kind of
+
+0:14:16.800,0:14:22.000
+indented and it's a little funny let me put that up here so i don't need
+
+0:14:20.399,0:14:25.199
+any constructor here and um i'm just going to comment this
+
+0:14:23.760,0:14:28.560
+one out for now everything still works the same way
+
+0:14:28.000,0:14:32.720
+because the net just like anything else is
+
+0:14:30.160,0:14:38.880
+getting pulled into these two classes but what happens if as i have my dog
+
+0:14:36.800,0:14:43.839
+i i want to have more information for my dog that's i want to have like a
+
+0:14:40.320,0:14:48.800
+an age for my dog too i can say like age equals age
+
+0:14:45.360,0:14:54.320
+and then i guess fido is five and why is my line 19
+
+0:14:52.160,0:14:56.800
+is kind of off let me just kind of tab this in
+
+0:14:57.199,0:15:04.240
+that's very let me just like do a kernel restarting run all i feel like the
+
+0:15:00.639,0:15:07.279
+the colors are on uh why is that red
+
+0:15:10.839,0:15:16.160
+oh kind of mysterious anyway i guess i'll just leave that uh
+
+0:15:14.800,0:15:20.160
+as it is because oh it's really bugging me sorry there
+
+0:15:19.040,0:15:23.600
+does that work great okay i'm just gonna leave it like
+
+0:15:21.440,0:15:27.199
+that um where was i sorry okay so i i've
+
+0:15:26.000,0:15:31.920
+overwritten this now you can see i have some redundancy
+
+0:15:29.440,0:15:36.160
+again right i kind of copied this down here and that's kind of okay
+
+0:15:34.480,0:15:43.680
+because there's just one line of code but what if there was um imagine
+
+0:15:40.320,0:15:46.880
+there's kind of lots of setup here right it would be kind of silly to copy
+
+0:15:45.680,0:15:51.360
+all of this down here wouldn't it and so what i'll
+
+0:15:49.440,0:15:58.720
+often want to do is override a method
+
+0:15:55.440,0:16:02.160
+but then still call the parent method and so the way i'll do that is like this
+
+0:16:00.560,0:16:06.720
+i guess there's a couple ways so how can i run this instead of redoing
+
+0:16:04.720,0:16:10.560
+that work down here one way is that i can be very explicit
+
+0:16:09.839,0:16:13.839
+about which one i want to call i can say named
+
+0:16:12.160,0:16:18.880
+animal dot init remember this is kind of like the
+
+0:16:16.880,0:16:22.480
+old style we saw for calling uh methods it doesn't have the type
+
+0:16:21.279,0:16:28.480
+based on dispatch and i could pass in these
+
+0:16:25.680,0:16:31.519
+three things right i could do this this is one option
+
+0:16:32.000,0:16:38.399
+and and why is that broken
+
+0:16:38.480,0:16:44.800
+because um because up here i guess i need the two things right
+
+0:16:42.320,0:16:47.279
+named animals don't know about age so i can do that
+
+0:16:45.839,0:16:50.639
+so i could do that and that works just fine right so now i have advantage of
+
+0:16:49.040,0:16:55.199
+that i can call this to do whatever stuff is up here plus
+
+0:16:53.519,0:16:58.399
+adding my own little feature down here in python they kind of have
+
+0:16:56.800,0:17:02.240
+this strange um uh kind of pattern for accomplishing
+
+0:17:00.880,0:17:05.280
+this uh it's a little bit hard to see what's
+
+0:17:04.240,0:17:09.679
+going on i'm just going to kind of show you what it is
+
+0:17:06.319,0:17:14.640
+if i call super that basically gives me the same thing as self
+
+0:17:11.600,0:17:18.240
+but it gives me the named animal version of self and so if i if i call this and i
+
+0:17:17.360,0:17:23.520
+can say init and then just name
+
+0:17:21.600,0:17:26.000
+and for this style right since i'm not actually putting a class name here i'm
+
+0:17:24.880,0:17:28.799
+just trying putting a different version of self
+
+0:17:27.439,0:17:33.120
+i don't have to pass self in here so this would do the same thing do the same
+
+0:17:31.280,0:17:37.039
+as above in most cases there's there's kind of
+
+0:17:34.799,0:17:40.320
+some more this gets trickier um in certain cases but but at least for
+
+0:17:39.200,0:17:42.559
+here that's trying to do the same thing and that's kind of maybe the level i
+
+0:17:41.600,0:17:47.039
+want to go um into it for this course and so great
+
+0:17:45.919,0:17:51.679
+i can see that now i have this capability i can call my parent
+
+0:17:49.039,0:17:54.880
+version and my own uh using super seriously super a lot
+
+0:17:55.440,0:18:02.640
+okay this is good there's one more thing i want to talk about
+
+0:18:00.400,0:18:06.080
+which is that there are sometimes classes
+
+0:18:03.520,0:18:09.280
+well i guess for this class right i never actually create objects directly
+
+0:18:07.919,0:18:13.039
+from named animals its only purpose is to be a base class
+
+0:18:11.200,0:18:16.640
+for other classes and um and there's other other classes
+
+0:18:15.520,0:18:20.000
+like that that come with python they're called abstract based
+
+0:18:19.280,0:18:23.919
+classes um abstract is kind of this fancy word
+
+0:18:21.840,0:18:26.080
+to say that you know i don't really mean to create instances of this it's just
+
+0:18:25.360,0:18:30.240
+kind of to be a base for other things and so if
+
+0:18:28.480,0:18:33.520
+i head over here there's actually so abstract base class
+
+0:18:32.880,0:18:37.679
+that acronym for that is abc and there are
+
+0:18:35.919,0:18:42.880
+all these examples of abstract base classes
+
+0:18:38.960,0:18:46.320
+that basically come with python okay and they're going to kind of save
+
+0:18:44.880,0:18:52.320
+you time if you're trying to implement different kinds of structures
+
+0:18:48.400,0:18:58.080
+so for example let's say that i have i want to make a new kind of sequence
+
+0:18:55.679,0:19:02.559
+what i can do is if i implement get item and length
+
+0:18:59.600,0:19:06.000
+then i inherit from the abstract base class called sequence
+
+0:19:04.160,0:19:10.240
+i'm going to automatically get all these other good things
+
+0:19:07.840,0:19:13.039
+okay and so in this example i already kind of have implemented a sequence and
+
+0:19:11.600,0:19:17.440
+where i look at the code now and it already has these two things but
+
+0:19:15.600,0:19:21.600
+it doesn't have these things yet i'm going to come back here and this is
+
+0:19:20.080,0:19:25.039
+an example from an earlier lecture we'd have a range
+
+0:19:22.720,0:19:28.640
+where i could get this range of numbers and i can get the length of the range
+
+0:19:26.559,0:19:32.559
+and kind of get items from the range and so so let me just try to create a
+
+0:19:30.240,0:19:38.720
+range down here so i'm going to do this and i can say um range
+
+0:19:35.679,0:19:41.280
+equals i'll say i'll go from like 100 to 200
+
+0:19:41.600,0:19:47.360
+i could get the value at position uh let me actually just do like i'll do like 50
+
+0:19:45.760,0:19:51.200
+to 60. um right so the value of position 0 is
+
+0:19:50.400,0:19:57.520
+50. the value at the next position 51.
+
+0:19:54.799,0:20:02.960
+so on and so forth so that's fine uh because i implemented get item
+
+0:19:59.120,0:20:06.000
+i can um i can get the length of it because i implemented that what i can't
+
+0:20:05.120,0:20:13.120
+do is i can't say r dot index of
+
+0:20:09.520,0:20:16.880
+52. what i would like this to do is give me the
+
+0:20:13.679,0:20:20.000
+kind of the index for the position of 52 within that range which i guess is just
+
+0:20:18.480,0:20:24.799
+position position two right so if i do that that crashes
+
+0:20:23.120,0:20:29.039
+right but i can get this index method for free
+
+0:20:26.640,0:20:31.919
+if i inherit from sequence right because that gives me index and tone and all
+
+0:20:30.880,0:20:37.120
+these other goodies right all i have to do is have these two
+
+0:20:34.799,0:20:45.600
+so let me try that so i'm going to say here i'm going to say from collections
+
+0:20:41.280,0:20:50.720
+import abstract base class right that's a module and within that
+
+0:20:47.200,0:20:54.240
+module i can hear it from the sequence so just by adding this little bit of
+
+0:20:52.320,0:20:57.840
+code this is going to work right 52 is at
+
+0:20:56.400,0:21:01.840
+position 2 within here maybe actually let me kind of start at a
+
+0:21:00.320,0:21:05.520
+more interesting range i'll draw from three
+
+0:21:02.640,0:21:08.480
+to nine and in the position of i guess six
+
+0:21:06.880,0:21:13.760
+well i guess what is three so three is zero
+
+0:21:10.400,0:21:17.039
+so six should be three or i'll do seven which should be four
+
+0:21:15.440,0:21:19.919
+great so the index method just works for me automatically right
+
+0:21:18.559,0:21:23.120
+and then let me just try to print r to really make this explicit
+
+0:21:24.159,0:21:36.000
+and convert it to a list right it's telling me that 0 1 2
+
+0:21:32.559,0:21:39.440
+3 4 right the index method is there just because i added this i inherited
+
+0:21:37.760,0:21:43.200
+those methods and so when you're trying to build new collections
+
+0:21:41.600,0:21:46.640
+and maybe collections of the word for kind of data structure like you know new
+
+0:21:44.880,0:21:49.919
+kinds of lists or dictionaries or other fancy things
+
+0:21:48.400,0:21:57.919
+check out these abstract based classes and consider inheriting
+
+0:21:51.760,0:21:57.919
+uh from one or more of those
+

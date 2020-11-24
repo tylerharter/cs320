@@ -1,0 +1,552 @@
+0:00:01.680,0:00:08.240
+all right so in this video i'm going to be talking about context managers
+
+0:00:05.200,0:00:13.200
+uh depending on what special methods uh class implements um that class may or
+
+0:00:10.880,0:00:16.240
+may not be a context manager now it turns out that there's one kind
+
+0:00:14.719,0:00:19.840
+of object you've used a lot that is a context manager and that is a
+
+0:00:18.480,0:00:22.960
+file object and what that's going to allow us to do
+
+0:00:21.840,0:00:30.000
+is use file objects um in a special way with a with
+
+0:00:26.240,0:00:34.480
+and as clause and you can use any um any context manager in this way so
+
+0:00:32.880,0:00:37.760
+let's look back at how we very first um originally learned how to read and
+
+0:00:36.559,0:00:40.879
+write files we might do something like this we would
+
+0:00:39.360,0:00:44.719
+open the file at the end we would close it then in
+
+0:00:42.960,0:00:48.000
+between we might do things like reading or writing to the file
+
+0:00:46.480,0:00:52.640
+and what i want you to think about is what will happen if let's say my
+
+0:00:49.840,0:00:58.000
+hard drive runs out of space and after i write some data
+
+0:00:54.879,0:01:03.120
+i crash and i can't write more now if that happens there will be some
+
+0:00:59.760,0:01:07.280
+sort of um file i o exception and even if i had i catch that let's say
+
+0:01:05.360,0:01:11.520
+i have a try and accept this close will never happen right so
+
+0:01:10.159,0:01:14.159
+that's the problem with this piece of code right
+
+0:01:12.000,0:01:18.080
+if there's an exception in the middle i don't clean up after myself
+
+0:01:16.159,0:01:21.360
+most of the time that doesn't matter but and kind of it's good
+
+0:01:19.280,0:01:24.960
+coding to make sure we don't leave uh kind of uh
+
+0:01:22.320,0:01:27.600
+dangling resources around because if i have too many files open well then i
+
+0:01:26.400,0:01:31.840
+can't open any new ones right and then sometimes that will
+
+0:01:28.799,0:01:35.040
+matter even though it usually doesn't and so the preferred way to do this is
+
+0:01:33.600,0:01:38.960
+like this down here um what we're gonna do is we're gonna do
+
+0:01:36.720,0:01:43.040
+an open just like before and open creates a file object and
+
+0:01:41.840,0:01:46.880
+returns it and it turns out that i can put any file
+
+0:01:45.200,0:01:52.079
+object or i'm sorry i can put any context manager
+
+0:01:48.799,0:01:55.840
+after the width and before as something right and so the file object is a
+
+0:01:53.360,0:01:59.840
+context manager so i can put it here and and then i can write it and all of
+
+0:01:58.159,0:02:04.159
+that and the advantage of using the with clause with the context
+
+0:02:01.840,0:02:07.280
+manager is that will automatically clean up resources
+
+0:02:05.280,0:02:12.400
+when i'm all done so even if i crash here then at the end
+
+0:02:09.039,0:02:16.480
+my file will be closed okay and so so like i said this is a file or
+
+0:02:14.959,0:02:22.640
+this is a context manager and so what is with do uh with does uh
+
+0:02:20.480,0:02:28.080
+a couple things well i guess let me give a more concrete example
+
+0:02:24.480,0:02:31.440
+um uh well i i want to be a little bit careful
+
+0:02:29.840,0:02:34.800
+here right let me actually just let me start starting my example and i'll talk
+
+0:02:33.040,0:02:38.080
+about what it does so i'm going to create a class called
+
+0:02:36.319,0:02:42.000
+multiple pi font and this is going to be a context
+
+0:02:39.680,0:02:46.319
+manager and the idea is that if i'm creating any plots
+
+0:02:43.599,0:02:49.599
+within this context then i want the font to be larger
+
+0:02:47.760,0:02:52.879
+than normal okay so i'm going to create that and i'll just try to leave it empty
+
+0:02:51.920,0:02:56.000
+for now and uh and the idea is if i do something
+
+0:02:54.959,0:03:03.040
+like this if i say malt font as
+
+0:02:59.680,0:03:09.760
+as i guess i'll say is f then any plots here here will have
+
+0:03:07.280,0:03:13.760
+larger font size and so i'm saying i'm multiplying maybe i multiply it by two
+
+0:03:11.440,0:03:17.040
+or three or whatever okay so that's the goal right so this is
+
+0:03:15.120,0:03:20.480
+going to be a context manager and then the context well
+
+0:03:18.080,0:03:26.959
+as anything inside of here and then afterwards after the context finishes
+
+0:03:23.120,0:03:31.440
+i want to go back to the regular size okay and so what's going to happen as i
+
+0:03:30.560,0:03:34.959
+run this there's maybe three things that'll well
+
+0:03:32.959,0:03:38.959
+four things that'll happen so the first thing that happens
+
+0:03:36.000,0:03:44.080
+is it it's going to try calling a net to create a new
+
+0:03:40.400,0:03:50.000
+instance of this right um then it will it will call this special
+
+0:03:47.760,0:03:56.560
+method enter um then it will you know put object
+
+0:03:53.439,0:04:01.040
+in f and then for uh it's going to do the the body of the
+
+0:03:59.360,0:04:05.120
+with statement and then five is trying to call this
+
+0:04:02.799,0:04:09.200
+other special method called exit and you don't necessarily always have to
+
+0:04:06.480,0:04:13.040
+do all of these um but the idea here is that
+
+0:04:09.680,0:04:16.720
+um is that you know i can do some sort of setup here
+
+0:04:14.080,0:04:19.440
+but more importantly this exit piece is going to be a function or method that
+
+0:04:18.320,0:04:22.479
+it's called regardless of whether there's an
+
+0:04:20.880,0:04:26.960
+exception here right so i can be sure that this will always
+
+0:04:23.919,0:04:31.520
+run and kind of clean things up okay so that's the goal oh let's try
+
+0:04:29.520,0:04:35.759
+running this and i see that i have a problem here
+
+0:04:33.759,0:04:38.960
+when i try to do the with statement well guess what i don't have an enter
+
+0:04:37.919,0:04:43.919
+okay so i'm going to create that i'm going to
+
+0:04:40.320,0:04:48.160
+say death enter self okay and then i want to do
+
+0:04:46.240,0:04:55.040
+something here so i'm going to say pass for now i'll say increase
+
+0:04:52.000,0:04:58.000
+font size okay so it's going to be like that
+
+0:04:56.240,0:04:59.840
+and then let me run it again and i see a lot of problem is it's saying that
+
+0:04:58.960,0:05:05.039
+there's no exit right so i have to have an exit and
+
+0:05:02.720,0:05:09.759
+so let me create my exit here this is what's going to run at the end
+
+0:05:07.199,0:05:15.600
+and i'll just pass that for now and say kind of revert
+
+0:05:12.960,0:05:19.280
+font size and so i run this and it's complaining because
+
+0:05:16.639,0:05:22.639
+exit takes a bunch of stuff and so let me head up here and we go to the
+
+0:05:20.240,0:05:27.600
+documentation i can see that whenever exit is called
+
+0:05:25.039,0:05:31.759
+it has to take all of these things and these things are not that useful to
+
+0:05:30.800,0:05:36.880
+me in this case because all they're doing
+
+0:05:35.440,0:05:40.080
+is really kind of telling me about what the exception was like if during step
+
+0:05:39.199,0:05:43.840
+four um there's some sort of error exception
+
+0:05:42.400,0:05:46.639
+step five will know about that and and i'm not gonna do anything
+
+0:05:45.120,0:05:51.600
+differently so i have to pass them in but i can just ignore them
+
+0:05:48.320,0:05:55.280
+so i'm gonna do this and so far so good and and so let me let me also add my
+
+0:05:53.759,0:06:02.160
+init method like this i'm going to say death init
+
+0:06:00.400,0:06:04.560
+and the reason i want that is i want to say well am i doubling the font size or
+
+0:06:04.080,0:06:07.919
+whatever right so i'm going to do that and i'll
+
+0:06:06.240,0:06:12.000
+just say self.malt equals malt and so let me just try to
+
+0:06:10.319,0:06:14.240
+print where everything is happening right so i'm going to say this is the
+
+0:06:13.120,0:06:17.680
+knit i just want you to see it before we
+
+0:06:15.759,0:06:22.319
+actually get into doing something useful right and what
+
+0:06:19.759,0:06:25.280
+order these things get called and then exit
+
+0:06:25.759,0:06:31.199
+okay and you can see i get that i get the
+
+0:06:29.360,0:06:33.759
+net which doesn't really have anything to do with the context matters just the
+
+0:06:32.960,0:06:37.840
+fact that i'm creating an object here and i have enter
+
+0:06:36.319,0:06:41.520
+and exit because i have the with statement okay
+
+0:06:40.720,0:06:45.759
+and and this mult font object is going to
+
+0:06:44.160,0:06:50.240
+get saved as f but that's that's optional right i don't
+
+0:06:47.360,0:06:53.039
+need to do that if i do that that will just be ignored right so
+
+0:06:51.840,0:06:55.120
+whenever we're doing files right we actually care about what our file object
+
+0:06:54.319,0:06:58.319
+is here um here i don't so i'm just going to
+
+0:06:56.400,0:07:01.680
+kind of erase this here to show you that i'm simplifying a
+
+0:07:00.240,0:07:05.199
+little bit you know if i didn't have that constructor that wasn't there
+
+0:07:03.039,0:07:08.240
+originally and that would have been fine and so great so i'm kind of running
+
+0:07:06.800,0:07:11.759
+these three things kind of a complicated example because i
+
+0:07:10.000,0:07:15.520
+just have like this little piece of code down here
+
+0:07:12.560,0:07:17.440
+you don't see any explicit method calls but in that little bit i'm actually
+
+0:07:16.960,0:07:20.880
+calling three methods automatically that's why
+
+0:07:19.599,0:07:26.319
+we call them special methods they automatically get called
+
+0:07:23.360,0:07:29.120
+okay so that's kind of the structure let's actually do what we wanted to do
+
+0:07:27.919,0:07:33.440
+right we wanted to increase the font size and then put it
+
+0:07:30.000,0:07:36.960
+back so so just kind of uh refresh our memories here i'm going to import
+
+0:07:35.000,0:07:42.639
+matplotlib pi plot as pl as plt
+
+0:07:42.840,0:07:50.639
+and that's running slowly and remember i can do this i can say
+
+0:07:48.080,0:07:55.039
+like plot.subplots and i get this thing and um and maybe
+
+0:07:53.840,0:07:57.520
+you know i'm not going to actually plot anything i just kind of want to look at
+
+0:07:56.240,0:08:02.319
+the font size so i'm just gonna make that like one inch by one inch
+
+0:07:59.759,0:08:08.000
+okay now if i want to there's this dictionary which is
+
+0:08:04.240,0:08:12.400
+rc grams and well it's something like a dictionary at
+
+0:08:09.680,0:08:17.840
+least and there i can see for example what is the font size all right see the
+
+0:08:15.199,0:08:23.039
+font size is 10. if i'd set it to um you know 14 then i'm going to get
+
+0:08:21.120,0:08:29.759
+slightly larger font down here right that's 14 and
+
+0:08:24.160,0:08:35.120
+instead of 10. okay so so here's my goal let me delete all of this i'm going to
+
+0:08:33.519,0:08:39.200
+create oh excuse me i'm going to create three
+
+0:08:37.360,0:08:44.800
+plots here and like this
+
+0:08:42.560,0:08:49.519
+and here and my goal is that this will be the regular font size
+
+0:08:47.440,0:08:53.120
+uh this will be the larger font size and this will go back to being the the kind
+
+0:08:51.200,0:08:56.800
+of small font size again and right now i see it's not doing that
+
+0:08:54.640,0:09:02.959
+i'm creating my three plots but they all have the same font size
+
+0:09:00.560,0:09:07.200
+okay so this enter and exit is where i can really
+
+0:09:04.240,0:09:13.519
+um kind of do what i want to do right and and so how am i going to do this
+
+0:09:10.080,0:09:18.959
+um when i enter i'm going to increase the font size and
+
+0:09:15.440,0:09:23.760
+i say that times equals well let's say i'm passing in two right
+
+0:09:21.920,0:09:26.880
+so two goes here which ended up in walt so i guess i'm
+
+0:09:25.839,0:09:31.519
+doubling in this case i'm just going to say self.walt times
+
+0:09:30.080,0:09:37.440
+equals that and um and then down here i have to
+
+0:09:35.279,0:09:42.800
+under exit i have to set it back right so i'm going to say something like um
+
+0:09:39.760,0:09:46.080
+this equals uh something and to be able to do this properly i
+
+0:09:44.399,0:09:50.000
+have to remember what it was before i guess i could divide by mult but maybe
+
+0:09:48.000,0:09:53.360
+i get some weird rounding things so what i'm actually doing is this i'm
+
+0:09:51.680,0:09:58.399
+going to say self dot previous equals this
+
+0:10:00.080,0:10:07.839
+and then down here when i exit i can say self.previous
+
+0:10:06.160,0:10:14.000
+right so so i remember what it was before upon entering
+
+0:10:10.240,0:10:17.760
+the context i make it bigger i do my plotting with the bigger size
+
+0:10:16.399,0:10:21.279
+and then at the end of the width block i i exit and i set it back to what it
+
+0:10:19.760,0:10:27.440
+was okay let me just clean up this as well
+
+0:10:25.200,0:10:31.360
+right so the individual right i do init to create it
+
+0:10:28.240,0:10:37.920
+enter and then exit let me do this and sure enough you see that
+
+0:10:34.800,0:10:40.720
+the plot created within the context goes back to
+
+0:10:39.200,0:10:44.399
+well it gets larger and then it kind of gets uh goes back to the smaller size
+
+0:10:42.800,0:10:49.040
+when i'm done and what's cool about this is um
+
+0:10:47.760,0:10:55.120
+let's say i do something kind of silly down here i say like uh you know
+
+0:10:51.519,0:10:58.800
+um print let's say one divided by zero i mean that's going to be an exception
+
+0:10:56.640,0:11:02.880
+right so i'm gonna run that and so you see i get the divide by zero
+
+0:11:00.160,0:11:06.720
+error and if i was kind of just writing regular code and not using
+
+0:11:04.079,0:11:12.399
+the context manager what that would mean is that even if i run this again later
+
+0:11:09.440,0:11:14.399
+let's say i come down here it wouldn't be going back to the regular size but it
+
+0:11:14.000,0:11:19.600
+does right because even though there was this
+
+0:11:15.839,0:11:22.880
+exception after this exception happened this thing ran that kind of put it back
+
+0:11:21.440,0:11:26.839
+let me just prove that that's true or i'm going to say exit again
+
+0:11:24.160,0:11:30.560
+maybe i kind of took that out prematurely
+
+0:11:28.160,0:11:32.079
+as you can see there's an exit and i guess it's kind of printing out the
+
+0:11:31.600,0:11:35.760
+order and kind of strangely right but
+
+0:11:34.240,0:11:39.360
+ultimately that runs and then it goes back to the regular
+
+0:11:37.200,0:11:43.760
+size now if i want to there's nothing
+
+0:11:41.839,0:11:47.360
+stopping me from having um kind of context within contacts right
+
+0:11:45.839,0:11:51.680
+let me well first off let's just try this what
+
+0:11:48.880,0:11:57.120
+is what is this doing and i guess i don't need this anymore
+
+0:11:55.120,0:12:00.720
+that's printing two that are inside of the large context
+
+0:11:58.399,0:12:05.519
+just like that um if i wanted to i could do something like this i could say with
+
+0:12:02.320,0:12:08.399
+multiply the font times three i could put that inside of there
+
+0:12:06.959,0:12:12.000
+oh well what that means is that this is inside of the multiply by two
+
+0:12:10.000,0:12:15.519
+so that'll be two times the regular size and i guess this middle one will be like
+
+0:12:13.440,0:12:20.320
+six times the regular size um which you can see it is right so this
+
+0:12:18.480,0:12:23.519
+is kind of a powerful tool right i guess well
+
+0:12:20.720,0:12:25.680
+for one it's just nice to know why we do this
+
+0:12:24.560,0:12:29.120
+why we do this when we're kind of reading and writing files and um
+
+0:12:28.240,0:12:33.040
+at least when i learned about how context managers work it kind of made me
+
+0:12:31.200,0:12:37.760
+feel more confident that this close actually happens at the end
+
+0:12:34.720,0:12:40.560
+because you know f is a file object but it also
+
+0:12:38.399,0:12:44.320
+lets us do other things where we have um kind of code where we have to do cleanup
+
+0:12:42.800,0:12:47.839
+right we can do things like this and then and then kind of um
+
+0:12:46.320,0:12:51.760
+it'll automatically clean up at the end so it's very powerful tool just have to
+
+0:12:49.519,0:12:53.839
+have enter really
+

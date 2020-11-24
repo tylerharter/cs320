@@ -1,0 +1,204 @@
+0:00:03.280,0:00:08.160
+oh hopefully you completed that um last
+
+0:00:05.680,0:00:11.759
+example in the exercises between videos um i have a lot of that same code here
+
+0:00:10.400,0:00:15.280
+uh hopefully you ended up with some sort of plot like this
+
+0:00:13.040,0:00:18.880
+right so it's a third degree polynomial and we were able to fit a line to it
+
+0:00:17.199,0:00:23.439
+now i'm going to talk about what's some problem that can sometimes um
+
+0:00:20.560,0:00:27.920
+crop up in these situations called um overfitting
+
+0:00:25.039,0:00:32.320
+and uh and well let me kind of relate this to a problem that we've seen before
+
+0:00:30.880,0:00:37.280
+way at the beginning when we were first learning some linear algebra stuff
+
+0:00:34.800,0:00:40.559
+we were dealing with square matrices right
+
+0:00:37.920,0:00:44.239
+and square matrices were nice because each on
+
+0:00:41.520,0:00:48.559
+each row is giving us an equation to solve
+
+0:00:45.280,0:00:52.800
+and each column is a variable right so if it's square
+
+0:00:50.480,0:00:56.800
+maybe we have five equations and five variables right we can solve
+
+0:00:54.079,0:00:59.680
+find one exact solution right but of course
+
+0:00:57.600,0:01:02.559
+usually we have more rows and we have columns right that's pretty common
+
+0:01:01.120,0:01:08.080
+situation and uh and so it was possible impossible
+
+0:01:05.519,0:01:12.159
+in general to satisfy all of the equations right because there's too many
+
+0:01:09.680,0:01:16.320
+of them and not enough variables and that's why we learned all this least
+
+0:01:13.760,0:01:19.520
+square stuff how can we find the closest possible solution right
+
+0:01:18.000,0:01:22.240
+there's not going to be any perfect solution
+
+0:01:20.400,0:01:25.840
+right so that's what one changed right the the um
+
+0:01:23.920,0:01:29.040
+able was not square there's more rows than columns
+
+0:01:27.280,0:01:31.439
+and so we have to deal with that noise the other problem you can sometimes run
+
+0:01:31.040,0:01:36.560
+into maybe less often is that there might be
+
+0:01:34.799,0:01:41.600
+more columns than rows right and uh and
+
+0:01:40.240,0:01:44.320
+the reason why we have a problem there is that there's almost too much
+
+0:01:42.720,0:01:48.000
+flexibility uh in what we can put in the variables
+
+0:01:46.240,0:01:52.840
+right there's actually lots of solutions and we can maybe fit it exactly
+
+0:01:50.560,0:01:55.280
+and fitting it exactly when there's noise
+
+0:01:54.079,0:01:58.479
+means while we're actually fitting something wrong we are learning
+
+0:01:56.399,0:02:02.880
+something real so that problem uh is called overfitting right we're
+
+0:02:01.439,0:02:06.880
+fitting the noise because there's too many columns and not enough
+
+0:02:05.920,0:02:10.800
+rows and so here we don't have any evidence
+
+0:02:08.560,0:02:14.160
+of that i mean it looks very reasonable um but let me let me do another case
+
+0:02:12.720,0:02:18.160
+here let's say that we don't have very much
+
+0:02:14.560,0:02:21.920
+data so saying i have like 10 uh 10 rows right so i
+
+0:02:18.800,0:02:27.280
+only have um uh in this case what do i have i have
+
+0:02:23.200,0:02:31.280
+um 10 rows and four columns right after my polynomial features
+
+0:02:29.599,0:02:36.400
+right so that seems kind of reasonable still where we can draw a stray
+
+0:02:33.599,0:02:40.319
+right is if we compute too many too many polynomial features right so here
+
+0:02:38.319,0:02:45.680
+let's say i did something like this now i only have 10 rows of data and i have
+
+0:02:42.800,0:02:48.160
+15 columns right so 10 equations 15 variables
+
+0:02:46.640,0:02:52.000
+not actually that hard to find a solution that fits closely
+
+0:02:49.760,0:02:55.920
+but we're ultimately going to be fitting the noise right and we see something
+
+0:02:54.160,0:03:00.879
+like this right we get these crazy lines that go through all the points
+
+0:02:57.680,0:03:05.760
+but clearly that's not not a real trend right so um i'm not going to be talking
+
+0:03:03.280,0:03:09.680
+more about how to solve this problem now but i want you to be aware of that right
+
+0:03:07.920,0:03:12.959
+when we are kind of computing these extra features right to make our model
+
+0:03:11.360,0:03:17.760
+more complicated um if you have way many more columns way
+
+0:03:16.400,0:03:19.760
+more columns and you have rows that's not good
+
+0:03:18.319,0:03:23.760
+and actually this didn't even happen if we have um a squarish matrix right
+
+0:03:22.239,0:03:27.360
+because there's noise in there right so kind of finding the perfect
+
+0:03:25.760,0:03:29.599
+solution might not actually be as perfect as it
+
+0:03:28.319,0:03:32.000
+you know we're just kind of fitting the noise one other thing i want to talk
+
+0:03:31.440,0:03:35.120
+about before i wrap this up is to have a bit of an
+
+0:03:33.519,0:03:39.519
+aside as you might have noticed that there was this include
+
+0:03:36.560,0:03:42.159
+bias variable um in the example what if i
+
+0:03:39.920,0:03:44.879
+did true right and actually true is the default so i could get rid of that if i
+
+0:03:44.000,0:03:48.640
+wanted to right same thing but i'll leave it there
+
+0:03:47.440,0:03:52.720
+for now you notice that what it's doing is it's
+
+0:03:49.760,0:03:57.120
+adding this one column right and so why why did i disable the
+
+0:03:55.200,0:04:00.480
+ones column when i was doing this why did i
+
+0:03:58.480,0:04:04.400
+recommend that well because this poly data frame that we're
+
+0:04:02.080,0:04:08.319
+generating is getting fed into the linear
+
+0:04:04.959,0:04:11.200
+regression um for a fit and it turns out that this method here
+
+0:04:09.519,0:04:15.200
+is automatically adding that right so we don't want to add the same
+
+0:04:12.720,0:04:21.919
+constant column twice right that's why i was disabling
+
+0:04:16.239,0:04:21.919
+that earlier
+

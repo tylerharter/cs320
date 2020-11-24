@@ -1,0 +1,732 @@
+0:00:01.280,0:00:07.520
+all right in this video i'm going to be talking more about numpy arrays
+
+0:00:05.040,0:00:10.880
+and uh and so far i've just been showing a bunch of one-dimensional numpy's
+
+0:00:09.360,0:00:14.960
+arrays which are kind of similar to lists and i may be looking at
+
+0:00:13.200,0:00:17.760
+you know what if we have two-dimensional numpy arrays or three-dimensional numpy
+
+0:00:16.720,0:00:21.279
+arrays and what are some practical use cases
+
+0:00:19.520,0:00:24.400
+for that and so maybe i'll just start off by giving
+
+0:00:22.640,0:00:28.960
+an example of a two-dimensional numpy array i can say
+
+0:00:25.880,0:00:32.559
+np.array and uh and what we've been doing so far is we
+
+0:00:30.560,0:00:37.200
+might just pass on some values like one two
+
+0:00:33.040,0:00:40.719
+three um if i want to have uh let me just put this in a variable here
+
+0:00:39.280,0:00:44.640
+because i have that if i if i say well what is the length of
+
+0:00:42.840,0:00:49.200
+a that's three no surprise there um kind of a very
+
+0:00:47.360,0:00:55.360
+similar thing is i could say a dot shape and when i see this it's telling
+
+0:00:53.120,0:00:58.879
+me two things it's telling me that well it's giving me this tuple
+
+0:00:57.360,0:01:01.359
+right and there's only one number in the tuple
+
+0:00:59.760,0:01:05.360
+and so that means that this is a one-dimensional array
+
+0:01:02.800,0:01:10.320
+that seems correct and there are three entries along that dimension
+
+0:01:07.600,0:01:14.720
+so let me create another numpy array i'm going to say
+
+0:01:11.520,0:01:18.240
+b equals numpy dot array and i have the same thing one
+
+0:01:15.680,0:01:22.799
+two three and to make it two dimensional i'm gonna have
+
+0:01:19.360,0:01:26.560
+um basically a list of less so four five six and peek at that it's almost
+
+0:01:25.680,0:01:30.799
+like a table right and in this case there's a huge
+
+0:01:29.280,0:01:33.680
+difference between looking at the length of it
+
+0:01:32.320,0:01:37.439
+which when i do the length of it it's really just kind of treating a lot like
+
+0:01:36.000,0:01:40.079
+if i took the length of a list of lists right i mean it's counting how many rows
+
+0:01:38.960,0:01:44.880
+i have whereas now b dot shape
+
+0:01:43.119,0:01:48.320
+is very informative right i can see it's a two dimensional
+
+0:01:46.320,0:01:52.880
+um array because there's two numbers here and i can see the size of those two
+
+0:01:50.880,0:01:59.040
+dimensions are two and three right that's a that's a
+
+0:01:56.000,0:02:03.439
+um a matrix right and um and so there are some other
+
+0:02:01.680,0:02:08.160
+things i can do here i can actually change the shape of these things so for
+
+0:02:06.840,0:02:11.840
+example um here i have b if i wanted to i could say
+
+0:02:10.800,0:02:16.319
+reshape um currently the dimensions are i have
+
+0:02:14.080,0:02:19.840
+two rows and three columns if i wanted to i could reshape that i
+
+0:02:18.319,0:02:24.720
+could say i want three rows and two columns and it would be
+
+0:02:21.680,0:02:29.040
+just like this um i could also if i wanted to
+
+0:02:26.959,0:02:32.560
+um i could change the number of dimensions if i would like so i could
+
+0:02:30.640,0:02:37.360
+say something like six and now you can see it flattens it all
+
+0:02:34.239,0:02:42.640
+down just like that it's one dimensional um with six entries in it um now
+
+0:02:41.280,0:02:45.519
+there are some shapes that are not going to work so for example if i go back to
+
+0:02:44.560,0:02:49.200
+this if i want to get like um you know three
+
+0:02:48.160,0:02:53.360
+by three no go right i only have six items i
+
+0:02:52.000,0:02:57.840
+don't have nine items so that's no good so so really after
+
+0:02:55.840,0:03:01.920
+i've specified most of these items some of them are kind of constrained
+
+0:02:59.200,0:03:05.840
+right so if i say negative one what this means is i'm telling python or
+
+0:03:03.920,0:03:09.760
+i guess numpy specifically you know figure out what it should be
+
+0:03:07.760,0:03:12.800
+you know you have six items i want three rows so do the math i guess
+
+0:03:12.560,0:03:20.400
+i should have two right and for
+
+0:03:16.720,0:03:22.800
+two columns is what it'll do and there we go
+
+0:03:21.280,0:03:27.519
+and so like one thing you're gonna see a lot is i might do this i might say b
+
+0:03:24.640,0:03:32.080
+dot reshape and instead of saying six i might just say negative one
+
+0:03:30.480,0:03:35.680
+basically i'm saying like hey grab all the values of this matrix
+
+0:03:34.239,0:03:40.319
+and just put them along this one big dimension basically i want like a last
+
+0:03:37.519,0:03:44.400
+right and uh however long that needs to be
+
+0:03:41.200,0:03:47.760
+uh please do that numpy um you're sometimes trying to see these
+
+0:03:46.080,0:03:50.879
+things used in combination uh with some of these other functions
+
+0:03:49.280,0:03:55.599
+we've seen so for example we saw uh ones before i i could do like
+
+0:03:53.519,0:03:58.879
+81s if i wanted to and then i could imagine reshaping this
+
+0:03:57.439,0:04:03.840
+maybe i want to have um you know like 10 rows and however many
+
+0:04:02.560,0:04:07.599
+columns that leaves i guess i would leave like eight
+
+0:04:05.439,0:04:12.080
+eight columns is that right one two three four
+
+0:04:09.040,0:04:19.040
+five six seven eight yep eight times ten rows would get me these 81s
+
+0:04:15.680,0:04:23.199
+and so i can do that and and so this is all good so far let me add a
+
+0:04:21.440,0:04:28.240
+little bit of vocabulary here um
+
+0:04:26.479,0:04:34.000
+these one-dimensional things like back here uh these are what we call
+
+0:04:30.400,0:04:39.600
+uh uh scalars right so that means uh 1d these examples here
+
+0:04:37.840,0:04:43.280
+um where i have two dimensions are called
+
+0:04:40.880,0:04:48.400
+uh or i'm sorry that's not right these are called vectors
+
+0:04:45.520,0:04:53.360
+are the one-dimensional ones um these ones where i have two dimensions
+
+0:04:49.680,0:04:58.080
+are called matrices those are 2d um and so what i want to talk about in
+
+0:04:56.160,0:05:01.680
+this video is kind of going um up or down a level if i wanted to i
+
+0:05:00.320,0:05:04.240
+could um you know i've been doing lots of
+
+0:05:02.800,0:05:08.880
+examples like this where i would say like numpy dot array
+
+0:05:06.479,0:05:11.840
+and i pass in a list right i could do that if i wanted to though i could just
+
+0:05:10.479,0:05:16.080
+pass in a single number like i don't know
+
+0:05:12.479,0:05:19.280
+three if you look at that right and um and if i look at like the shape
+
+0:05:17.919,0:05:23.120
+of that i can see it it's an empty tuple right
+
+0:05:21.280,0:05:29.600
+so this is this is uh what we call a scalar that's
+
+0:05:26.479,0:05:33.520
+zero dimensions um and there's a general word here
+
+0:05:30.479,0:05:39.759
+right so i've seen you know scalar zero vectors one dimension matrix is two
+
+0:05:36.720,0:05:43.759
+and uh the word is tensor and tensor is general
+
+0:05:40.560,0:05:49.919
+term for any n dimensions right so so this is a tensor
+
+0:05:47.680,0:05:52.000
+um you know this is a tensor all these things are tensors right regardless of
+
+0:05:51.600,0:05:59.360
+how many dimensions they have right
+
+0:05:55.600,0:06:02.639
+um so that's all good um i may be talking about images soon and
+
+0:06:02.240,0:06:09.520
+um images images can
+
+0:06:06.080,0:06:12.880
+be either 2d or 3d tensors that's when i start with 2d
+
+0:06:11.520,0:06:18.479
+tensors and then talk about why we want i want to have a 3d tensor
+
+0:06:15.840,0:06:25.520
+and and it turns out that matpotline makes it very easy
+
+0:06:21.199,0:06:29.680
+to make any matrix you want into an image and so let me actually
+
+0:06:27.600,0:06:34.080
+import some matplotlib stuff i guess um maybe this would be the most
+
+0:06:32.000,0:06:38.800
+appropriate place to do it i'm going to say import
+
+0:06:35.120,0:06:45.680
+mat plot lib dot pi plot as plt rate
+
+0:06:42.080,0:06:49.919
+and then there's that run at dead there's this nice function which i can
+
+0:06:46.960,0:06:52.960
+say plt dot image show and uh maybe i'm going to grab this
+
+0:06:51.599,0:06:58.080
+thing with all the ones right so i'm going to say
+
+0:06:54.800,0:07:02.720
+a equals equals that and then i can just pass in
+
+0:07:00.880,0:07:06.400
+any matrix here i like so i'm going to pass in a
+
+0:07:06.639,0:07:11.360
+maybe i'm just going to have this on top of each other so we can see it
+
+0:07:11.599,0:07:20.639
+and we can see it's this big solid image uh that's all the same color
+
+0:07:18.639,0:07:24.080
+and and all it's all one color because well i only have one number here
+
+0:07:22.479,0:07:29.599
+um it looks almost like a black but it's actually like this weird purple color
+
+0:07:26.479,0:07:31.919
+um in general you can pass in a color map
+
+0:07:32.000,0:07:39.919
+right and the color map map associates colors with numbers and
+
+0:07:38.479,0:07:42.560
+there's a bunch of different color maps you could have
+
+0:07:40.639,0:07:47.039
+apparently this one is saying that you know one
+
+0:07:44.000,0:07:51.199
+uh is this weird purple color so what i usually like to do is i like to
+
+0:07:48.560,0:07:55.120
+have this gray color map that will put everything somewhere
+
+0:07:52.720,0:08:00.000
+between white and black so i do that and now i get this pure black image
+
+0:07:58.720,0:08:06.319
+let me let me try to create a more interesting matrix so i can actually see
+
+0:08:02.800,0:08:10.400
+some different colors on top of this map um instead of uh instead of ones i'm
+
+0:08:09.199,0:08:17.120
+going to say a range and i want to go up to 80. so i have
+
+0:08:13.599,0:08:20.639
+that all these numbers from 0 to 80 and i'm going to do the same deal i'm
+
+0:08:18.400,0:08:25.280
+going to reshape it and uh let's say i want to have um
+
+0:08:24.080,0:08:30.000
+i don't know this time i'll say i have 10 rows
+
+0:08:27.599,0:08:34.080
+and i'll have like eight rows this time and however many columns that is so it's
+
+0:08:32.080,0:08:38.159
+going to be wider than it is long all right so i'm going
+
+0:08:35.360,0:08:41.519
+to do that and uh and now i can run the same thing i can say this like image
+
+0:08:39.599,0:08:45.519
+show thing and i can pass in this one where i
+
+0:08:43.039,0:08:52.880
+actually have different values and uh and you can see if i scroll down
+
+0:08:51.120,0:08:56.240
+you can see that when i start with these small values it's very dark
+
+0:08:54.640,0:08:59.200
+right so down here it's really the amount of light we have
+
+0:08:57.839,0:09:03.040
+and then down here when i have a big number it's a very bright
+
+0:09:00.880,0:09:07.200
+color right so i can create these little images
+
+0:09:04.080,0:09:10.560
+and of course it matters a lot like how what the dimensions of the image are
+
+0:09:08.800,0:09:14.560
+right if i do that well and it's very tall or if i make it say
+
+0:09:13.120,0:09:18.880
+four and it's very uh very very wide right so
+
+0:09:17.279,0:09:22.000
+i can do that i can create lots of different
+
+0:09:19.760,0:09:26.880
+um images here based on that with these two dimensions
+
+0:09:24.000,0:09:31.760
+okay so let's deal with some real data uh we need a real image
+
+0:09:28.399,0:09:38.000
+somewhere and and so if i search for a ladybug on wikipedia i find this here
+
+0:09:35.680,0:09:40.880
+and i like the image because the colors are so vibrant i can see like the reds
+
+0:09:39.839,0:09:45.920
+and the greens here let me click on this and i'm
+
+0:09:44.160,0:09:50.000
+gonna right click and say copy image address and uh and then i'm gonna
+
+0:09:49.519,0:09:53.760
+head over well what is this thing view in browser
+
+0:09:52.640,0:09:56.560
+maybe that's gonna be better let me right click on this and say copy image
+
+0:09:55.440,0:10:01.839
+address head back to my notebook and uh i wanna
+
+0:10:00.080,0:10:05.600
+say something like wget and paste the url maybe actually i'm
+
+0:10:04.480,0:10:11.440
+just gonna do like this w url dash capital o file name
+
+0:10:10.000,0:10:15.200
+that's the general command and the file name will be something like i'll just
+
+0:10:12.560,0:10:20.399
+call it blog.jpg because well jpeg file i don't want to
+
+0:10:17.760,0:10:24.880
+give it this long scientific name um and let me paste the url and i run
+
+0:10:22.320,0:10:28.480
+that and uh it doesn't work because that's a bash command
+
+0:10:26.720,0:10:31.360
+to make it run like a bash command i should put an exclamation mark in front
+
+0:10:30.240,0:10:35.440
+of it and that will i run that and actually
+
+0:10:33.200,0:10:41.600
+downloads the file if i head over here to jupiter notebook
+
+0:10:37.760,0:10:46.399
+i can see well there i got my bug.jpg um which is this really huge image
+
+0:10:44.839,0:10:50.079
+actually um and so that's all good uh i don't want
+
+0:10:49.519,0:10:53.279
+to re-download the thing every time i run
+
+0:10:51.600,0:10:56.079
+my notebook that was kind of a one-time deal
+
+0:10:54.079,0:11:00.399
+so i should absolutely delete that cell when i'm done
+
+0:10:58.079,0:11:04.240
+and and now i want to try to read in that image
+
+0:11:01.360,0:11:06.880
+right so uh there's another function and you know if i
+
+0:11:05.120,0:11:12.800
+you know image show there's also one called imageread
+
+0:11:08.640,0:11:17.600
+so i'm gonna say plt.imageread and i would say bog.jpeg i can just pass
+
+0:11:15.440,0:11:20.640
+in a path there and uh and i get this big numpy array
+
+0:11:19.920,0:11:29.800
+and so maybe i'll call that a like so and uh
+
+0:11:25.279,0:11:33.680
+if i want to i can just say you know matpotlib.imageshow i want to see that
+
+0:11:32.399,0:11:37.040
+image and sure enough there it is i have the
+
+0:11:35.440,0:11:40.800
+image so let's take a little peek at this so if i
+
+0:11:39.920,0:11:44.399
+say a dot shape well first let me look at it you
+
+0:11:43.120,0:11:48.079
+can maybe already see it's three dimensional
+
+0:11:45.200,0:11:52.880
+right and if i say a dot shape that will confirm it
+
+0:11:49.440,0:11:58.959
+um this image has six or uh you know it has 1688 rows
+
+0:11:56.560,0:12:01.839
+and you can actually see that along the y-axis
+
+0:11:59.920,0:12:06.320
+that's how many rows i have and then along the x-axis i have 2 500 rows right
+
+0:12:05.360,0:12:09.360
+here right so so that kind of makes sense why
+
+0:12:08.639,0:12:16.160
+i have this i don't have any rows how many columns and
+
+0:12:12.880,0:12:22.720
+what is this three here well it turns out that images
+
+0:12:18.399,0:12:29.839
+each pixel is represented by a red red
+
+0:12:26.800,0:12:36.079
+green blue mix and so i actually need for each little
+
+0:12:33.360,0:12:40.160
+cell in this table or image or that tiny little cell there
+
+0:12:37.680,0:12:45.440
+i need to have well how red is it how green is it and how blue is it
+
+0:12:43.600,0:12:48.320
+so if i if i kind of looked at the image again
+
+0:12:46.720,0:12:50.959
+what's going on here right this is all the rows
+
+0:12:51.279,0:12:59.360
+and uh and then here i have a column right i have a bunch of different
+
+0:12:57.680,0:13:01.760
+columns and then so here here's just like one cell
+
+0:13:00.240,0:13:04.160
+and within that cell i have these three layers right and these three layers tell
+
+0:13:03.680,0:13:08.959
+me how red is that pixel how green is that
+
+0:13:06.800,0:13:13.519
+pixel and how blue is that pixel and that's how i end up with the end up
+
+0:13:11.200,0:13:18.880
+with that image so with that uh knowledge i can make
+
+0:13:16.720,0:13:22.000
+various transformations on on top of that image
+
+0:13:20.480,0:13:24.959
+um one of the things i could do is i could try to crop it like let's say i
+
+0:13:23.600,0:13:29.200
+just wanted to like get this part of the image
+
+0:13:26.240,0:13:33.680
+and kind of get rid of that and get rid of this stuff over here on the right
+
+0:13:31.600,0:13:39.600
+well how how would i do that i i would have to have some sort of um
+
+0:13:35.839,0:13:42.639
+slice and uh it's three dimensional so i would need
+
+0:13:40.480,0:13:46.720
+three slices i need a slice one a slice two
+
+0:13:43.600,0:13:49.839
+and a slice three and to be very precise well this is a row slice
+
+0:13:49.920,0:13:56.560
+this is a column slice and this is a layer slice
+
+0:13:57.040,0:14:02.240
+right so there's now these three layers the red green blue layers and
+
+0:14:00.320,0:14:05.040
+um and since we're dealing with images in particular
+
+0:14:03.440,0:14:08.160
+there's some special vocabulary there those three color layers are called
+
+0:14:06.800,0:14:11.839
+channels um if we're dealing specifically with an
+
+0:14:10.079,0:14:14.959
+image so this is what i need to do i need to write separate slices for each
+
+0:14:13.279,0:14:19.040
+of these and um and so how do i want to crop this
+
+0:14:18.480,0:14:22.800
+thing well i i guess like let's say for the
+
+0:14:22.320,0:14:27.040
+rows let's say i just want to like get 400
+
+0:14:24.480,0:14:33.360
+and be low so here i'm gonna say i want uh 400 and beyond
+
+0:14:30.639,0:14:38.240
+and then for the columns let's say i only want to go up to like um
+
+0:14:35.600,0:14:42.560
+i don't know two thousand i'll say only up to two thousand
+
+0:14:39.920,0:14:44.639
+and then for my um for my channel as well
+
+0:14:42.959,0:14:50.800
+i of course want all the color so i do that and i can actually say
+
+0:14:47.639,0:14:54.639
+plt.image show and it should kind of crop down
+
+0:14:52.320,0:14:57.680
+the top and right of the image right and you can see it does right i'm kind of
+
+0:14:56.000,0:15:05.120
+zooming in much more on the insect in question
+
+0:15:02.240,0:15:07.920
+now the other thing i could do right when i'm doing this
+
+0:15:08.320,0:15:13.199
+let me let me put this back here let me just take a slice of everything right so
+
+0:15:12.560,0:15:20.000
+i'm gonna get every row every column every color
+
+0:15:16.240,0:15:25.440
+i can do that that's the original image um if i wanted to i could pull out
+
+0:15:24.079,0:15:32.240
+not take a slice but just pull out an individual color right so
+
+0:15:27.839,0:15:38.480
+you know it turns out that zero is red one is green and two is blue
+
+0:15:36.880,0:15:46.240
+and so if i do this this should just pull out the red parts of the image
+
+0:15:42.959,0:15:48.399
+and so if i run that it's a little bit weird because
+
+0:15:47.120,0:15:51.120
+let me just look at what the shape of this thing is
+
+0:15:51.920,0:15:56.079
+you see that when i don't put a slice in this position i'm actually pulling out
+
+0:15:54.880,0:15:59.920
+one of the layers then i get down to two dimensions and
+
+0:15:58.240,0:16:03.360
+when i get down to two dimensions well matplotlib doesn't know how to do the
+
+0:16:01.360,0:16:07.279
+whole red green blue thing and so it has to use a color map like
+
+0:16:05.920,0:16:10.560
+actually way back here right back here i need a color map
+
+0:16:08.959,0:16:14.480
+because i had to give a color to each of these numbers
+
+0:16:11.839,0:16:19.759
+and so my go to color map is always the gray color map
+
+0:16:16.399,0:16:24.160
+and uh and so i'm going to do that here so i'm going to do that and what this is
+
+0:16:22.480,0:16:28.000
+doing is it's showing a very bright color
+
+0:16:25.600,0:16:33.279
+wherever there's red right and of course the bug is red and that's why this part
+
+0:16:30.480,0:16:38.160
+of the image is so bright right so this is gonna
+
+0:16:34.000,0:16:42.880
+you know this is going to show you know make the red parts
+
+0:16:41.199,0:16:46.639
+bright that's what it's doing right because i'm just pulling out that
+
+0:16:45.040,0:16:51.839
+um if i if i want to do another one let's say i want to make like the
+
+0:16:48.160,0:16:55.759
+green parts bright i'd pass in one make the green parts bright i guess that
+
+0:16:54.399,0:16:59.920
+would be like the grass and so the grass is kind of bright there
+
+0:16:57.920,0:17:04.160
+and you can see the bug is actually much darker now
+
+0:17:01.759,0:17:09.039
+and finally if i want to make the blue parts
+
+0:17:05.520,0:17:12.640
+right that'd be two then i'd expect the image to be kind of
+
+0:17:10.640,0:17:15.520
+dark overall right there's not a lot of blue
+
+0:17:13.839,0:17:18.400
+um in that image right i mean sometimes it's mixing with other colors but
+
+0:17:17.280,0:17:22.640
+that's definitely the darkness because there's not much blue uh
+
+0:17:20.480,0:17:25.760
+in the image overall right so you can definitely see the difference between
+
+0:17:23.760,0:17:29.840
+these right when i'm pulling out the red the bug is really bright otherwise the
+
+0:17:28.079,0:17:34.720
+bug is really dark you can also see there's more green
+
+0:17:31.440,0:17:39.840
+in the bug than uh then there is blue i guess maybe that's some sort of um
+
+0:17:36.480,0:17:44.559
+slight orange orange color going on right um cool so you're gonna get some
+
+0:17:43.280,0:17:50.320
+practice with doing other things with these images
+
+0:17:46.000,0:17:50.320
+and i'll leave you to it
+

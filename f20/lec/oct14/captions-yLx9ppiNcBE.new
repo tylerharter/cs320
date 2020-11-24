@@ -1,0 +1,594 @@
+0:00:01.520,0:00:05.120
+so now that we've built this conceptual understanding
+
+0:00:04.000,0:00:09.120
+let's actually start doing something very hands-on and
+
+0:00:07.200,0:00:13.280
+that is well how can we make our own python web server
+
+0:00:10.880,0:00:16.480
+and the easiest way to do that is to do use some number of um
+
+0:00:14.880,0:00:20.480
+you know web frameworks that we can install with pi pi
+
+0:00:18.400,0:00:23.600
+and a student of mine actually a while back a couple of students
+
+0:00:22.160,0:00:26.960
+did this study where they kind of looked on github and
+
+0:00:25.439,0:00:31.039
+they saw what modules people were importing and they
+
+0:00:28.720,0:00:33.200
+they figured out well how popular are different uh
+
+0:00:31.840,0:00:37.200
+python packages and these are all the different python packages
+
+0:00:35.120,0:00:42.160
+and um and you've seen a number of these you've seen numpy
+
+0:00:38.399,0:00:46.640
+and flat and matpotlib requests and pandas by far the most
+
+0:00:45.200,0:00:51.440
+popular one is uh called django which is a is a web
+
+0:00:49.280,0:00:54.960
+development framework for python um i might be teaching another one which
+
+0:00:53.280,0:00:58.160
+is flask you can see it's a bit less popular
+
+0:00:56.320,0:01:01.680
+but it's much simpler and more elegant than django so
+
+0:00:59.520,0:01:04.640
+um i think it's kind of ideal for uh for teaching here
+
+0:01:03.199,0:01:07.200
+and um and so i have a django application here and it's on this
+
+0:01:06.159,0:01:11.680
+website um this is kind of a pre-release of
+
+0:01:10.080,0:01:17.439
+project four so um you know it's going to change some
+
+0:01:15.119,0:01:21.200
+from what i'm recording now uh but but there's some nice examples on on this
+
+0:01:19.360,0:01:26.960
+page so if i go down i can see well here's that same uh flask
+
+0:01:24.479,0:01:31.360
+application that i saw on that i had seen on my um on my slide
+
+0:01:30.400,0:01:34.960
+and so what i'm going to do is i'm going to head over here and i'm going to try
+
+0:01:33.759,0:01:42.479
+to create this new web server so let me head here
+
+0:01:38.320,0:01:50.079
+and create a new directory which i will call october 14
+
+0:01:48.640,0:01:55.280
+and and so what i'm going to do is i'm going to create that new web server
+
+0:01:53.119,0:01:58.960
+using a text file right because i'm going to want to call it something like
+
+0:01:56.880,0:02:03.759
+um maybe i'll call it server.pi
+
+0:02:02.159,0:02:06.159
+i'm going to paste all of that code from that example and we're going to talk
+
+0:02:05.119,0:02:10.239
+about it okay so i'm going to have this here let
+
+0:02:08.160,0:02:14.720
+me let me save that thing and uh and i have to make a little room
+
+0:02:12.239,0:02:18.400
+here right so i want to fit a few things on this
+
+0:02:16.720,0:02:26.400
+screen like so so we have that there and um
+
+0:02:22.319,0:02:32.879
+and then i want to open up um a terminal which i'm going to grab right here and
+
+0:02:28.959,0:02:36.800
+i'm going to ssh to my virtual machine and i'm going to head to where my code
+
+0:02:35.920,0:02:40.319
+is which is here
+
+0:02:40.879,0:02:47.280
+okay and and so what i'm gonna do is i'm gonna say python3
+
+0:02:47.440,0:02:52.720
+and then i'll say the name of my program server.pi
+
+0:02:51.280,0:02:54.720
+and and so when this thing is running right it's going to kind of go through
+
+0:02:53.920,0:02:57.440
+here and there's some weird things that you
+
+0:02:55.920,0:03:01.360
+haven't really seen before like this for example
+
+0:02:58.720,0:03:06.640
+um when i get down to the end i'm checking if um
+
+0:03:02.560,0:03:10.800
+if the name of this module is main and if i run it like this then this name
+
+0:03:10.000,0:03:14.000
+will be main right so it means i want to run it like
+
+0:03:12.239,0:03:19.120
+a program um if i do something like this let's say i
+
+0:03:15.680,0:03:24.720
+say python3 and then i say import server then then this name here is not going to
+
+0:03:22.400,0:03:29.120
+be main and it won't actually run all right so let me exit this i say
+
+0:03:27.040,0:03:35.120
+python 3 i'm going to say server.pi
+
+0:03:33.120,0:03:38.879
+and and then it starts running and at least in theory
+
+0:03:36.400,0:03:42.720
+uh this program would run forever right so i keep serving pages
+
+0:03:40.879,0:03:47.440
+and and i can see here that i put in the host of zero zero zero zero
+
+0:03:44.959,0:03:50.000
+because i wanted to listen publicly and that's good
+
+0:03:48.319,0:03:54.959
+and you can see it automatically chose port 5000 for me
+
+0:03:52.720,0:03:59.680
+and uh and so let me try visiting visiting this application right so i'm
+
+0:03:56.640,0:04:05.439
+going to kind of shrink this down a bit so and let me grab this ip address and
+
+0:04:03.920,0:04:13.120
+open a new tab i say uh colon 5000
+
+0:04:10.239,0:04:19.680
+and then i guess i'll just hit kind him directly like that
+
+0:04:14.879,0:04:22.639
+and actually maybe i need a slash and uh and i can see down here it's
+
+0:04:21.359,0:04:26.000
+complaining right i'm getting all these exceptions
+
+0:04:23.360,0:04:30.720
+every time i try to revisit this page it's crashing i get this exception
+
+0:04:27.680,0:04:33.919
+i guess it's crashing on line nine which is right here and um and so what
+
+0:04:33.360,0:04:37.280
+happens right whenever i type anything in this
+
+0:04:35.600,0:04:41.600
+url the way that this flask framework works
+
+0:04:39.840,0:04:45.759
+you can see i'm importing flask and then creating a flask app and then running it
+
+0:04:43.759,0:04:51.520
+the way the flask application works is that it will call functions
+
+0:04:48.240,0:04:56.160
+as necessary to handle web requests and there's this kind of weird notation
+
+0:04:54.400,0:04:59.840
+right that i'll be explaining more about but this is saying whenever i go to the
+
+0:04:57.360,0:05:03.360
+home page i should be running this function and that's why this function is
+
+0:05:01.280,0:05:06.800
+running and i'm crashing on line nine right flask is calling it automatically
+
+0:05:05.520,0:05:11.440
+for me and why is this crashing well because i
+
+0:05:08.560,0:05:16.080
+haven't created an index.html page yet but which i can certainly do so i'm
+
+0:05:13.120,0:05:19.960
+going to say file new and and i'll create my page here which
+
+0:05:18.960,0:05:28.160
+will be index.html and
+
+0:05:22.800,0:05:33.120
+maybe i'll say like h1 uh hello world uh and maybe i'll say something like
+
+0:05:30.400,0:05:36.720
+this the current time is and then i would really like to inject
+
+0:05:35.039,0:05:41.199
+something here okay so i'm going to come back here and
+
+0:05:39.360,0:05:47.680
+kind of shrink this down and so if i try to refresh this
+
+0:05:44.800,0:05:50.560
+well there i go um flask is actually kind of cool right it's recognizing that
+
+0:05:49.120,0:05:54.080
+my file change and is reloading it right so now when i
+
+0:05:52.320,0:05:57.520
+visit that page i get this thing right here if i want to
+
+0:05:56.960,0:06:03.120
+um i i could create other pages so so this
+
+0:06:00.080,0:06:06.759
+right now is an example of a static page let me create a dynamic page i'll say
+
+0:06:05.280,0:06:10.639
+something like ah.html and
+
+0:06:09.280,0:06:13.600
+last time i tried to make sure i had an index.html i'm not going to even do that
+
+0:06:12.479,0:06:17.360
+anymore i'm just going to do something like this
+
+0:06:15.360,0:06:24.479
+right i'm going to say i'm going to say return huh times
+
+0:06:20.880,0:06:28.720
+let's say 10. i do that and uh and then i'm going to visit that
+
+0:06:27.440,0:06:33.600
+page right so i'm going to head over here
+
+0:06:29.520,0:06:38.080
+and say slash ha dot html and um and why didn't that work
+
+0:06:36.720,0:06:43.120
+um i think that actually i'm not supposed to put a leading slash there
+
+0:06:39.840,0:06:46.479
+let me see if that does the trick well that's a little funny isn't it let
+
+0:06:45.440,0:06:50.000
+me try restarting it i thought i was trying to pick up that
+
+0:06:47.840,0:06:54.880
+route that new route maybe it only does it for existing ones
+
+0:06:51.520,0:07:01.599
+refresh this and uh why is it unhappy now i can't even i
+
+0:06:58.400,0:07:03.840
+can't really even restart it let me
+
+0:07:08.080,0:07:13.599
+and so as i'm kind of looking carefully here it says that it's overwriting an
+
+0:07:12.560,0:07:17.599
+existing function home and so my problem here is
+
+0:07:15.759,0:07:20.639
+really i kind of named both these things home
+
+0:07:18.240,0:07:23.280
+and so maybe i'll call this like um ha page
+
+0:07:21.360,0:07:26.240
+i can really call it whatever i want right and that was probably why it
+
+0:07:24.400,0:07:29.360
+wasn't automatically refreshing earlier either
+
+0:07:27.039,0:07:33.759
+so now i'm going to come back here where it seems to have frozen
+
+0:07:31.680,0:07:39.840
+and why is that frozen let me just try sshing again
+
+0:07:36.639,0:07:46.000
+i do my ssh sorry my internet was just kind of
+
+0:07:44.319,0:07:50.560
+flaking out there for a minute so anyway this is up and running again
+
+0:07:47.440,0:07:54.479
+and so i'm actually gonna run it now and my flask app is running and i may
+
+0:07:52.400,0:07:59.280
+refresh this page and and now i can actually see i'm
+
+0:07:56.479,0:08:03.199
+dynamically generating that content even though right if i come back here
+
+0:08:01.360,0:08:10.240
+and say like file well where's my file open
+
+0:08:07.199,0:08:15.759
+even though i come back here you know let me refresh this
+
+0:08:13.759,0:08:20.400
+i only have an index.html right i don't have any ha dot html
+
+0:08:18.240,0:08:24.240
+uh button on the left i have a hot.html page right so that's very cool
+
+0:08:22.560,0:08:29.840
+um one of the things that we're going to want to think about is
+
+0:08:26.240,0:08:36.959
+how do we get information into our flask application okay
+
+0:08:33.360,0:08:42.240
+and the way we're going to do it is by using this request thing and
+
+0:08:40.320,0:08:48.959
+just a little bit of kind of clarification flask.request
+
+0:08:45.279,0:08:51.920
+has no relation to the requests module right and so we've used the request
+
+0:08:50.399,0:08:54.720
+module a lot so just be kind of careful on that
+
+0:08:53.279,0:08:58.480
+and notice that it's also singular versus plural
+
+0:08:56.480,0:09:03.680
+and this thing can help us get various information
+
+0:08:59.839,0:09:07.360
+uh from from the page okay and and so how can i get information in from
+
+0:09:05.600,0:09:12.560
+the client side well i can do things like this i can say
+
+0:09:09.440,0:09:16.000
+um question mark and then maybe i say something like malt
+
+0:09:14.800,0:09:21.760
+equals equals five okay
+
+0:09:19.040,0:09:26.080
+and what i'm putting here after the question mark
+
+0:09:22.480,0:09:29.920
+is an example of a query string and we want to pull that out on the
+
+0:09:29.040,0:09:34.000
+other side right it'd be nice to get five so so right now
+
+0:09:32.560,0:09:38.959
+it's just being ignored i'm not doing anything with it
+
+0:09:35.760,0:09:45.360
+what i can do over here is i can say request dot args.get
+
+0:09:43.279,0:09:48.480
+and it's kind of like a dictionary right where
+
+0:09:46.399,0:09:52.720
+malt is the key and then five is the value
+
+0:09:49.440,0:09:55.839
+so i want to get mult and i'm going to put that in a variable
+
+0:09:54.480,0:09:59.360
+and maybe let me just print that for a moment
+
+0:09:57.120,0:10:06.560
+let me do that and then i may run this refresh my page
+
+0:10:01.519,0:10:10.720
+and then hopefully down here let me just chill this and restart it
+
+0:10:08.800,0:10:13.600
+again let me run this
+
+0:10:13.839,0:10:18.000
+and i should be able to refresh this page and then you can see right there it
+
+0:10:17.600,0:10:25.680
+says five right or if i say you know 999
+
+0:10:22.880,0:10:27.839
+and i get 999 down here and so what i can do when i'm generating this page
+
+0:10:27.040,0:10:32.320
+dynamically is i could use that maybe that's a
+
+0:10:29.440,0:10:35.440
+factor and what kind of information i i display right so let me try doing
+
+0:10:34.399,0:10:41.440
+this now i want to have 999 laughs uh
+
+0:10:39.760,0:10:44.959
+it's kind of funny i guess before it was recognizing that it had to automatically
+
+0:10:43.120,0:10:48.800
+reload the page and now not so i'll just try to manually
+
+0:10:46.560,0:10:54.800
+restart it i hit ctrl c to kill it and run it again and i run this
+
+0:10:51.839,0:10:57.680
+and um maybe the problem reason was having trouble reloading is because
+
+0:10:55.920,0:11:02.079
+there's an error in my new new page i cannot multiply sequence by
+
+0:11:00.480,0:11:08.320
+non-int of type stir what does that mean so
+
+0:11:05.360,0:11:12.399
+so i guess i'm multiplying a string by something
+
+0:11:09.279,0:11:15.680
+that is a string okay so so let me just do this i'm going to
+
+0:11:14.000,0:11:19.360
+print you know the type of malt here just to see what's
+
+0:11:18.079,0:11:22.320
+happening and then run this
+
+0:11:26.160,0:11:32.720
+okay and so i'm going to do that and um and i can see that i'm still getting the
+
+0:11:31.200,0:11:35.440
+same error because i haven't fixed it of course yet
+
+0:11:33.680,0:11:39.360
+but i can see that that's a string right so all of these
+
+0:11:37.360,0:11:43.680
+um query string arguments that i'm passing in
+
+0:11:41.040,0:11:47.760
+uh those are strings right so when i come down here or maybe i should just
+
+0:11:45.200,0:11:50.800
+convert it to an integer maybe that would be a fine place to convert it to
+
+0:11:49.200,0:11:57.360
+an integer okay so let me rerun that and i'm gonna
+
+0:11:53.920,0:12:02.000
+actually run this page here and now i can see i can control how many
+
+0:12:00.240,0:12:06.880
+laughs i get okay and um and if i had multiple query
+
+0:12:05.360,0:12:10.160
+strings i'm not going to do it here but i would just put an and sign between
+
+0:12:09.120,0:12:14.240
+them so i could say something like you know x
+
+0:12:10.639,0:12:18.800
+equals three and y equals four i'm not going to do that now
+
+0:12:16.800,0:12:24.800
+okay so that's good kind of coming back to this home page
+
+0:12:20.480,0:12:28.880
+right so we've seen it back a few times uh here i am on this home page uh what
+
+0:12:27.600,0:12:33.279
+i'd like to do is print off something about the current
+
+0:12:29.839,0:12:38.240
+time there so so as it stands right now this is an example of a static page
+
+0:12:35.760,0:12:40.560
+uh this is an example of a dynamic page i'm going to actually use some
+
+0:12:39.279,0:12:45.839
+templating uh to turn this into um
+
+0:12:43.600,0:12:48.720
+into a dynamic page right in particular i want to put the time here
+
+0:12:47.680,0:12:51.600
+and so maybe actually i'm just trying to rephrase this a little bit so it's time
+
+0:12:50.160,0:12:58.240
+using something we're familiar with i'm going to say there have
+
+0:12:54.639,0:13:03.519
+been some number of seconds since january 1st 1970
+
+0:13:01.760,0:13:07.519
+and maybe this is kind of jogging your memory about
+
+0:13:04.800,0:13:13.120
+what function i may use i'm gonna up here i'm gonna say
+
+0:13:09.920,0:13:17.519
+import time and uh remember that time.time
+
+0:13:14.959,0:13:22.720
+tells me how many seconds have passed so so let me let me kind of do this here
+
+0:13:18.720,0:13:28.959
+i'm gonna say you know before what was the html and then
+
+0:13:26.480,0:13:36.240
+i may make some changes to it before i actually return it back to the user
+
+0:13:31.200,0:13:39.839
+let me say html equals html.format and when i do format what it's doing is
+
+0:13:38.000,0:13:44.560
+i might have some args here and those args are going to replace
+
+0:13:42.800,0:13:48.720
+these slots that i have i guess i accidentally have one slot there so i
+
+0:13:46.079,0:13:51.839
+should have one arg and that arg will be well
+
+0:13:50.480,0:13:57.120
+whatever the time function returns that's how many seconds have passed
+
+0:13:53.839,0:14:03.600
+okay so i'm gonna run this thing and uh and there we go and so i'm going
+
+0:14:02.079,0:14:07.839
+to load this and uh i can see well that's how many
+
+0:14:06.240,0:14:12.240
+seconds have passed and every time somebody visits this
+
+0:14:09.040,0:14:17.519
+it's a little bit different right i keep doing it it keeps reloading right
+
+0:14:14.480,0:14:20.880
+and i can see down here what's happening right before i get this content that has
+
+0:14:20.560,0:14:26.160
+the the slot in it and then after i after i
+
+0:14:24.079,0:14:30.000
+run this line of code then what do i get well then i get the
+
+0:14:29.440,0:14:34.800
+new content that i actually actually return so so
+
+0:14:32.800,0:14:38.959
+kind of to take stock of where we are now i have two examples of of dynamic
+
+0:14:37.680,0:14:43.600
+pages um one which uses templating and the
+
+0:14:42.000,0:14:48.880
+other which is just kind of generated completely completely from
+
+0:14:46.399,0:14:53.120
+scratch okay so i'll leave it off there
+

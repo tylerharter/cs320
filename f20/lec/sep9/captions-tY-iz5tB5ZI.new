@@ -1,0 +1,576 @@
+0:00:01.920,0:00:10.480
+oh so for the first project what you're going to be doing is um
+
+0:00:06.000,0:00:15.040
+analyzing this repository of history to changes to a program that counts words
+
+0:00:12.960,0:00:19.439
+and what you're going to do is analyze each different version and
+
+0:00:17.760,0:00:21.920
+check things like well when you run it does it produce the output or is it
+
+0:00:20.960,0:00:25.439
+buggy um and then among those versions that
+
+0:00:24.160,0:00:30.160
+are correct um how fast they run right so across
+
+0:00:27.760,0:00:32.559
+some versions people are optimizing uh the performance
+
+0:00:31.039,0:00:36.320
+and so we've talked a whole bunch about get now um how we can kind of switch
+
+0:00:34.559,0:00:40.320
+different versions of um of code in a project and i want to
+
+0:00:38.960,0:00:44.800
+talk about the other two pieces that are gonna be really important
+
+0:00:41.520,0:00:48.559
+for this how can we write a notebook or a python program
+
+0:00:46.239,0:00:51.760
+that runs other programs that's the first part
+
+0:00:49.280,0:00:56.640
+then the second part is how can we measure how long it takes to
+
+0:00:54.239,0:00:59.600
+run those programs or or maybe even just a snippet of code
+
+0:00:58.640,0:01:06.159
+here's where i start with this first piece how can we run um a program
+
+0:01:02.640,0:01:10.479
+and so we can do that with a module called sub process and
+
+0:01:09.360,0:01:15.680
+i'm actually going to do this i might say from
+
+0:01:12.640,0:01:19.360
+subprocess import check output and check output is this
+
+0:01:18.720,0:01:22.880
+function in the subprocess module that will run a
+
+0:01:21.920,0:01:28.799
+program and then div us back on the output from that
+
+0:01:26.000,0:01:35.119
+so let's head over to the terminal and in the terminal
+
+0:01:31.200,0:01:41.439
+where is my terminal let me sshn and in the terminal for example i could
+
+0:01:38.960,0:01:44.799
+run a program like pwd to figure out what directory i'm
+
+0:01:42.880,0:01:48.399
+currently in you know wd and it says okay this is the
+
+0:01:46.479,0:01:52.640
+directory we're in um when i ssh this virtual machine
+
+0:01:50.799,0:01:55.759
+notice that i'm also running jupiter notebooks on that
+
+0:01:54.079,0:02:01.119
+machine right so if i somehow use this function to run pwd
+
+0:01:59.520,0:02:04.799
+from my notebook i'm really running it on this virtual machine that i've ssh to
+
+0:02:03.360,0:02:07.840
+and so really when i run it i should get the same same output
+
+0:02:06.799,0:02:16.120
+okay so i'm going to do that i'm going to say i'm going to say check
+
+0:02:11.200,0:02:22.080
+output and i'm going to pass in ewd when i do that
+
+0:02:19.599,0:02:24.000
+and i see that i got something similar to over here
+
+0:02:23.120,0:02:27.040
+i mean it's a little bit different because i'm in a different directory
+
+0:02:25.360,0:02:31.200
+right i mean if i head to that same place where my notebook
+
+0:02:29.200,0:02:34.640
+lives run pwd i'm getting basically the same the same
+
+0:02:33.840,0:02:38.480
+output and you notice that it looks a little
+
+0:02:36.000,0:02:41.280
+bit like a string right um i have my quotes here
+
+0:02:39.680,0:02:45.280
+but it's also a little bit funny right i have this b
+
+0:02:42.800,0:02:47.920
+in front of it and so uh what i'm going to do is i'm going to capture this
+
+0:02:46.640,0:02:52.720
+output and a variable from running the pwd program and uh and
+
+0:02:51.200,0:02:57.920
+let's look at what the let me you know just show it here let's
+
+0:02:55.519,0:03:01.200
+look at what the type of this thing is i look at type of output it turns out
+
+0:03:00.239,0:03:05.200
+it's this thing uh called bytes and bytes is a new kind
+
+0:03:03.519,0:03:08.720
+of sequence right so um maybe let me just make a note of this
+
+0:03:07.440,0:03:16.959
+here for you so there's types of sequences
+
+0:03:13.280,0:03:21.360
+um one is that we could have a list which is really a sequence of
+
+0:03:19.599,0:03:25.280
+anything we could have strings which are a
+
+0:03:22.720,0:03:30.000
+sequence of characters and then three we have these bytes which
+
+0:03:27.680,0:03:33.040
+are a sequence of well bytes and bytes can be used to represent
+
+0:03:31.840,0:03:37.760
+anything um bytes could be used to represent um
+
+0:03:36.319,0:03:41.120
+characters for example that's what's happening here um it could also be used
+
+0:03:40.319,0:03:45.680
+to represent points in a image file right how does
+
+0:03:43.440,0:03:50.879
+trying to describe say a jpeg image bytes might i do that so bytes
+
+0:03:48.239,0:03:54.560
+could represent lots of different things and um and when i run programs the
+
+0:03:52.720,0:03:56.959
+outputs of those programs might be in different formats so often it'll be a
+
+0:03:55.920,0:04:01.439
+string but not that's not guaranteed and so what i want
+
+0:03:59.120,0:04:06.319
+to do is i want to take this byte sequence and convert it to
+
+0:04:04.879,0:04:09.680
+a string sequence so i can use it just like a regular string
+
+0:04:08.560,0:04:14.959
+and so the way i'm going to do that is i'm going to say i want to convert
+
+0:04:11.840,0:04:18.000
+my output to a string and that's not quite what i want
+
+0:04:16.000,0:04:21.440
+right i mean that's just kind of uh doing a programmer's representation
+
+0:04:20.320,0:04:26.400
+what i really want to do is i want to specify what my
+
+0:04:23.360,0:04:30.000
+encoding is because like we talked about in the first
+
+0:04:27.840,0:04:33.280
+lecture um you know i can represent strings using
+
+0:04:32.240,0:04:37.120
+bytes uh with an encoding table and then
+
+0:04:34.800,0:04:43.440
+coding table says which numbers uh represent which characters and so on
+
+0:04:40.160,0:04:47.680
+linux the default is generally utf 8 as well as on max and so if i do that
+
+0:04:46.400,0:04:53.199
+i get a nice regular string
+
+0:04:50.720,0:04:57.360
+right like that and and i could print it off if i wanted to
+
+0:04:55.199,0:05:01.919
+um and it's just like a normal string right so i can do that that's how i
+
+0:04:58.800,0:05:07.600
+can convert bytes to a string with a specific coding and since we're
+
+0:05:03.759,0:05:11.759
+using linux it's going to be utf-8 so let's try something else um sometimes
+
+0:05:10.720,0:05:15.280
+what we might want to do is we might want to check what version
+
+0:05:13.360,0:05:17.840
+of a program we have so if i head back here
+
+0:05:16.479,0:05:25.199
+well if i run get there's a bunch of stuff but if i say get dash dash version
+
+0:05:20.960,0:05:30.320
+i can see that i'm on version 2.17 can we get this string into
+
+0:05:28.639,0:05:32.800
+my jupiter notebook so i could really figure out what version of git is
+
+0:05:31.680,0:05:38.479
+installed and so i'm going to try that i'm going
+
+0:05:33.840,0:05:41.919
+to say check output check output and i'm just going to copy
+
+0:05:41.440,0:05:46.320
+this command directly that i ran the git dash
+
+0:05:44.320,0:05:52.639
+version like so and
+
+0:05:49.360,0:05:57.600
+it turns out that i have a problem and the problem is that
+
+0:05:54.479,0:06:00.960
+it's looking for a program named get space dash dash version and there is
+
+0:05:59.680,0:06:04.479
+no program with that name the only program i have
+
+0:06:02.319,0:06:08.160
+on my computer is get and so what i really want to do i want
+
+0:06:05.600,0:06:11.199
+to run get and then pass um this as an argument command line
+
+0:06:10.240,0:06:17.919
+argument to the get program okay so
+
+0:06:14.560,0:06:21.919
+uh this is bad right this this is not going to work
+
+0:06:18.800,0:06:24.160
+there are two ways to do this one is that
+
+0:06:24.720,0:06:33.039
+i can say well i can do it the same way but i can tell the check output function
+
+0:06:31.039,0:06:36.479
+that i want it to act like a shell right remember this is a shell over here
+
+0:06:34.560,0:06:39.039
+it's a bash shell and when i type things in the shell it's
+
+0:06:37.840,0:06:42.240
+smart enough to figure out that this is the program
+
+0:06:40.160,0:06:46.720
+and these are the arguments and so if i type that over here as well
+
+0:06:43.600,0:06:49.360
+it'll figure out that that i want to do that
+
+0:06:47.520,0:06:54.800
+now another way and really kind of the better style
+
+0:06:51.360,0:07:00.800
+is that i could pass in a list and the way the list works is like this
+
+0:06:58.160,0:07:06.000
+i have the program name and then i have arg1 and then i have
+
+0:07:02.000,0:07:10.319
+r two and so on and so forth and so how would that work here well i
+
+0:07:07.680,0:07:14.720
+would say you get and dash dash version
+
+0:07:13.440,0:07:17.440
+and then i would do exactly the same output and for a lot of the things we're
+
+0:07:16.319,0:07:21.599
+using it doesn't really matter um in certain uh other applications or
+
+0:07:20.240,0:07:24.639
+maybe maybe i'm like making a web application or something
+
+0:07:23.039,0:07:28.800
+um there are certain cases where this would be more secure
+
+0:07:26.080,0:07:31.520
+kind of safer to run but i'm not going to get into that now
+
+0:07:30.000,0:07:38.479
+right so so kind of choose either of these for for what you're doing
+
+0:07:34.080,0:07:42.560
+um okay so let me see here um sorry i just need to flip in my notes um
+
+0:07:41.280,0:07:46.479
+so that was the first piece right the the next thing i want to do is
+
+0:07:44.080,0:07:50.319
+i want to talk about how we can measure how long it takes to run
+
+0:07:49.120,0:07:53.199
+something right that's the second piece that we
+
+0:07:51.680,0:07:57.280
+need for the project and we can do that with
+
+0:07:54.240,0:08:00.319
+time the time module and the time module has a function called
+
+0:07:59.840,0:08:03.680
+time right so the time function is inside the
+
+0:08:02.240,0:08:10.080
+time module and what this is returning is
+
+0:08:07.120,0:08:16.080
+how many seconds since january 1st 1970
+
+0:08:14.479,0:08:19.520
+and so if i keep running it you can kind of see that if you look at this these
+
+0:08:17.919,0:08:23.599
+smallest numbers i keep running at that time is kind of
+
+0:08:21.360,0:08:29.120
+ticking off one second at a time and so if i want to run some code what i
+
+0:08:26.720,0:08:32.160
+can do is i can actually take what time it is
+
+0:08:32.640,0:08:40.479
+and put that in a variable and then do something
+
+0:08:37.360,0:08:43.839
+and then take a time measurement again and then what i can do is i can see how
+
+0:08:42.640,0:08:48.000
+much time elapsed this should be how much time it
+
+0:08:45.440,0:08:52.880
+took to do do something here okay and so well let me just do that
+
+0:08:51.200,0:08:54.800
+you can see it's a very small number and you can see there's some amount of error
+
+0:08:54.240,0:08:58.560
+here right just from the time to here to here
+
+0:08:57.440,0:09:01.839
+take some time even though i'm not really doing anything there
+
+0:09:00.320,0:09:07.040
+um so what i'm going to do here is i'm going to actually convert this to
+
+0:09:04.480,0:09:13.440
+i'm going to convert this to let's say microseconds
+
+0:09:08.640,0:09:18.720
+so if i multiply by 1000 1000 which i could actually write as
+
+0:09:15.279,0:09:23.839
+this that would get me to milliseconds if i do this
+
+0:09:22.320,0:09:27.519
+i get microseconds so this is a millionth of a of a second right so i'm
+
+0:09:25.920,0:09:30.800
+going to say micro seconds so i guess it takes about you
+
+0:09:29.519,0:09:34.240
+know 24 micro seconds to just call this and
+
+0:09:32.640,0:09:36.800
+there's a lot of noise there if i run it a bunch of times
+
+0:09:35.200,0:09:40.560
+now if i actually do something here like well let's say x equals five
+
+0:09:38.800,0:09:44.160
+you see that's very fast right that didn't change it much
+
+0:09:42.240,0:09:47.040
+if i actually do something like print below
+
+0:09:45.680,0:09:51.600
+turns out that printing is kind of a slow thing to do
+
+0:09:48.720,0:09:54.080
+um now i'm taking well really over a millisecond right i guess i could go
+
+0:09:53.040,0:09:58.399
+back to multiplying by a thousand and now i'm in
+
+0:09:57.200,0:10:02.160
+terms of milliseconds right and so printing is
+
+0:10:00.480,0:10:07.440
+kind of a slow thing relative to putting something
+
+0:10:03.440,0:10:12.399
+in a variable um so before um we talked about um kind of operating
+
+0:10:11.120,0:10:15.600
+on lists and and doing things at either the beginning
+
+0:10:13.839,0:10:19.760
+or the end of a list and so let's try this i'm going to
+
+0:10:17.519,0:10:24.399
+create a new list which will be um i'm going to do this i'm going to
+
+0:10:22.480,0:10:30.560
+take a range of numbers from zero to a thousand and convert that
+
+0:10:27.920,0:10:34.320
+to a list okay so i have that big list of numbers
+
+0:10:33.920,0:10:38.399
+and um and so i'm gonna do that and now that
+
+0:10:36.320,0:10:43.120
+i have that i'm actually gonna let's make like a million numbers and uh
+
+0:10:41.519,0:10:49.680
+what i wanna do is i wanna see well how long
+
+0:10:47.040,0:10:52.880
+does it take to check if something is in side of that list right so i'm going to
+
+0:10:50.959,0:11:00.079
+say something like um you know is five in
+
+0:10:56.079,0:11:03.120
+that list and um and well let's see how long that takes
+
+0:11:01.519,0:11:07.120
+i'm gonna go back to microseconds this time
+
+0:11:04.079,0:11:12.160
+let me go back to microseconds which is a millionth of a second and um
+
+0:11:10.399,0:11:16.320
+and so i can do that and that's kind of uh you know it's a noisy number
+
+0:11:14.480,0:11:20.560
+right but i can see that's not taking too long now how does this work
+
+0:11:18.160,0:11:24.079
+um even though this is one line of code inside of python this acts like a loop
+
+0:11:22.399,0:11:28.000
+i mean it's looping over all of these million items and seeing well as the
+
+0:11:26.240,0:11:31.920
+first item five is the second item five is the third item five and so
+
+0:11:30.399,0:11:37.279
+what's gonna actually happen is if i get a much bigger number
+
+0:11:34.640,0:11:40.839
+it's gonna take much longer to find right if i can have a middle number
+
+0:11:38.720,0:11:45.839
+let's say like um uh 500 000
+
+0:11:44.000,0:11:50.320
+it's gonna take about half that right so since it's looping over
+
+0:11:47.040,0:11:52.639
+until it finds it then um kind of like the bigger
+
+0:11:51.200,0:11:56.000
+the farther along it is the less longer it'll take and really if i try something
+
+0:11:54.320,0:11:59.200
+like you know negative two is not there best maybe just as long as
+
+0:11:58.320,0:12:02.000
+checking the last item right because i have to go
+
+0:12:00.560,0:12:05.519
+over everything loop over everything before i find it
+
+0:12:04.000,0:12:10.480
+now one of the things that we want to do to get more stable
+
+0:12:08.160,0:12:13.519
+measurements is don't just run this once you can see it's varying a lot each time
+
+0:12:12.000,0:12:17.040
+it's pretty noisy um so what we'll actually do is we'll
+
+0:12:14.959,0:12:20.800
+take like a sample size and let's say i want to do this like a thousand
+
+0:12:18.399,0:12:27.279
+let's say 100 times what i might do is i might just have a loop like this for i
+
+0:12:22.959,0:12:33.600
+and range of sample size i'm going to run this thing and then
+
+0:12:30.560,0:12:38.639
+when i'm all done here at the end what i really did
+
+0:12:34.240,0:12:41.839
+is i i i did this operation um 100 times and so what i want to do is i actually
+
+0:12:40.160,0:12:46.320
+want to divide that by how many times i did it right if i did
+
+0:12:43.200,0:12:49.680
+100 times i'm going to get the average that's i can do that and that takes
+
+0:12:48.240,0:12:53.040
+longer to measure but you can see that the numbers are
+
+0:12:51.200,0:12:56.880
+much more stable um each time i do that and that's going
+
+0:12:55.040,0:12:59.519
+to be especially important when i have something like this that's
+
+0:12:58.079,0:13:03.040
+relatively fast right you can see this little bit noisier
+
+0:13:00.959,0:13:07.360
+if i'm doing something fast then to avoid the kind of the damage of making
+
+0:13:05.360,0:13:10.399
+these extra calls or the noise of that i might have to do it more times to get
+
+0:13:09.279,0:13:13.920
+a stable um measurement so what you're gonna be
+
+0:13:12.480,0:13:16.160
+doing in the project is combining this right here i have
+
+0:13:15.040,0:13:21.680
+things like this that measure performance and then inside of here
+
+0:13:18.399,0:13:25.760
+for your you know do something what you're going to do is call check
+
+0:13:24.560,0:13:32.639
+output right and that way you can measure how
+
+0:13:26.959,0:13:32.639
+long it takes to run a program
+

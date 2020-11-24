@@ -1,0 +1,807 @@
+0:00:02.159,0:00:07.839
+hello last time we were working on uh building
+
+0:00:05.839,0:00:11.280
+this binary tree and it might have the node class and i
+
+0:00:09.840,0:00:13.759
+kind of copied that and just cleaned up some prints and things like that from
+
+0:00:12.639,0:00:18.000
+last time uh but this is basically where we were
+
+0:00:15.519,0:00:22.160
+last time and we were working on this contains method remember this is a
+
+0:00:20.480,0:00:26.400
+special method that lets us do things like say
+
+0:00:23.199,0:00:29.439
+you know is f and in the in my tree right i'm starting
+
+0:00:28.480,0:00:34.559
+from my root right this n operators may call contains
+
+0:00:32.559,0:00:38.559
+and um and we did it recursively right we would first check
+
+0:00:35.760,0:00:41.680
+if the value we were looking for um is in the root
+
+0:00:39.600,0:00:44.000
+and if it is well that's very lucky right because we don't have to look at
+
+0:00:42.719,0:00:48.160
+anything else we immediately have our answer but you might remember from
+
+0:00:46.480,0:00:50.559
+when we were learning about complexity analysis
+
+0:00:49.200,0:00:53.680
+we often want to think about the worst case scenario and the worst case
+
+0:00:52.320,0:00:57.199
+scenario is that we'd have to end up looking at everything
+
+0:00:55.039,0:01:00.800
+before we finally realized that well this note actually isn't in the tree
+
+0:00:59.120,0:01:04.400
+right so we cur recursively check everything to the left and recursively
+
+0:01:02.800,0:01:07.680
+check everything to the right and ultimately end up looking at every
+
+0:01:06.400,0:01:11.520
+every node and so this is a binary tree and we can
+
+0:01:09.280,0:01:14.960
+search through it right i kind of look at this contains as a way of doing
+
+0:01:13.200,0:01:20.640
+a search but if we try to um increase this to
+
+0:01:18.400,0:01:23.360
+or kind of change this to be a binary search tree where it specifically
+
+0:01:22.000,0:01:30.799
+designed that we get two new rules so those rules
+
+0:01:26.400,0:01:39.600
+are you know every value in the left subtree of a node
+
+0:01:36.240,0:01:45.520
+must be less than that node's value so that's one rule
+
+0:01:43.759,0:01:51.840
+and then we have kind of a similar rule every value in the right subtree
+
+0:01:48.720,0:01:57.439
+of a node must be greater than a node's value
+
+0:01:53.439,0:02:01.360
+and well how is that going to help us when i'm down here and i'm i'm kind of
+
+0:01:59.119,0:02:07.119
+calling this contains method uh right now i always might have to
+
+0:02:04.159,0:02:12.480
+check both my left and my right children but think about what this rule means
+
+0:02:10.160,0:02:17.599
+every value in the left sub tree must be less than the node's value
+
+0:02:14.480,0:02:21.040
+and and so let's say my value is five and i'm looking for seven
+
+0:02:21.120,0:02:26.400
+i don't know if it's in the tree but if it is it has to be over here
+
+0:02:24.400,0:02:30.319
+right it's not allowed to be in my left subtree it can't be my left child
+
+0:02:28.720,0:02:34.239
+and it can't be any descendant of my left child right my left child is the
+
+0:02:33.040,0:02:37.280
+root of that left subtree right so these
+
+0:02:36.800,0:02:41.440
+rules if i kind of i'm careful about uh how i
+
+0:02:39.760,0:02:46.239
+put my nodes in my tree are gonna let me be able to write this
+
+0:02:43.360,0:02:50.000
+more efficiently okay so let's build a tree so i'm going
+
+0:02:49.200,0:02:54.319
+to say tree equals node of maybe i'll have the root
+
+0:02:53.440,0:02:59.519
+be d let's just take a peek at that and um
+
+0:02:57.920,0:03:03.920
+and you know what i have to kind of just run from the start
+
+0:03:01.440,0:03:08.480
+when i do that and um and i run that i have my node
+
+0:03:05.200,0:03:17.040
+and let's say like to the left i'll say tree dot um you know
+
+0:03:12.319,0:03:21.040
+left equals node of let me think i guess i will put over
+
+0:03:19.440,0:03:27.920
+there um b and tree to the right
+
+0:03:24.560,0:03:33.120
+will be node e kind of like that um is this a binary
+
+0:03:31.040,0:03:35.360
+search tree well i have to think a little bit
+
+0:03:34.000,0:03:37.840
+carefully let me just try to write down the order of the letters just so that
+
+0:03:36.480,0:03:41.120
+we're really uh kind of on the same page so the
+
+0:03:40.080,0:03:47.120
+letter order is a b c d
+
+0:03:44.840,0:03:50.560
+e uh g these are gonna be the the seven notes i put here
+
+0:03:48.400,0:03:54.560
+and so you know for example a is less than b
+
+0:03:51.519,0:03:58.959
+so let me check this so here's my node and that's d and the only value in the
+
+0:03:57.760,0:04:04.400
+left sub tree is b and b is less than d that's good
+
+0:04:02.000,0:04:08.239
+and the only value in my right sub tree is e
+
+0:04:05.360,0:04:14.720
+and that's greater than d so yes this is a binary search tree
+
+0:04:11.439,0:04:22.560
+so what what if i do this what if i um uh what if i had something like
+
+0:04:18.079,0:04:25.919
+um maybe over here let's say i had a that's still a binary search tree but
+
+0:04:24.720,0:04:31.280
+then let's say i did something like this i said trita
+
+0:04:26.840,0:04:39.040
+left dot left equals node of b and tree.left.right equals node
+
+0:04:35.919,0:04:45.919
+of c and i look at that
+
+0:04:42.400,0:04:50.479
+is that a binary search tree well let me check
+
+0:04:47.120,0:04:55.680
+so everything in the left subtree of d has to be less than d so i kind of
+
+0:04:53.360,0:04:59.680
+look at all these values so those are all a b and c all of those
+
+0:04:57.840,0:05:06.880
+come before d um e comes after d but
+
+0:05:03.919,0:05:10.960
+it's not a binary search tree and the reason is that
+
+0:05:08.320,0:05:18.560
+this idea of kind of subtrees of a node is recursive right so even though
+
+0:05:13.520,0:05:22.880
+d is happy right d obeys these two rules every value in the left subtree of a
+
+0:05:20.320,0:05:29.360
+node must be less than that node's value this rule right here uh doesn't get
+
+0:05:26.160,0:05:35.280
+followed when i go one level deeper right so here i'm looking at this node
+
+0:05:33.360,0:05:39.440
+and in the left subtree of that node i have b
+
+0:05:36.400,0:05:43.120
+and guess what b is not less than a so even though d
+
+0:05:40.080,0:05:46.400
+is happy a is unhappy right so this is not a valid
+
+0:05:44.320,0:05:50.000
+binary search tree so i kind of have to like think about
+
+0:05:47.840,0:05:52.880
+the order i would put these three to make that work
+
+0:05:51.360,0:05:58.639
+and so i think what i want to do is for these three i kind of have to pick the
+
+0:05:54.720,0:06:04.960
+letter in the middle which is b and so i'll do this like so b i'll just
+
+0:06:01.840,0:06:09.360
+try to swap a and b great and this is a this is a perfectly
+
+0:06:07.039,0:06:13.440
+fine binary search tree okay let's add some more letters so i'm
+
+0:06:12.319,0:06:18.240
+going to say tree dot write equals that you know the right
+
+0:06:17.199,0:06:23.919
+of the right equals node of f
+
+0:06:21.840,0:06:29.520
+and let's let's go even farther to the right dot right equals node
+
+0:06:26.880,0:06:35.360
+of g is this a binary search tree
+
+0:06:33.360,0:06:37.759
+well i already checked out the left hand side so i'm not going to spend time on
+
+0:06:36.720,0:06:42.960
+that um let me see if d is happy with respect
+
+0:06:40.960,0:06:52.639
+to its right sum tree uh e and look i'm sorry let me just uh
+
+0:06:49.919,0:06:58.479
+i meant to put it like that okay is this a binary search tree
+
+0:06:54.400,0:07:03.039
+um d is happy because e f and g are in its right subtree and all of
+
+0:07:00.560,0:07:08.639
+those are greater than d is e happy yes because everything that's
+
+0:07:07.120,0:07:14.960
+right subtree comes after e is f happy
+
+0:07:12.479,0:07:19.599
+yes because g is the only thing in this right subtree and that comes afterwards
+
+0:07:16.800,0:07:23.520
+so yes this is a binary tree and maybe not the best binary tree because
+
+0:07:21.599,0:07:28.319
+when we have these long chains like this that's going to slow things down
+
+0:07:25.440,0:07:32.080
+but it does follow these rules so so eventually when i talk about
+
+0:07:30.000,0:07:36.240
+you know not only does this classify as a binary search tree
+
+0:07:33.599,0:07:38.560
+but is it a good binary search tree and that will be kind of coming out now i'm
+
+0:07:37.440,0:07:43.039
+just gonna put that question down there so that's in our mind
+
+0:07:40.000,0:07:48.080
+is a particular binary search tree a good one and we're introduced this
+
+0:07:46.240,0:07:53.199
+notion of it's it's balanced right later and so balance basically
+
+0:07:51.759,0:07:56.479
+means while i don't have these long strings like this
+
+0:07:54.879,0:08:00.800
+um you could have imagined that the right hand side would be a nice
+
+0:07:58.400,0:08:03.520
+cluster of three you know a node with two children
+
+0:08:02.160,0:08:06.000
+uh just like it is on the left right i mean i can have a similar pattern on the
+
+0:08:04.720,0:08:09.440
+right that'd be a more balanced tree okay but this is a binary search
+
+0:08:08.560,0:08:13.039
+tree and it does mean that when i'm calling
+
+0:08:11.680,0:08:17.680
+contains i have some options to kind of search
+
+0:08:14.800,0:08:22.639
+through faster okay so so let's think about this what
+
+0:08:20.720,0:08:28.319
+am i doing here i'm checking if i have that value exactly
+
+0:08:24.879,0:08:34.240
+and that can be just like before okay now
+
+0:08:32.000,0:08:37.519
+now here i might end up the way the code is written now i might end up checking
+
+0:08:35.839,0:08:40.880
+both the left and right hand side of a node
+
+0:08:38.719,0:08:47.320
+but i don't really have to do that anymore right i can say something like
+
+0:08:43.839,0:08:52.080
+um if self.value is less than x
+
+0:08:52.800,0:08:57.040
+well in that case i only have to look left
+
+0:08:59.120,0:09:08.640
+otherwise if self.value is greater than x and guess what i only
+
+0:09:06.720,0:09:13.440
+have to look to the right i can do that and and really
+
+0:09:12.000,0:09:18.800
+i mean i can clean this up a little bit because i'll never even get to here
+
+0:09:16.399,0:09:21.519
+if this ends up being true so so maybe it's just at least in my mind it makes a
+
+0:09:20.320,0:09:25.120
+little more sense to kind of have these three cases right
+
+0:09:23.120,0:09:28.720
+either i have it here or i'll check left or all or i'll check
+
+0:09:27.279,0:09:34.839
+right now notice that in this new case right i
+
+0:09:32.560,0:09:41.760
+kind of have this one conditional if lf one of these three things
+
+0:09:38.720,0:09:46.560
+is trying to run and really i'll never even get to here
+
+0:09:42.880,0:09:49.440
+right because because i mean if it's not equal and
+
+0:09:48.000,0:09:51.600
+it's not less than then it must be greater so i'm just going to actually
+
+0:09:50.480,0:09:56.240
+make a note here i'm just going to say else i know one of
+
+0:09:54.160,0:10:00.880
+these three things will run uh i'll just make a note here must be
+
+0:09:58.959,0:10:05.360
+true okay these are my three cases i have it
+
+0:10:03.279,0:10:09.760
+i check left or i check right and and now right i kind of the way i
+
+0:10:08.160,0:10:14.000
+structure this before is that if if my left child had it um i
+
+0:10:12.880,0:10:16.800
+would return true otherwise i wouldn't really do anything
+
+0:10:15.440,0:10:21.920
+i just kind of continue on because maybe my right child would have it
+
+0:10:18.560,0:10:26.480
+um but at this point i know that if i don't have the value if it's anywhere
+
+0:10:24.800,0:10:30.839
+it's going to be in my left child so i can actually clean this up a little
+
+0:10:28.160,0:10:34.720
+bit i can just say return return that right if i don't have
+
+0:10:34.399,0:10:38.000
+it and the value is less than my node's
+
+0:10:37.200,0:10:41.519
+value if it's anywhere it's going to be on the
+
+0:10:39.600,0:10:43.440
+left right so i can directly immediately return that
+
+0:10:42.160,0:10:48.000
+and that's why it's faster right whenever i have these cases
+
+0:10:46.079,0:10:50.560
+where i have to run some code on both the
+
+0:10:49.279,0:10:54.079
+both the right and the left right i'm just trying to clean this up like so
+
+0:10:55.200,0:11:02.240
+okay let's try uh playing with this a little
+
+0:11:00.640,0:11:05.760
+bit first off you know let's just see if it even is
+
+0:11:04.079,0:11:10.560
+tracked right um what's the cleanest way to do that
+
+0:11:09.440,0:11:13.279
+like you can't be able to see that method
+
+0:11:11.360,0:11:21.279
+so we know that all of these letters are in here right so maybe i'll just um
+
+0:11:15.839,0:11:28.000
+say uh you know is a in my tree and um and right away i guess i have a
+
+0:11:26.240,0:11:31.760
+i have a problem there must be some sort of bug here not anticipated
+
+0:11:40.839,0:12:05.360
+um so one issue i'm seeing is that
+
+0:12:02.800,0:12:09.040
+i'm never gonna ever return false right i kind of do this recursive call but
+
+0:12:06.720,0:12:13.120
+when do i actually return false um and you know what i think that should
+
+0:12:11.279,0:12:16.240
+be is i guess you know if i know it has to go left but
+
+0:12:14.959,0:12:23.040
+i have no left right so it actually is i kind of
+
+0:12:19.839,0:12:25.120
+prematurely got rid of this right i might
+
+0:12:23.519,0:12:28.560
+i might you know not even be able to do this right so even though i may do one
+
+0:12:26.399,0:12:31.760
+of these three cases it doesn't guarantee on my return right
+
+0:12:30.399,0:12:35.760
+it only returns if i have those left or right children let me let
+
+0:12:33.600,0:12:38.639
+me try to so that was not my main problem
+
+0:12:36.720,0:12:43.600
+let me just print off what i'm checking right i may print off
+
+0:12:40.600,0:12:54.639
+self.value so i check let me just kind of
+
+0:12:53.040,0:12:56.800
+let me just print off what my tree looks like and kind of think through what's
+
+0:12:56.079,0:13:00.160
+happening right so i check at the top do i have uh
+
+0:12:59.440,0:13:05.920
+have it at d i'm looking for a right and um
+
+0:13:03.920,0:13:09.519
+and then i head down here so i guess i'm checking
+
+0:13:07.279,0:13:14.320
+e next which is a little bit strange right why did i go to the right
+
+0:13:12.320,0:13:16.959
+even though i'm looking for a which is to the left
+
+0:13:18.560,0:13:25.200
+you know what the my problem is is uh this is backwards
+
+0:13:22.720,0:13:31.360
+right what i want to know is if the value i'm looking for is smaller than me
+
+0:13:28.240,0:13:37.360
+then i go to the left and this is the opposite here let me do
+
+0:13:34.639,0:13:41.680
+that okay and now it actually finds it thank goodness okay so i have b
+
+0:13:42.079,0:13:52.000
+do i have c uh do i have f i'm just trying to check a few and
+
+0:13:48.720,0:13:55.600
+um and do i have let me check something i don't have like
+
+0:13:53.680,0:13:59.760
+x that's false but what you can see here is that i
+
+0:13:57.839,0:14:04.639
+never have to check all the nodes before even when i'm looking for something
+
+0:14:01.440,0:14:07.519
+that's not in the tree why well i know if x were in here
+
+0:14:06.000,0:14:11.120
+it would be somewhere way over here to the right so
+
+0:14:09.519,0:14:16.959
+even in the worst case i never have to look at any of these nodes here
+
+0:14:13.839,0:14:19.199
+on the left okay so i've kind of carefully constructed this binary search
+
+0:14:18.560,0:14:23.040
+tree and it's more efficient now i never have
+
+0:14:20.959,0:14:27.680
+to check all the nodes now um what i want to talk about next
+
+0:14:25.360,0:14:32.000
+right if i'm going to look at this tree is i had to think very carefully right
+
+0:14:30.079,0:14:36.240
+every time i added something i kind of checked like well
+
+0:14:33.519,0:14:41.839
+uh is it still a binary search tree what i'd like to do is to have a value
+
+0:14:38.560,0:14:46.639
+or have a method that will add values for me and kind of put them
+
+0:14:43.760,0:14:53.500
+in their proper place and so i'm going to do that i'm going to say define
+
+0:14:48.160,0:14:58.880
+add and let me say self here [Music]
+
+0:14:54.639,0:15:02.560
+and i want to add a value and um how am i going to do this
+
+0:15:04.240,0:15:11.360
+i need to find a home for that and and so really well where does a home
+
+0:15:10.240,0:15:14.399
+go it really kind of matters well for my
+
+0:15:13.440,0:15:17.440
+particular node should this value end up in to my left
+
+0:15:16.320,0:15:22.160
+or to my right so i can say if if value or i guess to
+
+0:15:20.240,0:15:27.360
+be consistent up here i was using x so maybe i'll use x here too
+
+0:15:23.839,0:15:34.959
+if x is less than self.value you know i want to add it to left
+
+0:15:31.839,0:15:37.600
+subtree and otherwise
+
+0:15:38.160,0:15:47.040
+that value it's bigger than that then i want to add it to the right
+
+0:15:44.480,0:15:51.279
+subtree and so i guess if i'm trying to add it
+
+0:15:50.320,0:15:55.360
+to the left there's kind of two possibilities right
+
+0:15:52.959,0:16:02.160
+um one is that maybe i don't even have a left child yet right so i can say if
+
+0:15:58.440,0:16:06.000
+self.left equals none well guess who gets to be my new left
+
+0:16:03.839,0:16:12.880
+child a node with this x value i can say self.left
+
+0:16:09.120,0:16:16.880
+equals node with that value right this value is
+
+0:16:16.000,0:16:22.480
+smaller than uh oh this x right this this new value
+
+0:16:20.160,0:16:25.440
+i'm inserting is is kind of less than me and so it's going to go to my left and
+
+0:16:23.759,0:16:27.360
+guess what there's already an open spot there
+
+0:16:26.240,0:16:31.759
+now it's just a little bit more complicated
+
+0:16:29.279,0:16:34.959
+when when i uh you know i don't have an open spot to my left so let me let you
+
+0:16:33.199,0:16:40.800
+think about that for a moment while i copy this down here and kind of
+
+0:16:37.440,0:16:47.040
+do the same thing on the right hand side somebody say self.right you know if this
+
+0:16:44.399,0:16:51.839
+x value is bigger than me and i have a space to the right well i'm just going
+
+0:16:48.320,0:16:56.000
+to shove it right there what can i do here right i mean i don't
+
+0:16:53.680,0:17:01.759
+have space immediately to my left you know it's like imagine or or my
+
+0:16:59.120,0:17:05.760
+right imagine i'm this node here this d and let's say i added z i'm like okay
+
+0:17:05.199,0:17:10.400
+well i know z comes after d so i look here and i'm
+
+0:17:09.360,0:17:14.480
+like well you know there's already a spot taken to
+
+0:17:12.319,0:17:18.400
+my right you know what i can do is i can do it
+
+0:17:15.839,0:17:21.600
+recursively right because maybe i don't have a spot on my right
+
+0:17:20.799,0:17:28.319
+but you know in this case my right child
+
+0:17:25.280,0:17:31.840
+has a spot that i could put it or you know if my right child doesn't have it
+
+0:17:29.760,0:17:35.679
+maybe uh some grandchild in the right tree or a great grandchild
+
+0:17:33.360,0:17:38.080
+so if i kind of keep going down right on any side of the tree eventually my head
+
+0:17:37.120,0:17:41.600
+and end and i can always kind of on more
+
+0:17:39.600,0:17:46.160
+children there so so really what i want to do is i'm like well hey
+
+0:17:42.880,0:17:51.520
+if i already have a left child then it's their job
+
+0:17:48.000,0:17:55.919
+their job to add it and my left child to add it you know you
+
+0:17:53.280,0:18:00.000
+find a place for it and here if i already have a right child
+
+0:17:58.960,0:18:03.280
+then it's going to be my right child's job to add it
+
+0:18:03.840,0:18:10.960
+okay and well let's think about this here i've
+
+0:18:09.679,0:18:14.480
+added a bunch of nodes let's actually let's actually do this
+
+0:18:12.840,0:18:18.559
+now i can simplify this a lot can i i can
+
+0:18:17.520,0:18:23.120
+just add b and you know before i go too far let's
+
+0:18:21.679,0:18:30.160
+actually make sure it's working right so i start with a root of d
+
+0:18:26.240,0:18:36.240
+and then i add b and perfect it puts b as my left sub child what if i say tree
+
+0:18:33.919,0:18:39.520
+dot add a
+
+0:18:40.160,0:18:46.640
+bingo okay so you know my left child was already taken but
+
+0:18:44.160,0:18:50.000
+i can uh put it underneath my left child as a grandchild
+
+0:18:48.320,0:18:55.679
+well let's just try to add all of these right i'm gonna say tree dot
+
+0:18:52.720,0:19:00.000
+add maybe just let me copy all of this i may insert all my nodes and kind of see
+
+0:18:57.200,0:19:08.080
+what i end up with all right kind of the same picture as
+
+0:19:06.640,0:19:11.039
+before right so so now i've kind of done two
+
+0:19:09.760,0:19:14.000
+things right and then let's just check that this still works right i can still
+
+0:19:12.480,0:19:19.360
+say things like you know is g and tree
+
+0:19:17.440,0:19:20.960
+and then it finds it and you know at this point i can probably get rid of
+
+0:19:20.400,0:19:25.919
+that that print right so let me head back
+
+0:19:23.679,0:19:28.880
+down here this is great right so i'm kind of
+
+0:19:27.200,0:19:32.160
+recursively adding things and finding a home for them
+
+0:19:30.160,0:19:36.840
+and then kind of since i choose a good placement for all of them
+
+0:19:33.919,0:19:40.960
+then i can very efficiently run this later
+
+0:19:38.880,0:19:44.480
+okay now one thing i want you to think about now
+
+0:19:42.080,0:19:47.200
+is we already talked a little bit about how this is not great right it kind of
+
+0:19:46.000,0:19:50.400
+makes it uh since it's long and strong out it
+
+0:19:48.960,0:19:52.960
+means that if i have a very long chain here even though it's technically a
+
+0:19:51.520,0:19:56.880
+binary search tree going to the end of the chain is going
+
+0:19:55.280,0:20:01.679
+to take a long time and so what really matters is the order
+
+0:20:00.080,0:20:06.880
+in which i insert things what i'd kind of like over here
+
+0:20:03.520,0:20:10.799
+is if this node was f because if this node was f
+
+0:20:07.679,0:20:14.559
+then it could have e and g as its left child
+
+0:20:11.200,0:20:17.600
+and right child and so you kind of want nodes that are kind of
+
+0:20:16.159,0:20:21.120
+in the middle right if i want the node in the middle of here to come
+
+0:20:19.440,0:20:24.159
+before the two children right so so if i just switch this right if i kind
+
+0:20:23.120,0:20:29.120
+of just do f before e then f is going to land
+
+0:20:28.080,0:20:33.600
+right here and i may end up with a with a better
+
+0:20:31.200,0:20:37.919
+tree it's a more balanced tree and you know what i kind of regret now
+
+0:20:36.559,0:20:41.840
+uh getting rid of this because i could be
+
+0:20:39.520,0:20:44.880
+showing you i could show you how it's more efficient
+
+0:20:43.280,0:20:47.280
+right i only have to check three things now
+
+0:20:45.440,0:20:51.919
+to get to g because g isn't as deep as it once was and really
+
+0:20:48.960,0:20:56.400
+now at most i only ever have to check three nodes
+
+0:20:53.120,0:21:01.440
+and then i'm done right so this will be much more efficient
+

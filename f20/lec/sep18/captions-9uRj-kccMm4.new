@@ -1,0 +1,849 @@
+0:00:01.839,0:00:07.120
+all right so let's start doing a more real example
+
+0:00:04.799,0:00:10.480
+i've got all these examples with pets um let's talk about how we can make a
+
+0:00:08.880,0:00:13.679
+sequence um well first let's just review what is a
+
+0:00:12.080,0:00:17.359
+sequence a sequence is um an object that i can do various things
+
+0:00:15.839,0:00:21.840
+on i can any type of sequence i have i can get
+
+0:00:19.279,0:00:27.680
+the length i can index it slice it use a for loop convert it to a list
+
+0:00:25.760,0:00:32.719
+and and so i've seen different types of sequence right i've seen
+
+0:00:29.439,0:00:37.120
+strings i've seen lists not everything is a sequence for example
+
+0:00:34.559,0:00:40.399
+a dictionary is not a sequence i can't i can't take a slice of a dictionary or
+
+0:00:40.079,0:00:43.760
+or i can't readily convert a dictionary to
+
+0:00:42.160,0:00:47.200
+a list because i bought these separate keys and values
+
+0:00:45.440,0:00:50.879
+um but whether i'm creating things like dictionaries or
+
+0:00:48.559,0:00:54.800
+kind of various types of sequences something is that that's going to be
+
+0:00:51.920,0:01:01.039
+very key is how i can deal with this how can i have my object um
+
+0:00:58.079,0:01:03.440
+oops excuse me how could i have my object
+
+0:01:01.680,0:01:07.600
+and then after i put some brackets and put some things in those brackets
+
+0:01:05.600,0:01:11.119
+and and then define what we're going to get back
+
+0:01:09.119,0:01:15.520
+that's the key here and and the answer is maybe i may have a special method
+
+0:01:13.439,0:01:19.200
+and whatever is in the brackets is going to be an
+
+0:01:16.640,0:01:21.920
+input or an argument to the method and then we return back what the whole piece
+
+0:01:21.200,0:01:25.520
+should be right so more and more you're seeing
+
+0:01:23.920,0:01:28.799
+like there's all these things like um operators or brackets or things like
+
+0:01:27.520,0:01:33.360
+that really i mean it's all kind of uh
+
+0:01:31.439,0:01:36.400
+methods being called but it's just kind of fancy or syntax
+
+0:01:35.119,0:01:39.280
+and so for this i might actually do something fairly real um i'm gonna build
+
+0:01:38.960,0:01:42.799
+the the range sequence so you might not
+
+0:01:41.520,0:01:48.640
+realize that range uh is another type of sequence
+
+0:01:45.840,0:01:50.880
+right i mean certainly i can loop over the range but
+
+0:01:49.520,0:01:54.720
+but let's try to explore some of these other things as well let's say i um
+
+0:01:53.280,0:01:57.680
+rather than putting range here i mean could i capture this in a variable right
+
+0:01:56.719,0:02:02.240
+should i say r1 equals range and
+
+0:02:00.880,0:02:08.959
+um and i do all these different things writing i can get the length of a range
+
+0:02:05.680,0:02:13.280
+i can can i get a slice of a range right what if i say something like r1
+
+0:02:11.039,0:02:18.720
+from five on i i can do that and you can actually see that the way
+
+0:02:14.800,0:02:23.280
+um the slicing works is that um well i'm getting all the numbers from
+
+0:02:20.319,0:02:26.640
+five to 10 exclusive so i guess five six seven
+
+0:02:25.040,0:02:30.000
+eight nine right so i can do slicing could i convert this to a list
+
+0:02:30.319,0:02:36.400
+absolutely right so i actually like a range right
+
+0:02:33.360,0:02:38.959
+it's just another type of sequence right and i can
+
+0:02:37.840,0:02:41.840
+do them in different ways right now i can kind of do these simple ranges that
+
+0:02:40.400,0:02:47.200
+go from zero to something or if i want i can specify
+
+0:02:45.280,0:02:51.599
+both like a starting number and it may be like an ending number
+
+0:02:49.680,0:02:57.360
+right either of those um work fine okay
+
+0:02:55.040,0:02:59.920
+so oh and the last thing right well when i have this r2
+
+0:02:58.400,0:03:03.280
+what happens if i look at that number at position one
+
+0:03:01.440,0:03:09.519
+that's four right because zero would go to 3 position 1 goes to 4.
+
+0:03:06.319,0:03:13.360
+and this range i mean that's built into python but there's nothing special about
+
+0:03:11.280,0:03:17.360
+it i can personally create a new class that
+
+0:03:15.680,0:03:20.400
+works just like range and that's exactly what we do in this
+
+0:03:18.800,0:03:23.840
+video and to do that right i have some a couple
+
+0:03:22.080,0:03:27.519
+examples of here of how it behaves what i'm going to do
+
+0:03:26.239,0:03:32.480
+is i'm going to change it to capital range which doesn't work of
+
+0:03:30.799,0:03:36.480
+course in capital range and the idea is i know how these things
+
+0:03:35.360,0:03:41.519
+are supposed to behave and so when i create my class range i
+
+0:03:39.360,0:03:45.360
+will know i will know um if it's kind of behaving
+
+0:03:44.239,0:03:51.040
+the the way the one behaves that is built into python
+
+0:03:48.400,0:03:53.840
+all right so i can do that and um and so right off the bat
+
+0:03:51.920,0:03:57.280
+right i can see that it's complaining because my object hates
+
+0:03:54.959,0:04:01.280
+no parameters and so maybe what i should do here is i should create a
+
+0:03:59.519,0:04:05.920
+constructor right because i'm passing in an argument down here
+
+0:04:02.799,0:04:10.799
+so i have to have a constructor and well how many how many parameters
+
+0:04:09.200,0:04:15.040
+should i take here i need two i need one for my new range
+
+0:04:13.120,0:04:18.560
+object and then one for this number down here
+
+0:04:15.439,0:04:23.919
+right so let me say self and um i call this bound one
+
+0:04:22.240,0:04:28.000
+you know what though actually sometimes i may have self and just a single bound
+
+0:04:26.240,0:04:32.639
+and then other times i may have my object and then two numbers right so
+
+0:04:30.960,0:04:37.840
+to make this optional i i can do something like this um
+
+0:04:35.840,0:04:41.919
+and so i either have put in one number or two numbers
+
+0:04:39.440,0:04:45.600
+and you know it's kind of funny right because
+
+0:04:42.960,0:04:50.080
+when i put in one number right so five goes to bound one
+
+0:04:47.280,0:04:53.759
+uh that's the upper bound right but if i have two numbers
+
+0:04:52.240,0:04:58.639
+the first one is a lower bound right you see that so at
+
+0:04:55.600,0:05:02.639
+position one down here position one that's a lower
+
+0:05:00.720,0:05:04.720
+bound up here at position one that's an upper bound
+
+0:05:03.280,0:05:11.360
+so really i have to check right immediately if bound two is passed in
+
+0:05:08.000,0:05:16.160
+uh so i finally get one number then what then i'm gonna say self dot
+
+0:05:14.400,0:05:21.039
+lower i mean i started zero right if i just get one number
+
+0:05:17.840,0:05:28.800
+and upper will be bound one and this is exclusive
+
+0:05:25.600,0:05:32.400
+and this is inclusive and otherwise right if i
+
+0:05:29.440,0:05:38.560
+if i get the two numbers right then self.lower equals bound one
+
+0:05:35.199,0:05:46.479
+self.upper equals bound 2 just like that okay
+
+0:05:42.479,0:05:50.880
+let me do that and um and well how far can i get let me let me see so i
+
+0:05:48.880,0:05:55.600
+don't need this pass anymore maybe let me just create an object right
+
+0:05:52.240,0:05:59.520
+here i might say r1 equals range of 5 and i want to see what that looks like
+
+0:05:59.600,0:06:05.280
+so so immediately one thing i see is that
+
+0:06:03.440,0:06:10.319
+this is not very great right i guess what i'd like to have is a wrapper
+
+0:06:07.520,0:06:15.520
+right a representation method right so i'm going to find
+
+0:06:11.680,0:06:19.840
+representation and i have to pass in this and well what do
+
+0:06:18.400,0:06:22.720
+i want to return well whatever it would take to recreate one of these objects
+
+0:06:21.440,0:06:26.319
+right so i'm going to return a format string
+
+0:06:24.720,0:06:32.720
+that looks like this it's going to say range and then
+
+0:06:28.720,0:06:36.880
+the lower and upper and the way i can embed something in a format string is
+
+0:06:35.039,0:06:43.199
+that i put these brackets and i put some code in here so i can say self.lower
+
+0:06:39.919,0:06:46.800
+and some brackets early brackets right as braces and i can say
+
+0:06:45.039,0:06:49.840
+self.upper and then that works great i can do a
+
+0:06:48.319,0:06:53.919
+little concept but i could do to um to create it this is kind of a
+
+0:06:52.400,0:06:56.800
+common example of how you'll develop your
+
+0:06:55.039,0:07:00.400
+classes right you should have a snippet of code on how you want to use your
+
+0:06:59.120,0:07:04.000
+class and then kind of use that to drive what
+
+0:07:02.960,0:07:07.360
+you're implementing right because then you'll kind of have
+
+0:07:04.960,0:07:11.840
+this a rewarding feeling right well uh i added something to my class and now
+
+0:07:09.199,0:07:17.759
+this other use case starts to work it's just kind of a good work habit um
+
+0:07:15.599,0:07:20.880
+let's try this let's say i want to do some
+
+0:07:18.880,0:07:24.720
+slicing right so i want to say well what is the second number
+
+0:07:22.400,0:07:28.319
+actually well i should test you know this up here as well so i'm gonna say
+
+0:07:26.160,0:07:34.160
+like what happens if i go from three to nine that works fine
+
+0:07:31.680,0:07:38.880
+and what if i want to try to do this well it's saying that my range
+
+0:07:35.759,0:07:42.840
+object does not support indexing um indexing kind of more broadly is about
+
+0:07:40.880,0:07:47.120
+well what do i put inside of these brackets
+
+0:07:44.319,0:07:50.639
+if i want to create a class that support indexing
+
+0:07:48.240,0:07:56.639
+i have to use a special method called get item
+
+0:07:52.720,0:08:05.280
+whenever i put brackets after my object get item gets called
+
+0:07:59.759,0:08:08.879
+and and i get two things i get well i get the object i'm working on goes to
+
+0:08:07.440,0:08:13.440
+self as always and then the thing in the brackets goes
+
+0:08:10.560,0:08:21.520
+here and i can return whatever i want i can return i'll just return
+
+0:08:17.039,0:08:26.960
+high for now so let me define this and really kind of what you're seeing is
+
+0:08:24.160,0:08:30.800
+that these brackets right is a quick way to call the get item function
+
+0:08:29.120,0:08:36.240
+or the get item method that's a fine way to think about it
+
+0:08:32.399,0:08:38.959
+um and uh let me try putting something else i'm going to say
+
+0:08:39.200,0:08:47.360
+want to look up whatever that lookup value is
+
+0:08:44.159,0:08:50.720
+i want to look up to okay so so what i'm going to do now is i'm
+
+0:08:48.800,0:08:56.399
+going to actually return uh kind of what i'm looking for and
+
+0:08:55.040,0:08:59.920
+let me kind of think through these use cases uh
+
+0:08:58.560,0:09:05.920
+well let's say that first let's start with like zero right
+
+0:09:02.080,0:09:09.360
+um in this case if i'm looking up zero the first number in this range is three
+
+0:09:07.680,0:09:14.720
+so i guess i want to if i have zero i want to return three
+
+0:09:12.480,0:09:17.680
+um if i want to look up the number of position one i guess that's right after
+
+0:09:16.240,0:09:22.160
+three which is four kind of what i'm feeling is that i want
+
+0:09:19.360,0:09:28.480
+to do self.bound1 or self.lower the lower bound plus
+
+0:09:25.279,0:09:34.720
+whatever that lookup is so so does that kind of work so the the
+
+0:09:31.519,0:09:37.760
+next value would be 4 the next value would be five
+
+0:09:36.000,0:09:41.839
+um so that seems pretty good right i think i'm um i'm making some good
+
+0:09:39.920,0:09:46.640
+progress uh i like that well what if i
+
+0:09:45.279,0:09:52.000
+what if i do something like this what if i do something that's out of range
+
+0:09:50.480,0:09:55.200
+just think from what's going to happen there what will i get back
+
+0:09:55.279,0:10:00.399
+i mean we're so we're so used to dealing with lists right when i see something
+
+0:09:58.800,0:10:04.640
+like this i'm like well it's not that big i only have like six values there
+
+0:10:03.360,0:10:08.079
+uh when i look at something that i feel like i'm getting uh some sort of index
+
+0:10:07.279,0:10:12.160
+error but guess what i don't for me to do that
+
+0:10:10.720,0:10:16.160
+somebody has to write some code here to say that that's not
+
+0:10:14.079,0:10:18.480
+valid right and so so maybe what i should do is i should have some sort of
+
+0:10:17.360,0:10:24.880
+check and i should say if that check
+
+0:10:21.519,0:10:29.040
+uh fails i should raise an exception and um and i could kind of just leave
+
+0:10:26.720,0:10:33.279
+that as its exception in general um but it would be kind of specific
+
+0:10:31.360,0:10:40.640
+maybe the exception i should raise is index error and i can say um
+
+0:10:37.120,0:10:43.920
+index to bag something like that right and then well what do i do here
+
+0:10:44.839,0:10:54.160
+um let me think about this i i guess when is this lookup value too big if
+
+0:10:52.560,0:10:57.200
+lookup is greater than
+
+0:10:58.240,0:11:04.079
+greater than what well i guess it kind of depends on how many values i have i
+
+0:11:01.600,0:11:11.839
+mean i have something like this self. upper minus self.lower
+
+0:11:08.480,0:11:17.680
+is that right you know what i always like to do
+
+0:11:14.079,0:11:21.680
+is think through the small example so let's say i'm looking up the value
+
+0:11:19.760,0:11:25.120
+at position zero so i have zero on this side and
+
+0:11:22.959,0:11:31.279
+and let's say my range is just from zero to zero like this um
+
+0:11:28.480,0:11:34.480
+is zero so well if i have a range from zero to zero i mean that's empty right i
+
+0:11:32.720,0:11:38.480
+mean i don't have no values because this is inclusive
+
+0:11:36.079,0:11:41.680
+this is inclusive and this is exclusive so so even if i try to look at position
+
+0:11:40.160,0:11:46.640
+zero that should fail right so i guess if look up
+
+0:11:43.360,0:11:50.639
+is bigger than this difference um i want to fail and i wouldn't right
+
+0:11:49.120,0:11:55.200
+so so really what i need to do is i need to say
+
+0:11:52.160,0:11:58.480
+greater than or equal to right if i'm greater than or equal
+
+0:11:56.000,0:12:01.519
+to this difference i i'm past the end right and that doesn't work
+
+0:12:00.000,0:12:07.279
+right so let me just try to test this right so if i off at position zero
+
+0:12:04.480,0:12:12.560
+i get that index error right and you can see right you can see that
+
+0:12:09.120,0:12:15.839
+when i ran this code my method that item got called right and that's where i'm
+
+0:12:14.000,0:12:21.920
+raising this from even though i didn't explicitly call it right the brackets
+
+0:12:18.800,0:12:26.000
+are a way of calling get item right so what if i do something like
+
+0:12:23.680,0:12:29.600
+this let me go back to three uh let's say i'm at like seven so i
+
+0:12:28.480,0:12:36.160
+guess i have three four five six
+
+0:12:33.440,0:12:39.680
+if i have three four five six i guess um well zero still works right that gives
+
+0:12:38.160,0:12:45.040
+me the first number in the range which is three
+
+0:12:40.800,0:12:50.000
+one works two works three works and then i like to try both
+
+0:12:48.240,0:12:53.120
+sides of a boundary right to really test my code
+
+0:12:50.800,0:12:56.160
+if i put four here that should not work because
+
+0:12:54.560,0:13:00.800
+well for four to work i need to have five numbers and there are only four
+
+0:12:58.959,0:13:04.320
+okay so that's working beautifully right so that's working uh
+
+0:13:02.079,0:13:10.160
+like i expected what if i do something like this right if i say like um
+
+0:13:06.639,0:13:16.560
+i say like negative one well that's a little funny right um
+
+0:13:14.800,0:13:19.760
+i might have expected that i would get six right be a six is the last number in
+
+0:13:18.480,0:13:24.079
+that range and um and so what i have to do is i
+
+0:13:21.920,0:13:28.800
+have to say well if lookup is less than zero i i mean what i could
+
+0:13:27.120,0:13:32.480
+do is i could implement it right i mean i could implement that code here
+
+0:13:30.720,0:13:35.680
+another thing i can do right when you're applying these special methods
+
+0:13:34.240,0:13:39.519
+is you can decide that there's certain cases you don't want to handle
+
+0:13:37.920,0:13:44.160
+and the way you can do that is you can raise and not implemented
+
+0:13:42.399,0:13:48.079
+error just tell people hey you're doing something that i haven't
+
+0:13:46.079,0:13:52.079
+supported right so maybe i'm going to say negative index
+
+0:13:49.199,0:13:56.399
+not supported and then somebody using my class won't
+
+0:13:54.959,0:13:59.680
+be confused right they'll get that and they're like okay well i guess they just
+
+0:13:58.000,0:14:06.240
+haven't done that yet and and so that will be just fine
+
+0:14:03.040,0:14:10.720
+okay so i'm doing pretty good here um what if i want to do something like this
+
+0:14:08.639,0:14:17.040
+i want to loop over all the numbers in my range so
+
+0:14:13.839,0:14:21.040
+i'm going to say but maybe i'll do something like this
+
+0:14:19.279,0:14:27.360
+i do that and that actually seems to work
+
+0:14:23.279,0:14:31.920
+work fine so let me let me do this how is this working so i'm wondering
+
+0:14:30.399,0:14:37.360
+let me let me print off these different lookups right so i'm going to say
+
+0:14:33.440,0:14:39.600
+lookup and i'm looking at this value here
+
+0:14:41.040,0:14:48.079
+what you're going to see when this loop is running
+
+0:14:46.320,0:14:51.360
+is that it looks up the value at zero and it looks up the value at one then it
+
+0:14:49.519,0:14:54.480
+lists up the value at two so on and so forth that's what a for
+
+0:14:53.519,0:14:58.240
+loop does when we're dealing with a sequence or
+
+0:14:56.399,0:15:02.240
+something that has this get item and you see at the very end i did a
+
+0:14:59.600,0:15:07.199
+lookup of five on r1 well and what happens when i do a
+
+0:15:05.199,0:15:12.639
+r1 lookup let me let me just try that and i didn't look at
+
+0:15:08.079,0:15:17.519
+five i get an index error okay and i didn't get any exception up here
+
+0:15:15.279,0:15:20.800
+right i i had this exception right i had that i said hey like you're
+
+0:15:19.680,0:15:25.120
+trying to look up something that's not there
+
+0:15:22.480,0:15:29.519
+and but i never saw when this code ran and that's because
+
+0:15:26.000,0:15:32.320
+a for loop can deal with index errors right it just keeps trying the index is
+
+0:15:30.880,0:15:36.240
+bigger and bigger until we complain with an index error
+
+0:15:35.279,0:15:39.279
+and the nice thing is that for somebody writing a for loop the
+
+0:15:37.920,0:15:42.800
+for loop takes care of that all right the person writing the for loop
+
+0:15:40.880,0:15:46.639
+doesn't ever have to know that there was an index error there
+
+0:15:44.959,0:15:49.839
+so that's great right so let me let me get rid of this
+
+0:15:48.160,0:15:54.720
+you can see that this is very sequence like right
+
+0:15:52.000,0:15:58.160
+what else can i do um what if i want to convert it to a list
+
+0:15:55.759,0:16:00.959
+right if i want to convert r1 to a list that works fine i mean
+
+0:15:59.519,0:16:05.040
+converting somebody to a list is really just like looping over that sequence and
+
+0:16:02.880,0:16:07.600
+adding those things to a list right so so really by implementing this one thing
+
+0:16:06.480,0:16:11.199
+we're really kind of getting all this behavior
+
+0:16:09.120,0:16:15.199
+of a function what if i what if i want to do something like
+
+0:16:12.240,0:16:17.519
+um what if i want to do something like this
+
+0:16:16.079,0:16:21.360
+i want to say well what is the length of r1
+
+0:16:19.360,0:16:25.440
+now i have a problem right it doesn't have any any length
+
+0:16:22.800,0:16:30.320
+supported and to get that to work i may have to add this length method
+
+0:16:26.959,0:16:33.199
+right so i'm going to say define length and myself
+
+0:16:33.360,0:16:40.399
+and well let me think here it's going to be something like this
+
+0:16:38.240,0:16:44.399
+maybe something like self dot upper minus self.lower
+
+0:16:44.639,0:16:49.920
+right those are the number of numbers i have right
+
+0:16:48.240,0:16:54.560
+but that's not quite right and the reason is that
+
+0:16:51.440,0:16:59.680
+if these numbers are the same uh i would have actually that is right
+
+0:16:57.519,0:17:03.519
+if these numbers are the same then i don't have anything because opera
+
+0:17:01.440,0:17:08.000
+is exclusive and the lower is inclusive so let me just try this
+
+0:17:06.319,0:17:11.039
+does that work beautiful there's five numbers which is
+
+0:17:09.760,0:17:16.079
+exactly um exactly what i would expect right so
+
+0:17:13.679,0:17:19.360
+i can i can get these um uh with really just i mean i implemented
+
+0:17:18.240,0:17:23.439
+this one method well two i guess and going back to this
+
+0:17:22.000,0:17:26.959
+i i have almost all these things i have length i have index
+
+0:17:24.959,0:17:30.160
+i have looping i have converting to list and you see the last thing i have here
+
+0:17:28.720,0:17:33.280
+slicing that's the tricky one and i'm just
+
+0:17:31.520,0:17:36.320
+trying to hint at what's necessary to do that
+
+0:17:34.080,0:17:41.840
+uh without actually doing in that video um let's let's try to create a slice
+
+0:17:38.480,0:17:44.880
+right so down here um you know i've been implementing this
+
+0:17:43.039,0:17:50.799
+uppercase range let me just go back to lowercase range like this
+
+0:17:47.600,0:17:53.280
+right if i if i if i try to you know get the last
+
+0:17:53.520,0:17:59.200
+the last 10 numbers there you can see that works fine or what if i say like
+
+0:17:58.400,0:18:05.280
+you know numbers three to five that works fine
+
+0:18:02.240,0:18:08.160
+when i create my own range i get a type error
+
+0:18:06.240,0:18:15.039
+and where's that type error happening it's happening in cell 114
+
+0:18:11.039,0:18:19.280
+on line 14. the error is that this operator is not supported on
+
+0:18:16.720,0:18:22.400
+instances of of slice and so let me head back here so well
+
+0:18:21.760,0:18:29.200
+what cell cells and i guess i'm in cell 114
+
+0:18:25.919,0:18:33.200
+okay and then line 14 and it's saying that i cannot use this
+
+0:18:30.880,0:18:36.559
+on a slice so so this must be of some type slice so let me actually print off
+
+0:18:34.799,0:18:40.160
+what lookup is i put off the type of lookup
+
+0:18:40.840,0:18:48.880
+and let me delete some stuff here to clean this
+
+0:18:44.320,0:18:57.919
+up and uh and if i say something like r of zero or r one of zero
+
+0:18:54.320,0:19:02.240
+i see that well zero goes to look up and everything is fine it's an integer
+
+0:19:00.160,0:19:07.200
+right i get an integer when i do that um but what if i say something like this
+
+0:19:03.840,0:19:11.520
+i say like slice from zero to three then what i'm actually getting inside of
+
+0:19:09.679,0:19:16.559
+this lookup variable is a slice object right so this little
+
+0:19:14.400,0:19:20.000
+snippet here python converts that to a slice object
+
+0:19:18.400,0:19:23.360
+and it puts it to here and so maybe what i can do is i can
+
+0:19:22.080,0:19:26.880
+actually look at that let's let's print off what lookup is
+
+0:19:27.760,0:19:33.840
+i can see i get this slice that starts from
+
+0:19:31.840,0:19:37.280
+goes from one until three and if i wanted to right i mean i could
+
+0:19:35.600,0:19:41.200
+use that i could use a slice to figure out how to make that slice object to
+
+0:19:39.440,0:19:44.320
+figure out how to make a new range uh that's a lot of work but there's
+
+0:19:42.559,0:19:47.120
+tricky cases so what i'm going to do here is i'm going to add another case
+
+0:19:45.679,0:19:54.960
+right i'm going to say if type
+
+0:19:50.240,0:19:59.039
+of look up not equal to it then i'm going to return what am i going
+
+0:19:57.679,0:20:03.440
+to return i'm going to return a not implemented
+
+0:20:00.000,0:20:10.880
+error i'm going to return this uh i'm just going to say only ant
+
+0:20:06.640,0:20:16.400
+indexing supported right and so i'm going to get th this
+
+0:20:14.080,0:20:21.840
+right uh when i try to run that and
+
+0:20:21.919,0:20:27.679
+and actually this is kind of um i shouldn't return it right
+
+0:20:25.280,0:20:30.640
+i should raise it sorry i was wondering why it looks so strange
+
+0:20:29.039,0:20:34.880
+okay now i actually get an exception let me erase it and that doesn't work
+
+0:20:32.799,0:20:38.400
+in the same way too if i tried to use it like a dictionary
+
+0:20:36.480,0:20:42.000
+it would say only integer index supported and so this is not bad right i
+
+0:20:40.880,0:20:46.559
+mean we've implemented most of the functionality here
+
+0:20:43.360,0:20:50.480
+of the real um range sequence there and you can implement other
+
+0:20:48.400,0:20:54.960
+other sequences if you want kind of using this pattern
+

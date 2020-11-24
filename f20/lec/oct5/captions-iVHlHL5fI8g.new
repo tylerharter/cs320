@@ -1,0 +1,480 @@
+0:00:00.960,0:00:07.440
+hello in this part of the class we're talking a lot about graph
+
+0:00:04.480,0:00:10.320
+search and when we're searching for a and a graph we might be looking
+
+0:00:09.040,0:00:14.240
+for different things maybe i'm looking for a specific value or a node that
+
+0:00:12.719,0:00:17.119
+contains that value um what we're going to be seeing soon is
+
+0:00:15.759,0:00:20.400
+instead of maybe looking for a given node
+
+0:00:17.840,0:00:24.640
+i want to see if i can find a pathway between
+
+0:00:20.960,0:00:27.199
+two given nodes um and uh and kind of moving forward we're going to be doing
+
+0:00:25.920,0:00:32.320
+this for graphs in in general and uh and when i say in
+
+0:00:30.800,0:00:37.600
+general we can have tricky things like maybe there's a cycle in the graph
+
+0:00:34.640,0:00:40.559
+and the main challenge there is going to be
+
+0:00:38.239,0:00:43.280
+how can we do that correctly without ending up with infinite recursion
+
+0:00:42.480,0:00:46.239
+right so that's going to be our challenge going forward what we've done
+
+0:00:45.200,0:00:50.160
+so far is we've looked at graph search for kind
+
+0:00:48.719,0:00:53.280
+of a more specific case we aren't looking for graphs in
+
+0:00:52.399,0:00:58.879
+general uh but trees and specifically binary
+
+0:00:56.399,0:01:02.239
+uh search trees and then the real challenge here is not so much avoiding
+
+0:01:00.559,0:01:06.000
+this infinite recursion but how can we kind of structure our
+
+0:01:04.879,0:01:10.320
+trees um so that we can be very fast how can
+
+0:01:07.920,0:01:13.520
+we answer the question do i have value x without checking every
+
+0:01:12.960,0:01:19.360
+single node so binary search tree
+
+0:01:17.439,0:01:22.479
+the b stands for binary which means each node has at most
+
+0:01:20.799,0:01:26.799
+um two children we call those the left and right children
+
+0:01:24.159,0:01:31.759
+and then the s stands for search and this refers to these rules that we have
+
+0:01:29.200,0:01:36.320
+about where values can fit in the tree and the rule is like this
+
+0:01:33.439,0:01:40.560
+um i can take any node in the tree and i can look at its value
+
+0:01:37.360,0:01:44.159
+let's say x and then if i if i kind of go to the left or
+
+0:01:42.479,0:01:47.520
+right children underneath that tree i kind of
+
+0:01:45.439,0:01:52.560
+have these two sub trees right and and the rule is that all the values
+
+0:01:50.079,0:01:56.880
+in the left subtree of a node have to be smaller and that's
+
+0:01:55.680,0:02:01.360
+node's value and all the values in the right subtree
+
+0:01:58.960,0:02:05.119
+of a node have to be bigger than that node's value and of course the
+
+0:02:03.600,0:02:09.119
+benefit of that is when i'm kind of starting down from the root
+
+0:02:06.880,0:02:13.040
+and i'm looking for something i know what i'm looking for and so at
+
+0:02:10.560,0:02:15.680
+any given node i know if i should go left or right i don't have to check both
+
+0:02:15.040,0:02:20.560
+paths and so kind of at each level i might
+
+0:02:17.920,0:02:24.480
+hope that and in the common case i'm roughly cutting the tree in half
+
+0:02:22.319,0:02:28.400
+right so i can kind of quickly find what i want
+
+0:02:26.400,0:02:32.160
+uh now i i'm kind of using words like hopeful because
+
+0:02:30.400,0:02:34.720
+uh there are some binary search trees that are are kind of structured in a way
+
+0:02:34.160,0:02:38.319
+where we won't always get that fast look up
+
+0:02:37.680,0:02:41.360
+and and those trees are called on balance
+
+0:02:39.920,0:02:45.200
+trees i'm about to show you an example of an
+
+0:02:41.760,0:02:48.560
+unbalanced binary search tree in a more advanced
+
+0:02:46.160,0:02:52.640
+kind of algorithms class or data structure class
+
+0:02:49.680,0:02:56.720
+we might learn how to construct self-balancing trees
+
+0:02:55.040,0:03:00.800
+we aren't going to do that here the only thing we're going to talk about is how
+
+0:02:58.319,0:03:04.800
+the order in which i insert values is going to affect how balanced it is
+
+0:03:02.879,0:03:09.840
+so what i want you to do is to take a moment on a piece of paper
+
+0:03:06.720,0:03:15.360
+and draw what the tree will look like if you insert these things um in order
+
+0:03:13.440,0:03:18.720
+and and so i'll do the first node and then after that i recommend you just
+
+0:03:16.560,0:03:23.760
+pause and take however long you need and then resume the video so the very
+
+0:03:21.120,0:03:27.840
+first value that gets inserted is 25 and since my tree is empty that's going
+
+0:03:26.640,0:03:31.120
+to be the root and so it's going to look like that and
+
+0:03:30.560,0:03:34.319
+since i don't have this self-balancing tree
+
+0:03:32.959,0:03:37.440
+that i keep referring to in other classes
+
+0:03:35.360,0:03:40.799
+um once something's in a given position it's trying to stay in that position
+
+0:03:38.879,0:03:43.920
+right so this is my route it's always going to be my route
+
+0:03:42.400,0:03:46.879
+and um and then so after that i have to kind of keep thinking like well how am i
+
+0:03:45.120,0:03:50.239
+going to start these other things like 24 i'm going to do a recursive
+
+0:03:48.799,0:03:53.599
+insert from the top and so i'll kind of check here i'll say
+
+0:03:52.159,0:03:59.519
+at the beginning should 24 go to the left
+
+0:03:56.799,0:04:03.040
+or to the right of 25 and of course to obey our search rule
+
+0:04:00.959,0:04:07.120
+it has to go left because 24 is smaller than 25.
+
+0:04:04.000,0:04:12.319
+so pause me and uh now i'm assuming you're back and i may
+
+0:04:10.319,0:04:16.880
+work through all of these so 24 goes next i start here and it
+
+0:04:15.280,0:04:22.079
+draws left so i'm going to insert a new node right there
+
+0:04:19.040,0:04:26.320
+like that um and then i get 21. so recursively from the top smaller so
+
+0:04:25.199,0:04:32.000
+left 21 is smaller so left and so i insert
+
+0:04:29.360,0:04:38.800
+that right here uh there we go
+
+0:04:35.120,0:04:47.040
+and um then four kind of the same thing so smaller smaller smaller
+
+0:04:43.759,0:04:49.600
+uh three three is smaller three is smaller three is smaller three is
+
+0:04:48.560,0:04:53.600
+smaller and so you can kind of see i'm getting
+
+0:04:50.800,0:04:59.120
+this long long string of nodes um two same deal i mean two is trying to
+
+0:04:55.680,0:05:02.080
+go all the way down and end up here and then at the very end we actually
+
+0:05:00.479,0:05:05.680
+have an interesting case which is where does 11
+
+0:05:03.199,0:05:10.880
+go in this tree so let me do this a little more slowly
+
+0:05:07.120,0:05:14.880
+11 is smaller than 25 but 11 is smaller than 24.
+
+0:05:12.400,0:05:18.800
+11 is smaller than 21 and then down here i have 11 is bigger than four
+
+0:05:17.280,0:05:24.639
+so for the first time i'm actually going right and i end up right here
+
+0:05:20.960,0:05:29.600
+just like that and um and so one of the things that i want you to look at
+
+0:05:26.720,0:05:35.600
+or think about is how does the order of nodes here
+
+0:05:32.240,0:05:39.520
+affect how balanced my tree is um when these values are sorted in some way
+
+0:05:37.680,0:05:43.039
+i might end up with a very long strung out tree like this this isn't
+
+0:05:41.199,0:05:47.199
+quite sorted right i mean 11 is bigger than two
+
+0:05:44.080,0:05:50.880
+uh but except for 11 it is sorted and and so since i'm kind of going from big
+
+0:05:48.560,0:05:55.039
+values to smaller you know i'm going to kind of get this long chain like this
+
+0:05:53.280,0:05:59.280
+basically like a linked list um if these values have been sorted from
+
+0:05:57.120,0:06:04.880
+small uh to large i would have gotten kind of a long string off to the right
+
+0:06:02.560,0:06:07.520
+um it so if we don't have a tree that self balances
+
+0:06:06.000,0:06:10.800
+it turns out that what will often work pretty well is if you just randomize
+
+0:06:09.280,0:06:13.039
+this if i kind of kind of had randomly sorted this
+
+0:06:11.759,0:06:18.960
+odds are i would have had kind of a bushier a bushier tree
+
+0:06:15.840,0:06:21.919
+and that would have been faster if i really want to be careful you can
+
+0:06:20.160,0:06:25.280
+imagine that i could um think about what order i want to
+
+0:06:24.080,0:06:30.160
+insert nodes in and so maybe let me give you one example
+
+0:06:26.880,0:06:33.680
+of that decision um a nice root is kind of in the middle right because
+
+0:06:32.720,0:06:37.360
+if the root is the middle value then i have
+
+0:06:35.360,0:06:41.039
+half my nodes to the left and half to the right so kind of looking
+
+0:06:39.120,0:06:44.639
+at these 11 would have been a nice thing to insert first right because 11
+
+0:06:43.360,0:06:47.919
+would be bigger than these values and smaller
+
+0:06:46.319,0:06:53.199
+than these and so then i'd kind of be on my way towards having a nice balanced
+
+0:06:50.240,0:06:57.280
+balanced tree one of the things i want you to think
+
+0:06:54.400,0:07:01.199
+about here is the relationship between a parent
+
+0:06:57.759,0:07:04.960
+and a grandparent and so 11 ended up here because it was smaller
+
+0:07:03.199,0:07:09.199
+than 21 and bigger than four and really that's going to happen
+
+0:07:06.880,0:07:15.599
+to all values that are between 4 and 21 right so if i ever kind of go
+
+0:07:12.880,0:07:18.000
+you know up a parent in one direction and then
+
+0:07:16.000,0:07:21.599
+up to a grandparent another direction that that parent and grandparent kind of
+
+0:07:19.919,0:07:25.039
+provide bounds of everything i might insert um in
+
+0:07:24.000,0:07:31.440
+between these i kind of have all these nice ways of kind of finding
+
+0:07:27.039,0:07:35.759
+values in a given range let's say we're searching for a value
+
+0:07:32.720,0:07:39.759
+let's say um we're looking for 22 and uh and ultimately the the result of
+
+0:07:38.479,0:07:42.720
+this search is going to be false i mean this tree does not contain 22.
+
+0:07:41.599,0:07:45.919
+but let's just kind of trace through what happens when we're doing lookup we
+
+0:07:45.199,0:07:49.039
+also recursively start from the top so i
+
+0:07:47.599,0:07:54.639
+start here 22 is smaller than 25 22 is smaller than
+
+0:07:52.800,0:07:59.280
+24. 22 is bigger than 21 and so i might end
+
+0:07:57.599,0:08:02.639
+up like this you know it's empty so that's when i stopped searching
+
+0:08:00.879,0:08:05.120
+and i openly had to check these three nodes and so i kind of got lucky right
+
+0:08:04.720,0:08:10.160
+that that 22 was kind of fell in a range that
+
+0:08:07.840,0:08:14.160
+was near the top of the tree the reason i don't like this long string
+
+0:08:11.840,0:08:19.039
+is if i was looking for um you know a value like two or or even one
+
+0:08:17.680,0:08:22.639
+something that's not in here then i'd have to go down this whole long way
+
+0:08:20.800,0:08:28.800
+and it almost becomes like an order order and operation
+
+0:08:26.240,0:08:31.680
+so another thing i want to do um you know i guess before i gave you an
+
+0:08:30.240,0:08:35.200
+insertion order and then asked you to say what the tree
+
+0:08:33.519,0:08:38.080
+looks like here we're going to work backwards on
+
+0:08:36.159,0:08:42.479
+you know i started with a tree and we figure out um
+
+0:08:39.680,0:08:45.200
+what order things were inserted in and and what i see is that the first thing
+
+0:08:43.919,0:08:49.120
+that happened is 11 was inserted right because
+
+0:08:46.959,0:08:52.880
+whatever like it's inserted first goes first or is the root right so i may
+
+0:08:51.760,0:08:58.240
+have 11 11 first and there's lots of possible
+
+0:08:55.760,0:09:03.120
+answers here um i don't really care about when these
+
+0:09:01.279,0:09:07.279
+are inserted relative to these right you know i don't care if 4 or 24
+
+0:09:06.399,0:09:10.399
+came first because those are kind of isolated right
+
+0:09:08.720,0:09:12.959
+i mean all the small values are going to shoot off to the left
+
+0:09:11.839,0:09:16.080
+and all the big values are going to shoot off to the right and
+
+0:09:14.880,0:09:20.800
+and so kind of the only thing that really matters here is well
+
+0:09:18.080,0:09:24.959
+of these three nodes who got to be the root
+
+0:09:21.680,0:09:28.320
+of the sub tree and uh and three dead right um kind of before i had any of
+
+0:09:27.600,0:09:32.000
+this over here if i had inserted two you know
+
+0:09:30.800,0:09:36.640
+if i went eleven two then two would have been here right so i
+
+0:09:33.839,0:09:40.480
+know that i know that three came before two and four and kind of the
+
+0:09:39.440,0:09:43.839
+same thing over here i i know that since 24 is the root of the
+
+0:09:42.480,0:09:47.839
+sub tree 24 was inserted before either of these
+
+0:09:45.920,0:09:53.839
+two and so there's different orders i could do i mean maybe i can say like uh
+
+0:09:50.480,0:09:59.920
+you know maybe i'll do three and then two and then
+
+0:09:57.120,0:10:03.360
+let's put four for later uh just for fun then i'll say 24
+
+0:10:01.200,0:10:06.480
+gets locked in i mean there's lots of different answers here
+
+0:10:04.959,0:10:12.160
+and then i could do whatever the remaining nodes are i think i could say
+
+0:10:09.440,0:10:16.880
+i want to get these three still i'll say um
+
+0:10:12.480,0:10:20.320
+you know let's say 4 21 25 right so they're kind of the key
+
+0:10:18.959,0:10:26.079
+things right is that i locked in and 11 as my root and then of the values
+
+0:10:23.760,0:10:30.320
+that are less than 11 uh i had three first so i kind of locked
+
+0:10:28.000,0:10:33.920
+three n is as the root of that subtree and for the values that are bigger than
+
+0:10:31.680,0:10:37.839
+11 like these three um i had 24 first that's how i lock that
+
+0:10:36.240,0:10:43.200
+in there and then after that i mean uh it doesn't matter because i'll end up
+
+0:10:41.120,0:10:47.360
+with this tree okay so i kind of carefully constructed
+
+0:10:44.880,0:10:53.120
+a search order to get this nice tree in practice randomizing would probably
+
+0:10:49.279,0:10:53.120
+do just fine
+

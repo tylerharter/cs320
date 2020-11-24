@@ -1,0 +1,258 @@
+0:00:02.000,0:00:09.920
+so in the previous example with flask we created basically two dynamic pages
+
+0:00:07.680,0:00:12.639
+and each page corresponded to a function and those functions might do different
+
+0:00:11.120,0:00:16.800
+things maybe they read a file and then return that data or
+
+0:00:14.960,0:00:21.920
+maybe they generate a string for that file on the fly but what was
+
+0:00:20.080,0:00:26.320
+very convenient was how we specified when those files should run we
+
+0:00:24.960,0:00:30.160
+just kind of had this in front where we would say at
+
+0:00:27.160,0:00:36.800
+app.route and then we would pass in well what what path or kind of url
+
+0:00:34.399,0:00:39.600
+do we want to trigger to trigger this function
+
+0:00:37.680,0:00:43.520
+and and so these things here are examples of
+
+0:00:41.360,0:00:46.960
+uh what we call decorators and decorators in python make
+
+0:00:45.120,0:00:49.520
+uh are kind of very easy to use right we can um
+
+0:00:48.320,0:00:54.079
+just put them there in front of a function and they might either change
+
+0:00:51.760,0:00:58.000
+the function's behavior slightly or they might somehow kind of record
+
+0:00:56.640,0:01:03.760
+that that function has some sort of broader purpose in the code and uh
+
+0:01:02.000,0:01:06.640
+writing our own decorators is not horribly difficult but it's a little bit
+
+0:01:05.199,0:01:09.439
+hard to kind of trace through in our minds
+
+0:01:07.600,0:01:14.159
+what is happening let me head over here to the slides for a moment
+
+0:01:11.200,0:01:18.799
+and look at two pieces of code that are equivalent
+
+0:01:15.520,0:01:24.720
+so here i have a function that prints out you know running f
+
+0:01:21.920,0:01:29.680
+and down here you can see i'm kind of doing something funny
+
+0:01:25.759,0:01:38.240
+right i say f equals test of f okay so i have this
+
+0:01:33.920,0:01:41.520
+test i have this test function up here and you know i'm not passing a regular
+
+0:01:40.799,0:01:48.560
+value and to test right i'm passing in function
+
+0:01:44.640,0:01:52.880
+right so i pass a function into test and then i return a function in this
+
+0:01:50.320,0:01:56.399
+case i i'm kind of taking in and returning back the same function i
+
+0:01:55.119,0:02:00.079
+will eventually see cases where we do something more complicated
+
+0:01:57.759,0:02:02.399
+but that's what i'm doing right so test equals
+
+0:02:01.040,0:02:06.640
+f so i'm just trying to kind of pass this function remember that we can
+
+0:02:04.799,0:02:09.679
+actually have references to functions we pass a reference to this function in
+
+0:02:08.720,0:02:13.680
+the test test can do something and then i return
+
+0:02:12.080,0:02:18.560
+it back and whenever i return back goes into f right and
+
+0:02:16.959,0:02:22.080
+and then i can call off and it'll work like normal
+
+0:02:20.400,0:02:24.720
+an equivalent of this code which is kind of weird it's kind of like well why
+
+0:02:23.360,0:02:27.840
+would i do that i'll eventually explain that in more detail
+
+0:02:26.319,0:02:33.200
+a shorthand way of doing that is like this over here
+
+0:02:29.360,0:02:37.280
+instead of saying f equals test of f i could just say at test right before i
+
+0:02:36.239,0:02:40.400
+define my function and then what will happen is my function
+
+0:02:39.040,0:02:44.000
+will get defined and then this will run automatically
+
+0:02:41.760,0:02:50.959
+right so this code here right this this little piece here
+
+0:02:47.680,0:02:55.920
+is a shorthand for that and so why do we want to do that
+
+0:02:52.560,0:02:59.599
+there's two reasons one is that we can take some additional actions when the
+
+0:02:57.519,0:03:03.120
+function is defined maybe like register for example that
+
+0:03:01.519,0:03:06.480
+this function serves a particular purpose like
+
+0:03:04.080,0:03:09.120
+kind of generating a specific page and then the other reason is that
+
+0:03:07.840,0:03:12.640
+sometimes we'll return a different function and the advantage of returning
+
+0:03:10.720,0:03:16.800
+a different function is that we can kind of change the behavior of
+
+0:03:15.280,0:03:21.680
+what we're dealing with okay so i'm gonna head over here and uh
+
+0:03:19.599,0:03:26.879
+and i'm gonna go to i'm gonna go to on uh python tutor to
+
+0:03:24.640,0:03:30.799
+demonstrate what's happening here and um and uh and i'll do this i'm gonna
+
+0:03:29.920,0:03:38.319
+define two functions let me have f
+
+0:03:34.080,0:03:46.560
+which will print f and i'm going to have g which will
+
+0:03:42.239,0:03:50.000
+print g and and then at the end let me just call g
+
+0:03:48.080,0:03:53.599
+down here and of course while that prints g no
+
+0:03:51.680,0:03:56.080
+surprise right and so in this video i'm not trying to really get into like the
+
+0:03:54.640,0:04:01.200
+purposes of the decorators but i just want to understand the mechanics of them
+
+0:03:58.799,0:04:06.400
+what happens okay so i want to put a decorator in front of here
+
+0:04:02.879,0:04:11.920
+and so uh maybe i will call that uh decorate me
+
+0:04:10.000,0:04:18.000
+okay and so for this to work i have to create a function called decorate me
+
+0:04:15.280,0:04:22.880
+okay and and what whatever i have to do i have to take in a function
+
+0:04:19.919,0:04:24.960
+and then i have to return a function actually
+
+0:04:23.680,0:04:29.440
+instead of trying to decorate me i'm going to call it swap me
+
+0:04:27.440,0:04:33.040
+this may be the name of it and you're gonna see why that that is in a moment
+
+0:04:31.280,0:04:37.120
+so in this case i may pass in a reference to g
+
+0:04:34.479,0:04:40.000
+right so i have a function that f f n will be here
+
+0:04:38.000,0:04:43.600
+and instead of instead of returning that same function
+
+0:04:41.680,0:04:47.199
+i'm going to swap it out i may swap out g
+
+0:04:45.680,0:04:49.199
+for f right it's not very strange why would you do this unless it's some sort
+
+0:04:48.400,0:04:52.240
+of like you know trick that you pull on a programmer
+
+0:04:50.880,0:04:54.840
+we'll eventually see why now let's just focus on the mechanics
+
+0:04:53.680,0:05:00.400
+and i'm just going to print here swapping and let me actually just draw
+
+0:04:57.600,0:05:05.680
+this one more time okay so i'm going to step through this
+
+0:05:02.960,0:05:11.840
+code one at a time here's where it gets interesting right
+
+0:05:08.880,0:05:16.320
+because i have the decorator what i'm going to do is i'm going to run
+
+0:05:14.960,0:05:22.080
+swap me and fn refers to this function g right
+
+0:05:20.160,0:05:27.759
+do you see that over on the right here fn refers to the function g
+
+0:05:25.199,0:05:31.440
+i print swapping and now i'm going to return
+
+0:05:29.039,0:05:35.039
+f and what that really is saying is that well
+
+0:05:33.680,0:05:40.240
+it's like i have a line of code that says g
+
+0:05:37.039,0:05:44.560
+equals f so instead of g pointing to the g function g
+
+0:05:43.280,0:05:47.759
+is going to actually end up pointing to this f function right here right so i
+
+0:05:46.720,0:05:50.880
+run that and so i return that and there there you
+
+0:05:50.160,0:05:54.560
+see right the g refers to that function that means
+
+0:05:53.360,0:06:02.000
+that's why i returned and so then when i when i call g f runs
+
+0:05:58.240,0:06:06.000
+and i print f i call it again and f runs and i print off again okay
+
+0:06:04.800,0:06:12.160
+and so next time we'll actually look at some practical implications for this and
+
+0:06:07.919,0:06:12.160
+why we would want to do that
+

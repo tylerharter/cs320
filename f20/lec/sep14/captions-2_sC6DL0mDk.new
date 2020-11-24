@@ -1,0 +1,627 @@
+0:00:01.199,0:00:07.839
+hello so last time i introduced the idea of complexity analysis of algorithms and
+
+0:00:06.480,0:00:10.480
+today i'm going to be using a worksheet to go over that in more detail and try
+
+0:00:09.519,0:00:15.280
+to get a better understanding of what's happening um so
+
+0:00:14.000,0:00:20.320
+from last time there are some very fundamental ideas that i have up on
+
+0:00:17.279,0:00:26.960
+on top here um the first was a notion of a step and a staff is any unit of work
+
+0:00:24.320,0:00:31.439
+within our code that has bounded execution time
+
+0:00:28.640,0:00:34.160
+and and that's somewhat of a vague um definition
+
+0:00:32.320,0:00:37.200
+right i mean a step is maybe one line of code uh
+
+0:00:35.760,0:00:42.480
+it might be a couple lines of code together um sometimes
+
+0:00:39.280,0:00:46.000
+a single line of code might not really count as a single step um and so what
+
+0:00:45.520,0:00:49.440
+really matters right is that it's bounded
+
+0:00:47.840,0:00:53.920
+execution time and i cannot kind of define steps however i want
+
+0:00:51.680,0:00:57.199
+when i'm looking at a piece of code as long as i respect that
+
+0:00:55.920,0:01:01.280
+um so what does this mean to have bounded execution time
+
+0:00:59.199,0:01:04.479
+um well look what i'm not saying i'm not saying constant execution time it's
+
+0:01:03.199,0:01:10.799
+totally possible that a step is sometimes fast and sometimes slow
+
+0:01:07.280,0:01:15.680
+um what does bounding mean bounded means there's kind of some sort of worst case
+
+0:01:13.360,0:01:20.560
+and it'll never be worse than that worst case
+
+0:01:16.720,0:01:24.960
+even if the input size keeps growing okay so if as i get bigger and bigger
+
+0:01:23.200,0:01:30.240
+inputs it might be possible that a particular step
+
+0:01:26.560,0:01:33.119
+executes more times but executing at any one of those times won't get slower and
+
+0:01:32.079,0:01:38.400
+slower as the inputs um get larger and larger
+
+0:01:36.799,0:01:42.479
+so if i look at a piece of code and i break it up into steps
+
+0:01:40.320,0:01:47.840
+then what that does is that it gives me a function right the
+
+0:01:44.560,0:01:52.399
+the number of steps that execute when i run my code
+
+0:01:49.280,0:01:55.280
+are going to depend on my input size and and so that's the other thing we
+
+0:01:54.000,0:01:58.799
+want to measure here is well what is the input size
+
+0:01:56.560,0:02:03.360
+uh maybe it's the size of some list i'm analyzing
+
+0:01:59.920,0:02:06.719
+or the number of lines in a file or the size of a number that i'm trying
+
+0:02:05.040,0:02:09.360
+to check whether it's prime or not it could be different things in
+
+0:02:07.759,0:02:15.760
+different cases and i'll kind of think for my particular code
+
+0:02:11.599,0:02:19.599
+what feature of the input and its size will affect how many steps i do but
+
+0:02:17.840,0:02:25.200
+absolutely some sort of function exists that relates the
+
+0:02:20.879,0:02:28.319
+input size to um to the number of steps and so what we're really curious about
+
+0:02:26.640,0:02:31.920
+is the shape of that function is it straight
+
+0:02:28.959,0:02:34.080
+is it curved well curved up is it curved down
+
+0:02:32.720,0:02:37.599
+and so we have to have this whole theory with order of growth that will let us
+
+0:02:36.239,0:02:40.720
+define what the shape of the curve is and this
+
+0:02:39.599,0:02:45.120
+whole theory of order of growth or the big o notation
+
+0:02:44.000,0:02:50.239
+you might remember last time we talked about big o is
+
+0:02:47.680,0:02:53.440
+that we don't want to really get kind of bogged down in the details of how we'd
+
+0:02:52.080,0:02:59.120
+ended up counting steps right maybe you kind of broke up a piece
+
+0:02:57.200,0:03:02.959
+of code into twice as many steps as i did both while following the legal
+
+0:03:01.440,0:03:06.159
+definition of it and so what we don't want to do is kind
+
+0:03:04.560,0:03:09.440
+of get different orders of growth just because we counted
+
+0:03:07.840,0:03:11.599
+it that way so we aren't going to really care about
+
+0:03:10.159,0:03:15.360
+the shape of those curves being multiplied by some constant
+
+0:03:13.360,0:03:17.920
+factor we just care about the shape without really kind of looking at the
+
+0:03:16.560,0:03:21.440
+scale of of the y-axis and so that led us to
+
+0:03:20.400,0:03:27.280
+this definition of big o um
+
+0:03:24.799,0:03:32.560
+we have our our function right that takes the number of um
+
+0:03:28.879,0:03:41.120
+steps as a function of of input size and if we can say that that curve
+
+0:03:36.640,0:03:48.319
+is underneath g of n then we can say that f of n
+
+0:03:45.040,0:03:53.599
+belongs to the set of order g of n and also the algorithm
+
+0:03:50.000,0:03:57.680
+that underlies f n is order g of n and i'm allowed to do two things i'm
+
+0:03:56.640,0:04:02.319
+allowed to multiply g n by any constant factor and i'm allowed
+
+0:04:00.319,0:04:05.280
+to say that we only look at large n values so i can set some sort of
+
+0:04:04.159,0:04:10.080
+threshold i can say we're only looking at n values greater than
+
+0:04:06.959,0:04:13.200
+a thousand okay so that was kind of a bit of a review
+
+0:04:11.360,0:04:17.680
+um i want to show what it looks like to kind of show that one curve
+
+0:04:15.120,0:04:20.799
+uh fits beneath another and so that's what i have a bunch of examples of here
+
+0:04:19.519,0:04:23.919
+and really we're trying to um you know we're doing a little bit of
+
+0:04:22.720,0:04:28.320
+math but we're really trying to get the intuition more so than being
+
+0:04:25.840,0:04:32.800
+i'm super rigorous okay so i have some sort of algorithm
+
+0:04:29.759,0:04:36.160
+and if my input size is n when i'm running it i have to do
+
+0:04:35.280,0:04:42.080
+this many steps and i've plotted that here um
+
+0:04:39.680,0:04:47.199
+as this red line over on the i'm sorry is this black line
+
+0:04:44.320,0:04:51.440
+right here the solid black line and so when i'm talking about what class
+
+0:04:48.960,0:04:54.800
+that line is and the the kind of related algorithm
+
+0:04:52.560,0:04:59.360
+i may be looking at what lines are an upper bound on that line
+
+0:04:57.840,0:05:03.360
+okay so the very first thing we want to show right so this for this first one
+
+0:05:01.919,0:05:11.199
+here on the left we want to show
+
+0:05:08.000,0:05:17.360
+that f of n is in order n cubed n to the third
+
+0:05:14.479,0:05:20.960
+and so what is a good lower bound on n and what should c
+
+0:05:18.320,0:05:24.639
+be um i guess i've already picked for us c
+
+0:05:22.400,0:05:28.240
+c is one generally when you're trying to make such a claim that uh functions in
+
+0:05:26.720,0:05:31.199
+the class like this um you can choose that but i've already
+
+0:05:29.680,0:05:35.280
+chosen that so now all we have to do is choose the lower bound
+
+0:05:32.800,0:05:38.560
+so looking over here on the right hand side
+
+0:05:36.320,0:05:42.960
+right over here i've drawn all of these different
+
+0:05:39.520,0:05:47.360
+different lines and i can see there's this line here
+
+0:05:43.919,0:05:52.080
+n squared times one one is our c and so so really what i'm kind of
+
+0:05:48.720,0:05:56.880
+interested in is this line here i'm gonna highlight over it and the area
+
+0:05:57.600,0:06:05.759
+over which it's bigger than f of n remember f of n is a solid black line
+
+0:06:04.080,0:06:11.759
+and and so i can see there's a crossover point here
+
+0:06:07.199,0:06:15.199
+and i can see basically after about 3.5 uh this is an upper bound and it's going
+
+0:06:13.919,0:06:17.759
+to keep being an upper bound even though i'm not really being mathematically
+
+0:06:16.479,0:06:22.240
+rigorous right now and so what i'm going to do here is i'm
+
+0:06:18.960,0:06:27.199
+going to say well n is greater than and i i have different
+
+0:06:25.840,0:06:32.000
+options i mean i should try to read exactly what this
+
+0:06:28.240,0:06:35.520
+is on the x-axis um but there's no real kind of bonus points for being strict so
+
+0:06:34.160,0:06:40.319
+i'm just going to say if it's greater than four
+
+0:06:36.960,0:06:44.639
+right anywhere bigger than four uh the n cubed line is above
+
+0:06:42.160,0:06:48.400
+the f of n line and i could have said something else too right i mean instead
+
+0:06:46.000,0:06:52.720
+of four i could have just as easily said you know 10. doesn't matter right
+
+0:06:50.080,0:06:56.240
+there's no bonuses for kind of being um stingy and the same thing here for
+
+0:06:54.639,0:07:00.720
+for the c right i mean i could have if i wanted to i could have had that b2
+
+0:06:58.319,0:07:02.639
+um or whatever right we want to show that eventually as we keep going to the
+
+0:07:02.000,0:07:06.720
+right and we have some multiplier on that
+
+0:07:04.479,0:07:11.199
+upper bound that our line is stuck beneath it i'm just trying to kind of
+
+0:07:08.400,0:07:15.919
+clean that back up a little bit right just like that and so that's good
+
+0:07:14.240,0:07:19.360
+okay so for this next one let me kind of erase a little bit over
+
+0:07:17.280,0:07:23.440
+here on the right for this next one we want to show
+
+0:07:21.599,0:07:31.840
+something a little bit trickier we want to show that f of n
+
+0:07:27.759,0:07:35.120
+is inside of order and squared and um in general remember right you
+
+0:07:34.160,0:07:39.599
+could pick c is anything you want and you can also
+
+0:07:38.479,0:07:44.080
+pick n is greater than anything you want
+
+0:07:42.800,0:07:48.879
+when you're trying to show this other line is an upper bound um
+
+0:07:46.160,0:07:52.160
+now to do this visually i've chosen a few c's
+
+0:07:50.479,0:07:54.960
+one two and four i could have had three or five or any number in there i'm just
+
+0:07:53.759,0:07:58.639
+trying to keep the picture not too cluttered and so i wanted you to
+
+0:07:56.639,0:08:02.479
+choose one of those three and you can see them on the right hand
+
+0:08:00.000,0:08:06.960
+side for example um here is c equals one times n squared
+
+0:08:05.440,0:08:10.400
+here is c equals two times n squared and here's c equals four
+
+0:08:09.440,0:08:13.680
+times n squared right so what i want to do is i want you
+
+0:08:11.759,0:08:16.879
+to choose one of those that's going to help us make our argument that f of n is
+
+0:08:16.000,0:08:20.000
+an n squared and i also want you to choose um a lower
+
+0:08:19.039,0:08:23.599
+bound for n and so pause me take a moment until you
+
+0:08:21.919,0:08:29.520
+actually write down specific numbers here and then play me
+
+0:08:26.400,0:08:38.479
+again and we'll talk through it okay so what i'm seeing here
+
+0:08:35.279,0:08:42.240
+is that two of these are just no goes right this one's no good
+
+0:08:40.080,0:08:47.120
+and this one's no good because they're completely beneath
+
+0:08:44.080,0:08:50.320
+this line everywhere right and and so those are not gonna really
+
+0:08:48.399,0:08:57.360
+help me make my argument this other one four times n
+
+0:08:53.760,0:09:02.640
+what about that one that one looks more promising i can see that
+
+0:08:59.360,0:09:05.839
+that is above my f of n line and kind of keeps drawing uh larger
+
+0:09:04.160,0:09:09.760
+right i'm not proving that they never cross over in the future
+
+0:09:08.320,0:09:13.040
+but you can probably convince yourself self event and kind of see by the shape
+
+0:09:11.760,0:09:15.920
+of the way things are drawing that's true
+
+0:09:14.000,0:09:21.519
+okay so so that means again i have some sort of crossover point here
+
+0:09:19.440,0:09:24.399
+right and so this is kind of the point i'm interested in
+
+0:09:22.720,0:09:26.560
+i could try to figure out what exactly that is well actually before i even do
+
+0:09:26.240,0:09:30.720
+that let me kind of write down my answer
+
+0:09:27.760,0:09:34.320
+right so i saw that or it's going to work for me and if i
+
+0:09:33.120,0:09:38.000
+different i'll do other options i mean you could say 5 or ten or a million
+
+0:09:36.560,0:09:41.519
+right there's no bonus points for kind of getting as close as possible
+
+0:09:39.839,0:09:46.560
+and then the n value right and so i could say three or
+
+0:09:44.000,0:09:50.480
+i guess i'll just draw with three um i mean i could have said
+
+0:09:47.600,0:09:53.680
+four or five or whatever right so i've shown now
+
+0:09:51.600,0:09:57.440
+that i've shown two of things i've shown that f of n
+
+0:09:54.880,0:10:01.760
+is in the set of order n squared and i've shown that f of n
+
+0:09:58.800,0:10:04.000
+is in the set of order um if i say order and
+
+0:10:02.079,0:10:08.560
+squared or cubed so it's in the set of order n cubed and the set of order n
+
+0:10:05.920,0:10:10.880
+squared and the reason it's in both of them is that
+
+0:10:09.360,0:10:18.079
+you should imagine some sort of picture like this i have um
+
+0:10:13.200,0:10:23.279
+here i have the set of order and cubed and then within that there's a
+
+0:10:21.040,0:10:26.399
+subset which is order
+
+0:10:26.560,0:10:33.120
+order n squared and then within there right i have
+
+0:10:31.680,0:10:35.680
+another subset which is going to be order in
+
+0:10:36.160,0:10:43.519
+right and so i have all these subsets it's like almost like a venn diagram
+
+0:10:40.720,0:10:45.519
+and um and when i have an algorithm let me
+
+0:10:43.839,0:10:49.120
+switch colors here when i have an algorithm or a function
+
+0:10:46.959,0:10:54.320
+right that's some sort of point in here right this point
+
+0:10:50.720,0:10:57.440
+is f of n f of n which is counting my steps for my algorithm
+
+0:10:57.600,0:11:07.120
+and f of n was what that was equal to 2 n squared plus and plus 12 right just
+
+0:11:05.040,0:11:11.920
+from the definition up here okay and so if i'm inside of this circle
+
+0:11:10.480,0:11:14.959
+here of course i'm inside of any any bigger circles right so both of
+
+0:11:13.519,0:11:18.000
+these things are totally true now i might ask you just straight off i
+
+0:11:17.040,0:11:23.440
+might say what is the complexity of f of n and so
+
+0:11:21.040,0:11:29.519
+both of those answers are correct which of those is more informative
+
+0:11:27.040,0:11:31.760
+well the smaller circle right if i tell you when you're inside the smaller
+
+0:11:30.880,0:11:35.920
+circle and obviously you're also inside of the
+
+0:11:34.560,0:11:38.800
+the larger circle right so this is a better answer
+
+0:11:37.519,0:11:41.360
+well their answer is true but it doesn't tell me as much if i just say that i'm
+
+0:11:40.560,0:11:44.959
+in outer circle i mean maybe i'm here maybe
+
+0:11:43.839,0:11:48.480
+i'm here i don't know right so this will be the better answer
+
+0:11:47.279,0:11:52.880
+if i have a quiz or test or anything like that then this is
+
+0:11:50.560,0:11:56.000
+the answer i would expect if i just said um you know what is the complexity of f
+
+0:11:55.360,0:11:59.279
+of n um you would lose points if you gave
+
+0:11:57.519,0:12:02.880
+this even though it's technically true i'm expecting the most informative
+
+0:12:00.959,0:12:06.079
+answer okay so we've shown two things that are
+
+0:12:05.120,0:12:10.480
+true and what this last one is question is
+
+0:12:08.720,0:12:14.639
+the kind of questioning is is our algorithm f of n or the function
+
+0:12:13.519,0:12:19.440
+that's turning our stats is that an order n right so am i
+
+0:12:17.760,0:12:23.839
+over here on this right am i inside of that little circle
+
+0:12:21.120,0:12:28.720
+and they made the claim that well we have
+
+0:12:24.240,0:12:31.600
+c equals 30 and n greater than zero and and so kind of what are they doing
+
+0:12:30.160,0:12:34.720
+there i guess they're saying well this is zero here
+
+0:12:32.800,0:12:39.120
+so greater than zero is kind of at this point and
+
+0:12:36.320,0:12:44.800
+and so i'm looking at this line here and i'm comparing that
+
+0:12:40.800,0:12:49.279
+to this other line down here right and at least for all right i'm
+
+0:12:47.839,0:12:54.560
+preparing that other line at least for the what i've plotted
+
+0:12:52.480,0:12:58.240
+it looks like it's underneath uh but this is not actually
+
+0:12:56.959,0:13:00.959
+true and maybe you can get ahead of that you can see this one keeps curving up
+
+0:12:59.600,0:13:04.959
+sharper and sharper and so you probably have some idea
+
+0:13:02.079,0:13:08.880
+that's trying to go something like that and um and so what i need to do if i
+
+0:13:06.639,0:13:14.079
+want to disprove this or kind of counter their argument is i
+
+0:13:11.120,0:13:18.160
+should suggest a specific n value um that kind of shows their claim uh to
+
+0:13:17.040,0:13:23.839
+be false and and so well what can i do i i want i
+
+0:13:20.959,0:13:30.480
+want this i want to have um i want to have 2 n
+
+0:13:27.040,0:13:35.360
+squared plus n plus 12. i want to show that at some
+
+0:13:34.240,0:13:42.560
+point that is bigger it crosses over
+
+0:13:39.040,0:13:49.920
+uh it crosses over what it crosses over 30 times
+
+0:13:46.160,0:13:52.800
+n right so my order n got me this part here
+
+0:13:51.120,0:13:56.560
+and then right so that's right where that's coming from and my c equals 30 is
+
+0:13:55.199,0:14:01.360
+what got this here right so can i show this is true for
+
+0:13:58.079,0:14:05.600
+some n and uh and i think i can i guess what i'll say
+
+0:14:02.079,0:14:09.040
+is um when i'm trying to achieve this i'll just say
+
+0:14:06.320,0:14:16.480
+you know let n equal
+
+0:14:12.880,0:14:21.199
+30 right because when i do that well what happens with this right i mean i'm
+
+0:14:18.240,0:14:24.560
+going to get 900 on this side and then on the other side i guess well
+
+0:14:23.120,0:14:31.519
+i get 30 squared which is 900 1800
+
+0:14:28.839,0:14:38.079
+1800 and then 30 plus 12 is 42 so 1842
+
+0:14:34.639,0:14:42.000
+is greater than 900 right so so whoever was making this claim by choosing n
+
+0:14:39.600,0:14:45.760
+equals 30 and n is greater than zero guess what it's not good enough because
+
+0:14:43.680,0:14:49.760
+i chose an n value that was larger than in larger than zero
+
+0:14:48.320,0:14:52.800
+and i show that when i crunch the numbers well
+
+0:14:50.880,0:14:59.839
+guess what eventually this line does indeed
+
+0:14:53.920,0:15:02.079
+pass past the other line you
+

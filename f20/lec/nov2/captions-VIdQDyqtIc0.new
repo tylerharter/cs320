@@ -1,0 +1,666 @@
+0:00:01.439,0:00:07.759
+well in this video i'm going to be introducing how we can create animations
+
+0:00:05.759,0:00:13.120
+um not so much that we want to have kind of these just cool splashy graphics but
+
+0:00:11.200,0:00:17.680
+often animations should be used when we need an extra dimension for our data
+
+0:00:15.839,0:00:23.920
+for example we could have a geographic map and show how things evolve over time
+
+0:00:20.960,0:00:27.359
+now it turns out that animations are not as tricky as you might think
+
+0:00:25.680,0:00:31.519
+um here i'm on the wikipedia page for animations and you can see i have this
+
+0:00:28.880,0:00:34.559
+example of a bouncing ball on the right and the way they make that bouncing ball
+
+0:00:34.079,0:00:38.480
+is they have a bunch of still images that
+
+0:00:36.559,0:00:41.840
+are what we call frames and so you can see here are six frames
+
+0:00:40.480,0:00:45.360
+up here and if you quickly cycle through those
+
+0:00:44.399,0:00:49.520
+frames it feels like you have motion and if
+
+0:00:48.079,0:00:53.199
+there are enough frames per second it'll feel smooth
+
+0:00:51.120,0:00:57.760
+and so that's the trick here we want to have some sort of strategic way
+
+0:00:55.520,0:01:01.199
+when we're building an animation to generate a bunch of
+
+0:00:59.199,0:01:05.280
+frames at once and so there's different ways you could do this
+
+0:01:02.239,0:01:09.280
+um since we're familiar with matplotlib i'm going to be using that
+
+0:01:06.960,0:01:12.000
+and in matpotlib they have this animation module and within that you
+
+0:01:11.360,0:01:18.560
+have this func animation function and
+
+0:01:15.439,0:01:23.040
+the idea of func animation is that you as the programmer write a function that
+
+0:01:20.880,0:01:26.880
+can draw one frame and then you pass a reference to the
+
+0:01:25.040,0:01:32.079
+function that you wrote into here and then func animation will
+
+0:01:30.880,0:01:35.200
+repeatedly keep calling your function to generate
+
+0:01:33.680,0:01:38.840
+all the different frames and it's going to stitch them together
+
+0:01:36.640,0:01:43.040
+in this one big animation so let me head over here to a
+
+0:01:41.600,0:01:47.280
+notebook and we're going to get drawing with this
+
+0:01:45.040,0:01:51.360
+um you can see that i'm importing uh matplotlib
+
+0:01:48.159,0:01:55.759
+already uh from matplotlib.animation i'm importing funk animation uh and then
+
+0:01:54.240,0:02:00.240
+finally you can see that i'm importing this function here html
+
+0:01:57.680,0:02:03.200
+so i can display html with my notebook and it'll be quickly
+
+0:02:01.439,0:02:06.799
+become quickly apparent why i need to do that
+
+0:02:04.960,0:02:09.679
+so what we're going to be doing down here is something like this
+
+0:02:08.319,0:02:16.080
+we are going to be calling funk animation
+
+0:02:12.239,0:02:19.840
+and uh passing in our function right that will do something like
+
+0:02:18.080,0:02:23.120
+drawing a frame and so i'm just going to leave this
+
+0:02:20.879,0:02:27.360
+alone for a while and i'm going to start by writing that
+
+0:02:24.640,0:02:32.000
+function that can draw a single frame and our animation is going to be very
+
+0:02:30.480,0:02:36.640
+simple it's going to be um a number that counts off that's our
+
+0:02:35.200,0:02:40.400
+goal and uh and so i have to have a frame
+
+0:02:38.959,0:02:44.560
+that draws that so i can say def draw frame i can really call
+
+0:02:43.040,0:02:48.480
+whatever i want and then i can do some drawing stuff
+
+0:02:46.239,0:02:51.760
+here and within each of these frames you can
+
+0:02:49.840,0:02:55.120
+imagine it has some sort of like index right you know the
+
+0:02:53.200,0:03:00.080
+the frame at index 0 is at the beginning of the animation the frame at index 100
+
+0:02:57.599,0:03:03.760
+is maybe some way farther through the animation
+
+0:03:01.360,0:03:07.200
+and so very conveniently during the pass and the frame number
+
+0:03:05.040,0:03:10.480
+for me and since i'm making a number that's counting up
+
+0:03:08.400,0:03:14.400
+as my animation that's actually going to be what i actually draw on the on the
+
+0:03:12.480,0:03:18.800
+screen okay so when i'm doing this i actually
+
+0:03:17.360,0:03:24.319
+have to have a figure that i'm drawing on and
+
+0:03:22.000,0:03:27.360
+i have to create that outside of my frame
+
+0:03:25.840,0:03:31.760
+it's kind of strange we've seen before that we have these matplotlib figures
+
+0:03:30.239,0:03:35.280
+and they can have multiple plots within them and
+
+0:03:33.280,0:03:38.720
+uh what we're also going to do is we're going to recycle the same figure we have
+
+0:03:36.799,0:03:41.920
+one figure for our whole animation we're going to draw different stuff
+
+0:03:40.560,0:03:45.120
+inside of that figure at different points
+
+0:03:42.959,0:03:51.840
+to construct our animation so up here i might say fig
+
+0:03:46.480,0:03:55.280
+and ax equals plt dot subplots and uh and then down here i'm going to
+
+0:03:53.680,0:04:00.159
+draw my counter on top of that frame so i'm going to say
+
+0:03:56.879,0:04:04.080
+something like ax dot text and remember i have an x a y and then some
+
+0:04:02.480,0:04:09.439
+text here and um and so what i think i'll do is um
+
+0:04:08.000,0:04:12.840
+well let me actually just draw this for a moment i want to draw right in the
+
+0:04:11.200,0:04:15.840
+middle so i'm going to say 0.5.5
+
+0:04:17.519,0:04:25.120
+excuse me and then for my text i'm just trying to
+
+0:04:22.400,0:04:30.080
+convert my frame number to a string right so i'm going to
+
+0:04:28.160,0:04:35.520
+say frame num and and i can draw try drawing it down
+
+0:04:32.639,0:04:39.840
+here i can say draw a frame and uh i have to pass in a number and i
+
+0:04:38.800,0:04:42.960
+can pass in zero that's really tiny let me make it a
+
+0:04:41.040,0:04:45.600
+little bit larger i may say size equals 72
+
+0:04:47.040,0:04:53.360
+and and i'd like to be centered right so right now it's
+
+0:04:50.400,0:04:58.320
+um aligned at the bottom left corner so i'm going to say
+
+0:04:54.400,0:05:01.680
+vertical alignment equals center and horizontal alignment also equals
+
+0:05:00.240,0:05:05.919
+center and that's nicer okay and and you can
+
+0:05:05.039,0:05:10.320
+see that as i uh kind of pass over the frames i'm
+
+0:05:07.600,0:05:16.080
+going to get different numbers here and that is all good okay
+
+0:05:13.360,0:05:18.560
+so what i want to do now is automatically
+
+0:05:17.360,0:05:23.120
+create all these frames you can kind of almost imagine like if i
+
+0:05:21.199,0:05:26.880
+if i'm going fast enough right if i'm like i
+
+0:05:24.479,0:05:29.840
+i'm not quite fast enough but if you kind of look at it right it's almost
+
+0:05:28.080,0:05:32.880
+like it's a video now as i'm flipping through this so
+
+0:05:31.120,0:05:35.680
+funky animation will help me actually do it fast enough
+
+0:05:36.000,0:05:41.199
+excuse me so let me look at what i have here
+
+0:05:39.039,0:05:48.560
+i have to pass in the figure area right so i'm going to pass in my figure
+
+0:05:44.720,0:05:53.520
+and then i may pass in my function which is just draw frame and then i have
+
+0:05:52.080,0:05:56.400
+to say how many frames i want to actually have and i think that defaults
+
+0:05:55.039,0:06:03.360
+to something like um 100 uh for now i'm just going to do 10.
+
+0:06:00.240,0:06:06.960
+i'm going to do that and um just so we can see what's happening i want to print
+
+0:06:04.880,0:06:10.639
+debug up here so i do that and you see that at the
+
+0:06:09.440,0:06:14.960
+moment i do this it calls drawframe not 10 times but one
+
+0:06:14.319,0:06:18.400
+time right so that's why i have one debug
+
+0:06:16.560,0:06:22.639
+down here and that's why it's at zero whenever i
+
+0:06:20.960,0:06:27.919
+create a funk animation um object it just immediately draws on
+
+0:06:26.080,0:06:32.560
+the zeroth frame now what i'd like you to do is actually
+
+0:06:29.759,0:06:37.120
+go through all ten frames and draw them and [ __ ] animation will not do that
+
+0:06:35.280,0:06:40.800
+until i actually try to save it into some sort of format
+
+0:06:39.199,0:06:44.800
+and uh and so there's different things i could do i i'm going to capture this in
+
+0:06:42.479,0:06:48.800
+a variable um a format that i find to be often most
+
+0:06:47.360,0:06:57.919
+convenient is when i say to html5
+
+0:06:53.520,0:07:04.560
+video and what this does is it returns a big string with html
+
+0:07:01.360,0:07:06.880
+encoded video right so i have that giant string there
+
+0:07:05.599,0:07:09.840
+and since it's so large i'm just going to take a slice of it so you can kind of
+
+0:07:08.319,0:07:13.840
+see what's going on so i'll take the first um i don't know 2
+
+0:07:12.160,0:07:18.639
+000 characters so i'm going to run that and uh now what
+
+0:07:17.360,0:07:24.639
+should i actually happen uh is that it actually does all the ten
+
+0:07:21.759,0:07:27.120
+debugs actually it always does that first one right it does that first one
+
+0:07:26.319,0:07:30.400
+here when i actually try to convert it to
+
+0:07:28.479,0:07:34.000
+html down here it does these other ones so you can kind
+
+0:07:32.160,0:07:37.919
+of see what happens right i didn't have any sort of loop here
+
+0:07:35.520,0:07:41.520
+but i passed in a function reference to func animation
+
+0:07:39.120,0:07:45.759
+i wasn't calling my function i was passing a reference to my function that
+
+0:07:43.280,0:07:50.319
+meant that this funk animation can loop 10 times and each time it falls
+
+0:07:48.080,0:07:53.360
+this right so it's looping 10 times calling this 10 times to get the 10
+
+0:07:51.759,0:07:56.479
+different frames and so then when i'm all done here i get
+
+0:07:56.000,0:08:00.960
+this big string back and i'm looking at that
+
+0:07:58.639,0:08:03.440
+and i can see that i have a video html tag
+
+0:08:01.599,0:08:07.280
+it has a width and a height some other details
+
+0:08:05.599,0:08:12.000
+and really the interesting part is this source the source has this data
+
+0:08:09.680,0:08:15.680
+and you can see that all this stuff is basically representing
+
+0:08:14.000,0:08:19.280
+uh representing that video and it goes much longer than this i've cut it short
+
+0:08:17.680,0:08:23.280
+for a reason and um and so i somehow want to get this
+
+0:08:21.280,0:08:27.360
+video um out now into some sort of format that i could use
+
+0:08:24.960,0:08:31.680
+right and so this is this is an html string
+
+0:08:28.160,0:08:34.479
+well a string containing html and so one option that i could do is i
+
+0:08:33.279,0:08:39.279
+could do something like this i could say something like with
+
+0:08:35.519,0:08:43.120
+open you know like video.html i want to open that thing for writing as
+
+0:08:41.760,0:08:50.399
+f if i wanted to i could say f dot write
+
+0:08:46.399,0:08:53.519
+this and i'd basically capture that that big string inside of that file if i
+
+0:08:52.000,0:08:57.040
+open up that file i would actually see the video
+
+0:08:55.200,0:09:01.519
+what i think is more convenient for me right now is to instead
+
+0:08:59.680,0:09:06.640
+just try to embed that video inside of my um inside of my document
+
+0:09:04.320,0:09:10.720
+and uh and i can do that and the reason why is that
+
+0:09:08.880,0:09:13.680
+i imported this thing earlier so let me just give you a little bit of a
+
+0:09:11.440,0:09:17.120
+refresher on how that thing works um and i'm going to comment this out for
+
+0:09:15.680,0:09:21.120
+now but i can say html and remember i can
+
+0:09:20.480,0:09:24.959
+put tags in here if i want or i could say
+
+0:09:23.440,0:09:29.120
+like hey then i get that in this really bold font
+
+0:09:27.440,0:09:33.519
+and um and so i'm putting any sort of html string here
+
+0:09:31.279,0:09:37.120
+and guess what i have an html string it's it's from right
+
+0:09:34.640,0:09:40.800
+right from this piece let me paste this inside of here
+
+0:09:39.120,0:09:46.640
+and then i should be able to embed that video directly into this
+
+0:09:43.839,0:09:49.440
+and uh and sure enough well i have some sort of video not necessarily a good
+
+0:09:48.240,0:09:52.959
+video but a video nonetheless and and it's
+
+0:09:52.240,0:09:57.200
+also kind of weird right i not only got a video but i
+
+0:09:55.839,0:10:00.080
+i somehow ended up with like the last frame of that video down here at the
+
+0:09:58.800,0:10:04.000
+bottom so these are two issues that i have to
+
+0:10:02.320,0:10:10.079
+fix and i'm going to start with this issue first how can i get rid of
+
+0:10:07.040,0:10:15.200
+this extra image down here and the answer is that if i close my
+
+0:10:13.920,0:10:19.120
+figure then it won't show at all as kind of
+
+0:10:17.839,0:10:22.880
+this extra thing right i'm not really interested in using the figure to show
+
+0:10:21.040,0:10:28.480
+i'm just using it interesting using it it's kind of like this canvas
+
+0:10:24.880,0:10:31.600
+where i can um draw my frames right so so maybe what i could do is something
+
+0:10:29.920,0:10:34.880
+like this you might expect it to be like thing.close
+
+0:10:33.120,0:10:36.800
+um at least in my mind that makes a lot of sense is the way i would close the
+
+0:10:36.160,0:10:40.880
+figure um it's not that for a reason it's kind
+
+0:10:39.200,0:10:45.600
+of strangely matplotlib may like this so if i do that
+
+0:10:43.920,0:10:50.320
+oh well that's not no good because this had to be like the last element
+
+0:10:47.200,0:10:54.800
+of of my cell so maybe let me put this up above here
+
+0:10:51.680,0:11:00.000
+if i put it up there and uh and that seems like a fine place to
+
+0:10:56.959,0:11:03.279
+um close it now it's a little feels a little wrong to me to do this i
+
+0:11:01.519,0:11:06.560
+guess even though it's working because i'm closing it
+
+0:11:04.720,0:11:09.920
+before i actually draw a bunch of stuff to it so
+
+0:11:07.920,0:11:13.360
+kind of surprisingly it's letting me make this work now
+
+0:11:11.120,0:11:16.079
+but really it's bad style to be drawing stuff on top of that figure after it's
+
+0:11:14.800,0:11:20.480
+been closed so so this piece down here that i just
+
+0:11:18.560,0:11:25.360
+copied right i kind of copied this out i might paste this up here and
+
+0:11:23.279,0:11:31.120
+put it in a variable and then say down here html and uh and so this
+
+0:11:29.200,0:11:36.079
+will try to do all my work with my fig right i'm drawing text on
+
+0:11:33.760,0:11:39.519
+top of a plot within that fig so we do all my work with it then i may
+
+0:11:38.240,0:11:43.200
+close my figure and then i use it to get this html here
+
+0:11:41.519,0:11:45.920
+at the end and i think at this point i don't really need the debug so i can do
+
+0:11:44.560,0:11:49.600
+that and now i just have that one piece i
+
+0:11:48.079,0:11:57.279
+don't have the the extra details below so that's good
+
+0:11:54.800,0:12:00.800
+about the other piece how do i make sure that i'm not drawing all these numbers
+
+0:11:59.120,0:12:07.519
+on top of each other and there's two strategies um
+
+0:12:04.000,0:12:12.560
+one approach one is to clear the area each time and uh and i can do
+
+0:12:11.279,0:12:18.320
+that like so i can say ax dot clear area is it does it
+
+0:12:16.639,0:12:22.240
+i always forget what's abbreviated for is it clear axes or clear area whatever
+
+0:12:20.240,0:12:25.839
+cla means clear and so i can do that each time and then
+
+0:12:24.560,0:12:28.560
+that would work fine maybe i'll just kind of leave this on the same line so
+
+0:12:27.120,0:12:32.160
+it's very clear that it's for that so i could do that
+
+0:12:30.560,0:12:36.079
+and then i actually get a nice number that's counting up
+
+0:12:33.839,0:12:38.320
+um by itself right i'm starting to get a good animation
+
+0:12:37.120,0:12:44.320
+let me just talk about one other approach that i could do
+
+0:12:40.320,0:12:48.320
+and um and that would work like this whenever i call this ax that is creating
+
+0:12:47.040,0:12:52.959
+a new um text object on the figure and so
+
+0:12:51.279,0:12:57.200
+rather than clearing things out and making a new one each time
+
+0:12:54.720,0:13:00.480
+i have the choice to update the existing one
+
+0:12:58.160,0:13:03.360
+right so i i make sure you do that and if i'm updating an existing one i only
+
+0:13:01.920,0:13:06.480
+want to create it once and so i should do it out here remember
+
+0:13:05.279,0:13:08.720
+that this is going to get called a bunch of times so
+
+0:13:07.519,0:13:12.240
+you know if i create it in here i'm creating 10 of them if i create it out
+
+0:13:10.480,0:13:19.839
+here i only create one of them and and so i can actually capture that
+
+0:13:15.680,0:13:22.399
+um i can actually capture that in a variable
+
+0:13:20.560,0:13:28.000
+right so i'm going to do that and then down here i can say something like
+
+0:13:24.560,0:13:32.800
+t dot dot set text and then i can
+
+0:13:31.279,0:13:36.079
+kind of pass in well whatever frame number i have let's throw my frame
+
+0:13:34.639,0:13:41.519
+number and um one last detail here right is i
+
+0:13:39.839,0:13:44.320
+guess here i haven't even started my frames yet so
+
+0:13:42.959,0:13:48.079
+there is no frame number i mean that's a local variable since i move this up here
+
+0:13:47.120,0:13:50.560
+i don't know i'll just draw something like that it's going to be replaced
+
+0:13:49.120,0:13:54.399
+anyway it doesn't matter right maybe i'll just even leave it
+
+0:13:51.920,0:13:58.560
+empty let me do that and i'm going to get the same effect now
+
+0:13:56.000,0:14:00.560
+this time i only have one text object and i just kind of keep updating it each
+
+0:14:00.079,0:14:03.839
+time so those are your two choices right this
+
+0:14:02.560,0:14:09.839
+is method uh method two which is reuse something
+
+0:14:05.920,0:14:15.199
+another method wants to say ax dot cla now uh the other detail i want to talk
+
+0:14:12.160,0:14:18.959
+about is how fast this is going um there's currently 10 of these things
+
+0:14:17.519,0:14:22.880
+and i can make it something like five if i want
+
+0:14:20.000,0:14:27.040
+now it only counts up to five this is the number of frames i have
+
+0:14:24.720,0:14:30.880
+the other really important um thing that i could pass in
+
+0:14:28.720,0:14:37.120
+is not shown here but it's called interval right it's kind of captured
+
+0:14:32.959,0:14:41.839
+in this and the interval is how many milliseconds i want between
+
+0:14:40.720,0:14:45.519
+frames and so there's a thousand um
+
+0:14:44.079,0:14:49.040
+milliseconds a second so if i say something like a
+
+0:14:46.880,0:14:52.560
+thousand then it should actually count off one second
+
+0:14:50.720,0:14:57.360
+at a time and so i have a more realistic um uh counter there it's gonna get a
+
+0:14:55.440,0:15:00.880
+chance to play with that more but um i kind of haven't built like the most
+
+0:15:00.160,0:15:04.800
+simple animation here right it's complete it's
+
+0:15:02.720,0:15:07.760
+clean it's counting at the rate i want it to
+
+0:15:05.760,0:15:09.760
+um i'm in the world of animation i can embed a website if i wanted to i could
+
+0:15:09.279,0:15:14.000
+also go here to the menu and i could download it
+
+0:15:12.480,0:15:20.240
+if i want to download it i could save it as an mp4
+
+0:15:14.959,0:15:20.240
+file and share that with people
+

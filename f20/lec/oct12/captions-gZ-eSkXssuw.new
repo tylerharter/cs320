@@ -1,0 +1,822 @@
+0:00:01.280,0:00:05.600
+hello in this video we're going to pick up from last time
+
+0:00:04.080,0:00:09.920
+in uh scraping some of these more difficult pages and um so this one well
+
+0:00:08.480,0:00:12.559
+let me if i just head back here to kind of see where we are last time we did
+
+0:00:11.360,0:00:17.119
+these two um now we're going to see how we can
+
+0:00:15.440,0:00:21.199
+pull out data from a page that might have some sort of password on it
+
+0:00:19.760,0:00:25.519
+and again right if you're trying to do this on somebody else's site make sure
+
+0:00:23.279,0:00:28.640
+that you're kind of following all their user agreements right often when you
+
+0:00:26.960,0:00:31.679
+create an account they'll say you can't do things like this but you know
+
+0:00:30.000,0:00:35.120
+sometimes they might let you um so if i say like something like
+
+0:00:33.600,0:00:39.440
+secret here um that wasn't it it's fido somebody say
+
+0:00:38.160,0:00:43.280
+fido and then hit enter and um and then it
+
+0:00:41.920,0:00:47.520
+loads this page and this is what i would like to be able to pull out
+
+0:00:45.520,0:00:50.559
+from this page let me head over here to my notebook
+
+0:00:48.960,0:00:54.480
+and i've already done some of my setup here like before
+
+0:00:52.800,0:00:58.480
+the main thing is that i have this web driver and from that i'm going to say
+
+0:00:57.199,0:01:01.520
+chrome and that's going to return a new browser
+
+0:01:00.480,0:01:05.280
+to me and the thing i have to pass in are some
+
+0:01:03.840,0:01:09.280
+options and that's another type right here i
+
+0:01:07.119,0:01:13.280
+have these options for specifically for chrome i kind of
+
+0:01:11.040,0:01:19.439
+have to make sure i match that up and um and so i'm going to say down here
+
+0:01:16.320,0:01:23.119
+options equals options like so and then if i wanted to i could
+
+0:01:22.560,0:01:29.759
+say um after that i could make options
+
+0:01:26.479,0:01:33.920
+dot headless equals true and that would give me no gui and so
+
+0:01:32.720,0:01:37.200
+that's what i would do um for example if i was on my virtual
+
+0:01:36.079,0:01:40.400
+machine i'm not going to do that because i'm
+
+0:01:39.200,0:01:44.399
+running this on my notebook or my laptop right now and so i
+
+0:01:43.200,0:01:48.159
+think it'll be a little easier to see what's going on
+
+0:01:45.600,0:01:50.479
+um if i don't do that let me do that and then
+
+0:01:50.640,0:02:05.759
+let me run this and why is that unhappy oh let me see since the errors here tend
+
+0:02:03.920,0:02:12.879
+to be kind of pretty opaque affected string bytes or os path
+
+0:02:09.280,0:02:15.920
+not an options object and um you know i think my mistake was when i
+
+0:02:14.480,0:02:19.520
+passed in my options i'm just kind of checking my notes
+
+0:02:17.680,0:02:23.760
+i need to say options equals that so that's the parameter name
+
+0:02:20.959,0:02:28.480
+i'm gonna do that and um and that should pop up a window here
+
+0:02:26.000,0:02:33.280
+and it does which is good and then we move that over here to the right
+
+0:02:31.360,0:02:37.840
+and and then the page i want to do is this one
+
+0:02:34.560,0:02:42.720
+right so i'm going to grab this and i'm going to paste this here maybe
+
+0:02:40.080,0:02:50.319
+i'll say that's like my url equals that thing and i'm going to say
+
+0:02:46.239,0:02:53.519
+b.det that url so that'll navigate me to that page
+
+0:02:51.920,0:02:57.840
+like so and then i have to figure out how to type into that box and and so
+
+0:02:55.519,0:03:00.879
+kind of over on this other window i have i'm going to right click on here and
+
+0:02:59.040,0:03:05.040
+inspect it in chrome so i can figure out um you know how i
+
+0:03:03.519,0:03:08.879
+should refer to it and um and i can see that it's this impo
+
+0:03:07.200,0:03:14.319
+input box right here and it has an id of password
+
+0:03:12.800,0:03:17.200
+and and so my hope is that i can do something like this i should be able to
+
+0:03:15.200,0:03:24.000
+say b dot um find element by id
+
+0:03:20.800,0:03:28.400
+find element by id what was the id again one more time the
+
+0:03:26.239,0:03:34.400
+id was password and so i'm going to say password here
+
+0:03:31.680,0:03:37.200
+and um and it finds it which is good right i mean if it was something else
+
+0:03:35.440,0:03:40.879
+then i would hit that exception uh but it did indeed find it let me
+
+0:03:39.440,0:03:43.760
+store it here somebody call this like my password box
+
+0:03:44.799,0:03:52.959
+excuse me and um and so once i found it i can do things like this i can
+
+0:03:50.000,0:03:55.760
+um send it keys i can simulate um that i'm typing there
+
+0:03:54.239,0:04:00.799
+right so i could say something like you know password dot
+
+0:03:57.439,0:04:04.080
+send keys and um and then i can just like put whatever
+
+0:04:02.799,0:04:08.080
+i wanted there right i could send it like an
+
+0:04:04.959,0:04:11.120
+uh you know an app and then you can see it typed over there on the
+
+0:04:09.519,0:04:17.280
+right hand side right i could send it on you know
+
+0:04:14.239,0:04:21.040
+i could send it an i fits into the d you know if i really want to i can
+
+0:04:19.519,0:04:24.160
+send it the whole thing at once or i can put a longer string in if i like
+
+0:04:22.960,0:04:29.120
+and so let me just try to reload the page so i can do that when i do that
+
+0:04:27.440,0:04:34.720
+and um and now i have to do the second part which is simulating the click
+
+0:04:31.360,0:04:36.960
+on this button right here so let me head back here
+
+0:04:35.199,0:04:40.080
+and kind of remember what that button was called i'm gonna right click on this
+
+0:04:38.560,0:04:44.560
+inspect and that one is called login button
+
+0:04:43.360,0:04:51.360
+right so i'm going to head back here and i say button
+
+0:04:46.560,0:04:58.960
+equals find element by id and it was login button i think
+
+0:04:56.160,0:05:06.320
+crash i must be good and then i can simulate my click i can say button
+
+0:05:01.280,0:05:11.919
+dot click like so and um and
+
+0:05:09.600,0:05:17.199
+why is that not kind of simulating my click let me try it again sometimes it
+
+0:05:13.520,0:05:21.680
+gets out of whack if i click over here what does it do
+
+0:05:18.639,0:05:25.840
+well that loads it um what am i doing wrong here
+
+0:05:31.199,0:05:35.280
+sorry i had to pause the the video there for a minute to figure out what was
+
+0:05:34.320,0:05:38.560
+going on and uh well i guess i didn't find
+
+0:05:37.199,0:05:42.720
+anything exciting i think that um this framework is a little bit flaky
+
+0:05:41.360,0:05:45.919
+and ultimately when i did a kernel restart
+
+0:05:43.919,0:05:48.320
+and uh it just started working so i'm just going to kind of step us through
+
+0:05:47.039,0:05:55.280
+again here and uh i'm going to create um
+
+0:05:52.000,0:06:01.440
+create that window like so let me let me have this here
+
+0:05:56.800,0:06:07.840
+and um let me have this just like so and then i'm going to grab that page
+
+0:06:05.360,0:06:12.960
+and like so and um and then i'm going to
+
+0:06:11.840,0:06:16.080
+type in the password and hit the button and then the page
+
+0:06:15.520,0:06:20.639
+loads and then finally i can actually say um
+
+0:06:18.639,0:06:25.759
+you know browser dot uh page source and maybe i'll print that
+
+0:06:23.840,0:06:29.039
+out and now i actually have something that i
+
+0:06:28.479,0:06:33.039
+could work with right i have my uh my table
+
+0:06:31.919,0:06:36.240
+tag and my my rows and tds and that and i could
+
+0:06:35.840,0:06:40.080
+have of course use beautiful soup to kind of
+
+0:06:37.759,0:06:43.919
+pull all of that out into a data frame um if i wanted to so anyway maybe the
+
+0:06:43.039,0:06:48.160
+lesson there is that um for this kind of code where
+
+0:06:46.400,0:06:52.479
+we're dealing with the internet things just kind of randomly
+
+0:06:49.440,0:06:54.560
+go wrong and it's not our fault so what i might want to do is i might want to
+
+0:06:53.440,0:06:59.520
+have some sort of loop so that you know if it fails well maybe
+
+0:06:56.720,0:07:02.960
+it will retry two or three times before just kind of giving giving off
+
+0:07:02.080,0:07:07.840
+you know i think at the end here right i can close my
+
+0:07:04.880,0:07:10.400
+browser and so you could totally imagine that it might do that as part of the
+
+0:07:09.120,0:07:13.440
+loop i might create a new browser and try it and if it fails well it'll just
+
+0:07:11.840,0:07:17.199
+do it again maybe something wacky just happened
+
+0:07:14.560,0:07:21.759
+okay so that was one example another example here
+
+0:07:18.080,0:07:26.160
+is um let me see here let me hit back it's on this last page
+
+0:07:24.639,0:07:30.160
+where we have a search query and on this one let's say i want to do
+
+0:07:27.280,0:07:34.639
+like 1950 um i get some hurricanes i got some in that year my
+
+0:07:33.280,0:07:39.039
+goal is that i want to go through each of these years
+
+0:07:36.240,0:07:41.919
+and um and kind of pull out how many there are per year
+
+0:07:40.479,0:07:45.199
+and then i want to end up with some sort of plot like this at the bottom where i
+
+0:07:44.160,0:07:49.599
+have a line plot of all how many hurricanes are there per year
+
+0:07:47.919,0:07:54.639
+um so that's a goal well let me let me create a new notebook here for this one
+
+0:07:51.840,0:07:57.759
+and i get a fresh start and i'm going to copy some of these things over from last
+
+0:07:56.639,0:08:02.879
+time my new notebook let me grab all that
+
+0:08:00.720,0:08:06.639
+stuff and then i probably want all of this
+
+0:08:06.720,0:08:13.840
+as well let me kind of just move to the front so you can actually see what's
+
+0:08:10.879,0:08:18.400
+going on here okay and that opened up my new window
+
+0:08:16.160,0:08:23.759
+just like so and um and let me grab my url from that
+
+0:08:21.360,0:08:29.520
+other page let me come back here and um and grab
+
+0:08:27.039,0:08:34.399
+this thing and oh i'm just going to close this i
+
+0:08:33.200,0:08:40.800
+think i'm done with it and i say b dot get that url so url
+
+0:08:38.800,0:08:43.919
+equals that page and like so
+
+0:08:46.880,0:08:58.959
+and it's loading my internet's being a little flaky
+
+0:09:06.800,0:09:12.080
+i don't know i'm having so many problems today let me do a kernel restart and run
+
+0:09:09.920,0:09:23.839
+all there we go
+
+0:09:26.000,0:09:37.040
+i get that and it should load the page uh let's see
+
+0:09:36.000,0:09:40.480
+right sorry i had to pause again for whatever reason my um internet was down
+
+0:09:38.640,0:09:45.600
+so i'm going to try this one more time i'll restart and run all just like so
+
+0:09:44.240,0:09:49.040
+i should probably been running these on pages on my own laptop so i wasn't so
+
+0:09:47.440,0:09:53.279
+dependent on the internet when i do that i load that thing and uh
+
+0:09:52.320,0:09:56.880
+and here i am okay so what i'm going to do is i'm
+
+0:09:55.279,0:10:03.040
+going to try to grab these two elements i want to grab um
+
+0:10:00.080,0:10:06.320
+let me see here i want to grab that year box and then also the search box and so
+
+0:10:05.120,0:10:11.120
+let me just try to check what those are called
+
+0:10:07.519,0:10:16.320
+um if i come here and right click on and hit inspect
+
+0:10:13.600,0:10:20.320
+i guess it's year and then search button so
+
+0:10:16.720,0:10:27.519
+i'm to say um year equals b dot get
+
+0:10:23.760,0:10:35.040
+um actually i think it's it's find element by id
+
+0:10:31.120,0:10:38.959
+and um and the one i want is um here and then search button so i'm gonna
+
+0:10:36.959,0:10:42.160
+say year and then i'm gonna have my button
+
+0:10:44.160,0:10:54.880
+search button okay so i might have that
+
+0:10:52.320,0:10:56.560
+and that all worked fine and um and then i think what i'm going to do is i'm
+
+0:10:55.839,0:11:00.720
+going to find um i mean really a little function that
+
+0:10:59.200,0:11:03.839
+will try to tell me how many um how many hurricanes there were in a
+
+0:11:02.240,0:11:08.000
+given year so uh maybe i'll call this let me call this
+
+0:11:06.560,0:11:11.839
+like something like here your text or something so i know it's a
+
+0:11:09.839,0:11:17.279
+text box they call this one you know like get years
+
+0:11:13.200,0:11:20.320
+or maybe get count when i pass in a year and um and so what i'll do first when i
+
+0:11:19.120,0:11:24.480
+call this thing is i'm going to take that year
+
+0:11:20.959,0:11:29.200
+text and i'm going to send it some keys and the keys i'm going to send it are
+
+0:11:27.279,0:11:34.079
+whatever is in that year as a string when i do that
+
+0:11:32.399,0:11:39.440
+and um and then what i'm going to do is i'm going to
+
+0:11:35.600,0:11:43.760
+have that button do a search right so let's try this you know there's more i
+
+0:11:42.240,0:11:50.320
+have to do here i have to like you know count the hurricanes but
+
+0:11:47.040,0:11:55.200
+let's try that so far and um and what is my problem
+
+0:11:51.360,0:12:02.800
+um did i run this again apparently um okay so on line six oh i need to pass
+
+0:11:58.399,0:12:07.279
+in the year so i'll say 1950 and and i have that and so let me try to
+
+0:12:05.760,0:12:13.440
+figure out how many um how many rows are on that table
+
+0:12:10.399,0:12:16.000
+and let me actually just do this i'm going to say d
+
+0:12:14.160,0:12:21.040
+of b so i can remember what functions i have there
+
+0:12:17.360,0:12:26.000
+um we've already seen find element by id right but
+
+0:12:24.320,0:12:30.639
+there's other versions of these like there's plurals
+
+0:12:27.760,0:12:32.959
+where we can get a list of elements and um
+
+0:12:31.200,0:12:36.320
+and maybe instead of trying to find it by id maybe i want to find it by the tag
+
+0:12:35.600,0:12:40.079
+name so so something i could do here i could
+
+0:12:38.240,0:12:46.560
+say something like b dot find elements by
+
+0:12:43.200,0:12:50.639
+tag name and i'm looking for all the table row tags
+
+0:12:48.720,0:12:55.680
+and you see i get this nice list of them how many are there
+
+0:12:52.480,0:12:58.800
+it looks like there are four um which is one too many right because
+
+0:12:57.120,0:13:02.800
+there's like the header row at the top you know where it says named formed
+
+0:13:00.399,0:13:05.680
+dissipated and so really i think this is the expression i want
+
+0:13:04.160,0:13:08.399
+i want to figure out how many rows are there all right so i'm going to copy
+
+0:13:07.519,0:13:12.079
+that thing and that's where my return here right
+
+0:13:10.000,0:13:16.800
+i'm going to return however many rows there are
+
+0:13:13.360,0:13:20.800
+minus one let me run that and uh and you see my problem it's just
+
+0:13:19.120,0:13:23.839
+kind of adding to the end of that box or i need to have some sort of way
+
+0:13:22.399,0:13:27.040
+to clear it out so again i mean i could be googling
+
+0:13:25.680,0:13:32.399
+documentation but it's very handy to just run that dir
+
+0:13:29.920,0:13:35.839
+right so if i run dir like that i can see all the things i can
+
+0:13:34.720,0:13:40.639
+do uh to a text box right and i can see oh
+
+0:13:38.320,0:13:43.199
+well it's kind of nice i have this clear thing i'm going to try that and see if
+
+0:13:41.839,0:13:47.199
+that works it sounds like it might do something
+
+0:13:44.320,0:13:51.040
+if i do clear and it works like a charm so i'm just going to come
+
+0:13:48.000,0:13:53.920
+up here and uh and add this at the very beginning
+
+0:13:51.920,0:13:59.320
+right so now i'm in pretty good shape i say i want to get 1950 there's
+
+0:13:55.920,0:14:05.839
+there's three i got 1951 there's zero 1954. there's two
+
+0:14:02.480,0:14:08.480
+so on and so forth and um and so now i think i'm in business i think i could
+
+0:14:06.880,0:14:12.079
+actually try to build up my build on my data right so what i'm going
+
+0:14:10.720,0:14:17.279
+to do is i'm going to create a panda series and i say
+
+0:14:13.760,0:14:19.839
+import pandas as pd and that's you know probably more
+
+0:14:18.399,0:14:23.600
+appropriate place for that is up at the top like this
+
+0:14:21.760,0:14:27.760
+and um and so i'm going to create a series
+
+0:14:24.880,0:14:32.720
+like this and um then what i'll do is i'll just like loop from um
+
+0:14:29.920,0:14:37.279
+kind of 1950 until the present let me just remember how many
+
+0:14:33.839,0:14:45.839
+years i guess i'll just draw until 2020. so i'll say um for the year
+
+0:14:40.800,0:14:54.399
+in range of 1950 1950 2020
+
+0:14:50.720,0:14:58.880
+um what i will do is i will figure out how what the count was that year and
+
+0:14:56.560,0:15:03.519
+i'll say that you know i may have my year here and then that's going to be
+
+0:15:01.839,0:15:06.720
+equal to well however many were in that year let
+
+0:15:05.360,0:15:11.360
+me let me actually just try to set it to something smaller first so i'll say
+
+0:15:07.920,0:15:14.880
+something like 1954 and uh what happened to my other window
+
+0:15:13.440,0:15:20.320
+well let's just try this and see what happens
+
+0:15:17.040,0:15:24.240
+and um and i'm hitting an error here so it doesn't like this line right here
+
+0:15:22.240,0:15:28.560
+in 1950 which i guess i'm using is the key is out of bounds it says like i go
+
+0:15:26.000,0:15:31.920
+to zero and and so remember when we have panda series
+
+0:15:30.079,0:15:35.279
+um there's this ambiguity right when i put something in brackets
+
+0:15:33.519,0:15:39.920
+do i mean like the integer position and if i mean integer position it's nice
+
+0:15:37.519,0:15:43.279
+counting up from zero one two three 4. or am i trying to use this more like a
+
+0:15:41.759,0:15:46.240
+dictionary in which case i want to use kind of an index in general
+
+0:15:44.959,0:15:49.199
+and and so if i'm at the integer position i would say this i want to use
+
+0:15:48.399,0:15:52.880
+it like uh right so this would be like a less i'd
+
+0:15:50.560,0:15:57.680
+be using my series if i do that then i'd be using like a dictionary
+
+0:15:54.880,0:16:00.160
+and so i'm going to run that and um and that'd be a little better
+
+0:15:59.040,0:16:02.480
+you can also see it's complaining because i haven't really specified what
+
+0:16:01.600,0:16:06.839
+type my series is so i'm just going to make
+
+0:16:04.320,0:16:10.160
+it happy and say i'm dealing with integers and now i actually
+
+0:16:08.880,0:16:15.360
+kind of went pretty fast there right did you see it let me um
+
+0:16:13.040,0:16:17.440
+let me take a look at this series and i see well there
+
+0:16:16.240,0:16:21.680
+it's going right i'm kind of figuring out how many there are per year
+
+0:16:19.519,0:16:24.880
+and that's good let me slow this down just a bit so we can see what's
+
+0:16:22.880,0:16:29.199
+happening i'm going to say import time and then maybe each time i grab one
+
+0:16:28.399,0:16:32.560
+of these i'll sleep for a half second so i'll say
+
+0:16:31.120,0:16:38.079
+time dot sleep half a second and now let's just
+
+0:16:36.240,0:16:42.240
+do that whole thing right maybe i'll go until
+
+0:16:38.720,0:16:46.079
+2020 and um and let's run that thing and you can see on the right that it's
+
+0:16:43.600,0:16:50.639
+going one year after another it keeps typing them all for me and saving
+
+0:16:49.199,0:16:56.000
+me a bunch of time right i'm just trying being lazy here now
+
+0:16:52.800,0:16:59.360
+and uh i guess this will take what about 30 seconds right
+
+0:17:00.160,0:17:05.039
+once it's all done and we're convinced it's kind of working
+
+0:17:03.440,0:17:08.400
+i'm going to take away that time where i see how fast we can make it go
+
+0:17:11.120,0:17:20.400
+the 90s now the 2000s
+
+0:17:30.960,0:17:36.799
+and there we are to the end and we have our our beautiful series here
+
+0:17:34.559,0:17:38.400
+with um how many hurricanes per year and i could do something like this i could
+
+0:17:37.760,0:17:41.919
+say well on average we get just a little less
+
+0:17:40.240,0:17:44.880
+than two hurricanes per year in the state of sud at least
+
+0:17:43.120,0:17:48.960
+okay let's just try to see how fast we can do that whole thing
+
+0:17:46.240,0:17:51.200
+if i take um over the time so so watch close on the right it's not going to
+
+0:17:50.080,0:17:54.400
+last long i do that and i quickly go through all
+
+0:17:52.799,0:17:59.200
+of them and much faster now as fast as selenium
+
+0:17:57.039,0:18:01.840
+can go and
+
+0:18:04.640,0:18:10.000
+there we go done we have our series okay so so i think just to kind of make this
+
+0:18:08.720,0:18:14.400
+a complete example well let's take a moment to review right
+
+0:18:12.080,0:18:18.160
+how do we do this thing um we only had to navigate to the page once
+
+0:18:16.720,0:18:22.000
+because there's only one page and we only had to find the two elements
+
+0:18:20.160,0:18:26.080
+on the page once another thing we had to repeatedly do is
+
+0:18:23.600,0:18:30.480
+we had to clear out the text send in some key strokes to get the year
+
+0:18:28.799,0:18:33.840
+and then click a button and then we were trying to figure out
+
+0:18:31.520,0:18:37.280
+how many um table rows were on the on the page right and kind
+
+0:18:35.360,0:18:40.240
+of uh discounting the header row this is very similar to something that
+
+0:18:38.799,0:18:45.039
+we'd see in beautiful soup right i mean they have kind of similar calls there
+
+0:18:42.320,0:18:48.400
+um what i'll say is that selenium has simpler versions a lot of the
+
+0:18:46.720,0:18:51.520
+things that beautiful soup does so if you have a simple application
+
+0:18:50.000,0:18:54.400
+it's possible you can completely stay in the selenium world and not worry about
+
+0:18:54.080,0:18:58.720
+uh beautiful soup like we're doing here
+
+0:18:57.440,0:19:02.160
+okay so now we have our series because we keep calling it let's actually plot
+
+0:19:00.559,0:19:07.760
+this thing so i'm going to say s dot plot dot line
+
+0:19:04.640,0:19:12.559
+and uh and you know why it didn't show is because i
+
+0:19:09.440,0:19:16.799
+forgot to say matplotlib inline and then maybe the other thing i
+
+0:19:15.760,0:19:21.440
+always like to do um did i ever import matplotlib at the
+
+0:19:18.559,0:19:28.799
+top i may say from matplotlib import pi plot
+
+0:19:25.280,0:19:35.760
+as plt it's kind of standard and we say plt.rc params
+
+0:19:32.640,0:19:41.919
+of font size equals 16. and
+
+0:19:39.280,0:19:43.760
+uh now i should actually get a nice plot um
+
+0:19:42.320,0:19:47.039
+well let's just kind of clean this up a little bit um it's nice to occasionally
+
+0:19:45.360,0:19:50.080
+remember how to do that so i'm going to capture that in ax maybe
+
+0:19:48.799,0:19:54.559
+i'll make the the line red so i'll say color equals red um
+
+0:19:53.200,0:20:01.360
+i need to set some labels so i'm going to say set x label
+
+0:19:58.000,0:20:06.799
+uh year let's try running that and so that's a little better let me set
+
+0:20:03.440,0:20:11.520
+a y label which will be how many hurricanes in that year
+
+0:20:09.919,0:20:17.120
+and then the other thing i want to do is i want to look at these spines
+
+0:20:14.559,0:20:18.880
+right so these spines help me kind of set the borders the spines are in the
+
+0:20:18.559,0:20:22.480
+top left bottom right and so i'm going to
+
+0:20:20.880,0:20:24.799
+say you can see it acts like a dictionary right where these are the
+
+0:20:23.919,0:20:28.799
+keys so i could grab the right spine if i
+
+0:20:27.360,0:20:34.320
+wanted to and and i could turn it off i could say
+
+0:20:30.960,0:20:42.880
+set visible uh false and then the same deal
+
+0:20:38.320,0:20:45.840
+same deal on the top and uh and there we go and that's kind of a
+
+0:20:43.919,0:20:52.240
+nice plot that we were able to build based on all this data we extracted
+
+0:20:48.559,0:20:52.240
+from this website
+

@@ -1,0 +1,762 @@
+0:00:02.080,0:00:07.839
+oh welcome to cs 320. uh today i'm going to be going over some logistics for the
+
+0:00:06.080,0:00:10.960
+course um and kind of giving you an idea of what we'll be learning this
+
+0:00:09.120,0:00:14.639
+semester um and then uh at the end i'm actually getting into
+
+0:00:12.480,0:00:18.560
+some actual content um so hopefully you've all taken data
+
+0:00:17.600,0:00:22.080
+programming one i know there's some exceptions there and
+
+0:00:20.560,0:00:25.680
+data programming one used to be numbered 301 or 220.
+
+0:00:23.840,0:00:28.960
+um both of these courses are really kind of a foundation for the new data science
+
+0:00:28.160,0:00:32.239
+major uh but i know it applies to a lot of
+
+0:00:30.320,0:00:36.160
+other people too um if anybody's interested in the data science major i
+
+0:00:33.600,0:00:39.840
+have a link for that up at the top um so i'm just going to compare and
+
+0:00:37.600,0:00:44.399
+contrast this course with the previous uh one cs220 um in that one we were kind
+
+0:00:42.800,0:00:49.200
+of learning the basics of coding we wanted to get uh
+
+0:00:46.239,0:00:51.360
+results and hopefully correct results um now
+
+0:00:49.680,0:00:55.120
+we're gonna be having higher standards we want to in addition
+
+0:00:52.800,0:00:58.320
+to getting results we want to make sure they're reproducible
+
+0:00:56.559,0:01:02.399
+other people who run our code are going to see the same thing
+
+0:01:00.000,0:01:06.880
+we're going to want our code to be fast as data sets get bigger and bigger
+
+0:01:04.640,0:01:10.320
+that becomes more and more of a concern um in 220 we learned about objects and
+
+0:01:09.439,0:01:13.600
+references and maybe i have two variables
+
+0:01:11.600,0:01:16.799
+referencing the same object maybe that object is a list or a dictionary
+
+0:01:15.759,0:01:20.320
+in this class we're going to be inventing new types of objects that will
+
+0:01:18.479,0:01:23.920
+be defining ourselves and so what that means is that we're
+
+0:01:22.240,0:01:27.360
+we're just defining functions in 220 now we're actually
+
+0:01:26.320,0:01:31.200
+dividing methods um i can say object dot f and then
+
+0:01:30.000,0:01:35.600
+parentheses and i'm going to be the one defining
+
+0:01:32.560,0:01:38.799
+half we never did that in 320. we learned some basic types in 220 like
+
+0:01:37.360,0:01:42.320
+lists and dictionaries now we're going to use our new power to
+
+0:01:40.240,0:01:45.600
+create new types to create complex structures like graphs and trees
+
+0:01:45.200,0:01:49.360
+and that's going to help us for instance
+
+0:01:47.119,0:01:54.799
+reason about how we could use the internet the internet is a big
+
+0:01:51.040,0:01:58.000
+graph of web pages for example uh in 220 we were strictly
+
+0:01:55.840,0:02:00.479
+uh just given data sets and then analyzed them
+
+0:01:59.280,0:02:03.600
+now we're going to actually look at cases where we can build our own data
+
+0:02:02.000,0:02:08.239
+sets from scratch either by kind of collecting data on the web
+
+0:02:05.280,0:02:10.720
+or by maybe taking some measurements we're going to make our plotting and
+
+0:02:09.360,0:02:14.080
+visualization more advanced we're going to do things like geographic maps and
+
+0:02:12.400,0:02:16.560
+animations and then at the end of the semester
+
+0:02:15.200,0:02:19.520
+instead of kind of doing straightforward analysis on tables we're going to do
+
+0:02:18.080,0:02:22.640
+some simple machine learning can we predict some columns in
+
+0:02:21.760,0:02:26.239
+a table um from the other columns so this is a
+
+0:02:24.800,0:02:28.239
+great way to build on that previous course
+
+0:02:26.800,0:02:32.640
+um if it's been a while since you took that course and want to review
+
+0:02:30.400,0:02:35.599
+i have a link at the bottom of this page in that semester i recorded all my
+
+0:02:34.720,0:02:40.160
+videos you could go back and kind of review
+
+0:02:37.200,0:02:42.800
+anything that you're rusty in so that was an introduction for the
+
+0:02:41.360,0:02:45.840
+course so let me introduce myself briefly
+
+0:02:43.360,0:02:49.519
+um my name is tyler crozza harder you should just call me tyler
+
+0:02:47.599,0:02:53.760
+uh i'm a long time badger i was an undergrad here myself
+
+0:02:50.800,0:02:57.920
+and did grad school here i worked a little bit in industry
+
+0:02:55.360,0:03:02.239
+primarily i was at microsoft for a while before coming back
+
+0:02:59.680,0:03:06.080
+to teach and i was working on cloud computing and particularly sql
+
+0:03:04.000,0:03:08.800
+server i've done other internships i'm always happy to talk about
+
+0:03:07.280,0:03:12.239
+uh internships with people if you're kind of applying for them i mean i've
+
+0:03:10.560,0:03:15.760
+worked at google facebook and some other places
+
+0:03:13.440,0:03:18.400
+uh aside from teaching i have a couple interests
+
+0:03:16.720,0:03:22.560
+one is i'm interested in civic hacking how can we write code
+
+0:03:20.239,0:03:25.519
+that kind of benefits a government in particular a local government
+
+0:03:24.239,0:03:30.560
+um so sometimes i'll get students involved with this so for example megan
+
+0:03:28.560,0:03:33.840
+on the left was uh working on this and she was kind of proposing new bus
+
+0:03:32.000,0:03:36.080
+routes in the city of madison so that kind of thing interests you definitely
+
+0:03:35.040,0:03:40.319
+talk to me um i'm also interested in building uh
+
+0:03:38.400,0:03:44.720
+new cloud frameworks um or basically running python drones
+
+0:03:43.120,0:03:47.040
+i've been involved in this project open lambda
+
+0:03:45.519,0:03:51.280
+i'm happy to talk about that too if anybody is interested
+
+0:03:48.560,0:03:53.599
+in his time taking some more upper-level uh
+
+0:03:51.680,0:03:58.560
+cs courses although i know that's not the most common background
+
+0:03:55.120,0:04:00.000
+in 320. um so i want to get all to know all of you too i think that's a little
+
+0:03:59.760,0:04:03.680
+bit harder um given that the course is
+
+0:04:02.319,0:04:07.360
+online this semester um i hope people will drop into office
+
+0:04:05.439,0:04:11.040
+hours and introduce themselves uh but to kind of get a sense of wall in
+
+0:04:09.599,0:04:14.319
+the class you know like what year in school you are what you're studying
+
+0:04:12.640,0:04:17.359
+what you've taken before i want everybody to fill out this form
+
+0:04:15.840,0:04:19.519
+so that'll help me a lot and then also i'm going to give some participation
+
+0:04:18.639,0:04:23.040
+credit for that so i'll be sharing that link at
+
+0:04:20.880,0:04:26.240
+the end too so let's talk a little bit about the
+
+0:04:24.160,0:04:30.560
+logistics for the course a lot of this i've been rethinking in
+
+0:04:29.199,0:04:34.400
+light of coven right this wasn't originally meant to be an online course
+
+0:04:32.960,0:04:37.360
+and i want to make it as good as possible and i think the main thing i'm
+
+0:04:36.400,0:04:40.160
+worried about is that normally students are learning from each
+
+0:04:38.880,0:04:43.040
+other and making new friends in this class
+
+0:04:41.120,0:04:47.120
+and that's harder now so what i'm going to be doing is i'm going to be
+
+0:04:44.240,0:04:49.680
+randomly assigning everybody to a team and a team is going to have four to
+
+0:04:48.320,0:04:53.280
+seven students and that team is going to last the whole
+
+0:04:51.680,0:04:57.440
+semester so you're going to at least get to know
+
+0:04:54.160,0:05:01.520
+a few people in this class well and to um facilitate that i mean make lots of
+
+0:04:59.680,0:05:04.560
+different kinds of collaboration um allowed with the in the team i mean
+
+0:05:03.360,0:05:08.080
+there's still some rules and i'm gonna be getting into that later
+
+0:05:06.000,0:05:11.600
+uh but um you know there's ways you can collaborate on projects and even even
+
+0:05:09.759,0:05:15.280
+quizzes for this course um now in contrast people who are not on
+
+0:05:14.160,0:05:18.800
+your team you know maybe you have friends on the course
+
+0:05:16.479,0:05:21.680
+uh the rules around collaborating with them is pretty strict right maybe
+
+0:05:20.000,0:05:24.639
+there's some exceptions that i'll outline later but for the most part
+
+0:05:23.520,0:05:28.880
+you're gonna be working with your randomly assigned
+
+0:05:25.600,0:05:33.199
+team this semester um now so we have different types of staff
+
+0:05:30.320,0:05:37.600
+uh there's instructor which is me where i have a few teaching assistants
+
+0:05:34.960,0:05:40.880
+and uh and then where i have six people who are mentors
+
+0:05:38.639,0:05:44.400
+who recently took this course themselves and did well
+
+0:05:41.919,0:05:47.120
+and they want to help others learn of all three of
+
+0:05:45.600,0:05:49.520
+these you know different types of people the course will be providing office
+
+0:05:48.560,0:05:53.039
+hours and you can intend any of those you
+
+0:05:51.680,0:05:56.960
+prefer now given that we have about 10 people
+
+0:05:54.880,0:06:01.600
+who are staff i also want you to connect with some individuals
+
+0:05:58.400,0:06:04.319
+and so uh they're going to be you know teaching assistants and mentors that
+
+0:06:02.880,0:06:06.720
+will have some special roles in the course
+
+0:06:05.120,0:06:09.759
+and so some vocabulary for that where i have one of our tas designated as the
+
+0:06:08.479,0:06:12.880
+head ta and um and she's going to be in charge
+
+0:06:11.199,0:06:16.080
+of projects right so um if you think there's a mistake on the
+
+0:06:14.720,0:06:20.639
+project or uh or you think the tests are wrong or
+
+0:06:18.800,0:06:23.120
+that kind of thing um she's going to be the one to contact i'll be sharing that
+
+0:06:22.000,0:06:28.000
+information um later and uh also where i have a team
+
+0:06:26.479,0:06:31.600
+ta so you're gonna have one ta dedicated to your team uh throughout
+
+0:06:30.479,0:06:35.360
+the whole semester and that's kind of your go to contact
+
+0:06:33.120,0:06:38.560
+person if you just need to send an email um so so you can get to know that person
+
+0:06:37.520,0:06:41.360
+better um now if you're into office hours of
+
+0:06:39.759,0:06:46.080
+course you can go to any ta right they don't have to be your team ta
+
+0:06:43.199,0:06:49.440
+um then finally in terms of grading and reviewing projects that's trying to just
+
+0:06:47.680,0:06:54.720
+rotate on a weekly basis right so you can kind of get feedback
+
+0:06:51.280,0:06:57.599
+from a number of different graduate tas for the mentors like i said you can go
+
+0:06:56.160,0:07:01.360
+to any of their office hours but we're also going to assign each team
+
+0:06:59.520,0:07:05.759
+a semester-long mentor who will meet with you on a weekly basis
+
+0:07:03.440,0:07:09.199
+and we'll meet with you meaning the team as a whole on a weekly basis
+
+0:07:07.360,0:07:12.080
+and so you can think after each lecture about questions you have or kind of
+
+0:07:10.639,0:07:15.039
+project issues and talk about those with your team and
+
+0:07:13.759,0:07:19.840
+then prepare for that time with the mentor so that you
+
+0:07:16.560,0:07:24.160
+have all these questions ready um so i use an external course website a
+
+0:07:22.639,0:07:31.039
+lot maybe i'll just click it now actually so this is the website and
+
+0:07:28.080,0:07:33.280
+i have the schedule here and uh syllabus and a lot of good stuff so you should
+
+0:07:32.319,0:07:36.400
+use that um i am going to be using canvas but
+
+0:07:35.120,0:07:40.319
+maybe a little less more less so than a lot of people might use
+
+0:07:38.479,0:07:42.240
+it um i'm going to use canvas for a few things
+
+0:07:41.039,0:07:46.960
+i'm going to use it for general announcements i prefer that over
+
+0:07:44.240,0:07:52.240
+email there's going to be these weekly quizzes on canvas that you can do
+
+0:07:49.360,0:07:55.360
+um you can uh use it to keep track of your progress right so maybe posting
+
+0:07:53.840,0:07:59.039
+things that you need to do um in canvas and then when you're done
+
+0:07:56.800,0:08:02.080
+you can click this markers done button that will help you keep track and also
+
+0:08:00.319,0:08:05.360
+help me keep track of where people are and if anybody's falling behind
+
+0:08:03.759,0:08:08.800
+and then i may be posting grade summaries there um
+
+0:08:07.120,0:08:11.680
+now that first side i mentioned is where we're actually giving you detailed
+
+0:08:10.000,0:08:13.680
+written feedback so you should use that heavily
+
+0:08:12.400,0:08:18.160
+but if you're just trying to see where you stand in the course then canvas will
+
+0:08:15.680,0:08:21.360
+be the place um other communication i already kind of
+
+0:08:19.840,0:08:23.840
+talked about the announcements where i have a piazza
+
+0:08:22.400,0:08:27.360
+there will be a link to that from from my site
+
+0:08:25.520,0:08:29.759
+don't paste more than five lines of project related code that's considered
+
+0:08:29.120,0:08:34.719
+um academic misconduct in this class uh
+
+0:08:32.800,0:08:38.159
+we're also going to be posting office hours to piazza
+
+0:08:36.479,0:08:40.959
+for me the tas in the minute or so so check that um
+
+0:08:39.519,0:08:44.159
+on the website where i have all these google forms that you can fill out i've
+
+0:08:42.640,0:08:48.720
+already mentioned one of those which is the introductory form um there's maybe a
+
+0:08:47.040,0:08:52.560
+form for anonymous feedback so uh you know you should also feel
+
+0:08:51.440,0:08:55.040
+comfortable just trying to directly email me and tell me if there's things
+
+0:08:53.920,0:08:59.440
+bothering you in the course but if you prefer to be anonymous
+
+0:08:56.880,0:09:01.920
+that's how uh like i said we have lots of tas and vendors for this course and
+
+0:09:00.880,0:09:05.680
+so if anybody's really doing an outstanding job
+
+0:09:03.680,0:09:08.160
+you can fill out a form that basically thanks them and kind of say what you
+
+0:09:06.959,0:09:11.760
+liked about how they have been helping you and that's good
+
+0:09:10.480,0:09:15.839
+for me to know to kind of see who's really doing a great job helping
+
+0:09:13.279,0:09:21.279
+students and it's very motivating for them to hear that feedback of course
+
+0:09:19.120,0:09:24.320
+um other contact you can always just drop me an email i have my email address
+
+0:09:22.880,0:09:29.040
+up here or you know there's gonna be this other
+
+0:09:26.160,0:09:33.120
+page where you can email the tas a little bit about course etiquette so
+
+0:09:31.120,0:09:36.880
+for these office hours you just drop in there's no need to communicate with
+
+0:09:34.800,0:09:40.000
+us in advance just show up and come with your questions
+
+0:09:38.080,0:09:43.600
+um some people in the past have felt they needed to email before you don't
+
+0:09:42.240,0:09:47.120
+um if you want to have an individual meeting that's maybe a little bit longer
+
+0:09:45.680,0:09:50.240
+drop me an email and i'm happy to set that up when you are emailing it's
+
+0:09:49.680,0:09:53.279
+helpful especially like a project question it's
+
+0:09:51.839,0:09:56.560
+helpful if you email from your at wisc.edu
+
+0:09:54.959,0:09:59.440
+um because that has your netid in it and then from that i can kind of figure out
+
+0:09:57.839,0:10:02.560
+who you are more quickly um if you email me from something else
+
+0:10:01.279,0:10:07.600
+like a gmail just include your netid in it so i know
+
+0:10:04.720,0:10:10.959
+exactly who you are try not to start multiple email threads
+
+0:10:09.519,0:10:14.880
+if the topic is the same we get a lot of emails and that kind of
+
+0:10:12.399,0:10:18.399
+leads to confusion on our end we'll try to be responsive this semester
+
+0:10:16.640,0:10:22.720
+which usually means um give us 48 hours to get back to you
+
+0:10:21.200,0:10:25.279
+we'll try to be faster but sometimes the emails pile up and we get a little bit
+
+0:10:24.560,0:10:28.640
+behind so uh we appreciate your patience with
+
+0:10:27.839,0:10:32.160
+that um you know user judgment about whether
+
+0:10:30.560,0:10:36.560
+to email me or your ta first um it's kind of up to you it
+
+0:10:35.120,0:10:39.120
+definitely takes more load off of me if some of the emails
+
+0:10:37.519,0:10:44.720
+and answering questions is distributed across the tas in particular
+
+0:10:41.600,0:10:47.040
+your team tas and then finally right i mean you should
+
+0:10:45.519,0:10:50.720
+email us if you want to but if it seems like it's a general question
+
+0:10:48.640,0:10:54.240
+uh consider using uh piazza all right because maybe it'll help other people in
+
+0:10:51.920,0:10:57.440
+the class as well all right let's talk a little bit about
+
+0:10:55.360,0:11:01.120
+grading so the way it's going to work is that at the end of the semester i have a
+
+0:10:58.959,0:11:04.720
+score between 0 and 100 and then i may have set a curve and i'm
+
+0:11:03.279,0:11:09.920
+not sure what the curve looks like yet because this is a drastically new format
+
+0:11:06.959,0:11:13.360
+um for the course to kind of accommodate uh covet
+
+0:11:11.600,0:11:16.000
+so there's maybe four parts to graded work there's maybe seven projects each
+
+0:11:15.200,0:11:19.440
+worth eight percent so that's the most
+
+0:11:17.200,0:11:22.959
+important thing um in the previous course
+
+0:11:19.920,0:11:25.839
+most of these projects were notebooks um some will be this semester but we're
+
+0:11:24.320,0:11:29.760
+also going to have you be writing python modules
+
+0:11:26.800,0:11:31.279
+and python programs um in your projects they're going to be two parts there's
+
+0:11:30.800,0:11:35.279
+gonna be the first part where you can basically
+
+0:11:32.959,0:11:40.079
+collaborate with your team in any way and then a smaller second part that you
+
+0:11:38.240,0:11:43.200
+have to do individually right so everybody will turn in their
+
+0:11:41.680,0:11:46.160
+own notebook or dot pi file at the end and so for that
+
+0:11:45.120,0:11:50.639
+second part you should only be getting help from 320 staff
+
+0:11:48.000,0:11:54.079
+um there's maybe a test.pie like in in the previous course
+
+0:11:52.160,0:11:57.200
+um it won't tell you as much as it did before in part because you're gonna be
+
+0:11:55.760,0:12:00.800
+making more plots and that's hard to auto grade like often
+
+0:11:59.279,0:12:04.480
+a ta has to look at a plot and see if you did the right thing
+
+0:12:02.560,0:12:06.480
+um when you submit you should ask for specific feedback if you're interested
+
+0:12:06.000,0:12:09.440
+in i think constructive feedback is a
+
+0:12:08.160,0:12:12.160
+priority in this class because that's really how you become a better
+
+0:12:10.399,0:12:15.600
+programmer um these quizzes are going to be short
+
+0:12:14.240,0:12:19.519
+uh two percent um each it's gonna be after each week
+
+0:12:17.680,0:12:22.880
+just trying to make sure you're um you know watching the lectures and
+
+0:12:21.279,0:12:26.480
+absorbing the content hopefully it's a little pressure um
+
+0:12:24.959,0:12:31.120
+there's gonna be a deadline but you are welcome to take it sooner if you
+
+0:12:28.000,0:12:35.440
+like um this will be on canvas it can be open blocking notes
+
+0:12:32.880,0:12:39.120
+um for the most part you should be doing these alone
+
+0:12:37.040,0:12:43.440
+with one big exception if there are other people on your assigned team
+
+0:12:41.120,0:12:46.800
+who want to take it at the same time you can take it together and discuss
+
+0:12:44.880,0:12:49.120
+answers what i don't want to have happen is to have a team member complete it and
+
+0:12:48.320,0:12:52.160
+then kind of make notes and then pass that on to
+
+0:12:50.399,0:12:54.639
+somebody else but i like if people are kind of
+
+0:12:52.880,0:12:59.519
+on the same team are discussing as they go through the quiz
+
+0:12:56.720,0:13:03.360
+um there's going to be a final which is not like a real final it's more like an
+
+0:13:01.519,0:13:06.639
+open-ended project that's short and on a topic of your choosing um
+
+0:13:05.519,0:13:09.440
+you're gonna have to write a little bit about your results as well so you can
+
+0:13:08.399,0:13:14.720
+almost think of it more as like a combination paper
+
+0:13:11.680,0:13:17.920
+analysis hopefully it's not too much work compared to a regular
+
+0:13:16.320,0:13:21.760
+project all more details on the constraints for
+
+0:13:19.760,0:13:24.800
+that when it gets a little closer um and then finally participation is six
+
+0:13:23.680,0:13:29.120
+percent of the grade and that includes things like um you know
+
+0:13:27.440,0:13:31.680
+filling out the survey that i asked you to or
+
+0:13:30.000,0:13:36.720
+um interacting in discussions and various other things just kind of
+
+0:13:33.279,0:13:39.920
+being engaged in the course um let me talk a little bit about academic
+
+0:13:38.320,0:13:44.000
+misconduct uh um actually last uh last semester i kind
+
+0:13:42.399,0:13:47.519
+of had this scary slide at the start of it and then very few people
+
+0:13:45.760,0:13:53.279
+um cheated which is great so hopefully it has the same effect uh this semester
+
+0:13:50.240,0:13:56.959
+um last fall one year ago um you know i had to report over 30
+
+0:13:55.279,0:13:59.199
+people uh cheating which is pretty discouraging so
+
+0:13:57.920,0:14:02.720
+so make sure you understand the rules what is allowed and what's not
+
+0:14:01.199,0:14:06.560
+kind of the most common cheating as you can see here is on on projects
+
+0:14:04.880,0:14:11.279
+um they're really good tools that help us uh catch that
+
+0:14:08.560,0:14:13.040
+um so when i talk to people who have cheated it's not usually that they're
+
+0:14:12.399,0:14:17.279
+trying to you know game the system so much that
+
+0:14:14.800,0:14:20.880
+they fell behind in the course and then started feeling desperate
+
+0:14:18.959,0:14:23.199
+so if you are feeling behind or overwhelmed especially since i know this
+
+0:14:22.399,0:14:27.360
+is a is a weird semester for all of us um
+
+0:14:25.760,0:14:30.800
+just let me know i'm happy to talk and hopefully find a way to get back on on
+
+0:14:29.040,0:14:36.800
+track so hopefully you never feel desperate and that you have to
+
+0:14:32.959,0:14:39.920
+kind of do unethical things to succeed well the reading will be similar to the
+
+0:14:38.560,0:14:43.279
+previous course where i have these two books that you
+
+0:14:40.880,0:14:45.760
+have probably already have some familiarity with
+
+0:14:44.399,0:14:48.480
+and there's going to be some other notes and online resources and i'll just let
+
+0:14:47.680,0:14:53.120
+you know about that as we go um so maybe you have some
+
+0:14:51.600,0:14:55.760
+questions you can feel free to drop an email
+
+0:14:53.839,0:14:59.440
+um or better if it's general just post to piazza
+
+0:14:56.880,0:15:06.880
+and we'll kind of answer those the best we can
+

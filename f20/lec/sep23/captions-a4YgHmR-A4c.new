@@ -1,0 +1,648 @@
+0:00:01.680,0:00:06.399
+hello in this video i may be talking about
+
+0:00:03.840,0:00:10.400
+recursion um maybe you learned about recursion in another class
+
+0:00:08.000,0:00:14.559
+uh but maybe not as well so i'll kind of talk about it from the beginning
+
+0:00:12.000,0:00:18.160
+um recursion is this idea when a function
+
+0:00:15.120,0:00:22.640
+or a method uh calls itself and um and there's mathematical reasons
+
+0:00:20.960,0:00:25.920
+for why this might show up um so i'm just trying to do kind of one
+
+0:00:23.920,0:00:29.679
+simple example um now to kind of get our mind in the right
+
+0:00:27.680,0:00:34.160
+spot and that's with factorials maybe you remember from math
+
+0:00:30.880,0:00:38.800
+that five factorial is five times four times three times two times one uh four
+
+0:00:37.200,0:00:42.320
+factorial would be all the numbers multiplied
+
+0:00:39.520,0:00:46.000
+by each other from four to one and then uh kind of down at the end zero
+
+0:00:43.760,0:00:50.640
+factorial is just one and um and so i'm almost using this uh
+
+0:00:48.800,0:00:53.199
+exclamation mark that's the factorial symbol
+
+0:00:51.840,0:00:56.640
+i'm trying to treat it like a function right so maybe a way i'd rather write
+
+0:00:54.719,0:01:00.960
+this is something like this factorial of five
+
+0:00:57.680,0:01:04.239
+equals that and then factorial of 4 equals this so it's a little bit closer
+
+0:01:02.320,0:01:12.640
+to python code factorial of 0 equals this
+
+0:01:08.880,0:01:14.799
+kind of so on and so forth and when you're looking at this you'll
+
+0:01:13.760,0:01:18.799
+notice that there's a little bit of self-reference right
+
+0:01:16.320,0:01:22.640
+like um when i look at what factorial of four equals
+
+0:01:20.400,0:01:26.560
+that shows up as part of the answer for factorial of five
+
+0:01:24.400,0:01:31.200
+right so i can actually i could rewrite this if i want is you know
+
+0:01:28.400,0:01:34.240
+factorial of 5 is 5 times a factorial of 4.
+
+0:01:32.640,0:01:38.479
+i'm not really showing the factorial of 3 here but if i were i might write it
+
+0:01:35.840,0:01:42.479
+like this factorial of 3. and um and and so what you can see is
+
+0:01:41.200,0:01:46.560
+that there's this pattern right i get the factorial
+
+0:01:44.159,0:01:51.280
+of something is that something times the factorial of something minus one
+
+0:01:49.360,0:01:56.640
+right and when i kind of self-reference myself right factorial
+
+0:01:53.360,0:02:00.240
+for fine in terms of factorial uh it can simplify things
+
+0:01:58.560,0:02:04.399
+so how would i actually write code for something like this
+
+0:02:02.799,0:02:09.520
+i i could write my function maybe i'll write factorial
+
+0:02:06.840,0:02:13.599
+and and then i'll say well what is the factorial of
+
+0:02:10.560,0:02:16.800
+n and there's no reason i can't call myself i
+
+0:02:15.360,0:02:20.840
+can say return in fact well i can return let me just
+
+0:02:19.680,0:02:24.800
+try to write this a little bit more generally
+
+0:02:22.800,0:02:30.239
+kind of the pattern here is a factorial of n
+
+0:02:25.920,0:02:33.920
+equals n times factorial of n minus 1. okay so i'll just do that i'll return n
+
+0:02:32.319,0:02:38.800
+times factorial of n minus 1.
+
+0:02:37.280,0:02:40.879
+and i do that and well let's just kind of step through this and see what
+
+0:02:39.840,0:02:46.160
+happens well nothing unless i actually call it
+
+0:02:43.040,0:02:50.480
+but let me get the factorial of five and it's time running my code it seems
+
+0:02:47.599,0:02:54.400
+like it's taking a while for some reason and and i guess i kind of crashed right
+
+0:02:52.640,0:02:58.800
+well what happened here so let me kind of step through this i'm
+
+0:02:57.120,0:03:02.080
+calling factorial five so you can see over here on the right
+
+0:03:00.159,0:03:07.519
+that i get a stack frame where i'm passing in five and
+
+0:03:05.280,0:03:11.440
+and then before i can really return right before the return completes
+
+0:03:09.920,0:03:14.159
+i have to compute this on the right which is going to involve calling
+
+0:03:12.720,0:03:18.640
+factorial of four so what i call that
+
+0:03:17.200,0:03:23.200
+what i want you to notice is that even though i only have one function here
+
+0:03:21.040,0:03:26.640
+when it calls itself i can might have kind of multiple frames for the same
+
+0:03:25.200,0:03:30.400
+function that are active at the same time so some kind of this is the current
+
+0:03:29.280,0:03:35.360
+frame i'm in kind of the bottom of the stack right i
+
+0:03:32.959,0:03:38.959
+might call this all these frames like a stack of frames or i might call one of
+
+0:03:36.879,0:03:45.440
+just a frame or a stack frame when i run this and i may get well
+
+0:03:42.400,0:03:51.360
+before i can return for factorial 4 i have to compute factorial of 3.
+
+0:03:48.879,0:03:55.519
+that's when i keep going and really when i get to 0 it just keeps on drawing and
+
+0:03:53.040,0:03:59.120
+this wouldn't theory go forever except that i'm limited to how many
+
+0:03:57.280,0:04:02.000
+frames i can have when i'm programming and so there'd
+
+0:04:00.400,0:04:05.360
+actually be an error called a stack overflow
+
+0:04:02.959,0:04:07.920
+um error and this wouldn't work and the reason why i ran into trouble here is
+
+0:04:06.959,0:04:13.280
+that this is only usually true notice that
+
+0:04:10.560,0:04:16.479
+for factorial five i can define that kind of in terms of a recursive case
+
+0:04:15.760,0:04:20.880
+factorial four i can define that in terms of
+
+0:04:17.919,0:04:24.000
+recursive case with factorial of zero guess what i'm not calling myself in
+
+0:04:23.040,0:04:29.120
+that case and so maybe i should make a little note
+
+0:04:25.360,0:04:33.440
+here uh i should say this is for n greater than zero and and so down here i
+
+0:04:31.840,0:04:38.000
+can actually do this i could say well when i actually get to factorial of zero
+
+0:04:35.759,0:04:41.600
+i don't want to keep going i can say if um
+
+0:04:38.479,0:04:45.440
+n equals zero you know if i'm probably factorial and n equals
+
+0:04:43.520,0:04:50.160
+zero guess what i know the answer i don't have to call myself anymore when
+
+0:04:48.160,0:04:53.360
+i return one and so now kind of at the back at the
+
+0:04:51.759,0:05:00.639
+beginning here um why is it still
+
+0:04:58.560,0:05:03.360
+uh there we go uh python tutor was being a little weird
+
+0:05:01.680,0:05:08.240
+uh let's try kind of running through this
+
+0:05:04.960,0:05:13.840
+okay so i'm gonna call factorial five um is n equal to 0 no
+
+0:05:11.600,0:05:18.400
+so i'm going to call well i'm going to return 5
+
+0:05:15.840,0:05:23.280
+times whatever factorial 4 returns right so i get that
+
+0:05:19.759,0:05:26.880
+now i'm running factorial of 4 and factorial four is really called
+
+0:05:24.639,0:05:29.919
+factorial of three factorial of three is trying to call
+
+0:05:28.320,0:05:33.120
+factorial of two factorial two is gonna call factorial of
+
+0:05:31.600,0:05:37.440
+one that's gonna equal factorial of zero and
+
+0:05:34.960,0:05:43.199
+now i get to this interesting case where it turns out now this is true
+
+0:05:41.039,0:05:47.199
+and so i'm going to return one instead this is the base case the base case
+
+0:05:44.960,0:05:51.600
+means i don't call myself anymore and so when i return this stack frame
+
+0:05:50.400,0:05:55.199
+over here on the right is going to go away
+
+0:05:53.039,0:05:59.360
+and and then i'll know what the answer of factorial
+
+0:05:56.560,0:06:01.520
+zero is for this one right that's what i'm
+
+0:05:59.600,0:06:05.680
+going to go back to so let me run that and i'm going to return one
+
+0:06:03.280,0:06:09.199
+and now i'm back here right you see that that frame went away
+
+0:06:07.280,0:06:14.880
+and now i'm at the next one i'm at at this one factorial of one
+
+0:06:11.600,0:06:17.280
+and now i'm going to return what one times the factorial of zero and i
+
+0:06:16.080,0:06:20.160
+already got the answer back for that which is just one
+
+0:06:18.720,0:06:24.800
+and so now i'm going to kind of do this on winding right and you can see that
+
+0:06:22.880,0:06:28.160
+this kind of keeps growing right factorial of 6.
+
+0:06:26.479,0:06:31.360
+so the next answer is going to be factorial 4
+
+0:06:32.840,0:06:40.800
+times what factorial of three returns which is six right so
+
+0:06:37.039,0:06:45.039
+you know i'm returning six now the return value for this one is going
+
+0:06:42.800,0:06:50.880
+to be four times six which is 24. but you see i got 24 here all right so
+
+0:06:48.080,0:06:55.840
+i'm going to return that and finally i get all the way back here
+
+0:06:52.880,0:07:01.440
+to the beginning and i have and i have 120 which seems correct
+
+0:07:00.000,0:07:05.199
+and that's my final answer and i guess uh you know if i was trying to be
+
+0:07:03.599,0:07:08.400
+let me just run that to the end and then maybe i end up saving that in some
+
+0:07:07.039,0:07:13.680
+variable at the end so i'm going to head over to my ipad
+
+0:07:11.520,0:07:17.520
+and kind of draw out how i would trace through this code
+
+0:07:15.440,0:07:21.520
+if i wasn't using a python tutor how could i think through this
+
+0:07:19.680,0:07:23.840
+and so so let me kind of just head over here
+
+0:07:24.319,0:07:30.160
+and i'm going to switch to my ipad like so
+
+0:07:28.240,0:07:34.639
+and here i have that same function i was just talking about
+
+0:07:31.840,0:07:39.919
+and so how would i think through this how would i figure out
+
+0:07:36.400,0:07:42.639
+what factorial 5 is and for this kind of code where i'm just trying to be turning
+
+0:07:41.039,0:07:47.120
+an answer not doing anything the key is just to kind of take very
+
+0:07:44.560,0:07:50.240
+detailed notes because like each problem creates a new problem and kind of i have
+
+0:07:48.720,0:07:53.120
+to solve the simpler problems before i call
+
+0:07:50.560,0:07:56.879
+go back and solve the main problem so so maybe what i'll do is i'll say well
+
+0:07:54.319,0:08:03.599
+factorial factorial of five equals
+
+0:08:01.840,0:08:06.639
+this piece right it's five times factorial of four
+
+0:08:07.039,0:08:18.080
+five times factorial of 4 which equals guess what i don't
+
+0:08:16.479,0:08:22.639
+know because i don't know what factorial of 4 is yet
+
+0:08:20.160,0:08:26.879
+right so i'm kind of leaving and i'm leaving this problem
+
+0:08:24.800,0:08:30.400
+oh i'm kind of leaving this problem hanging right
+
+0:08:28.240,0:08:37.680
+i don't know what the answer is yet until i do factorial of 4
+
+0:08:33.760,0:08:45.360
+factorial 4 equals 4 times factorial
+
+0:08:41.839,0:08:49.040
+of 3 which leaves a hanging problem that's why you have to have very careful
+
+0:08:46.800,0:08:53.440
+notes for fact for kind of recursion because you have all these problems in
+
+0:08:50.320,0:09:01.360
+the error at once factorial of 3 equals 3 times
+
+0:08:57.600,0:09:07.279
+factorial of 2 which equals something now i figure out what
+
+0:09:04.480,0:09:10.560
+factorial of 2 is factorial of 2 and i should have kind of chosen a
+
+0:09:09.279,0:09:18.160
+smaller example here is 2 times factorial
+
+0:09:13.920,0:09:22.000
+of 1 equals something right and then finally i have well
+
+0:09:20.240,0:09:29.760
+actually not finally a factorial of one equals one
+
+0:09:26.399,0:09:34.959
+times the factorial of zero which equals
+
+0:09:32.959,0:09:39.200
+something right that wasn't my base case yet my base case
+
+0:09:36.080,0:09:44.959
+is n equals zero which is i haven't done that yet but i'm about to do that
+
+0:09:41.760,0:09:49.519
+my last case i have factorial of zero and then looking up here well in
+
+0:09:48.160,0:09:52.800
+that case i just returned one that was my base
+
+0:09:50.080,0:09:56.720
+case that's the one thing i know right that equals one
+
+0:09:55.279,0:10:00.480
+and so now what i want you to see is that we can kind of unwind right i know
+
+0:09:58.720,0:10:03.440
+factorial of zero so i can actually go back
+
+0:10:00.800,0:10:08.240
+and compute this right so factorial of zero
+
+0:10:04.959,0:10:11.360
+is just one so one times one is one now i know what factorial of one
+
+0:10:10.880,0:10:18.480
+is which is up here so factorial of one
+
+0:10:14.800,0:10:24.560
+is one two times one is two so now i know factorial of two
+
+0:10:22.399,0:10:27.680
+factorial of three equals three times factorial of two which i just figured
+
+0:10:26.320,0:10:33.680
+out that was two so i get three times two six right it's
+
+0:10:30.720,0:10:38.240
+a nano factorial of 3. going back factorial 4 equals 4 times
+
+0:10:36.480,0:10:46.000
+factorial of 3. i just computed that i was 6 right and
+
+0:10:41.440,0:10:49.120
+so i get factorial 4 is 4 times 6 is 24. and i have that one and then finally i
+
+0:10:47.760,0:10:52.160
+can actually go back and answer my original question what is the factorial
+
+0:10:50.720,0:10:58.640
+of 5 and the factorial of 5 is 5 times
+
+0:10:55.360,0:11:02.880
+24 right so this goes to 24 and i get 120 and that's not what i was
+
+0:11:01.600,0:11:07.600
+drawing for and so depending on what semester you
+
+0:11:05.040,0:11:11.839
+took on 220 or 301 maybe you learned how to do this kind of thing
+
+0:11:09.200,0:11:14.800
+and um and that's all fine and well and this strategy that i just showed works
+
+0:11:14.240,0:11:18.959
+well when the function just returns things
+
+0:11:17.200,0:11:23.440
+okay it's going to get harder for a piece of code like this
+
+0:11:20.640,0:11:25.680
+because this code is not just um it's not just
+
+0:11:24.160,0:11:29.680
+kind of returning something it's doing something and so i want to figure out
+
+0:11:27.680,0:11:33.839
+well what is the output when i have this recursive call
+
+0:11:31.200,0:11:36.240
+what does this thing end up printing and we have to draw a different function for
+
+0:11:35.600,0:11:39.440
+that what we have to really do is try to
+
+0:11:37.519,0:11:42.240
+figure out well what were all the invocations of
+
+0:11:40.399,0:11:44.720
+m what were the parameters those indications and what order did they
+
+0:11:43.839,0:11:47.839
+happen and to do that i'm going to draw a
+
+0:11:45.839,0:11:51.519
+different picture which is what we call a call graph
+
+0:11:49.440,0:11:58.160
+and so the way i start a call graph is i kind of draw that first call
+
+0:11:54.320,0:12:04.480
+like this i say m of three and then what i do
+
+0:12:01.600,0:12:09.200
+from there is i look at when i call m of three
+
+0:12:06.240,0:12:13.440
+what do i call and in what order and so i'm gonna call
+
+0:12:10.079,0:12:17.839
+print three three is greater than one so i'm gonna call
+
+0:12:14.000,0:12:19.680
+m of two and then i'm gonna print three again
+
+0:12:18.399,0:12:27.200
+all right so so i'm gonna kind of draw this i'm like well
+
+0:12:21.600,0:12:39.360
+i'm going to print three i'm going to call m
+
+0:12:30.959,0:12:42.560
+of 2 and then i'm going to print 3 again right so i'm kind of drawing in order
+
+0:12:40.800,0:12:46.399
+all the things that print that m of three does right it prints
+
+0:12:44.320,0:12:52.720
+three calls m of two and then prints three now before
+
+0:12:49.839,0:12:55.600
+before i did this last print it called m of two
+
+0:12:53.440,0:12:59.519
+and i've shown that here and m of two might do some other things and i'm gonna
+
+0:12:57.120,0:13:05.200
+kind of think about what m of two does so m of two is running down here
+
+0:13:02.160,0:13:10.959
+and the first thing m of two does is that it prints it prints two
+
+0:13:11.279,0:13:17.920
+um two is greater than one so then i run this code here
+
+0:13:14.880,0:13:25.440
+so then m of two calls m of one
+
+0:13:21.200,0:13:30.160
+and then finally it prints one uh prints two again
+
+0:13:27.120,0:13:34.880
+you know m of two prints two after it does that call
+
+0:13:31.440,0:13:37.760
+so i have that and um and then now i'm kind of getting down to this last case
+
+0:13:36.160,0:13:43.440
+right i want to figure out what m of one does
+
+0:13:39.279,0:13:48.560
+m of one well it's trying to print one but this is false now one is not greater
+
+0:13:46.880,0:13:53.680
+than one so this won't run so i guess m of one
+
+0:13:50.000,0:13:57.279
+all it really does is it prints one so i may print one
+
+0:13:59.760,0:14:06.160
+okay and so now the final thing i want to do here
+
+0:14:03.680,0:14:10.399
+right i kind of figure out you know all the different times
+
+0:14:07.040,0:14:14.639
+m is called with what parameters i figured out for each call of m what it
+
+0:14:13.680,0:14:18.399
+prints but i still haven't done that last step
+
+0:14:16.240,0:14:22.079
+of figuring out what my output looks like okay so what i'm going to do
+
+0:14:20.480,0:14:30.399
+here is i'm going to say over in the top right
+
+0:14:22.880,0:14:34.000
+what is my output and and kind of the key here is i know all
+
+0:14:31.839,0:14:38.160
+the different things that get printed but i have to kind of think a little bit
+
+0:14:35.279,0:14:42.880
+carefully about the order and so well what is the order well
+
+0:14:41.519,0:14:47.040
+the very first thing that happened is that this print happened all right so
+
+0:14:44.800,0:14:50.160
+i'm going to draw this here oh the next thing happened is that this
+
+0:14:48.720,0:14:53.519
+print happened and i have to kind of be careful as i'm drawing these lines they
+
+0:14:51.519,0:14:56.800
+shouldn't cross each other the third thing that happened is that
+
+0:14:54.800,0:15:00.399
+this print happened the fourth thing happened is that this
+
+0:14:58.240,0:15:03.279
+print happened the last thing that happened
+
+0:15:00.880,0:15:10.000
+is that this print happened and so so my final output here is going to be one
+
+0:15:05.040,0:15:16.720
+it's going to be 3 2 1 two
+
+0:15:13.199,0:15:20.480
+three and and so kind of using this call graph right this is a good strategy you
+
+0:15:19.120,0:15:25.199
+can deal with functions that aren't necessarily returning anything
+
+0:15:22.560,0:15:29.040
+uh but but they might be kind of taking some sort of action
+
+0:15:26.079,0:15:31.040
+in the world and when that action is uh printing
+
+0:15:29.519,0:15:35.279
+well you can think about well what order those prints happen
+
+0:15:32.560,0:15:37.680
+and then get an output um next time i'm gonna maybe look at an example where
+
+0:15:36.720,0:15:40.079
+instead of printing maybe we're appending things to the less
+
+0:15:39.120,0:15:43.360
+and that'll be kind of a similar strategy if i figure out
+
+0:15:41.839,0:15:47.279
+what order things could append to the list though then i can kind of reason
+
+0:15:45.120,0:15:57.839
+through what the list will look like at the end
+
+0:15:55.759,0:15:57.839
+you
+

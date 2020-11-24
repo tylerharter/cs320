@@ -1,0 +1,564 @@
+0:00:02.080,0:00:07.200
+in the last video we learned a little bit about the logistic regression
+
+0:00:04.960,0:00:10.160
+classifier at sk learn and um today we're gonna be throwing
+
+0:00:08.800,0:00:14.799
+something else into the mix which is a transformer
+
+0:00:11.360,0:00:18.000
+a logistic regression oh excuse me logistic regression and linear
+
+0:00:16.400,0:00:21.520
+regressions were examples of estimators and um and they give us these
+
+0:00:20.800,0:00:25.519
+three methods fit score and predict that correspond to
+
+0:00:24.160,0:00:28.560
+these three typical uh steps we do in the machine learning
+
+0:00:26.880,0:00:32.079
+process training a model testing a model and then actually
+
+0:00:29.840,0:00:35.360
+deploying it to make new predictions and um transformers when we add these to
+
+0:00:34.320,0:00:39.200
+the mix are also going to be taking place in
+
+0:00:37.360,0:00:42.960
+these three parts they similarly have a fit function or
+
+0:00:41.920,0:00:46.399
+method and um what we'll do in the first step
+
+0:00:45.039,0:00:50.000
+is we'll when we have a transformer is we'll fit
+
+0:00:48.960,0:00:54.559
+our transformer to our data and apply some sort of
+
+0:00:52.399,0:00:58.800
+transformation on it some examples of transformations we
+
+0:00:56.239,0:01:02.480
+might do is um a principal component analysis
+
+0:01:00.000,0:01:05.600
+uh to reduce the number of columns or we might add columns by um
+
+0:01:04.080,0:01:10.400
+by doing a polynomial features transformer on the data
+
+0:01:08.159,0:01:12.799
+and um and then after that you can actually see that
+
+0:01:11.280,0:01:17.759
+the fit transform is just a combination of fit and then called a transform
+
+0:01:15.200,0:01:22.799
+and so we're actually doing a transform every step along
+
+0:01:19.920,0:01:27.040
+the way so for example if i have in my original data some
+
+0:01:23.920,0:01:30.320
+field called and i'm doing polynomial features on it
+
+0:01:28.159,0:01:33.040
+then you know when i'm training i want to have an x squared
+
+0:01:31.600,0:01:37.200
+when i'm testing i want to have an x squared and when i'm actually deploying
+
+0:01:35.280,0:01:41.040
+my model i need an x squared there too right so we'll be doing transformations
+
+0:01:39.840,0:01:44.479
+all the way and the fitting just happens on the first step
+
+0:01:42.799,0:01:48.640
+um kind of based on the original data we have and so what we'll often want to do
+
+0:01:47.280,0:01:53.920
+is we'll want to apply some sort of transformation first
+
+0:01:50.560,0:01:58.560
+and then actually do our estimation based on the transformed data
+
+0:01:56.880,0:02:03.680
+and and so what i'm going to be working towards is how we can build
+
+0:02:00.479,0:02:06.640
+a pipeline using sk learn pipelines um and um and this is going to make it
+
+0:02:04.880,0:02:11.360
+really smooth to kind of pair up all these things
+
+0:02:08.000,0:02:14.640
+at the appropriate times and um and in general right you can have more than
+
+0:02:12.480,0:02:17.680
+one transformer we could have a pipeline of multiple transformers ending with an
+
+0:02:16.239,0:02:21.360
+estimator in the simplest case we just have one
+
+0:02:19.120,0:02:24.640
+estimator and so i'm going to show you some data
+
+0:02:22.000,0:02:27.840
+that i'm randomly generating um that demonstrates the need for this so in
+
+0:02:26.160,0:02:33.519
+this data i have 1000 x and y values and
+
+0:02:30.959,0:02:38.560
+most of those values at those points are going to be a light gray color
+
+0:02:35.280,0:02:43.360
+make a scatter plot um but i'm computing the distance
+
+0:02:40.000,0:02:48.959
+to the coordinates four one right so i get the distance there and
+
+0:02:46.720,0:02:52.720
+when the distance to that is less than four
+
+0:02:50.400,0:02:55.200
+plus or minus some noise then i make those points black
+
+0:02:54.000,0:03:01.040
+right so i'm going to get some data that looks like this kind of this
+
+0:02:57.360,0:03:03.760
+uh black oval shape um but you can see that there's some noise around it right
+
+0:03:02.480,0:03:07.120
+so it'd be nice if we have some sort of predictor
+
+0:03:05.040,0:03:12.000
+um that would figure out what the color of a new scatter point should be
+
+0:03:09.760,0:03:16.239
+that i haven't shown yet and so we're gonna use logistic regression
+
+0:03:13.680,0:03:18.959
+right the only classifier that we've learned yet
+
+0:03:17.360,0:03:22.879
+but logistic regression is a linear model and it's not good at kind of
+
+0:03:20.480,0:03:26.720
+capturing something like a circle in the middle of a plot let me try it at
+
+0:03:24.959,0:03:30.159
+first and show you how bad it is and then we're actually going to add
+
+0:03:28.159,0:03:32.879
+polynomial features to the mix and when i have a pipeline that has
+
+0:03:31.360,0:03:37.280
+polynomial features and then logistic regression
+
+0:03:34.000,0:03:41.440
+we can actually do quite well um at kind of capturing a more complicated
+
+0:03:38.959,0:03:44.720
+pattern um like this so down here i've imported a few things
+
+0:03:43.599,0:03:49.920
+i've imported my training and test uh split function
+
+0:03:47.840,0:03:54.000
+right that's often used for determining how well a model will do and that's why
+
+0:03:51.519,0:03:57.040
+it's under model selection i have my polynomial features
+
+0:03:55.680,0:04:00.080
+transformer and then logistic regression and then in
+
+0:03:59.120,0:04:03.360
+the end we're going to pull it all together with a pipeline
+
+0:04:02.000,0:04:08.080
+okay so first off let's just try straight up logistic regression
+
+0:04:05.360,0:04:12.000
+and um see how it goes and to see how it goes i have to first separate my data
+
+0:04:10.640,0:04:17.359
+and this training and test right so i'm going to say train test equals this
+
+0:04:15.439,0:04:21.600
+and i'm just trying to split my original data frame
+
+0:04:19.199,0:04:25.440
+um and let's just take a peek at that data
+
+0:04:23.759,0:04:30.720
+and that did not work for some reason because
+
+0:04:27.520,0:04:36.000
+i need to reopen this okay so that's great
+
+0:04:32.639,0:04:37.759
+um and so what i'm going to do now is i'm going to create a logistic
+
+0:04:36.880,0:04:43.600
+regression and so this is just an estimator by
+
+0:04:40.840,0:04:47.919
+itself like so and um and remember the first step of
+
+0:04:46.240,0:04:53.280
+machine learning is to train it so training is done with fitting and i
+
+0:04:50.960,0:04:59.040
+want to fit to the training data and i'm interested in
+
+0:04:54.639,0:05:03.039
+being uh based on the x and y columns what am i going to end up with in the
+
+0:05:00.320,0:05:07.440
+color column all right so that was the one that's
+
+0:05:05.360,0:05:12.400
+step one that's training and um and then in step two right so i'm
+
+0:05:09.840,0:05:20.560
+gonna actually in step two i'm gonna do a score and um
+
+0:05:16.479,0:05:25.280
+this is uh last evaluate i'm gonna do the same thing but i wanna
+
+0:05:22.080,0:05:29.120
+do it for i want to do it for my training data
+
+0:05:26.720,0:05:33.759
+right if i were my test data i'm sorry let me do that and it might actually
+
+0:05:31.600,0:05:41.039
+seem like i'm doing pretty well um except if i if i do this if i look at
+
+0:05:37.840,0:05:46.800
+my test data in that taller column if i look at my value counts especially
+
+0:05:43.919,0:05:53.520
+let me just do this on the original color counts there divided by the length
+
+0:05:50.479,0:05:58.080
+of df color well guess what i mean 86 percent
+
+0:05:57.039,0:06:01.120
+of the data is light gray right so it doesn't take
+
+0:06:00.160,0:06:07.520
+any um kind of genius predictor to get up to 88
+
+0:06:04.800,0:06:10.720
+right if i always predict light gray um that's not
+
+0:06:08.160,0:06:13.360
+bad right and so what i'm gonna do is this other part when i'm testing
+
+0:06:12.160,0:06:16.960
+evaluation sometimes i'll actually try to do some
+
+0:06:14.720,0:06:24.600
+plotting to try to figure out what's going on right so i might do
+
+0:06:20.400,0:06:29.199
+i do this i might say um lr.predict and um and when i'm doing the
+
+0:06:27.520,0:06:33.680
+predictions i just need this piece right i do have predictions i get a
+
+0:06:32.000,0:06:37.039
+bunch of colors and um and i'm going to actually have
+
+0:06:35.759,0:06:41.600
+this as a column to my training data i'm sorry to my test
+
+0:06:40.319,0:06:48.479
+data i say this is my predicted caller
+
+0:06:46.160,0:06:53.919
+and um and you know what it's kind of complaining because
+
+0:06:51.520,0:06:59.280
+because when i do this when i come back here right when i do this split
+
+0:06:56.080,0:07:02.400
+these are slices of the original and um and i can't add columns to slices so
+
+0:07:01.440,0:07:06.000
+so you know what maybe i'm going to do is i'm just trying down here and i say
+
+0:07:03.520,0:07:09.120
+test equals test dot copy and uh and that will mean that test is
+
+0:07:07.759,0:07:13.280
+no longer a slice and i can add other stuff as i please
+
+0:07:11.120,0:07:17.680
+right so if i look at this like so i could plot it just like i did
+
+0:07:16.560,0:07:20.880
+before somebody grab this
+
+0:07:21.520,0:07:29.599
+and let's plot that and i say s data test color
+
+0:07:28.319,0:07:32.800
+so here's what i would hope it would look like but what it actually looks
+
+0:07:31.520,0:07:37.199
+like so this color column that i'm supposed
+
+0:07:34.319,0:07:40.560
+to get it looks like it looks like this right it's actually
+
+0:07:38.400,0:07:44.879
+not predicting any of those are or black so it's doing horribly
+
+0:07:41.840,0:07:48.720
+right and and so if i go back to this um kind of process machine learning process
+
+0:07:46.720,0:07:53.280
+up here i train a model and i test a model and sometimes it
+
+0:07:50.720,0:07:56.000
+stops right there if my model is garbage i'm not going to start using it to make
+
+0:07:54.800,0:07:58.240
+new predictions i'm going to try something else
+
+0:07:57.120,0:08:02.800
+and the other thing i'm going to be trying is well let's actually do the
+
+0:08:00.080,0:08:06.479
+polynomial features first so i'm going to head down here and
+
+0:08:04.960,0:08:11.400
+figure out how to get some polynomial features on this thing
+
+0:08:08.160,0:08:16.879
+and so i'm going to say pf equals poly polynomial
+
+0:08:13.840,0:08:21.680
+i can spell features that's good and um and uh
+
+0:08:20.479,0:08:29.360
+and and remember i don't really need that ones column i may say include
+
+0:08:26.160,0:08:32.240
+food bias equals false i don't need it because
+
+0:08:30.400,0:08:37.000
+logistic regression can automatically add it
+
+0:08:33.599,0:08:43.680
+and and so for this pf i can do a fit transform and what
+
+0:08:40.399,0:08:47.920
+on my let's let's start on my training data
+
+0:08:44.959,0:08:54.880
+and um and i think that i literally want to do on those two columns right
+
+0:08:50.640,0:08:58.240
+x and y and i get a bunch more fields here well what are those i'd actually
+
+0:08:56.640,0:09:04.800
+have to create a data frame to tell so i'm going to create a data frame here
+
+0:09:01.760,0:09:08.000
+and the columns for that data frame well first off let's just
+
+0:09:06.320,0:09:11.440
+do that right that's a little easier to view but if i want to actually have real
+
+0:09:10.240,0:09:15.200
+column names there instead of this well i need
+
+0:09:14.880,0:09:22.560
+to get that from my pdf right i need to get
+
+0:09:18.800,0:09:26.320
+that feature names and um and these new features are based on x
+
+0:09:24.800,0:09:29.279
+and y as original so i'm just trying to run that
+
+0:09:27.680,0:09:32.000
+and i can see okay well i have these additional things i have not only x and
+
+0:09:30.880,0:09:36.880
+y but i have um x squared y squared and x y and all
+
+0:09:34.800,0:09:41.600
+those are going to be important to figuring out how to do this um now if i
+
+0:09:40.320,0:09:46.880
+wanted to right i have this pf and i'm doing the
+
+0:09:43.760,0:09:51.600
+fit transform on the original data maybe let me just shorten it up a little
+
+0:09:48.480,0:09:56.240
+bit if i wanted to then i could do just a transform on the on the test data
+
+0:09:55.440,0:10:00.880
+right if i'm if i'm doing it on all right let me just
+
+0:09:59.360,0:10:04.800
+do this right i mean i can't just transform the
+
+0:10:02.640,0:10:07.760
+training data if i have a model based on that transform data
+
+0:10:06.160,0:10:13.279
+then i have to transform the test data too before i can use that i can do that
+
+0:10:10.399,0:10:17.279
+and um and that's not working because i need a list of columns
+
+0:10:14.640,0:10:20.560
+okay great so i could do that if i wanted to it starts to get to be a pain
+
+0:10:19.200,0:10:24.480
+right and then if i were to do a prediction later then i would have to
+
+0:10:22.320,0:10:27.760
+transform my new data too and so this is why we want to have a
+
+0:10:25.680,0:10:30.839
+pipeline right because whether i'm dealing with test data or training data
+
+0:10:29.279,0:10:35.279
+i kind of want to do that all automatically
+
+0:10:32.160,0:10:41.680
+so let's create a pipeline and i'm going to creatively call it pipe
+
+0:10:38.560,0:10:48.480
+and such might be a pipe line and um and a pipeline is just a list of
+
+0:10:45.040,0:10:53.920
+of either transformers and then an estimator at the end estimator
+
+0:10:52.240,0:10:58.240
+and um and so on here i guess i just have one transformer
+
+0:10:55.519,0:11:00.880
+and the way this works is that um for each of these
+
+0:10:59.200,0:11:04.560
+uh steps on the pipeline i may have a tuple
+
+0:11:02.560,0:11:08.240
+and um and then the tuple will be like a name and then
+
+0:11:06.000,0:11:11.440
+and then the step right i'm trying to actually do this twice
+
+0:11:09.920,0:11:15.600
+okay i can i can name these things whatever i want and so for the first
+
+0:11:14.079,0:11:20.560
+step i'm going to call that poly because i'm doing a polynomial
+
+0:11:17.839,0:11:26.240
+features transformation and the second step after i do that i want to do
+
+0:11:22.880,0:11:29.600
+logistic regression and so for here i actually have to have those models
+
+0:11:28.079,0:11:34.160
+and so i'm going to grab my polynomial features here like so
+
+0:11:32.399,0:11:38.959
+and um and then down here i can actually grab my logistic regression
+
+0:11:36.640,0:11:42.560
+maybe i'll just retype is easier than jumping up again
+
+0:11:40.640,0:11:46.880
+and um and once i have the pipeline i can use it just like i would
+
+0:11:44.880,0:11:49.680
+a regular logistic regression maybe i'm just trying to scroll up and try to
+
+0:11:48.079,0:11:56.000
+emphasize that so before what did i do i i fit in my
+
+0:11:52.880,0:12:01.920
+lr to this data and so let's do that let's um let's just fit this
+
+0:11:59.120,0:12:05.920
+and now instead of fitting the lr i'm going to fit the pipe right fit the pipe
+
+0:12:03.839,0:12:11.440
+right like this and um and pipeline is not capitalized
+
+0:12:09.920,0:12:14.959
+excuse me and i fitted it okay well what about
+
+0:12:13.680,0:12:18.639
+other stuff before when i had my logistic regression
+
+0:12:16.639,0:12:24.000
+the second step is i evaluated it and before i got 88
+
+0:12:20.160,0:12:28.800
+accuracy um let's see how i can do now instead of just having a simple logistic
+
+0:12:25.440,0:12:32.320
+regression i use my whole pipeline can i beat
+
+0:12:29.760,0:12:36.480
+88 percent i sure hope so or this is not a good demo
+
+0:12:33.600,0:12:40.000
+and i can instead of 8 i'm getting up to 95 percent
+
+0:12:38.240,0:12:43.279
+um now and so i might have enough confidence i might actually start doing
+
+0:12:41.440,0:12:47.120
+predictions here right i could actually deploy this model
+
+0:12:45.200,0:12:50.480
+um but i think what will be fun is if i actually
+
+0:12:48.240,0:12:54.320
+go back and try to do this thing as well right where i
+
+0:12:51.440,0:13:00.079
+do predictions using my pipeline right so i'm using lr to predict
+
+0:12:56.240,0:13:03.440
+i use my full pipeline uh to predict and you can see immediately right it's
+
+0:13:01.440,0:13:07.200
+making more black predictions sometimes it's wrong
+
+0:13:04.079,0:13:10.639
+right but it's actually sometimes adventuring that test and so then if i
+
+0:13:08.959,0:13:14.639
+do the scatter plot again before i can see it never was uh
+
+0:13:13.040,0:13:18.880
+guessing that we would be having a black scatter plot but now it's
+
+0:13:17.200,0:13:27.200
+actually doing a pretty good job of kind of capturing
+
+0:13:20.399,0:13:27.200
+what is in that area
+

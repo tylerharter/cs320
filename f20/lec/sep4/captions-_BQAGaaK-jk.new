@@ -1,0 +1,261 @@
+0:00:01.760,0:00:07.040
+all right hello um so i'd like to start today with reviewing some of the stuff
+
+0:00:05.440,0:00:10.400
+we did from last time so we'll do that with you answering some
+
+0:00:09.120,0:00:13.200
+questions and i'll kind of talk through them
+
+0:00:11.120,0:00:16.720
+so if you haven't already answered these from the lecture document please pause
+
+0:00:15.360,0:00:19.600
+and do that and then i'll kind of walk through these
+
+0:00:17.840,0:00:23.519
+um so the first question is well what do you call a running
+
+0:00:21.199,0:00:28.800
+uh program and so we need a separate word here because
+
+0:00:25.119,0:00:32.719
+when you write you know a notebook or let's say a dot pi file that you might
+
+0:00:31.679,0:00:36.800
+could run um let's say it's a dot pi file that
+
+0:00:35.280,0:00:40.320
+might run for a long time you can imagine a scenario where you
+
+0:00:38.320,0:00:44.840
+could open up two terminal windows at once
+
+0:00:41.280,0:00:49.200
+and type python program.pi pythonprogram.pi and be running the same
+
+0:00:47.360,0:00:51.920
+program at multiple times and so we'd have one program but in that case two
+
+0:00:50.879,0:00:55.680
+processes um we could have one program in many
+
+0:00:53.520,0:00:58.879
+processes uh if you write some code but you haven't
+
+0:00:56.879,0:01:01.520
+run it yet then you have one program and no processes
+
+0:00:59.920,0:01:06.000
+we need that separate word process instead of just program
+
+0:01:04.239,0:01:10.720
+the second one let's say we have this large list
+
+0:01:07.680,0:01:14.320
+of fruits apples bananas whatever and there's two different lines of code
+
+0:01:12.400,0:01:17.920
+we could run on it we could insert a pineapple at the beginning so
+
+0:01:16.799,0:01:24.720
+that's an index zero or we could
+
+0:01:21.920,0:01:27.280
+pop the value at at the end so at index negative one i would remove the last
+
+0:01:26.240,0:01:30.640
+item from the list so the question is well what is trying
+
+0:01:29.280,0:01:37.200
+to be faster we have lots of items and
+
+0:01:33.840,0:01:41.600
+the answer is that uh hopping from the end is going to be a lot faster because
+
+0:01:39.759,0:01:44.560
+we don't have to shift everything over let me show you a picture to show why
+
+0:01:43.280,0:01:49.119
+that first one is is slow if i want to add the value one
+
+0:01:47.920,0:01:52.560
+at the beginning i have to move all these other values
+
+0:01:51.840,0:01:57.119
+over in this big list and remember that this
+
+0:01:54.320,0:02:00.560
+big list that every process has has a special name that's the address
+
+0:01:58.719,0:02:04.079
+space of a process and all the data all the kind of state
+
+0:02:03.360,0:02:08.239
+of a running process is in uh in the address space
+
+0:02:06.799,0:02:14.000
+whether that be multiple lists variables references
+
+0:02:11.840,0:02:18.560
+strings integers right but it's all this big address space that contains
+
+0:02:16.319,0:02:23.440
+uh bytes and bytes were just these integers between 0 and
+
+0:02:20.840,0:02:26.560
+155 okay so next question what is an example of a
+
+0:02:25.840,0:02:30.319
+resource that an operating system might allocate
+
+0:02:29.200,0:02:34.400
+to a process well turns out there's lots of resources
+
+0:02:32.239,0:02:38.480
+um but the big one we talked about last time
+
+0:02:35.280,0:02:41.760
+was time on the cpu um you know cpus used to have one core in
+
+0:02:41.440,0:02:45.920
+them now they might have a few um and each
+
+0:02:44.000,0:02:51.920
+member each core and a cpu is kind of like a mini cpu in and of itself
+
+0:02:48.640,0:02:56.560
+that's able to run processes and so um let's say i have
+
+0:02:52.879,0:03:00.640
+four cores in my cpu check um that means i can run four processes
+
+0:02:58.480,0:03:05.040
+at a time and i might have a lot more than four processes
+
+0:03:02.400,0:03:08.319
+uh kind of that that i have on my computer at any given
+
+0:03:06.319,0:03:13.440
+point in time and so what the operating system will do is it'll decide well
+
+0:03:10.480,0:03:16.800
+of these four who gets to run on them when right it'll kind of swap back and
+
+0:03:15.200,0:03:20.319
+forth which processes run and so you as a computer user probably
+
+0:03:18.640,0:03:24.239
+don't even realize that you can only be doing four things i mean you probably
+
+0:03:21.840,0:03:28.640
+have 20 abs open in your web browser right now and it's not a problem because
+
+0:03:26.400,0:03:32.000
+well thank you to the operating system um so that was a big one we talked about
+
+0:03:30.560,0:03:35.040
+time on the cpu um there are some other answers that'd
+
+0:03:33.280,0:03:38.879
+be fine um space and memory is is something right i
+
+0:03:37.840,0:03:43.920
+mean we have so much ram and uh and that will be limited per
+
+0:03:42.319,0:03:46.959
+process right we don't generally want one process to eat up all our all our
+
+0:03:45.920,0:03:51.200
+memory other resources might be space and files
+
+0:03:49.519,0:03:53.680
+um if i have multiple programs that are using the internet maybe downloading
+
+0:03:52.720,0:03:57.680
+things um the operating system can be involved
+
+0:03:56.000,0:04:02.080
+in deciding how much network bandwidth they all get
+
+0:04:00.080,0:04:06.400
+the last one which has to do with reproducibility
+
+0:04:03.599,0:04:08.879
+uh if we're writing some python code what do we have to worry more about
+
+0:04:08.159,0:04:12.159
+matching do we have to worry about what hardware
+
+0:04:10.720,0:04:16.639
+we're running on and the the main thing with hardware
+
+0:04:13.920,0:04:19.759
+here is the cpu and its instruction set remember that the instruction set is
+
+0:04:18.000,0:04:23.360
+this big table where we have all these operations in it
+
+0:04:21.199,0:04:26.639
+and each operation has a number so for example maybe five means add
+
+0:04:25.360,0:04:31.440
+right that's instructions that have a cpu maybe five means something else in a
+
+0:04:29.120,0:04:36.000
+different cpus instruction set right so that's the hardware other
+
+0:04:33.120,0:04:40.000
+answer is uh the operating system and the answer here the correct answer
+
+0:04:38.560,0:04:43.919
+is that we have to worry about matching the operating system and so the
+
+0:04:42.479,0:04:48.320
+picture you should have in your mind is above
+
+0:04:45.040,0:04:51.919
+um what you can see is that i have a cpu which kind of has a certain shape to it
+
+0:04:50.160,0:04:55.759
+that's instruction set and in your operating system in this
+
+0:04:53.759,0:04:59.440
+case windows has to fit that and then i have a python interpreter
+
+0:04:58.240,0:05:03.360
+which needs to be able to work with both on both the
+
+0:05:01.680,0:05:07.520
+operating system and the cpu it has to fit the shape of both of those
+
+0:05:05.360,0:05:10.720
+and with respect to the cpu the python interpreter kind of hides the shape of
+
+0:05:09.680,0:05:13.919
+that i can write my python code in one way
+
+0:05:13.360,0:05:16.800
+and if i run on different interpreters i
+
+0:05:15.360,0:05:20.639
+don't have to worry about the fact that i have different
+
+0:05:18.080,0:05:25.199
+um cpu so it's kind of a non-issue but the python interpreter does not do such
+
+0:05:22.560,0:05:27.919
+a great job of hiding the shape of the operating system
+
+0:05:26.479,0:05:32.320
+so that's something i do have to worry about uh when i'm
+
+0:05:29.840,0:05:34.960
+writing my python code and in particular things like well do i use a forward
+
+0:05:33.919,0:05:47.600
+slash or back backward slash my file paths that
+
+0:05:37.039,0:05:47.600
+depends am i on windows or mac
+

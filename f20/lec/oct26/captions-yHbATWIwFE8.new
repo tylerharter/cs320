@@ -1,0 +1,804 @@
+0:00:01.920,0:00:06.960
+oh in this video i want to do a few things
+
+0:00:04.560,0:00:10.320
+one is i want to talk about what i actually got a little bit stuck on last
+
+0:00:08.480,0:00:15.280
+time which is how i can show um the axis labels it had worked right
+
+0:00:12.880,0:00:18.880
+before i did my demo and then broke then so i did a little bit more research and
+
+0:00:16.560,0:00:23.279
+i can give a better answer now the other thing i want to talk about is
+
+0:00:21.119,0:00:28.800
+different kinds of web resources um you'll notice here that i don't have
+
+0:00:25.840,0:00:32.160
+any sort of.html or anything like that but nonetheless this is an html page and
+
+0:00:30.800,0:00:37.680
+there's a way that that is communicated from the flask server
+
+0:00:33.680,0:00:42.879
+um same thing for these images right the extension ends with svg
+
+0:00:41.360,0:00:48.079
+but that's just for humans right that's not really how a web server like flask
+
+0:00:46.000,0:00:51.920
+communicates to a web browser like chrome on what the type is
+
+0:00:50.239,0:00:56.000
+now chrome is figuring it out here because it's smart but
+
+0:00:53.680,0:00:58.559
+um there's a better way that we can actually communicate that and so i'm
+
+0:00:57.199,0:01:02.000
+going to show that to make sure this works on a wider range
+
+0:01:00.480,0:01:05.600
+of browsers and then finally where are these values
+
+0:01:04.239,0:01:10.960
+coming from um here i'm actually just randomly
+
+0:01:08.799,0:01:14.000
+adding new values every time the page is refreshed but
+
+0:01:12.960,0:01:18.159
+generally there'll be some sort of external process that wants to be
+
+0:01:15.680,0:01:21.119
+uploading things onto our dashboard and um there's different ways we can do
+
+0:01:20.080,0:01:25.520
+that there's different ways to get information into
+
+0:01:22.799,0:01:28.799
+a web application but probably the most important way is posting
+
+0:01:27.040,0:01:34.880
+data so i'm going to talk about how we can do um a post in here
+
+0:01:32.159,0:01:38.799
+okay so first what's the deal with um having
+
+0:01:35.600,0:01:45.759
+no axes labels here and the answer is that um when i do a save
+
+0:01:42.399,0:01:51.040
+fig uh matplotlib truncates it and so they actually are there
+
+0:01:47.600,0:01:54.320
+um these are showing up uh in the figure itself i was doing an
+
+0:01:52.479,0:01:57.520
+inline in a jupiter notebook i'd see it but when i save it i don't actually get
+
+0:01:55.920,0:02:01.680
+anything and so there's kind of a silly thing i have
+
+0:01:59.119,0:02:05.840
+to do and that is i have to say plot dot type layout and i do that and then
+
+0:02:04.399,0:02:08.800
+that's trying to magically fix my problems
+
+0:02:06.799,0:02:12.000
+and i have to do that before i actually save my um
+
+0:02:10.000,0:02:18.400
+figure so i'm gonna do that right here i'm gonna say plot dot type
+
+0:02:14.400,0:02:22.160
+layout and uh and that's gonna hopefully um make that actually show up
+
+0:02:21.200,0:02:26.480
+it's going to tightly set the bounding box around everything
+
+0:02:24.239,0:02:30.160
+i've drawn including text and let me actually do that in the other
+
+0:02:28.720,0:02:35.680
+one too right here i'd like to have that
+
+0:02:33.280,0:02:37.920
+and uh and let's come over here and refresh
+
+0:02:36.640,0:02:43.680
+and now you can see it's actually properly giving me both an x-axis
+
+0:02:40.640,0:02:47.840
+and a y-axis the other thing while we're on uh
+
+0:02:44.319,0:02:52.400
+kind of um in the mode of fixing bugs is let's say i refresh a bunch of times
+
+0:02:50.480,0:02:56.000
+like more than 20. um you can see that eventually i get
+
+0:02:55.200,0:02:59.040
+this error it says more than 20 figures have been
+
+0:02:58.000,0:03:03.920
+opened and uh and you should eventually close
+
+0:03:01.360,0:03:06.319
+them to avoid consuming too much memory and so what does that mean that means i
+
+0:03:05.280,0:03:10.080
+should come over here and after i've done my save fig after
+
+0:03:08.640,0:03:14.239
+i've saved it to my fake file which is my bytes i o i should just
+
+0:03:12.480,0:03:17.599
+say fig.close and so i'm going to do that in both
+
+0:03:15.440,0:03:23.360
+cases here and let me restart this server
+
+0:03:21.360,0:03:26.480
+and let me see if i can get up to as many as i had before
+
+0:03:31.040,0:03:36.599
+oh and sorry it's saying that figure object has no attribute closed this is
+
+0:03:34.959,0:03:40.239
+just kind of a weird quirk i have to say plt.close in general that closes the
+
+0:03:38.879,0:03:43.920
+current figure and so let me actually run that now so
+
+0:03:42.959,0:03:47.680
+now i'm dread now i'm in business i run this a bunch
+
+0:03:46.239,0:03:51.680
+of times and um we're definitely up to where we
+
+0:03:49.840,0:03:55.040
+were before over 20 and no problem right so i just have to
+
+0:03:53.200,0:03:57.519
+make sure my resources are are cleaned up
+
+0:03:55.840,0:04:00.400
+um when i'm done right so i fixed two bugs there the labels and then they
+
+0:03:59.680,0:04:04.239
+close the other thing which could be a bug
+
+0:04:02.720,0:04:09.360
+even though it's not showing up with chrome here right now
+
+0:04:06.000,0:04:13.200
+is that well what type of files are these images and so if i make this a
+
+0:04:10.720,0:04:21.440
+little bit bigger and then i go to tools and developer tools
+
+0:04:17.759,0:04:26.840
+then i refresh this page then i i look at these different files
+
+0:04:24.800,0:04:30.800
+that i have grabbed and what you're going to see is that i
+
+0:04:29.520,0:04:34.320
+have both a type here right you see i have a
+
+0:04:32.960,0:04:37.360
+little bit of type information about each of these
+
+0:04:35.280,0:04:39.280
+and then i have the name over here and do you actually notice something kind of
+
+0:04:38.479,0:04:42.800
+funny uh these are svg files that's what says
+
+0:04:41.919,0:04:46.320
+at the end but somehow uh it's saying that the type
+
+0:04:45.520,0:04:50.479
+is text slash html which is wrong right the type
+
+0:04:49.520,0:04:54.479
+information is wrong chrome is figuring it out even though i
+
+0:04:52.240,0:04:58.880
+did it wrong which is good but not every browser might be so forgiving
+
+0:04:56.479,0:05:03.280
+if i click on one of these i can see that i have these response headers here
+
+0:05:01.840,0:05:08.960
+the response headers are just like a dictionary content type is a key
+
+0:05:06.639,0:05:12.720
+and then this thing is a value content length is a key
+
+0:05:10.240,0:05:18.000
+that number is a value server is a key that thing there is a is a value
+
+0:05:15.039,0:05:21.440
+and so what i can actually do is i can set a different
+
+0:05:19.199,0:05:25.199
+key or a different value for this key right i can i can actually do it
+
+0:05:22.840,0:05:30.080
+properly and uh and so i'm gonna do that just so this is gonna work
+
+0:05:26.720,0:05:36.479
+uh in general right and so what i'm gonna have to do is
+
+0:05:33.600,0:05:40.080
+change this down here right now i'm just returning some bytes
+
+0:05:38.479,0:05:45.120
+and when i'm just returning some bytes instead of a full response object
+
+0:05:42.479,0:05:49.520
+a flask figures out the details it just assumes that it's text
+
+0:05:46.400,0:05:53.039
+html which is wrong and so when i import flask from the flask module i should
+
+0:05:52.000,0:05:58.319
+also uh i should also return response
+
+0:05:56.240,0:06:01.039
+or i should also import response and then what i can do is down here i can
+
+0:05:59.840,0:06:06.240
+say response and which is happening by
+
+0:06:04.240,0:06:10.160
+default anyway and then the nice thing i can do is i
+
+0:06:08.240,0:06:16.080
+can pass into headers i can pass in this headers dictionary like so
+
+0:06:13.360,0:06:19.280
+again in both cases and now i can actually say well what do i want that
+
+0:06:17.440,0:06:23.120
+content type to be right i can make it something else
+
+0:06:21.520,0:06:27.199
+if i want and you could google this at some you
+
+0:06:25.360,0:06:31.680
+would search for mime types uh mime types like this if you wanted to
+
+0:06:30.800,0:06:35.520
+see what string you should put for different
+
+0:06:33.759,0:06:38.880
+types of content i've already done that and i have it
+
+0:06:36.880,0:06:43.680
+here in my notes so what uh uh svg is supposed to be is like this
+
+0:06:41.919,0:06:49.039
+it's supposed to be image slash xml plus svg that's just the convention
+
+0:06:46.720,0:06:53.440
+that's how we specify that we have an sgv a svg image
+
+0:06:52.160,0:06:57.680
+so i'm going to actually do that and do the same thing in both cases
+
+0:06:55.680,0:07:00.960
+and i'm going to refresh this thing over here
+
+0:06:58.960,0:07:05.280
+and now you see that the type is actually what it's supposed to be
+
+0:07:02.000,0:07:09.759
+it's an xml svg and uh chrome doesn't really care but that's going to help me
+
+0:07:07.199,0:07:14.639
+when i'm dealing with other browsers right so i kind of have fixed
+
+0:07:11.440,0:07:18.960
+a few things now um i'm closing it so i can run this for a long
+
+0:07:16.080,0:07:23.039
+time i'm returning the proper type for it
+
+0:07:19.759,0:07:28.560
+um the last thing i want to do today is to think about how i'm getting these
+
+0:07:25.919,0:07:34.479
+values right are they just random or do i have some other way to do it
+
+0:07:31.759,0:07:38.639
+and one way we can get values and is with a query string
+
+0:07:36.000,0:07:41.440
+right so if i come up here and i say something like this if i say something
+
+0:07:40.000,0:07:48.000
+like question mark insert equals five
+
+0:07:44.800,0:07:55.520
+i do that and this isn't really showing up anywhere right now um but
+
+0:07:51.440,0:07:58.560
+if i'm uh over here inside of my handler i can access that and the way i access
+
+0:07:57.680,0:08:01.759
+that is i have to import something else from
+
+0:07:59.759,0:08:05.840
+this flask module so i have flask response and then there's request which
+
+0:08:04.639,0:08:11.360
+is a little bit strange right um that response is
+
+0:08:09.520,0:08:16.199
+uppercase and request is lowercase anyway it is what it is
+
+0:08:13.039,0:08:20.319
+and down here i can re i can print out request.args
+
+0:08:17.759,0:08:24.400
+and so i'm going to do that let me refresh over here
+
+0:08:22.000,0:08:28.879
+and you can see that i got this nice little dictionary
+
+0:08:25.440,0:08:32.240
+right with a key and a value and um right this insert is the key that's the
+
+0:08:30.639,0:08:36.240
+value if i want to put other things in here i
+
+0:08:33.599,0:08:39.279
+could say extra equals one two three and i do that and then you can see i
+
+0:08:37.839,0:08:42.560
+have both of them insert extra kind of a weird looking dictionary
+
+0:08:41.519,0:08:46.240
+right but ultimately if i want to i can pull
+
+0:08:44.240,0:08:51.360
+out that insert right like so and then when i refresh
+
+0:08:50.160,0:08:55.839
+this thing i can see well there's my five
+
+0:08:54.480,0:08:59.920
+and i probably want that to be an integer so if i wanted to i could do
+
+0:08:57.839,0:09:04.320
+this i could say um uh i want to insert that as actually
+
+0:09:02.800,0:09:08.800
+let's make it a float i think it's maybe a little bit more
+
+0:09:05.600,0:09:12.640
+uh general right so i'm going to do that let me do that and then i'm going to
+
+0:09:10.959,0:09:16.640
+refresh this thing and i have some sort of initial
+
+0:09:13.839,0:09:23.440
+distribution and if i want to insert let's say a bunch of twos
+
+0:09:18.320,0:09:26.800
+let's just keep doing inserting twos so what do we see here well first off
+
+0:09:25.360,0:09:29.839
+this line goes flat right because well i keep getting a
+
+0:09:28.320,0:09:33.519
+bunch of twos in my distribution which which i should
+
+0:09:31.680,0:09:38.160
+probably label cdf just so people know what it is
+
+0:09:35.040,0:09:43.920
+uh cdf let me refresh this thing oops
+
+0:09:41.760,0:09:46.240
+and that was not how many times i wanted me to get back there
+
+0:09:44.880,0:09:50.000
+what you're gonna see is whenever this line is really steep
+
+0:09:48.080,0:09:52.399
+that means there's a lot of values on top of that right so there's a lot of
+
+0:09:51.279,0:09:56.160
+values that are two and i could read this off i guess it's
+
+0:09:53.920,0:09:59.920
+uh from something about like eighty percent to twenty five percent so i can
+
+0:09:58.399,0:10:04.079
+subtract that and figure out exactly how many
+
+0:10:01.440,0:10:07.440
+um so that's one way to do it there's some issues with this this is called a
+
+0:10:05.839,0:10:12.079
+query string one issue is that
+
+0:10:10.640,0:10:14.880
+you see how i'm kind of refreshing the page here and showing me something
+
+0:10:13.120,0:10:19.279
+different each time um some web browsers will assume that
+
+0:10:17.680,0:10:22.880
+since it's the same url it's the same page as before
+
+0:10:20.880,0:10:25.920
+and so they might not even send a request to the web server maybe they
+
+0:10:24.399,0:10:29.519
+send me or show me the same data that they
+
+0:10:27.519,0:10:31.200
+showed me last time so in that case that's not a very good way to get data
+
+0:10:30.880,0:10:35.360
+in right because because it might not
+
+0:10:33.920,0:10:40.000
+actually send a request back to the flask server
+
+0:10:37.279,0:10:44.480
+um the other way we can get data in is with a post request
+
+0:10:41.360,0:10:47.839
+so if i just go back here and go to network
+
+0:10:48.640,0:10:53.200
+and i want to look at some of these like let's say let's look at this one for
+
+0:10:51.680,0:10:56.320
+example um you can see that the request method
+
+0:10:54.880,0:11:01.440
+was get and git means i want to download data post
+
+0:10:59.279,0:11:09.360
+means i want to upload data so so posting is another way i can um
+
+0:11:04.720,0:11:12.160
+get data into the system okay and when i'm doing gets i can just type
+
+0:11:10.720,0:11:14.240
+something in the url and it gets it for me
+
+0:11:12.720,0:11:17.200
+when i'm doing posting i have to have some sort of special tool i'm not going
+
+0:11:15.760,0:11:21.680
+to be able to use chrome like right here to just trigger a
+
+0:11:20.399,0:11:26.000
+post i mean they have some extensions that for web developers that can do that
+
+0:11:24.000,0:11:28.560
+but that's not going to work for me so i may have a special
+
+0:11:27.200,0:11:32.880
+separate tool that i'm gonna use for that uh called curl
+
+0:11:31.040,0:11:35.360
+and um and so what i'm gonna do is i'm first trying to create something where i
+
+0:11:34.000,0:11:39.200
+actually try to upload the data right so i'm gonna head down
+
+0:11:37.279,0:11:45.839
+here and i'm gonna say um upload like so
+
+0:11:42.720,0:11:51.200
+and uh and then i can um i have to give it a new route so
+
+0:11:48.480,0:11:57.120
+maybe i'll call this like upload uh that would be fine right and
+
+0:11:54.480,0:12:00.720
+then i have to somehow say what method or methods i want so
+
+0:11:58.720,0:12:05.519
+usually the default is something like this method equals get
+
+0:12:03.360,0:12:08.800
+or i could be a list here i want to do a post
+
+0:12:06.880,0:12:13.360
+and let me just print something here for now i'm just going to print hi and make
+
+0:12:10.079,0:12:17.839
+sure this is actually working never makes sense to write too much code
+
+0:12:15.360,0:12:22.880
+at once um and uh is it methods uh i'm gonna
+
+0:12:21.040,0:12:25.839
+just check the documentation here quick if that doesn't work
+
+0:12:26.880,0:12:41.680
+let me see okay and i think my mistake was sorry i
+
+0:12:40.160,0:12:44.000
+just paused for a moment to look at the documentation which was a
+
+0:12:42.880,0:12:47.200
+little silly because they're actually telling me right here
+
+0:12:45.519,0:12:49.760
+what my problem is i should read the error messages like i always tell you
+
+0:12:48.800,0:12:52.880
+all to do um allowed method should be an iterable
+
+0:12:52.000,0:12:55.279
+of strings well intervals i guess that could be like a
+
+0:12:54.079,0:12:58.720
+list of strings or something like that something like methods equals post
+
+0:12:57.120,0:13:05.040
+they literally told me what to type and and i didn't type it so let me do that
+
+0:13:01.440,0:13:09.360
+um and now i run it and uh and it's happier right and so
+
+0:13:07.680,0:13:12.639
+when i come over here notice what i cannot do i cannot say
+
+0:13:12.000,0:13:17.680
+slash upload because that's not a method
+
+0:13:15.680,0:13:20.880
+that's allowed for this url okay and so that's why i'm going to come
+
+0:13:19.760,0:13:24.800
+over here create a new window and i'm going to use
+
+0:13:23.680,0:13:28.639
+curl right so i'm going to say curl and the
+
+0:13:26.959,0:13:31.760
+curl is a lot like wget which maybe something you're more familiar with
+
+0:13:30.079,0:13:36.639
+i think it's a little bit easier to use for complicated things and then wget is
+
+0:13:34.240,0:13:40.720
+easier to use for simple things and so what i want to do is i want to
+
+0:13:38.399,0:13:44.800
+send a request to here actually let's first just send a
+
+0:13:42.240,0:13:50.320
+request to the home page i i run that and um well i actually get a new error
+
+0:13:47.920,0:13:54.399
+let me go back and um and try to get rid of this thing
+
+0:13:51.839,0:13:57.760
+for a moment and so i can actually run this
+
+0:13:54.959,0:14:02.800
+you see what this does when i say curl to a given page it shows me the html for
+
+0:14:00.560,0:14:08.880
+that page it sends a get request and uh let me clear this out
+
+0:14:06.560,0:14:12.560
+the way it's working is there's a dash capital x here
+
+0:14:10.399,0:14:17.360
+and the default is get i run again and i get the page
+
+0:14:13.600,0:14:23.040
+i want to post the page i have to do that and if i do that well
+
+0:14:21.120,0:14:27.839
+i can't do a post to the home page no surprise
+
+0:14:24.000,0:14:31.360
+i can do a post to the upload page right so the view function did not
+
+0:14:29.120,0:14:35.040
+return a valid response okay but i was able to hit it right and
+
+0:14:34.320,0:14:38.959
+i was able to print high right so it's not
+
+0:14:37.040,0:14:45.600
+returning anything um so let's let's head over here let me
+
+0:14:41.279,0:14:49.360
+make this a little bit smaller um i i need to do a couple things right i
+
+0:14:48.079,0:14:54.160
+need to return something like um
+
+0:14:52.639,0:14:59.120
+i don't know i could return true for success that would be a fine thing to do
+
+0:14:56.000,0:15:03.680
+let me do that and um well actually right i have to return a
+
+0:15:02.480,0:15:07.040
+string silly me okay i'm gonna do that and now i get
+
+0:15:05.360,0:15:10.399
+true back maybe let me actually just put a new line there too
+
+0:15:08.639,0:15:14.240
+that's fine so i'm getting data out right so um
+
+0:15:12.320,0:15:18.399
+so i can get my data out how do i get data in
+
+0:15:15.360,0:15:21.440
+to the system well uh i can pass it in like this i can say
+
+0:15:20.639,0:15:24.880
+d and then i can put something in here
+
+0:15:22.880,0:15:30.079
+like um let's say uh my input all right let me try to do
+
+0:15:28.399,0:15:34.880
+that okay and and so how do i actually find
+
+0:15:33.279,0:15:38.959
+that on the other side well i'm gonna do like before i'm gonna
+
+0:15:36.560,0:15:43.519
+say um uh i'm gonna say uh request
+
+0:15:42.079,0:15:51.120
+and instead of args i don't have any args anymore i have data
+
+0:15:46.240,0:15:54.480
+so let me let me run this and oh that's kind of funny it's kind of
+
+0:15:52.639,0:15:58.800
+taking a long long time let me see if i can
+
+0:15:55.360,0:16:01.600
+do it there we go and um and my input is currently
+
+0:16:01.839,0:16:06.320
+and so my problem here is that it's trying to pull out that and then put
+
+0:16:04.639,0:16:09.680
+into some other format and and so what i really have to do to
+
+0:16:07.920,0:16:16.240
+force it to put it there is i have to say request.debt data
+
+0:16:12.320,0:16:20.800
+first and so let me try running that and so i'm going to hit this and
+
+0:16:19.600,0:16:25.360
+now you can see i'm actually getting this input it's a the byte string
+
+0:16:23.360,0:16:30.639
+and then you can imagine parsing it over on this side right i could say
+
+0:16:27.279,0:16:36.560
+uh well let's do this i mean i ultimately want to get some numbers
+
+0:16:32.399,0:16:39.759
+that are inputted so let's do something like this what i'm going to be doing
+
+0:16:37.519,0:16:43.920
+over here is saying something like you know one
+
+0:16:42.000,0:16:46.959
+two three i want to get those numbers in the system
+
+0:16:45.360,0:16:51.279
+and so it's coming in as a string so we have to first um
+
+0:16:49.040,0:16:55.160
+you may have to first uh convert that to a string and i can use some sort of
+
+0:16:52.880,0:17:01.839
+formatting for that maybe i'll say utf-8 and um and then i'll maybe say
+
+0:16:58.639,0:17:05.439
+like vals equals uh that and maybe i'll split on the
+
+0:17:04.160,0:17:09.679
+comma and so then what i can do is i can loop
+
+0:17:06.720,0:17:15.280
+over that so for v and vowels i can say something like um
+
+0:17:13.679,0:17:20.559
+what i want to do i want to append it to this thing right so i'm going to say uh
+
+0:17:19.280,0:17:26.000
+maybe i'm going to call this uploads right i guess i called the other
+
+0:17:22.959,0:17:28.720
+um the other things values which is a little bit confusing so i'm going to say
+
+0:17:27.120,0:17:33.039
+values dot append all right my global up here i'm going to
+
+0:17:31.200,0:17:39.600
+append maybe i'll make it floats let me do that
+
+0:17:37.679,0:17:42.559
+i'm going to curl upload all of those things
+
+0:17:40.799,0:17:46.960
+and then if i want to refresh this over here
+
+0:17:43.919,0:17:50.320
+i actually go back to the home page i can see what i'm getting so let's just
+
+0:17:48.720,0:17:54.720
+try to experiment here and see what happens
+
+0:17:51.360,0:18:02.320
+i'm gonna have um let's say like four four three three i upload those
+
+0:17:59.200,0:18:09.039
+and you can see sure enough i get a 4 4 3 3 and then there's a few more of those
+
+0:18:06.160,0:18:15.840
+if i if i keep on uploading a lot of the same
+
+0:18:10.240,0:18:18.880
+let's say i get a bunch of twos before i do that can you imagine how my
+
+0:18:17.600,0:18:23.200
+cdf is going to look a little bit different when i
+
+0:18:20.000,0:18:26.840
+run that i may have a huge spike here right i may be a huge bike
+
+0:18:25.440,0:18:30.400
+here because i may have a bunch of values
+
+0:18:28.080,0:18:33.840
+that are less than or equal to two let me do that
+
+0:18:31.520,0:18:37.840
+and refresh this and sure enough i have a bunch more twos now
+
+0:18:36.240,0:18:41.440
+so this is what you often imagine when you have some sort of web application
+
+0:18:39.840,0:18:46.320
+that does some sort of monitoring right maybe somebody has some sort of program
+
+0:18:43.919,0:18:49.520
+or tooling that's running that's always uploading data to the web service in
+
+0:18:48.240,0:18:53.520
+some way and the data is being stored and you
+
+0:18:51.600,0:18:58.080
+know maybe files or a database or even here just in variables and then we
+
+0:18:56.400,0:19:03.120
+have a dashboard right a dashboard is a mix of
+
+0:18:58.559,0:19:07.120
+html and then some image plots that get generated on the fly and that's how
+
+0:19:04.480,0:19:10.160
+we'll actually build websites and dashboards
+

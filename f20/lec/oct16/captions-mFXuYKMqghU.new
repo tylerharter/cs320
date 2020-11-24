@@ -1,0 +1,267 @@
+0:00:00.880,0:00:07.520
+in the last video we talked about how a web server might sometimes ask a client
+
+0:00:05.839,0:00:13.840
+um to kind of scrape pages a little bit slower um the other thing it might do
+
+0:00:10.320,0:00:18.000
+is it might tell a certain clients that they're kind of banned in general or it
+
+0:00:16.240,0:00:22.640
+might tell them to specifically not access certain pages
+
+0:00:19.920,0:00:24.960
+um you know and the way they'll do that is that
+
+0:00:23.279,0:00:29.679
+on any given website there's usually this robots.txt file
+
+0:00:27.599,0:00:33.760
+and here's the example of the one on my website
+
+0:00:30.880,0:00:38.480
+um what this is saying is that for user agent that's the name of our web crawler
+
+0:00:36.079,0:00:41.840
+star so this is for everybody i'm going to block
+
+0:00:39.680,0:00:44.879
+access to this and this is just kind of a courtesy thing right i mean anybody
+
+0:00:43.440,0:00:48.320
+could write a web scraper that could do that anyway
+
+0:00:46.000,0:00:52.160
+um and uh and kind of the legal standing of that is a little bit
+
+0:00:49.440,0:00:55.199
+dubious right it's not clear where the law comes down
+
+0:00:53.199,0:00:57.520
+on respecting robots.txt and it's probably something that's always
+
+0:00:56.000,0:00:59.600
+evolving and differs by country to country
+
+0:00:58.160,0:01:02.079
+but i think just in general right to be polite well we don't want to scrape
+
+0:01:01.039,0:01:05.760
+things that we've been asked not to stray probably
+
+0:01:03.520,0:01:08.479
+just kind of uh being a rude user of the internet
+
+0:01:06.960,0:01:11.360
+and and so there's different reasons people might do that
+
+0:01:10.080,0:01:15.200
+one is that sometimes there's just content on the internet that doesn't
+
+0:01:13.119,0:01:18.640
+really make sense to be part of a you know like a search engine and so
+
+0:01:17.280,0:01:20.880
+often they're trying to communicate to google
+
+0:01:19.439,0:01:24.320
+hey this is not something that i really want to be searchable maybe it changes
+
+0:01:22.479,0:01:27.439
+too often or whatever um there's other reasons so for example
+
+0:01:26.880,0:01:31.119
+um i had all these kind of all these
+
+0:01:28.720,0:01:34.320
+example pages in a prior lecture and one of the examples is this calendar
+
+0:01:33.360,0:01:38.320
+site here and on the calendar site there's some
+
+0:01:35.759,0:01:41.759
+pages that link to each other and then i get some something that's
+
+0:01:39.520,0:01:45.840
+like january 2020 and i see that that one has a link to
+
+0:01:42.720,0:01:50.479
+february 2020 and i keep clicking and well actually i mean if i have some
+
+0:01:48.960,0:01:53.439
+sort of calendar on my website maybe it's infinite
+
+0:01:51.840,0:01:55.759
+and um and so i'm almost trying to signal to somebody who's doing web
+
+0:01:54.880,0:01:59.040
+crawling you know don't keep doing depth first
+
+0:01:57.680,0:02:01.600
+search or breath first search on the links
+
+0:01:59.840,0:02:06.640
+because you'll never be done right it's almost kind of a courtesy
+
+0:02:03.439,0:02:10.319
+and um okay so how do we figure out uh whether or not we can access this i mean
+
+0:02:08.560,0:02:15.040
+my file here is pretty simple if we go over to one like you know
+
+0:02:13.400,0:02:18.080
+reddit.comrobots.txt i i see it's actually quite complicated
+
+0:02:17.360,0:02:22.480
+right um there are certain um scrapers right
+
+0:02:21.280,0:02:27.920
+maybe they've been rude before they're kind of blocked from everyone
+
+0:02:24.400,0:02:31.440
+voltron is blocked from everyone um there are certain files that they want
+
+0:02:29.840,0:02:35.760
+uh to disallow for everybody right so let's try all
+
+0:02:33.920,0:02:39.040
+this stuff that they're allowing or disallowing
+
+0:02:37.519,0:02:43.360
+um on reddit and it'd be kind of complicated to figure out well am i
+
+0:02:40.959,0:02:47.599
+following the rules or not and so python actually comes with
+
+0:02:45.120,0:02:51.640
+something called the robot parser in this module called url lib and
+
+0:02:50.080,0:02:55.920
+it will help us understand the robots.txt
+
+0:02:53.360,0:02:59.920
+and kind of figure out what pages we are or not allowed to visit
+
+0:02:58.159,0:03:02.560
+and um and so they have a nice example here maybe i'm just going to kind of
+
+0:03:00.879,0:03:06.720
+work with the example uh let me kind of copy these first two
+
+0:03:04.959,0:03:12.800
+things like this so i have my nice um
+
+0:03:10.800,0:03:17.040
+kind of window over here i'm gonna do this try delete these
+
+0:03:14.239,0:03:23.840
+arrows here so i'm importing the robot parser
+
+0:03:22.080,0:03:28.080
+and then i'm creating a robot file parser so that's good
+
+0:03:26.080,0:03:33.280
+and then what we need to do is we need to say robotparser.set
+
+0:03:29.840,0:03:37.280
+url and we have to have the website of uh that we're kind of interested in
+
+0:03:35.360,0:03:42.560
+scraping and so i'm going to cop that copy that like so and
+
+0:03:41.280,0:03:46.000
+if i were building this i would probably have that just be the last step but we
+
+0:03:44.319,0:03:49.760
+also just have to make this call to read so i do that and so now the robot
+
+0:03:49.120,0:03:55.280
+parser object which i created here knows
+
+0:03:52.879,0:04:00.000
+what i can access or not on this website and i can ask it
+
+0:03:56.239,0:04:04.159
+questions i can say robotparser.com may i fetch may i fetch and then here i
+
+0:04:03.360,0:04:12.239
+have to do two things i have to say like who am i
+
+0:04:08.000,0:04:17.199
+and i have to say a url so this who am i is going to be things like what i see
+
+0:04:14.879,0:04:21.840
+over here like maybe it's voltron and when we're doing some scraping i
+
+0:04:19.919,0:04:23.759
+mean we can name ourselves whatever we want
+
+0:04:22.479,0:04:26.000
+right we could just pass that in some headers i'm not going to the details of
+
+0:04:25.199,0:04:28.960
+that uh but you should look it up if you're
+
+0:04:27.440,0:04:31.840
+doing some serious scraping just be polite
+
+0:04:29.840,0:04:35.040
+um i'm just trying to make up a name here i'm gonna say that we're the cs320
+
+0:04:34.000,0:04:38.960
+robot that's our name and the the page i'm
+
+0:04:38.080,0:04:46.479
+interested in is is this it's going to be
+
+0:04:42.880,0:04:52.400
+may i fetch well let me let me head back here for a moment
+
+0:04:48.160,0:04:57.840
+may i fetch this page this c dot html thing
+
+0:04:53.600,0:05:01.919
+and i'm going to check if that's okay okay can i fetch
+
+0:05:02.520,0:05:11.120
+c.html and it says go ahead you're welcome to do that if i want to
+
+0:05:08.639,0:05:14.240
+access another page so for example if i go to this january page where i
+
+0:05:12.800,0:05:22.240
+might start getting stuck in this infinite sequence of things
+
+0:05:17.199,0:05:27.120
+then what let me paste this here i'm going to january 2020
+
+0:05:30.880,0:05:40.080
+then it'll say well not that i hope why is it axing i can access that um
+
+0:05:41.600,0:05:45.840
+that was a little bit strange let me kind of check what i have here
+
+0:05:46.160,0:05:53.840
+it's calendars months and
+
+0:06:05.360,0:06:10.080
+well excuse me i just had to pause the video for a minute i think i just made
+
+0:06:08.639,0:06:14.720
+an upside update to the site and it kind of hadn't fully reflected yet
+
+0:06:12.319,0:06:18.080
+and um and so let me just try to try this again i'm going to do a kernel
+
+0:06:15.759,0:06:23.199
+restart and run all and what i'll see is that i am allowed
+
+0:06:21.280,0:06:26.479
+to access c.html but i'm not allowed to access a calendar
+
+0:06:25.120,0:06:28.880
+because that could just keep going on forever
+
+0:06:27.280,0:06:33.199
+and i would get stuck if i actually tried to scrape it
+

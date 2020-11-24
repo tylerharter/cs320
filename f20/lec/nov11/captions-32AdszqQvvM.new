@@ -1,0 +1,480 @@
+0:00:01.760,0:00:10.160
+hello in this video i want to introduce this very important concept
+
+0:00:06.720,0:00:14.320
+which is the column space of a matrix um so the definition is that a column
+
+0:00:12.160,0:00:18.880
+space of a matrix is a set of all linear combinations
+
+0:00:15.759,0:00:24.240
+of that matrices columns and so what does that mean kind of in plain language
+
+0:00:20.880,0:00:27.439
+well if i have this matrix down here what i'm doing is that i'm multiplying
+
+0:00:26.320,0:00:32.320
+every column by some number and then after i've
+
+0:00:30.800,0:00:36.320
+multiplied them all by these numbers i just add them all up
+
+0:00:34.320,0:00:39.040
+and uh and right because that's what a linear combination is i write i multiply
+
+0:00:38.239,0:00:42.480
+every object by some number and then add up
+
+0:00:40.719,0:00:46.160
+all the results that's linear combination
+
+0:00:43.600,0:00:49.280
+and um and so basically if i do that right if i multiply all these columns by
+
+0:00:47.760,0:00:54.000
+some number add them up whatever value i get is by definition
+
+0:00:52.320,0:00:57.680
+and the column space so this column space is really a set of vectors i can
+
+0:00:56.079,0:01:01.840
+get by doing that and uh and they're going to be some
+
+0:00:59.280,0:01:05.600
+vectors that i can't get to by taking a linear combination of the
+
+0:01:04.479,0:01:08.240
+columns right so there's going to be some vectors that are not in the column
+
+0:01:07.119,0:01:12.560
+space so so let me just give you some examples
+
+0:01:10.240,0:01:16.080
+of some things that i could get um for this matrix right here so so i
+
+0:01:14.799,0:01:20.960
+guess i have um a right here oh what what happened
+
+0:01:18.400,0:01:26.560
+there let me just run the code so i get a which looks like that
+
+0:01:24.720,0:01:29.840
+um it's the same as a ball of ripe now and numpy
+
+0:01:27.840,0:01:35.520
+and um and so how can i take combinations of these columns
+
+0:01:32.079,0:01:39.360
+well simple i can say a and then multiply it by some values
+
+0:01:37.280,0:01:43.759
+right i can say well how many of each column do i want maybe i want
+
+0:01:41.680,0:01:47.520
+two of the of the first column and none of the second one
+
+0:01:44.960,0:01:50.799
+and so um i would do that and kind of the shape of it is a little bit
+
+0:01:48.799,0:01:56.719
+uh funny here because this is not an actual numpy race i may say numpy dot
+
+0:01:53.439,0:02:01.680
+array and then reshape this so that there's exactly one column
+
+0:02:00.320,0:02:04.479
+maybe what i'll do is i'll just put this in a variable a c variable like i've
+
+0:02:03.520,0:02:09.440
+been doing so these are my coefficients and so i'm
+
+0:02:07.439,0:02:12.800
+going to take a a multiplied by c and so you can see what's happening
+
+0:02:10.720,0:02:20.480
+there i'm taking 2 times that first column
+
+0:02:16.000,0:02:27.040
+and 0 0 times that second column so so this vector i'm producing
+
+0:02:23.520,0:02:33.360
+that's in the column space and so really whatever this produces
+
+0:02:30.080,0:02:38.560
+is in column space no matter how you change c this is just
+
+0:02:36.640,0:02:42.800
+another definition right so so maybe i could say something
+
+0:02:40.720,0:02:46.239
+like this you know negative one all right negative one negative two
+
+0:02:45.280,0:02:51.360
+negative three that vector is also in the column space
+
+0:02:49.280,0:02:54.720
+what if i say you know i want one of each column
+
+0:02:52.959,0:02:59.440
+right so so i guess if i take one of each column i get 101
+
+0:02:57.599,0:03:02.080
+that's that was one one plus a hundred two plus ten is twelve and then three
+
+0:03:01.360,0:03:05.440
+plus uh zero is three right so this one is also
+
+0:03:04.400,0:03:09.280
+um also on the column space right i could
+
+0:03:07.440,0:03:15.599
+if i wanted to um i don't know have uh have like um
+
+0:03:12.480,0:03:19.040
+100 of of that second column and then subtract off one of the first right i
+
+0:03:17.599,0:03:22.720
+could do that this an example of a vector in the
+
+0:03:20.400,0:03:26.159
+column space so so whenever whenever i might ask you
+
+0:03:25.840,0:03:31.360
+hey is this specific vector the column space
+
+0:03:29.440,0:03:34.400
+if you think the answer is yes it's really easy to prove it right just come
+
+0:03:33.440,0:03:38.640
+up with some coefficients here that that demonstrate
+
+0:03:37.200,0:03:41.760
+that you can produce that vector that you think is in the column space
+
+0:03:40.640,0:03:45.840
+um sometimes you're going to have to make a trickier argument
+
+0:03:43.920,0:03:51.200
+and so down here i have a more complicated example i have a different
+
+0:03:47.760,0:03:57.360
+matrix b and then i want to know of these different vectors down here uh
+
+0:03:54.480,0:04:00.879
+which ones are are in the column space and so i'm going to try to poke around
+
+0:03:58.879,0:04:03.920
+and see if i can figure it out so just like before i'm gonna take this
+
+0:04:03.439,0:04:10.319
+um c this coefficients like so
+
+0:04:07.519,0:04:14.959
+and maybe i'll just start with like um you know
+
+0:04:11.120,0:04:20.320
+zero zero and then i'll say like b dot product c by the way
+
+0:04:18.799,0:04:25.199
+you know i can always have my coefficients be 0
+
+0:04:22.000,0:04:29.600
+which means that the 0 vector is part of every single column space
+
+0:04:28.000,0:04:32.639
+regardless of what matrix i'm dealing with right so that's always one that i
+
+0:04:30.880,0:04:36.880
+know i have um okay so let's think about this a
+
+0:04:34.479,0:04:42.720
+little bit i'm trying to figure out what values i should put here
+
+0:04:40.080,0:04:49.280
+what values i should put here so that this thing down here
+
+0:04:44.560,0:04:52.720
+is going to be um two two three and so so it's almost like i'm trying to
+
+0:04:51.120,0:04:57.600
+come up with a recipe right i want to figure out
+
+0:04:53.919,0:05:01.600
+um if i'm trying to bake this result um how many of each column uh should i
+
+0:05:00.479,0:05:05.199
+take and and so i can maybe look at this
+
+0:05:03.440,0:05:09.280
+piece by piece and try to deduce what i should do
+
+0:05:06.080,0:05:13.360
+um i can see that i want um two in in the first place right i see that i
+
+0:05:12.080,0:05:16.639
+see that this column here this column gives me a 1 in the first
+
+0:05:16.000,0:05:19.680
+place so so i feel like to get a 2 down here
+
+0:05:18.080,0:05:21.360
+maybe i should take 2 of that first column
+
+0:05:20.320,0:05:26.479
+so maybe i'll just start with that i'm going to take 2 of the first column
+
+0:05:23.520,0:05:30.080
+and then then zero of the second one and i see i made some progress right
+
+0:05:28.080,0:05:32.880
+i'm kind of closer to uh you know finishing my recipe right i have a two
+
+0:05:31.840,0:05:38.160
+here um i had a two up here um i would still
+
+0:05:35.520,0:05:42.639
+like to also get a two and three here right and of course my first column is
+
+0:05:40.880,0:05:46.080
+never gonna give me anything a value in that place
+
+0:05:43.759,0:05:48.560
+but i guess uh today's my lucky day because
+
+0:05:46.880,0:05:54.880
+that second column is exactly what i was looking for um if i want to have a 2
+
+0:05:51.039,0:05:57.759
+3 down here well look i just need one of my
+
+0:05:55.520,0:06:02.080
+one of my second column so so i can just take one of these
+
+0:05:59.199,0:06:06.720
+and voila i have that i have that vector the 2
+
+0:06:03.199,0:06:11.759
+2 3 0 and so i can conclusively say that a
+
+0:06:07.840,0:06:15.600
+is in the column space of b all right so that's what i'm answering
+
+0:06:13.039,0:06:22.560
+here okay um how about this uh this next one
+
+0:06:18.960,0:06:28.160
+right um how can i take some combination of these columns to get zero
+
+0:06:24.160,0:06:31.680
+zero zero one and uh and i'm skeptical about this right
+
+0:06:30.240,0:06:34.960
+because somehow i have to get one in this last
+
+0:06:33.520,0:06:39.360
+position and just looking at these columns right
+
+0:06:37.759,0:06:42.880
+when i am adding up combinations of these columns
+
+0:06:41.280,0:06:47.919
+i could add any sort of combination i want but neither of them
+
+0:06:44.880,0:06:50.880
+ever contributes anything of value in the last spa right so i mean i could say
+
+0:06:49.599,0:06:55.919
+like you know uh one two three and and four five six
+
+0:06:54.160,0:07:00.240
+whatever kind of wild thing and um and that will affect a lot of
+
+0:06:58.560,0:07:04.560
+these cells but the last one is always going to be
+
+0:07:00.960,0:07:08.479
+zero right no no combination of these vectors
+
+0:07:05.520,0:07:10.639
+or these column vectors is going to give me
+
+0:07:08.800,0:07:12.960
+b right because b has something in the last spot and these other two don't have
+
+0:07:12.240,0:07:19.199
+that so i can conclusively say that vector
+
+0:07:16.000,0:07:22.720
+b here lowercase b lowercase vector b is not in the column
+
+0:07:22.160,0:07:27.520
+space of matrix capital b okay
+
+0:07:27.599,0:07:36.319
+what about this one right here um this one has a negative number and uh
+
+0:07:34.160,0:07:39.520
+at first you might think oh well i'm in i'm in trouble because there's no
+
+0:07:37.599,0:07:43.360
+negative numbers up here but there's no rule against having
+
+0:07:41.680,0:07:45.759
+negative coefficients right if i if i wanted to i could say something like
+
+0:07:44.319,0:07:49.680
+negative one and zero and you can see if i do that then
+
+0:07:48.479,0:07:53.440
+i'm taking a minus one of this column for my
+
+0:07:52.240,0:07:56.840
+combination and so minus one of that is well
+
+0:07:55.440,0:08:01.759
+negative one zero zero zero um if i want to i can just take
+
+0:07:59.360,0:08:05.039
+negative 10 of that first column and then i get exactly the c matrix
+
+0:08:03.919,0:08:12.800
+right here so so it turns out that c is
+
+0:08:08.080,0:08:18.720
+in the column space of my matrix okay what about this one here uh
+
+0:08:15.919,0:08:22.479
+so so this one i'm trying to get zero negative two
+
+0:08:20.400,0:08:27.039
+three so so let me kind of focus first on this um
+
+0:08:23.759,0:08:31.919
+negative two part uh i can see that the second column has a two here
+
+0:08:29.199,0:08:37.279
+and so my feeling is that maybe i'll start off with one of the first column
+
+0:08:34.399,0:08:41.599
+and a negative one of the second column and that's kind of good right i mean
+
+0:08:39.120,0:08:46.160
+i kind of by taking negative one of this i start off with zero negative two
+
+0:08:44.880,0:08:50.560
+which is what i want i want to start with zero negative two but after that it
+
+0:08:48.399,0:08:55.440
+goes bad right because because well here i have negative three
+
+0:08:52.800,0:09:00.000
+and i wanted positive 3. and now you can kind of see the pickle
+
+0:08:56.959,0:09:04.399
+i'm in right because because if i'm trying to think about
+
+0:09:01.600,0:09:08.959
+these um these two values here in my matrix that i'm or my vector i'm trying
+
+0:09:06.000,0:09:12.160
+to produce they have the opposite sign and looking at the ingredients i have to
+
+0:09:11.120,0:09:15.760
+work with column one is never going to touch
+
+0:09:13.600,0:09:20.399
+either the second or third position only this one will and so the only thing
+
+0:09:18.720,0:09:23.920
+i can do is i can multiply the second vector
+
+0:09:21.680,0:09:26.800
+column vector by different coefficients but what you're going to see
+
+0:09:24.959,0:09:30.399
+is that if i make the value at this position positive i'm kind of forcing
+
+0:09:29.040,0:09:34.080
+this to be positive as well if i make this one negative
+
+0:09:31.600,0:09:37.200
+i make this negative as well right so so i could flip this back to a positive
+
+0:09:35.680,0:09:42.160
+number if i want and then in that case well i've solved
+
+0:09:40.000,0:09:45.040
+this problem right that's three and this is three down here but i've
+
+0:09:43.839,0:09:48.640
+created another problem right because i made this
+
+0:09:45.760,0:09:51.279
+positive as well whereas this is not so so
+
+0:09:48.959,0:09:54.800
+i can just clearly see here right that i could play around with these forever
+
+0:09:53.200,0:10:00.160
+and uh and i'm never going to be able to produce um vector d
+
+0:09:56.800,0:10:05.279
+right so d is not in the column space of of b
+
+0:10:02.320,0:10:08.399
+okay what about this last one uh we'll do one more
+
+0:10:07.040,0:10:14.160
+so i see the first place i want a negative one and uh and i can see well
+
+0:10:11.600,0:10:17.519
+if i oh excuse me you know this code here is what we call markdown and
+
+0:10:15.680,0:10:22.480
+the way i got this just a little bit of an aside i went to cell
+
+0:10:19.279,0:10:25.839
+and then cell type markdown and then i can type like um some kind of
+
+0:10:23.839,0:10:31.600
+documentation instead of code uh not really important for this class
+
+0:10:28.959,0:10:35.040
+anyway um where was i at i was trying to produce this this guy right here
+
+0:10:33.519,0:10:38.640
+and so i want negative one in the first place and so i want negative one of that
+
+0:10:37.440,0:10:43.279
+first column right so i'm gonna say negative one
+
+0:10:40.640,0:10:46.959
+zero so that's good i have a negative one there
+
+0:10:44.320,0:10:49.519
+and then i want a 2 3 which is great well because
+
+0:10:47.680,0:10:55.760
+you know i need 2 3 here as well so i'm just going to say negative 1 and 1
+
+0:10:52.399,0:10:59.600
+and voila i have negative 1 2 3 0 exactly what i was looking for
+
+0:10:57.920,0:11:04.079
+negative 1 2 3 0 so this one is definitely uh in in the
+
+0:11:02.959,0:11:07.440
+column space so it's good to be able to try to do
+
+0:11:05.360,0:11:10.800
+this reasoning right either either give a concrete example for the
+
+0:11:09.200,0:11:13.360
+coefficients where you can produce what you're trying
+
+0:11:11.920,0:11:16.959
+to produce and therefore you prove that it's in the column space
+
+0:11:15.279,0:11:22.560
+or try to make some sort of argument about why it'll never be possible
+

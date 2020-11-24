@@ -1,0 +1,870 @@
+0:00:01.199,0:00:07.279
+well this time i want to do some practices related to regular expressions
+
+0:00:04.880,0:00:10.240
+and also some more complicated program programming examples
+
+0:00:08.880,0:00:14.880
+um so we'll just go through these starting in the top left up here
+
+0:00:12.719,0:00:22.480
+um which of these regular expressions will not match the string
+
+0:00:17.279,0:00:30.240
+one two three so if i'm looking at these slash d means um a number
+
+0:00:26.000,0:00:36.559
+a digit and so a digit digit digit that will absolutely match this um
+
+0:00:33.440,0:00:39.920
+when i put uh put squiggly braces and a number inside of it that just
+
+0:00:38.399,0:00:42.960
+means a thing in front of it repeats this number of times
+
+0:00:41.440,0:00:49.200
+so this will do exactly the same thing as the ball so both of these so far
+
+0:00:45.600,0:00:52.960
+are are matching just fine um let's jump down to the last one this one
+
+0:00:51.760,0:00:56.239
+says dot dot dot remember that dot matches anything
+
+0:00:54.399,0:00:59.440
+except a new line so that's even more general right i mean that could match
+
+0:00:57.680,0:01:02.719
+something like abc and so the final answer the only one
+
+0:01:00.800,0:01:07.280
+that i won't match is when i have capital d's
+
+0:01:04.640,0:01:09.920
+and relative to the lowercase d so lowercase d is the metacharacter for
+
+0:01:09.040,0:01:14.560
+digits and then uppercase d is the opposite of
+
+0:01:12.560,0:01:20.560
+that it's non-digits okay so let's head down to this next one
+
+0:01:17.600,0:01:24.400
+so here's my pattern oh excuse me so here's my pattern
+
+0:01:22.400,0:01:29.360
+and i want to know which of these will match this time
+
+0:01:26.799,0:01:33.040
+and so the first key is for this character here this little hat character
+
+0:01:31.439,0:01:36.720
+that means different things at different times um
+
+0:01:34.720,0:01:40.400
+if it were inside of brackets then it would mean not
+
+0:01:38.400,0:01:43.520
+when it's at the front of it when it's outside of any brackets
+
+0:01:42.079,0:01:48.159
+that means it's an anchor and that means anchor to the beginning
+
+0:01:45.360,0:01:53.520
+of the string and so basically what we're looking for is any string
+
+0:01:50.240,0:01:58.079
+that begins with a right and so the only one that begins with a
+
+0:01:55.759,0:02:02.479
+is this one right here right if i had wanted to match something like this
+
+0:02:00.079,0:02:06.240
+then i would have had to put a backslash in front of that character to indicate
+
+0:02:04.159,0:02:09.679
+that i'm literally looking for that little hat character uh but i'm
+
+0:02:08.399,0:02:14.640
+gonna do that so this is the only one it matches right here
+
+0:02:12.160,0:02:17.680
+okay so which one of the following regular expressions
+
+0:02:16.319,0:02:22.480
+can match with this string it's kind of opposite right i mean i've been putting
+
+0:02:19.599,0:02:26.160
+um i've been putting uh this one right i had my regular expression down here here
+
+0:02:23.760,0:02:34.160
+i have a bunch of regular expressions and so well let's take a peek at this
+
+0:02:30.319,0:02:40.640
+so does the first one work remember that plus means plus means
+
+0:02:38.000,0:02:45.519
+one or more and so there's no a's in there so that
+
+0:02:43.519,0:02:53.440
+one's out right away um what about this one so actually plus
+
+0:02:50.400,0:02:59.760
+plus question mark also means oh excuse me
+
+0:02:57.120,0:03:04.080
+plus question mark also means one or more
+
+0:03:01.760,0:03:07.920
+and the difference between these is when we have a choice so
+
+0:03:05.599,0:03:11.760
+this one down here we prefer more let me draw a line in between here
+
+0:03:09.200,0:03:19.680
+this is preferring more or i'm sorry this is preferring less
+
+0:03:14.159,0:03:23.120
+and up here i'm preferring more but you know whether i'm preferring less
+
+0:03:21.360,0:03:26.159
+or more it's still at least one right so neither of these
+
+0:03:24.879,0:03:29.440
+is going to work for me so i'm going to cross this off too
+
+0:03:27.920,0:03:33.840
+i notice it's a little bit different right um here i don't have plus question
+
+0:03:32.560,0:03:38.239
+mark it's actually this inside of parentheses so it's a separate thing
+
+0:03:35.760,0:03:41.440
+so inside of the parentheses i'm saying i'm looking for one or more a's
+
+0:03:40.080,0:03:43.920
+and then after the parentheses i'm saying the thing right before it is
+
+0:03:42.879,0:03:47.680
+optional right so this whole thing here is
+
+0:03:45.280,0:03:51.040
+optional um i could skip it if i want right i could have zero
+
+0:03:48.799,0:03:56.080
+or one of these and so then this one absolutely will
+
+0:03:52.400,0:04:02.480
+match just uh hh okay up here to the top right uh which
+
+0:03:58.959,0:04:07.200
+string will match this right here okay and and so again like this one over
+
+0:04:04.879,0:04:11.280
+here right that the little hat is not inside of bracket so it doesn't
+
+0:04:08.640,0:04:13.920
+mean not it means anchor and and so what does this mean this
+
+0:04:12.720,0:04:17.600
+means i have to start at the beginning of the string
+
+0:04:15.120,0:04:20.320
+this means i have to go to sorry the dollar sign means i have to anchor at
+
+0:04:18.959,0:04:24.160
+the end of the string and then well what does star mean star
+
+0:04:22.160,0:04:31.040
+means zero or more so the whole string has to consist of
+
+0:04:28.080,0:04:37.199
+zero or more has and and so let me cross some of these off right away
+
+0:04:32.960,0:04:40.560
+this one is off because the case is run this one is off because it's not
+
+0:04:38.720,0:04:46.960
+beginning with hot this one up here is off because
+
+0:04:43.919,0:04:49.680
+i have a hanging h right it um it would be fine if i didn't have this dollar at
+
+0:04:48.560,0:04:53.360
+the end right then it would just kind of match what it could from the beginning
+
+0:04:51.759,0:04:57.040
+but i say that at the end of the match it has to be at the end of the string
+
+0:04:55.199,0:05:02.080
+and uh and that one's not that one's out too and so when i'm looking at this
+
+0:04:59.520,0:05:05.199
+well star means zero or more so i guess i'll go with zero
+
+0:05:03.039,0:05:08.400
+so zero has and then the beginning and end of the string
+
+0:05:06.160,0:05:15.360
+and so that absolutely will match just the empty string like so
+
+0:05:11.680,0:05:21.199
+okay what is the type of the following so i'm calling find all
+
+0:05:19.199,0:05:24.720
+and um and i'm looking at some sort of string for some pattern
+
+0:05:23.199,0:05:27.600
+and then that's when i return something and then i'm indexing into it i'm
+
+0:05:26.080,0:05:34.240
+pulling out the item at position zero so find all
+
+0:05:30.639,0:05:38.639
+always returns a list and depending on what my pattern is the
+
+0:05:37.039,0:05:42.320
+types of the entries in my list might be different
+
+0:05:39.919,0:05:46.720
+um what really matters is how many groups i'm looking for
+
+0:05:43.759,0:05:51.360
+when i put these parentheses in it then that means i'm looking for two groups
+
+0:05:49.280,0:05:54.400
+right so that means each each match i find
+
+0:05:52.560,0:05:56.960
+has to be represented by a tuple right and that tuple will have these two
+
+0:05:55.840,0:06:01.039
+pieces right so so in this case since i have the two
+
+0:05:58.400,0:06:05.520
+groups i may be returning a list of of tuples and so if i have a list of
+
+0:06:03.919,0:06:09.120
+tuples and i pull out the position at zero
+
+0:06:06.400,0:06:13.440
+well no surprise i'm going to get a tuple
+
+0:06:11.360,0:06:16.960
+what what if i had had only one group in here right maybe i only had one pair of
+
+0:06:15.280,0:06:19.759
+parentheses or none in that case find all would be returning
+
+0:06:18.560,0:06:22.800
+a list of strings and this would have been
+
+0:06:20.800,0:06:27.120
+string but that's not the case since i have two groups
+
+0:06:25.280,0:06:32.319
+okay so let's look at this one down here what will the following substitution
+
+0:06:29.120,0:06:37.440
+do so this is a string i'm operating on
+
+0:06:35.520,0:06:42.240
+and what am i trying to match i'm trying to match
+
+0:06:39.039,0:06:47.120
+this piece here so three digits and then a dash
+
+0:06:43.680,0:06:51.520
+and then three digits dash four digits that's what i'm looking for and i
+
+0:06:50.000,0:06:54.639
+absolutely do that right so i'm going to grab this as a group
+
+0:06:53.039,0:06:59.919
+and then this is a group here right do you see my two groups
+
+0:06:57.199,0:07:03.599
+these are a group and then these are a group
+
+0:07:00.400,0:07:07.120
+right that's group one and two and so then when i'm replacing it with
+
+0:07:05.199,0:07:14.240
+this i'm saying i want parentheses
+
+0:07:10.240,0:07:17.360
+group one parentheses space and then group two so maybe to write it
+
+0:07:16.000,0:07:20.639
+out exactly what would i get well it's a string and i have
+
+0:07:19.039,0:07:27.840
+parentheses and then group one and parentheses
+
+0:07:24.880,0:07:32.880
+and then space and then group two right and then so i'd have
+
+0:07:28.960,0:07:37.039
+1 2 3 4 5 6 7 would be my uh would be my entire
+
+0:07:36.560,0:07:41.120
+thing right so so i can very easily do things
+
+0:07:39.599,0:07:44.240
+like reformatting a phone number right i mean sometimes
+
+0:07:42.240,0:07:47.120
+this is a more common pattern that's up here and we could consistently
+
+0:07:45.599,0:07:49.280
+do that to all of them and if i had a long document with a lot of phone
+
+0:07:48.319,0:07:52.800
+numbers in it then this little piece of code would be
+
+0:07:51.599,0:07:57.199
+replacing all of them and it would be great
+
+0:07:54.639,0:08:01.039
+okay so let me head over here and um and i want to do a real example now
+
+0:07:58.800,0:08:05.360
+and so i'm going to head over to the website
+
+0:08:02.319,0:08:07.840
+and um uh it makes for such a nice example even though i'm doing something
+
+0:08:07.120,0:08:11.520
+that maybe feels a little bit wrong so i
+
+0:08:09.840,0:08:15.440
+don't do this in general but you know there's all these people
+
+0:08:13.039,0:08:19.199
+who are trying to scrape email addresses off of websites
+
+0:08:17.280,0:08:22.160
+for spammy purposes and and because i know there's people
+
+0:08:20.960,0:08:26.560
+out there like that i'm trying to make their job a little bit harder
+
+0:08:23.919,0:08:30.160
+by formatting my um my email address is like this i'm not using an actual at
+
+0:08:28.479,0:08:33.919
+character okay and that makes her life harder not
+
+0:08:32.479,0:08:37.039
+impossible though i'm actually write a regular expression
+
+0:08:35.440,0:08:40.000
+that can deal with this i can actually find what's going on
+
+0:08:38.479,0:08:43.440
+and so maybe let me just grab all of this up here and i'm gonna head over to
+
+0:08:42.320,0:08:48.080
+this demo and i'm gonna say well this is my string
+
+0:08:46.320,0:08:52.320
+and um and because i want to be a multiply line string i have to put
+
+0:08:49.839,0:08:57.200
+triple quotes so i'm gonna do that and you know you just print s here
+
+0:08:54.240,0:09:00.080
+that works fine and so what i want to do is i want to try to write some code
+
+0:08:58.399,0:09:05.360
+that's going to pull out these um email addresses for me okay
+
+0:09:03.519,0:09:08.320
+so let's think about how we can do this i mean there's several parts to an email
+
+0:09:06.839,0:09:14.480
+address um one is i have something like dot edu
+
+0:09:11.360,0:09:17.600
+or maybe dot com or dot org and then i also have this ad in the
+
+0:09:16.000,0:09:21.760
+middle and so what i'm gonna do is i'm gonna say
+
+0:09:19.040,0:09:25.920
+import maybe i should do that up at the top
+
+0:09:22.800,0:09:29.920
+import re and then down here i say re dot find all
+
+0:09:27.600,0:09:34.399
+and then i have a pattern and then i have my
+
+0:09:30.880,0:09:37.839
+text which in this case is just ass okay so so my pattern i guess there could be
+
+0:09:36.320,0:09:42.160
+multiple patterns right maybe one pattern
+
+0:09:38.800,0:09:45.519
+that i'm going to look for is the suffix and so maybe like the suffix is
+
+0:09:43.519,0:09:50.720
+something like um edu and so maybe let me look for that
+
+0:09:48.000,0:09:54.080
+suffix pattern and you can see i'm finding
+
+0:09:51.519,0:09:58.000
+four of them right for the four email addresses there
+
+0:09:55.600,0:10:01.200
+um and and one one thing that is a little bit weird right is
+
+0:09:59.040,0:10:06.320
+maybe i should add some stuff up there um
+
+0:10:02.839,0:10:09.920
+uh you know if i had something that was not this right if i had something that
+
+0:10:07.760,0:10:16.640
+was not a period in front of it um uh i don't know
+
+0:10:13.360,0:10:20.320
+um i'll say like um nine uh then it's going to match that as well
+
+0:10:19.040,0:10:23.440
+right because dot down here means match everything and
+
+0:10:22.399,0:10:26.000
+so what i should really do is i should escape that i don't want to get this
+
+0:10:24.720,0:10:29.519
+weird thing here i just want to get actual endings um
+
+0:10:28.079,0:10:35.760
+other things i should do is like let's say one of these is like dot com um
+
+0:10:33.040,0:10:38.320
+i would like to you know let me let me kind of combine
+
+0:10:36.880,0:10:42.240
+all this up here because i feel like i have to keep re-running the same cell
+
+0:10:40.399,0:10:45.440
+um i would like it to still match that right and so what i'd like to do is i'd
+
+0:10:44.079,0:10:49.040
+like to match different endings and the way i can do that
+
+0:10:46.800,0:10:51.519
+um is something similar to a character class i mean we saw it before if i do
+
+0:10:50.720,0:10:56.079
+this i'm matching the characters a b or c um
+
+0:10:54.480,0:10:59.200
+here i want to match different things but not necessarily uh
+
+0:10:57.519,0:11:03.279
+just a single character and so the way i can basically say or
+
+0:11:01.519,0:11:08.320
+in a regular expression is with a vertical bar like this this means
+
+0:11:05.279,0:11:13.519
+or and so i can say edu or com or org or something like that
+
+0:11:11.680,0:11:17.519
+and now i can basically catch all of these right
+
+0:11:15.200,0:11:22.320
+and um and actually i should make this uh
+
+0:11:18.959,0:11:24.720
+like that so uh to just be very careful right to make sure it's not matching
+
+0:11:23.680,0:11:31.519
+something more general right okay um
+
+0:11:28.720,0:11:35.040
+good so uh so i'm kind of capturing all those things
+
+0:11:33.040,0:11:39.600
+and now what i want to do is i want to capture
+
+0:11:36.399,0:11:43.920
+these pieces here right so i may say at equals another regular expression and
+
+0:11:42.720,0:11:51.680
+there's a couple ways i could do this right i could say a or a
+
+0:11:47.600,0:11:56.639
+followed by t or t and and well what else i mean i guess i
+
+0:11:54.639,0:11:59.120
+could also say well i might have that at character so maybe i say something like
+
+0:11:58.160,0:12:03.279
+this uh maybe i'll put this all in
+
+0:12:00.240,0:12:10.000
+parentheses um can i find the the letter um at
+
+0:12:06.320,0:12:14.000
+like so and i can i'm finding it in all of these various forms maybe i'm just
+
+0:12:11.760,0:12:20.560
+trying to change one of these um say like i know test at gmail.com i
+
+0:12:18.399,0:12:23.760
+should i should be catching all of these and and you can see i'm am right i'm
+
+0:12:22.320,0:12:29.360
+catching um all these different emails and all these different forms
+
+0:12:25.920,0:12:32.560
+okay um what next um there's more i have to do i have to
+
+0:12:31.120,0:12:36.720
+grab something here i have to worry about these brackets i
+
+0:12:34.639,0:12:39.360
+have to worry about this word over here and so maybe what i'll do is i'll say
+
+0:12:38.160,0:12:45.279
+something like well let's find the brackets in there i'm gonna say brackets
+
+0:12:42.320,0:12:50.160
+um is a regular expression and it's a set of characters
+
+0:12:46.480,0:12:55.200
+um and uh the set of characters could be you know parentheses curly braces or
+
+0:12:53.920,0:12:58.959
+brackets and i'm just going to escape all of
+
+0:12:56.800,0:13:02.000
+these just so there's no confusion right these characters all have special
+
+0:13:00.639,0:13:05.600
+meaning um in regular expression so i'm somebody do
+
+0:13:03.519,0:13:11.519
+that and so i'm going to say brackets like that
+
+0:13:09.600,0:13:14.000
+and um and i can see while i'm i'm finding all these different brackets
+
+0:13:12.959,0:13:17.600
+inside right so lots of good things that i'm
+
+0:13:15.360,0:13:22.320
+doing so far um now what i think i can do is i can try
+
+0:13:20.160,0:13:26.160
+to put it all together so so what is an email address an email address
+
+0:13:24.800,0:13:31.440
+is something like this it's something like um
+
+0:13:28.320,0:13:35.760
+some word characters some number of word characters like you know
+
+0:13:33.040,0:13:39.600
+um you know letters or numbers or things like that
+
+0:13:36.959,0:13:44.480
+and um and then after that it's maybe optionally
+
+0:13:41.279,0:13:47.680
+some spaces right so i'm going to say oh do i have some spaces
+
+0:13:46.079,0:13:50.480
+maybe maybe not right i mean i could have a lot of spaces i could have one
+
+0:13:49.199,0:13:53.760
+space right slash s is that i need to have at
+
+0:13:52.720,0:13:57.279
+least one letter for the email address but i may
+
+0:13:55.839,0:14:02.800
+or may not have any spaces right let me have that and um
+
+0:14:00.959,0:14:05.519
+and then i'm going to have what i can actually glue these regular expressions
+
+0:14:04.399,0:14:09.920
+together right after that i can have some
+
+0:14:07.680,0:14:16.959
+brackets and after i have some brackets i have um
+
+0:14:13.279,0:14:22.079
+an at right i have some sort of at symbol and after that
+
+0:14:19.199,0:14:25.600
+maybe i have some more brackets and uh and then finally i'm going to
+
+0:14:23.600,0:14:29.120
+have a suffix so i'm going to do that and uh and what
+
+0:14:28.160,0:14:34.880
+do i get um well nothing unless i actually
+
+0:14:32.639,0:14:39.600
+uh say that that's what i'm searching for right so i'm gonna say
+
+0:14:36.000,0:14:43.680
+email like that and well what did i find i guess nothing
+
+0:14:41.519,0:14:47.519
+right um so in this case i guess i bit off more
+
+0:14:45.920,0:14:50.720
+than i could chew and so maybe what i should do is i
+
+0:14:49.040,0:14:56.079
+should just kind of go a piece at a time right can i find this um
+
+0:14:54.639,0:15:01.040
+yes i can right i can find a bunch of stuff there and i find a word followed
+
+0:14:58.480,0:15:04.560
+by a bracket yes i can find a bunch of words followed
+
+0:15:03.040,0:15:08.399
+by brackets what about brackets followed by an at
+
+0:15:06.720,0:15:13.120
+symbol no i can't so sorry there words followed
+
+0:15:11.040,0:15:16.480
+by a at symbol that i can do and you actually see my
+
+0:15:15.600,0:15:19.519
+problem here um why is it only showing me the at
+
+0:15:18.720,0:15:23.199
+symbol well the reason is that when i did this
+
+0:15:21.440,0:15:28.240
+find all down here um
+
+0:15:27.040,0:15:31.600
+there's only one group right it's considering whatever is inside of my
+
+0:15:29.920,0:15:33.839
+parentheses to be the group i'm looking for
+
+0:15:32.240,0:15:38.079
+and so to kind of make the whole thing a group what i should really do is i
+
+0:15:36.320,0:15:42.320
+should have a parenthesis parentheses around this to
+
+0:15:40.399,0:15:47.040
+make the whole thing a group one big group and so i do that and now
+
+0:15:45.360,0:15:50.079
+i'm maybe getting these tuples right but at least the tuples are
+
+0:15:48.399,0:15:53.279
+showing me the pieces that i'm interested in right so i'm gonna do
+
+0:15:52.480,0:15:57.839
+that and then what else do i want to do here
+
+0:15:56.320,0:15:59.920
+so that was part of my debugging i wonder if that was the whole thing so
+
+0:15:59.120,0:16:04.399
+let's let's try to keep going piece by piece oh
+
+0:16:02.959,0:16:08.560
+that was still good i'm still getting my matches and what about when i have my
+
+0:16:06.839,0:16:12.000
+suffix that's where i run out so so why can't i
+
+0:16:10.480,0:16:18.160
+have my suffix that comes
+
+0:16:15.040,0:16:22.240
+right after brackets and and i guess the reason why is that i'm missing this word
+
+0:16:19.839,0:16:26.480
+here and i'm missing this space right so so i guess i should really say
+
+0:16:24.079,0:16:29.440
+what else do i have here i have some other pieces
+
+0:16:29.839,0:16:38.399
+um i have some spaces possibly right some number of spaces or none and
+
+0:16:35.839,0:16:43.199
+then i also have we'll have a word there i do that and now i can actually see i'm
+
+0:16:41.759,0:16:47.600
+pulling out these pieces that i'm interested in
+
+0:16:44.800,0:16:50.800
+right and so this is all good i'm pulling out the emails that i had up
+
+0:16:49.279,0:16:56.079
+here um why am i not getting tested gmail.com
+
+0:16:53.519,0:17:02.079
+that's kind of interesting actually um let me think about that
+
+0:17:03.279,0:17:09.919
+let me let me kind of do the same thing again right
+
+0:17:06.799,0:17:18.640
+oh what's wrong there oh not even there right so even
+
+0:17:14.799,0:17:23.679
+the brackets are no good and um and you see my problem right the
+
+0:17:21.760,0:17:26.880
+i didn't make the brackets optional did i so maybe we call these like optional
+
+0:17:25.760,0:17:32.080
+brackets and i put a parenthesis after them all
+
+0:17:29.360,0:17:35.120
+right so let me say optional brackets like so let me have some more optional
+
+0:17:33.600,0:17:40.160
+brackets there and um and now i'm actually capturing
+
+0:17:36.960,0:17:43.360
+all of the all the email addresses right and um and so like the one more piece i
+
+0:17:42.320,0:17:48.480
+want to do here is i want to be able to get the actual
+
+0:17:46.640,0:17:52.720
+email address out and um and so what does that mean i want
+
+0:17:50.720,0:17:59.360
+this piece down here and i want this piece and um
+
+0:17:56.080,0:18:02.320
+and then i want to have actually that's all i want to have my
+
+0:18:01.120,0:18:05.120
+you know the name and then like the website
+
+0:18:03.120,0:18:08.400
+and then i can add the app myself later so so really what i should do is i
+
+0:18:06.160,0:18:13.440
+should put parentheses around here right that's going to be useful for me
+
+0:18:11.600,0:18:19.280
+and um and then at the end i want everything around
+
+0:18:15.600,0:18:22.960
+from these words uh plus the suffix maybe i'll just keep the suffix separate
+
+0:18:20.880,0:18:26.000
+because i already have that and so i'm gonna match all that all that
+
+0:18:24.880,0:18:28.240
+and now you can see i'm pulling out an email from each of these right i have
+
+0:18:27.520,0:18:35.679
+something like test gmail.com
+
+0:18:33.039,0:18:37.520
+right i can pull out all of these um these email addresses and of course i
+
+0:18:37.120,0:18:40.799
+may ignore this app because it's not really
+
+0:18:39.280,0:18:46.240
+what i was looking for right i was um i was going to kind of
+
+0:18:43.520,0:18:50.240
+put that in myself my own way okay so i'm doing pretty good now let me
+
+0:18:48.880,0:18:56.000
+loop over these i might say something like for
+
+0:18:51.760,0:19:02.799
+matches for maybe match and this um what do i want to say i want to print
+
+0:18:59.360,0:19:09.600
+let me be a little careful here um i i have the match at position one
+
+0:19:06.320,0:19:15.679
+all right so i'm gonna say match one plus at and um
+
+0:19:13.760,0:19:19.520
+and then what else do i want i want these two pieces back here
+
+0:19:18.160,0:19:25.840
+all right so this is position one position two position three
+
+0:19:22.799,0:19:30.480
+at match three let me just try that for a moment
+
+0:19:28.960,0:19:34.559
+i'm doing pretty good and then i think i also wanted to match it uh part four
+
+0:19:32.320,0:19:40.559
+right let me just print the whole thing right so here i have my matches
+
+0:19:37.600,0:19:45.120
+and i wanted dot and then com all right so i'm gonna say
+
+0:19:41.280,0:19:49.760
+plus dot plus match four and um and now i'm kind of pulling
+
+0:19:48.480,0:19:54.799
+out people's email addresses and maybe i'll just delete this
+
+0:19:51.360,0:19:57.760
+that's a complete example and uh maybe i don't even need this here for
+
+0:19:56.080,0:20:00.400
+now i can just do that and so you can see even though i have this weird messy
+
+0:19:59.120,0:20:03.440
+string with all these emails and all these different
+
+0:20:01.039,0:20:06.400
+uh ways it would actually be very easy to write a little piece of code that
+
+0:20:04.799,0:20:09.440
+pulls all of those out and uh well hopefully not spamming
+
+0:20:08.559,0:20:13.280
+people but i mean this is what people do so be
+
+0:20:11.360,0:20:16.320
+careful with your email addresses um you can see that i did some new
+
+0:20:15.200,0:20:19.360
+strategies here right instead of just writing one
+
+0:20:17.520,0:20:22.880
+massive regular expression i broke it down i thought about the
+
+0:20:20.720,0:20:26.400
+different things that i needed to match and then when i created my big one i had
+
+0:20:24.880,0:20:29.840
+it like this and i admit regular expressions are always
+
+0:20:28.240,0:20:33.039
+this horrible mess to look at but at least by breaking it down to
+
+0:20:31.039,0:20:37.679
+these variables you have some sort of hope of trying to figure out what
+
+0:20:34.799,0:20:40.960
+what it's trying to do all right so i'll leave it off there
+

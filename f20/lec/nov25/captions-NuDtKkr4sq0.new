@@ -1,0 +1,618 @@
+0:00:01.120,0:00:06.799
+hello in this video i'm going to be talking about how we can deal with
+
+0:00:04.080,0:00:10.080
+something called multi-class regression um so let's review a little bit about
+
+0:00:08.800,0:00:13.280
+what we've been doing with logistic regression
+
+0:00:11.200,0:00:18.160
+um in general we've been trying to find something that can classify it
+
+0:00:15.280,0:00:21.439
+and look at a row of data and and say well oh
+
+0:00:18.640,0:00:25.039
+either true or false that problem is followed on
+
+0:00:22.320,0:00:27.439
+binary classification and it would be based on
+
+0:00:25.760,0:00:30.320
+something very similar to what we would use for layer regression
+
+0:00:29.199,0:00:36.160
+but we would have a bunch of coefficients probably ones that we found
+
+0:00:33.440,0:00:39.280
+with logistic regression.fet and then we would have our
+
+0:00:37.120,0:00:43.040
+classification model which would return either true or false
+
+0:00:41.440,0:00:48.480
+so the way we would do that is we would take a row of data and
+
+0:00:45.520,0:00:52.800
+multiply it by our coefficients to get a number then we would take the
+
+0:00:51.280,0:00:56.239
+sigmoid of that number to convert it to something between 0 and
+
+0:00:54.800,0:00:59.520
+1. we would round it to get exactly zero or
+
+0:00:58.480,0:01:03.199
+one and then we would treat a one as a true
+
+0:01:01.680,0:01:06.159
+and zero as a false alright so that's what we would do and
+
+0:01:04.799,0:01:09.439
+then of course rather than actually kind of dealing with the
+
+0:01:07.439,0:01:14.640
+coefficients directly this way we would probably just kind of use this handy
+
+0:01:11.520,0:01:16.640
+logistic regression.predict okay it's that's great right we can take these
+
+0:01:15.840,0:01:20.960
+numbers and and basically get a true or false but
+
+0:01:19.360,0:01:25.920
+what are we going to do if we want to have more than two categories um
+
+0:01:23.520,0:01:28.240
+for example down here i produced a data set
+
+0:01:26.640,0:01:30.640
+where i have a bunch of animals so we know the weight of those animals and
+
+0:01:29.520,0:01:33.520
+pounds and um and then we know what kind of
+
+0:01:32.159,0:01:36.560
+animal it was and we can have either dogs
+
+0:01:34.479,0:01:40.159
+cat or mice and then of course those are probably from heaviest to
+
+0:01:38.640,0:01:44.960
+lightest right i just made up the data for that and um and so how can we do
+
+0:01:42.960,0:01:49.600
+that right this is just returning a or a false right when i convert to a
+
+0:01:47.040,0:01:54.159
+boolean but how can i convert that to uh you know a dog cat or mouse and it turns
+
+0:01:52.560,0:01:58.719
+out that what logistic regression is doing is something called
+
+0:01:59.040,0:02:05.600
+ovr one versus rest and um what it's realizing is that well we have three
+
+0:02:04.079,0:02:09.520
+different things and so it's actually in train three
+
+0:02:07.600,0:02:12.640
+logistic regressions uh each of which gives a true or false
+
+0:02:11.360,0:02:16.959
+right so there's maybe one that says true or false is it a dog
+
+0:02:14.319,0:02:22.800
+or false is it a cat who are false is it a mouth so i'm actually have three
+
+0:02:19.360,0:02:25.840
+logistic regressions and the key that we're going to try to deal with is
+
+0:02:24.080,0:02:28.959
+instead of each of these three logistic regressions
+
+0:02:26.879,0:02:33.599
+saying true or false we're just going to take this part of it
+
+0:02:30.560,0:02:36.480
+and that will tell us whether um well how confident the logistic regression is
+
+0:02:35.519,0:02:41.120
+that it's a dog how confident is the cat logistic
+
+0:02:39.200,0:02:45.760
+regression that it is that it's a cat and then we'll basically see well
+
+0:02:42.720,0:02:49.440
+whoever is most confident is the dog regression most confident or the cat
+
+0:02:47.440,0:02:52.879
+regression or the mouse regression and then we'll kind of go with whatever
+
+0:02:50.959,0:02:56.800
+class is the highest and logistic regression in python is
+
+0:02:55.200,0:03:00.640
+automatically doing that um for us so we're going to peek into
+
+0:02:58.560,0:03:04.000
+that so here i have my data and you can see i have this
+
+0:03:02.480,0:03:09.440
+one's column that i'm just going to use for kind of illustration purposes later
+
+0:03:06.560,0:03:13.040
+um i'm splitting half and half stratifying on the kind of animal we
+
+0:03:11.360,0:03:16.800
+have and let's do a logistic regression on
+
+0:03:15.200,0:03:19.840
+this i'm going to say from sk learn
+
+0:03:20.000,0:03:29.519
+linear models import logistic regression
+
+0:03:26.319,0:03:34.560
+and i'm going to create one of these and i'm going to fit it
+
+0:03:32.560,0:03:39.680
+and what do i want to fit it to well i want to fit
+
+0:03:36.560,0:03:44.480
+between my x values the weight and my y values the kind
+
+0:03:41.440,0:03:48.159
+so i will do that so i might say i'm going to say training data and the
+
+0:03:46.720,0:03:53.760
+column i want is weight and then what i'm trying to
+
+0:03:51.519,0:03:58.840
+predict is the kind and so i run that and
+
+0:03:57.040,0:04:03.519
+now i can actually do predictions with this
+
+0:04:00.239,0:04:10.720
+and so maybe what i'll do is i will say on lr.predict
+
+0:04:06.640,0:04:16.400
+and what i want to predict is um well i'm having my training data i'm
+
+0:04:13.599,0:04:20.320
+going to have my testing data so in my test data like that and i'm
+
+0:04:19.120,0:04:22.800
+just going to add this as a column to that predict table right so i'm going to
+
+0:04:21.919,0:04:27.120
+say uh test data
+
+0:04:27.199,0:04:34.240
+project equals this and this right now is going to be a
+
+0:04:32.240,0:04:39.440
+little bit unhappy because i can't add a column to a data frame that is a slice
+
+0:04:38.080,0:04:43.280
+of another data frame and so to actually do this i
+
+0:04:41.600,0:04:48.639
+actually have to try to decouple that so i'm going to do
+
+0:04:44.960,0:04:52.160
+that and take a peek at that and uh and i can see it straight pretty
+
+0:04:50.000,0:04:55.680
+well i mean you know so there's some cats that are bigger than some drawings
+
+0:04:53.680,0:04:58.240
+but in general this is going to help me uh
+
+0:04:56.160,0:05:00.720
+predict it fairly well but let's actually look at the coefficients and
+
+0:04:59.520,0:05:06.880
+try to see how always making these decisions
+
+0:05:03.759,0:05:10.639
+let me look at the coefficients and what you should notice here that's
+
+0:05:08.320,0:05:14.639
+kind of strange is that i have three numbers right three numbers for
+
+0:05:12.960,0:05:17.520
+the coefficients and actually if i look at the intercept two
+
+0:05:16.320,0:05:21.280
+i'm also going to have three numbers there so these are the coefficients
+
+0:05:19.360,0:05:24.400
+um this is the intercept it's kind of weird right because normally if i'm
+
+0:05:22.800,0:05:27.680
+doing a logistic regression or a linear regression
+
+0:05:25.600,0:05:31.120
+well i have one value for how many variables i have i only have one
+
+0:05:29.759,0:05:35.120
+variable so you might expect that i would just have one coefficient and one
+
+0:05:33.360,0:05:37.840
+intercept but i have these three and that's because this linear
+
+0:05:36.160,0:05:40.320
+regression i'm sorry this logistic regression
+
+0:05:38.800,0:05:45.600
+i actually did it for cats and did it for dogs and uh
+
+0:05:42.080,0:05:48.720
+and it did it for mice okay so how is it actually making these predictions and
+
+0:05:46.960,0:05:52.240
+since it has these three well let me show you what it's doing i
+
+0:05:51.039,0:05:55.680
+have to um i want to do the linear algebra behind
+
+0:05:54.240,0:05:59.360
+behind this i have to shape this up a little bit i have to get
+
+0:05:57.840,0:06:04.240
+the coefficients um for dog cat and mouse each in their
+
+0:06:01.919,0:06:08.479
+own columns and we have three columns and in the first column i'm going to
+
+0:06:05.919,0:06:11.840
+have the the dog professions the second one we have the
+
+0:06:10.400,0:06:15.120
+cat coefficients and so on right so this is just some um
+
+0:06:14.240,0:06:20.080
+this is some uh trickery right and numpy and um so
+
+0:06:18.720,0:06:26.639
+i'm gonna use something actually called vertical stack where i can put
+
+0:06:23.520,0:06:32.080
+uh the coefficients on the variable over these other ones and um
+
+0:06:30.240,0:06:34.880
+and so i'm making vertical stack passing a tuple of things so i can say
+
+0:06:33.759,0:06:40.319
+coefficient and lr.intercept and
+
+0:06:38.319,0:06:45.199
+this made me unhappy about the the shape of it because this one
+
+0:06:42.240,0:06:48.960
+is vertically oriented and it needs to be
+
+0:06:46.080,0:06:53.919
+um it needs to be horizontal like that okay so you can see that
+
+0:06:50.479,0:06:56.160
+i have these numbers here right that's um
+
+0:06:54.720,0:06:59.360
+i actually don't know which column it is right i i'm not guaranteed that it's
+
+0:06:57.919,0:07:04.560
+drawing first i could imagine that or each each of these columns
+
+0:07:01.680,0:07:07.039
+represents the logistic regression coefficients for one of these classes
+
+0:07:06.240,0:07:11.360
+that i have right so i'm going to put this in
+
+0:07:08.560,0:07:16.160
+something called coefficients like so let me peek at that and am i actually
+
+0:07:14.240,0:07:21.199
+use these now to multiply by these up here right actually can i
+
+0:07:19.919,0:07:25.680
+figure out what each of these animals are right and
+
+0:07:24.080,0:07:30.319
+so the way i can do that well
+
+0:07:28.880,0:07:34.880
+if i just do this this isn't going to work because the size isn't right
+
+0:07:32.080,0:07:38.240
+i only want to do it on on these first two columns
+
+0:07:35.759,0:07:43.599
+so let me take a slice of this i think i want all the rows
+
+0:07:40.319,0:07:47.919
+and only the first two columns and um and this is kind of positional indexing
+
+0:07:45.120,0:07:52.160
+so i need to do that and let me just be like very clear here
+
+0:07:50.080,0:07:57.039
+let me actually get rid of this this is a good refresher okay so there's
+
+0:07:54.560,0:08:01.759
+my values right this is my data and and if i multiply it by
+
+0:08:02.000,0:08:09.199
+by the first column right well what is this one let me just show you what this
+
+0:08:06.800,0:08:13.199
+one is right this is those first coefficients
+
+0:08:11.520,0:08:16.240
+right if i multiply these first coefficients which i'm imagining or
+
+0:08:14.560,0:08:23.039
+maybe for a dog i get all of these scores here right
+
+0:08:19.919,0:08:27.520
+and um and if i take the first two classes the coefficient for both of
+
+0:08:24.840,0:08:29.840
+those and i do the dot product of my data
+
+0:08:27.919,0:08:34.560
+times both of these adding another column
+
+0:08:31.360,0:08:38.320
+to the second matrix just adds a second column down here right it didn't change
+
+0:08:37.120,0:08:42.560
+my first one right and if i add on you know if i want
+
+0:08:40.560,0:08:47.040
+to get all the data right if i want to get the third one
+
+0:08:45.600,0:08:50.080
+right then it's just going to add another column down here without
+
+0:08:48.320,0:08:53.279
+changing the other ones right so the kind of for each column i get in
+
+0:08:51.839,0:08:57.040
+these coefficients i get another column of output when i do
+
+0:08:55.920,0:08:59.360
+my multiplication and really at this point i don't have
+
+0:08:58.080,0:09:04.399
+any slicing because i'm just grabbing the whole thing
+
+0:09:01.279,0:09:10.720
+okay so i have this data and what these things are is they're scores
+
+0:09:07.600,0:09:16.560
+for how dog-like or cat-like um each of my original um rows were
+
+0:09:14.160,0:09:21.600
+and so to really see this well what i should do is i should
+
+0:09:18.160,0:09:27.279
+um i should let me get this in a data frame
+
+0:09:25.360,0:09:30.399
+um i need to have some names on here right i don't know which of these is dog
+
+0:09:28.880,0:09:34.240
+which of these is cat and where do i have that well i have it
+
+0:09:33.200,0:09:38.080
+in my logistic regression right if i look
+
+0:09:36.320,0:09:42.160
+at classes here right that'll tell me it's i guess
+
+0:09:40.160,0:09:46.640
+actually cat dog so this case ended up being alphabetical
+
+0:09:43.839,0:09:52.560
+order and so so what i can do is i can create a new data frame from this
+
+0:09:49.760,0:09:56.880
+and um actually you know i don't want to quite do that
+
+0:09:53.680,0:10:02.000
+but the best way to do this actually is scores uh set
+
+0:10:03.279,0:10:10.480
+index i think it is let me have this in my notes straight this is
+
+0:10:08.800,0:10:16.240
+going to let me kind of set the names in the index and
+
+0:10:14.480,0:10:22.959
+replace existing columns right so i'm going to say columns
+
+0:10:18.399,0:10:31.680
+equals you know a b c uh what what did i use before let me
+
+0:10:30.320,0:10:38.079
+just check my notes here really quick i'm apologizing for
+
+0:10:33.839,0:10:44.079
+uh forgetting this what's down here how do i rename a
+
+0:10:42.160,0:10:51.120
+column uh oh set access
+
+0:10:47.839,0:10:57.920
+okay set access why am i doing this you're passing a
+
+0:10:56.240,0:11:01.200
+list oh just uh well i see it is it's not problems i
+
+0:10:59.519,0:11:04.720
+have to say you know i did that i'd be setting the the labels
+
+0:11:03.680,0:11:09.360
+and and the index right the vertical but one is
+
+0:11:07.519,0:11:12.880
+horizontal so i'm going to do that and then what i really want sorry sorry
+
+0:11:11.040,0:11:16.640
+for the confusion there i want to go back
+
+0:11:13.279,0:11:20.640
+and um and use the classes from my logistic regression right so i'm trying
+
+0:11:18.000,0:11:25.440
+getting these three scores here and um and what else should i do well
+
+0:11:24.079,0:11:30.399
+let me let me just make it very clear i'm gonna directly putting those
+
+0:11:28.800,0:11:36.640
+i'm going to give it a better name so for c and classes
+
+0:11:33.120,0:11:40.240
+i'm going to say c plus 4. just like that so i can get a score for
+
+0:11:38.240,0:11:43.839
+each of them and i'd really like this to just be
+
+0:11:40.800,0:11:46.640
+between zero and one so when i come back here instead of
+
+0:11:45.200,0:11:49.440
+i could use this right i mean bigger still means it's it's more likely to be
+
+0:11:48.399,0:11:52.160
+that class i'm just going to take the sigma void of
+
+0:11:50.880,0:11:56.320
+this to make them all nice numbers between zero and one
+
+0:11:54.000,0:12:02.480
+and uh and i have these nice scores now right and then just
+
+0:11:58.880,0:12:05.839
+uh dot head okay so what i want to do now is to
+
+0:12:04.399,0:12:09.279
+combine this information right i was using these coefficients on
+
+0:12:08.000,0:12:12.480
+the data to get um for each row a score for cat dog and
+
+0:12:11.600,0:12:16.000
+mouse and i'd like to go back and i'd like to
+
+0:12:14.320,0:12:20.880
+show how that relates to what the logistic regression was
+
+0:12:19.519,0:12:26.079
+predicting right so make sure i take this test data
+
+0:12:22.800,0:12:30.160
+and concatenate it with the scores data and so i'm going to say pd dot
+
+0:12:28.160,0:12:33.760
+concatenate and when i do a concatenate i have to
+
+0:12:32.320,0:12:38.160
+pass in two things right i have to pass in my
+
+0:12:35.600,0:12:42.880
+multiple data frames in a tuple and so i'm going to say test
+
+0:12:39.519,0:12:52.160
+scores and that's how drug d is right now the default is axis
+
+0:12:45.600,0:12:55.440
+equals misspelling concatenate maybe it's contact sorry and numpy it's
+
+0:12:54.560,0:12:59.440
+that and um and i don't want that i want it
+
+0:12:57.519,0:13:04.839
+to really be a cross right so i'm gonna do it like that
+
+0:13:01.839,0:13:09.839
+and um and then here what i can see is well
+
+0:13:06.399,0:13:17.120
+this is my original data this one is what it actually is
+
+0:13:14.720,0:13:21.839
+this one is what it was predicted to be and that prediction was based on
+
+0:13:19.680,0:13:26.079
+on these scores right all between zero and one so i can see for this first one
+
+0:13:23.839,0:13:30.320
+this four pound animal uh the cat logistic regression says 94
+
+0:13:29.360,0:13:36.000
+percent uh definitely not a dog maybe a mouse
+
+0:13:33.519,0:13:39.440
+right um what about this one well this one was kind of close
+
+0:13:36.880,0:13:42.959
+a 16 pound animal actually did pretty well on the cat score
+
+0:13:40.880,0:13:45.760
+and slightly better on the drawing score and you may notice something here is
+
+0:13:44.399,0:13:49.680
+that um these numbers right that i'm showing
+
+0:13:47.839,0:13:52.959
+you here the sigmoid of what we get when we multiply the
+
+0:13:50.959,0:13:56.160
+coefficients by the data is often interpreted as a probability
+
+0:13:54.639,0:14:00.000
+but there's no guarantee those things are going to add up to
+
+0:13:58.079,0:14:02.720
+um one right because these are kind of independently built
+
+0:14:01.360,0:14:06.160
+right so this one what is it on that one's a cat or is there a mouse right so
+
+0:14:05.120,0:14:10.720
+for the mouse i see you have 0.91 really small number
+
+0:14:08.959,0:14:16.000
+definitely not a dog and um and this one well is 99.7 right
+
+0:14:14.639,0:14:19.199
+this one it's not a little confusing the mouse column is in
+
+0:14:17.360,0:14:22.320
+um scientific notation right now one was predicted to be
+
+0:14:20.560,0:14:25.600
+um amount so that's all it's doing right the hack here
+
+0:14:23.680,0:14:31.360
+is that when we have multiple classes right we've already knew how to do
+
+0:14:28.320,0:14:36.079
+uh binary classification also true if we have multiple
+
+0:14:32.399,0:14:39.760
+classes well we just do this multiple times one for each class and
+
+0:14:37.680,0:14:45.839
+then we kind of look at the score and see which one
+
+0:14:41.279,0:14:45.839
+is doing the best
+

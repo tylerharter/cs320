@@ -1,0 +1,501 @@
+0:00:01.680,0:00:06.240
+we've been learning a lot about projection matrices
+
+0:00:04.720,0:00:10.240
+and this kind of wonderful thing that they do for us um we've shown how we can
+
+0:00:09.280,0:00:14.320
+take a y column that represents an unsolvable
+
+0:00:12.160,0:00:18.080
+problem uh multiply it by a projection matrix and we get a new
+
+0:00:16.720,0:00:23.039
+column p and uh p represents a solvable problem
+
+0:00:20.960,0:00:26.160
+and it's pretty close to y and and so i finally want to i've been
+
+0:00:24.880,0:00:28.080
+kind of punting on it but i want to come back and say well what does it actually
+
+0:00:27.519,0:00:31.439
+mean for two columns to be close to each
+
+0:00:30.400,0:00:34.800
+other let's get very precise about that uh
+
+0:00:33.600,0:00:39.200
+getting precise about it will involve defining something called a
+
+0:00:37.200,0:00:42.640
+loss function a loss function i can look at two columns and it'll tell
+
+0:00:41.200,0:00:45.920
+us well how different are they from each other
+
+0:00:44.480,0:00:49.520
+right if i kind of replaced one column with other how much
+
+0:00:47.120,0:00:53.520
+information am i losing and so that'll give us some sort of score
+
+0:00:50.719,0:00:56.000
+and a score of zero is good a score of zero means that my two columns are the
+
+0:00:55.120,0:00:59.680
+same and then bigger means that well they're
+
+0:00:57.920,0:01:02.640
+less close um so there's different metrics you
+
+0:01:00.960,0:01:04.879
+could use here for your loss function that tells us whether or not our columns
+
+0:01:04.000,0:01:07.920
+are close but what is euclidean distance which i
+
+0:01:06.720,0:01:12.799
+may start with and another is a mean squared error and
+
+0:01:10.720,0:01:15.840
+kind of where i'm headed is that maybe i'll make the claim after i define
+
+0:01:14.400,0:01:21.920
+these things that the projection matrix is giving us the p
+
+0:01:18.880,0:01:26.400
+that is as close as possible to the y and that's true regardless of
+
+0:01:24.799,0:01:28.880
+which of these two metrics you're using right so it's giving us the closest
+
+0:01:27.680,0:01:32.640
+possible p that actually represents a solvable
+
+0:01:30.479,0:01:36.640
+problem okay so when we're talking about distance between two things
+
+0:01:34.479,0:01:40.000
+i think it's easier to start um in terms of um
+
+0:01:38.479,0:01:43.439
+in terms of thinking about well what's the distance between two points right so
+
+0:01:41.600,0:01:46.799
+let's go back to geometry and uh and eventually by the end of this
+
+0:01:45.439,0:01:50.720
+right i may be talking about hey i have this big crazy data frame
+
+0:01:49.200,0:01:54.399
+with lots of columns and i say what the distance is between p
+
+0:01:53.600,0:01:58.479
+and y are between say p and a right how can i
+
+0:01:56.640,0:02:01.280
+compute that but let's start with points first
+
+0:01:59.520,0:02:05.600
+and and so maybe let me just give one example
+
+0:02:02.560,0:02:11.440
+if i have a right triangle so right triangle
+
+0:02:07.280,0:02:18.160
+uh and uh and then i have sides uh three and four then the long side
+
+0:02:16.080,0:02:22.560
+is five in length maybe you remember that from uh
+
+0:02:19.280,0:02:25.840
+from from geometry and so i could repeat that like this right i could say
+
+0:02:24.400,0:02:28.720
+well one side is three so i'm going to take three squared the other side is
+
+0:02:27.599,0:02:32.720
+four so i'm gonna take four squared i'll add those things up and
+
+0:02:31.040,0:02:34.959
+then i take the square root which is just
+
+0:02:33.280,0:02:39.680
+in this case five right so that's how i can compute that
+
+0:02:37.519,0:02:43.840
+let's say i have a data frame that happens to have exactly
+
+0:02:41.280,0:02:46.000
+uh it happens to have exactly two rows right so
+
+0:02:44.319,0:02:50.959
+i have here these four columns and these two rows
+
+0:02:47.360,0:02:54.400
+and in that case it's kind of easy to imagine how i might have a metric for
+
+0:02:52.959,0:02:59.599
+for measuring the distance between any two columns right because
+
+0:02:56.319,0:03:04.800
+for these two rows uh i i could put a label on them i could say well one
+
+0:03:01.680,0:03:07.920
+row is x row the other row is the y row and then really what i could do is i
+
+0:03:06.000,0:03:10.959
+could imagine uh each of these columns as being a point
+
+0:03:10.080,0:03:14.239
+on a plane and then well the distance between columns is
+
+0:03:13.040,0:03:16.560
+just the distance between those two points so
+
+0:03:14.959,0:03:20.319
+so i have that here right i have this data frame uh and i'm
+
+0:03:18.720,0:03:24.799
+transposing it so i can actually plot each column as a point right so i guess
+
+0:03:22.720,0:03:28.640
+what is this this is zero zero so that is um
+
+0:03:26.000,0:03:33.280
+that's column a uh what is this other one here i guess this is
+
+0:03:29.840,0:03:37.280
+three uh four right so that's three four that must be column b how can i compute
+
+0:03:35.920,0:03:40.720
+the distance between these two columns right between any two
+
+0:03:38.959,0:03:46.239
+columns so so i'm going to do this i'm going to say
+
+0:03:42.959,0:03:50.720
+i may say define euclidean distance and i'm going to pass in two
+
+0:03:48.159,0:03:54.000
+columns say column one and column two and i may call it like this euclidean
+
+0:03:52.560,0:03:58.000
+distance and uh and then well maybe actually let
+
+0:03:56.480,0:04:00.480
+me just uh pass here for now let me pull out some
+
+0:03:59.280,0:04:04.480
+different things let me say like data frame of
+
+0:04:01.360,0:04:09.920
+a for example or i don't know data frame of b um these
+
+0:04:07.920,0:04:13.599
+are going to be my columns so say something like i mean that's c1 is
+
+0:04:11.840,0:04:18.160
+this one and then c2 is this other one oops sorry what am i
+
+0:04:15.439,0:04:23.600
+doing there is b and uh and and how can i compute um
+
+0:04:21.440,0:04:26.960
+the distances between these well one of the nice things i can do
+
+0:04:24.720,0:04:33.440
+right if i peek at one of these is i could say something like
+
+0:04:28.000,0:04:38.800
+um c2 or you'll say like c1 minus c2 right so so i'm kind of going from here
+
+0:04:37.199,0:04:43.919
+down to here and when i do that i see while i go left by three
+
+0:04:40.720,0:04:47.440
+and then down by 4 right those are my kind of x differences of my
+
+0:04:45.919,0:04:51.120
+y differences and the great thing when i have this
+
+0:04:48.800,0:04:53.199
+formula is that i'm squaring each of these so it doesn't kind of matter if
+
+0:04:52.560,0:04:57.280
+i'm going you know greater or smaller i just care
+
+0:04:56.160,0:04:59.600
+about the distance right because i square that
+
+0:04:58.080,0:05:02.000
+so so one way i could write this is i could say well you know after i compute
+
+0:05:01.680,0:05:05.120
+the x distance and the x difference and the
+
+0:05:04.000,0:05:08.800
+y difference uh let's just square it right so i get 9
+
+0:05:07.360,0:05:12.639
+and 16. um and then if i wanted to i could uh
+
+0:05:10.800,0:05:15.919
+add those all up remember that you know i square the x i square the y
+
+0:05:15.360,0:05:19.840
+and then i uh i take the sum of those things right
+
+0:05:17.919,0:05:24.800
+that's just me to 25 right so what have i done so far i've
+
+0:05:21.600,0:05:29.280
+done my i've done by squaring i've done my summing and now i want to
+
+0:05:27.520,0:05:32.320
+take the square root right so let's do that so
+
+0:05:30.160,0:05:36.080
+the way i can take the square root is well there's different ways i mean i
+
+0:05:33.520,0:05:40.240
+could say math that square root like this that would get me five you
+
+0:05:38.960,0:05:43.840
+know often rather than doing that i think that i just remember that
+
+0:05:41.840,0:05:47.759
+raising to the power of 0.5 also takes the square root
+
+0:05:46.000,0:05:50.880
+all right so this is my formula right so i want to say
+
+0:05:49.199,0:05:53.520
+well if i have these two columns what is the distance between them what is the
+
+0:05:52.000,0:05:58.160
+euclidean distance and i could say well what is the euclidean
+
+0:05:54.720,0:06:05.440
+distance of of this column and uh and this column right it's like that
+
+0:06:02.240,0:06:08.080
+and that's five um what about up here i think this is like twice as far right if
+
+0:06:07.280,0:06:12.800
+i go from this one until uh the d
+
+0:06:11.199,0:06:15.680
+column so let me try that hopefully that's 10
+
+0:06:14.319,0:06:19.759
+this time right kind of double the distance let me let me give that a kind
+
+0:06:18.319,0:06:25.520
+of a test right so i'm going to say a versus uh a d okay that's great
+
+0:06:23.919,0:06:28.639
+let me check these two i think these two columns should be a little bit closer
+
+0:06:26.960,0:06:32.639
+what are those two those are the ones with the big x values
+
+0:06:30.400,0:06:35.840
+i guess that's like b and c right so so this should be kind of a smaller
+
+0:06:34.800,0:06:42.240
+distance between b and c and uh just like that
+
+0:06:39.520,0:06:44.160
+and right that's like 1.4 something i think that's a square root of two right
+
+0:06:43.440,0:06:47.600
+because it's one and one and so that's all great and so
+
+0:06:47.199,0:06:51.840
+what's actually cool is that um you can imagine
+
+0:06:50.639,0:06:54.560
+if i wanted to go to three dimensional space right maybe i would add like a
+
+0:06:53.280,0:06:58.240
+zero and uh and it turns out that this little
+
+0:06:57.440,0:07:02.560
+formula here works for three dimensions as well and
+
+0:07:01.199,0:07:04.479
+um and so that's what you would learn if you're kind of doing geometry in three
+
+0:07:03.759,0:07:08.080
+dimensions and what's really cool is that the
+
+0:07:06.080,0:07:11.919
+analogy works even if uh you imagine some sort of like
+
+0:07:09.360,0:07:16.160
+10-dimensional space right i'm still kind of just drawing you know
+
+0:07:14.400,0:07:19.680
+if i'm taking the distance between these square it the difference between these
+
+0:07:18.319,0:07:23.199
+square it uh the difference between these square
+
+0:07:21.440,0:07:26.560
+the difference between these square it you know square all those differences um
+
+0:07:25.120,0:07:29.680
+add them up and then take the square root and that's the euclidean
+
+0:07:28.240,0:07:33.440
+distance and it kind of works whether you have you know
+
+0:07:31.360,0:07:37.280
+uh you're in a two-dimensional space or a million dimensional space right i can
+
+0:07:35.199,0:07:41.280
+compute the euclidean distance and so that's what i'm doing when i have
+
+0:07:39.520,0:07:45.520
+my uh p column and my y column uh the way the
+
+0:07:44.080,0:07:48.639
+projection matrix works is it really made those
+
+0:07:46.720,0:07:51.280
+uh have the smallest euclidean space possible so let me actually do this down
+
+0:07:50.960,0:07:54.639
+here right so here i have a bunch of
+
+0:07:52.319,0:07:58.080
+different things um here is my original y
+
+0:07:55.039,0:08:00.479
+column let me actually just run this thing
+
+0:07:58.479,0:08:03.440
+i guess i'm randomly generating data on the fly so if i want to i can compute
+
+0:08:02.800,0:08:06.479
+you know y versus what the projection matrix gave
+
+0:08:06.080,0:08:10.800
+me i also computed kind of a silly column
+
+0:08:08.560,0:08:14.240
+here where every value is just like the average of the y's
+
+0:08:12.800,0:08:19.520
+right it's like i could kind of say like well how far is y
+
+0:08:16.080,0:08:21.360
+versus p how far is y versus a i i can just do that i can say you're putting a
+
+0:08:20.639,0:08:28.560
+distance of for this big data frame i can say
+
+0:08:24.960,0:08:31.360
+data frame of of y versus data frame of p
+
+0:08:29.840,0:08:34.800
+right so i run that and i can kind of get a distance there and i can also
+
+0:08:33.360,0:08:37.519
+compare well what if instead of having this
+
+0:08:35.120,0:08:40.719
+p that i get from the projection matrix i have this a right because a also
+
+0:08:39.200,0:08:44.720
+represents a solvable problem right i mean that's a straight line
+
+0:08:42.560,0:08:47.200
+as well i do that and i can see okay well it's much better to be going
+
+0:08:46.640,0:08:50.959
+through through with my p than my other one
+
+0:08:49.519,0:08:55.600
+right and then if i probably if i draw against like say something like
+
+0:08:52.160,0:08:59.279
+x it's doing b huge right very different right so i could see that p is actually
+
+0:08:57.279,0:09:04.000
+pretty good in terms of column right p is pretty close to y the other metric i
+
+0:09:02.399,0:09:08.080
+just want to very briefly go with is called the mean squared error
+
+0:09:05.920,0:09:11.120
+and it's pretty similar i'm just going to copy this up here
+
+0:09:11.360,0:09:18.320
+the mean squared error is also a common way people will compare two columns
+
+0:09:15.279,0:09:22.800
+and and the difference is that instead of doing this instead of like adding
+
+0:09:21.440,0:09:25.519
+instead of taking the square root at the end we're just trying to instead of
+
+0:09:24.320,0:09:29.760
+taking the square root we're just trying to divide
+
+0:09:26.399,0:09:32.880
+by the length of you know how many rows i have
+
+0:09:30.399,0:09:36.320
+right so so why do i call it mean squared error
+
+0:09:33.600,0:09:39.760
+well this is the error this is a squared error
+
+0:09:37.519,0:09:43.519
+and mean means the average so so here i get a bunch of values and i'm taking the
+
+0:09:41.440,0:09:47.839
+sum and dividing by how many i have and this is what we'd call the mean
+
+0:09:46.320,0:09:55.440
+squared error or maybe just mse
+
+0:09:51.680,0:10:00.880
+and um and what what went wrong here uh t error of b
+
+0:09:59.600,0:10:05.040
+what am i even doing here i guess i guess i don't have those columns anymore
+
+0:10:02.320,0:10:09.120
+so i might say like what is the difference between uh between y and p
+
+0:10:07.440,0:10:12.399
+and i get that actually in this case it's just kind of
+
+0:10:10.320,0:10:15.519
+coincidentally pretty similar um or i could say like what is the
+
+0:10:14.160,0:10:19.839
+difference between y and uh oh well that's exactly the same
+
+0:10:18.880,0:10:23.200
+because not following it okay there there we go
+
+0:10:21.839,0:10:27.200
+and i can also get the mean squared error between say y
+
+0:10:24.480,0:10:29.519
+and a and again i see it's much better like p is kind of performing better than
+
+0:10:29.120,0:10:34.560
+uh than than a right so p is as close as
+
+0:10:32.880,0:10:42.320
+possible to y as any column could be that still
+
+0:10:37.680,0:10:42.320
+represents a solvable problem
+

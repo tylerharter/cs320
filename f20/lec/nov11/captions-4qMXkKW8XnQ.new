@@ -1,0 +1,606 @@
+0:00:01.839,0:00:07.839
+all right so we've been talking a lot about the dot product
+
+0:00:04.799,0:00:12.960
+and what we'll often do is we'll have um a matrix x that has all our data and
+
+0:00:11.040,0:00:15.679
+then we have some coefficients that we're going to use to multiply row by
+
+0:00:14.559,0:00:20.080
+row on that data to produce a y value and so if you know
+
+0:00:18.560,0:00:24.080
+how to do the dot product well then you can compute what the y is
+
+0:00:21.439,0:00:27.680
+if you have um both the x and c are known
+
+0:00:25.359,0:00:30.480
+now a very related problem is that we might want to look at a lot of previous
+
+0:00:29.599,0:00:37.520
+data where we only know x and we only know y
+
+0:00:34.800,0:00:39.760
+and then we want to infer what c is based on that
+
+0:00:38.559,0:00:45.920
+right so that's a slightly different problem right computing y
+
+0:00:42.640,0:00:52.079
+given x and c is a prediction computing c given
+
+0:00:48.960,0:00:55.440
+x i'm sorry computing y given x and c is a prediction
+
+0:00:53.120,0:00:58.559
+computing c given x and y is what we call inference
+
+0:00:56.399,0:01:01.680
+right and so what you might typically do when we're machine learning
+
+0:01:00.239,0:01:05.600
+is we might learn from a bunch of examples of x and y
+
+0:01:03.280,0:01:09.840
+so we figure out what the c is and then drawing forward where the y isn't known
+
+0:01:07.600,0:01:15.200
+well we use the c we learned before and new x data to predict the new y okay
+
+0:01:13.360,0:01:19.920
+and so the the questions i i want to talk about today
+
+0:01:16.400,0:01:23.520
+is when is it possible to solve for c in this equation uh mathematically
+
+0:01:22.560,0:01:28.320
+speaking and um and it turns out that uh uh it's
+
+0:01:26.560,0:01:30.799
+often there is no answer right and so eventually where we're
+
+0:01:29.680,0:01:35.280
+headed is well what do we do when there's no answer how can we get the
+
+0:01:33.280,0:01:40.000
+the like next best thing to an actual answer
+
+0:01:36.400,0:01:44.320
+a related question is when does this work so this is one way to solve that
+
+0:01:42.240,0:01:51.119
+right we just asked numpy to solve hey here's my x and y please give me a c
+
+0:01:47.840,0:01:56.399
+and uh it turns out that um if it's mathematically possible this
+
+0:01:54.320,0:01:59.840
+isn't guaranteed to work right numpy is a little bit more
+
+0:01:57.280,0:02:03.680
+limited even in cases where there's a mathematically correct answer sometimes
+
+0:02:01.520,0:02:06.799
+numpy doesn't figure it out so those are the two things i want to
+
+0:02:04.799,0:02:09.679
+talk about today let's review a little bit from our fruit
+
+0:02:08.319,0:02:12.800
+example and i want to start thinking about
+
+0:02:10.640,0:02:17.760
+um kind of related problems and related forms of the problem
+
+0:02:15.120,0:02:20.640
+um as i talk about it uh what we were looking at before were these fruit
+
+0:02:19.040,0:02:24.800
+baskets you can imagine you're selling fruit baskets in each basket might
+
+0:02:23.120,0:02:28.400
+have varying numbers of apples or bananas and
+
+0:02:26.720,0:02:31.599
+as you sell them let's say that there's an auction or something and you get some
+
+0:02:29.840,0:02:34.879
+sort of market price and what you're trying to figure out
+
+0:02:33.200,0:02:38.239
+based on this is even though i've never sold a single
+
+0:02:36.640,0:02:40.959
+apple by itself and i look at all these different
+
+0:02:39.440,0:02:44.319
+baskets i've sold with different amounts of fruits
+
+0:02:42.080,0:02:46.480
+and infer what each fruit is worth how much is one apple worth how much is one
+
+0:02:45.840,0:02:50.080
+banana worth can i figure that out given this
+
+0:02:49.040,0:02:53.840
+data and and so one way we can do it is we
+
+0:02:51.680,0:02:59.200
+can take this data right these rows maybe uh this came from a data frame and
+
+0:02:56.879,0:03:03.760
+we can convert it to equations right we know that 10 times the apple plot price
+
+0:03:02.000,0:03:09.040
+plus the value of the basket equals seven right because well
+
+0:03:06.560,0:03:13.200
+we sold exactly that for seven dollars uh based on the second case we
+
+0:03:10.879,0:03:16.000
+we can infer down here that two times the apple price plus eight times the
+
+0:03:14.959,0:03:20.879
+banana price plus the basket price um equals five
+
+0:03:19.280,0:03:24.239
+right so there's an equivalence between data and equations right every time we
+
+0:03:22.400,0:03:28.159
+make a new observation in the world uh we get a new equation to work with
+
+0:03:26.720,0:03:31.360
+now the other thing we could do is we can put all these coefficients right you
+
+0:03:29.840,0:03:34.640
+can see like i have on you know 10 here showing up in each case
+
+0:03:34.000,0:03:38.319
+zero here is showing up i guess in each case right
+
+0:03:37.040,0:03:42.239
+there's no bananas um there's one basket so i guess the
+
+0:03:40.080,0:03:45.680
+basket up here there's time implicit one um if i wanted to i could take all the
+
+0:03:43.680,0:03:49.840
+values in these um equations or in the data and i could put
+
+0:03:47.840,0:03:52.640
+it in a matrix which i've done down here right so
+
+0:03:50.720,0:03:56.799
+so kind of in the first case i sold a basket that had ten apples zero bananas
+
+0:03:55.519,0:04:00.799
+and one basket and i had two apples eight bananas and
+
+0:03:58.640,0:04:04.080
+one basket so on and so forth and then the values of these were seven
+
+0:04:03.680,0:04:09.760
+five five and so that's great i can run uh
+
+0:04:07.360,0:04:12.799
+numpy linear algebra dot solve on my x and y
+
+0:04:10.720,0:04:16.079
+and it tells me this these are my values of my
+
+0:04:13.760,0:04:18.959
+fruits right i have i have this c here and uh
+
+0:04:17.440,0:04:22.479
+and of course that's cool because then if i ever had um
+
+0:04:20.799,0:04:26.400
+if i had like a new fruit basket right i could predict how much that would be
+
+0:04:23.680,0:04:30.400
+worth right let's say i have like um uh let's say i have like no apples and
+
+0:04:29.280,0:04:36.800
+then three bananas and then one fruit basket um
+
+0:04:33.600,0:04:42.320
+if i multiply that by if i multiply that by my coefficients
+
+0:04:38.639,0:04:45.600
+i'm like well that basket is worth 275. and uh and if i have a repeat of a
+
+0:04:44.000,0:04:50.479
+basket i've seen before right let's say i have two apples um
+
+0:04:48.400,0:04:53.360
+eight bananas and one basket then hopefully it gives me the same
+
+0:04:51.919,0:04:57.199
+thing i learned before right because i actually learned some rules and it does
+
+0:04:54.720,0:05:02.479
+okay well that one's worth five dollars and so what i want to think about is
+
+0:04:59.199,0:05:05.680
+when does this uh linear algebra.solve work or not work and i'm just going to
+
+0:05:04.160,0:05:08.880
+kind of copy all that down here and try to think about this
+
+0:05:08.320,0:05:13.039
+problem right so this was all good right so this
+
+0:05:11.600,0:05:18.400
+is all good up here and then up here i want to think about
+
+0:05:14.639,0:05:26.479
+you know how how can it go wrong right and so so one way it can go wrong
+
+0:05:22.639,0:05:33.600
+is um let's say i add another row here uh and let's say for this row i have um
+
+0:05:31.120,0:05:37.440
+uh i i don't know i might say i have one apple
+
+0:05:34.720,0:05:42.080
+and uh and zero bananas and in one basket
+
+0:05:38.400,0:05:46.400
+side of this additional row and um and uh and let's say that what is that
+
+0:05:44.960,0:05:50.479
+actually worth i think i already figured out before that apples are worth 50
+
+0:05:48.160,0:05:53.759
+cents and the basket is worth two so that that basket ought to be worth
+
+0:05:52.479,0:06:00.720
+250. and so i do that and and i see that well
+
+0:05:57.759,0:06:05.919
+uh numpy is unhappy it's saying that that array
+
+0:06:02.319,0:06:08.479
+must be square right and so this rule of it being square is maybe the rule that
+
+0:06:07.360,0:06:12.319
+you've heard before right if you're trying to solve a bunch of equations
+
+0:06:10.720,0:06:15.919
+uh you'd better have the same number of equations and variables
+
+0:06:14.319,0:06:20.479
+and this is a little bit unfortunate right that numpy is so quickly refusing
+
+0:06:18.560,0:06:23.600
+to solve this problem because i know that there actually is a
+
+0:06:22.560,0:06:27.120
+solution right i have this solution before this c and
+
+0:06:26.319,0:06:30.240
+um and i can actually do this right if i if
+
+0:06:29.919,0:06:34.080
+i um if i just kind of hard code if i say
+
+0:06:32.840,0:06:37.360
+c well here first let me make a note here
+
+0:06:35.759,0:06:42.080
+won't work because it's not square so so numpy can't do it
+
+0:06:40.639,0:06:46.720
+but it turns out there is a mathematical solution it's the same solution
+
+0:06:43.600,0:06:50.000
+as before right so if i put this here um let me see if i can actually solve
+
+0:06:48.479,0:06:57.280
+that i'm going to say uh i'm going to say x times y
+
+0:06:53.599,0:07:02.560
+or times the coefficients and why is that unhappy
+
+0:06:58.560,0:07:05.840
+because i have to say numpy dot array you know this is absolutely the same y
+
+0:07:04.479,0:07:09.360
+that we had before is a good solution right when i multiply
+
+0:07:07.599,0:07:14.319
+all my data by those coefficients i get 7 5 5 2.5
+
+0:07:12.639,0:07:17.840
+which is exactly what we have in the data right so there is a solution
+
+0:07:19.120,0:07:26.240
+even though numpy can't find it now there are going to be other cases
+
+0:07:23.280,0:07:30.560
+where not only is there not a numpy solution
+
+0:07:26.960,0:07:33.919
+but there's not a mathematical solution and um and when one place for that that
+
+0:07:32.479,0:07:36.639
+you might imagine is um
+
+0:07:37.440,0:07:41.199
+let me copy this right so i was kind of an example of how it goes wrong with
+
+0:07:40.400,0:07:45.840
+numpy how can i draw wrong mathematically
+
+0:07:43.039,0:07:51.919
+speaking and um and so let me just put this back
+
+0:07:49.759,0:07:55.360
+to what we had before right and i'm just going to kind of
+
+0:07:53.120,0:07:58.479
+delete all this um one of the things that could go wrong
+
+0:07:57.120,0:08:03.520
+is well maybe there's some noise in the system
+
+0:07:59.840,0:08:06.479
+right so so for example let's say i copy this
+
+0:08:04.319,0:08:10.479
+right here and so really i'm selling the same fruit basket twice
+
+0:08:08.720,0:08:13.599
+and there's some noise in the world so let's say like the first time was five
+
+0:08:11.840,0:08:18.639
+dollars and the next time it's like you know 4.9 dollars right
+
+0:08:18.800,0:08:23.840
+that's not gonna work right because i have two equations that are kind of
+
+0:08:22.400,0:08:28.800
+contradictory here right kind of what this means is that
+
+0:08:27.120,0:08:36.640
+if i just wanted to read off of these two i'm really saying like four times
+
+0:08:32.399,0:08:42.560
+four times apple plus four times banana plus one times basket
+
+0:08:39.680,0:08:46.160
+equals 5 and then i'm also having this other equation
+
+0:08:44.000,0:08:50.320
+which is saying it's equal to 4.9 and of course that can't be true right because
+
+0:08:47.600,0:08:54.080
+5 and 4.9 are different numbers right so if i have this kind of
+
+0:08:51.680,0:08:58.240
+situation well too bad i can't solve it right so
+
+0:08:57.120,0:09:00.880
+one of the things i wanted to start thinking about is these equivalent
+
+0:08:59.440,0:09:03.839
+statements right because i said there are these
+
+0:09:01.279,0:09:07.519
+three forms of the data right i could have the data itself
+
+0:09:05.279,0:09:10.959
+i could have equations or i could take the the kind of numbers out of these
+
+0:09:09.040,0:09:14.160
+equations put in a matrix and so down here the three things i'll
+
+0:09:12.480,0:09:18.080
+say is that there's a there's a solution to the
+
+0:09:16.480,0:09:21.279
+system of equations that's equivalent to saying that there's
+
+0:09:19.440,0:09:26.080
+a mathematical solution or x y equals or x c equals y i can
+
+0:09:24.399,0:09:30.399
+solve for c and um and it's also equivalent to
+
+0:09:27.760,0:09:33.760
+saying that y is in the column space of x right if you kind of look back at what
+
+0:09:31.920,0:09:39.839
+i'm doing i'm multiplying x by the c
+
+0:09:36.800,0:09:43.040
+and hopefully getting this this y right so
+
+0:09:40.480,0:09:47.200
+when i multiply x by c using the dot product i'm taking
+
+0:09:44.959,0:09:52.640
+a linear combination of the columns of x right i'm i'm calculating something
+
+0:09:49.120,0:09:56.800
+in the in the column space of x and and so if i can't do that and end up
+
+0:09:55.839,0:10:00.320
+with y that means there's no solution into the
+
+0:09:58.800,0:10:05.279
+problem right so if y is not in the column space of x
+
+0:10:03.440,0:10:11.440
+and i'm out of luck right i can't solve this problem mathematically speaking
+
+0:10:08.399,0:10:14.000
+okay so when does this show up um it generally is going to show up when i
+
+0:10:12.959,0:10:18.079
+have uh more rows than columns in my data set
+
+0:10:16.880,0:10:21.279
+right because that means i have more equations and variables
+
+0:10:19.920,0:10:23.760
+and those equations are probably going to contradict each other i mean there's
+
+0:10:22.640,0:10:28.079
+other problems that i think this is a problem where i see most
+
+0:10:24.959,0:10:31.360
+often right this usually means that the equations aren't solvable
+
+0:10:29.519,0:10:34.399
+mathematically speaking because y isn't in the column space of x
+
+0:10:34.000,0:10:38.560
+um and then in the rare cases where somehow
+
+0:10:36.800,0:10:43.440
+there is a solution right maybe i copied the same equation twice
+
+0:10:40.800,0:10:47.200
+uh numpy is trying to complain about it and so what do we do when we
+
+0:10:45.440,0:10:50.160
+kind of come to this right i'd still like to
+
+0:10:48.720,0:10:54.480
+you know even in this scenario right where i sold the same basket twice
+
+0:10:53.120,0:10:57.200
+you know these numbers are still kind of similar it'd be nice if i could still
+
+0:10:55.920,0:11:00.320
+say something about how much apples and bananas are
+
+0:10:59.440,0:11:03.519
+worth and so when we do this when we hit an
+
+0:11:01.839,0:11:08.399
+unsolvable problem the good approach in life is to solve a
+
+0:11:06.959,0:11:12.399
+related problem um not our original problem but try to
+
+0:11:10.880,0:11:17.519
+change into a slightly easier problem that we can solve
+
+0:11:14.560,0:11:20.800
+and uh and uh and if we do that well maybe when we solve that other one
+
+0:11:19.200,0:11:23.120
+the answer might still tell us something meaningful about what we were hoping to
+
+0:11:22.240,0:11:29.120
+solve and so let me go back to this where um
+
+0:11:26.160,0:11:32.640
+uh where numpy was unhappy before or i guess even in this last case
+
+0:11:32.800,0:11:40.959
+um let me let me grab this one right so this is where it was unhappy
+
+0:11:39.120,0:11:44.800
+and um and what we could not do is we could not say c equals numpy dot
+
+0:11:44.240,0:11:51.440
+linear algebra dot solve
+
+0:11:48.079,0:11:56.480
+x and y that that was a no go so i can't solve
+
+0:11:52.320,0:12:01.760
+because x is not square this is not solvable um it turns out that a very
+
+0:11:59.760,0:12:06.399
+similar problem is solvable um the vast majority of the time and uh
+
+0:12:05.279,0:12:08.720
+and it's just slightly different right i mean i'm not really ever going to solve
+
+0:12:07.600,0:12:10.000
+that original one but i may solve something that's still going to tell me
+
+0:12:09.680,0:12:14.160
+something meaningful and what that is is that i
+
+0:12:12.800,0:12:18.480
+may have to multiply both my x and my y by something and i'm not
+
+0:12:17.040,0:12:23.920
+trying to get the mathematical reasons why but it turns out that i can multiply
+
+0:12:21.360,0:12:28.720
+both by the transpose right so i can say x dot transpose that
+
+0:12:25.519,0:12:32.000
+and x dot transpose that and it turns out that is a solvable problem and if i
+
+0:12:30.399,0:12:36.959
+look at c i i get this and to just kind of give
+
+0:12:35.120,0:12:40.240
+you an intuition that this is meaningful i'll eventually talk more about
+
+0:12:38.560,0:12:43.040
+why this is like the best answer we could have but let's look at how close
+
+0:12:42.399,0:12:47.760
+it was uh to what we had before we kind of
+
+0:12:44.639,0:12:51.120
+added this bogus row before uh we got our coefficient so it
+
+0:12:50.000,0:12:59.839
+was 0.5 0.25 and 2.
+
+0:12:54.480,0:13:07.120
+here i have 0.525 0.275 and 1.75 so this is similar similar
+
+0:13:03.440,0:13:11.200
+to our answer before we added the problem the the troublesome row
+
+0:13:12.639,0:13:18.560
+right so in some sense it's kind of meaningful right
+
+0:13:15.839,0:13:21.920
+well why does it work um we've said before that we want to have the same
+
+0:13:20.240,0:13:26.639
+number of um of of rows and columns and uh
+
+0:13:25.519,0:13:31.120
+and i haven't even really talked about what this means when i multiply
+
+0:13:28.880,0:13:37.200
+here what am i doing i guess uh both um x dot transpose
+
+0:13:33.200,0:13:41.839
+x dot trans oh x dot transpose is a matrix and x is a matrix and i
+
+0:13:40.560,0:13:46.079
+haven't even talked about what this means yet when i multiply
+
+0:13:43.360,0:13:48.240
+a matrix by a matrix but but it turns out when i do this kind of thing i
+
+0:13:47.199,0:13:52.480
+multiply the transpose of a matrix my matrix i'm
+
+0:13:50.800,0:13:57.760
+guaranteed to get something square which is what we what we need right so
+
+0:13:54.800,0:14:02.800
+so that's why this problem here generally ends up being solvable and uh
+
+0:14:01.040,0:14:05.440
+and i'm not trying to talk more in this lecture about why that's the best answer
+
+0:14:04.480,0:14:08.720
+we'll eventually talk about that a little bit more
+

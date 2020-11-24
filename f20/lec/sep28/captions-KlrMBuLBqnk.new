@@ -1,0 +1,720 @@
+0:00:01.199,0:00:07.200
+hello at the end of last time we were learning about
+
+0:00:03.919,0:00:12.320
+directed acyclic graphs d a g and what i'm showing here is a pretty a
+
+0:00:09.519,0:00:16.240
+simple example of a dag for the d part directed i can see that
+
+0:00:14.559,0:00:21.199
+my edges are like arrows right they point in one direction
+
+0:00:17.920,0:00:23.600
+for a cyclic um even though it might look like there's some sort of cycle
+
+0:00:22.720,0:00:27.439
+structure there's really not because these arrows
+
+0:00:25.519,0:00:31.599
+are all pointing in the one direction if i start at a for example and i go to
+
+0:00:30.080,0:00:34.640
+b and then d i can't cycle back to a because they're
+
+0:00:34.079,0:00:38.480
+pointing pointing kind of forwards right i can't
+
+0:00:36.880,0:00:44.320
+i can't loop back right so so that's acyclic and of course
+
+0:00:41.600,0:00:48.079
+it's a graph that's the g so d a g now in this section where i learn about
+
+0:00:46.480,0:00:51.360
+another kind of graph called the tree and just the big picture
+
+0:00:50.399,0:00:58.719
+here right is that directed graphs are a type of graph
+
+0:00:54.960,0:01:02.879
+dags are a type of directed graph and trees are a type of dag and what
+
+0:01:01.680,0:01:05.600
+we're going to try to eliminate with trees
+
+0:01:04.000,0:01:10.080
+is this kind of branching and then merging back together
+
+0:01:07.360,0:01:15.920
+behavior and so to accomplish that we're going to introduce two new rules
+
+0:01:12.640,0:01:20.400
+uh and the first rule is that we i have one node
+
+0:01:17.280,0:01:23.680
+with exactly no parents and we're gonna call that
+
+0:01:21.040,0:01:27.360
+the root actually up here on this one you know i could call this a root
+
+0:01:25.680,0:01:30.159
+right there's that one doesn't have any parents there's exactly one with no
+
+0:01:28.799,0:01:33.439
+parents but it's not a tree because of the
+
+0:01:31.520,0:01:40.400
+second rule which is that any additional nodes besides the root
+
+0:01:37.200,0:01:43.439
+have to have exactly one parent and i can see that
+
+0:01:41.200,0:01:46.960
+for d that's not true d has two parents both b and c
+
+0:01:45.119,0:01:50.560
+so so i have down here an example of a tree where
+
+0:01:48.159,0:01:53.280
+you know you always have the root and in most cases i kind of draw it at the top
+
+0:01:52.159,0:01:56.000
+maybe something might draw it at the bottom
+
+0:01:54.000,0:01:59.439
+it doesn't really matter where the root is the node
+
+0:01:57.439,0:02:03.680
+that has no parent it doesn't have any edges pointing at it it only has edges
+
+0:02:01.600,0:02:08.080
+going out and so i see that here right so that one
+
+0:02:05.200,0:02:12.800
+has no appearance and every other um node in the picture besides that root
+
+0:02:10.879,0:02:18.080
+has exactly one parent right a node can have multiple children
+
+0:02:15.840,0:02:21.280
+right but there's no node with multiple parents
+
+0:02:19.440,0:02:25.440
+and so there's a couple things i can say about trees in general
+
+0:02:23.520,0:02:31.280
+kind of beyond like really simple trees that might have one node
+
+0:02:27.200,0:02:35.599
+and one is that they will never be connected strongly connected and the
+
+0:02:33.840,0:02:38.319
+reason being is that all these arrows kind of go in one direction right so
+
+0:02:36.959,0:02:41.440
+once i go down there's no heading back up right once i
+
+0:02:40.800,0:02:44.480
+leave the root i get canted back to it because the
+
+0:02:43.200,0:02:50.319
+root has no parents right so these trees are never
+
+0:02:47.519,0:02:55.280
+never strongly connected but they're all weakly connected
+
+0:02:52.160,0:02:59.680
+right because everything has to flow off from one one route i can't have multiple
+
+0:02:58.319,0:03:02.879
+routes with no parents right so they're always going to be
+
+0:03:01.440,0:03:06.879
+weakly connected meaning that if i were to ignore the direction of the edges
+
+0:03:05.200,0:03:10.480
+well then i could reach everything from everything so it's kind of one big piece
+
+0:03:10.720,0:03:18.400
+so what i'm going to start doing now is uh to actually write some python code
+
+0:03:15.360,0:03:20.879
+and um and for this right i mean we've been doing all this kind of
+
+0:03:19.200,0:03:25.440
+visualization work but how do we actually
+
+0:03:22.000,0:03:30.480
+uh write kind of classes that represent trees and the key in almost all of these
+
+0:03:28.879,0:03:34.159
+cases is that when i have some sort of node class and so let me just kind of
+
+0:03:32.799,0:03:38.239
+copy and paste something here i have from another example
+
+0:03:36.000,0:03:46.319
+um this oh let me just grab it just a moment i'm copying from another monitor
+
+0:03:41.599,0:03:50.239
+i'll paste this down here and let me run that and well what is
+
+0:03:48.480,0:03:53.760
+this this was an example that we we've kind of worked with a little bit
+
+0:03:51.519,0:04:01.519
+in class and a little bit during lab and this right now is for a linked list
+
+0:03:58.400,0:04:06.319
+and a linked list is actually a type of tree
+
+0:04:03.040,0:04:09.360
+a very simple type of tree um well why is that let me just kind of
+
+0:04:07.840,0:04:14.080
+paste one more thing here so i can look at an example of what a linked list
+
+0:04:11.120,0:04:16.959
+will look like um so we kind of have a picture in mind
+
+0:04:17.680,0:04:22.240
+so here's an example of a linked list right there's just one node after the
+
+0:04:20.959,0:04:25.440
+other after the other and i can use those to store a sequence
+
+0:04:24.160,0:04:34.080
+of values um this picture here is absolutely
+
+0:04:28.800,0:04:38.800
+uh oh excuse me that's absolutely sorry let me just paste this
+
+0:04:40.240,0:04:47.280
+it's absolutely a tree i mean i have one node that's the root
+
+0:04:43.919,0:04:52.880
+a has no parents and everything else has exactly one parent
+
+0:04:48.960,0:04:57.840
+now a linked list is not just any type of tree it's a type of tree
+
+0:04:54.800,0:05:04.880
+that where each node has
+
+0:05:00.960,0:05:09.600
+at most one child right there's
+
+0:05:08.479,0:05:11.680
+you know when i look at a kind of a general tree up here i see it branches
+
+0:05:11.360,0:05:15.919
+out in different ways when i head down here
+
+0:05:14.000,0:05:19.919
+i can see well each node has at most one child until you get to the end
+
+0:05:17.919,0:05:23.120
+and that end on the special vocabulary for that would be called a leaf
+
+0:05:21.520,0:05:26.160
+and so just let's review this code a little bit because i'm going to take
+
+0:05:24.320,0:05:29.680
+this linked list code and i'm going to turn it into some kind
+
+0:05:27.919,0:05:32.800
+of tree right and so so what's going on here well i
+
+0:05:31.919,0:05:38.160
+have my init my constructor where i take a value and
+
+0:05:35.680,0:05:41.680
+i put that value in my node and then i say next equals none
+
+0:05:40.000,0:05:47.360
+and so what i can do down here is i can create a few nodes l1 l2
+
+0:05:44.400,0:05:50.240
+l3 and then i can make on that first node
+
+0:05:47.840,0:05:53.919
+point to the second and the second node point to the third
+
+0:05:51.280,0:05:56.720
+right attributes being references to other objects are are really one way to
+
+0:05:56.000,0:06:00.800
+represent edges right so i'm using a class for my
+
+0:05:58.720,0:06:05.280
+nodes and i'm using just a regular attribute that refers to another object
+
+0:06:03.520,0:06:07.600
+as my edge right and then i have some other things here like for the length
+
+0:06:06.960,0:06:11.280
+and all of that and i'm using it as a length
+
+0:06:09.440,0:06:16.639
+list right so i need get item none of that is really going to be that
+
+0:06:12.720,0:06:20.240
+useful here as i try to adapt this into into a tree right and so i'm going to
+
+0:06:18.960,0:06:24.080
+create a tree and um and so there's different ways i
+
+0:06:22.240,0:06:27.360
+could do that um if i maybe i'll have multiple children
+
+0:06:25.039,0:06:29.520
+i can't just have one attribute for next i may have to say something like
+
+0:06:28.479,0:06:34.240
+children equals and then i could have a list of
+
+0:06:32.560,0:06:39.120
+children right i can have a bunch of nodes that i
+
+0:06:35.759,0:06:42.240
+kind of have edges to but for the sake of this example i may go
+
+0:06:40.720,0:06:47.360
+even simpler i'm going to create something called a binary tree
+
+0:06:44.160,0:06:51.840
+which means that each node has at most two children
+
+0:06:50.560,0:06:56.720
+and so what am i going to do i may say well left equals something
+
+0:06:53.599,0:07:01.199
+none and then self.right equals none okay so so how am i going to
+
+0:06:59.840,0:07:08.639
+do this now well let me just rename this down here
+
+0:07:05.280,0:07:14.319
+i'm going to say a dot left i'll say a's left child is b
+
+0:07:10.800,0:07:19.759
+and then a's right child will be c so so let me kind of just take
+
+0:07:17.599,0:07:24.800
+a peek at that okay and and and let me just see what
+
+0:07:22.479,0:07:28.160
+the structure will be like down here it's going to be something like this
+
+0:07:27.599,0:07:31.680
+right just something like this and and so what
+
+0:07:30.560,0:07:34.880
+i want to do for the rest of this example right i mean i could create more
+
+0:07:33.199,0:07:37.840
+complicated tree structures and maybe i will
+
+0:07:35.840,0:07:41.280
+but what i want to think about is if i have some sort of um
+
+0:07:39.599,0:07:44.080
+tree that i use for computation like this is there a way i can write a
+
+0:07:43.520,0:07:51.280
+recursive function uh to turn that into
+
+0:07:48.000,0:07:56.479
+a graph that i can visualize okay so that's a strategy um and so how am i
+
+0:07:54.720,0:07:59.520
+going to do that if i want to be able to visualize this structure automatically
+
+0:07:59.120,0:08:02.720
+well we've seen before that i could create
+
+0:08:01.280,0:08:07.120
+this wrapper html and then i could return some sort
+
+0:08:05.280,0:08:13.680
+of html now there's another very similar method
+
+0:08:10.400,0:08:16.400
+that returns svg files and um and that's actually worked nice first because an
+
+0:08:14.879,0:08:20.240
+svg file is an image file and it turns out that graphis
+
+0:08:19.120,0:08:23.440
+objects already have that create capability
+
+0:08:22.000,0:08:26.720
+right so let me just try calling this i'm
+
+0:08:23.680,0:08:30.240
+going to say wrapper svg kind of call that on my graph here
+
+0:08:28.639,0:08:34.640
+and you see it returns all of this stuff it kind of looks like html
+
+0:08:32.159,0:08:37.919
+but it's actually um it's defining an image
+
+0:08:35.200,0:08:40.560
+it has ellipses that are are filled with things and there are strokes for lines
+
+0:08:40.080,0:08:45.200
+and and all this stuff right this here
+
+0:08:43.360,0:08:48.320
+basically describes that image i'm seeing
+
+0:08:46.080,0:08:54.240
+and so what my strategy here is going to be is i'm going to say
+
+0:08:49.920,0:08:58.080
+uh you know wrapper svg here and then what i'm going to do is when i
+
+0:08:55.680,0:09:03.600
+have this structure of kind of actual nodes i'm doing computation on
+
+0:09:00.560,0:09:08.399
+and i want to print it well i can create a graphis graph and then return that
+
+0:09:06.640,0:09:13.440
+so so maybe let me try this i'm just going to kind of copy this here for now
+
+0:09:10.720,0:09:16.080
+this is some horrible hard coding uh but just so you can kind of see where we're
+
+0:09:14.800,0:09:19.680
+headed oh but i need self here all right so i'm
+
+0:09:18.959,0:09:24.399
+going to create this uh graph here and then what i can return
+
+0:09:23.040,0:09:28.000
+right so this method needs to return a string
+
+0:09:27.279,0:09:31.519
+containing svg data right with svg being that image
+
+0:09:30.560,0:09:35.760
+format and and so i'm just trying to kind of
+
+0:09:33.600,0:09:38.480
+pass that work along right if i'm asked to do
+
+0:09:36.399,0:09:41.920
+some svg well i'll create a graphiz object
+
+0:09:39.440,0:09:47.760
+and i'm going to get the i'm going to get the svg from that
+
+0:09:44.320,0:09:51.839
+right and so so let me run this and um and you actually see while sure
+
+0:09:49.839,0:09:58.000
+enough now i'm actually getting my my graph down here right
+
+0:09:55.040,0:10:02.160
+you can see that uh because when i put this at the end of the node
+
+0:10:00.320,0:10:05.279
+what what does jupiter do jupiter says well is there a wrapper html is there a
+
+0:10:04.160,0:10:09.360
+wrapper svg it kind of checks to see if i have any
+
+0:10:06.640,0:10:14.720
+of these methods that jupiter can use uh to show me something and of course
+
+0:10:10.880,0:10:18.959
+here it finds the the wrapper svg okay and of course this is hardcoded
+
+0:10:17.040,0:10:24.079
+right if i let's say i have like a d node
+
+0:10:20.320,0:10:30.320
+like this and i have d node and um and let's say that let's say c dot write
+
+0:10:27.360,0:10:34.480
+equals my d node well it's not showing up because i just kind of hard coded
+
+0:10:31.519,0:10:38.720
+that simple graph with three nodes okay so well what can i do here um i
+
+0:10:37.519,0:10:45.279
+need to somehow uh recursively draw myself
+
+0:10:42.079,0:10:49.600
+right and and so here's what i'll do i i need to check if
+
+0:10:48.480,0:10:53.920
+my children are none or not right um if if they're not none
+
+0:10:52.399,0:10:57.040
+then i have to draw something otherwise while i can't really draw anything
+
+0:10:55.519,0:11:03.680
+right so maybe i'll deal with my left child first i'll say a flat self.left
+
+0:10:59.680,0:11:08.640
+is not equal to none uh then what um then
+
+0:11:06.880,0:11:12.839
+then from this node i need to draw an edge to that child node right so then i
+
+0:11:11.040,0:11:17.760
+have to say something like graph.edge and um
+
+0:11:15.680,0:11:21.279
+and i want a point from the parent who is me to the child which is in left
+
+0:11:20.079,0:11:25.000
+right so i'm going to say g dot edge and then i want to kind of go
+
+0:11:23.680,0:11:30.160
+from self to self.left but but i really want to be
+
+0:11:28.160,0:11:35.200
+like these values right the abc so i may say self.value
+
+0:11:31.680,0:11:39.200
+to self.left.value and um and okay so that's good right i
+
+0:11:37.600,0:11:43.200
+can i can kind of draw that it's not drawing the right hand side yet
+
+0:11:42.240,0:11:46.240
+right but at least i'm doing it programmatically right just kind of
+
+0:11:44.720,0:11:49.680
+based on the code i have so i'm going to paste
+
+0:11:47.440,0:11:55.120
+all this here and if i have a right child
+
+0:11:51.760,0:12:01.360
+then i want to draw an edge from myself to my right child and so that's good
+
+0:11:58.399,0:12:04.399
+and so when i call this right well what is this doing here i
+
+0:12:02.240,0:12:07.680
+i'm really calling wrapper svg on the root
+
+0:12:05.519,0:12:11.360
+and there's no recursion or looping or anything here
+
+0:12:08.720,0:12:16.000
+so i draw the edges from the the root to the left and right if we have it
+
+0:12:13.360,0:12:20.399
+um now remember that c has a child as well right i said c
+
+0:12:16.959,0:12:22.800
+dot write equals d and and so to kind of get that right i'm gonna have to
+
+0:12:21.360,0:12:27.920
+recursively call on my on my children right and so how will i
+
+0:12:26.240,0:12:33.120
+do that i somehow need to make them them draw
+
+0:12:31.200,0:12:38.160
+somewhere as well and um and so well how can i do this i
+
+0:12:36.560,0:12:43.279
+guess i'm kind of in a tricky point right because i don't want my children
+
+0:12:40.560,0:12:48.320
+to create new graphics objects right i just i want to do that once
+
+0:12:45.279,0:12:52.079
+and then draw this once right so so even though i may do recursion
+
+0:12:50.000,0:12:55.040
+these things should only happen once so so my feeling is that in order to make
+
+0:12:53.680,0:12:58.320
+this recursive i have to move this code that i've
+
+0:12:56.800,0:13:02.160
+highlighted here um to it to a separate function right so
+
+0:13:01.040,0:13:06.000
+so maybe i may say something here like um you know draw
+
+0:13:04.839,0:13:11.360
+edges self and um and then we can copy this up
+
+0:13:09.200,0:13:17.440
+here like so and uh
+
+0:13:15.440,0:13:20.240
+and then what i'm going to do is is down here right then rather doing all the
+
+0:13:18.720,0:13:25.200
+draw edges myself i'm just going to call it and i say draw
+
+0:13:21.279,0:13:28.160
+edges and um and i want to do it on this this draft fizz object so i guess i
+
+0:13:26.800,0:13:32.959
+ought to pass that in all right so i might pass that in
+
+0:13:29.839,0:13:35.519
+like so i i've not i've just refactored my code i haven't changed
+
+0:13:34.000,0:13:39.760
+the way it behaved i just kind of moved all of this stuff
+
+0:13:37.120,0:13:42.720
+into a separate function uh that i'm going to call so when i run it
+
+0:13:41.360,0:13:48.160
+exactly the same right i haven't actually kind of done my effects yet
+
+0:13:45.120,0:13:51.360
+um but what's nice now is that when i draw an edge from myself to my
+
+0:13:50.240,0:13:54.639
+child i can ask i can recursively ask my
+
+0:13:53.839,0:13:58.800
+children to draw any edges that they have right
+
+0:13:56.800,0:14:02.000
+so i can say well i want to call draw edges on my
+
+0:14:00.639,0:14:05.440
+child and so here i'm looking at my left child so i'm
+
+0:14:03.120,0:14:09.360
+going to say self.left draw edges and then i want to do it on
+
+0:14:08.399,0:14:14.959
+kind of g right that's where i want to draw it and
+
+0:14:12.240,0:14:19.920
+then the same thing down here i always say right.draw edges and
+
+0:14:18.240,0:14:25.040
+let me do that and now sure enough i actually get my full tree
+
+0:14:22.160,0:14:29.199
+uh that i was uh was interested in let me just add some more nodes to convince
+
+0:14:26.639,0:14:32.240
+you that it really kind of works so i'm going to add another node here
+
+0:14:30.560,0:14:39.199
+i'm going to say e equals node e
+
+0:14:35.440,0:14:46.480
+and and maybe i'll say like um uh d dot left equals e
+
+0:14:42.720,0:14:54.800
+uh maybe let me add an f node uh like this and maybe i'll say like d
+
+0:14:50.720,0:14:59.199
+dot write equals f and um well that's kind of funny isn't it uh
+
+0:14:57.360,0:15:02.959
+and i just for whatever reasons forgot to start capitalizing things
+
+0:15:00.880,0:15:06.320
+to keep capitalizing things and so i can draw that tree right
+
+0:15:04.560,0:15:10.800
+um just like so it kind of works in general so let me just look at this code
+
+0:15:08.240,0:15:14.959
+for a moment um about what i did here right i mean i
+
+0:15:13.519,0:15:17.680
+kind of started off with one function and i kind of had
+
+0:15:16.000,0:15:22.880
+some prototype working where i didn't have any recursion going on
+
+0:15:19.839,0:15:26.480
+uh but what i realized is that there was some stuff i wanted to do
+
+0:15:24.560,0:15:31.360
+once right and the stuff i want to do once was to
+
+0:15:28.079,0:15:35.759
+create a graphiz object and then kind of pull out the svg from it and so the
+
+0:15:33.920,0:15:39.759
+stuff i wanted to do once could not be part of my recursive method
+
+0:15:38.560,0:15:43.600
+there were absolutely some things i wanted to do uh recursively right
+
+0:15:41.920,0:15:47.040
+because i wanted to do them for all the nodes and my and my
+
+0:15:45.519,0:15:50.399
+structure right and so those things i want to do recursively i
+
+0:15:48.720,0:15:54.399
+had to put up in here and maybe just make an
+
+0:15:53.040,0:15:57.040
+analogy to when we learn to write loops right i
+
+0:15:56.000,0:16:00.800
+think that when people are first learning to write loops
+
+0:15:58.800,0:16:04.800
+uh it's tricky to think about well what goes inside the loop
+
+0:16:02.079,0:16:08.000
+what goes before the loop and what goes after the loop
+
+0:16:06.240,0:16:11.120
+right and so kind of the way i've split this up with the methods now is this is
+
+0:16:09.680,0:16:15.440
+kind of analogous to what i was in the loop right this is the stuff that
+
+0:16:12.959,0:16:19.120
+scales up as i have more data right that's my recursive function
+
+0:16:17.040,0:16:22.160
+and then i'll kick that off down here but this gives me the opportunity by
+
+0:16:20.639,0:16:26.320
+having two separate methods to have the stuff that would be kind of
+
+0:16:24.160,0:16:29.120
+analogous to running before and after the loop
+
+0:16:26.959,0:16:33.440
+right these will run once uh kind of regardless of how much data i have
+
+0:16:32.079,0:16:36.399
+okay so there you have it there's our tree and what we're going to do next
+
+0:16:35.519,0:16:39.759
+time eventually right i mean we created a
+
+0:16:38.639,0:16:44.000
+pretty picture and that's fine but that's not why people create trees
+
+0:16:41.839,0:16:46.480
+they uh do it to more efficiently look for data to represent certain types of
+
+0:16:45.839,0:16:51.600
+data to various kinds of computation and so
+
+0:16:49.279,0:17:01.440
+next time we learn how we can use trees to have a very uh kind of efficient look
+
+0:16:54.320,0:17:01.440
+up structure
+

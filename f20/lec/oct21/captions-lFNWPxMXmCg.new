@@ -1,0 +1,612 @@
+0:00:02.480,0:00:08.639
+in this video i want to talk about uh repetition a very complicated subject
+
+0:00:08.400,0:00:12.559
+and and regular expressions and there's
+
+0:00:11.120,0:00:16.400
+different ways i can do it so let's look at this string that we've
+
+0:00:14.320,0:00:20.880
+been looking at a lot and let's say i want to look for www i could
+
+0:00:19.119,0:00:23.359
+do something like this i could say reg
+
+0:00:24.320,0:00:32.719
+www and then i could look for that in s1 and that would work fine i
+
+0:00:30.160,0:00:36.000
+could also if i want to i could say w and then in angle brackets i could say
+
+0:00:34.719,0:00:40.559
+how many of those i want and let's say i want three of them and
+
+0:00:38.640,0:00:44.239
+so i cover all three of those and something i want you to make a
+
+0:00:42.079,0:00:47.200
+prediction on and kind of guess what's going to happen before i run it
+
+0:00:45.920,0:00:49.760
+i guess i don't need to comment now i can just do it like that when i when i
+
+0:00:49.280,0:00:56.399
+run w2 how many of these w's do you think
+
+0:00:53.600,0:01:02.719
+will be highlighted well let's find out two of them are
+
+0:00:59.760,0:01:08.000
+and the the lesson here is that these cannot overlap right i cannot
+
+0:01:04.799,0:01:11.280
+uh i cannot match both this and this right so it matches the first one those
+
+0:01:09.520,0:01:15.840
+characters were consumed and it unfortunately has to stop there
+
+0:01:16.080,0:01:21.280
+okay so let me let me show you some other tracks
+
+0:01:19.119,0:01:28.000
+so this is to match an exact number with the angle brackets so
+
+0:01:23.280,0:01:33.759
+exact number one excuse me um other ones i can do is i could say
+
+0:01:31.040,0:01:37.759
+uh star after it right so instead of saying
+
+0:01:34.640,0:01:44.640
+let's say i did this right if i said r uh w star s1 that would match any number
+
+0:01:41.600,0:01:48.960
+of w's anywhere inside of the document and um and so there's various uses for
+
+0:01:48.240,0:01:53.840
+this one of them is like let's say i wanted
+
+0:01:50.479,0:01:58.240
+to pull out all of the text inside of these parentheses um so so one
+
+0:01:56.880,0:02:00.880
+of the ways i could do that is i could say
+
+0:01:58.880,0:02:04.560
+i want to look for a parenthesis and a parenthesis
+
+0:02:02.240,0:02:09.840
+and inside of that well i don't really care what there is as long as there's
+
+0:02:05.920,0:02:14.800
+something so i'll say dot star and so i'll run that and and i end up
+
+0:02:12.400,0:02:18.720
+matching the whole thing right so let me just make it clear what this
+
+0:02:16.000,0:02:25.120
+example is so i'm going to say match everything in parens and this is
+
+0:02:22.000,0:02:30.879
+my bad attempt one okay let me uh let me
+
+0:02:28.239,0:02:37.440
+show you one issue that's going on here that issue
+
+0:02:31.840,0:02:41.120
+is that these parentheses actually they're they're just not
+
+0:02:39.360,0:02:43.280
+necessarily looking for character right they actually have a meaning which we
+
+0:02:42.160,0:02:46.160
+haven't talked about yet in regular expressions
+
+0:02:44.640,0:02:50.000
+and so it's not looking for the parentheses character and to solve that
+
+0:02:48.480,0:02:56.480
+one thing i should do is i should escape those and so this is a bad attempt
+
+0:02:53.599,0:03:01.360
+to i'm gonna do that and uh and do you see the problem there
+
+0:02:58.879,0:03:05.280
+um it's uh it's looking for this all the way over to here
+
+0:03:02.879,0:03:08.959
+and um what i would really like is that i would have looked for here
+
+0:03:07.040,0:03:14.800
+right so both are valid when i say dot star that's any number right so
+
+0:03:10.959,0:03:18.239
+i mean this is valid or this is valid right and um and so what we say is when
+
+0:03:18.000,0:03:23.840
+i say star i say star is greedy
+
+0:03:21.599,0:03:28.480
+right when when given a valid choice of either less or more
+
+0:03:25.519,0:03:32.239
+uh it chooses more okay and so the way to make it
+
+0:03:29.360,0:03:37.280
+not greedy is like this i can say instead of star i say dot
+
+0:03:33.680,0:03:41.760
+question mark and that question mark is not greedy and so if i run that then it
+
+0:03:39.760,0:03:44.959
+does the minimum possible uh where i can actually find this
+
+0:03:43.440,0:03:49.519
+pattern right and i'm able to get this text that is exactly
+
+0:03:46.720,0:03:52.400
+um inside of the parentheses so let me give you a little bit of an overview of
+
+0:03:50.879,0:03:58.959
+the different characters that we have so um
+
+0:03:55.680,0:04:06.400
+uh so let me make a comment here so this means zero
+
+0:04:02.080,0:04:12.840
+or one times in terms of repetition um star means uh
+
+0:04:09.439,0:04:18.400
+any number preferably more and uh
+
+0:04:15.760,0:04:24.320
+and then we saw star question mark which is any
+
+0:04:19.759,0:04:28.000
+number preferably less or fewer i guess and um and then there's two more that
+
+0:04:25.919,0:04:32.400
+you you will often see um there's a plus which means at least
+
+0:04:31.199,0:04:37.120
+one preferably more and then the last one is
+
+0:04:35.360,0:04:40.880
+maybe you can guess what it is is this and that means at least one
+
+0:04:39.360,0:04:44.160
+preferably fewer right and so these are all useful
+
+0:04:43.199,0:04:48.000
+to know they don't really talk much about these
+
+0:04:45.680,0:04:50.800
+two um in the reading so make sure you have those down as well as
+
+0:04:49.360,0:04:58.000
+the the other ones that you're more likely to um that you're encounter a lot
+
+0:04:54.720,0:05:01.680
+um okay so this is all good um let's do another challenge so let me
+
+0:05:01.120,0:05:05.840
+look at my my string again um what i want to do is
+
+0:05:04.639,0:05:14.240
+i want to you know find the first sentence
+
+0:05:10.320,0:05:18.639
+and uh and so i guess that would just be like this part right here wouldn't it
+
+0:05:16.639,0:05:21.440
+and so let me try doing this let me say uh reg
+
+0:05:21.840,0:05:27.840
+like this and um and so if i'm doing the first sentence i think one of the things
+
+0:05:26.560,0:05:33.199
+i want to do is i want to end with a period
+
+0:05:31.039,0:05:36.080
+and so i better escape that so i'm going to end with a period
+
+0:05:36.160,0:05:45.280
+and then i want to get everything before uh before that period and so
+
+0:05:43.120,0:05:52.240
+the way i can do that one kind of funny way is i can put a character class here
+
+0:05:47.919,0:05:56.720
+that says everything except a period remember that this inside of a character
+
+0:05:54.240,0:06:00.000
+class means not that and to be safe i should probably escape
+
+0:05:58.319,0:06:04.479
+that so i want uh something that is is not a period and
+
+0:06:03.120,0:06:07.360
+actually you know any number of those things
+
+0:06:06.000,0:06:11.919
+right so any number of things that's not a period
+
+0:06:08.880,0:06:15.440
+followed by a period so i'm going to do that right so let me
+
+0:06:14.160,0:06:18.639
+run that and uh and no no lock right it's finding the
+
+0:06:17.759,0:06:21.840
+last period instead of the first one
+
+0:06:22.000,0:06:29.440
+okay so i found this one big group um there's actually two things i have to
+
+0:06:27.919,0:06:35.680
+uh do here so this is a bad
+
+0:06:32.560,0:06:40.960
+attempt one and so the the thing i'm going to do next to
+
+0:06:37.360,0:06:45.360
+try to fix this is i'm going to say um i'm going to say question mark right
+
+0:06:44.160,0:06:49.199
+because it's being greedy right now it's finding all of these
+
+0:06:47.039,0:06:54.319
+actually it's not even being greedy let me let me back up here a little bit
+
+0:06:52.000,0:06:57.039
+why let's talk a little bit about why it's doing this
+
+0:06:59.840,0:07:06.080
+it's looking for things that are not a period right
+
+0:07:03.039,0:07:10.400
+any number of those and so this matching here cannot go past
+
+0:07:07.440,0:07:13.759
+this right so why is it matching why does it look like it's matching all of
+
+0:07:11.759,0:07:18.800
+these things the answer is that it's making multiple
+
+0:07:16.160,0:07:22.560
+matches right it matches this that's one match and it matches this
+
+0:07:21.120,0:07:25.759
+that's another match and then it matches this and that's a
+
+0:07:24.479,0:07:29.440
+third match and so what i want to do is use an
+
+0:07:27.759,0:07:33.120
+anchor and the way an anchor works is i could
+
+0:07:31.039,0:07:36.479
+say that i want this match to either be at say the beginning or the end of a
+
+0:07:35.520,0:07:39.919
+string and it's kind of strange what we do we
+
+0:07:38.639,0:07:43.120
+actually use this same character it's overloaded here it
+
+0:07:42.000,0:07:46.240
+means not here it means the beginning of a string
+
+0:07:45.120,0:07:50.639
+so i'm going to do that and now i only pull out that that first
+
+0:07:48.160,0:07:56.080
+string right so um let me make some notes on here to be
+
+0:07:53.599,0:08:03.199
+very precise so that's an anchor to beginning of string
+
+0:08:00.400,0:08:09.680
+um and then i have um the other one is dollar sign that means anchor to
+
+0:08:05.759,0:08:15.599
+end of the string and uh and this is only true this is like um
+
+0:08:12.319,0:08:18.720
+outside of brackets right so this has a double meaning the
+
+0:08:17.919,0:08:25.520
+other meaning is uh not
+
+0:08:22.800,0:08:30.000
+uh not so in other words you know flip the character class
+
+0:08:27.280,0:08:31.759
+and that's when it's inside brackets right so
+
+0:08:30.560,0:08:36.560
+you can see there's some complexity there you have to look at the context of
+
+0:08:33.360,0:08:41.839
+actually where it's showing up um okay so let me see here
+
+0:08:42.240,0:08:46.640
+well let's try to make this a little more complicated let's say that we want
+
+0:08:45.040,0:08:51.519
+the first two sentences right so this is the first one sentence
+
+0:08:48.640,0:08:58.880
+right now we want we want the first two sentences
+
+0:08:56.160,0:09:01.760
+and um and so i can have these multiple levels here what i can do is i say well
+
+0:09:00.399,0:09:05.920
+that was the beginning and this part was my sentence and so if
+
+0:09:04.240,0:09:09.760
+i want to i could put all of this inside of um inside of parentheses like
+
+0:09:08.880,0:09:12.959
+that and then i could say well i want that
+
+0:09:11.040,0:09:16.399
+thing twice and i do that and now i get exactly the first two sentences
+
+0:09:14.720,0:09:19.279
+you can imagine um using this in different ways right like um
+
+0:09:18.080,0:09:22.080
+when you're an email right like generally there's like a preview of like
+
+0:09:20.720,0:09:25.920
+the first two sentences or something like that you could absolutely use a
+
+0:09:23.680,0:09:29.120
+regular expression to write it now one of the things i want to stress
+
+0:09:27.519,0:09:32.640
+here is that um you can kind of reason through these
+
+0:09:31.519,0:09:35.839
+things and write them and i've been doing that
+
+0:09:33.760,0:09:38.880
+but if i kind of went away and i looked at this tomorrow i'd be very confused
+
+0:09:37.440,0:09:43.600
+about what that says it's kind of a very confusing language to look at
+
+0:09:41.040,0:09:46.880
+and so always always always write comments like this because
+
+0:09:45.680,0:09:50.560
+um even though i can reason through write it i'm not trying to be able to
+
+0:09:48.480,0:09:55.600
+read it tomorrow so let me do one more example here on um
+
+0:09:54.080,0:10:00.320
+on the matching i want to use the other anchor so let's say
+
+0:09:57.200,0:10:04.720
+we want to uh you know find the last word okay so we're going to start a
+
+0:10:02.800,0:10:09.600
+little bit fresh here uh r i'm looking at s1
+
+0:10:07.760,0:10:16.160
+and so in this case i'm going to have an anchor at the end which is dollar
+
+0:10:12.160,0:10:20.560
+and then what i'm looking for are something that's not a white space
+
+0:10:19.200,0:10:23.760
+character so i'm looking for something like this
+
+0:10:21.519,0:10:27.440
+something that's not white space and some number of that
+
+0:10:25.200,0:10:30.959
+and so i do that um i don't want to be greedy this time right if i if i said
+
+0:10:29.200,0:10:37.839
+question mark um then
+
+0:10:34.000,0:10:43.440
+uh oh it's kind of funny that it's finding both of those isn't it
+
+0:10:40.079,0:10:45.360
+um i'm gonna take away that example because i'm a little confused about
+
+0:10:44.399,0:10:48.959
+what's happening there but i'm looking for something that is
+
+0:10:47.200,0:10:52.720
+not a space oh that isn't followed by the end of the
+
+0:10:51.200,0:10:54.959
+sentence which is exactly what i find here
+
+0:10:55.200,0:11:01.839
+okay so let's do a little bit of practice with some phone numbers
+
+0:10:59.360,0:11:05.040
+uh the phone numbers are pretty tricky so let me head here
+
+0:11:05.200,0:11:14.320
+um i'm gonna look at my phone numbers which i think we're all in string too
+
+0:11:10.480,0:11:18.160
+and i'm just gonna print that and i want to come up with some sort of
+
+0:11:15.600,0:11:22.240
+regular expression that matches all of these
+
+0:11:19.120,0:11:29.279
+right so so let's do this um let's say down here
+
+0:11:25.440,0:11:32.560
+i'm going to say reg and uh i have my regular expression there in s2
+
+0:11:32.079,0:11:35.519
+and i have to be careful right i have to
+
+0:11:34.079,0:11:39.120
+match all of these things but none of the bad things
+
+0:11:36.560,0:11:46.000
+right so if i did something like this if i said like dot
+
+0:11:41.360,0:11:51.360
+dash and then three dots dash and then four dots oh top
+
+0:11:53.519,0:11:57.839
+and then i guess there's actually one more group of three right
+
+0:11:58.800,0:12:05.040
+i did that that's not good right this is matching both um the the characters
+
+0:12:03.360,0:12:08.480
+uh and the numbers right so i don't want that so
+
+0:12:07.040,0:12:11.120
+uh and you can actually see it's matching the space here too right dot is
+
+0:12:10.160,0:12:14.639
+very general so i think the first thing i should do
+
+0:12:12.240,0:12:18.959
+is i should change all of these to uh digits right i'm looking for a group
+
+0:12:17.519,0:12:24.079
+of one and then a group of three then a group of three and then a group of four
+
+0:12:21.200,0:12:29.279
+so i'm gonna do that and i match exactly one number so no good
+
+0:12:26.720,0:12:31.120
+i want to match these other ones as well and um
+
+0:12:30.079,0:12:37.519
+and so i'm trying to think through here what could i do um
+
+0:12:33.839,0:12:40.399
+i could do this i could make both of these things
+
+0:12:38.079,0:12:43.920
+optional right i can make the country code optional and i can
+
+0:12:41.519,0:12:46.800
+make the area code optional all right so this is
+
+0:12:45.600,0:12:49.600
+i'm just going to kind of work through this right i'm going to leave examples
+
+0:12:48.160,0:12:52.720
+as i go um i'm going to make both those things
+
+0:12:51.040,0:12:56.079
+optional let me make this optional put all that in parentheses and then
+
+0:12:53.839,0:12:59.760
+question mark and then i have the group of three which
+
+0:12:58.000,0:13:03.600
+is the area code and i may make all of that
+
+0:13:00.079,0:13:07.600
+optional as well right and so that seems to be pretty good
+
+0:13:04.720,0:13:12.079
+there's actually a bug here um can you think about
+
+0:13:08.800,0:13:14.320
+a phone number that would not work for this
+
+0:13:16.160,0:13:22.800
+is it is it true that i independently want to make this optional
+
+0:13:20.399,0:13:26.000
+and make this optional or is this there's some sort of phone number where
+
+0:13:23.920,0:13:31.600
+this will be a problem let me let me do a concrete phone number
+
+0:13:29.519,0:13:37.040
+here all right so i can i can have this this
+
+0:13:35.279,0:13:40.720
+matches as i saw um it was cool that i could
+
+0:13:38.639,0:13:45.839
+independently delete that but what's not so cool is that i can
+
+0:13:43.839,0:13:49.360
+have a country code without an area code right that is not a phone number uh that
+
+0:13:48.480,0:13:53.680
+is no good right so we have to come back to the
+
+0:13:51.839,0:14:00.560
+drawing board here uh what i want to say is that
+
+0:13:57.760,0:14:03.760
+instead of having this optional and this piece optional
+
+0:14:02.320,0:14:06.720
+let me let me put some spaces in here the spaces aren't going to break it so
+
+0:14:05.279,0:14:10.240
+i'm eventually going to put the spa get rid of those but i want to try and
+
+0:14:07.920,0:14:15.519
+look at it here what i really want to say is that
+
+0:14:11.199,0:14:19.519
+um this is only optional if i have this so so really what i
+
+0:14:17.839,0:14:23.519
+should do is instead of having this be outside i
+
+0:14:21.040,0:14:29.360
+should put it inside of here did you do you see that um that way
+
+0:14:26.720,0:14:33.920
+though i can't have this on with having this off
+
+0:14:30.560,0:14:36.399
+right if this is on right if the area code is on
+
+0:14:34.720,0:14:39.199
+maybe i have a country code and maybe i don't right
+
+0:14:37.920,0:14:42.560
+so that will be better right so i'm gonna have to have this hierarchy here
+
+0:14:40.880,0:14:46.399
+definitely very carefully about how to write these
+
+0:14:44.000,0:14:50.560
+properly right so that all works well and then what about this one this this
+
+0:14:47.920,0:14:54.399
+kind of weird example i came up with um if i wanted to have it be be like
+
+0:14:53.519,0:15:01.680
+this let me let me throw this in here or that
+
+0:14:58.880,0:15:07.519
+and uh and i guess do you see my problem here i
+
+0:15:05.040,0:15:10.880
+am matching a valid phone number uh but it's not the whole thing but it
+
+0:15:09.040,0:15:17.360
+did it did correctly um highlight just that phone number so
+
+0:15:13.839,0:15:17.360
+i'll leave it there
+

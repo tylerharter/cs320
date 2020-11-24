@@ -1,0 +1,576 @@
+0:00:02.000,0:00:07.680
+hello in this video we're going to be fitting on wide to
+
+0:00:05.359,0:00:11.519
+some trickier data and by tricky i mean that the data isn't linear so if
+
+0:00:10.080,0:00:15.200
+you take a look at here you see there's some sort of uh
+
+0:00:12.480,0:00:18.160
+curve edit suggesting that it's not linear let me show you
+
+0:00:16.880,0:00:22.800
+go up and show you how i'm actually generating this data um i'm
+
+0:00:20.880,0:00:26.480
+generating uniform random numbers between about zero
+
+0:00:24.080,0:00:29.439
+and five um you'll see why i'm not quite going to
+
+0:00:27.599,0:00:34.000
+zero soon i'm generating 200 of these numbers
+
+0:00:31.359,0:00:37.440
+and and then i'm adding in some noise and
+
+0:00:34.640,0:00:41.760
+and how how does the noise work well uh it's a gaussian
+
+0:00:39.040,0:00:46.879
+normal distribution and it's the same size as the input data
+
+0:00:44.000,0:00:50.480
+and the standard deviation is three and so the equation we have or the
+
+0:00:48.640,0:00:56.320
+relationship between y and x is we have five over x and
+
+0:00:53.600,0:01:00.480
+x squared and then we add in some noise and centering that data frame
+
+0:00:58.160,0:01:05.519
+um it looks like something like this uh but of course logger
+
+0:01:02.559,0:01:09.280
+and i'm doing the scatter down here so let's try to do
+
+0:01:06.400,0:01:13.760
+the line fit like we've done before um the first thing i might have to do
+
+0:01:11.360,0:01:18.880
+is uh is i'm going to do like this i'm going to say
+
+0:01:15.040,0:01:22.880
+from chrome sklearn dot linear model
+
+0:01:23.840,0:01:30.720
+import linear regression and just to save myself some typing let
+
+0:01:29.360,0:01:35.680
+me give it a new name i'm just going to call that
+
+0:01:31.920,0:01:39.200
+class lr right so i'm going to run that and so now here i can try to fit that
+
+0:01:37.600,0:01:44.479
+data so i'm going to do it like that so i'm going to say
+
+0:01:40.560,0:01:49.040
+uh lr is a new lr object lr is going to fit i'm going to fit what
+
+0:01:48.159,0:01:52.079
+well let me go here and hit shift tab let's remind
+
+0:01:51.759,0:01:59.119
+us oh there actually let me just do this
+
+0:01:55.600,0:02:05.280
+oops what am i doing here okay so i i have to fit the x the y
+
+0:02:02.159,0:02:08.720
+and so um right you can see generally this is a matrix and this is a single
+
+0:02:06.719,0:02:11.980
+column that's why they're making that uppercase but let me do this i'm going
+
+0:02:11.280,0:02:15.210
+to say [Music]
+
+0:02:15.280,0:02:23.280
+i'm going to say my x column i want to fit that to the y
+
+0:02:19.520,0:02:27.599
+column uh oh i'm sorry what am i doing here
+
+0:02:24.080,0:02:31.040
+uh this goes into the fet right okay so i make my linear
+
+0:02:28.959,0:02:35.760
+regression object and i fit it to some data and this actually won't work
+
+0:02:32.879,0:02:38.720
+take a look at this here um why is it unhappy
+
+0:02:36.800,0:02:42.640
+uh it's unhappy because it's expecting this vertical
+
+0:02:41.440,0:02:45.680
+data right it's expecting two-dimensional data that's oriented
+
+0:02:44.400,0:02:49.280
+vertically and uh and i don't have that there's
+
+0:02:47.920,0:02:53.840
+different ways i could do this i could say something like this
+
+0:02:50.239,0:02:58.400
+values dot um that reshape and then i can say well i
+
+0:02:56.879,0:03:02.640
+don't care how many rows i have but i want one column
+
+0:03:00.159,0:03:06.879
+i could do that other option that's going to be a little bit easier for me
+
+0:03:04.319,0:03:11.440
+is instead of pulling this column out as a series
+
+0:03:08.400,0:03:13.920
+i can pull it out as kind of a smaller data frame so let me just show you this
+
+0:03:12.800,0:03:17.200
+difference here right so if i do that i get a series for
+
+0:03:16.000,0:03:21.680
+x if i if i say well something like this
+
+0:03:21.840,0:03:26.560
+then you can see i'm pulling out a data frame and if i wanted to i could
+
+0:03:24.879,0:03:30.319
+do this right i could pass a list of columns that only contains one column
+
+0:03:28.560,0:03:36.080
+to get kind of a smaller data frame like that and if i look at the values.shape
+
+0:03:33.840,0:03:39.440
+oh that's already something that that is going to like right so this is kind of
+
+0:03:38.080,0:03:42.959
+it looks a little weird but that's why i may be doing this instead right i want
+
+0:03:41.840,0:03:49.760
+to fix the x data to this y data
+
+0:03:46.239,0:03:55.280
+i run that um that seems good and um and then well what do i want to
+
+0:03:52.080,0:04:02.400
+do let me let me take a look at what my uh stuff is my coefficient
+
+0:03:58.640,0:04:06.720
+and my intercept so i see i have that information there
+
+0:04:03.840,0:04:09.040
+um let me actually try plotting this so um
+
+0:04:07.439,0:04:15.519
+when i'm plotting i may do something like this i'm going to say a ax dot
+
+0:04:12.000,0:04:20.639
+plot and i'm gonna have some x values and some y values and uh you know i'm
+
+0:04:18.880,0:04:27.120
+gonna make this a red line so so how is this going to work
+
+0:04:23.680,0:04:30.160
+well i'm gonna get some x values here and um and then i have to get some y
+
+0:04:28.960,0:04:32.880
+values right and and there's different ways i could get
+
+0:04:31.440,0:04:35.919
+the y values one is that i could multiply
+
+0:04:33.520,0:04:38.320
+x by the coefficients and add the intercept right that would be the y
+
+0:04:37.360,0:04:42.960
+values um but it turns out that linear
+
+0:04:39.840,0:04:46.479
+regression objects already make that easier for me with this
+
+0:04:45.120,0:04:51.600
+predict uh method right so let me do that after
+
+0:04:49.040,0:04:56.639
+i need that anymore and uh and okay well what is x
+
+0:04:54.639,0:04:59.360
+well i'm just trying to draw a line and so
+
+0:04:57.919,0:05:02.639
+well i mean i could take different points but um you know i'm just trying
+
+0:05:01.280,0:05:05.120
+to draw that line is connecting a bunch of points and and i guess it doesn't
+
+0:05:04.000,0:05:08.000
+really matter what those points are they don't have to be
+
+0:05:06.479,0:05:10.479
+the same points as in the original data because maybe i even want to extend
+
+0:05:09.120,0:05:16.080
+beyond that um so i'll just do something like this
+
+0:05:12.479,0:05:22.639
+i'll say mp.a range and what i got here i have the start
+
+0:05:19.600,0:05:26.080
+uh i have the stop and then i have what is a step between these and i'll
+
+0:05:24.000,0:05:29.919
+just say i start at 0.1 oh and maybe i forgot to mention this before
+
+0:05:27.520,0:05:34.160
+right but we're dividing by x before and that's why i've been kind of
+
+0:05:31.039,0:05:39.600
+avoiding uh drawing too far to the left right so i'm going to do this
+
+0:05:36.320,0:05:43.280
+and um and when we have x and and just to be careful here right i
+
+0:05:41.759,0:05:48.400
+need to make sure this is vertical all right so i'm gonna say reshape
+
+0:05:45.360,0:05:52.320
+negative one one and um and you can see this is not a great
+
+0:05:49.919,0:05:56.479
+shape uh it's not a great fat right i mean maybe it kind of works okay
+
+0:05:54.880,0:05:59.840
+for this data to the right uh this data to the left definitely that
+
+0:05:58.560,0:06:03.840
+doesn't make sense right there's this non-linear
+
+0:06:02.319,0:06:09.680
+relationship in the data and i'm forcing a linear line to it
+
+0:06:07.120,0:06:14.000
+so how can i deal with that right this is non-linear
+
+0:06:10.720,0:06:18.720
+all right one over x times five this is non-linear this x squared part
+
+0:06:16.880,0:06:23.919
+it's a linear regression right it can't deal with non-linear things
+
+0:06:20.400,0:06:27.120
+but what it is good at it is good at having a bunch of different features
+
+0:06:25.680,0:06:30.880
+right it's very easy to do multiple linear regression
+
+0:06:28.479,0:06:34.479
+where i'm trying to predict y based on say 10 different
+
+0:06:32.240,0:06:37.840
+variables and and so think about that right we can't do
+
+0:06:35.520,0:06:42.160
+uh non-linear things but we have as many columns as we want
+
+0:06:39.440,0:06:45.360
+and so the trick that people use is they add more columns
+
+0:06:43.680,0:06:48.560
+and instead of just having an x column where i have an x squared column an x
+
+0:06:47.120,0:06:52.720
+cubed column maybe a log of x column we can add as
+
+0:06:50.800,0:06:55.919
+many of these columns uh as we want and thereby kind of figure
+
+0:06:55.280,0:07:00.000
+out how to make the plot that we're
+
+0:06:57.039,0:07:03.440
+interested in so let's let's do this so i'm going to say i have something called
+
+0:07:02.960,0:07:08.319
+get x terms and what is this going to do
+
+0:07:07.120,0:07:13.599
+well it's trying to take in an x column and it's trying to create a new
+
+0:07:11.919,0:07:18.319
+data frame maybe i'll just call this t for terms i
+
+0:07:16.240,0:07:24.160
+make a new data frame and it's going to have an x that is
+
+0:07:21.360,0:07:27.199
+whatever is in that x column and when it's all done it's going to
+
+0:07:25.199,0:07:30.720
+return that then here i come back to this where i
+
+0:07:29.680,0:07:36.560
+add more expressions based on x
+
+0:07:34.000,0:07:40.800
+right and those expressions could be you know all kinds of different things
+
+0:07:38.960,0:07:43.840
+a lot of flexibility there so let me just call this to make sure it's kind of
+
+0:07:42.240,0:07:49.599
+working right somebody want to get x terms based on my original data frame
+
+0:07:47.759,0:07:52.000
+of x right so i want to pull out this column
+
+0:07:50.800,0:07:57.680
+and then maybe computing different things based on like x squared and
+
+0:07:54.240,0:08:02.800
+x cubed and so on and so forth and um and well i i have to have a dictionary
+
+0:07:59.759,0:08:05.440
+of columns like that okay so i have my x values let's add
+
+0:08:04.240,0:08:10.080
+some other ones right i'm going to say things like um maybe
+
+0:08:06.800,0:08:17.759
+x squared is going to be t of x squared like so
+
+0:08:14.879,0:08:23.199
+um i can add all kinds of non-linear stuff maybe i'll say
+
+0:08:18.800,0:08:28.800
+1 over x is going to be well 1 over over that like so um
+
+0:08:26.639,0:08:33.599
+you know if we wanted to we could add a you know like an x
+
+0:08:29.680,0:08:37.519
+cubed um we could add other things like um
+
+0:08:34.159,0:08:40.640
+maybe i want to have uh what else might i have i might have something like a log
+
+0:08:39.360,0:08:47.040
+x right so maybe let me say log 2 of x
+
+0:08:44.720,0:08:51.440
+equals that was a little bit trickier right i mean if i say
+
+0:08:48.040,0:08:55.519
+math.log 2 of that that's not going to work because this is
+
+0:08:53.839,0:08:58.080
+the built-in one in python it doesn't understand how to do an element-wise
+
+0:08:57.120,0:09:01.680
+operation uh but there's another version in numpy
+
+0:08:59.839,0:09:05.760
+right so i can do that add all these expressions and uh and
+
+0:09:04.320,0:09:09.760
+cool right i can see that well i have all these things right it's
+
+0:09:07.519,0:09:13.360
+not not really more data right it's just different ways of looking
+
+0:09:11.519,0:09:17.519
+um at the data and so we can kind of if we fit to this
+
+0:09:14.880,0:09:19.760
+we can get around the limitation that uh that
+
+0:09:18.320,0:09:22.560
+that we have right that we can only fit to linear things i'm like okay well i'll
+
+0:09:21.279,0:09:26.160
+fit linearly to these five variables right
+
+0:09:24.720,0:09:30.959
+and it doesn't matter that there's a relationship
+
+0:09:27.279,0:09:36.000
+that's non-linear between them okay so so let me come back here and kind of
+
+0:09:32.959,0:09:41.200
+work on this again let me paste this here and um and so i
+
+0:09:39.440,0:09:45.600
+have to tweak this a little bit let me let me just have this for now um
+
+0:09:44.480,0:09:49.200
+you know what i think i'm going to want to do
+
+0:09:46.000,0:09:53.839
+first is uh i don't want to fit y to x um what i really would like to do
+
+0:09:53.279,0:10:00.000
+is i would like to fit y to
+
+0:09:58.560,0:10:03.440
+this data frame that's what i want to fit y2 so so let me let me grab this
+
+0:10:02.800,0:10:08.720
+piece right so i'm going to fit y to that
+
+0:10:06.320,0:10:12.959
+piece and um and i guess for now let's just do
+
+0:10:12.160,0:10:20.399
+this let's say our lr.coefficients
+
+0:10:17.040,0:10:24.640
+and l r dot intercept like so i i can see that there's a bunch
+
+0:10:23.360,0:10:29.200
+of coefficients all right i have a coefficient on the x column
+
+0:10:26.560,0:10:32.640
+coefficient on the on the 1 over x column the coefficient on the log of 2x
+
+0:10:31.600,0:10:36.720
+column and you can see a lot of this is kind of
+
+0:10:35.279,0:10:41.360
+fitting things that shouldn't be right um for example well what should we
+
+0:10:40.640,0:10:45.040
+see um what i'd really like to see is a five
+
+0:10:43.519,0:10:48.560
+on the one over x column and a one here right so i'd really like
+
+0:10:46.880,0:10:56.160
+to see something like um you know five
+
+0:10:52.399,0:11:00.640
+on that column right so some error there and then a one on this column right so
+
+0:10:57.920,0:11:03.839
+that's not quite quite right but let's see how it looks when we actually
+
+0:11:02.240,0:11:07.279
+plot it right maybe it's still a good approximation
+
+0:11:05.040,0:11:11.040
+based on some of these other features even though it's not quite
+
+0:11:08.480,0:11:16.079
+capturing the original relationship i want to do this right i want to do an lr
+
+0:11:13.360,0:11:18.240
+and i want to do a prediction on this axe here
+
+0:11:17.050,0:11:25.200
+[Music] and um and you know what i think that
+
+0:11:22.160,0:11:29.600
+this right we need to do the same thing just like we uh
+
+0:11:27.120,0:11:34.240
+just like we did this calculation before right on the original data
+
+0:11:31.200,0:11:38.480
+we have to do that here on this x column right this was original x data
+
+0:11:36.560,0:11:42.560
+and this is just kind of evenly um spread out and um and you know what i
+
+0:11:41.200,0:11:45.920
+think that other thing that we need to do is
+
+0:11:43.600,0:11:51.279
+is that it wants this to be a series right so i'm actually going to do
+
+0:11:48.240,0:11:54.639
+um do something like this and i say that uh well i'm just trying to get rid of
+
+0:11:53.360,0:11:59.440
+this at this point i don't need that anymore because
+
+0:11:56.240,0:12:05.680
+uh once i feed axe actually you know what um
+
+0:12:02.959,0:12:10.079
+yeah i don't need it anymore okay there we go
+
+0:12:06.240,0:12:13.839
+right be as i guess as long as um let me let me just take a look up here
+
+0:12:11.760,0:12:17.360
+right so here right i had i had kind of that
+
+0:12:16.160,0:12:20.480
+vertical vector and here i was getting a vertical
+
+0:12:18.880,0:12:24.000
+vector um here down here i'm just trying to do
+
+0:12:22.399,0:12:27.760
+something one dimensional right so x is one dimensional now and then it's
+
+0:12:26.079,0:12:30.959
+going to feed into uh this thing so that's doing working
+
+0:12:29.279,0:12:35.279
+out fine so you can see i actually end up with this nice
+
+0:12:32.160,0:12:39.200
+um fit line right not perfect but let's try capturing that relationship
+
+0:12:36.959,0:12:43.360
+let me just put this back too um so that's working uh pretty well what
+
+0:12:41.519,0:12:46.079
+would happen if i had like a lot more data
+
+0:12:43.839,0:12:49.040
+let's say i have like a thousand points let me run that
+
+0:12:51.760,0:12:56.399
+now what's happening now now it's actually getting a little bit better
+
+0:12:54.880,0:13:00.560
+right i mean this number is closer to five and this number
+
+0:12:58.079,0:13:03.680
+uh is closer one let's say let's say we have even more points let's say like we
+
+0:13:01.839,0:13:07.600
+have like ten thousand right eventually if we have enough
+
+0:13:04.800,0:13:10.639
+points i should kind of figure out what that relationship is and it's
+
+0:13:09.040,0:13:14.800
+getting closer and closer right this is closer to five
+
+0:13:12.000,0:13:17.360
+this is closer um to one right but at least for this limited range right
+
+0:13:16.079,0:13:21.760
+there's different uh kind of equations right or formulas
+
+0:13:20.240,0:13:25.120
+over these different um terms that will actually get kind of
+
+0:13:23.760,0:13:28.399
+a similar uh similar shape but if we get enough
+
+0:13:27.200,0:13:31.279
+data then eventually we'll kind of recapture
+
+0:13:29.360,0:13:37.040
+the original coefficients rather than the other coefficients
+
+0:13:32.959,0:13:42.079
+i get small because they're not factors here
+

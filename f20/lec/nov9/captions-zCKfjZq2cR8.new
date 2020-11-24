@@ -1,0 +1,633 @@
+0:00:00.960,0:00:06.080
+so i ended that last video by introducing the dot product and i
+
+0:00:04.720,0:00:11.679
+i looked at what happens when we multiply a horizontal vector by
+
+0:00:08.880,0:00:15.440
+a vertical vector during the dot product here i want to do
+
+0:00:13.120,0:00:19.920
+a few things i want to start off by looking at well what is an actual
+
+0:00:16.960,0:00:24.560
+practical use case for the dot product um second when we have these matrices of
+
+0:00:22.560,0:00:27.840
+data or data frames you're often going to see people adding
+
+0:00:26.160,0:00:30.960
+a column that just contains a bunch of ones
+
+0:00:28.960,0:00:33.840
+and i'm going to show why that's useful when we're trying to have various linear
+
+0:00:32.559,0:00:38.320
+models and then finally i may do things like
+
+0:00:35.840,0:00:41.920
+this instead of going vector by vector what happens if i want to go matrix by
+
+0:00:40.399,0:00:47.280
+vector okay so i've created my data frame here
+
+0:00:45.039,0:00:50.239
+and what it has is some information about
+
+0:00:48.239,0:00:53.920
+houses you know how many beds do they have how many baths do they have what
+
+0:00:51.920,0:00:57.760
+year was it built in and then based on this uh information
+
+0:00:56.559,0:01:02.800
+about houses i want to have some sort of model that
+
+0:01:01.039,0:01:07.200
+can predict how much a house would be worth if i sold it on the market
+
+0:01:05.680,0:01:11.520
+and and so what i've done is i've built this little predict function here
+
+0:01:09.360,0:01:16.640
+and we'll pass in a house and you can see i have a note here that
+
+0:01:13.200,0:01:20.400
+the way i'm passing that n is as a panda series right so i can pull out one of
+
+0:01:18.159,0:01:24.720
+these rows as a series and then what am i doing well i've
+
+0:01:22.640,0:01:28.240
+assigned some sort of value to each of the features you know each
+
+0:01:26.640,0:01:31.439
+bedroom i guess is worth forty two thousand dollars
+
+0:01:29.600,0:01:36.159
+uh each bathroom is worth ten thousand dollars
+
+0:01:32.640,0:01:40.640
+um and then uh i i guess uh as the house gets newer right well
+
+0:01:39.119,0:01:46.399
+every year that it's newer it's worth another one thousand
+
+0:01:42.479,0:01:50.240
+uh uh 670 dollars and then i have this um this kind of constant i'm subtracting
+
+0:01:48.640,0:01:55.040
+off all of them right so well let me see how i could
+
+0:01:52.399,0:01:59.280
+actually use this um i have my houses here and i could
+
+0:01:58.000,0:02:03.200
+grab that first house i could say something like not i location zero
+
+0:02:01.840,0:02:06.799
+i could see the first house says two bedrooms uh one bathroom it was built in
+
+0:02:05.280,0:02:11.760
+1985. if i wanted to i could say predict price
+
+0:02:09.840,0:02:17.520
+right so i could do that and i can see okay well that house is worth 196
+
+0:02:14.000,0:02:21.360
+000 uh the next one has an extra bedroom and it's slightly newer
+
+0:02:18.720,0:02:27.120
+let's see how how that one fares that house is worth 260 000
+
+0:02:24.080,0:02:32.239
+uh and drug and this is kind of a very common uh linear model that people will
+
+0:02:29.760,0:02:34.879
+will use and of course the real trick that we're going to eventually get to in
+
+0:02:33.440,0:02:38.160
+this course is how do we actually figure out what
+
+0:02:35.680,0:02:40.000
+what these numbers are um you know they're gonna be learning we're gonna be
+
+0:02:39.280,0:02:43.599
+learning machine learning models for uh determining these
+
+0:02:42.720,0:02:47.280
+numbers um you could also imagine maybe some
+
+0:02:45.360,0:02:51.200
+real estate agent sat down and kind of had their opinion and built the
+
+0:02:48.560,0:02:54.400
+model it's not necessarily a bad way to create a model as long as you
+
+0:02:52.879,0:02:58.239
+actually do some evaluation and show that it works pretty well
+
+0:02:56.319,0:03:03.200
+okay so this kind of thing is going to be uh something that will work great
+
+0:03:01.120,0:03:06.879
+for linear algebra operations in particular the dot product
+
+0:03:04.800,0:03:10.159
+right so this is our practical use case because what does the dot product do
+
+0:03:09.040,0:03:14.319
+it does multiple a bunch of multiplications and then it adds all the
+
+0:03:12.879,0:03:18.080
+results and so so let me see if i can try to
+
+0:03:16.239,0:03:24.480
+work towards this um i think what i will want to do
+
+0:03:21.280,0:03:30.840
+is take all of these things these numbers and put those in
+
+0:03:28.000,0:03:34.720
+to some kind of numpy array somebody say numpy.array and
+
+0:03:32.480,0:03:41.120
+uh let me put these values in so i'll say like 42.3
+
+0:03:36.879,0:03:46.560
+10 and 1.67 and i may capture that in a variable
+
+0:03:44.560,0:03:51.519
+and um ultimately what we're going to do is we're going to have
+
+0:03:47.840,0:03:55.360
+a vector a dot product these coefficients so this vector is
+
+0:03:53.439,0:03:58.720
+really going to be corresponding to a house
+
+0:03:56.560,0:04:01.519
+and so remember if i want to get this kind of operation where i'm kind of
+
+0:04:00.080,0:04:04.959
+multiplying two values together multiplying two values
+
+0:04:03.439,0:04:09.280
+so on and then finally adding all those up well this second vector
+
+0:04:07.200,0:04:13.200
+uh better be vertical right if i want to collapse this all down to one value
+
+0:04:11.200,0:04:17.440
+out last one better be vertical so i need to have some sort of reshape here
+
+0:04:15.680,0:04:20.320
+and so remember when i reshape them say how many rows do i want how many columns
+
+0:04:19.120,0:04:23.759
+do i want i know i want exactly one column to make
+
+0:04:22.639,0:04:26.960
+it vertical and then i can just say negative one to
+
+0:04:25.120,0:04:31.120
+give me however many rows necessary and i have that right there
+
+0:04:28.960,0:04:35.520
+okay so that's good how do i actually get
+
+0:04:32.240,0:04:38.880
+um how do i actually get uh a house out of that out of that data
+
+0:04:37.520,0:04:42.960
+frame right before i was doing this thing
+
+0:04:39.759,0:04:48.000
+uh it turns out that um it turns out that uh data frames are
+
+0:04:46.080,0:04:50.880
+built on top of numpy so i could do something like this i
+
+0:04:49.120,0:04:53.440
+could say something like houses dot values
+
+0:04:53.759,0:04:59.280
+and i get a nice numpy array just like this
+
+0:04:57.280,0:05:04.320
+and so i may capture this in another variable called ax
+
+0:05:01.280,0:05:08.320
+and just a little bit of notation here i'm making x uppercase because it's
+
+0:05:06.320,0:05:12.639
+going to be a full matrix and i'm making c lowercase because well
+
+0:05:11.120,0:05:18.240
+that's just one um it's just one uh vector
+
+0:05:16.080,0:05:23.520
+right i guess technically it's a matrix but i'm basically
+
+0:05:20.000,0:05:26.639
+treating it like a vector okay so let me see if i can pull some houses
+
+0:05:25.360,0:05:30.800
+out of there uh i could do something like this i
+
+0:05:28.720,0:05:35.120
+could say x and then i have to say like a row slice
+
+0:05:32.400,0:05:38.080
+and a column slice and i'll start with the column slice because that's easy
+
+0:05:36.400,0:05:42.240
+right i want to grab everything in the column
+
+0:05:39.199,0:05:45.199
+so i may say you know let's let's get all that
+
+0:05:43.360,0:05:49.919
+and then i have to pull out a row here so i could say something like this
+
+0:05:47.280,0:05:52.560
+to get that first one i want to get this right here
+
+0:05:51.039,0:05:56.160
+now one issue with this is right if i look at the shape of it it's one
+
+0:05:54.400,0:05:59.360
+dimensional right i only have one value in that
+
+0:05:57.360,0:06:03.520
+tuple and i was really saying that i would like to treat this as a
+
+0:06:01.440,0:06:06.560
+horizontal vector right so so really what i should do
+
+0:06:04.880,0:06:09.759
+is instead of just pulling out the value at one i should actually take a slice
+
+0:06:08.639,0:06:13.759
+from zero to one uh one is exclusive so i'm only going to
+
+0:06:11.759,0:06:17.600
+get data from that zeroth row uh but this is really actually giving me
+
+0:06:16.720,0:06:22.560
+something that has a two-dimensional whereas this was
+
+0:06:20.479,0:06:26.880
+one dimensional you see that difference let me do that that's two dimensional
+
+0:06:24.960,0:06:32.080
+and uh and i can say well that's my house
+
+0:06:27.600,0:06:34.880
+zero and uh i can peek at that and so let me actually try this down
+
+0:06:33.520,0:06:40.160
+here this code i've been working towards i could say house zero
+
+0:06:36.560,0:06:43.440
+times c and i get something that is um absurd right i think that all of this
+
+0:06:41.919,0:06:47.360
+was in thousands so it's like a three million dollar house
+
+0:06:45.759,0:06:51.120
+and you can see what i forgot right i forgot that
+
+0:06:48.240,0:06:53.840
+i have this constant that i subtract off this you could think of it as like an
+
+0:06:52.319,0:06:58.800
+intercept so so maybe what i should do is i should
+
+0:06:57.039,0:07:02.240
+create not only my c up here but i should have
+
+0:07:00.960,0:07:08.479
+b right that uh that intercept equals negative
+
+0:07:05.280,0:07:12.479
+three two one three and then when i do this
+
+0:07:08.800,0:07:19.120
+operation down here i could say plus b and that will work if i if i rerun this
+
+0:07:16.639,0:07:24.319
+all right so that works and then does this match up with what i had before
+
+0:07:20.800,0:07:27.440
+uh 196 000 let me try running this again for house
+
+0:07:26.160,0:07:31.120
+zero it does i get exactly the same value i
+
+0:07:29.599,0:07:34.560
+mean here it's bundled up a little bit inside of these numpy arrays
+
+0:07:33.120,0:07:38.560
+but i'm getting the exact same thing and you can see how much more concise it is
+
+0:07:37.280,0:07:44.400
+right instead of having this big complicated thing i could just have
+
+0:07:41.919,0:07:49.360
+this simple little expression right uh rho dot product
+
+0:07:47.520,0:07:52.639
+and then my coefficients and then added this intercept and
+
+0:07:50.639,0:07:55.680
+i could basically do this whole thing it that jumps becomes more important as we
+
+0:07:54.160,0:07:58.800
+have bigger data frames right i mean a three
+
+0:07:56.080,0:08:02.400
+column data frame is pretty simple for what we'll see
+
+0:07:59.520,0:08:06.240
+right i might have 20 columns that i'm having this model
+
+0:08:03.680,0:08:10.560
+run over so so let me try another one so i'm going to
+
+0:08:06.800,0:08:18.160
+get my other houses like so maybe what's the best way to do this um
+
+0:08:14.479,0:08:25.280
+i'm just gonna paste this four times and uh i have my four houses house one
+
+0:08:21.440,0:08:30.560
+house two house three one two
+
+0:08:30.960,0:08:39.519
+three great and now i can actually if i wanted to i could
+
+0:08:36.320,0:08:44.000
+uh print off the values for all of these different houses right so let me do that
+
+0:08:41.440,0:08:47.200
+so i'm going to paste that like so let me get all the values and i
+
+0:08:46.080,0:08:49.760
+realize i'm doing this kind of a cumbersome way
+
+0:08:48.160,0:08:52.720
+but the reason is that i want you to appreciate when i show you the elegant
+
+0:08:51.120,0:08:55.680
+way to do it why we'll do it that way right so i
+
+0:08:54.399,0:08:58.080
+basically here i'm getting all these different values for the different
+
+0:08:56.880,0:09:01.600
+houses now now let me show you a track right so
+
+0:08:59.839,0:09:05.279
+remember that remember that i had all my data here in
+
+0:09:03.600,0:09:13.680
+ax right and when i'm looking at say h0
+
+0:09:09.360,0:09:17.760
+h0 was just an individual row of this right and if i multiply that individual
+
+0:09:16.320,0:09:23.600
+row by my coefficients then let me get a
+
+0:09:21.600,0:09:27.120
+single number out just like this and so there's actually a shortcut here
+
+0:09:25.760,0:09:34.240
+and that is if i say i want to multiply my whole
+
+0:09:30.800,0:09:40.720
+i want to multiply my whole matrix by my um by my coefficients
+
+0:09:38.800,0:09:44.080
+well there you go it started to go down and do all of them and then of course at
+
+0:09:42.240,0:09:48.240
+the end i would have to actually um add b right so i could do
+
+0:09:47.519,0:09:51.760
+that and you can see that i can get all of
+
+0:09:50.000,0:09:58.240
+these same values here and this one column just like i did uh
+
+0:09:54.640,0:10:02.560
+before right it's very elegant right and so so what is really happening
+
+0:10:00.560,0:10:06.800
+right when i say x dot product c it's taking the dot
+
+0:10:04.720,0:10:11.760
+product of the first row with c and it puts it here and it takes the dot
+
+0:10:09.600,0:10:15.200
+product of the second row with c and puts that here the dot product of
+
+0:10:13.600,0:10:17.600
+the third row with c what's that here you're just trying to
+
+0:10:16.240,0:10:20.880
+keep on drawing and i can do that very quickly
+
+0:10:18.959,0:10:23.920
+now you might imagine that i could have also done that work with a loop
+
+0:10:22.959,0:10:28.320
+and that would have gotten the same result absolutely but doing it like this
+
+0:10:26.720,0:10:29.920
+where i'm trying to tell the computer in one step
+
+0:10:29.200,0:10:34.399
+here are all the different multiplications i have to do
+
+0:10:32.720,0:10:37.440
+depending on your hardware and maybe the packages on top of it i have some
+
+0:10:36.000,0:10:40.880
+opportunity to speed up modern cpus often have various features
+
+0:10:39.519,0:10:45.120
+i let them do multiple things at the same time
+
+0:10:42.320,0:10:47.279
+um and so if i'm doing this i'm kind of telling the computer
+
+0:10:46.000,0:10:50.240
+everything i want to do instead of just giving it one piece at a time right a
+
+0:10:48.800,0:10:53.360
+loop gives it one piece of work at a time
+
+0:10:51.519,0:10:56.480
+uh if i give it all at once then often the computer will find ways to
+
+0:10:54.880,0:10:59.600
+do it more efficiently and right my code is maybe a lot faster
+
+0:10:59.760,0:11:08.560
+okay so so we're doing pretty good here um one of the things that uh i might
+
+0:11:06.000,0:11:13.519
+want to think about trying to improve is um why do i have to have this
+
+0:11:12.480,0:11:19.839
+separate b is there a way to avoid that and
+
+0:11:16.720,0:11:23.200
+the answer is yes there is and i'll show you so i'm going to try to
+
+0:11:21.279,0:11:28.000
+grab all this right here um what if i just wanted to roll b
+
+0:11:26.320,0:11:33.120
+directly into that so i say something like you know b
+
+0:11:29.760,0:11:37.120
+if i put this negative 3 2 1 3 that i had here
+
+0:11:34.560,0:11:40.959
+when i try to do this right so i have these things these multiply my columns
+
+0:11:39.040,0:11:45.279
+in my data frame and then i have this coefficient and so
+
+0:11:43.760,0:11:50.399
+my problem right now is when i have this x the sizes aren't going to match up
+
+0:11:48.720,0:11:54.959
+right because i'm multiplying this column by the first
+
+0:11:52.480,0:11:59.200
+row and i have three values in the row four values in the column so if i try
+
+0:11:56.639,0:12:04.959
+something like this if i say x and then i take the dot product with c
+
+0:12:02.560,0:12:08.800
+it complains right there's an input size mismatch
+
+0:12:06.000,0:12:12.320
+right i have to make sure the number of columns well i have to make sure the
+
+0:12:10.240,0:12:16.560
+number of values and and this row match the number of values
+
+0:12:14.160,0:12:22.000
+in my c column which is that sorry that's a c column
+
+0:12:19.040,0:12:26.399
+okay so well what do i want to really do um this last value here that i'm putting
+
+0:12:24.000,0:12:30.959
+in my coefficients i don't want to multiply that by a
+
+0:12:27.680,0:12:35.839
+variable i want to multiply it by one and and so the trick that people will do
+
+0:12:33.839,0:12:42.800
+is this so this was my data frame oh where's my data frame most houses
+
+0:12:39.519,0:12:46.800
+there's my data frame and what we'll really do is we'll kind of
+
+0:12:44.079,0:12:49.360
+add this fake column that just contains ones
+
+0:12:47.440,0:12:53.279
+and the only purpose is that this negative three two one
+
+0:12:51.760,0:12:57.120
+and multiply it so i could just say something like this maybe i'll call like
+
+0:12:54.320,0:13:04.720
+constant or something like that equals one i have that there
+
+0:13:01.120,0:13:08.480
+and uh great so i just added this thing right here and so then what i can do is
+
+0:13:06.720,0:13:14.480
+i can just pull out my x again i can say x equals houses dot values
+
+0:13:11.360,0:13:18.480
+and peek at that and uh and now if i want to i can just say x
+
+0:13:16.720,0:13:22.399
+dot product c and i can really you know i'm capturing
+
+0:13:20.880,0:13:26.959
+my model in this c vector but i can compute uh
+
+0:13:25.440,0:13:30.639
+all of these predictions for the whole thing and what's really beautiful about
+
+0:13:28.800,0:13:32.880
+this is i could uh put this all right back
+
+0:13:30.959,0:13:36.639
+in to my data frame i can say something like houses
+
+0:13:34.240,0:13:40.320
+and maybe take a new column called price estimate
+
+0:13:37.760,0:13:46.480
+equals this and then i could look at my houses
+
+0:13:41.680,0:13:49.600
+and uh and i would see this right here right so this is great right so i could
+
+0:13:48.079,0:13:54.000
+see the price estimate for all of these with a very simple
+
+0:13:52.399,0:13:58.399
+operation right i mean the real trick is just well how do i how do i um
+
+0:13:57.199,0:14:01.120
+kind of pull out that c value right how do i figure out what
+
+0:13:59.680,0:14:05.360
+numbers go in there and we're going to be eventually talking more about that
+
+0:14:03.760,0:14:10.000
+so to recap right what is the use case for the dot product it's awesome
+
+0:14:07.519,0:14:13.199
+for linear models like this where i want to multiply some coefficients on a bunch
+
+0:14:11.839,0:14:16.560
+of variables um sometimes uh to make it simpler to
+
+0:14:15.680,0:14:20.079
+have not a separate coefficients and b
+
+0:14:18.399,0:14:23.360
+variable if i want to put everything in c
+
+0:14:21.360,0:14:28.880
+then the the trick is that i will add a separate column with just ones
+
+0:14:26.320,0:14:32.320
+and then finally uh doing a matrix dot product
+
+0:14:29.440,0:14:36.079
+by a vector is very useful right because i can
+
+0:14:32.880,0:14:39.760
+apply uh my coefficients to every row at the same time and i can
+
+0:14:38.079,0:14:46.480
+very quickly compute those new estimated values okay
+
+0:14:42.959,0:14:46.480
+so i will end there
+

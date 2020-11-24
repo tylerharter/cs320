@@ -1,0 +1,1071 @@
+0:00:01.120,0:00:08.000
+hello in this video we're going to be building off of what we wrote last time
+
+0:00:04.560,0:00:12.559
+um last time we had both a graph a my graph class which contains a
+
+0:00:10.960,0:00:17.119
+bunch of nodes and we had this node class for the nodes
+
+0:00:15.360,0:00:20.160
+inside of that graph and the function we were working on was
+
+0:00:19.199,0:00:24.320
+called find and basically what it would do is
+
+0:00:22.080,0:00:27.920
+it would search and see if we could find um some node from our given starting
+
+0:00:26.480,0:00:31.519
+place and and so we're doing breadth first
+
+0:00:30.240,0:00:35.120
+search and what that means is that we want to do all the children
+
+0:00:33.200,0:00:39.440
+before we do all the grandchildren before we do all the great grandchildren
+
+0:00:37.440,0:00:44.000
+basically we want to kind of explore near our starting point
+
+0:00:41.120,0:00:48.559
+before branching out and going farther away
+
+0:00:44.800,0:00:51.440
+now whenever we explore or visit a child we learn about a bunch of grandchildren
+
+0:00:50.160,0:00:54.079
+and of course we have to eventually check them
+
+0:00:52.719,0:00:58.239
+if we don't find what we're looking for sooner and but we don't want to check
+
+0:00:56.640,0:01:01.920
+our grandchildren until we've looked at our other children
+
+0:00:59.760,0:01:06.320
+and so our strategy has been to have a to-do list right when we
+
+0:01:03.760,0:01:09.920
+discover more work to do and by work i mean nodes to explore
+
+0:01:08.320,0:01:14.720
+we put them at the end of the to-do list right so they can't jump in priority
+
+0:01:12.320,0:01:16.799
+uh in front of other nodes right we're gonna still do the children before any
+
+0:01:16.000,0:01:20.159
+grandchildren at least the grandchildren will be in
+
+0:01:18.320,0:01:23.680
+the last and um and so last time we were running
+
+0:01:21.759,0:01:28.320
+this on on this graph right here and what we
+
+0:01:26.479,0:01:34.799
+would do is we are starting from node b and trying to find our way to d
+
+0:01:32.320,0:01:37.759
+and so we'd have b we'd start with that on our to-do list
+
+0:01:36.640,0:01:41.280
+and then we would check it so that removes it but when we check b well then
+
+0:01:39.680,0:01:45.840
+we discover c so we put c on our to-do list and when we check c
+
+0:01:44.159,0:01:49.280
+that comes off the to-do list and we add d
+
+0:01:46.079,0:01:53.119
+back on because c knows about d then we finally
+
+0:01:49.759,0:01:56.399
+check d and all as well and so when we return true right we found a path
+
+0:01:54.880,0:02:02.240
+now there are two things i want to fix about this today um
+
+0:01:58.640,0:02:05.280
+one is that the code isn't quite right um
+
+0:02:03.119,0:02:07.840
+it turns out there's a uh we can get an infinite loop
+
+0:02:06.320,0:02:11.920
+and that happens if i say want to get from a from b to a
+
+0:02:10.399,0:02:16.720
+um what we see is that we just kind of keep going around in circles
+
+0:02:14.720,0:02:21.280
+like so so let me hit interrupt because that's going to keep looping forever
+
+0:02:18.640,0:02:24.080
+let me just try to run this again that's the first issue right let's fix the
+
+0:02:22.720,0:02:29.520
+infinite loop and then second we want to have a better
+
+0:02:26.879,0:02:33.680
+version instead of just returning true i found a path or false i didn't um if
+
+0:02:32.480,0:02:37.040
+there is a path i'd like to actually know well what sequence of
+
+0:02:35.040,0:02:40.400
+nodes do i have to go through and that's going to be a little bit
+
+0:02:37.840,0:02:46.959
+harder so first let's um let's start with kind of fixing our infinite loop
+
+0:02:43.200,0:02:50.000
+um i think the issue right i guess when i'm running it is that i kind of
+
+0:02:49.120,0:02:55.920
+keep going around the list b discovers c c b covers d d discovers b
+
+0:02:53.519,0:03:01.040
+so on and so forth and so maybe i i wonder if i could do something like this
+
+0:02:58.000,0:03:05.680
+um whenever i add somebody to to-do list i wonder if i could avoid uh kind of
+
+0:03:04.239,0:03:08.959
+adding them more than once right you know once i've been to b
+
+0:03:07.519,0:03:13.760
+there's no sense in kind of putting on the on the be on the list
+
+0:03:10.319,0:03:16.720
+again great and um and so i wonder if i could do something like this i wonder if
+
+0:03:14.959,0:03:22.720
+i could do say you know if not child and to do
+
+0:03:21.280,0:03:25.840
+you know if i haven't seen this child before right if i haven't seen that
+
+0:03:24.159,0:03:28.879
+child on that list i i'm going to try that see if that
+
+0:03:27.760,0:03:36.000
+works and so let me run this
+
+0:03:32.720,0:03:39.519
+and again i'm kind of having the same problem
+
+0:03:36.799,0:03:43.840
+i i wonder why this didn't didn't work right
+
+0:03:40.879,0:03:47.440
+um why for example you know i start with b
+
+0:03:44.239,0:03:50.720
+right why do i ever add b back to the list i guess here i add b
+
+0:03:48.799,0:03:55.200
+back to the left right when i'm checking d then i put b
+
+0:03:52.480,0:04:00.959
+on the left why would i do that let me kind of scroll down here a little bit
+
+0:03:58.319,0:04:06.239
+or if i can add a new node here or a new cell
+
+0:04:02.159,0:04:09.760
+when i'm when i'm on d i add b to the list even though i've
+
+0:04:07.920,0:04:12.959
+been there before and at some point right if i kind of
+
+0:04:11.120,0:04:16.560
+look at the beginning b was there and so my problem right is
+
+0:04:15.439,0:04:20.479
+that this to-do list is not a great place to
+
+0:04:18.959,0:04:23.520
+check because um you know i'm not only adding to it
+
+0:04:22.560,0:04:26.960
+but i'm removing to it so really kind of what i want to
+
+0:04:25.199,0:04:31.199
+check is uh not well what i don't want to
+
+0:04:29.600,0:04:35.280
+check is it on the to-do list now i want to check
+
+0:04:31.919,0:04:39.680
+has it ever been added right maybe it's been removed but
+
+0:04:38.240,0:04:41.840
+i really want to know well has it ever been there
+
+0:04:40.639,0:04:46.000
+and somebody have to have a separate data structure for that and um
+
+0:04:44.400,0:04:50.720
+and this is kind of analogous to what we had last time for depth first search and
+
+0:04:48.960,0:04:53.520
+we have a set of visited nodes
+
+0:04:55.040,0:05:01.120
+right and this is just a common mistake i see and that's why i did it here
+
+0:04:58.800,0:05:03.919
+um these two ideas are different right one is well
+
+0:05:02.000,0:05:07.600
+what are all the things we've checked and another one is well what is actively
+
+0:05:05.520,0:05:10.800
+on my to-do list right because things kind of come and go
+
+0:05:08.960,0:05:14.000
+on the to-do list whereas this can only keep growing and keep just doing
+
+0:05:12.320,0:05:19.120
+new things so down here what i'm going to say is if not child and
+
+0:05:16.639,0:05:23.520
+visited then i'm going to add it right so then
+
+0:05:22.080,0:05:28.720
+i'm going to say do that and then i guess down here i
+
+0:05:25.360,0:05:32.639
+would say something like visited dot add child i've checked this child
+
+0:05:31.680,0:05:36.560
+before and you know i called it visited to make
+
+0:05:34.639,0:05:40.560
+the analogy the dfs the depth first search before we have visited there
+
+0:05:38.479,0:05:43.840
+um this is a little bit different right because
+
+0:05:41.520,0:05:45.840
+you know i don't really actually check the note until it comes around to the
+
+0:05:45.199,0:05:49.039
+front right so so maybe a better variable name
+
+0:05:47.680,0:05:54.960
+would be something like added right it's uh uh
+
+0:05:52.080,0:05:57.840
+you know on the list once maybe i'll call that added and then down here i'm
+
+0:05:56.319,0:06:03.600
+gonna call it added too it's helpful to kind of clarify these ideas to really
+
+0:06:00.240,0:06:08.160
+be precise in our variable names and um and so maybe maybe i'm going to
+
+0:06:06.720,0:06:13.440
+do here i'm going to say previous added
+
+0:06:11.759,0:06:16.960
+just so i can kind of see what's going on
+
+0:06:14.880,0:06:20.960
+i may run this now and hopefully right if uh
+
+0:06:18.000,0:06:25.520
+if i'm thinking about this properly i'm not going to have um
+
+0:06:22.240,0:06:30.240
+have that issue anymore and so i kind of go along i'm like well
+
+0:06:27.039,0:06:35.919
+i start with b on my list i check b and then i put c on the list and so i
+
+0:06:33.120,0:06:41.360
+previously added c's and i checked c c puts d on the list right so now i've
+
+0:06:39.440,0:06:44.639
+previously added d and c so on and so forth you know one thing
+
+0:06:43.199,0:06:47.520
+i'm seeing though so it works right i mean i kind of prevent the
+
+0:06:46.240,0:06:53.199
+infinite recursion but i'm still checking b twice not not horrible
+
+0:06:50.960,0:06:58.560
+but but i wonder how i would fix this right
+
+0:06:54.080,0:07:02.160
+um how do i avoid doing it twice do you see the issue right this is where
+
+0:07:00.479,0:07:05.520
+i'm adding most of my children to the to-do list and so that's why i put
+
+0:07:04.479,0:07:09.680
+this down here but actually if i head back here i see
+
+0:07:07.840,0:07:12.479
+that i start with one on the added list so really what i
+
+0:07:11.280,0:07:15.680
+should do is something like this i should say well
+
+0:07:14.080,0:07:18.240
+i'm starting with myself on the list that one's the one that gets added first
+
+0:07:17.280,0:07:21.440
+right so you know i add the start node here if i
+
+0:07:20.400,0:07:24.880
+make a note of that then all the others are down here let me
+
+0:07:23.199,0:07:28.160
+run that now and now i actually never visit the same
+
+0:07:27.360,0:07:34.400
+thing twice i you know i do b c d and then we're done
+
+0:07:31.759,0:07:39.599
+and we can conclusively return false um we haven't we haven't kind of hit the
+
+0:07:37.360,0:07:45.039
+end okay so this is great um let's do this
+
+0:07:42.160,0:07:48.720
+let's do a more complicated graph so i think let me just get my example
+
+0:07:47.280,0:07:50.240
+straight was this the graph i wanted to do
+
+0:07:49.039,0:07:57.199
+no no let's do something more interesting than that um
+
+0:07:52.560,0:08:01.680
+this is kind of a fun one right um maybe just as a moment let's try to
+
+0:07:58.800,0:08:05.440
+familiarize ourselves with the graph um so so let's say we're going to start
+
+0:08:03.520,0:08:10.840
+for we're trying to be searching from a to z
+
+0:08:06.879,0:08:19.280
+um so looking at a i guess how many children does a have
+
+0:08:14.720,0:08:27.840
+i see two children right there okay so a has two children how many
+
+0:08:21.520,0:08:31.520
+grandchildren does they have i want you to think about that for a
+
+0:08:29.520,0:08:35.440
+moment it's actually a trickier it's a trickier question than you might
+
+0:08:38.839,0:08:48.000
+think so i'm counting six grandchildren can
+
+0:08:44.880,0:08:50.959
+you count the six as well i think i think the obvious
+
+0:08:49.279,0:08:55.120
+grandchildren right are these down here right these are all kind of
+
+0:08:52.959,0:08:59.920
+children of b and c so that gets us to four
+
+0:08:56.560,0:09:03.120
+and and i guess while z is a child of c which is a child of a so i guess we
+
+0:09:01.839,0:09:07.600
+have z there too so that gets us up to five so so besides these five
+
+0:09:05.680,0:09:13.600
+nodes what is the other grandchild that's missing um
+
+0:09:11.040,0:09:18.720
+a a is all her grandchild a is its own grandchild right because
+
+0:09:15.600,0:09:22.720
+a's parent is b and b's parent is a so it has six grandchildren there and so
+
+0:09:21.279,0:09:26.080
+so let's try to do this search and just kind of see how it uh and kind
+
+0:09:24.399,0:09:29.200
+of what order it explores the the children and grandchildren so so
+
+0:09:28.000,0:09:34.240
+kind of what i'm hoping is going to do is well we'll start with a
+
+0:09:31.360,0:09:39.680
+and then it's going to do bc and then only at the end will it finally check
+
+0:09:36.480,0:09:44.480
+all of these uh grandchildren right so let's let's do this so i'm
+
+0:09:41.279,0:09:53.680
+gonna add this back and um and let's try running this code
+
+0:09:47.839,0:09:59.120
+so i run it and so so what happens here okay so i start you know a is on my
+
+0:09:55.519,0:10:04.160
+to-do list and when i check a i learn about b and c that's good and so
+
+0:10:02.399,0:10:08.560
+this point i've already added c a and b i'm never gonna add any of those again
+
+0:10:06.480,0:10:14.240
+well then i check b right so b is in the front of my to-do list
+
+0:10:10.800,0:10:20.079
+and and so i still have c right i mean c is still on my to-do list it just kind
+
+0:10:16.000,0:10:23.839
+of has moved off after i pull off b but in the process of of doing b i
+
+0:10:22.640,0:10:29.600
+discover these two down here i discover d and e right so
+
+0:10:27.120,0:10:36.320
+some kind of you know i remove b check it and in the process i add d dne
+
+0:10:32.480,0:10:39.920
+okay then i check c and then when i'm on c well what do i do i
+
+0:10:38.320,0:10:42.399
+add you know i remove it here right so i
+
+0:10:41.200,0:10:46.079
+have d and e are going to be at the front now
+
+0:10:43.839,0:10:50.240
+and um and then at this point well what do i do i'm adding
+
+0:10:48.480,0:10:55.120
+all of c's children right so let me add all of these down here
+
+0:10:52.079,0:11:00.000
+and so c has these three children like so
+
+0:10:56.079,0:11:04.320
+right that's good and um and then kind of going from there
+
+0:11:02.399,0:11:07.920
+well what do i do i just start working down this list
+
+0:11:05.920,0:11:10.399
+right and at this point i've added everybody to the list at
+
+0:11:09.120,0:11:12.640
+least once so this time just keeps getting smaller
+
+0:11:11.279,0:11:17.519
+right i just kind of keep removing things off there's nothing new to add
+
+0:11:14.880,0:11:21.120
+because i've added everything and so eventually we get down to the z and z is
+
+0:11:19.200,0:11:23.920
+the very last thing we check what i'm seeing here is we can do a
+
+0:11:22.240,0:11:26.839
+slight optimization we can return a little bit earlier
+
+0:11:25.360,0:11:32.640
+right kind of as soon as we're doing the adding um
+
+0:11:28.880,0:11:37.760
+then we might notice right so so is that true well you can see there's
+
+0:11:35.680,0:11:43.760
+not this trade-off between optimizing the code and elegance right so
+
+0:11:42.000,0:11:46.959
+what i'd like to do right i could finish a little bit sooner is at this point
+
+0:11:45.839,0:11:51.279
+right if i checked here i'm like oh i'm adding this child and i
+
+0:11:49.920,0:11:54.399
+know that's a destination i could i could return right here
+
+0:11:53.120,0:11:57.120
+for me to do that though then i'd also have to worry about where i'm adding up
+
+0:11:55.519,0:12:00.560
+here and so i kind of have to have this check showing up in two places both up
+
+0:11:59.920,0:12:04.880
+here down here so i'm just gonna leave it as
+
+0:12:01.839,0:12:08.480
+is for now and so the code's working and um and then we'd return true that we
+
+0:12:07.040,0:12:12.560
+found the path so let's move on to the next step which
+
+0:12:10.959,0:12:17.440
+is how can we actually find the path i think the path should be
+
+0:12:14.320,0:12:20.800
+um a c z right so what we want to get i want to
+
+0:12:20.320,0:12:26.079
+find a c z
+
+0:12:24.480,0:12:31.760
+not something like this we wouldn't want to get like um a
+
+0:12:28.000,0:12:36.079
+b e z because that's longer right so we have to add this somehow or find
+
+0:12:33.680,0:12:39.120
+it somehow and so what we have to do is after
+
+0:12:36.800,0:12:42.800
+when we kind of get to this point we have to do what we call
+
+0:12:40.160,0:12:45.440
+back tracing how can we kind of go back and see how we got to here
+
+0:12:44.240,0:12:48.959
+and that was kind of an easier thing to do when we were doing depth first
+
+0:12:47.600,0:12:52.560
+uh search right we could just kind of return our path and then
+
+0:12:50.959,0:12:55.760
+with depth first search we'd say well here's a note i'm on
+
+0:12:54.240,0:12:57.920
+so i know how to get to my child and my child knows how to get to the
+
+0:12:56.720,0:13:00.480
+destination therefore i know how to get to the
+
+0:12:59.040,0:13:03.360
+destination it's a little more complicated here we have to have some
+
+0:13:02.000,0:13:07.839
+extra state and and so when i do it like this
+
+0:13:08.160,0:13:16.399
+um where i have another node here right so i'm gonna say
+
+0:13:12.399,0:13:24.720
+um self dot finder equals none and this will be node that discovered
+
+0:13:20.720,0:13:29.600
+me okay and so what what does this mean um how how am i going to use this
+
+0:13:27.920,0:13:34.079
+so so kind of looking down here when i check a
+
+0:13:31.920,0:13:37.440
+then that's how i found out about b and c
+
+0:13:35.200,0:13:41.440
+so one of my kind of the way i'm going to talk about this is that a
+
+0:13:38.639,0:13:45.440
+is the finder of b a is also the finder of
+
+0:13:42.160,0:13:50.320
+of c right a is how we got to these right so b dot finder will equal a and c
+
+0:13:48.399,0:13:56.720
+dot finder will equal a hopefully that makes sense okay
+
+0:13:54.000,0:13:59.199
+so i'm gonna have to set that right whenever i add something to the to-do
+
+0:13:58.320,0:14:04.079
+list i have to make a note here of how i
+
+0:14:00.800,0:14:09.680
+found it right so this child finder well
+
+0:14:08.000,0:14:13.920
+it's going to be this current node we're on right whatever current is
+
+0:14:11.760,0:14:17.040
+when i was checking ker that's when i found out about this child
+
+0:14:15.440,0:14:21.680
+right so the child will point to the note that found it and kind of looking
+
+0:14:19.600,0:14:25.519
+at this you can imagine some of these right like
+
+0:14:23.199,0:14:32.560
+look at look at z right um eventually you know i explore both
+
+0:14:28.880,0:14:36.560
+e and c and you can imagine them both trying to
+
+0:14:34.480,0:14:41.199
+add z right but it's well whoever found it
+
+0:14:38.079,0:14:45.600
+first right whoever whoever is the one who appends it the to-do list
+
+0:14:43.760,0:14:50.800
+that one's the finder and and so just the way we're exploring
+
+0:14:49.040,0:14:56.160
+right c is going to be the finder c is going to be the one that adds
+
+0:14:52.639,0:14:59.839
+z to the to-do list this one's not going to get any credit
+
+0:14:59.920,0:15:10.320
+if that makes sense um okay so i'm doing that
+
+0:15:05.680,0:15:12.800
+and um and so maybe as a first step maybe instead of returning true you know
+
+0:15:11.839,0:15:18.480
+what i'm going to do i'm just going to return
+
+0:15:14.720,0:15:25.120
+when i return the node that we found okay so i'm going to do that and
+
+0:15:21.680,0:15:27.839
+um let me run this let me you know i'm going to clean up some of
+
+0:15:26.320,0:15:31.600
+these things for now right just so we can see more
+
+0:15:30.480,0:15:36.320
+what i'm going to do is i'm going to say well this is my destination equals this
+
+0:15:37.199,0:15:44.959
+and maybe i'll just print my destination okay so so i'm kind of getting all the
+
+0:15:42.480,0:15:49.680
+way down to the z node so that's good um and so maybe i can just kind of
+
+0:15:48.000,0:15:55.920
+do it intuitively do something like this i can say well who found
+
+0:15:52.240,0:16:03.040
+who found that uh yeah well c found z and well
+
+0:15:59.199,0:16:06.320
+what node what node found the node that found me
+
+0:16:06.560,0:16:11.839
+and that would be a and so kind of the trick here right is i want to kind of
+
+0:16:10.560,0:16:16.320
+glue these things together into a path i guess in the opposite
+
+0:16:14.000,0:16:19.360
+order right i want to say you know i want to start with this i
+
+0:16:18.000,0:16:23.040
+mean this is where i started and the time going here and then kind of
+
+0:16:22.000,0:16:26.480
+going here and what if i tried to go one more step
+
+0:16:24.720,0:16:33.199
+i said finder dot finder dot finder i i would have none
+
+0:16:30.959,0:16:37.120
+um which reminds me right i mean that'll be kind of the end of the chain
+
+0:16:34.959,0:16:40.720
+um if i kind of do another search here now starting from another place
+
+0:16:39.360,0:16:44.079
+i want to make sure that these finder variables start off as none
+
+0:16:42.639,0:16:48.480
+and that's actually something i have to do here right i should have to say
+
+0:16:45.880,0:16:54.560
+self.finder equals none because that's my starting point nobody found me
+
+0:16:51.040,0:16:56.800
+now almost what i want you to imagine right is that
+
+0:16:55.279,0:17:02.959
+we kind of have two structures going on at the same time
+
+0:16:58.800,0:17:06.959
+we have all of these nodes right and um and they have references to other nouns
+
+0:17:04.480,0:17:10.640
+right a has a reference to b and c right those those references are
+
+0:17:10.319,0:17:15.520
+in in the children right so so i can think
+
+0:17:13.679,0:17:20.720
+of all these nodes being part of a tree i can also think about some of these
+
+0:17:17.520,0:17:24.559
+nodes being part of a linked list right because here i have a reference to
+
+0:17:23.280,0:17:31.440
+a node and kind of what i'm ending up with at the end is that z
+
+0:17:28.079,0:17:35.120
+is a reference as a reference to c and c has a reference to a
+
+0:17:33.120,0:17:38.080
+and so i'm kind of imagining that in addition to all these nodes being part
+
+0:17:36.559,0:17:41.360
+of a of a graph based on the children
+
+0:17:40.000,0:17:44.720
+attribute the path i find is also part of a linked
+
+0:17:43.760,0:17:50.240
+list going from c z c a
+
+0:17:48.480,0:17:52.400
+right and so if i have some strategy for putting off a linked list or something
+
+0:17:51.520,0:17:58.400
+like that um then i can make that work you'll be
+
+0:17:55.679,0:18:02.320
+able to figure out what the path is okay and um and so let's do this let's
+
+0:18:01.280,0:18:05.520
+add a let's add a function here right i want
+
+0:18:04.240,0:18:08.480
+to be able to print off you know kind of glue all these things together
+
+0:18:07.440,0:18:12.320
+and so i'm going to do something like this i'm going to say um define
+
+0:18:12.640,0:18:20.000
+uh maybe i'll call it back trace right i'm trying to figure out how i
+
+0:18:16.320,0:18:24.160
+get to some place and um and how am i going to do this i'm going
+
+0:18:21.520,0:18:27.840
+to say self um you know what i'm going to do is i'm
+
+0:18:26.400,0:18:31.600
+just trying to kind of add all of these things
+
+0:18:29.600,0:18:36.720
+to the same list right so i'm going to say something like
+
+0:18:33.520,0:18:40.559
+i may have a list here and i'm going to say
+
+0:18:37.120,0:18:47.039
+add myself to that list append self and
+
+0:18:44.720,0:18:49.760
+um and then i may kind of keep recursing right so let's say that was kind of
+
+0:18:48.080,0:18:56.720
+destination that's passed and first let me add myself there
+
+0:18:51.280,0:18:59.720
+and and then i'll say if if self.finder not equal to none right so i wasn't the
+
+0:18:58.400,0:19:04.640
+starting point well then i might say self.finder
+
+0:19:01.360,0:19:07.840
+dot back trace on that same list so so i'm going to add myself to that
+
+0:19:06.160,0:19:12.160
+list and then ask whoever found me to add them self to
+
+0:19:10.400,0:19:15.120
+list and have recursively so on and so forth
+
+0:19:13.360,0:19:19.360
+okay so so let's do this i'm going to kind of create my list down here
+
+0:19:17.120,0:19:22.080
+and i'm going to say my destination node i got where did my destination node come
+
+0:19:21.200,0:19:25.960
+from that was what i returned when i actually
+
+0:19:23.440,0:19:29.440
+got to the end so i'm going to say destination.back trace
+
+0:19:30.000,0:19:34.320
+and i want them all you know starting from that destination all the way back i
+
+0:19:33.600,0:19:39.039
+want them to add themselves to that list and then i can
+
+0:19:37.120,0:19:45.600
+print that l and there we go we have z c i guess it's
+
+0:19:42.080,0:19:49.039
+a backwards path which is fine for now um so that's all fine right this is a
+
+0:19:47.039,0:19:54.880
+recursive version of it so this is the recursive version
+
+0:19:53.120,0:19:59.520
+and um and we can kind of go through a linked list like this
+
+0:19:56.799,0:20:04.840
+recursively that's one way to do it um just to kind of contrast
+
+0:20:00.960,0:20:07.840
+um i want to show let's do an iterative version
+
+0:20:08.240,0:20:12.159
+this will be old i don't want to do that anymore for the editor editor version
+
+0:20:11.919,0:20:18.480
+the way i can do that is like this
+
+0:20:15.679,0:20:20.000
+and have a loop and and what i'll do is i'll kind of create my own list here i
+
+0:20:19.760,0:20:24.000
+don't really need to pass it in i'll say at my
+
+0:20:22.880,0:20:29.120
+left there and then i'll say um you know uh
+
+0:20:29.760,0:20:34.640
+what i may do is i need to kind of loop how can i loop over this and then this
+
+0:20:33.600,0:20:37.919
+and then this and so on and so forth a really
+
+0:20:36.240,0:20:42.559
+common strategy is i'll say well what current note am i on is it destination
+
+0:20:40.159,0:20:45.360
+the destinations finder or the finder of the finder
+
+0:20:43.760,0:20:51.120
+and so i'm going to start with self which is maybe destination
+
+0:20:47.600,0:20:58.080
+let me say self and then i say while curve is not equal to none
+
+0:20:54.799,0:21:03.440
+what curve will do is curve will be per dot finder so you see that i might start
+
+0:21:01.200,0:21:08.080
+on here and then it's going to be you know destination and so destination
+
+0:21:05.039,0:21:11.360
+i'm going to say destination.finder well then when i run this then curve
+
+0:21:09.520,0:21:13.120
+will move over to this it's going to kind of move along this chain until it
+
+0:21:12.799,0:21:20.080
+hits on and then it falls off the end and so
+
+0:21:16.400,0:21:25.679
+what i can do is i can say l dot append per just like that and then when i'm all
+
+0:21:22.640,0:21:29.440
+done i can return this list and um this is a little bit nice because
+
+0:21:27.679,0:21:32.960
+now uh since it's iterative i can kind of
+
+0:21:30.720,0:21:36.799
+easily just create this list before i start doing my looping i don't
+
+0:21:34.400,0:21:42.720
+have to do it down here anymore do i i can do this i can just print off
+
+0:21:40.960,0:21:46.480
+i guess i'm calling this version now and i don't have to pass anything in
+
+0:21:44.720,0:21:49.280
+but let me just do this and try to see how that works
+
+0:21:51.200,0:22:01.120
+and that works great right i have z c a kind of this backward path now the last
+
+0:21:59.679,0:22:05.200
+thing i think that makes sense is that it would be kind of more intuitive to go
+
+0:22:02.480,0:22:11.600
+a c z so i'm going to turn this kind of to be reversed
+
+0:22:08.240,0:22:13.360
+like this and um and then i get this iterator
+
+0:22:12.000,0:22:16.400
+thing which i wanna just force to be a list there's many ways to reverse things
+
+0:22:15.760,0:22:19.679
+in python when i do that i'm just trying to kind
+
+0:22:17.600,0:22:22.240
+of get this nice list from the start to the end and you know what actually
+
+0:22:20.880,0:22:27.360
+let's make it a tuple so it's kind of like more like what we did with dfs okay
+
+0:22:26.159,0:22:31.280
+so this is pretty good and um and i'm gonna clean this up now
+
+0:22:32.159,0:22:38.720
+let's think about how to combine this and i'm just gonna delete this as well
+
+0:22:37.679,0:22:41.600
+we're just trying to end with the iterative version generally it's more
+
+0:22:40.159,0:22:45.280
+efficient to loop than to have recursion
+
+0:22:45.520,0:22:50.320
+so so here right was where i actually find that final final node and so if i
+
+0:22:49.120,0:22:54.000
+want to return a path what i can do is i can just kind of call
+
+0:22:53.520,0:22:58.320
+this right here right right right now i'm kind of
+
+0:22:55.919,0:23:02.480
+doing find to get the last node then i'm back tracing from it um what
+
+0:23:01.120,0:23:09.200
+i'm going to do instead is here i'm just going to return her dot
+
+0:23:05.840,0:23:14.559
+back trace like that and then you know if i don't find anything i can
+
+0:23:11.200,0:23:19.679
+just return on there at the end okay all right so when i actually find
+
+0:23:18.080,0:23:22.400
+my destination i may return the back trace of it
+
+0:23:20.559,0:23:27.760
+so i can kind of simplify all this now right let me let me just do this
+
+0:23:24.480,0:23:31.520
+can i find a path for that yes i can it's a c
+
+0:23:28.400,0:23:36.480
+z uh what if i want to go from a to uh or let me do this i'm gonna go
+
+0:23:35.039,0:23:41.280
+this time i'm going to go from let's say like b
+
+0:23:38.400,0:23:48.960
+to g all right that's kind of interesting
+
+0:23:45.840,0:23:55.360
+do i have a path yeah i go from b to a to c to g i can get there right
+
+0:23:53.440,0:23:58.720
+um okay so that's kind of cool right you can do this back tracing
+
+0:23:57.039,0:24:03.520
+by just stepping back one note at a time right appending to me each this last
+
+0:24:01.440,0:24:06.240
+um what if i try to look for something that's not there right if i look for
+
+0:24:04.880,0:24:10.640
+something like um you know x uh oh i guess well x is not in there
+
+0:24:10.320,0:24:14.960
+so that's not going to be happy um so i
+
+0:24:12.960,0:24:19.039
+guess i'm finally allowed to do that um so i'll just leave it there for now
+
+0:24:16.559,0:24:22.480
+let's actually go back to this example i think it was example two that we had
+
+0:24:22.000,0:24:28.799
+and um maybe was it was an example
+
+0:24:26.240,0:24:32.159
+no sorry too many examples but this one this one is a nice one
+
+0:24:30.559,0:24:36.480
+because then i can try to lie can i get from b to a
+
+0:24:34.640,0:24:43.360
+and and then i get none right because there is no such path whereas you know b
+
+0:24:39.120,0:24:49.520
+to d does have such a path b c d um
+
+0:24:47.039,0:24:53.440
+before i wrap up here uh i want to go to like one more example so i'll say
+
+0:24:51.679,0:25:03.840
+i think let me just make sure i have the right one here
+
+0:25:00.799,0:25:07.279
+let's just kind of um trace through this i i think one more time just to kind of
+
+0:25:05.600,0:25:12.480
+wrap up and what i want to do here is i'm just
+
+0:25:09.440,0:25:17.120
+going to put my to do back so we can kind of see how it's searching
+
+0:25:15.120,0:25:21.360
+through right so i'm gonna do that and i may
+
+0:25:17.440,0:25:25.440
+look again for g dot find a to z let me print that
+
+0:25:27.279,0:25:41.760
+second i understand what it's doing right so i start with a and that's
+
+0:25:37.760,0:25:46.720
+previously added a discovers b and c i've now discovered uh bcna when i check
+
+0:25:45.120,0:25:52.320
+b then i discover d and e so i'm going to add those after c
+
+0:25:50.159,0:25:56.559
+right so i check c and then here's where i finally actually have all the nodes on
+
+0:25:54.080,0:26:00.400
+right here are all the all the all the leaves
+
+0:25:57.440,0:26:05.120
+i guess um all the leaves and e which is not quite a leaf
+
+0:26:02.159,0:26:08.720
+right and then i can just keep you know taking these down
+
+0:26:06.480,0:26:13.200
+until i just have z left and then here at the very end
+
+0:26:09.600,0:26:17.600
+well z has the finder z dot finder is c and c dot finder is a and that's how i
+
+0:26:15.760,0:26:21.679
+can kind of construct this uh using the back trace um at the end so
+
+0:26:20.640,0:26:26.480
+i'm gonna have these two functions working together
+
+0:26:22.720,0:26:26.480
+okay it's all in the video there
+

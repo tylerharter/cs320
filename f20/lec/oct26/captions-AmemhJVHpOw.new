@@ -1,0 +1,507 @@
+0:00:02.320,0:00:06.560
+all right so in that last video i saw how we could create one plot that might
+
+0:00:05.680,0:00:10.880
+show um how these values vary over time um
+
+0:00:09.519,0:00:14.639
+another thing i'd like to do is i'd like to get some sort of distrib
+
+0:00:12.240,0:00:17.440
+sense of the distribution of values right do i get a lot of fives so i get a
+
+0:00:16.560,0:00:21.840
+lot of um twos things like that and maybe when i'm
+
+0:00:20.480,0:00:26.240
+asking that what does the distribution look like i don't really care about the
+
+0:00:23.840,0:00:30.000
+time or the order of the values and so there's different ways i could do
+
+0:00:28.160,0:00:35.280
+that one way is we could create some sort of histogram so let me
+
+0:00:33.280,0:00:40.160
+try starting with that and and so let me actually make sure my
+
+0:00:38.480,0:00:44.399
+web server is still running it is so i could come down here and i
+
+0:00:42.800,0:00:48.960
+could say i want to look at the distribution of my
+
+0:00:47.440,0:00:54.960
+values and so for this now i'm going to have um let me do an h1
+
+0:00:55.840,0:01:04.320
+if i want to look at my distribution over here and refresh that okay so i
+
+0:01:02.480,0:01:08.000
+have to create something called distribution let me create i'm
+
+0:01:06.799,0:01:14.400
+just going to copy all of this actually i do this
+
+0:01:11.360,0:01:18.479
+and uh and have distribution here and um and now instead of doing a plot i
+
+0:01:16.960,0:01:22.320
+can say uh histo and histo or actually it's just
+
+0:01:20.560,0:01:26.320
+histogram hist is underneath there and let me just get
+
+0:01:25.040,0:01:31.439
+rid of this for now we'll keep it simple so let me do that
+
+0:01:28.960,0:01:36.320
+and let me refresh over here and let me see what what it's unhappy
+
+0:01:34.079,0:01:41.759
+about was it down here i think so um it's
+
+0:01:40.000,0:01:46.000
+complaining that i have um it's overriding an existing endpoint so
+
+0:01:43.840,0:01:49.759
+it's not happy because i have two functions called the same thing so maybe
+
+0:01:47.360,0:01:54.560
+i'll call this one uh my distribution so let me run that and then i'm gonna
+
+0:01:52.000,0:01:58.799
+come back here and refresh this page and then i can see as i keep getting
+
+0:01:56.640,0:02:04.399
+more values it fills in that histogram okay now histograms
+
+0:02:02.560,0:02:07.520
+are not necessarily great for showing distributions and in some ways they're
+
+0:02:05.840,0:02:10.879
+very intuitive but there's a few things i don't like
+
+0:02:09.679,0:02:14.000
+about them one is that how it looks is very
+
+0:02:12.720,0:02:19.920
+sensitive to how many buckets you have um
+
+0:02:17.520,0:02:25.120
+eventually if i if i were to run this and i would say something like
+
+0:02:21.440,0:02:29.920
+benz equals 100 and then run this and um well actually let me
+
+0:02:28.640,0:02:32.959
+let me change this a little bit instead of having just a random integer let me
+
+0:02:31.280,0:02:37.680
+get some floats now uh i'm going to say python
+
+0:02:36.160,0:02:42.879
+random let me look up how to do the random
+
+0:02:39.680,0:02:46.720
+float so so you can see that if i call this
+
+0:02:45.200,0:02:51.120
+function right here random i'm getting a value between zero and one
+
+0:02:48.800,0:02:56.080
+and so one of the ways i could um get a range of values is by over here
+
+0:02:53.599,0:03:00.560
+i could just say that dot random and then that'll be between 0 and 1. so i
+
+0:02:57.680,0:03:05.120
+can multiply this by something like sex right so i could do that i may get a
+
+0:03:01.840,0:03:11.280
+full range so if i run this now and you can see that when i have
+
+0:03:08.239,0:03:14.959
+a lots of buckets then what's going to happen is that and as
+
+0:03:13.840,0:03:17.360
+i'm dealing with floats now which might happen is that i really get something
+
+0:03:16.000,0:03:21.200
+that looks like a barcode down here i never really get
+
+0:03:18.239,0:03:24.159
+enough values to have a bucket with one more than one entry in it
+
+0:03:22.640,0:03:27.519
+and so it'll be very sensitive how many buckets i have that's one thing i don't
+
+0:03:26.000,0:03:31.440
+like about histograms the other thing i don't like is if i'm
+
+0:03:29.200,0:03:35.519
+dealing with a lot of different um uh problems that i want to look at
+
+0:03:34.159,0:03:38.879
+the distribution over if i wanted to plot several several
+
+0:03:37.120,0:03:43.519
+columns there's absolutely room for that here right each column is a new line
+
+0:03:41.280,0:03:45.920
+if i have say four or five columns though
+
+0:03:44.480,0:03:49.120
+it's really hard to plot multiple histograms on top of each other right i
+
+0:03:47.920,0:03:51.120
+mean you can use transparency or something
+
+0:03:50.000,0:03:55.439
+but it's probably not going to look great so students often come up with
+
+0:03:53.840,0:04:00.000
+this other strategy which i think um is somewhat of a good
+
+0:03:57.360,0:04:04.239
+idea for looking at the distribution and the idea goes like this instead of
+
+0:04:03.120,0:04:09.519
+having um a histogram we're gonna go back to like
+
+0:04:05.840,0:04:15.200
+our line like we did before uh but rather than having these values
+
+0:04:13.040,0:04:18.160
+in the order they were given to us we're just trying to get those values
+
+0:04:16.720,0:04:20.880
+sorted first so they're going to be from small to large
+
+0:04:19.600,0:04:26.000
+and so i'm going to refresh this over here and if i keep doing this
+
+0:04:24.560,0:04:30.240
+you can see that there's this shape that's emerging
+
+0:04:27.600,0:04:34.479
+emerging down here and the values are along the x-axis
+
+0:04:31.360,0:04:37.280
+from small to large um so for example um if i wanted to read this i i could
+
+0:04:35.919,0:04:40.639
+look right in the middle right that was the middle value and i could see well
+
+0:04:38.800,0:04:43.520
+where does that line hit let me let me try to do this a little
+
+0:04:41.759,0:04:48.720
+more precisely look at that middle value where's the line hit
+
+0:04:45.440,0:04:53.840
+and i can see that the median of this data is about two
+
+0:04:52.320,0:04:56.880
+right so that's what i could do right on the x-axis i have all my values sorted
+
+0:04:55.600,0:05:01.120
+from small to large and on the y-axis i have what were those
+
+0:04:59.040,0:05:04.560
+values now um this is actually a very similar
+
+0:05:03.360,0:05:07.840
+idea to a more standard kind of plot which is
+
+0:05:06.720,0:05:14.720
+the cdf and the cdf does two things
+
+0:05:11.199,0:05:21.680
+um one is it normalizes um from zero to n uh
+
+0:05:18.080,0:05:27.120
+normalizes to zero to one hundred instead of zero to n so
+
+0:05:24.720,0:05:31.120
+we're basically going to percentages right right now you can see my um n is
+
+0:05:29.199,0:05:35.360
+something like um uh what is it something like 13 or 14
+
+0:05:33.759,0:05:37.840
+because that's how many entries i have right so
+
+0:05:36.240,0:05:42.400
+you can imagine that i i change it so now that's 100 percent instead of
+
+0:05:39.840,0:05:45.680
+on you know the number of the value and so that's one thing i can change if i
+
+0:05:43.759,0:05:50.840
+want to cdf the cdf that we're going to do that's
+
+0:05:48.400,0:05:55.360
+that stands for cumulative distribution function by the way kind of
+
+0:05:54.000,0:05:58.560
+a more complicated thing but still it's based on the same idea that a
+
+0:05:56.960,0:06:01.600
+lot of people come up with that's one thing it changes the other
+
+0:06:00.319,0:06:07.919
+thing it changes which is a little bit strange is it swaps
+
+0:06:03.759,0:06:12.240
+the x and y axes right so if you do this thing which was very simple
+
+0:06:09.440,0:06:15.360
+right i mean all i did was i sorted and actually i'm typing all this inside
+
+0:06:14.319,0:06:18.560
+of the wrong function right and this is all up here
+
+0:06:18.880,0:06:24.960
+right so my first idea for visualizing the distribution was just to sort the
+
+0:06:22.400,0:06:28.560
+values before i make a line plot um if i make these two additional
+
+0:06:26.319,0:06:31.600
+changes if i normalize and then swap the x and y
+
+0:06:29.840,0:06:34.720
+well then i may have a cdf which is a very standard kind of plot
+
+0:06:33.199,0:06:39.600
+and that will help us understand what's going on
+
+0:06:36.400,0:06:42.479
+um so i think let's do this let's um let's start with the second
+
+0:06:41.280,0:06:46.400
+part and then we're going to go back to the first part so i'm going to swap the
+
+0:06:43.919,0:06:49.520
+x and y axis so i'm going to say here that's my
+
+0:06:47.840,0:06:54.000
+series and if i want to get the reverse of that
+
+0:06:51.039,0:06:58.880
+series then what do i do i i have to pass in both the values
+
+0:06:55.840,0:07:03.280
+and then the index equals index and i want this reverse to be switching
+
+0:07:01.440,0:07:06.639
+around the index and in values here because the index goes on
+
+0:07:04.880,0:07:10.479
+the x-axis so for me to switch the x and y-axis that
+
+0:07:08.639,0:07:16.880
+means my index becomes my values and my values become my index
+
+0:07:12.479,0:07:20.400
+so so here i'm going to say s dot values and here i'm going to say s dot index
+
+0:07:19.840,0:07:23.520
+right that's going to be my reverse i'm going to plot
+
+0:07:22.080,0:07:28.000
+that like so okay so that's the second piece
+
+0:07:25.840,0:07:32.000
+i'm swapping those two and um and if you're paying close
+
+0:07:29.440,0:07:35.039
+attention you might realize that some of these values i had might be
+
+0:07:33.599,0:07:38.639
+repeated before so my new index is going to have some
+
+0:07:36.400,0:07:41.840
+repeated values uh that would not be okay with a python dictionary it's
+
+0:07:40.319,0:07:45.360
+absolutely fine uh when i'm dealing with a pandas series
+
+0:07:44.720,0:07:48.560
+okay so i'm going to do that and refresh this
+
+0:07:47.440,0:07:54.879
+over here and maybe i have to restart this
+
+0:07:52.160,0:07:58.960
+oh i guess it crashed on me i'm going to do that
+
+0:07:56.080,0:08:02.319
+and i can keep going now right so that that seems good
+
+0:08:00.400,0:08:08.160
+maybe actually let me do something like this i think um
+
+0:08:05.120,0:08:12.800
+uh i i wanted to show that there's actually um right now
+
+0:08:10.879,0:08:15.840
+it's uniform right which is not great let me see if there's some other
+
+0:08:13.759,0:08:22.879
+distributions here would i get a normal distribution for example
+
+0:08:20.319,0:08:26.240
+um there's a bunch of different variants of that
+
+0:08:24.400,0:08:30.080
+and so maybe i'll just sample from this one i'm going to sample from uh
+
+0:08:27.680,0:08:32.879
+from cause so i'm going to do that and say it goes
+
+0:08:33.039,0:08:38.080
+like that maybe let me just add some something to it so
+
+0:08:36.080,0:08:45.279
+um it's centered somewhere let me refresh this a few times oops
+
+0:08:41.599,0:08:50.000
+and i need to restart my server sorry i don't want a condition there so
+
+0:08:48.160,0:08:56.959
+i'm going to run this thing and refresh over here
+
+0:08:54.080,0:09:01.680
+well what happened there oh and i have to pass in
+
+0:08:57.760,0:09:05.440
+well what is my center and then my deviation so maybe i'll just say center
+
+0:09:03.200,0:09:08.800
+three deviation two not really important for this example
+
+0:09:07.519,0:09:12.640
+when i do this and if i refresh it a bunch of times i
+
+0:09:11.279,0:09:18.560
+start to get this s-shaped curve down here and
+
+0:09:16.560,0:09:24.560
+on the x-axis i have all the different values that i've appended
+
+0:09:21.120,0:09:28.959
+to this list and then on the y-axis depending on how far that lands on there
+
+0:09:26.959,0:09:33.040
+i can see well is it in the middle so so just like before
+
+0:09:30.399,0:09:37.920
+i can start here roughly in the middle of the y-axis i can go over here
+
+0:09:34.800,0:09:43.040
+and i can see that the median is about 2.5
+
+0:09:39.600,0:09:45.920
+okay so so that's good well let me try to shape this up a little bit more
+
+0:09:44.399,0:09:50.720
+i think if i really want to see the proper cdf
+
+0:09:47.839,0:09:53.440
+i have to on the y-axis say what that is and normalize instead of going from 0 to
+
+0:09:52.399,0:10:00.720
+16 i should go from 0 to 100 percent
+
+0:09:58.080,0:10:05.040
+so here are my uh my index right so that's
+
+0:10:01.120,0:10:09.040
+uh uh that that's good right and what i want to do
+
+0:10:06.399,0:10:13.360
+is um the way i'm going to normalize that
+
+0:10:09.519,0:10:20.240
+is divide it divide it by how many values i have
+
+0:10:17.519,0:10:24.000
+and um let me think a little bit about that so so if we index from zero
+
+0:10:22.560,0:10:28.399
+let's say i have ten items we index from zero the biggest value is nine
+
+0:10:26.320,0:10:33.760
+and i'm gonna be dividing by ten so this isn't quite right because
+
+0:10:30.399,0:10:37.920
+it never quite gets to one so i i guess if i want to do it like this i have to
+
+0:10:36.560,0:10:42.000
+um add one before i divide by the total
+
+0:10:40.240,0:10:47.120
+number and if i wanted to go from zero to 100 i can multiply this all by
+
+0:10:43.920,0:10:53.279
+100 on the front okay so let me run this over here and um
+
+0:10:51.279,0:10:57.839
+now i can see that that y axis is going from zero to 100
+
+0:10:54.800,0:11:02.480
+the other thing that i want to do is add some
+
+0:10:58.160,0:11:09.120
+uh some axes labels so i'm gonna say ax dot set x label and
+
+0:11:06.000,0:11:12.160
+these will be um you know maybe the number of errors
+
+0:11:10.480,0:11:19.519
+right that's kind of what i imagined that i'm measuring and the ax
+
+0:11:16.399,0:11:26.000
+that y label will be the percent less
+
+0:11:24.160,0:11:33.760
+maybe i'll just abbreviate that percent sign so i may run this a bunch of times
+
+0:11:29.839,0:11:38.079
+until i get that nice um uh s curve like before and so now what i
+
+0:11:37.040,0:11:44.399
+can see is that if i want to read this oops what
+
+0:11:41.440,0:11:50.399
+happened to my um what happened to my axis labels why did
+
+0:11:47.360,0:11:58.160
+that not show up for me so i'm not sure i'm quite sure why
+
+0:11:56.959,0:12:00.880
+that's not showing up for the moment so i'll follow up with that after this um
+
+0:11:59.920,0:12:04.160
+recording but on the x-axis right i can see well
+
+0:12:03.200,0:12:08.639
+what values do i have and then on the y-axis
+
+0:12:07.040,0:12:13.760
+i can see well what percentile is that at because this y-axis should be
+
+0:12:11.760,0:12:17.120
+telling me well what percentage are less than that specific value so i
+
+0:12:15.839,0:12:20.480
+can see about a third of the values are less than two
+
+0:12:19.839,0:12:25.839
+about sixty percent of the values are less
+
+0:12:22.160,0:12:25.839
+than four
+

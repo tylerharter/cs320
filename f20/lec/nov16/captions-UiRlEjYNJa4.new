@@ -1,0 +1,612 @@
+0:00:01.040,0:00:06.240
+hello in this video i'm maybe shifting gears a little bit
+
+0:00:04.480,0:00:09.760
+and looking at a new use for the dot product and uh we're gonna be using the
+
+0:00:08.320,0:00:14.559
+dot product be producing something called covariance and
+
+0:00:11.200,0:00:18.400
+correlation matrices and i'll be talking more about what those are
+
+0:00:16.080,0:00:21.520
+um first big picture how we use the dot product so far
+
+0:00:20.000,0:00:25.119
+we've mostly been using to multiply matrices by
+
+0:00:23.519,0:00:29.519
+vectors and we're multiplying apply a matrix by a vector on the right
+
+0:00:27.359,0:00:33.840
+there's two ways we can look at it um one perspective
+
+0:00:30.640,0:00:36.960
+may be called the row picture is that we treat the
+
+0:00:34.480,0:00:40.800
+the vector um as a collection of coefficients
+
+0:00:38.320,0:00:44.640
+and we can multiply those coefficients on all the values in the row
+
+0:00:43.200,0:00:47.280
+in each row of the matrix right so we go row by row multiply each row by the
+
+0:00:46.239,0:00:50.320
+coefficients and then get this vertical vector of
+
+0:00:49.120,0:00:53.840
+outputs um another equivalent perspective that
+
+0:00:52.399,0:00:58.320
+we've seen is that um multiplying a matrix by a vector
+
+0:00:57.120,0:01:02.160
+means that we're taking a linear combination of of the columns right the
+
+0:01:00.960,0:01:05.840
+values in that vector can tell us you know how many of column
+
+0:01:04.239,0:01:11.040
+one do we want plus how many of column two plus how many of column three
+
+0:01:09.520,0:01:16.720
+now i'm going to show another use case in this video which will be multiplying
+
+0:01:13.680,0:01:19.840
+uh two matrices uh together and i'm not going to get into the actual
+
+0:01:18.080,0:01:22.000
+math of defining what happens when we do this we're just showing that numpy do it
+
+0:01:21.119,0:01:25.680
+for us and i'm not going to be doing it uh in
+
+0:01:23.920,0:01:31.040
+general i'm just multiplying the transpose of a matrix by itself when
+
+0:01:28.640,0:01:35.360
+i multiply the transpose of a matrix by the matrix itself where i end up with
+
+0:01:33.680,0:01:39.200
+this nice square a table that describes the relationships
+
+0:01:37.840,0:01:42.159
+between between every pair of columns right
+
+0:01:40.960,0:01:47.119
+there's different relationships depending on how we kind of
+
+0:01:43.520,0:01:50.880
+reprocess the data so to set this up i wanted to create a table with some
+
+0:01:48.640,0:01:54.240
+really strong obvious relationships between
+
+0:01:51.680,0:01:56.960
+between the columns and so i'm imagining is that we have a bunch of rectangles in
+
+0:01:55.920,0:02:00.960
+the world and i don't care what those rectangles
+
+0:01:58.719,0:02:04.719
+represent maybe they're tables or maybe they're
+
+0:02:01.280,0:02:07.759
+um you know property lots right and whatever there's a bunch of tables in
+
+0:02:06.079,0:02:11.840
+the world or rectangles and we have a bunch of measurements of
+
+0:02:10.239,0:02:15.840
+each rectangle if you're measuring a rectangle maybe
+
+0:02:14.319,0:02:18.959
+the obvious things to measure are what is the width
+
+0:02:16.959,0:02:22.080
+and height of it right so i have w for width h for height
+
+0:02:21.040,0:02:27.200
+and i'm imagining that those measurements are in inches and i'm just
+
+0:02:24.080,0:02:30.720
+randomly generating that data now let's say we have a pretty redundant
+
+0:02:28.959,0:02:34.239
+data set and somebody else comes along and they make the same measurements
+
+0:02:32.480,0:02:36.800
+but that now they're measuring in centimeters right so they want the width
+
+0:02:35.599,0:02:41.519
+in centimeters right in centimeters now hopefully right
+
+0:02:39.440,0:02:44.720
+if they're doing a reasonably good job they're going to get the same measure
+
+0:02:43.120,0:02:50.239
+times 2.54 because there's 2.54 centimeters
+
+0:02:48.000,0:02:53.280
+per inch right so they're going to get that there's some redundancy there
+
+0:02:51.680,0:02:57.760
+well there may be less kind of obvious redundancy is maybe somebody wants to
+
+0:02:55.519,0:03:01.680
+measure the circumference or border of the rectangle and so what are they
+
+0:02:59.840,0:03:06.959
+doing then they're kind of measuring uh the horizontal dimension twice
+
+0:03:05.040,0:03:09.519
+for the two sides and then the horizontal dimension twice for the other
+
+0:03:08.720,0:03:13.519
+two sides right and so there's some redundancy
+
+0:03:11.200,0:03:16.640
+here right i mean if i know these two um i should be able to compute these
+
+0:03:15.200,0:03:19.680
+other three things right it's a very obvious relationship
+
+0:03:18.879,0:03:22.879
+usually right when we have a data set there
+
+0:03:20.879,0:03:27.360
+might be relationships like that uh but they're not as obvious right we
+
+0:03:24.959,0:03:32.480
+have to do some analysis to discover um discover these relationships and so
+
+0:03:30.319,0:03:37.519
+to make this more interesting i've added some noise to all these measurements
+
+0:03:34.640,0:03:40.000
+right so this is not exactly 2.54 times this other column
+
+0:03:38.720,0:03:44.000
+there's some noise there right because maybe these two people measuring
+
+0:03:41.840,0:03:47.920
+uh you know each had some error in their measurements all error
+
+0:03:46.159,0:03:51.920
+okay so i get some sort of data frame like this
+
+0:03:49.599,0:03:54.480
+and i have all these columns we know what the relationships are between these
+
+0:03:53.519,0:03:58.080
+columns but now let's pretend we don't and see
+
+0:03:56.000,0:04:03.760
+if we can rediscover these via analysis okay i want to figure out
+
+0:04:01.439,0:04:07.120
+what is the relationship between these and um and so like i said we can figure
+
+0:04:05.840,0:04:13.280
+this out by taking the dot product of
+
+0:04:10.400,0:04:16.799
+the transpose of a matrix and the matrix right so i do that
+
+0:04:14.640,0:04:19.519
+and i i get this array here and the first thing i'm going to be trying to
+
+0:04:17.759,0:04:25.600
+work towards is a covariance matrix and um and
+
+0:04:22.880,0:04:28.000
+uh and so well let's see what the general form of the string look like at
+
+0:04:27.360,0:04:32.160
+the end right so i want to have this covariance
+
+0:04:29.520,0:04:36.240
+matrix this is not uh not done yet so don't don't be taking
+
+0:04:34.960,0:04:40.639
+too close of notes right we're going to be working towards
+
+0:04:37.280,0:04:43.840
+the covariance matrix but um what i'll often want to do to make it a little
+
+0:04:42.240,0:04:48.479
+easier to visualize is i want to throw it
+
+0:04:44.639,0:04:53.280
+in a data frame like so um that's a little easier to visualize
+
+0:04:50.800,0:04:59.759
+um and more importantly i can put the labels on each row in each column
+
+0:04:56.880,0:05:04.479
+so the columns of this nice covariance matrix i'm producing
+
+0:05:01.440,0:05:10.800
+are going to be the same as the ones in my original data frame
+
+0:05:07.600,0:05:13.280
+right and what's maybe more interesting is that
+
+0:05:11.360,0:05:16.800
+along the rows those are also going to be the same as the columns in the
+
+0:05:15.440,0:05:20.560
+original all right so the columns in the original
+
+0:05:17.840,0:05:24.000
+are going along both both dimensions what this is going to let us do is we're
+
+0:05:22.000,0:05:26.000
+going to be able to look up a number and that number
+
+0:05:24.720,0:05:30.560
+is going to tell us something about the relationship between
+
+0:05:27.840,0:05:33.280
+uh this column and this other column right it's very common that we're taking
+
+0:05:31.840,0:05:36.560
+columns in the original thing and then try putting those columns along
+
+0:05:35.039,0:05:40.320
+both to men okay so this is not not a covariance
+
+0:05:39.280,0:05:44.240
+matrix yet is there some pre-processing we need to
+
+0:05:42.400,0:05:47.680
+do okay one of the things we need to do is we
+
+0:05:45.600,0:05:51.680
+need to you know center the data or people might
+
+0:05:49.919,0:05:57.520
+say zero the data what what i mean by that is that
+
+0:05:55.199,0:05:59.280
+the the columns i'm working with right so this is kind of summing up all the
+
+0:05:58.720,0:06:03.199
+columns i'd like each column to average out to
+
+0:06:02.400,0:06:07.919
+zero okay and so how am i going to do that
+
+0:06:06.639,0:06:12.240
+well i can do something like this i can say data frame
+
+0:06:08.880,0:06:17.360
+minus data frame dot mean and and what does this mean this means here
+
+0:06:15.360,0:06:22.960
+that this value first value is 19.7 inches
+
+0:06:21.120,0:06:26.000
+less than the average which i guess was this right
+
+0:06:24.479,0:06:30.000
+this this value here means that it was 7.29 inches
+
+0:06:28.400,0:06:33.600
+above the average and the average is this right so i can do this right i kind
+
+0:06:32.400,0:06:38.000
+of center the data right it's not this original numbers but
+
+0:06:35.280,0:06:41.600
+um still has the same distribution right but now it's centered at zero the
+
+0:06:40.479,0:06:44.080
+valve source so maybe what people commonly do is they might put that in a
+
+0:06:43.039,0:06:48.000
+data frame called something like data frame zero
+
+0:06:46.639,0:06:53.280
+here on that head and look at that and when you're doing
+
+0:06:51.520,0:06:58.400
+these covariance calculations you have to do that on your zero matrix
+
+0:06:56.639,0:07:04.960
+right so i might put zero here in all the places like so
+
+0:07:01.680,0:07:08.080
+and um and so that's good and um the other thing that we have to do is we
+
+0:07:06.319,0:07:12.240
+have to normalize in some way we have to divide
+
+0:07:09.120,0:07:17.199
+our matrix by how many rows there are in our data sets i'm going to
+
+0:07:13.759,0:07:20.960
+divide by um uh how many rows are there however many of them were
+
+0:07:18.720,0:07:25.120
+in the original data frame so i'm going to do that and this is
+
+0:07:23.440,0:07:31.199
+almost a correlation matrix or covariance matrix excuse me
+
+0:07:28.240,0:07:34.639
+um covariance is trying measuring uh i'm looking at two variables how much they
+
+0:07:32.800,0:07:39.520
+vary together differently now um if you just have one row of data
+
+0:07:38.080,0:07:44.160
+in your original data set you can't really be
+
+0:07:40.639,0:07:47.360
+computing um i mean what does that even mean i only have one
+
+0:07:45.680,0:07:49.840
+uh piece of data right i can't really study something like variance unless i
+
+0:07:48.800,0:07:54.080
+have multiple um samples and so really we don't really
+
+0:07:52.319,0:07:56.080
+get any credit for variance coming from the first
+
+0:07:54.639,0:07:59.599
+sample and i'm not going to talk about that further but um
+
+0:07:58.000,0:08:03.280
+if you've probably seen this before if you're in a stash class and instead of
+
+0:08:00.960,0:08:06.400
+dividing by the length of the data frame uh will divide uh by the length minus
+
+0:08:05.520,0:08:10.160
+one and um and of course if it's a very
+
+0:08:08.080,0:08:13.039
+large data frame i have lots of rows it doesn't really matter that i'm doing
+
+0:08:11.440,0:08:15.440
+this right so don't worry about that too much
+
+0:08:13.840,0:08:17.840
+um you'll learn more about that in a stats course but i'm not trying to spend
+
+0:08:16.720,0:08:23.440
+time on it i do that and um and here i actually
+
+0:08:20.400,0:08:28.479
+have a covariance matrix and um and maybe i'm just trying to
+
+0:08:27.039,0:08:34.240
+kind of do it like this let me print it off at the end um
+
+0:08:31.520,0:08:38.240
+it's also possible if i wanted to right i could have directly just said
+
+0:08:36.159,0:08:41.440
+covariance right and this should be the same thing i wonder i wonder if i can
+
+0:08:40.080,0:08:48.080
+actually just check that's the same thing if i say something like assert
+
+0:08:43.599,0:08:51.440
+covariance equals this it looked like they were kind of similar
+
+0:08:49.760,0:08:56.240
+now this assertion will actually fail it's kind of a natural thing
+
+0:08:53.200,0:09:01.120
+um you might want to do actually that wasn't quite how i imagining it would
+
+0:08:59.600,0:09:04.320
+fail let me let me just look at both of these again
+
+0:09:02.240,0:09:07.519
+right so if i look at data frame natural variants
+
+0:09:06.080,0:09:12.000
+that should look a lot like this covariance matrix i have
+
+0:09:09.839,0:09:14.800
+um okay well anyway the right way that we want to check that these matrices are
+
+0:09:13.839,0:09:18.080
+similar or we want to say something like this we
+
+0:09:16.080,0:09:23.519
+want to say and then just surprise of the denominator let me try one more time
+
+0:09:19.600,0:09:26.959
+that was dataframe.12 variance how is that oh you know why is i can't
+
+0:09:25.760,0:09:30.640
+do in a circus it's doing it element-wise
+
+0:09:27.920,0:09:33.360
+so the way you can make sure that these are similar
+
+0:09:31.680,0:09:37.120
+right here we can see not all the cells are exactly similar
+
+0:09:35.120,0:09:42.560
+but we can do is we can say numpy.all close
+
+0:09:39.440,0:09:46.720
+and what all close does is it tells us if all the values and this one are kind
+
+0:09:45.440,0:09:48.959
+of close to the values in this one in the same position right i didn't see
+
+0:09:48.080,0:09:52.800
+that's true and so maybe i'm just going to put an
+
+0:09:50.160,0:09:56.000
+assert here to show hey this um calculation i'm doing uh ends up being
+
+0:09:55.200,0:10:00.480
+the same as the covariance for a data frame okay
+
+0:09:59.120,0:10:06.079
+so let's actually look at this so we have some numbers here
+
+0:10:02.560,0:10:08.480
+larger numbers means that uh these tend to trend together they both get big at
+
+0:10:07.839,0:10:12.880
+the same time both small at the same time numbers
+
+0:10:10.959,0:10:15.920
+closer to zero means there's not a lot of uh
+
+0:10:13.760,0:10:20.320
+alternative relationship between these uh negative numbers
+
+0:10:17.519,0:10:24.399
+means that they tend to go in opposite directions
+
+0:10:22.240,0:10:27.200
+now it's not uh it's not a little bit it's a little hard to see what's going
+
+0:10:25.519,0:10:30.399
+on here right unless we normalize the data in some way
+
+0:10:28.560,0:10:35.839
+and a good way to normalize it is with a correlation matrix
+
+0:10:32.240,0:10:42.240
+and a correlation matrix is very similar um to what we had uh before
+
+0:10:39.200,0:10:46.399
+um except what we have to do is change how we compute
+
+0:10:43.680,0:10:50.560
+compute this one right so let me add down here
+
+0:10:47.680,0:10:53.040
+and take a look at that um with a correlation matrix what we're going to
+
+0:10:52.000,0:10:58.880
+be doing is we're going to be scaling uh the data
+
+0:10:56.320,0:11:01.920
+we're going to be standardizing it by dividing it by the standard deviation of
+
+0:11:00.560,0:11:05.760
+each row right so we can do that is pretty simple i just
+
+0:11:03.600,0:11:09.279
+divide by let me just show you what this looks
+
+0:11:07.040,0:11:12.800
+like first i can have all these standard deviations here
+
+0:11:10.720,0:11:19.360
+and i can divide each row by that like so i'm going to divide that by
+
+0:11:15.839,0:11:23.360
+the standard deviation and then when i do that
+
+0:11:20.320,0:11:26.480
+let me actually just get rid of this now when i do it that way
+
+0:11:27.839,0:11:32.640
+then instead of getting a covariance matrix i'm going to get a correlation
+
+0:11:31.200,0:11:37.440
+matrix all right so maybe let me just update
+
+0:11:34.640,0:11:42.560
+this here correlation matrix right and um oh correlation
+
+0:11:40.720,0:11:47.279
+i'll leave that there for now i get this nice correlation matrix
+
+0:11:44.480,0:11:52.320
+and the beauty of this is that now i'm going to get values between negative one
+
+0:11:49.279,0:11:56.480
+and one and um you know every column is perfectly
+
+0:11:53.920,0:12:01.360
+correlated with itself so we have ones in those positions um i can see that
+
+0:11:59.920,0:12:05.040
+so you can see along the diagonal right i'm doing all ones right everything is
+
+0:12:02.639,0:12:08.880
+perfectly correlated with itself um before before when i was doing this
+
+0:12:06.959,0:12:12.880
+one what were all these numbers um the covariance of the column with
+
+0:12:10.639,0:12:16.399
+itself is actually just the variance of that column right so before i was
+
+0:12:14.079,0:12:19.440
+getting a bunch of variances of the columns i was kind of useful
+
+0:12:17.680,0:12:22.560
+information on the diagonal but the correlation matrix i'm not so useful
+
+0:12:21.519,0:12:24.959
+right because i know it's always going to be one
+
+0:12:23.360,0:12:28.639
+but these other numbers are all easier to read for example i can see this one
+
+0:12:27.279,0:12:33.120
+is almost one which means that the measurement in
+
+0:12:30.079,0:12:36.399
+inches is extremely closely correlated with the measurement in centimeters as
+
+0:12:35.519,0:12:40.480
+it should be right um i can also look at this border
+
+0:12:38.959,0:12:44.079
+right what does the border correlate well with
+
+0:12:41.360,0:12:47.600
+uh the border is very correlated uh with both
+
+0:12:44.639,0:12:51.120
+the width and the height and that's true whether it's in
+
+0:12:48.639,0:12:55.760
+centimeters or inches right so i can see that this is a pretty meaningful thing
+
+0:12:53.360,0:13:00.240
+now it turns out that i can also compute the same thing by directly just saying
+
+0:12:57.959,0:13:02.639
+dataframe.correlation like so and that's going to be the same result and let me
+
+0:13:01.680,0:13:08.880
+just prove that right dataframe.correlation
+
+0:13:06.000,0:13:12.399
+should be very close to correlation matrix i just produced
+
+0:13:10.880,0:13:16.959
+and indeed it is because i'm not getting an assertion
+
+0:13:13.920,0:13:19.839
+uh failure okay so we can see this um what we're going to be doing
+
+0:13:17.839,0:13:22.880
+next time is we're going to be looking at how we can
+
+0:13:21.360,0:13:32.800
+automatically pull out interesting information
+
+0:13:24.480,0:13:32.800
+to describe this correlation matrix
+

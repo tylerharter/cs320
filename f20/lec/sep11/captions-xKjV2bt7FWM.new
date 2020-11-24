@@ -1,0 +1,744 @@
+0:00:01.920,0:00:07.680
+okay so in that last video um we talked about two things we talked
+
+0:00:05.759,0:00:11.599
+about input size which we usually capture with this variable
+
+0:00:09.040,0:00:14.240
+n and that might be something like the size of a list or the length of a string
+
+0:00:13.519,0:00:17.600
+or the size of a file i mean it could be a
+
+0:00:15.679,0:00:20.880
+lot of different things but we have the input size
+
+0:00:18.800,0:00:25.920
+and um and then we had well how many steps do i have to do
+
+0:00:22.800,0:00:29.279
+and we thought carefully about how we could define our staffs like what is
+
+0:00:28.320,0:00:32.239
+a step and then once we kind of define them
+
+0:00:30.880,0:00:37.040
+it's a little bit easier to go through and count how many
+
+0:00:33.760,0:00:40.399
+um steps will get executed when we run our program right some steps might be
+
+0:00:38.480,0:00:46.000
+executed once once some might be executed many times that uh
+
+0:00:43.600,0:00:48.640
+depending on the size of the input and so now what we want to do is
+
+0:00:47.440,0:00:54.079
+kind of connect these things a little bit more formally we have this idea
+
+0:00:51.039,0:00:58.719
+that the number of steps is a function of the input size and
+
+0:00:57.280,0:01:01.280
+and so really we kind of for any piece of code we could get this function
+
+0:01:00.079,0:01:03.760
+that's relating those two things relating the input size the number of
+
+0:01:02.559,0:01:08.320
+steps and we want to have a mathematical way
+
+0:01:05.920,0:01:12.000
+of kind of categorizing these functions right to say well how fast
+
+0:01:10.240,0:01:15.439
+does it draw how um how does the amount of work i have to
+
+0:01:14.000,0:01:19.680
+do scale up as the data scales up and this notation
+
+0:01:17.759,0:01:22.720
+is called big o notation it's one of the more mathematical things
+
+0:01:21.119,0:01:26.560
+we'll do in this course um and it turns out though that it's
+
+0:01:24.960,0:01:29.680
+actually something i see a lot in practice
+
+0:01:27.759,0:01:34.320
+for example later in the semester when we're learning about machine
+
+0:01:31.360,0:01:38.079
+learning algorithms um there's going to be the documentation for those
+
+0:01:36.079,0:01:40.720
+and those will often be defining the performance or cost of running an
+
+0:01:39.520,0:01:43.759
+algorithm using this big o notation that we're
+
+0:01:42.399,0:01:47.280
+about to learn right and so you need to be able to read
+
+0:01:45.280,0:01:50.079
+that um even if you kind of aren't developing new algorithms how can you
+
+0:01:48.799,0:01:55.119
+choose the right tools right because it's going to talk about big o notation
+
+0:01:52.399,0:01:57.840
+in the documentation or this other one here here's another one
+
+0:01:56.560,0:02:00.240
+um you can see this one has a lot of complexity right we want to be able to
+
+0:01:59.040,0:02:03.920
+understand uh this language to be able to figure
+
+0:02:02.880,0:02:08.479
+out what we want to use um now another advantage of this is
+
+0:02:06.840,0:02:11.599
+that these kinds of questions come off a lot
+
+0:02:10.640,0:02:15.120
+in interviews i mean i've maybe had like a dozen tech
+
+0:02:13.120,0:02:20.000
+interviews in my life and i would say uh most of them will ask me to write
+
+0:02:17.680,0:02:23.520
+some code to solve some sort of problem and i'd say about half of them after
+
+0:02:21.680,0:02:27.360
+they do that well follow-up question which is tell me the big o
+
+0:02:24.959,0:02:30.640
+no complexity of your code right so this is kind of a little bit more
+
+0:02:29.040,0:02:37.519
+technical but it's going to be practical too and it will help you with interviews
+
+0:02:33.519,0:02:41.120
+okay so right we care about classifying these functions that relate input size
+
+0:02:39.280,0:02:44.080
+to the number of steps and um and so down below i'm actually
+
+0:02:42.720,0:02:47.120
+showing a picture of one of these functions right i mean i can draw each
+
+0:02:45.440,0:02:50.640
+function as a line like i'm doing on the x-axis i have size
+
+0:02:50.080,0:02:54.480
+n and on the y-axis i have f of n which is
+
+0:02:52.640,0:02:58.000
+the number of steps and um and so really like when i'm
+
+0:02:56.239,0:03:00.959
+trying to classify functions you could think i'm i'm really trying to classify
+
+0:02:59.760,0:03:04.640
+them by the shape of the lines that they make when
+
+0:03:02.560,0:03:07.840
+we plot them and when we're trying to classify them
+
+0:03:05.680,0:03:10.480
+as part of this theory there's things that we care about and things that we
+
+0:03:09.200,0:03:14.080
+don't care about um one is that i'm not going to care
+
+0:03:12.800,0:03:19.120
+about the scale of the y-axis
+
+0:03:17.760,0:03:22.480
+the reason i don't care about that is you already saw that there was this
+
+0:03:20.319,0:03:25.519
+fuzziness in terms of how i count steps right i mean it's
+
+0:03:23.680,0:03:27.920
+you know it's easy for you to look at the same code i'm looking at and kind of
+
+0:03:27.040,0:03:32.080
+you identify twice as many steps and um and so when
+
+0:03:30.959,0:03:35.280
+we're counting right i mean it would be easy to change that scale
+
+0:03:33.440,0:03:37.440
+right maybe my it goes from zero to a thousand years goes from zero to two
+
+0:03:36.640,0:03:40.879
+thousand and so we kind of in this theory we
+
+0:03:39.120,0:03:44.400
+wanna take that out uh we're also not gonna care about um
+
+0:03:42.879,0:03:47.599
+small inputs although that might matter in practice
+
+0:03:45.360,0:03:50.159
+not a part of this theory the only thing we really care about is the shape of
+
+0:03:49.120,0:03:55.439
+that curve right is it is it a flat line is
+
+0:03:52.159,0:03:59.120
+it curved line is it sharply curved and and so the kind of way we're going
+
+0:03:56.879,0:04:02.720
+to define the shape of it or kind of describe it
+
+0:04:00.560,0:04:08.239
+is we're going to try to find a simpler function that's an upper bound on it
+
+0:04:05.360,0:04:13.280
+and and so for each of these upper bounds
+
+0:04:10.159,0:04:15.519
+that's going to be a set of functions right so the
+
+0:04:14.000,0:04:20.959
+set of functions that go with the upper bound are the set of functions that
+
+0:04:17.919,0:04:25.600
+will roughly stay underneath it okay so
+
+0:04:24.160,0:04:31.199
+let me just give an example so that first line i plotted was
+
+0:04:27.759,0:04:35.680
+2n squared plus 100 and if i plot the n squared line that is
+
+0:04:34.080,0:04:38.400
+clearly not an upper bound right it's smaller
+
+0:04:37.199,0:04:44.240
+but remember i don't care about the scale so the fudge factor may be allowed
+
+0:04:41.280,0:04:49.680
+is i can multiply n squared by anything i want
+
+0:04:45.199,0:04:52.960
+so let's say i'll multiply it by three i can do that so i kind of get three n
+
+0:04:52.160,0:04:58.160
+squared and i can also define a crossover point
+
+0:04:55.120,0:05:02.720
+and say only look to the right of that and so what you can see now is that the
+
+0:05:01.199,0:05:07.039
+black line is underneath the three n squared line
+
+0:05:05.280,0:05:10.479
+for big n values and and so what that's going to let me
+
+0:05:08.320,0:05:18.880
+do is i'm going to be able to say that um this 2n squared plus 100 function
+
+0:05:15.120,0:05:24.639
+is in this class it's in the order n squared class that's why i may say
+
+0:05:22.720,0:05:27.840
+and and of course f of n right is associated with some sort of algorithm
+
+0:05:25.919,0:05:31.039
+so eventually i'm going to get back to i can actually say that some sort of um
+
+0:05:30.400,0:05:35.440
+algorithm is an order n squared algorithm
+
+0:05:35.520,0:05:43.039
+let's get a little bit more precise here okay so i i'm defining big o notation in
+
+0:05:42.160,0:05:46.880
+terms of this uh if and then and ultimately i want to
+
+0:05:45.919,0:05:50.560
+make the if or the then part right i want to end up
+
+0:05:48.479,0:05:54.400
+saying that f of n which is a function is inside of the
+
+0:05:53.520,0:05:59.600
+order g of n class and
+
+0:05:57.600,0:06:04.160
+it's this little symbol here right that means set membership
+
+0:06:01.280,0:06:09.280
+right so the the big o part i i think of that as a set of functions
+
+0:06:06.240,0:06:12.639
+and i'm saying f of n is in it now it's kind of strange um sometimes
+
+0:06:11.199,0:06:17.199
+maybe in the majority of times when i see this people will use an equal sign
+
+0:06:14.560,0:06:20.160
+i think that's more confusing uh a little deceptive so i'm not going to do
+
+0:06:18.720,0:06:22.479
+that so i'm just going to say that f of n
+
+0:06:20.960,0:06:25.600
+is in that and so to make that claim what do i have to show i have to show
+
+0:06:24.319,0:06:33.440
+this first part i have to show that f of n f of n
+
+0:06:29.840,0:06:39.520
+is beneath some constant factor times g of n right that's the caring
+
+0:06:37.199,0:06:44.479
+about the shape of the curve part and when i'm trying to show this i can
+
+0:06:42.080,0:06:48.160
+introduce two constraints i can say that i don't care about small inputs which
+
+0:06:46.720,0:06:51.280
+means i'm allowed if i'm trying to make this claim
+
+0:06:49.360,0:06:55.280
+i i can say that this is the minimum end value only look at bigger numbers
+
+0:06:53.680,0:07:00.479
+and i don't care about the scale right so i can multiply g of n
+
+0:06:57.280,0:07:03.680
+by whatever i want to okay so this is what i'm going to try to show
+
+0:07:02.400,0:07:07.599
+i'm going to i'm trying to make a claim about what
+
+0:07:05.919,0:07:10.800
+class f of n is in i'm going to choose a c value and an n
+
+0:07:09.680,0:07:14.639
+value and and then show that the function is
+
+0:07:12.960,0:07:18.319
+underneath that okay so you should think about all of
+
+0:07:16.160,0:07:23.360
+these sets right order one order and order n squared um as as kind of these
+
+0:07:22.080,0:07:25.280
+you can think of it as a venn diagram where each circle is inside of the other
+
+0:07:24.800,0:07:29.599
+one right um of course the n squared line is
+
+0:07:28.479,0:07:34.000
+underneath the n cubed line of course the n line is
+
+0:07:32.639,0:07:37.759
+inside of the in n squared line and so i have to have all
+
+0:07:36.080,0:07:41.280
+these stats and then you can say i'm plotting
+
+0:07:38.479,0:07:44.319
+f of n equals 2n squared that's going to be in the
+
+0:07:42.000,0:07:48.000
+n squared set and and since it's in that it's also by definition in the n
+
+0:07:46.000,0:07:52.800
+and cube set all right so that's the way you should kind of think about it
+
+0:07:49.360,0:07:58.319
+now if i ask what is the complexity of 2n squared
+
+0:07:56.800,0:08:03.440
+this means there's lots of correct answers right you could say in tube that
+
+0:08:00.479,0:08:07.039
+is true but it's not very informative right you want to
+
+0:08:05.520,0:08:10.080
+give me the most information which is really means finding the smallest set
+
+0:08:08.879,0:08:13.919
+that contains it so even though you know if i asked what
+
+0:08:13.039,0:08:17.280
+is 2 n squared even though it's correct to
+
+0:08:16.319,0:08:21.759
+say it's in the order and cubed a better answer is order
+
+0:08:20.479,0:08:24.319
+n squared and that's the answer you have to give
+
+0:08:22.639,0:08:27.120
+at least in this class to get granted or you have to give me the most restrictive
+
+0:08:25.680,0:08:32.959
+answer that you're able to give okay
+
+0:08:30.800,0:08:37.919
+i have a bunch of examples here and let's just kind of think through
+
+0:08:34.880,0:08:45.839
+each of these how it's going to work okay how can i how can i kind of say
+
+0:08:42.000,0:08:49.120
+um whether it's true or false so i'm gonna open up this again let me
+
+0:08:48.240,0:08:57.519
+let me hide this a slide only and um so is this true
+
+0:08:54.399,0:09:03.760
+is 2n inside of order n
+
+0:09:00.640,0:09:08.480
+and so if i want to well first off it is so let's say i think it is to actually
+
+0:09:06.080,0:09:13.360
+prove it to convince you i need to come up with both a c and an n
+
+0:09:11.600,0:09:16.880
+value and um and so to kind of convert this
+
+0:09:15.519,0:09:20.000
+right i'm trying to go backwards to prove it
+
+0:09:17.440,0:09:23.519
+right and so what i want to do is i want to try to show this is true it's less
+
+0:09:22.480,0:09:26.720
+than order well it's less than to something
+
+0:09:25.760,0:09:31.839
+times n c times n
+
+0:09:29.920,0:09:37.279
+and um and i can choose c to be whatever i want
+
+0:09:33.120,0:09:43.120
+right so i'm going to say 3. right so 2n is less than 3n so i satisfy that this
+
+0:09:41.120,0:09:48.880
+is indeed you know my function is in the in the
+
+0:09:46.399,0:09:54.000
+order n right and that's actually true regardless of um
+
+0:09:50.640,0:09:57.519
+of of how large n is right i mean when we say for large n
+
+0:09:56.320,0:10:00.240
+values let's be sometimes there's a crossover point for this one there's not
+
+0:09:58.640,0:10:05.200
+even a crossover point this is just true in general
+
+0:10:01.839,0:10:08.720
+um what about this next one i want to show this one is true so maybe
+
+0:10:07.040,0:10:15.760
+let me just make a note here that's true what about this next one
+
+0:10:13.519,0:10:21.519
+okay if i want to show that this is true right 100 n
+
+0:10:17.279,0:10:24.720
+is inside of n squared um what can i do well there's different ways i could do
+
+0:10:22.880,0:10:27.920
+it so is it less than this
+
+0:10:28.399,0:10:34.640
+i make that true well one way i could do it is i could
+
+0:10:33.920,0:10:38.399
+put that c on front and i could have cb 100 then it
+
+0:10:37.279,0:10:42.160
+would be true that would be one way to prove it um
+
+0:10:40.560,0:10:46.640
+another way i could prove it is i could say
+
+0:10:43.279,0:10:55.440
+uh i could require n to be greater than 100 right
+
+0:10:51.040,0:11:03.200
+i mean let's say let's say n is 101. 100 times 101 is less than 101
+
+0:10:59.360,0:11:06.079
+times 101 right and so you can kind of see when i'm trying to prove these
+
+0:11:04.160,0:11:10.240
+things sometimes i i might use the c factor or i might set a lower bound on n
+
+0:11:08.959,0:11:14.240
+but either way i can make my point and end and prove that the
+
+0:11:12.839,0:11:21.200
+function uh is in that set okay
+
+0:11:18.000,0:11:24.320
+and there and there's no real um bonus points for having
+
+0:11:23.040,0:11:27.680
+tight bounds right i mean i could have just as easily made my argument by
+
+0:11:25.680,0:11:32.800
+saying n is greater than a thousand that's a perfectly fine answer all right
+
+0:11:29.600,0:11:39.760
+so this one is also true um what about sorry for the font there
+
+0:11:36.720,0:11:44.560
+what about this last one is n squared is n squared
+
+0:11:44.880,0:11:52.720
+in this and the answer is it's not right i'm not
+
+0:11:51.120,0:11:56.800
+going to give a very formal proof but let me kind of give you the intuition
+
+0:11:54.839,0:12:01.920
+here or n squared it's a curved line right
+
+0:12:00.560,0:12:06.800
+it's a quadratic function it's trying to keep curving up and it's going to get
+
+0:12:03.360,0:12:12.320
+steeper and steeper and steeper this 1 million times n is a straight
+
+0:12:10.240,0:12:15.040
+line right it's a straight line and if i
+
+0:12:13.519,0:12:20.000
+multiply a straight line by some constant factor
+
+0:12:16.399,0:12:27.440
+guess what it's still a straight line okay so this this n squared
+
+0:12:24.480,0:12:30.480
+will eventually after some crossover point
+
+0:12:28.639,0:12:35.279
+b above the straight line right so this does not fit underneath this
+
+0:12:32.720,0:12:40.240
+right so this part is false let me just say false right here
+
+0:12:37.200,0:12:43.920
+okay the first two first two are true and the third one is false i'm just
+
+0:12:42.480,0:12:48.079
+trying to put this back to kind of keep my
+
+0:12:44.959,0:12:52.480
+uh slides clean here and then i have some more
+
+0:12:49.440,0:12:56.480
+um more problems of this of this nature all right so let's go to the next slide
+
+0:12:55.120,0:12:58.639
+okay and then you can see i'm just plotting what i just talked about right
+
+0:12:58.079,0:13:03.279
+that it's a straight line that will always
+
+0:13:00.399,0:13:09.519
+eventually be underneath the curved line okay what about this one here um
+
+0:13:07.360,0:13:12.720
+well the first one's pretty simple right i think that
+
+0:13:10.560,0:13:15.360
+you know n squared we're always when we're talking about input sizes right
+
+0:13:14.079,0:13:18.000
+that's uh uh positive numbers right so you should
+
+0:13:17.120,0:13:20.560
+always keep in mind we're dealing with positive numbers
+
+0:13:19.120,0:13:23.760
+when i'm dealing with positive numbers while of course um
+
+0:13:22.240,0:13:27.360
+n squared plus n plus 1 is going to be bigger than n squared okay
+
+0:13:25.839,0:13:34.240
+that one's very simple i don't even have to have either of my fudge factors my c
+
+0:13:29.760,0:13:41.519
+or my n uh what about this one uh is n squared plus n plus one
+
+0:13:37.839,0:13:45.680
+inside of n squared so let me just make a note here like this first one is true
+
+0:13:43.839,0:13:49.920
+um it turns out the second one is true as well and
+
+0:13:47.199,0:13:52.320
+and the way i can do that is by it's a little bit more reasoning but i can say
+
+0:13:51.600,0:13:59.839
+that my fudge factor will be 3 times
+
+0:13:56.000,0:14:04.160
+n squared and and why does that let me actually just
+
+0:14:01.920,0:14:08.160
+add a note down here this one's true why does that help me why does that
+
+0:14:05.600,0:14:11.199
+prove my point well because since i have three n squareds and i have three terms
+
+0:14:10.160,0:14:17.120
+over here well n squared equals n squared
+
+0:14:14.399,0:14:19.680
+n squared is bigger than n n squared is bigger than
+
+0:14:17.760,0:14:26.240
+than one right so so when i multiply this by three i can make that
+
+0:14:21.519,0:14:29.120
+uh that work out okay what about this one
+
+0:14:29.680,0:14:34.880
+this one is false right because i have this
+
+0:14:33.360,0:14:37.040
+this polynomial on the right it's of a higher order right when i have n to the
+
+0:14:36.399,0:14:40.560
+fifth that's just going to curve more sharply
+
+0:14:40.000,0:14:44.000
+than any of these things that are of a lower
+
+0:14:42.959,0:14:47.279
+of a lower order right that one's going to be false
+
+0:14:47.760,0:14:54.399
+all right so let me just try to clean this up for when i save my
+
+0:14:51.199,0:14:59.839
+slides here at the end right
+
+0:15:00.000,0:15:05.519
+oops and you can kind of see that right there's no no constant factor that's
+
+0:15:02.959,0:15:08.720
+going to make that one true now we're going to want to simplify and
+
+0:15:06.880,0:15:13.760
+pau when possible so for example that first one right i said that n squared
+
+0:15:11.680,0:15:18.160
+is of the order n squared plus n plus one better answer is just say it's of
+
+0:15:16.240,0:15:22.399
+n squared right so minimize when possible
+
+0:15:20.000,0:15:26.480
+okay so we're going to be going into next is we're going to be looking at
+
+0:15:24.480,0:15:30.160
+actual algorithms how can we tie this all together
+
+0:15:27.519,0:15:32.720
+right so remember that f of n is what relates
+
+0:15:30.800,0:15:36.079
+the input size to number of steps for a particular
+
+0:15:33.839,0:15:38.959
+um algorithm it's just a bit of a note on notation here right i've been doing
+
+0:15:37.519,0:15:43.360
+kind of all stuff like this where i say that
+
+0:15:39.519,0:15:48.000
+this function is in order of something and when i say that algorithm a
+
+0:15:46.800,0:15:52.240
+is in the order of something i'm just saying that that corresponding f of n
+
+0:15:50.560,0:15:55.040
+for that algorithm is in it right so it's kind of uh this is kind of a
+
+0:15:53.920,0:15:59.920
+shorthand where i actually don't actually um explicitly
+
+0:15:57.199,0:16:05.839
+define f okay so let's look at a piece of code
+
+0:16:04.480,0:16:10.000
+here right so we have this example before and
+
+0:16:08.639,0:16:13.920
+we saw that uh for input size of n we would have two
+
+0:16:13.519,0:16:21.120
+times n plus three steps right so my f of n
+
+0:16:17.839,0:16:28.240
+equals two n plus three and that 2n plus 3 is less than or equal to
+
+0:16:24.800,0:16:32.560
+3n so 3 is my pledge factor c and that's true for big
+
+0:16:31.759,0:16:40.720
+n values therefore this piece of code is order n
+
+0:16:38.160,0:16:44.800
+right if i go to this other version i had
+
+0:16:41.279,0:16:47.759
+right so before remember when i had this version kind of depending on whether
+
+0:16:46.000,0:16:51.680
+they're even or odd i might have 2n plus five or four n plus
+
+0:16:50.399,0:16:55.279
+five steps i'm gonna go with the worst case
+
+0:16:52.880,0:17:00.880
+scenario and guess what four n plus five is less than
+
+0:16:58.720,0:17:04.319
+or equal to five times n for big n values
+
+0:17:02.240,0:17:08.640
+therefore the code is order n and so you can kind of see this elegance
+
+0:17:06.480,0:17:11.839
+of introducing these fudge factors right because when i'm counting steps and
+
+0:17:10.319,0:17:15.360
+there's this flexibility how i do it i can be off by a constant factor
+
+0:17:13.760,0:17:20.480
+by bringing back into c i'm going to ultimately get the same complexity
+
+0:17:18.079,0:17:23.439
+and end so the the kind of this theory of constant factors means that i don't
+
+0:17:22.559,0:17:28.000
+have to worry as much about how i count my my steps
+
+0:17:26.480,0:17:33.840
+so in the next piece i'll actually do some more um examples but i'll kind of
+
+0:17:29.760,0:17:33.840
+break off there for now
+

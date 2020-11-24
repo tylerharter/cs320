@@ -1,0 +1,1065 @@
+0:00:01.599,0:00:10.719
+so the last video we were talking about the situation we sometimes run into uh
+
+0:00:07.120,0:00:13.599
+we know some x values and we might have this one y
+
+0:00:11.519,0:00:17.359
+column and we want to figure out the relationship between that y
+
+0:00:14.960,0:00:23.279
+column and the x values and so really what we're looking for is we'd like to
+
+0:00:19.279,0:00:26.720
+multiply um our x values by this vector of coefficients and end up with y
+
+0:00:26.000,0:00:31.279
+and and sometimes that's solvable exactly
+
+0:00:29.199,0:00:35.200
+it's generally going to be solvable when x is square right we have the same
+
+0:00:33.280,0:00:38.559
+number of rows and columns uh of course most of the data frames you
+
+0:00:37.200,0:00:42.719
+probably encounter have a few columns and a lot of rows
+
+0:00:40.960,0:00:46.559
+right and when that's the case this will very rarely be solvable
+
+0:00:47.039,0:00:52.480
+uh so what do we do can we say anything about uh c
+
+0:00:50.239,0:00:55.039
+or find any sort of relationship here and so the strategy we proposed is that
+
+0:00:54.399,0:01:02.079
+instead of solving x c equals y will instead
+
+0:00:59.039,0:01:05.199
+solve x c equals p and uh and this is a nice problem to
+
+0:01:04.000,0:01:09.360
+solve because p is close to y i'm eventually going to
+
+0:01:06.880,0:01:12.400
+find uh what that means and uh and it's guaranteed to be
+
+0:01:11.119,0:01:16.240
+solvable and so last time i told you how to
+
+0:01:14.479,0:01:21.040
+compute p we compute p by multiplying the special
+
+0:01:18.960,0:01:24.560
+projection matrix in front of y right that's how we get p
+
+0:01:23.840,0:01:28.479
+and there's a formula for finding p based on
+
+0:01:28.080,0:01:31.520
+x and i just told you what that formula is
+
+0:01:30.400,0:01:35.439
+we're never going to try to mathematically justify what that is
+
+0:01:33.040,0:01:38.960
+we're just trying to take it for a given okay great so i turned it into a
+
+0:01:37.200,0:01:43.360
+solvable problem now let's actually do the real work and
+
+0:01:40.799,0:01:48.320
+solve it and then also figure out how to plot the results this is very general
+
+0:01:47.200,0:01:53.840
+whether i have uh you know one variable or ten variables
+
+0:01:51.360,0:01:57.280
+this is the approach where i do um i think it's helpful when we're drawing
+
+0:01:55.119,0:02:00.960
+these fit lines to start with just well i have one x column and one
+
+0:01:58.799,0:02:03.840
+y column because then we can actually visually see what's happening
+
+0:02:02.560,0:02:07.600
+it's kind of easier to understand that and then just mentally we'll imagine
+
+0:02:05.280,0:02:11.520
+that we're doing this with more columns all the formulas will be the same okay
+
+0:02:10.479,0:02:14.319
+so what i'm doing here uh well i'm going to do two approaches
+
+0:02:13.280,0:02:18.239
+first i'm going to do it very mathematically
+
+0:02:16.080,0:02:22.000
+i might find that fit line and plot it and that'll be like the last time we do
+
+0:02:20.080,0:02:25.680
+that this semester uh i've entered a you know that's right
+
+0:02:23.599,0:02:29.360
+i'll be uh with numpy then i may introduce this other package
+
+0:02:27.360,0:02:34.000
+called s-k-learn which stands for scikit-learn it's a machine learning
+
+0:02:31.120,0:02:37.280
+uh package and that's trying to make this much much easier to do
+
+0:02:35.680,0:02:39.920
+and so even if you get a little bit lost in some of the math i think it's going
+
+0:02:38.640,0:02:43.280
+to get easier at the end and you're going to still be able to
+
+0:02:41.040,0:02:46.000
+uh do the calculation with the help of sk learn
+
+0:02:46.720,0:02:54.080
+okay so we have to have some random data to deal with first
+
+0:02:50.879,0:02:57.760
+so i generate some random x values um i generate some random noise and uh and
+
+0:02:56.879,0:03:02.480
+then i say well y is going to be x and then the slope is
+
+0:03:00.640,0:03:06.480
+negative 2.5 and the intercept will be 80 and then
+
+0:03:04.720,0:03:09.840
+there's some noise mixed in okay and so i'm going to create a data
+
+0:03:07.680,0:03:13.200
+frame for like like that uh it is going to look like this
+
+0:03:11.440,0:03:19.360
+and uh and down here i'm plotting that data and i have dataframe.plot.scatter
+
+0:03:16.239,0:03:22.080
+my x column is going to x axis same with y
+
+0:03:20.400,0:03:25.920
+and i get a nice little scatter like this
+
+0:03:24.000,0:03:30.319
+okay so let's uh let's do what we did last time
+
+0:03:27.120,0:03:33.760
+which was compute a new column a p column right because because right now
+
+0:03:32.560,0:03:37.120
+there's no kind of simple linear relationship
+
+0:03:35.200,0:03:43.599
+between these two there's no single slope where i can say
+
+0:03:40.400,0:03:47.519
+y is sub constant multiplier times x right if that were true then all these
+
+0:03:45.200,0:03:51.120
+points would be on a straight line and they they aren't just art it's close
+
+0:03:49.519,0:03:54.560
+but not quite okay so so last time well first here
+
+0:03:53.120,0:03:59.599
+what am i doing here i may pull out my x values to a matrix let me pull out my y
+
+0:03:56.560,0:04:03.280
+values to a column and then i'm computing my projection matrix using
+
+0:04:01.599,0:04:06.159
+that weird formula we introduced last time
+
+0:04:04.239,0:04:10.400
+let's just peek at the projection matrix i can see i have this giant thing
+
+0:04:08.480,0:04:14.400
+and uh and so what i'm going to do i have a couple to do's here
+
+0:04:11.920,0:04:18.320
+i'm going to add a p column based on that so
+
+0:04:15.599,0:04:20.720
+so how do i do that well here are my y's which
+
+0:04:19.040,0:04:25.840
+represent an unsolvable problem i might say p dot product
+
+0:04:22.720,0:04:29.280
+y and i get these other values and these values here are kind of close
+
+0:04:28.720,0:04:32.320
+to y right maybe if i just try to switch back
+
+0:04:30.639,0:04:36.240
+and forth right look at a few of these numbers keep that in your head
+
+0:04:34.240,0:04:40.400
+and then when i multiply it on y in the front you see it changes a bit but
+
+0:04:38.479,0:04:44.880
+it's kind of similar right and so this is going to be our p column
+
+0:04:42.479,0:04:50.000
+like that and what i could do is i could just say data frame of p
+
+0:04:47.520,0:04:52.639
+equals p and if i wanted to i can just peek at that
+
+0:04:52.720,0:04:57.840
+all right so there i am and uh and let's plot
+
+0:04:56.080,0:05:02.240
+this right somebody grab what i had earlier and
+
+0:04:59.520,0:05:07.039
+uh where was i doing my plotting earlier it was right here
+
+0:05:03.199,0:05:13.120
+right uh i was before plotting both my x and my y values uh and that looks
+
+0:05:10.800,0:05:16.320
+good let me plot these new p values i have just to keep kind of see what my
+
+0:05:14.720,0:05:19.039
+problem looks like before i try to solve it
+
+0:05:17.440,0:05:22.720
+and so i'm going to do this let me pass it ax equals ax
+
+0:05:21.039,0:05:26.800
+well in both cases i'm plotting the x column on the x axis
+
+0:05:24.720,0:05:29.440
+uh before i was plotting the y on the y axis i'm additionally going to plot the
+
+0:05:28.240,0:05:35.919
+p on the y axis now and i may do that
+
+0:05:33.440,0:05:40.080
+and uh and what do you see here uh i i definitely turned it into
+
+0:05:38.240,0:05:45.680
+a solvable problem right i mean all those red points are a straight line
+
+0:05:42.479,0:05:48.960
+uh and somehow this this line and kind of all these points i've drawn
+
+0:05:47.280,0:05:52.560
+are somehow crossing the cluster of points before but that's
+
+0:05:51.280,0:05:56.000
+probably not what i wanted right i probably wanted to have some sort of fit
+
+0:05:54.080,0:05:59.600
+that was going from the top uh down and so why did i get into
+
+0:05:58.479,0:06:04.560
+trouble here uh well um what's going wrong is that i
+
+0:06:03.680,0:06:08.160
+only have this x column in this y column and so if i'm
+
+0:06:06.560,0:06:11.280
+trying to compute a relationship between there
+
+0:06:09.120,0:06:14.080
+i just have a slope right so so kind of what i have right now
+
+0:06:12.479,0:06:19.600
+is something like this i have something like y equals x times
+
+0:06:16.560,0:06:23.440
+slope and what i want to do is i really want to have um
+
+0:06:21.039,0:06:26.000
+an intercept as well and so i have an intercept
+
+0:06:24.720,0:06:29.120
+uh i have to be multiplying the intercept by something in this table too
+
+0:06:27.520,0:06:32.400
+and so what i can do is i can add a ones column
+
+0:06:29.919,0:06:36.319
+to actually fix this up so let me go back to where i was
+
+0:06:33.680,0:06:39.759
+maybe up here and um and maybe i'll just like add
+
+0:06:37.360,0:06:44.880
+right when i create it i'll say constant uh equals one
+
+0:06:42.560,0:06:49.440
+so i'm going to do that now and and so now what i'm gonna do is i compute
+
+0:06:47.520,0:06:53.440
+if i can uh find a relationship between y
+
+0:06:50.639,0:06:57.440
+and something times x column plus something times the ones column
+
+0:06:55.840,0:07:00.080
+right so let me plot this i guess every randomly generated the data so it looks
+
+0:06:58.880,0:07:03.199
+slightly different and then you can see what i'm doing here
+
+0:07:01.840,0:07:06.479
+actually um maybe this is worth noting right so when
+
+0:07:04.800,0:07:12.720
+i say data frame of x i get a series
+
+0:07:10.080,0:07:16.400
+if i put a list of columns in here then i get a data frame with one column
+
+0:07:14.639,0:07:20.560
+and if i wanted to i could say const here and you can try to see what i'm
+
+0:07:18.400,0:07:26.240
+doing right even even though like these columns here are not adjacent
+
+0:07:23.759,0:07:28.240
+i could pull out a data frame of those two columns like
+
+0:07:27.120,0:07:33.120
+like this which is what i'm going to need down here i'm just going to say x
+
+0:07:30.800,0:07:35.680
+and constant and so i'm pulling out that data frame
+
+0:07:34.240,0:07:40.080
+and then i'm doing this to just convert it to the pi okay so we have these x
+
+0:07:38.000,0:07:44.319
+values of these y values and uh let me recompute this so i have
+
+0:07:42.880,0:07:47.440
+this pedo and p is maybe different than it was
+
+0:07:46.080,0:07:51.199
+before right p is computed from these x values and now
+
+0:07:50.000,0:07:54.960
+the x has uh kind of uh two columns instead of one
+
+0:07:53.840,0:07:58.160
+right so a little bit of a different matrix
+
+0:07:56.479,0:08:00.879
+and and so then when i do all of this down here my p values will be different
+
+0:07:59.840,0:08:05.039
+as well and now you can actually see that these
+
+0:08:02.400,0:08:08.080
+red lines that i these red points i have um again it's a solvable problem like
+
+0:08:07.120,0:08:10.800
+before uh but now i actually have the
+
+0:08:09.360,0:08:14.720
+flexibility right i can have both the slope uh
+
+0:08:11.440,0:08:18.000
+slope and intercept great okay so i've turned into a level problem
+
+0:08:16.400,0:08:20.639
+oh let's actually do the hard work of solving it and so i might do that with
+
+0:08:19.840,0:08:23.680
+numpy and this gets a little bit hairy but
+
+0:08:22.639,0:08:25.919
+let's think about what we're trying to do
+
+0:08:24.000,0:08:30.879
+so so ultimately the thing i should do now is i should solve for c
+
+0:08:27.680,0:08:34.880
+for c given my knowledge of x and p right i i already if i go up here right
+
+0:08:32.800,0:08:40.880
+i know what x is i know what x is there uh and actually
+
+0:08:38.000,0:08:45.440
+well what is x let me be very clear here you see how this is capital x down here
+
+0:08:43.120,0:08:51.279
+so this means all the x columns so x x down below the capital x means this
+
+0:08:48.959,0:08:54.640
+plus this constant column right so so what i want to figure out is how can i
+
+0:08:52.480,0:08:59.200
+multiply that uh that matrix with those two columns
+
+0:08:56.000,0:09:02.000
+by c uh to get this and i know that's a solvable problem
+
+0:09:00.959,0:09:05.279
+right so that's what i'm probably doing i say
+
+0:09:02.399,0:09:08.720
+x which are those two columns times my coefficients and since i have two
+
+0:09:06.720,0:09:10.880
+columns there should be two coefficients there
+
+0:09:09.519,0:09:14.000
+the coefficients are the slope of the intercept uh equals p and i know where i
+
+0:09:13.440,0:09:20.000
+got p p was just the projection matrix times y
+
+0:09:17.680,0:09:24.640
+right and this was a formula this was the formula for that projection matrix
+
+0:09:22.320,0:09:29.360
+so so if i want to swap this off out i could say well here i have x c
+
+0:09:26.720,0:09:31.839
+and x c on that side and then on the right hand side right instead of saying
+
+0:09:30.959,0:09:35.279
+like p i'm going to say p y and i may actually
+
+0:09:33.920,0:09:38.800
+plug in the value for p right so you can try to
+
+0:09:37.440,0:09:42.240
+see what i'm doing here right instead of p
+
+0:09:39.120,0:09:46.080
+y i have well there's a formula for p and there's y right so this is the
+
+0:09:43.839,0:09:50.000
+problem i'm trying to solve right now and uh and so there's some
+
+0:09:49.279,0:09:54.000
+linear algebra steps i can do to simplify this but one
+
+0:09:52.720,0:10:00.480
+is that i can multiply uh both on the front by uh x transpose
+
+0:09:58.560,0:10:06.240
+and so if i do that i get this right so instead of xc
+
+0:10:02.160,0:10:10.000
+it's x transpose xc and uh it here well what's going to happen here
+
+0:10:08.240,0:10:14.399
+all of this is going to stay the same but at the very beginning if i multiply
+
+0:10:11.680,0:10:20.880
+it to the front by xt it might be xt i'm sorry x transpose x and
+
+0:10:18.800,0:10:24.240
+there's rules about how you can kind of deal with parentheses
+
+0:10:22.240,0:10:28.000
+and uh linear algebra i'm not getting into that but basically this is the
+
+0:10:26.000,0:10:31.440
+expression i end up with and what i want you to think about is
+
+0:10:30.800,0:10:34.560
+that i i said that this negative one means
+
+0:10:33.279,0:10:38.560
+inverse and uh and you see this piece is repeated
+
+0:10:36.640,0:10:43.600
+right i'm multiplying this matrix uh by its inverse
+
+0:10:41.920,0:10:45.680
+and in a linear algebra of course you might learn what more what that means
+
+0:10:44.800,0:10:49.680
+but let's just make an analogy to a regular algebra that you
+
+0:10:48.399,0:10:54.320
+might be familiar with so if i multiply 2 by the inverse of 2
+
+0:10:53.040,0:10:58.320
+what do i get well the inverse of 2 is a half right so
+
+0:10:57.279,0:11:02.399
+it's 0.5 if i multiply 2 by 0.5 it just cancels
+
+0:11:02.079,0:11:05.600
+out right same thing if i multiply 3 by the
+
+0:11:04.800,0:11:10.160
+inverse of 3 and multiply 3 by 1 3 it just comes down
+
+0:11:08.640,0:11:12.880
+to 1 and it cancels out and so that's the same thing that's
+
+0:11:11.519,0:11:17.120
+right happened here right this whole piece here
+
+0:11:14.320,0:11:21.760
+is going to cancel out and so i'm just going to end up with
+
+0:11:18.160,0:11:29.519
+you know x transpose x c is uh x transpose y
+
+0:11:25.519,0:11:34.480
+and this is a great place to be because as i'm about to show you x transpose x
+
+0:11:33.040,0:11:38.959
+is going to be a square matrix and this is just going to be a vector
+
+0:11:36.240,0:11:42.640
+and remember that when we have a square matrix
+
+0:11:39.600,0:11:45.839
+times a vector equals another vector i can use
+
+0:11:43.200,0:11:52.160
+numpy in the vast majority of cases to solve for that first vector
+
+0:11:47.680,0:11:58.320
+so so let's do that i'm going to say um let me let me first do my solving here
+
+0:11:56.240,0:12:03.120
+maybe i'm going to grab my matrix and i may say it's a square
+
+0:11:59.440,0:12:07.519
+matrix equals x dot transpose dot product t and let me just uh figures
+
+0:12:06.560,0:12:13.200
+trust i did this right um why is that unhappy
+
+0:12:10.639,0:12:18.480
+uh is it is it lowercase let me just check here
+
+0:12:14.880,0:12:23.440
+uh no it's not why uh oh oh dot product uh
+
+0:12:21.920,0:12:26.800
+i should have slowed down right it's t is not defined okay
+
+0:12:25.200,0:12:30.959
+great so i get that nice little square matrix there
+
+0:12:28.240,0:12:36.399
+and what i want to do is i want to solve for
+
+0:12:33.120,0:12:42.480
+for c right and so how do i do that well um i can uh i could say numpy.linear
+
+0:12:39.440,0:12:46.800
+algebra dot solve and uh and i can put in two things right
+
+0:12:44.800,0:12:50.320
+so i i'm solving for c right and so when
+
+0:12:49.360,0:12:56.880
+i'm solving for c here i can put the square matrix
+
+0:12:54.320,0:12:59.519
+and it's my first argument and then my vector over here
+
+0:12:58.000,0:13:03.360
+right so i have that square matrix let me actually just um
+
+0:13:01.120,0:13:08.480
+uh you know i might say like my new vector
+
+0:13:04.639,0:13:13.360
+is going to be uh x dot transpose dot product y and i say well what does
+
+0:13:11.200,0:13:17.360
+that new vector look like great so that looks good too right so i
+
+0:13:15.360,0:13:21.600
+have well i have from the the left hand side i have my square matrix
+
+0:13:20.000,0:13:26.480
+and from the right hand side i have my new vector
+
+0:13:23.200,0:13:32.240
+and then i can solve for c and uh if i could spell properly and great so i
+
+0:13:30.399,0:13:35.519
+have these two numbers here and what are these two numbers well this
+
+0:13:34.240,0:13:38.800
+is the number that i should multiply by the first
+
+0:13:38.240,0:13:44.720
+column of x which is what uh the first column of x
+
+0:13:42.800,0:13:50.399
+is just the x column right so i'm multiplying that
+
+0:13:46.720,0:13:55.920
+by multiplying the x column by negative 2.66 and then i'm multiplying
+
+0:13:54.399,0:14:01.600
+81 by the second column of x
+
+0:13:58.959,0:14:03.600
+and remember that capital x contained this is the second column right so
+
+0:14:02.880,0:14:09.680
+that's my intercept so so maybe what i could do is
+
+0:14:06.959,0:14:13.440
+if i want to pull these out i can say something like this i could
+
+0:14:10.720,0:14:18.480
+say something like slope intercept equals c and i can print off what both
+
+0:14:17.600,0:14:22.079
+of these are i turn off the intercept as well right
+
+0:14:21.680,0:14:25.279
+so i it really i kind of like to flatten
+
+0:14:23.920,0:14:28.639
+these i don't want it to end up inside of this
+
+0:14:25.760,0:14:31.920
+maybe one way i could do that as i could i could tell it that hey i want to
+
+0:14:30.560,0:14:35.440
+extract that um i think maybe the more elegant way is
+
+0:14:33.760,0:14:38.320
+i can just say you know even though the c is
+
+0:14:36.079,0:14:40.800
+technically a two dimensional thing i could just say
+
+0:14:39.360,0:14:44.560
+you know make it one dimension as long as necessary and now i have these two
+
+0:14:43.360,0:14:48.560
+numbers okay so what i want to do now is i want
+
+0:14:46.000,0:14:52.000
+to use the slope and intercept to draw a line on top of on top of my original
+
+0:14:51.519,0:14:58.720
+figure right so i'm going to grab this up here
+
+0:14:55.519,0:15:02.240
+that i have oh oops just like that and uh and then i think
+
+0:15:01.040,0:15:06.320
+what i could do is i could have a line on top of here i could say
+
+0:15:03.839,0:15:10.880
+something like ax dot line and uh do i have this right let me just
+
+0:15:09.519,0:15:15.760
+uh that's not actually a thing just a
+
+0:15:13.440,0:15:22.480
+minute great so i just check my notes and and i
+
+0:15:20.639,0:15:28.560
+think what it actually is is ax dot plot and ax dot plot to me you
+
+0:15:26.000,0:15:31.360
+use either to draw points or a line and when i'm doing a line i can do something
+
+0:15:29.839,0:15:38.160
+like this i can say like well a line should go from this uh x0 to
+
+0:15:34.959,0:15:42.240
+this x1 and then my y values should draw from
+
+0:15:39.199,0:15:45.519
+this y zero to this y one and so maybe let me just try and put
+
+0:15:43.519,0:15:49.680
+some values here i might say x zero goes from zero
+
+0:15:46.880,0:15:52.800
+x one goes to one hundred and then i don't know i'll have it slightly sloped
+
+0:15:50.959,0:15:57.120
+down i'll say y zero equals 60 and then it's going to
+
+0:15:55.920,0:16:01.600
+slightly go down to 50. and so i do that and you can see
+
+0:16:00.240,0:16:06.000
+i can just play with this line maybe let me make it drop a little bit more i'll
+
+0:16:02.800,0:16:11.040
+drop it down to like 30. and why is that not uh having a more
+
+0:16:10.399,0:16:13.440
+stark drop
+
+0:16:15.120,0:16:22.800
+oh you you know why is that my x-axis only goes to
+
+0:16:19.920,0:16:27.279
+the 20 right that's why it looks so so shallow right so if i say like that
+
+0:16:24.639,0:16:29.199
+now i can actually play with it and i don't know i could have it slightly
+
+0:16:28.320,0:16:33.279
+sloped up i could draw different lines right and
+
+0:16:30.800,0:16:37.120
+so i want to figure out these values uh based on uh based on these uh slopes
+
+0:16:36.079,0:16:40.240
+and intercepts right and so i think the first thing i
+
+0:16:39.279,0:16:46.720
+could do right instead of having um
+
+0:16:43.600,0:16:51.120
+instead of having uh these hard coded right from 0 to 20 i'd like to pull that
+
+0:16:48.720,0:16:58.480
+out of my x limit and y limit right so i could say um ax dot
+
+0:16:55.120,0:17:01.920
+x limit which is a tuple and i can get that at position zero let
+
+0:17:00.480,0:17:06.160
+me try that actually maybe is it get excellent
+
+0:17:03.519,0:17:08.880
+great it is uh so that's the left-hand side of my plot
+
+0:17:07.039,0:17:11.839
+and then the right-hand side of my plot is good and then what i want to do is i
+
+0:17:11.039,0:17:17.039
+want to compute y0 from this one and i want to compute
+
+0:17:14.959,0:17:20.319
+y1 from this one and so how do i plug this into my
+
+0:17:18.640,0:17:28.000
+equations if i have a line well y equals the slope
+
+0:17:24.959,0:17:30.880
+times the x plus the intercept that's how we
+
+0:17:28.480,0:17:33.840
+that's how we compute a y right and then the same deal down here right except
+
+0:17:32.400,0:17:39.200
+that i'm computing a different y for a different x so i do that and now
+
+0:17:36.960,0:17:42.799
+i see i have the straight line that goes exactly through that solvable
+
+0:17:41.600,0:17:45.520
+problem that i had right and that's how i can plot a fit
+
+0:17:44.240,0:17:48.799
+line and maybe i could do something else like uh
+
+0:17:46.799,0:17:51.840
+uh i don't know maybe i make it like red or something like that
+
+0:17:50.240,0:17:54.000
+or maybe maybe like a gray is better since i already have uh hope that's
+
+0:17:53.520,0:17:58.880
+green so maybe like a gray would be a good
+
+0:17:56.960,0:18:04.400
+thing to do in this situation great so i solved it okay is this not
+
+0:18:01.120,0:18:07.760
+complicated right i guess like i had to um it dot complicated a few ways one was
+
+0:18:07.039,0:18:11.280
+that you know computing the projection matrix
+
+0:18:09.600,0:18:14.720
+was pretty pretty tricky right that was complicated
+
+0:18:12.640,0:18:18.400
+um i also had to kind of pull out these individual matrices and ask linear
+
+0:18:16.799,0:18:21.440
+algebra to do something for me so i might introduce an easy way to do
+
+0:18:20.000,0:18:26.240
+this now that we've kind of uh kind of seen the guts of what happens
+
+0:18:23.360,0:18:29.200
+and that is that we can use sklearn and so
+
+0:18:26.559,0:18:32.160
+sklearn stands for scikit-learn and it has a lot of different tools in it that
+
+0:18:30.880,0:18:35.360
+you should explore um and there's a collection of those
+
+0:18:33.360,0:18:38.000
+tools that are under linear models and so what we've been doing right now
+
+0:18:36.880,0:18:42.960
+is a linear model right i'm trying to fit that straight line to it
+
+0:18:39.840,0:18:48.240
+and so that's called a linear regression and so what i'm going to do is create a
+
+0:18:46.480,0:18:52.480
+new linear regression object like that and let me just try a peek at that
+
+0:18:50.799,0:18:55.280
+okay and what's nice about is it's showing me well what are the the default
+
+0:18:54.559,0:19:00.240
+uh parameters or i guess arguments that are
+
+0:18:56.960,0:19:04.480
+used to to create this thing and uh and so one of the things that it
+
+0:19:02.799,0:19:07.919
+has here is well do i want to fit the intercept
+
+0:19:05.760,0:19:12.320
+um remember that before i had to manually add
+
+0:19:09.280,0:19:16.720
+in this on ones column in order to do the math
+
+0:19:13.200,0:19:20.400
+if fit intercept is true uh then sk load will automatically add that
+
+0:19:18.640,0:19:25.200
+for me right so so that's kind of great i don't need to worry about that anymore
+
+0:19:22.320,0:19:28.400
+um and so there's a few steps to this one is that
+
+0:19:26.480,0:19:32.400
+uh i have to do what is called fitting so i could say lr.fit
+
+0:19:30.400,0:19:38.960
+and let me just look here you can see that i'm passing in both
+
+0:19:35.280,0:19:42.400
+uh oh how do i excuse me you can see that i pass again both an x
+
+0:19:41.200,0:19:46.640
+and a y and so let me try that so from my data
+
+0:19:44.240,0:19:53.679
+frame i'm just going to say data frame my x column and data frame
+
+0:19:49.919,0:19:58.400
+my y column and that looks good and then it complains
+
+0:19:55.280,0:20:01.760
+and uh what is it saying down here it's saying some sort of thing about
+
+0:19:59.520,0:20:04.720
+reshape and what is it trying to do i guess what
+
+0:20:03.200,0:20:08.880
+it's trying to do is it's trying to make me make my um x
+
+0:20:06.000,0:20:11.200
+data be two-dimensional right and that's why it's kind of i'm passing in two
+
+0:20:10.240,0:20:13.919
+numbers here because it must be two dimensional
+
+0:20:12.000,0:20:17.440
+however many rows necessary in one column
+
+0:20:15.200,0:20:20.240
+and uh and this is a slightly misleading error message because that's what i
+
+0:20:18.880,0:20:23.600
+would do that's what i would do if if this were
+
+0:20:23.200,0:20:27.360
+um a numpy thing right if this were numpy i
+
+0:20:25.919,0:20:30.960
+could i could reshape it like they're suggesting
+
+0:20:28.799,0:20:35.200
+but it's not numpy this is a panda series and so it's not going to work
+
+0:20:33.039,0:20:39.200
+and uh it's one of the cool things here is that
+
+0:20:36.240,0:20:42.880
+uh pandas is built on numpy can often be used just in place of where you would
+
+0:20:40.720,0:20:45.919
+normally have a numpy object but some of these error messages are
+
+0:20:44.480,0:20:47.760
+gonna be misleading because they the people write the error messages had
+
+0:20:47.280,0:20:51.280
+numpy in mind so what it really wants though
+
+0:20:49.840,0:20:54.400
+is it wants something two-dimensional or maybe that's the best thing for me to
+
+0:20:52.400,0:20:59.679
+take away from here expected 2d array but not 1d when i see 2d array
+
+0:20:57.520,0:21:04.080
+if i'm trying to use pandas i'm just going to translate that mentally to be
+
+0:21:01.600,0:21:07.200
+hey and expected to have have a data frame
+
+0:21:04.640,0:21:11.039
+and so what this fit method is expecting is that this should be a data frame
+
+0:21:08.960,0:21:13.520
+and this should be a single column right so i might try to convert this to a data
+
+0:21:12.640,0:21:16.240
+frame whenever you are pulling out a single
+
+0:21:14.799,0:21:18.880
+column that's really easy right i could just say like
+
+0:21:17.679,0:21:22.159
+instead of pulling out one column i could have a list of columns right i
+
+0:21:20.799,0:21:26.159
+mean i could do something like this right and then i'd have a data frame
+
+0:21:23.840,0:21:30.400
+smaller or if i just have a list with one thing in it well that's one easy way
+
+0:21:27.679,0:21:34.159
+to get a data frame with one column right so let me delete this and paste
+
+0:21:32.159,0:21:37.600
+this here let me run that and that was kind of
+
+0:21:36.640,0:21:40.960
+anticlimactic right but but it actually did all the
+
+0:21:39.280,0:21:44.000
+computation for me and so where can i find that if i say
+
+0:21:43.440,0:21:48.400
+der on lr i can see all of the things that
+
+0:21:46.720,0:21:52.880
+this object has and there's two things i'm interested in
+
+0:21:50.720,0:21:55.760
+i'm interested in the coefficient and i'm interested in the intercept you
+
+0:21:54.640,0:21:59.760
+can see that they pulled these out into separate variables
+
+0:21:57.440,0:22:02.159
+uh unlike before before my c had both those numbers in them
+
+0:22:00.960,0:22:06.000
+so so let me just do that i'm going to say print lr dot coefficient
+
+0:22:04.880,0:22:09.919
+and it's kind of weird like all these things that get computed automatically
+
+0:22:08.080,0:22:12.799
+they're attributes not functions or they're attributes not methods so i want
+
+0:22:11.600,0:22:16.559
+to do this and they tend to end with an underscore
+
+0:22:14.880,0:22:21.360
+right so that's my slope and then this one is my intercept and i
+
+0:22:19.760,0:22:25.120
+have these two numbers and generally there's a one intercept
+
+0:22:23.520,0:22:28.480
+and uh here i also have one slope because it's
+
+0:22:27.039,0:22:32.559
+just one x value uh it's pulling this out as an array
+
+0:22:30.559,0:22:36.640
+because um uh in the general case right i have
+
+0:22:34.480,0:22:38.799
+might have many columns that i'm kind of looking at
+
+0:22:37.440,0:22:44.400
+so i'm just going to pull this out since i only have one thing here and i'm just
+
+0:22:40.960,0:22:49.919
+gonna say well here's my slope and uh and here's my intercept
+
+0:22:47.600,0:22:52.799
+just like that and maybe i'll just print both of those right i'll just say like
+
+0:22:51.440,0:22:56.799
+slope and intercept and you can see right away
+
+0:22:54.559,0:22:59.919
+that they're the same values as before and so what that means is that the same
+
+0:22:58.400,0:23:02.880
+plotting i did before is going to work in the same way
+
+0:23:00.880,0:23:07.520
+right just to use these values i got from sklearn now
+
+0:23:04.720,0:23:10.000
+and it's exactly the same thing it also just to be kind of clear i wouldn't have
+
+0:23:09.039,0:23:14.240
+this anymore uh here i'm plotting the p values uh
+
+0:23:12.400,0:23:17.919
+what i'm doing this process which is is probably what you're
+
+0:23:15.039,0:23:21.039
+mostly be doing as a data scientist uh you
+
+0:23:18.400,0:23:25.280
+will um you'll never actually probably compute that those p values right
+
+0:23:23.600,0:23:29.200
+so so maybe just kind of combine this all down it's actually not a lot of code
+
+0:23:27.200,0:23:32.720
+here i just put it all in one cell so we can see what the steps are
+
+0:23:34.400,0:23:39.679
+right just these five lines of code it's kind of a good formula to have in mind
+
+0:23:38.559,0:23:41.760
+right you might eventually add other things here
+
+0:23:40.400,0:23:45.200
+but this is how i get the slope of the intercept and
+
+0:23:43.440,0:23:51.840
+then really the complexity is really kind of around the plotting
+
+0:23:46.480,0:23:51.840
+right like i'm doing down here
+
