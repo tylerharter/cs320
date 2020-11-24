@@ -11,7 +11,7 @@ Let's explore the relationship between water temperature and wave height.
 Download the data:
 
 ```
-wget https://github.com/tylerharter/cs320/raw/master/s20/lec/apr27/waves.csv
+wget https://github.com/tylerharter/cs320/raw/master/f20/lec/nov30/waves.csv
 ```
 
 Read it in:
@@ -77,7 +77,7 @@ from sklearn.preprocessing import OneHotEncoder
 
 oh = OneHotEncoder()
 oh.fit(df1)
-data = oh.transform(df2).???? # TODO: convert from spares array to regular array
+data = oh.transform(df2).???? # TODO: convert from sparse array to regular array
 pd.DataFrame(data, columns=oh.get_?????_names())
 ```
 
