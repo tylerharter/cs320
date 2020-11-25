@@ -75,7 +75,7 @@ Try running the following example from lecture with varying pool sizes
 import requests, time
 from multiprocessing.pool import Pool
 
-url = "https://tyler.caraza-harter.com/cs320/s20/lectures/lec-20/practice7/{}.html"
+url = "https://tyler.caraza-harter.com/cs320/f20/lectures/lec-17/practice7/{}.html"
 
 def fetch(idx):
     r = requests.get(url.format(idx))
@@ -105,7 +105,7 @@ programmer.
 
 ## 4. Debugging
 
-### Watch: [10-minute video](https://youtu.be/pCB-shDhe2E)
+### Watch: [9-minute video](https://youtu.be/pCB-shDhe2E)
 
 ### Practice: Process Behavior
 
