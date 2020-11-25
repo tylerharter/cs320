@@ -1,6 +1,6 @@
 # Don't Start Yet!!!  Still under revision.
 
-# P6: Hospital Readmission
+# P7: Hospital Readmission
 
 When patients are admitted to a hospital, the type of care they
 receive may affect whether they'll be readmitted again in the near
@@ -41,6 +41,8 @@ zip.  Load that a DataFrame and get familiar with the columns.  Note
 that missing data is represented by question marks ("?") --
 unfortunately, not all hospitals collected the same information about
 visits.
+
+# Group Part (~75%)
 
 ## Part 1: Train/Test Split
 
@@ -117,14 +119,18 @@ containing at least some missing data, and the value is the percent
 (out of 100) of data that is "?".  Don't include columns with no
 missing data in the dictionary.
 
+#### Q5: Which columns are of type int?
+
+Answer with a sorted list of all the columns that have some int type. 
+
 ## Part 2: Heat Maps
 
-Answer the following questions with respect to the training data (not
+Answer the following questions with respect to the **training data** (not
 the original dataset!).
 
-#### Q5: How common is each pairing of `admission_source_id` to `discharge_disposition_id`?
+#### Q6: How common is each pairing of `admission_source_id` to `discharge_disposition_id`?
 
-Output should be a DataFrame, like the "Question 5" one in
+Output should be a DataFrame, like the "Question 6" one in
 `expected.html`.  The index contains every unique
 `admission_source_id` and the columns correspond to every unique
 `discharge_disposition_id`.  Each cell is an integer, representing how
@@ -140,7 +146,7 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/options.html
 
 You may want to reset the display option after the question.
 
-#### Q6: How common is each pairing of admission source to discharge disposition?
+#### Q7: How common is each pairing of admission source to discharge disposition?
 
 This is the same as last time, but now codes are replaced with
 descriptions, like in the "Question 6" table in `expected.html`.
@@ -154,19 +160,19 @@ a line that is empty, except for one comma.
 
 Once you pull the data out of `IDs_mapping.csv`, you may want to use
 the following function to add real index/column names to your
-DataFrame from `#q5`, without recomputing everything from scratch:
+DataFrame from `#q6`, without recomputing everything from scratch:
 
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html
 
-#### Q7: How common is each pairing of admission source to discharge disposition? [Heat Map]
+#### Q8: How common is each pairing of admission source to discharge disposition? [Heat Map]
 
 This is the same as the last one, but now, instead of producing a table, you should produce a heatmap, like this:
 
 <img width=800 src="heatmap.png">
 
-Hints:
+**Hints:**
 
-* here's an example of how to create a square heatmap from a DataFrame (not that your DataFrame is NOT square): https://www.pythonprogramming.in/generate-a-heatmap-in-matplotlib-using-pandas-data.html
+* here's an example of how to create a square heatmap from a DataFrame (note that your DataFrame is NOT square): https://www.pythonprogramming.in/generate-a-heatmap-in-matplotlib-using-pandas-data.html
 * we used the `cmap="binary"` to make darker values correspond to larger numbers
 * a few combinations dominate -- to make the others visible, take the `log2` of each number before calling `plt.imshow`.  As `log2(0)` is not defined, add 1 to each cell before taking the `log2`.  Why is it valid for us to make these seemingly arbitrary transformations?  Because color is inherently subjective (unlike, say, distance along an axis), so we only care about the relative, namely that darker=more.
 
@@ -176,7 +182,7 @@ Add a column to your train and test datasets named `visits` that sums
 the three kinds of prior visits already recorded in the data:
 `number_outpatient`, `number_inpatient`, `number_emergency`.
 
-#### Q8: What is the relationship between number of prior visits and length of stay for the current visit? [PLOT]
+#### Q9: What is the relationship between number of prior visits and length of stay for the current visit? [PLOT]
 
 Answer with a plot like this:
 
@@ -227,7 +233,7 @@ def check_regression(ax):
     return plot
 ```
 
-#### Q9: How well does the regression perform on both the train and test datasets?
+#### Q10: How well does the regression perform on both the train and test datasets?
 
 Look at the metrics for evaluating regressions here: https://scikit-learn.org/stable/modules/model_evaluation.html
 
@@ -240,22 +246,6 @@ Based on these results, we conclude that our linear model doesn't do a
 good job capturing the variance in the data (the best score possible
 is 1).
 
-#### Q10: What is the relationship between the length of stay and number of procedures performed during that time? [PLOT]
-
-It should look like the following.  Use `check_regression` as before
-to test it.
-
-<img src="q10.png">
-
-#### Q11: How well does the regression perform on both the train and test datasets?
-
-Answer the same way you did for Q9.
-
-Expected: `(0.10234075960861977, 0.1004406985134011)`
-
-Still not amazing, but at least now we're explaining 10% of the
-variance.  Also, no signs of overfitting, as the two scores are
-similar.
 
 ## Part 4: Transformer
 
@@ -341,11 +331,11 @@ So the `fit` is used to figure out the columns based on the training
 data only, and the `transform` can be used on both training and
 testing data to fill those columns.
 
-#### Q12: What is `DemographicTransformer().fit_transform(train).head()`?
+#### Q11: What is `DemographicTransformer().fit_transform(train).head()`?
 
-It should look like table 12 in `expected.html`.
+It should look like table 11 in `expected.html`.
 
-#### Q13: What is the relationship between length of stay and the demographic data?
+#### Q12: What is the relationship between length of stay and the demographic data?
 
 You can create an sklearn pipeline to automatically feed the data
 through your transformer, then to a linear regressor:
@@ -370,13 +360,15 @@ Answer with a string representing the equation, with the coefficients (rounded t
 
 Expected: `'stay = 0.32*AfricanAmerican + -0.29*Asian + 0.04*Caucasian + -0.14*Hispanic + -0.10*Other + 3.42*Female + 3.28*Male + 0.02*age + -0.45'`
 
-#### Q14: How well does that equation explain the variance?
+#### Q13: How well does that equation explain the variance?
 
-Answer using the same format as `#q9`
+Answer using the same format as `#q10`
 
 Expected: `(0.014362012823362136, 0.012415699517403067)`
 
 Not very well, apparently!
+
+# Individual Part (~25%)
 
 ## Part 5: Classification
 
@@ -402,7 +394,7 @@ regression" is actually a "classification" technique, not actually a
 (otherwise using the defaults) on the training data:
 https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
 
-#### Q15: What is the accuracy?
+#### Q14: What is the accuracy?
 
 Look at the various scoring functions for classifiers here:
 https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values.
@@ -411,7 +403,7 @@ respectively (output a tuple with both).
 
 Expected: `(0.8883333661397949, 0.8884681043109707)`
 
-#### Q16: Is 89% accuracy good?
+#### Q15: Is 89% accuracy good?
 
 To answer, give the accuracy scores in the same format as in `q15`,
 but instead of using LogisticRegression, use a very simple estimator:
@@ -440,99 +432,38 @@ The problem is that the original data is highly imbalanced, with only
 11% of the patients being readmitted soon.  So of course it is easy to
 get 89% accuracy -- just predict no re-admissions!
 
-#### Q17: What is the balanced accuracy of our logistic regression?
+#### Q16: What is the confusion matrix of our logistic regression?
 
-Use the `balanced_accuracy_score` here: https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values on both the training and test data.
+Use the `plot_confusion_matrix` method here: # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.plot_confusion_matrix.html#sklearn.metrics.plot_confusion_matrix
+Send it the test set in the appropriate parameters. 
 
-Expected: `(0.5, 0.5)`
+The last line in this cell should look like `plot_confusion_matrix(your, parameters, go, here).confusion_matrix.tolist()` so that the actual confusion matrix gets returned. 
+
+Expected: `[[45279, 0], [5684, 0]]`
 
 Hopefully this makes intuitive sense: our classifier is getting all
-the no-readmit cases right and all the readmit cases wrong.  If we
-weight no-readmit and readmit equally (even though they aren't equally
-common in the data), we get 0.5.
+the no-readmit cases right and all the readmit cases wrong as it's predicting the same for every input. 
 
-#### Q18: What is the balanced accuracy if we also balance during fitting?
+(Also check out the `balanced_accuracy_score` here: https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values )
 
-This is just like `q15`, but you should (a) pass `class_weight="balanced"` to `LogisticRegression` and (b) use balanced_accuracy_score instead of accuracy_score.
+#### Q17: What is the confusion matrix if we balance during fitting and consider more columns?
 
-Expected: `(0.5332863335560872, 0.5292818798995528)`
-
-Now, the numbers don't look so encouraging, but they are more
-meaningful, and we're doing better than the `NaiveEstimator`.
-
-#### Q19: Can we improve on the balanced accuracy if we consider more columns?
-
-In addition to `time_in_hospital`, include these columns:
-`num_lab_procedures`, `num_procedures`, `num_medications`,
+This is just like `q15` and `q17`, but you should (a) pass `class_weight="balanced"` to `LogisticRegression` and (b) use these columns in addition to `time_in_hospital`: `num_lab_procedures`, `num_procedures`, `num_medications`,
 `number_outpatient`, `number_emergency`, `number_inpatient`.
 
-Expected: `(0.5930123033331954, 0.5882354971931861)`
+Expected: `[[32725, 12554], [3105, 2579]]`
 
-Better!  And our more complicated model isn't showing signs of
-overfitting (the performance on the test data is similar to that for
-the training data).
+There! It's predicting True now, and it's getting a few thousand right! However, this has come at a cost, as now it isn't getting every single False prediction right. 
 
-## Part 6: Gradient Descent with PyTorch
+#### Q18: What is the confusion matrix if we try a different model, say K-nearest neighbors?
 
-Earlier, in `#q10`, we used sklearn to find the coefficients that
-minimized the mean-squared error, thus producing a least-squares fit
-line that we could draw over the scatter plot.
+K-nearest neighbors (or KNN for short) is another classification machine learning model. Well, it can also be used for regression, but we're going to use its classification variant. The basic idea of KNN is that it returns the majority label of the K closest neighbors (or the K-nearest beighbors, if you will) to the row it's predicting on. 
 
-Alternatively, we could have used PyTorch's ability to compute
-gradients to iteratively improve on some arbitrary initial
-coefficients, each time changing them a little to make the
-mean-squared error smaller.  Note that although this approach
-(gradient descent) is slightly slower than sklearn in this case, it
-will often be faster for regressions over many variables and data
-points.
+You can read more about it here: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
 
-Run this code to optimize the fit line over 1000 iterations:
+You can use it similarly to the other models you've used so far in this project. There is one quite important parameter, though, and that's K. For this problem, use K=3, but try out some other values and see what the confusion matrix looks like for them too!
 
-```python
-from torch import tensor
+Expected: `[[43630, 1649], [5363, 321]]`
 
-# STEP 1
-# optimize coef such that the difference between y and
-# A@coef is minimized
-x = "time_in_hospital"
-y = "num_lab_procedures"
+It looks like it's predicting true less often than the logistic regression model, so it's getting less of those correct. It's also getting more of the falses right, though. If you look at the right column for this and from `q18`, the proportion between the numbers seems to be roughly the same, just scaled differently. 
 
-A = train[[x]].copy()
-A["ones"] = 1
-A = tensor(A.values, dtype=float)
-b = tensor(train[[y]].values, dtype=float)
-coef = tensor([[0], [0]], dtype=float).requires_grad_()
-
-learning_rate = 0.01
-for i in range(1000):
-    predicted = A @ coef
-    mse = ((predicted - b) ** 2).mean()
-    mse.backward()
-    coef.data -= coef.grad * learning_rate
-    coef.grad.zero_()
-        
-# STEP 2
-# show scatter and fit line based on coef
-fig, ax = plt.subplots()
-train.plot.scatter(x=x, y=y, c="k", alpha=0.01, ax=ax)
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-ax.set_xlabel("days in hospital")
-ax.set_ylabel("lab procedures done")
-
-xlim = np.array(ax.get_xlim())
-coef_np = coef.detach().numpy()
-ax.plot(xlim, xlim * coef_np[0] + coef_np[1], color="red")
-```
-
-#### Q20: How quickly does the fit line converge to the correct position? [animation]
-
-To answer, create a 25-frame animation (200 millisecond interval),
-showing the position of the fitline after every 40 iterations of the
-optimization loop above.
-
-It should look like this: [gradient-descent.mp4](gradient-descent.mp4).
-
-Recommended: Once you have the animation working, try playing with
-larger and smaller values for `learing_rate` to gain an intuition for
-this important configuration.

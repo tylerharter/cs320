@@ -12,14 +12,14 @@ import nbformat
 import numpy as np
 from numpy import array
 
-try:
-    from lint import lint
-except ImportError:
-    err_msg = """Please download lint.py and place it in this directory for 
-    the tests to run correctly. If you haven't yet looked at the linting module, 
-    it is designed to help you improve your code so take a look at: 
-    https://github.com/tylerharter/cs320/tree/master/linter"""
-    raise FileNotFoundError(err_msg)
+#try:
+ #   from lint import lint
+#except ImportError:
+ #   err_msg = """Please download lint.py and place it in this directory for 
+  #  the tests to run correctly. If you haven't yet looked at the linting module, 
+   # it is designed to help you improve your code so take a look at: 
+    #https://github.com/tylerharter/cs320/tree/master/linter"""
+    #raise FileNotFoundError(err_msg)
 
 ALLOWED_LINT_ERRS = {
   "W0703": "broad-except",
@@ -64,22 +64,21 @@ questions = [
     Question(number=2, weight=1, format=NUMPY_FORMAT),
     Question(number=3, weight=1, format=TEXT_FORMAT),
     Question(number=4, weight=1, format=TEXT_FORMAT),
-    Question(number=5, weight=1, format=HTML_FORMAT),
+    Question(number=5, weight=1, format=TEXT_FORMAT),
     Question(number=6, weight=1, format=HTML_FORMAT),
-    Question(number=7, weight=1, format=PNG_FORMAT),
-    Question(number=8, weight=1, format=TEXT_FORMAT),
-    Question(number=9, weight=1, format=NUMPY_FORMAT),
-    Question(number=10, weight=1, format=TEXT_FORMAT),
-    Question(number=11, weight=1, format=NUMPY_FORMAT),
-    Question(number=12, weight=1, format=HTML_FORMAT),
+    Question(number=7, weight=1, format=HTML_FORMAT),
+    Question(number=8, weight=1, format=PNG_FORMAT),
+    Question(number=9, weight=1, format=TEXT_FORMAT),
+    Question(number=10, weight=1, format=NUMPY_FORMAT),
+    Question(number=11, weight=1, format=HTML_FORMAT),
+    Question(number=12, weight=1, format=TEXT_FORMAT),
     Question(number=13, weight=1, format=TEXT_FORMAT),
-    Question(number=14, weight=1, format=TEXT_FORMAT),
+    Question(number=14, weight=1, format=NUMPY_FORMAT),
     Question(number=15, weight=1, format=NUMPY_FORMAT),
     Question(number=16, weight=1, format=NUMPY_FORMAT),
     Question(number=17, weight=1, format=NUMPY_FORMAT),
     Question(number=18, weight=1, format=NUMPY_FORMAT),
-    Question(number=19, weight=1, format=NUMPY_FORMAT),
-    Question(number=20, weight=1, format=VIDEO_FORMAT),
+    
 ]
 question_nums = set([q.number for q in questions])
 
@@ -94,7 +93,10 @@ expected_json = {
           'diag_1': 0.023620652323681674,
           'diag_2': 0.3444678463870244,
           'diag_3': 1.3955868747908586},
-    "8": {'font12plus': True,
+    "5": ['admission_source_id','admission_type_id','discharge_disposition_id',
+          'encounter_id','num_lab_procedures','num_medications','num_procedures','number_diagnoses',
+          'number_emergency','number_inpatient','number_outpatient','patient_nbr','time_in_hospital'],
+    "9": {'font12plus': True,
           'transparency': True,
           'x-label': 'visits',
           'y-label': 'days in hospital',
@@ -105,8 +107,8 @@ expected_json = {
           'y-std': 4.401295199102416,
           'slope': 0.03951032525517387,
           'intercept': 4.353637517049943},
-    "9": (0.0009184071670116367, 0.001087944356748527),
-    "10": {'font12plus': True,
+    "10": (0.0009184071670116367, 0.001087944356748527),
+    "_11": {'font12plus': True,
            'transparency': True,
            'x-label': 'days in hospital',
            'y-label': 'lab procedures done',
@@ -117,14 +119,14 @@ expected_json = {
            'y-std': 43.155915989213234,
            'slope': 2.119487878508591,
            'intercept': 33.8274241649776},
-    "11": (0.10234075960861977, 0.1004406985134011),
-    "13": "stay = 0.32*AfricanAmerican + -0.29*Asian + 0.04*Caucasian + -0.14*Hispanic + -0.10*Other + 3.42*Female + 3.28*Male + 0.02*age + -0.45",
-    "14": (0.014362012823362136, 0.012415699517403067),
+    "_12": (0.10234075960861977, 0.1004406985134011),
+    "12": "stay = 0.32*AfricanAmerican + -0.29*Asian + 0.04*Caucasian + -0.14*Hispanic + -0.10*Other + 3.42*Female + 3.28*Male + 0.02*age + -0.45",
+    "13": (0.014362012823362136, 0.012415699517403067),
+    "14": (0.8883333661397949, 0.8884681043109707),
     "15": (0.8883333661397949, 0.8884681043109707),
-    "16": (0.8883333661397949, 0.8884681043109707),
-    "17": (0.5, 0.5),
-    "18": (0.5332863335560872, 0.5292818798995528),
-    "19": (0.5930123033331954, 0.5882354971931861),
+    "16": [[45279, 0], [5684, 0]],
+    "17": [[32725, 12554], [3105, 2579]],
+    "18": [[43630, 1649], [5363, 321]],
 }
 
 def parse_df_html_table(html, question=None):
@@ -435,28 +437,29 @@ def main():
     passing = sum(t['weight'] for t in results['tests'] if t['result'] == PASS)
     total = sum(t['weight'] for t in results['tests'])
 
-    lint_msgs = lint(orig_notebook, verbose=1, show=False)
-    lint_msgs = filter(lambda msg: msg.msg_id in ALLOWED_LINT_ERRS, lint_msgs)
-    lint_msgs = list(lint_msgs)
-    results["lint"] = [str(l) for l in lint_msgs]
+   # lint_msgs = lint(orig_notebook, verbose=1, show=False)
+   # lint_msgs = filter(lambda msg: msg.msg_id in ALLOWED_LINT_ERRS, lint_msgs)
+   # lint_msgs = list(lint_msgs)
+    #results["lint"] = [str(l) for l in lint_msgs]
 
     functionality_score = 100.0 * passing / total
-    linting_score = min(10.0, len(lint_msgs))
-    results['score'] = max(functionality_score - linting_score, 0.0)
+    #linting_score = min(10.0, len(lint_msgs))
+    results['score'] = max(functionality_score, 0.0) 
+    # subtract linting_score from functionality_score to add linter back in
 
     print("\nSummary:")
     for test in results["tests"]:
         print("  Question %d: %s" % (test["test"], test["result"]))
 
-    if len(lint_msgs) > 0:
-        msg_types = defaultdict(list)
-        for msg in lint_msgs:
-            msg_types[msg.category].append(msg)
-        print("\nLinting Summary:")
-        for msg_type, msgs in msg_types.items():
-            print('  ' + msg_type.title() + ' Messages:')
-            for msg in msgs:
-                print('    ' + str(msg))
+    #if len(lint_msgs) > 0:
+     #   msg_types = defaultdict(list)
+      #  for msg in lint_msgs:
+       #     msg_types[msg.category].append(msg)
+       # print("\nLinting Summary:")
+        #for msg_type, msgs in msg_types.items():
+         #   print('  ' + msg_type.title() + ' Messages:')
+          #  for msg in msgs:
+           #     print('    ' + str(msg))
 
     print('\nTOTAL SCORE: %.2f%%' % results['score'])
     with open('result.json', 'w') as f:
