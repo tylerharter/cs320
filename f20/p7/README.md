@@ -1,5 +1,3 @@
-# Don't Start Yet!!!  Still under revision.
-
 # P7: Hospital Readmission
 
 When patients are admitted to a hospital, the type of care they
@@ -13,8 +11,7 @@ sklearn to learn about the data.  The main challenge will be getting
 the data into a form that can readily used as sklearn input.
 
 ## Corrections/Clarifications
-* April 20, 2020: updated tester to ignore "tensor not callable" error due to [this](https://github.com/pytorch/pytorch/issues/24807) bug.
-* April 20, 2020: Lab 13 will help a lot with part 2 of this project!
+* none yet
 
 ## Dataset
 
