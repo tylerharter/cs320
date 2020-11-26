@@ -127,6 +127,8 @@ the original dataset!).
 
 #### Q6: How common is each pairing of `admission_source_id` to `discharge_disposition_id`?
 
+**Note:** be sure to see the lab 14 hints about this and the next question: https://github.com/tylerharter/cs320/tree/master/f20/lab14.
+
 Output should be a DataFrame, like the "Question 6" one in
 `expected.html`.  The index contains every unique
 `admission_source_id` and the columns correspond to every unique
