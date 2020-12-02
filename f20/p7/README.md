@@ -109,7 +109,7 @@ Answer with a nested dict, like this:
 }
 ```
 
-#### Q4: How much data is missing in each column?
+#### Q4: How much data is missing in each column (of the training set)?
 
 Answer with a dictionary, where each key is the name of a column
 containing at least some missing data, and the value is the percent
