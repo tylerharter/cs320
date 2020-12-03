@@ -13,7 +13,7 @@ as they are not working on the same dataset as you.  Cite anybody
 
 ## Clarifications/Corrections
 
-* none yet
+* Dec 3: complete example added below
 
 ## Specifications
 
@@ -128,7 +128,13 @@ submitting.
 
 ## Complete Example
 
-Coming soon...
+See [Water Breaks in Madison](example.pdf) for a complete example of a
+final project.
+
+Thanks to Wen Ye (320 mentor), Gautam Agarwal, and Bryan Jin for
+providing the inspiration for this example (the three of them have
+been working together on a far more comprehensive version of this
+study).
 
 ## Submission and Grading
 
