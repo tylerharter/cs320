@@ -193,7 +193,7 @@ Requirements:
 * top+right spines (borders) should be removed
 * slope should be computed using `LinearRegression` in sklearn with no special configuration
 
-For tester.py to auto-grade this, the last line in your `#q8` cell should be this:
+For tester.py to auto-grade this, the last line in your `#q9` cell should be this:
 
 ```python
 check_regression(ax)
