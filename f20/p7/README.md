@@ -116,7 +116,7 @@ containing at least some missing data, and the value is the percent
 (out of 100) of data that is "?".  Don't include columns with no
 missing data in the dictionary.
 
-#### Q5: Which columns are of type int?
+#### Q5: Which columns are of type int (of the training set)?
 
 Answer with a sorted list of all the columns that have some int type. 
 
