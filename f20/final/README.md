@@ -14,6 +14,7 @@ as they are not working on the same dataset as you.  Cite anybody
 ## Clarifications/Corrections
 
 * Dec 3: complete example added below
+* Dec 10: rubric posted
 
 ## Specifications
 
@@ -138,4 +139,45 @@ study).
 
 ## Submission and Grading
 
-Details coming soon...
+Submission details coming soon...
+
+### Rubric
+
+Although it's possible to add the following up to >100 (or go negative), all final scores will be in the 0-100 range (points saturate).  The following is a general guide: points may sometimes be adjusted up or down if we encounter positives/negatives we didn't think of prior to posting the rubric.
+
+#### Positive Points
+
+* 20: figure 1 exists and is one of the options given
+* 20: figure 2 exists and is one of the options given
+* 20: figure 3 exists and is one of the options given
+* 30: a full page of text is written as specified (font and margin as specified)
+* 10: the text contains many numbers/statistics that are interesting and useful (around 10-20)
+* 3: the data collection involved web scraping and/or combining multiple data files with different columns
+ 
+#### Negative Points (Figures)
+ 
+* -10: there is at least some figure font that is illegible
+* -5: there is at least some figure font that is clearly smaller than the text in the written portion
+* -5: plot style is inconsistent across the 3 figures
+* -5: of the four options for figure 1, a non-ideal option was chosen for what is being shown (e.g., line plot over categorical x-axis)
+ 
+#### Negative Points (Text)
+ 
+* -4: motivation is lacking (it's not very clear how somebody could benefit from reading the report)
+* -4: the dataset lacks sufficient description and/or is missing a source (ideally a hyperlink when possible)
+* -2: actual column names (e.g., names containing underscores or lacking spaces) appear instead human-friendly names
+* -2: columns are enumerated, but it is unclear what the field means (external links don't count -- explanation must be inline)
+* -3: a meaningful conclusion is lacking
+* -3: text is too verbose and/or explanations are too brief
+* -1: per spelling error or serious grammatical error
+ 
+#### Negative Points (per Figure/Text)
+ 
+* -2: the figure is distorted horizontally/vertically or pixilated due to stretching
+* -2: x-axis label or y-axis label is incorrect or too general
+* -5: x-axis label or y-axis label is missing entirely
+* -3: the figure is not introduced in the text by its number (e.g., "Figure 1...")
+* -2: it's unclear from the text how to read a plot
+* -2: it's unclear from the text what the conclusions for a plot are
+* -2: it's unclear what model is being used for figs 2 or 3 (need to explain sklearn pipeline)
+* -3: the regression/classification did not perform great for fig 3, and there is no description of other things tried to improve its performance
