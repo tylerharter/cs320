@@ -15,6 +15,7 @@ as they are not working on the same dataset as you.  Cite anybody
 
 * Dec 3: complete example added below
 * Dec 10: rubric posted
+* Dec 12: submission details posted
 
 ## Specifications
 
@@ -139,7 +140,7 @@ study).
 
 ## Submission and Grading
 
-Submission details coming soon...
+You can submit your final PDF here: https://canvas.wisc.edu/courses/220728/assignments/1047474
 
 ### Rubric
 
