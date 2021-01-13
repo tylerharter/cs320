@@ -11,6 +11,15 @@ as they are not working on the same dataset as you.  Cite anybody
 
 **Due Date:** Dec 15th (when the 320 exam is scheduled in student center), by the end of the day.  We encourage you to start earlier, of course.
 
+## Showcased Projects
+
+Here are some of the finals we especially enjoyed (shared online with permission of the authors):
+
+* [The Effect of Renewable Energy Statistics on Greenhouse Gas Emissions Name](showcase/payton-bartow.pdf) - Payton Bartow
+* [Telemarketing of a Portuguese Banking Institution](showcase/jirayu-burapacheep.pdf) - Jirayu Burapacheep
+* [Breast Cancer Predictions](showcase/amanda-burger.pdf) - Amanda Burger
+* [Predicting the 2020 NFL MVP Winner Name](showcase/aiden-marcoux.pdf) - Aiden Marcoux
+
 ## Clarifications/Corrections
 
 * Dec 3: complete example added below
