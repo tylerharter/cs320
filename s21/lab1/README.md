@@ -27,8 +27,12 @@ two options during office hours).
 
 Choose one of the following for the remainder of this lab:
 
-1. [GCP Directions](gcp/README.md).  At the time these directions were written, Google offers $300 of credit for new users.  Unfortunately, the credits must be used within 90 days, so you'll probably need to pay $10-20 out-of-pocket with this option.  **Note**: I'm working to apply for educational credits from that I can share with you, hopefully making this option free (I'll keep you all posted).
+1. [GCP Directions](gcp/README.md).  At the time these directions were written, Google offers $300 of credit for new users.  Unfortunately, the credits must be used within 90 days, which doesn't quite cover a semester.  Fortunately, Google gave me educational credits ($50/student) to use for CS 320, which should cover you.  I'll be sending details in a Canvas announcement about how to redeem these.
 2. [Azure Directions](azure/README.md).  At the time these directions were written, Microsoft offers students $100/year of credit per year.
+
+Note that this is our first semester giving Azure as a second option,
+so most examples/documentation will be based on the first option
+above.
 
 You'll use the VM you create for the rest of the semester, so take
 notes on how to use SSH and connect to Jupyter.
