@@ -27,7 +27,7 @@ two options during office hours).
 
 Choose one of the following for the remainder of this lab:
 
-1. [GCP Directions](gcp/README.md).  At the time these directions were written, Google offers $300 of credit for new users.  Unfortunately, the credits must be used within 90 days, which doesn't quite cover a semester.  Fortunately, Google gave me educational credits ($50/student) to use for CS 320, which should cover you.  I'll be sending details in a Canvas announcement about how to redeem these.
+1. [GCP Directions](gcp/README.md).  At the time these directions were written, Google offers $300 of credit for new users.  The credits must be used within 90 days, which doesn't quite cover a semester.  Fortunately, Google gave me educational credits ($50/student) to use for CS 320, which should cover you.  Please see this announcement on Canvas about how to redeem this credit before proceeding: https://canvas.wisc.edu/courses/244425/discussion_topics/881141
 2. [Azure Directions](azure/README.md).  At the time these directions were written, Microsoft offers students $100/year of credit per year.
 
 Note that this is our first semester giving Azure as a second option,
