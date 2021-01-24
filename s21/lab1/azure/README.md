@@ -13,6 +13,8 @@ Otherwise, click "use another account" and type your @wisc.edu email.
 
 Fill your profile details and click "Next".  Check "I agree" and "Sign up".
 
+You can view the credits remaining on your Azure Student account at https://www.microsoftazuresponsorships.com/. 
+
 ## New Virtual Machine
 
 Search for "Virtual machines" and click it:
@@ -184,3 +186,10 @@ notebook and run code).
 
 Good work on getting Jupyter running on your virtual machine!  We
 suggest you bookmark the login page so you can come back to it later.
+
+## Stopping your VM
+
+Once done, you may want to stop your VM to release resources and ensure you aren't billed. 
+You can do so via the dashboard:
+
+<img src="img/10-stop-vm.png" width=600>
