@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Jan 28: fix expected.html to work with both versions of beautifulsoup4
 
 ## Overview
 
