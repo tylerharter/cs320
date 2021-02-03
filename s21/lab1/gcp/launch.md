@@ -5,7 +5,7 @@
 
 <img src="img/18.png" width=600>
 
-2. under "Machine type" choose "g1-small".  If you were able to signup
+2. under "Machine type" choose either "g1-small" or "e1-small".  If you were able to signup
 for free credits earlier, you should be reminded of this on the right
 hand side.
 

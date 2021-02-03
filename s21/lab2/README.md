@@ -118,8 +118,8 @@ you'll see something like this:
 Copy the commands in the "create a new repository box".  We want to run those in a new directory on your computer.  So run this in the terminal:
 
 ```
-cd cs320-lab
 mkdir cs320-lab
+cd cs320-lab
 ```
 
 Then paste and run what you copied from GitHub.  Make sure there are
