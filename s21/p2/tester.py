@@ -21,6 +21,7 @@ def test(points):
 # override print so can also capture output for results.json
 print_buf = None
 orig_print = print
+
 def print(*args, **kwargs):
     orig_print(*args, **kwargs)
     if print_buf != None:
@@ -225,6 +226,31 @@ def testLoan():
             points += 1
     return points
 
+@test(points=10)
+def testLoanFilter():
+    points = 0
+    reader = tree.ZippedCSVReader('loans.zip')
+    
+    list_of_things = [('NCUA', 75, 85), ('OCC', 150, 200)]
+    for tup in list_of_things:
+        b = tree.Bank(tup[0], reader)
+        points += 1
+
+        err = is_expected(actual=iter_counter(b.loan_iter()), name="testLoan:loan_iter():%s"%tup[0])
+        if err != None:
+            print("unexpected results for Loan.get_loans(): {}".format(err))
+        else:
+            points += 2
+
+        err = is_expected(actual=iter_counter(b.loan_filter(tup[1], tup[2], 'Home purchase')), name="testLoan:loan_filter():%s"%tup[0])
+        if err != None:
+            print("unexpected results for Loan.specific_loan(): {}".format(err))
+        else:
+            points += 2
+
+    return points
+
+# INDIVIDUAL
 @test(points=4)
 def testSimplePredictor():
     reader = tree.ZippedCSVReader('mini.zip')
@@ -280,65 +306,6 @@ def testDTree():
         else:
             points += 1
         
-    return points
-
-@test(points=10)
-def testLoanFilter():
-    points = 0
-    reader = tree.ZippedCSVReader('loans.zip')
-    
-    list_of_things = [('NCUA', 75, 85), ('OCC', 150, 200)]
-    for tup in list_of_things:
-        b = tree.Bank(tup[0], reader)
-        points += 1
-
-        err = is_expected(actual=iter_counter(b.loan_iter()), name="testLoan:loan_iter():%s"%tup[0])
-        if err != None:
-            print("unexpected results for Loan.get_loans(): {}".format(err))
-        else:
-            points += 2
-
-        err = is_expected(actual=iter_counter(b.loan_filter(tup[1], tup[2], 'Home purchase')), name="testLoan:loan_filter():%s"%tup[0])
-        if err != None:
-            print("unexpected results for Loan.specific_loan(): {}".format(err))
-        else:
-            points += 2
-
-    return points
-
-# INDIVIDUAL
-
-@test(points=9)
-def testRF():
-    points = 0
-
-    # grab first 100 loans
-    reader = tree.ZippedCSVReader('loans.zip')
-    b = tree.Bank(None, reader)
-    li = b.loan_iter()
-    loans = [next(li) for i in range(100)]
-
-    # build 7 trees
-    tree_reader = tree.ZippedCSVReader('trees.zip')
-    trees = []
-    for i in range(1, 8):
-        dtree = tree.DTree()
-        dtree.readTree(tree_reader, f"tree{i}.txt")
-        trees.append(tree)
-
-    # test with varying odd numbers of voters
-    for voters in [3,5,7]:
-        rf = tree.RandomForest(trees[:voters])
-        mistakes = 0
-        for i, loan in enumerate(loans):
-            y = dtree.predict(loan)
-            err = is_expected(actual=y, name=f"testRF:predict:{voters}-trees:{i}")
-            if err != None:
-                mistakes += 1
-                print("unexpected results for random forest predict(): {}".format(err))
-        if mistakes == 0:
-            points += 3
-
     return points
 
 @test(points=10)
