@@ -201,6 +201,13 @@ def loan_filter(self, loan_min, loan_max, loan_purpose):
 
 `loan_min` and `loan_max` are inclusive.
 
+
+
+# Individual Part (25%)
+
+You have to do the remainder of this project on your own.  Do not
+discuss with anybody except 320 staff (mentors, TAs, instructor).
+
 ### `SimplePredictor` Class
 
 Instances of `SimplePredictor` can be used to decide whether to
@@ -238,13 +245,14 @@ have.  Assuming `dtree` (creative name, I know) is an object of your
 * `dtree.getDisapproved()` will return how many applicants have been disapproved so far
 
 The following code snippet should create a tree and make one prediction:
+
 ```python
 tree_reader = tree.ZippedCSVReader('trees.zip')
 dtree = tree.DTree()
 dtree.readTree(tree_reader, "simple.txt")
 dtree.predict(loan)
-```  
-  
+```
+
 Having a separate `Node` class will almost certainly be helpful, but
 we don't require it.
 
@@ -284,36 +292,6 @@ application is therefore approved.
 * each line represents a node.  If you loop over them one at a time, how do you find the parent node?  Here's an observation: if you are on a line for a depth-5 node, it's parent is depth-4 node most recently added to the tree.  One strategy is to keep a dictionary where the key is the depth and the value is the node most recently added at that level.
 * this can also be done recursively. It would probably be easiest to not call it recursively by line, but to call it for each node (so in the call for root, it would be called twice, once for root.left and once for root.right). 
 * the binary tree for simple.txt should be similar to tree.jpg (located in this repo)
-
-  
-# Individual Part (25%)
-
-You have to do the remainder of this project on your own.  Do not
-discuss with anybody except 320 staff (mentors, TAs, instructor).
-
-### `RandomForest` Class
-
-While decision trees are a fine machine learning algorithm by
-themselves, there is a fantastic upgrade to them. That upgrade is to
-random forests. As you might guess from the terminology, a random
-forest is made up of many decision trees.  The trees learned their
-rules by looking at different data.  A random forest takes a vote: do
-the majority of trees say approve or deny?
-
-You can start from the following:
-
-```python
-class RandomForest(SimplePredictor):
-    def __init__(self, trees):
-        pass
-
-    def predict(self, loan):
-        pass
-```
-
-`trees` is a list of `DTree` instances that will vote.  `predict`
-takes their vote and returns the majority opinion.  Break ties however
-you like (we'll only test with an odd number of trees).
 
 ### Bias Testing
 
