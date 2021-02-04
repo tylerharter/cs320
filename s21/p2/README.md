@@ -16,13 +16,20 @@
 In this project, you'll learn about zip files, modules, object
 oriented programming, and trees.
 
-You will be creating one `tree.py` file for this project. This is
-where all of your code will go.  For your own testing and debugging,
-we recommend creating a notebook where you do `import tree` and use
-the functions and classes in your module.
+You will implement all classes and functions in tree.py file for this project.This is where all of your code will go.  For your own testing and debugging,we recommend creating a notebook where you do `import tree` and use the functions and classes in your module.
+
+You will end up implementing the following classes.
+
+```
+class ZippedCSVReader
+class Loan
+class Bank
+class SimplePredictor
+class DTree
+```
 
 For testing, you'll need to download the .zip files, tester.py, and
-expected.json.
+expected.json. tester.py will test whether each class and class methods are properly implemented.
 
 ## Background: Redlining
 
@@ -79,10 +86,7 @@ After the above call, it should be possible to see a list of files via a `path` 
 print(data_reader.paths) # in alphabetical order!
 ```
 
-Your reader needs to work with large files.  This means it cannot read
-all the lines to a list, or to a DataFrame (there may not be enough
-memory!).  Instead, you'll write methods that `yield` rows/lines one
-at a time.
+
 
 Your reader will have two methods: `lines` and `csv_iter`.  They can
 be used as follows:
@@ -103,9 +107,9 @@ for row in reader.csv_iter("specific.csv"):
 
 As you can see, both take a file name.  But for `csv_iter`, it is
 optional; if not passed, it essentially concatenates all CSV data (use
-all .csv files in alphabetical order).
+all .csv files in alphabetical order). You can use generator to implement `lines` and `csv_iter`, and you can also return the list of rows as the return value of `lines` and `csv_iter` instead of using generator. You can review CS 220 lecture note (https://www.msyamkumar.com/cs220/f20/materials/lec_24_F20.pdf) to review generator.
 
-The `lines` method looks like this:
+If you choose to use generator, the `lines` method looks like this:
 
 ```python
     def lines(self, name):
@@ -143,7 +147,13 @@ It can be instantiated like this:
 loan = tree.Loan(40, "Home improvement", "Asian", 120, "approve")
 ```
 
-In this example, `loan["amount"]` should give 40, `loan["purpose"]`
+`repr(loan)` should return something like this:
+
+```python
+"Loan(40, 'Home improvement', 'Asian', 120, 'approve')"
+```
+
+In this example, if you implement `__getitem__` properly, `loan["amount"]` should give 40, `loan["purpose"]`
 should give `"Home improvement"`, and so on.
 
 `loan[????]` should work for ANY value in the brackets.  If the value
@@ -152,12 +162,6 @@ constructor, the behavior will be different.  It will return 0 or 1,
 depending on whether any argument passed to those parameters matches
 the value in brackets.  For example, `loan["Refinance"]` will be 0,
 and `loan["Asian"]` will be 1.
-
-`repr(loan)` should return something like this:
-
-```python
-"Loan(40, 'Home improvement', 'Asian', 120, 'approve')"
-```
 
 ### `Bank` Class
 
@@ -199,7 +203,7 @@ Finally, `Bank` should have a method like `loan_iter` that does additional filte
 def loan_filter(self, loan_min, loan_max, loan_purpose):
 ```
 
-`loan_min` and `loan_max` are inclusive.
+`loan_min` and `loan_max` are both inclusive, which means you will filter data with the condition `loan_min <= x <= loan_max`.
 
 
 
