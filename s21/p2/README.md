@@ -244,16 +244,15 @@ can still use!) There are several methods should `DTree` class should
 have.  Assuming `dtree` (creative name, I know) is an object of your
 `DTree` class:
 
-* `dtree.readTree(reader, path)` will take a file name (such as `simple.txt`) that will be read from a zip via the reader (of type ZippedCSVReader) and build a decision tree using its contents (a bit more on this below). It is not required to return anything
+* `dtree.readTree(path)` will take a file name (such as `simple.txt`) that will be read from a json file and build a decision tree using its contents (a bit more on this below). It is not required to return anything
 * `dtree.predict(data)` will return True for loan approved and False for loan disapproved using the tree built in `readTree`
 * `dtree.getDisapproved()` will return how many applicants have been disapproved so far
 
 The following code snippet should create a tree and make one prediction:
 
 ```python
-tree_reader = tree.ZippedCSVReader('trees.zip')
 dtree = tree.DTree()
-dtree.readTree(tree_reader, "simple.txt")
+dtree.readTree("simple.txt")
 dtree.predict(loan)
 ```
 
@@ -266,23 +265,63 @@ While there are other txt files like this one, we will just go through
 this one as a bit of an example.
 
 ```
-|--- amount <= 200
-|   |--- income <= 35
-|   |   |--- class: 0
-|   |--- income >  35
-|   |   |--- class: 1
-|--- amount >  200
-|   |--- income <= 70
-|   |   |--- class: 0
-|   |--- income >  70
-|   |   |--- class: 1
+{
+    "field": "amount",
+    "threshold": 200,
+    "left": 
+        {
+        "field": "income",
+        "threshold": 35,
+        "left": 
+            {
+            "field": "class",
+            "threshold": 0,
+            "left": null,
+            "right": null
+            },
+        "right": 
+            {
+            "field": "class",
+            "threshold": 1,
+            "left": null,
+            "right": null
+            }
+    },
+    "right": 
+        {
+        "field": "income",
+        "threshold": 70,
+        "left": 
+            {
+            "field": "class",
+            "threshold": 0,
+            "left": null,
+            "right": null
+            },
+        "right": 
+            {
+            "field": "class",
+            "threshold": 1,
+            "left": null,
+            "right": null
+        }
+    }
+}
 ```
+
+The decision trees can be read in as a series of nested dictionaries. Each 
+dictionary contains four fields: field (type of the value ie. amount, income, etc.), 
+threshold (the value held in the dictionary),left (<= current value), and right (> current value). 
+The dictionary itself can be thought of as the tree, with the inner dictionaries being the nodes 
+as you traverse down the tree. Dictionaries with a field of 'class' can be thought of as the leaf nodes.
+
+How can we read the above tree?
 
 Let's say somebody is applying for a 190 (thousand dollar) loan and
 makes 45 (thousands dollars) per year.  We see that `amount <= 200` is
-True (and `amount > 200` is not), so we take the first branch.  Next,
+True (and `amount > 200` is not), so we take the left branch.  Next,
 we see `income <= 35` is False, but `income > 35` is True, so we take
-the second branch.  Finally, we end up at `class: 1`.  In these trees,
+the right branch.  Finally, we end up at `class: 1`.  In these trees,
 `1` means "approve" and `0` means "deny".  This particular loan
 application is therefore approved.
 
