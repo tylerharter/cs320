@@ -1,15 +1,4 @@
-# DON'T START YET (still revising!!!)
-
 # Project 2: Decision Trees and Bias
-
-## Corrections/Clarifications
-
-* Oct 6: fixed testRF:predict in tester.py
-* Oct 5: added **hints** for dtree.readTree
-* Oct 2: fixed testDTree:predict in tester.py 
-* Sep 30: fix `readTree` documentation
-* Sep 30: rename `data_reader` to `reader` to clarify example
-* Sep 30: show results of how our classifier behaves on each loan for testBiasLargeFile in the debug directory
 
 ## Overview
 
@@ -71,7 +60,7 @@ anybody outside the course.
 
 ## `ZippedCSVReader` Class
 
-We're providing `loans.zip`, `mini.zip`, and `trees.zip`.  This class
+We're providing `loans.zip`, `mini.zip`.  This class
 will help your other code access the data.  Here are a couple examples
 of how the class is instantiated:
 
@@ -85,6 +74,8 @@ After the above call, it should be possible to see a list of files via a `path` 
 ```python
 print(data_reader.paths) # in alphabetical order!
 ```
+
+For this, you can refer to lab3 part2 (https://github.com/tylerharter/cs320/blob/master/s21/lab3/part2.md).
 
 
 
@@ -107,16 +98,16 @@ for row in reader.csv_iter("specific.csv"):
 
 As you can see, both take a file name.  But for `csv_iter`, it is
 optional; if not passed, it essentially concatenates all CSV data (use
-all .csv files in alphabetical order). You can use generator to implement `lines` and `csv_iter`, and you can also return the list of rows as the return value of `lines` and `csv_iter` instead of using generator. You can review CS 220 lecture note (https://www.msyamkumar.com/cs220/f20/materials/lec_24_F20.pdf) to review generator.
-
-If you choose to use generator, the `lines` method looks like this:
+all .csv files in alphabetical order). `lines` and `csv_iter` should return the list of rows in files
 
 ```python
-    def lines(self, name):
-        with ZipFile(self.filename) as zf:
-            with zf.open(name) as f:
-                for line in TextIOWrapper(f):
-                    yield line
+def lines(self, name):
+    rows = []
+    with ZipFile(self.filename) as zf:
+        with zf.open(name) as f:
+            for line in TextIOWrapper(f):
+                rows.append(line)
+    return rows
 ```
 
 For `csv_iter`, you'll want to do something similar, but you'll need
@@ -184,7 +175,7 @@ for loan in b.loan_iter():
 
 `Bank` is doing two things here: (1) converting OrderedDicts rows to
 Loan objects, and (2) filtering to rows where `agency_abbr` is "HUD".
-As in `csv_iter` (which `Bank` uses), `loan_iter` should use `yield`.
+As in `csv_iter` (which `Bank` uses), `loan_iter` should return the list of loan objects.
 
 When converting, `amount` and `income` should be converted to ints.
 Missing values (`""`) should be replaced with 0.
@@ -244,7 +235,7 @@ can still use!) There are several methods should `DTree` class should
 have.  Assuming `dtree` (creative name, I know) is an object of your
 `DTree` class:
 
-* `dtree.readTree(path)` will take a file name (such as `simple.txt`) that will be read from a json file and build a decision tree using its contents (a bit more on this below). It is not required to return anything
+* `dtree.readTree(path)` will take a file path (such as `os.path.join(trees,simple.json)`) that will be read from a json file and build a decision tree using its contents (a bit more on this below). It is not required to return anything. To read json file, you can review lab3 part1 (https://github.com/tylerharter/cs320/blob/master/s21/lab3/part1.md).
 * `dtree.predict(data)` will return True for loan approved and False for loan disapproved using the tree built in `readTree`
 * `dtree.getDisapproved()` will return how many applicants have been disapproved so far
 
@@ -252,16 +243,17 @@ The following code snippet should create a tree and make one prediction:
 
 ```python
 dtree = tree.DTree()
-dtree.readTree("simple.txt")
+file_path = os.path.join('trees', 'simple.json')
+dtree.readTree(file_path)
 dtree.predict(loan)
 ```
 
 Having a separate `Node` class will almost certainly be helpful, but
 we don't require it.
 
-#### simple.txt
+#### simple.json
 
-While there are other txt files like this one, we will just go through
+While there are other json files like this one, we will just go through
 this one as a bit of an example.
 
 ```
@@ -313,28 +305,26 @@ The decision trees can be read in as a series of nested dictionaries. Each
 dictionary contains four fields: field (type of the value ie. amount, income, etc.), 
 threshold (the value held in the dictionary),left (<= current value), and right (> current value). 
 The dictionary itself can be thought of as the tree, with the inner dictionaries being the nodes 
-as you traverse down the tree. Dictionaries with a field of 'class' can be thought of as the leaf nodes.
+as you traverse down the tree. Dictionaries with a field of 'class' can be thought of as the leaf nodes. 'threshold' in Dictionaries with a field of 'class' can be interpreted as the prediction value, which is 0 or 1.
 
 How can we read the above tree?
 
-Let's say somebody is applying for a 190 (thousand dollar) loan and
-makes 45 (thousands dollars) per year.  We see that `amount <= 200` is
-True (and `amount > 200` is not), so we take the left branch.  Next,
-we see `income <= 35` is False, but `income > 35` is True, so we take
-the right branch.  Finally, we end up at `class: 1`.  In these trees,
-`1` means "approve" and `0` means "deny".  This particular loan
+Let's say somebody is applying for a 190 (thousand dollar) loan (`amount=190`) and
+makes 45 (thousands dollars) per year (`income=45`).  We see that `"field": "amount"` and `"threshold": 200"`. Since `amount <= 200`, we take the left branch. Next, we see `"field": "income"` and `"threshold: 35"` from the left child node. Since `income > 35` we take the right branch. In the right child node, we see  `"field": "class"` and `"threshold: 1"`, which represents predicted class is 1.  In these trees, class
+`1` means "approve" and class `0` means "deny".  This particular loan
 application is therefore approved.
 
 #### Hints:
 
-* this is a binary tree!
-* in this format, the root node isn't shown, but you still need to add it
-* leaves have a "class", and other nodes have a split field and threshold
-* consider splitting on "---".  The number of bars on the left tells you the node depth: "|   |" has depth 2 (the node, not show, has depth 0)
-* notice that the information is a little redundant.  Instead of storing "amount <= 200" and "amount >  200" in the two children of the root,** it makes more sense to store this information once in the root node** (split key is "amount", threshold is 200). The left child would be considered either <= being true or > true, and the right child would be the other. 
-* each line represents a node.  If you loop over them one at a time, how do you find the parent node?  Here's an observation: if you are on a line for a depth-5 node, it's parent is depth-4 node most recently added to the tree.  One strategy is to keep a dictionary where the key is the depth and the value is the node most recently added at that level.
-* this can also be done recursively. It would probably be easiest to not call it recursively by line, but to call it for each node (so in the call for root, it would be called twice, once for root.left and once for root.right). 
-* the binary tree for simple.txt should be similar to tree.jpg (located in this repo)
+* This is a binary tree!
+
+* When `json.load` is used, you will be able to get nested dictionaries. From nested dictionaries, you should parse it to make Node and DTree instances.
+
+* The binary tree for simple.json can be visualized as follows.
+
+  ```
+  ![simple.json](simple.json)
+  ```
 
 ### Bias Testing
 
@@ -362,9 +352,8 @@ Here's an example:
 reader = tree.ZippedCSVReader("loans.zip")
 b = tree.Bank(None, reader)
 
-tree_reader = tree.ZippedCSVReader("trees.zip")
 dtree = tree.DTree()
-dtree.readTree(tree_reader, "bad.txt")
+dtree.readTree(tree_reader, os.path.join("trees", "bad.json")
 bias_percent = tree.bias_test(b, dtree, "Black or African American")
 print(bias_percent)
 ```
