@@ -1,0 +1,48 @@
+{
+    "field": "amount",
+    "threshold": 417.50,
+    "left": {
+        "field": "amount",
+        "threshold": 173.00,
+        "left": {
+        
+        "field": "income",
+        "threshold": 90.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    }
+    },
+    
+        "right": {
+        "field": "amount",
+        "threshold": 81.50,
+        "left": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+                 },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+                 }
+                 }
+     },       
+    "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+        }
+   }

@@ -1,0 +1,79 @@
+{
+    "field": "income",
+    "threshold": 150.50,
+    "left": {
+        "field": "income",
+        "threshold": 117.76,
+        "left": {
+        
+        "field": "income",
+        "threshold": 49.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    }
+    },
+    
+        "right": {
+        "field": "amount",
+        "threshold": 0.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+                 },
+        "right": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+                 }
+                 }
+     },       
+    "right": {
+        "field": "Home purchase",
+        "threshold": 0.50,
+        "left": {
+        
+        "field": "income",
+        "threshold": 255.00,
+        "left": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    }
+    },
+        "right": {
+        "field": "income",
+        "threshold": 586.50,
+        "left": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+         },
+        "right": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+         }
+         }
+   }
+}

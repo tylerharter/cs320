@@ -1,0 +1,79 @@
+{
+    "field": "amount",
+    "threshold": 79.00,
+    "left": {
+        "field": "amount",
+        "threshold": 9.00,
+        "left": {
+        
+        "field": "amount",
+        "threshold": 1.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    }
+    },
+    
+        "right": {
+        "field": "amount",
+        "threshold": 72.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+                 },
+        "right": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+                 }
+                 }
+     },       
+    "right": {
+        "field": "amount",
+        "threshold": 267.50,
+        "left": {
+        
+        "field": "Refinancing",
+        "threshold": 0.50,
+        "left": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    }
+    },
+        "right": {
+        "field": "Refinancing",
+        "threshold": 0.50,
+        "left": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+         },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+         }
+         }
+   }
+}

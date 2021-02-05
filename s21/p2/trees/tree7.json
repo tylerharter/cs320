@@ -1,0 +1,79 @@
+{
+    "field": "amount",
+    "threshold": 98.50,
+    "left": {
+        "field": "income",
+        "threshold": 132.50,
+        "left": {
+        
+        "field": "income",
+        "threshold": 66.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    }
+    },
+    
+        "right": {
+        "field": "amount",
+        "threshold": 32.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+                 },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+                 }
+                 }
+     },       
+    "right": {
+        "field": "income",
+        "threshold": 99.50,
+        "left": {
+        
+        "field": "income",
+        "threshold": 32.50,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    }
+    },
+        "right": {
+        "field": "income",
+        "threshold": 101.98,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+         },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+         }
+         }
+   }
+}

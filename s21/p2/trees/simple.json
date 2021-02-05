@@ -1,0 +1,36 @@
+{
+    "field": "amount",
+    "threshold": 200,
+    "left": {
+        "field": "income",
+        "threshold": 35,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    }
+    },
+    "right": {
+        "field": "income",
+        "threshold": 70,
+        "left": {
+        "field": "class",
+        "threshold": 0,
+        "left": null,
+        "right": null
+    },
+        "right": {
+        "field": "class",
+        "threshold": 1,
+        "left": null,
+        "right": null
+    }
+    }
+}
