@@ -322,9 +322,7 @@ application is therefore approved.
 
 * The binary tree for simple.json can be visualized as follows.
 
-  ```
-  ![simple.json](simple.json)
-  ```
+  ![simple.json](tree.png)
 
 ### Bias Testing
 
