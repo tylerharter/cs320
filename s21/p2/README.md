@@ -50,7 +50,7 @@ row-by-row basis.  Your job will be to write Python code to load and
 run the decision trees.  At least one of them is racially biased, and
 you'll be asked to write a function that exposes this.
 
-# Group Part (75%)
+# Group Part (60%)
 
 For this portion of the project, you may collaborate with your group
 members in any way (even looking at working code).  You may also seek
@@ -198,7 +198,7 @@ def loan_filter(self, loan_min, loan_max, loan_purpose):
 
 
 
-# Individual Part (25%)
+# Individual Part (40%)
 
 You have to do the remainder of this project on your own.  Do not
 discuss with anybody except 320 staff (mentors, TAs, instructor).
