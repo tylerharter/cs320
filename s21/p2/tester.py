@@ -224,7 +224,7 @@ def testBankNames():
     else:
         return 5
 
-@test(points=15)
+@test(points=5)
 def testSimplePredictor():
     reader = tree.ZippedCSVReader('mini.zip')
     b = tree.Bank(None, reader)
@@ -238,28 +238,45 @@ def testSimplePredictor():
             print("unexpected results for SimplePredictor.predict: {}".format(err))
             mistakes += 1
             
-    points = 7 if mistakes == 0 else 0
+    points = 3 if mistakes == 0 else 0
 
     # test get_approved
     err = is_expected(actual=sp.get_approved(), name="testSp:get_approved")
     if err != None:
         print("unexpected results for Sp.get_approved(): {}".format(err))
     else:
-        points += 4
+        points += 1
         
     # test get_denied
     err = is_expected(actual=sp.get_denied(), name="testSp:get_denieds")
     if err != None:
         print("unexpected results for Sp.get_denied(): {}".format(err))
     else:
-        points += 4
+        points += 1
 
+    return points
+
+@test(points=1)
+def testDTreeNodeCount():
+    dtree = tree.DTree(tree.ZippedCSVReader("trees.zip").load_json("simple.json"))
+    return 1
+
+@test(points=9)
+def testDTreeNodeCount():
+    points = 0
+    for file_name in ['simple.json', 'good.json', 'bad.json']:
+        dtree = tree.DTree(tree.ZippedCSVReader("trees.zip").load_json(file_name))
+        err = is_expected(actual=dtree.node_count(), name="testDTree:node_count:%sd"%(file_name))
+        if err != None:
+            print("unexpected results for DTree.predict(): {}".format(err))
+        else:
+            points += 3
     return points
 
 # INDIVIDUAL
 
 @test(points=15)
-def testDTree():
+def testDTreePredict():
     points = 0
 
     reader = tree.ZippedCSVReader('loans.zip')

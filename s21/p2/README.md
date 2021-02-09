@@ -299,8 +299,8 @@ approved.
 In terms of code, a DT (decision tree) has some similarities to a BST
 (binary search tree).  In both cases, branches are recursively taken
 to the right and left based on thresholds.  With a BST, we're working
-with a single value, the comparisons at all nodes are against that one
-value.  With a DT, we're working with a row of data, and each node
+with a single value, so the comparisons at all nodes are against that
+one value.  With a DT, we're working with a row of data, and each node
 tells us not only the threshold, but which field of the row should be
 considered.
 
