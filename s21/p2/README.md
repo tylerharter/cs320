@@ -1,3 +1,5 @@
+# DON'T START YET (still revising)
+
 # Project 2: Decision Trees and Bias
 
 ## Overview
@@ -5,20 +7,21 @@
 In this project, you'll learn about zip files, modules, object
 oriented programming, and trees.
 
-You will implement all classes and functions in tree.py file for this project.This is where all of your code will go.  For your own testing and debugging,we recommend creating a notebook where you do `import tree` and use the functions and classes in your module.
+You'll create a new `tree.py` file from scratch; that's the only file
+you need to hand in (though it is probably useful to also create a
+notebook to use your module for debugging purposes).
 
-You will end up implementing the following classes.
+You will end up implementing the following classes and functions.
 
-```
+```python
 class ZippedCSVReader
 class Loan
 class Bank
+def get_bank_names
 class SimplePredictor
 class DTree
+def bias_test
 ```
-
-For testing, you'll need to download the .zip files, tester.py, and
-expected.json. tester.py will test whether each class and class methods are properly implemented.
 
 ## Background: Redlining
 
@@ -43,14 +46,49 @@ https://www.consumerfinance.gov/data-research/hmda/historic-data/.
 As data scientists, a real concern we must consider is whether our
 models show bias.  If we train our models to mimic human behavior,
 will they pickup on human bias?  If we don't base our models on
-sufficient dataset, will they overgeneralize?  In this project, we'll
-be providing several files describing decision trees.  Decisions trees
+sufficient data, will they overgeneralize?  In this project, we'll be
+providing several files describing decision trees.  Decisions trees
 are a kind of model that can output things like approve/deny on a
 row-by-row basis.  Your job will be to write Python code to load and
 run the decision trees.  At least one of them is racially biased, and
 you'll be asked to write a function that exposes this.
 
-# Group Part (60%)
+## Testing
+
+Most of you will be more familiar with writing a Jupyter notebook for
+a project.  Writing a module is a bit different: you're creating a
+module with a collections of functions/classes that other people could
+use in their projects.
+
+Using those functions/classes isn't part of this project, but you'll
+need to do that anyway in order to troubleshoot your code.  We
+recommend creating a `debugging.ipynb` notebook (for your own
+purposes, not to turn in) that imports your module and uses some of
+the classes/functions.  You might do something like this:
+
+```python
+from tree import *
+%load_ext autoreload
+%autoreload 2
+```
+
+This imports everything from your tree.py file so that you can write
+snippets of code that use it.  The `%` lines automatically reload your
+module if you change it (well, it usually works -- you'll need to
+occasionally run "Kernel Restart & Run All" when it doesn't).
+
+To run our `tester.py`, you'll need to download the .zip files,
+tester.py, and expected.json. tester.py will test whether each class
+and class methods are properly implemented.  This is helpful in terms
+of grading, but is not an easy way to troubleshoot your code as you go
+(your `debugging.ipynb` will be better for that).
+
+We strongly recommend against copying code back and forth between the
+notebook and .py file throughout the development process.  It's a
+habit that will slow you down in the long run (it's better to
+comfortable directly writing code in your .py).
+
+# Group Part (75%)
 
 For this portion of the project, you may collaborate with your group
 members in any way (even looking at working code).  You may also seek
@@ -65,8 +103,8 @@ will help your other code access the data.  Here are a couple examples
 of how the class is instantiated:
 
 ```python
-data_reader = ZippedCSVReader("mini.zip")
 tree_reader = ZippedCSVReader("trees.zip")
+data_reader = ZippedCSVReader("mini.zip")
 ```
 
 After the above call, it should be possible to see a list of files via a `path` attribute, like this:
@@ -77,43 +115,42 @@ print(data_reader.paths) # in alphabetical order!
 
 For this, you can refer to lab3 part2 (https://github.com/tylerharter/cs320/blob/master/s21/lab3/part2.md).
 
+Your ZippedCSVReader will have two methods to help people access the
+data inside a zip file: `load_json` and `rows`.  Both accept an
+argument specifying the name of a file inside the zip.  `load_json`
+uses the `json` module parse the specified .json file inside the zip,
+and returns a dict.  `rows` works on .csv files; it returns a list of
+dicts corresponding to each row (hint: look into how csv.DictReader
+works).  Furthermore, if no file name is passed to `rows`, then it
+will read all files ending with ".csv" contained inside the zip,
+returning a big list of dicts corresponding to the records in all the
+CSV files (the rows of CSV files that are alphabetically earlier will
+appear earlier in this list).
 
-
-Your reader will have two methods: `lines` and `csv_iter`.  They can
-be used as follows:
-
-```python
-# loop over all lines in file.txt
-for row in reader.lines("file.txt"):
-    pass
-
-# loop over all rows as OrderedDicts from any CSV in the zip
-for row in reader.csv_iter():
-    pass
-
-# loop over all rows as OrderedDicts from specific.csv in the zip
-for row in reader.csv_iter("specific.csv"):
-    pass
-```
-
-As you can see, both take a file name.  But for `csv_iter`, it is
-optional; if not passed, it essentially concatenates all CSV data (use
-all .csv files in alphabetical order). `lines` and `csv_iter` should return the list of rows in files
+Example usage:
 
 ```python
-def lines(self, name):
-    rows = []
-    with ZipFile(self.filename) as zf:
-        with zf.open(name) as f:
-            for line in TextIOWrapper(f):
-                rows.append(line)
-    return rows
+tree = tree_reader.load_json("simple.json")
+print(tree.keys())
+
+dict_list = data_reader.rows("wi.csv")
+print()
+print(dict_list[0])
+
+dict_list = data_reader.rows()
+print()
+print(len(dict_list))
 ```
 
-For `csv_iter`, you'll want to do something similar, but you'll need
-to figure out how to use `csv.DictReader` to pull in each CSV row as
-an OrderedDict:
-https://docs.python.org/3/library/csv.html#csv.DictReader.
+Expected output:
+
+```
+dict_keys(['field', 'threshold', 'left', 'right'])
+
+{'as_of_year': '2017', 'respondent_id': '9037', 'agency_name': 'Federal Deposit Insurance Corporation', 'agency_abbr': 'FDIC', 'agency_code': '3', 'loan_type_name': 'Conventional', 'loan_type': '1', 'property_type_name': 'One-to-four family dwelling (other than manufactured housing)', 'property_type': '1', 'loan_purpose_name': 'Refinancing', 'loan_purpose': '3', 'owner_occupancy_name': 'Owner-occupied as a principal dwelling', 'owner_occupancy': '1', 'loan_amount_000s': '53', 'preapproval_name': 'Not applicable', 'preapproval': '3', 'action_taken_name': 'Loan originated', 'action_taken': '1', 'state_name': 'Wisconsin', 'state_abbr': 'WI', 'state_code': '55', 'county_name': 'Iowa County', 'county_code': '49.0', 'applicant_ethnicity_name': 'Not Hispanic or Latino', 'applicant_ethnicity': '2', 'co_applicant_ethnicity_name': 'No co-applicant', 'co_applicant_ethnicity': '5', 'applicant_race_name_1': 'White', 'applicant_race_1': '5', 'applicant_race_name_2': '', 'applicant_race_2': '', 'applicant_race_name_3': '', 'applicant_race_3': '', 'co_applicant_race_name_1': 'No co-applicant', 'co_applicant_race_1': '8', 'co_applicant_race_name_2': '', 'co_applicant_race_2': '', 'applicant_sex_name': 'Male', 'applicant_sex': '1', 'co_applicant_sex_name': 'No co-applicant', 'co_applicant_sex': '5', 'applicant_income_000s': '29', 'purchaser_type_name': 'Other type of purchaser', 'purchaser_type': '9', 'denial_reason_name_1': '', 'denial_reason_1': '', 'denial_reason_name_2': '', 'denial_reason_2': '', 'population': '3041.0', 'minority_population': '4', 'hud_median_family_income': '81300'}
+
+30
+```
 
 ### `Loan` Class
 
@@ -135,7 +172,7 @@ class Loan:
 It can be instantiated like this:
 
 ```python
-loan = tree.Loan(40, "Home improvement", "Asian", 120, "approve")
+loan = Loan(40, "Home improvement", "Asian", 120, "approve")
 ```
 
 `repr(loan)` should return something like this:
@@ -164,21 +201,44 @@ b = Bank(name, reader)
 ```
 
 `reader` is an instance of your `ZippedCSVReader` class.  A
-`loan_iter` object can be used like this:
+`loans` object can be used like this:
 
 ```python
 reader = ZippedCSVReader('loans.zip')
-b = Bank("HUD", reader)
-for loan in b.loan_iter():
-    pass # loan is of type Loan
+b = Bank("HUD", data_reader)
+for loan in b.loans():
+    print(loan) # loan is of type Loan
 ```
 
-`Bank` is doing two things here: (1) converting OrderedDicts rows to
-Loan objects, and (2) filtering to rows where `agency_abbr` is "HUD".
-As in `csv_iter` (which `Bank` uses), `loan_iter` should return the list of loan objects.
+Expected output:
 
-When converting, `amount` and `income` should be converted to ints.
-Missing values (`""`) should be replaced with 0.
+```
+Loan(131, 'Home purchase', 'White', 35, 'approve')
+Loan(77, 'Home purchase', 'White', 49, 'approve')
+Loan(330, 'Refinancing', 'White', 233, 'approve')
+Loan(154, 'Refinancing', 'Black or African American', 88, 'approve')
+Loan(55, 'Refinancing', 'White', 96, 'deny')
+Loan(162, 'Home purchase', 'Not applicable', 0, 'deny')
+Loan(103, 'Home purchase', 'White', 49, 'deny')
+Loan(152, 'Refinancing', 'White', 74, 'approve')
+Loan(121, 'Home purchase', 'Not applicable', 0, 'deny')
+Loan(219, 'Home purchase', 'White', 72, 'approve')
+Loan(4, 'Home purchase', 'White', 44, 'approve')
+Loan(139, 'Refinancing', 'White', 0, 'deny')
+Loan(151, 'Refinancing', 'Information not provided by applicant in mail, Internet, or telephone application', 0, 'deny')
+```
+
+`Bank` is doing two things here: (1) converting dict rows to Loan
+objects, and (2) filtering to rows where `agency_abbr` is "HUD".  As
+in `ZippedCSVReader.rows` (which `Bank` uses), `loans` should return
+the list of loan objects.  If `None` is passed for the bank name,
+`loans()` should return `Loan` objects for all rows in the zip file.
+
+Relevant fields when reading from the CSV: `agency_abbr`,
+`applicant_race_name_1`, `loan_amount_000s`, `loan_purpose_name`,
+`applicant_income_000s`, `action_taken`.  When converting, `amount`
+and `income` should be converted to ints.  Missing values (`""`)
+should be replaced with 0.
 
 To figure out what bank names (like "HUD") are in the dataset, you
 should have a function (not a method!) in `trees.py` that works like
@@ -188,21 +248,6 @@ this:
 names = get_bank_names(reader) # should be sorted alphabetically
 ```
 
-Finally, `Bank` should have a method like `loan_iter` that does additional filtering:
-
-```python
-def loan_filter(self, loan_min, loan_max, loan_purpose):
-```
-
-`loan_min` and `loan_max` are both inclusive, which means you will filter data with the condition `loan_min <= x <= loan_max`.
-
-
-
-# Individual Part (40%)
-
-You have to do the remainder of this project on your own.  Do not
-discuss with anybody except 320 staff (mentors, TAs, instructor).
-
 ### `SimplePredictor` Class
 
 Instances of `SimplePredictor` can be used to decide whether to
@@ -210,16 +255,22 @@ approve a loan.  You can start from the following:
 
 ```python
 class SimplePredictor():
+    def __init__(self):
+        pass
+
     def predict(self, loan):
         pass
 
-    def getApproved(self):
+    def get_approved(self):
+        pass
+
+    def get_denied(self):
         pass
 ```
 
 Assuming `spred` is a `SimplePredictor` object, `spred.predict(loan)`
 will return True if the loan should be accepted, and False otherwise.
-`spred.getApproved()` will return how many applicants have been
+`spred.get_approved()` will return how many applicants have been
 approved so far
 
 The policy of SimplePredictor is simple: approve all loans where the
@@ -227,37 +278,70 @@ purpose is "Home improvement" and deny all others.
 
 ### `DTree` Class
 
-The `DTree` class (which stands for Decision Tree) will provide you
-with a better means of predicting whether or not an applicant should
-have their loan accepted.  Your `DTree` class must inherit from
-`SimplePredictor`. (While it is simple, there's some stuff in there we
-can still use!) There are several methods should `DTree` class should
-have.  Assuming `dtree` (creative name, I know) is an object of your
-`DTree` class:
+Decision Trees are trees that can be used to make predictions (or
+decisions).  Consider the following picture:
 
-* `dtree.readTree(path)` will take a file path (such as `os.path.join(trees,simple.json)`) that will be read from a json file and build a decision tree using its contents (a bit more on this below). It is not required to return anything. To read json file, you can review lab3 part1 (https://github.com/tylerharter/cs320/blob/master/s21/lab3/part1.md).
-* `dtree.predict(data)` will return True for loan approved and False for loan disapproved using the tree built in `readTree`
-* `dtree.getDisapproved()` will return how many applicants have been disapproved so far
+![simple.json](tree.png)
 
-The following code snippet should create a tree and make one prediction:
+How can we read the above tree?
+
+Let's say somebody is applying for a 190 (thousand dollar) loan
+(`amount=190`) and makes 45 (thousands dollars) per year
+(`income=45`).  We see that `"field": "amount"` and `"threshold":
+200"`. Since `amount <= 200`, we take the left branch. Next, we see
+`"field": "income"` and `"threshold: 35"` from the left child
+node. Since `income > 35` we take the right branch. In the right child
+node, we see `"field": "class"` and `"threshold: 1"`, which represents
+predicted class is 1.  In these trees, class `1` means "approve" and
+class `0` means "deny".  This particular loan application is therefore
+approved.
+
+In terms of code, a DT (decision tree) has some similarities to a BST
+(binary search tree).  In both cases, branches are recursively taken
+to the right and left based on thresholds.  With a BST, we're working
+with a single value, the comparisons at all nodes are against that one
+value.  With a DT, we're working with a row of data, and each node
+tells us not only the threshold, but which field of the row should be
+considered.
+
+In class, we often implemented a `Node` class.  Here, for simplicity,
+we'll use dictionaries instead of custom objects.  The advantage is
+that our trees can then be directly loaded from JSON files, with
+minimal processing.
+
+You will, however, implement a `DTree` class to help make predictions
+based on the tree of dictionaries.  Complete the following to get
+started (`DTree` should inherit from `SimplePredictor`):
 
 ```python
-dtree = tree.DTree()
-file_path = os.path.join('trees', 'simple.json')
-dtree.readTree(file_path)
-dtree.predict(loan)
+class DTree(????):
+    def __init__(self, nodes):
+        ???? # TODO: call parent constructor
+
+        # a dict with keys: field, threshold, left, right
+        # left and right, if set, refer to similar dicts
+        self.root = nodes
+
+    def dump(self, node=None, indent=0):
+        if node == None:
+            node = self.root
+
+        if node["field"] == "class":
+            line = "class=" + str(node["threshold"])
+        else:
+            line = node["field"] + " <= " + str(node["threshold"])
+        print("  "*indent + line)
+        if ????:
+            self.dump(node["left"], indent+1)
+        if node["right"]:
+            ????
 ```
 
-Having a separate `Node` class will almost certainly be helpful, but
-we don't require it.
+Test your code.  You should be able to create a DTree based on nested
+dicts, then dump it, as follows:
 
-#### simple.json
-
-While there are other json files like this one, we will just go through
-this one as a bit of an example.
-
-```
-{
+```python
+node_dicts = {
     "field": "amount",
     "threshold": 200,
     "left": 
@@ -268,15 +352,15 @@ this one as a bit of an example.
             {
             "field": "class",
             "threshold": 0,
-            "left": null,
-            "right": null
+            "left": None,
+            "right": None
             },
         "right": 
             {
             "field": "class",
             "threshold": 1,
-            "left": null,
-            "right": null
+            "left": None,
+            "right": None
             }
     },
     "right": 
@@ -287,42 +371,88 @@ this one as a bit of an example.
             {
             "field": "class",
             "threshold": 0,
-            "left": null,
-            "right": null
+            "left": None,
+            "right": None
             },
         "right": 
             {
             "field": "class",
             "threshold": 1,
-            "left": null,
-            "right": null
+            "left": None,
+            "right": None
         }
     }
 }
+
+dt = DTree(node_dicts)
+dt.dump()
 ```
 
-The decision trees can be read in as a series of nested dictionaries. Each 
-dictionary contains four fields: field (type of the value ie. amount, income, etc.), 
-threshold (the value held in the dictionary),left (<= current value), and right (> current value). 
-The dictionary itself can be thought of as the tree, with the inner dictionaries being the nodes 
-as you traverse down the tree. Dictionaries with a field of 'class' can be thought of as the leaf nodes. 'threshold' in Dictionaries with a field of 'class' can be interpreted as the prediction value, which is 0 or 1.
+You should see something like this (note that this simple text representation is equivalent to the earlier tree diagram):
 
-How can we read the above tree?
+```
+amount <= 200
+  income <= 35
+    class=0
+    class=1
+  income <= 70
+    class=0
+    class=1
+```
 
-Let's say somebody is applying for a 190 (thousand dollar) loan (`amount=190`) and
-makes 45 (thousands dollars) per year (`income=45`).  We see that `"field": "amount"` and `"threshold": 200"`. Since `amount <= 200`, we take the left branch. Next, we see `"field": "income"` and `"threshold: 35"` from the left child node. Since `income > 35` we take the right branch. In the right child node, we see  `"field": "class"` and `"threshold: 1"`, which represents predicted class is 1.  In these trees, class
-`1` means "approve" and class `0` means "deny".  This particular loan
-application is therefore approved.
+Of course, you won't usually paste large tree dicts into your code.
+It makes more sense to use your `load_json` method from earlier to
+read a dict tree from a JSON inside a zip file.  The following
+achieves the same result as above:
 
-#### Hints:
+```python
+tree_reader = ZippedCSVReader("trees.zip")
+dt = DTree(tree_reader.load_json("simple.json"))
+dt.dump()
+```
 
-* This is a binary tree!
+**Dictionary Format**: each dictionary contains four fields: `field`
+(type of the value ie. amount, income, etc.), `threshold` (the value
+held in the dictionary), `left` (<= current value), and `right` (>
+current value).  Dictionaries with a field of "class" treat the fields
+a little differently.  They are guaranteed to be leaf nodes (`left`
+and `right` will be None) and `threshold` is interpreted as the
+prediction value of 0 or 1 (instead of a value for comparison as in
+non-leaf nodes).
 
-* When `json.load` is used, you will be able to get nested dictionaries. From nested dictionaries, you should parse it to make Node and DTree instances.
+For now, add one more recursive method named `node_count` to `DTree`
+that counts the number of nodes in the tree.  The following should
+return 61, for example:
 
-* The binary tree for simple.json can be visualized as follows.
+```python
+tree_reader = ZippedCSVReader("trees.zip")
+dt = DTree(tree_reader.load_json("good.json"))
+dt.node_count()
+```
 
-  ![simple.json](tree.png)
+# Individual Part (25%)
+
+You have to do the remainder of this project on your own.  Do not
+discuss with anybody except 320 staff (mentors, TAs, instructor).
+
+### `DTree.predict` Method
+
+Add a recursive `predict` method that takes a Loan object and
+traverses the nodes of the decision tree to determine whether or not
+to approve the loan.  `predict` should return True or False, and
+should work like this:
+
+```python
+tree_reader = ZippedCSVReader("trees.zip")
+dt = DTree(tree_reader.load_json("simple.json"))
+loan = Loan(40, "Home improvement", "Asian", 120, "approve")
+dt.predict(loan)
+```
+
+The above returns True, but to manually test your code (before running
+the tester.py), try changing the `amount` and `income` values to
+trigger decisions based on each of the leaf nodes in the decision
+tree.
 
 ### Bias Testing
 
@@ -338,7 +468,7 @@ def bias_test(bank, predictor, race_override):
     pass
 ```
 
-1. use bank to iterate over loans with `loan_iter`
+1. use bank to iterate over loans with `loans`
 2. for each loan, feed it directly to predictor, and store the result
 3. modify the loan, changing the race of applicant to `race_override`
 4. feed the modified loan to the predictor again, and compare new result to previous result
@@ -347,16 +477,13 @@ def bias_test(bank, predictor, race_override):
 Here's an example:
 
 ```python
-reader = tree.ZippedCSVReader("loans.zip")
-b = tree.Bank(None, reader)
-
-dtree = tree.DTree()
-dtree.readTree(tree_reader, os.path.join("trees", "bad.json")
-bias_percent = tree.bias_test(b, dtree, "Black or African American")
+b = Bank(None, ZippedCSVReader("loans.zip"))
+dt = DTree(ZippedCSVReader("trees.zip").load_json("bad.json"))
+bias_percent = bias_test(b, dt, "Black or African American")
 print(bias_percent)
 ```
 
-Here, the result should be `0.4138`.  The decision tree in "bad.txt"
+Here, the result should be `0.4138`.  The decision tree in "bad.json"
 is exhibiting major bias with respect to Black and African American
 applicants, with race being a deciding factor 41% of the time.
 
@@ -366,9 +493,9 @@ When we build models to mimic human behavior, we need to be careful
 that our models don't also become biased.  In this project, we tested
 a number of models for one kind of bias (racial).  The HDMA data set
 is quite extensive.  Take a moment to think about what other biases
-you might want to check for before using decision trees to make loan
-decisions for real people.  For inspiration, here are some of the
-columns in the HDMA dataset:
+you might want to check for before using decision trees (or other
+models) to make loan decisions for real people.  For inspiration, here
+are some of the columns in the HDMA dataset:
 
 ```
 as_of_year, respondent_id, agency_name, agency_abbr, agency_code,
