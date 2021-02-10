@@ -3,6 +3,7 @@
 ## Corrections/Clarifications
 
 * Jan 28: fix expected.html to work with both versions of beautifulsoup4
+* Feb 10: reword "not counting the time to generate the input file" to "not counting the time to generate the random text that is passed to run_wc"
 
 ## Overview
 
@@ -377,7 +378,7 @@ Specifications:
 * `total_words`: the function should randomly sample this many words from the above list to produce an input string
 * `word_size`: how many characters long each word should be
 * `commit`: what version of `wc.py` to run on the random input
-* **return value**: how many seconds it took to run `wc.py` (not counting the time to generate the input file)
+* **return value**: how many seconds it took to run `wc.py` (not counting the time to generate the random text that is passed to run_wc)
 
 Hint: Try taking a look at the random module's `choice` function...
 
