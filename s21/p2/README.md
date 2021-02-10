@@ -1,5 +1,3 @@
-# DON'T START YET (still revising)
-
 # Project 2: Decision Trees and Bias
 
 ## Overview
@@ -147,9 +145,9 @@ Expected output:
 ```
 dict_keys(['field', 'threshold', 'left', 'right'])
 
-{'as_of_year': '2017', 'respondent_id': '9037', 'agency_name': 'Federal Deposit Insurance Corporation', 'agency_abbr': 'FDIC', 'agency_code': '3', 'loan_type_name': 'Conventional', 'loan_type': '1', 'property_type_name': 'One-to-four family dwelling (other than manufactured housing)', 'property_type': '1', 'loan_purpose_name': 'Refinancing', 'loan_purpose': '3', 'owner_occupancy_name': 'Owner-occupied as a principal dwelling', 'owner_occupancy': '1', 'loan_amount_000s': '53', 'preapproval_name': 'Not applicable', 'preapproval': '3', 'action_taken_name': 'Loan originated', 'action_taken': '1', 'state_name': 'Wisconsin', 'state_abbr': 'WI', 'state_code': '55', 'county_name': 'Iowa County', 'county_code': '49.0', 'applicant_ethnicity_name': 'Not Hispanic or Latino', 'applicant_ethnicity': '2', 'co_applicant_ethnicity_name': 'No co-applicant', 'co_applicant_ethnicity': '5', 'applicant_race_name_1': 'White', 'applicant_race_1': '5', 'applicant_race_name_2': '', 'applicant_race_2': '', 'applicant_race_name_3': '', 'applicant_race_3': '', 'co_applicant_race_name_1': 'No co-applicant', 'co_applicant_race_1': '8', 'co_applicant_race_name_2': '', 'co_applicant_race_2': '', 'applicant_sex_name': 'Male', 'applicant_sex': '1', 'co_applicant_sex_name': 'No co-applicant', 'co_applicant_sex': '5', 'applicant_income_000s': '29', 'purchaser_type_name': 'Other type of purchaser', 'purchaser_type': '9', 'denial_reason_name_1': '', 'denial_reason_1': '', 'denial_reason_name_2': '', 'denial_reason_2': '', 'population': '3041.0', 'minority_population': '4', 'hud_median_family_income': '81300'}
+{'as_of_year': '2017', 'respondent_id': '33-0975529', 'agency_name': 'Department of Housing and Urban Development', 'agency_abbr': 'HUD', 'agency_code': '7', 'loan_type_name': 'VA-guaranteed', 'loan_type': '3', 'property_type_name': 'One-to-four family dwelling (other than manufactured housing)', 'property_type': '1', 'loan_purpose_name': 'Refinancing', 'loan_purpose': '3', 'owner_occupancy_name': 'Owner-occupied as a principal dwelling', 'owner_occupancy': '1', 'loan_amount_000s': '165', 'preapproval_name': 'Not applicable', 'preapproval': '3', 'action_taken_name': 'Loan originated', 'action_taken': '1', 'state_name': 'Wisconsin', 'state_abbr': 'WI', 'state_code': '55', 'county_name': 'Outagamie County', 'county_code': '87.0', 'applicant_ethnicity_name': 'Not Hispanic or Latino', 'applicant_ethnicity': '2', 'co_applicant_ethnicity_name': 'Not Hispanic or Latino', 'co_applicant_ethnicity': '2', 'applicant_race_name_1': 'White', 'applicant_race_1': '5', 'applicant_race_name_2': '', 'applicant_race_2': '', 'applicant_race_name_3': '', 'applicant_race_3': '', 'co_applicant_race_name_1': 'White', 'co_applicant_race_1': '5', 'co_applicant_race_name_2': '', 'co_applicant_race_2': '', 'applicant_sex_name': 'Male', 'applicant_sex': '1', 'co_applicant_sex_name': 'Female', 'co_applicant_sex': '2', 'applicant_income_000s': '57', 'purchaser_type_name': 'Life insurance company, credit union, mortgage bank, or finance company', 'purchaser_type': '7', 'denial_reason_name_1': '', 'denial_reason_1': '', 'denial_reason_name_2': '', 'denial_reason_2': '', 'population': '5765.0', 'minority_population': '24', 'hud_median_family_income': '74700'}
 
-30
+60
 ```
 
 ### `Loan` Class
@@ -205,7 +203,7 @@ b = Bank(name, reader)
 
 ```python
 reader = ZippedCSVReader('loans.zip')
-b = Bank("HUD", data_reader)
+b = Bank("NCUA", data_reader)
 for loan in b.loans():
     print(loan) # loan is of type Loan
 ```
@@ -213,19 +211,13 @@ for loan in b.loans():
 Expected output:
 
 ```
-Loan(131, 'Home purchase', 'White', 35, 'approve')
-Loan(77, 'Home purchase', 'White', 49, 'approve')
-Loan(330, 'Refinancing', 'White', 233, 'approve')
-Loan(154, 'Refinancing', 'Black or African American', 88, 'approve')
-Loan(55, 'Refinancing', 'White', 96, 'deny')
-Loan(162, 'Home purchase', 'Not applicable', 0, 'deny')
-Loan(103, 'Home purchase', 'White', 49, 'deny')
-Loan(152, 'Refinancing', 'White', 74, 'approve')
-Loan(121, 'Home purchase', 'Not applicable', 0, 'deny')
-Loan(219, 'Home purchase', 'White', 72, 'approve')
-Loan(4, 'Home purchase', 'White', 44, 'approve')
-Loan(139, 'Refinancing', 'White', 0, 'deny')
-Loan(151, 'Refinancing', 'Information not provided by applicant in mail, Internet, or telephone application', 0, 'deny')
+Loan(94, 'Refinancing', 'Information not provided by applicant in mail, Internet, or telephone application', 71, 'deny')
+Loan(55, 'Home purchase', 'White', 41, 'deny')
+Loan(20, 'Refinancing', 'Black or African American', 41, 'approve')
+Loan(22, 'Refinancing', 'White', 36, 'approve')
+Loan(175, 'Refinancing', 'White', 70, 'approve')
+Loan(191, 'Home purchase', 'Information not provided by applicant in mail, Internet, or telephone application', 68, 'approve')
+Loan(82, 'Refinancing', 'White', 40, 'deny')
 ```
 
 `Bank` is doing two things here: (1) converting dict rows to Loan
@@ -274,7 +266,7 @@ will return True if the loan should be accepted, and False otherwise.
 approved so far
 
 The policy of SimplePredictor is simple: approve all loans where the
-purpose is "Home improvement" and deny all others.
+purpose is "Refinancing" and deny all others.
 
 ### `DTree` Class
 
