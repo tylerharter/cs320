@@ -105,7 +105,7 @@ tree_reader = ZippedCSVReader("trees.zip")
 data_reader = ZippedCSVReader("mini.zip")
 ```
 
-After the above call, it should be possible to see a list of files via a `path` attribute, like this:
+After the above call, it should be possible to see a list of files via a `paths` attribute, like this:
 
 ```python
 print(data_reader.paths) # in alphabetical order!
@@ -221,7 +221,7 @@ Loan(82, 'Refinancing', 'White', 40, 'deny')
 ```
 
 `Bank` is doing two things here: (1) converting dict rows to Loan
-objects, and (2) filtering to rows where `agency_abbr` is "HUD".  As
+objects, and (2) filtering to rows where `agency_abbr` is "NCUA".  As
 in `ZippedCSVReader.rows` (which `Bank` uses), `loans` should return
 the list of loan objects.  If `None` is passed for the bank name,
 `loans()` should return `Loan` objects for all rows in the zip file.
