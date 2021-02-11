@@ -1,5 +1,9 @@
 # Project 2: Decision Trees and Bias
 
+## Corrections/Clarifications
+
+* Feb 11: clarified how to interpret `action_taken`
+
 ## Overview
 
 In this project, you'll learn about zip files, modules, object
@@ -230,7 +234,8 @@ Relevant fields when reading from the CSV: `agency_abbr`,
 `applicant_race_name_1`, `loan_amount_000s`, `loan_purpose_name`,
 `applicant_income_000s`, `action_taken`.  When converting, `amount`
 and `income` should be converted to ints.  Missing values (`""`)
-should be replaced with 0.
+should be replaced with 0.  `action_taken` is 1 for "approve" and 0
+for "deny".
 
 To figure out what bank names (like "HUD") are in the dataset, you
 should have a function (not a method!) in `trees.py` that works like
