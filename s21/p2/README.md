@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Feb 12: clarified `loans()` method and `name`,`reader` in `Bank` class. And, added an Expected output for `get_bank_names`.
 * Feb 11: clarified how to interpret `action_taken`
 
 ## Overview
@@ -202,11 +203,10 @@ Instances can be instantiated like this:
 b = Bank(name, reader)
 ```
 
-`reader` is an instance of your `ZippedCSVReader` class.  A
-`loans` object can be used like this:
+, where `name` is a string and `reader` is an instance of your `ZippedCSVReader` class.  A
+`loans` method can be used like this:
 
 ```python
-reader = ZippedCSVReader('loans.zip')
 b = Bank("NCUA", data_reader)
 for loan in b.loans():
     print(loan) # loan is of type Loan
@@ -242,7 +242,15 @@ should have a function (not a method!) in `trees.py` that works like
 this:
 
 ```python
+reader = ZippedCSVReader('loans.zip')
 names = get_bank_names(reader) # should be sorted alphabetically
+print(names)
+```
+
+Expected output:
+
+```
+['CFPB', 'FDIC', 'FRS', 'HUD', 'NCUA', 'OCC']
 ```
 
 ### `SimplePredictor` Class
