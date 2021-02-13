@@ -3,6 +3,7 @@
 ## Corrections/Clarifications
 
 * Feb 11: clarified how to interpret `action_taken`
+* TODO: data_reader vs. reader in Bank example
 
 ## Overview
 
