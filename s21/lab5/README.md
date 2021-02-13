@@ -1,4 +1,4 @@
-# Lab 6: BSTs (Binary Search Trees)
+# Lab 5: BSTs (Binary Search Trees)
 
 In this lab, you'll create a BST that can be used as a dictionary.
 
