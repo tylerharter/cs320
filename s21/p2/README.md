@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Fed 13: fix bias_test result in README
 * Feb 12: clarified `loans()` method and `name`,`reader` in `Bank` class. And, added an Expected output for `get_bank_names`. clarified how to interpret `action_taken` more.
 * Feb 11: clarified how to interpret `action_taken`
 
@@ -487,7 +488,7 @@ bias_percent = bias_test(b, dt, "Black or African American")
 print(bias_percent)
 ```
 
-Here, the result should be `0.4138`.  The decision tree in "bad.json"
+Here, the result should be `0.4112`.  The decision tree in "bad.json"
 is exhibiting major bias with respect to Black and African American
 applicants, with race being a deciding factor 41% of the time.
 
