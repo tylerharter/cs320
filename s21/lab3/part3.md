@@ -34,7 +34,7 @@ def scale_ax():
 def plot_func(ax, f, C=1, color="k", label="work"):
     start = ax.get_xlim()[0]
     width = ax.get_xlim()[1] - ax.get_xlim()[0]
-    s = pd.Series()
+    s = pd.Series([],dtype=float)
     for i in range(100):
         N = start + width * (i+1)/100
         s[N] = eval(f)
