@@ -318,11 +318,10 @@ def testDTreePredict():
 def testBias():
     points = 0
 
-    reader = tree.ZippedCSVReader('mini.zip')
-    b = tree.Bank(None, reader)
-    li = b.loans()
-
     for file_name in ['good.json', 'bad.json']:
+        reader = tree.ZippedCSVReader('mini.zip')
+        b = tree.Bank(None, reader)
+        li = b.loans()
         dtree = tree.DTree(tree.ZippedCSVReader("trees.zip").load_json(file_name))
 
         bias_count = tree.bias_test(b, dtree, "Black or African American")
