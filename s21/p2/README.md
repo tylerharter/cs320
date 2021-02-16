@@ -3,6 +3,8 @@
 ## Corrections/Clarifications
 
 * Feb 15: edited bias_test part of tester.py
+* Fed 13: fix bias_test result in README
+* Feb 12: clarified `loans()` method and `name`,`reader` in `Bank` class. And, added an Expected output for `get_bank_names`. clarified how to interpret `action_taken` more.
 * Feb 11: clarified how to interpret `action_taken`
 * TODO: data_reader vs. reader in Bank example
 
@@ -204,11 +206,10 @@ Instances can be instantiated like this:
 b = Bank(name, reader)
 ```
 
-`reader` is an instance of your `ZippedCSVReader` class.  A
-`loans` object can be used like this:
+, where `name` is a string and `reader` is an instance of your `ZippedCSVReader` class.  A
+`loans` method can be used like this:
 
 ```python
-reader = ZippedCSVReader('loans.zip')
 b = Bank("NCUA", data_reader)
 for loan in b.loans():
     print(loan) # loan is of type Loan
@@ -236,15 +237,22 @@ Relevant fields when reading from the CSV: `agency_abbr`,
 `applicant_race_name_1`, `loan_amount_000s`, `loan_purpose_name`,
 `applicant_income_000s`, `action_taken`.  When converting, `amount`
 and `income` should be converted to ints.  Missing values (`""`)
-should be replaced with 0.  `action_taken` is 1 for "approve" and 0
-for "deny".
+should be replaced with 0.  `action_taken` is 1 for "approve", otherwise `decision` is "deny"
 
 To figure out what bank names (like "HUD") are in the dataset, you
 should have a function (not a method!) in `trees.py` that works like
 this:
 
 ```python
+reader = ZippedCSVReader('loans.zip')
 names = get_bank_names(reader) # should be sorted alphabetically
+print(names)
+```
+
+Expected output:
+
+```
+['CFPB', 'FDIC', 'FRS', 'HUD', 'NCUA', 'OCC']
 ```
 
 ### `SimplePredictor` Class
@@ -482,7 +490,7 @@ bias_percent = bias_test(b, dt, "Black or African American")
 print(bias_percent)
 ```
 
-Here, the result should be `0.4138`.  The decision tree in "bad.json"
+Here, the result should be `0.4112`.  The decision tree in "bad.json"
 is exhibiting major bias with respect to Black and African American
 applicants, with race being a deciding factor 41% of the time.
 
