@@ -67,10 +67,10 @@ class doesn't have a `__len__` method next.  Try adding it inside your `Node` cl
             raise NotImplemented("recursive case not implemented yet")
 ```
 
-Test it with `len(C)`.  It should work.  What about `len(A)` and
-`len(B)`?  Get rid of the `NotImplemented` exception and right a
-return statement for the recursive case, then test those again.
-If you're really stuck, check the [hints](hint.md#length).
+Test it with `len(L3)`.  It should work.  What about `len(L)` and
+`len(L2)`?  Get rid of the `NotImplemented` exception and right a
+return statement for the recursive case, then test those again.  If
+you're really stuck, check the [hints](hint.md#length).
 
 ## Representation
 
