@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Feb 16: tips for getting started: https://youtu.be/Ws1B8Wz4sEg
 * Feb 15: edited bias_test part of tester.py
 * Fed 13: fix bias_test result in README
 * Feb 12: clarified `loans()` method and `name`,`reader` in `Bank` class. And, added an Expected output for `get_bank_names`. clarified how to interpret `action_taken` more.
