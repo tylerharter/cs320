@@ -7,6 +7,8 @@
 * Feb 12: clarified `loans()` method and `name`,`reader` in `Bank` class. And, added an Expected output for `get_bank_names`. clarified how to interpret `action_taken` more.
 * Feb 11: clarified how to interpret `action_taken`
 
+FAQ Post [HERE](https://piazza.com/class/kjomvrz8kyl64u?cid=333)
+
 ## Overview
 
 In this project, you'll learn about zip files, modules, object
