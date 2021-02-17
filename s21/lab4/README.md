@@ -54,7 +54,7 @@ L.next.????
 
 ## Length
 
-If you try `len(A)`, `len(B)`, etc., it won't work, because the Node
+If you try `len(L)`, `len(L2)`, etc., it won't work, because the Node
 class doesn't have a `__len__` method next.  Try adding it inside your `Node` class:
 
 ```python
