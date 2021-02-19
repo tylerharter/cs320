@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* Feb 19: add an example for SimplePredictor
 * Feb 16: tips for getting started: https://youtu.be/Ws1B8Wz4sEg
 * Feb 15: edited bias_test part of tester.py
 * Fed 13: fix bias_test result in README
@@ -284,6 +285,38 @@ approved so far
 
 The policy of SimplePredictor is simple: approve all loans where the
 purpose is "Refinancing" and deny all others.
+
+For example, `SimplePredictor` object can be used like this:
+
+```
+spred = SimplePredictor()
+my_loans = [Loan(175, 'Refinancing', 'White', 70, 'approve'),
+            Loan(145, 'Home purchase', 'White', 37, 'deny'),
+            Loan(200, 'Home purchase', 'White', 95, 'approve'),
+            Loan(414, 'Home purchase', 'White', 300, 'approve'),
+            Loan(22, 'Refinancing', 'White', 36, '1')]
+
+for loan in my_loans:
+    print(loan, 'predict:', spred.predict(loan))
+    print('approved:', spred.get_approved(), 'denied', spred.get_denied())
+```
+
+Expected output:
+
+```
+Loan(175, 'Refinancing', 'White', 70, 'approve') predict: True
+approved: 1 denied 0
+Loan(145, 'Home purchase', 'White', 37, 'deny') predict: False
+approved: 1 denied 1
+Loan(200, 'Home purchase', 'White', 95, 'approve') predict: False
+approved: 1 denied 2
+Loan(414, 'Home purchase', 'White', 300, 'approve') predict: False
+approved: 1 denied 3
+Loan(22, 'Refinancing', 'White', 36, '1') predict: True
+approved: 2 denied 3
+```
+
+
 
 ### `DTree` Class
 
