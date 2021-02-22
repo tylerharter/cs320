@@ -2,7 +2,14 @@
 
 ## Corrections/Clarifications
 
+* Feb 19: add an example for SimplePredictor
+* Feb 16: tips for getting started: https://youtu.be/Ws1B8Wz4sEg
+* Feb 15: edited bias_test part of tester.py
+* Fed 13: fix bias_test result in README
+* Feb 12: clarified `loans()` method and `name`,`reader` in `Bank` class. And, added an Expected output for `get_bank_names`. clarified how to interpret `action_taken` more.
 * Feb 11: clarified how to interpret `action_taken`
+
+FAQ Post [HERE](https://piazza.com/class/kjomvrz8kyl64u?cid=333)
 
 ## Overview
 
@@ -202,11 +209,10 @@ Instances can be instantiated like this:
 b = Bank(name, reader)
 ```
 
-`reader` is an instance of your `ZippedCSVReader` class.  A
-`loans` object can be used like this:
+, where `name` is a string and `reader` is an instance of your `ZippedCSVReader` class.  A
+`loans` method can be used like this:
 
 ```python
-reader = ZippedCSVReader('loans.zip')
 b = Bank("NCUA", data_reader)
 for loan in b.loans():
     print(loan) # loan is of type Loan
@@ -234,15 +240,22 @@ Relevant fields when reading from the CSV: `agency_abbr`,
 `applicant_race_name_1`, `loan_amount_000s`, `loan_purpose_name`,
 `applicant_income_000s`, `action_taken`.  When converting, `amount`
 and `income` should be converted to ints.  Missing values (`""`)
-should be replaced with 0.  `action_taken` is 1 for "approve" and 0
-for "deny".
+should be replaced with 0.  `action_taken` is 1 for "approve", otherwise `decision` is "deny"
 
 To figure out what bank names (like "HUD") are in the dataset, you
 should have a function (not a method!) in `trees.py` that works like
 this:
 
 ```python
+reader = ZippedCSVReader('loans.zip')
 names = get_bank_names(reader) # should be sorted alphabetically
+print(names)
+```
+
+Expected output:
+
+```
+['CFPB', 'FDIC', 'FRS', 'HUD', 'NCUA', 'OCC']
 ```
 
 ### `SimplePredictor` Class
@@ -272,6 +285,38 @@ approved so far
 
 The policy of SimplePredictor is simple: approve all loans where the
 purpose is "Refinancing" and deny all others.
+
+For example, `SimplePredictor` object can be used like this:
+
+```
+spred = SimplePredictor()
+my_loans = [Loan(175, 'Refinancing', 'White', 70, 'approve'),
+            Loan(145, 'Home purchase', 'White', 37, 'deny'),
+            Loan(200, 'Home purchase', 'White', 95, 'approve'),
+            Loan(414, 'Home purchase', 'White', 300, 'approve'),
+            Loan(22, 'Refinancing', 'White', 36, '1')]
+
+for loan in my_loans:
+    print(loan, 'predict:', spred.predict(loan))
+    print('approved:', spred.get_approved(), 'denied', spred.get_denied())
+```
+
+Expected output:
+
+```
+Loan(175, 'Refinancing', 'White', 70, 'approve') predict: True
+approved: 1 denied 0
+Loan(145, 'Home purchase', 'White', 37, 'deny') predict: False
+approved: 1 denied 1
+Loan(200, 'Home purchase', 'White', 95, 'approve') predict: False
+approved: 1 denied 2
+Loan(414, 'Home purchase', 'White', 300, 'approve') predict: False
+approved: 1 denied 3
+Loan(22, 'Refinancing', 'White', 36, '1') predict: True
+approved: 2 denied 3
+```
+
+
 
 ### `DTree` Class
 
@@ -480,7 +525,7 @@ bias_percent = bias_test(b, dt, "Black or African American")
 print(bias_percent)
 ```
 
-Here, the result should be `0.4138`.  The decision tree in "bad.json"
+Here, the result should be `0.4112`.  The decision tree in "bad.json"
 is exhibiting major bias with respect to Black and African American
 applicants, with race being a deciding factor 41% of the time.
 
