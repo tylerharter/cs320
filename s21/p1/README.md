@@ -4,6 +4,7 @@
 
 * Jan 28: fix expected.html to work with both versions of beautifulsoup4
 * Feb 10: reword "not counting the time to generate the input file" to "not counting the time to generate the random text that is passed to run_wc"
+* Feb 22: clarified that "partner" should be blank for submissions
 
 ## Overview
 
@@ -546,11 +547,6 @@ in your student email address).  For "hours", estimate how many hours
 you spent on this project.  Our long-term goal is to make all seven
 projects be roughly an equal amount of work -- your estimates will
 help us towards that.
-
-If you worked with with a partner, there should only be one submission
-between you (please don't both submit), and make sure that `submitter`
-refers to the one actually submitting the code (not the other
-partner).
 
 To hand in the notebook, complete the following steps:
 
