@@ -233,6 +233,7 @@ def testSimplePredictor():
     mistakes = 0
     for i, row in enumerate(b.loans()):
         y_ = sp.predict(row)
+        print(row, y_, "testSP:predict:%d"%i)
         err = is_expected(actual=y_, name="testSP:predict:%d"%i)
         if err != None:
             print("unexpected results for SimplePredictor.predict: {}".format(err))

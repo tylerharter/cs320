@@ -32,7 +32,8 @@ class BST():
     def add(self, key, val):
         if self.root == None:
             self.root = ????
-
+            self.size += 1
+            
         start = self.root
         while True:
             if key == start.key:
