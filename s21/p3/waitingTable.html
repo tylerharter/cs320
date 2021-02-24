@@ -1,0 +1,67 @@
+<html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+      $(document).ready(function() {
+        const fullUrl = window.location.href
+        const rootURL = fullUrl.substring(0, fullUrl.lastIndexOf('/')) + "/"
+        console.log(rootURL)
+        const requestLocationsUrl = rootURL + 'locations_dfs'
+        const moreLocationsButton = $("#more-locations-button")
+        const table = $('#locations-table')
+        let rowsVisible = 2;
+
+        const tableHeaderRow = `
+        <tr>
+          <th>ID</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Access Code</th>
+          <th>Description</th>
+        </tr>`
+
+        const locationToTableRow = (loc) => {
+          return `
+          <tr>
+            <td>${loc.id}</td>
+            <td>${loc.latitude}</td>
+            <td>${loc.longitude}</td>
+            <td>${loc.access_code}</td>
+            <td>${loc.description}</td>
+          </tr>`
+        }
+        const fillLocationsTable = () => {
+          let tableContents = tableHeaderRow
+          $.get(requestLocationsUrl, {num: rowsVisible}).then((resp) => {
+            resp.forEach((loc) => {
+              tableContents += locationToTableRow(loc)
+              console.log(tableContents)
+            });
+            table.html(tableContents)
+          })
+        }
+
+
+        const update = () => {
+          rowsVisible += 1
+          if(rowsVisible < 10){
+            fillLocationsTable()
+          }
+        }
+
+        window.setInterval(update, 500);
+
+        fillLocationsTable()
+      });
+   </script>
+   </head>
+        
+  <body>
+    <h1>Locations DFS</h1>
+    <table id ="locations-table">
+      
+    </table>
+    
+</html>

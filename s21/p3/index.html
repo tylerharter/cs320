@@ -1,0 +1,46 @@
+<html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.customData = {}
+        window.customData.rootURL = window.location.href
+        const passwordInput = $('#password-input');
+        const attemptButton = $('#attempt-button');
+        const passwordCheckURL = `${window.customData.rootURL}password`
+
+        const tryPassword = () => {
+          const data = passwordInput.val()
+          $.post({
+            type: "POST",
+            url: passwordCheckURL,
+            data: data,
+            contentType: "application/text; charset=utf-8",
+            dataType: "json"
+          }).then((resp) => {
+            if(resp !== 'NO'){
+              newURL = window.customData.rootURL + resp
+              window.location.href = newURL
+            }
+          });
+        }
+        attemptButton.click(tryPassword)
+      });
+   </script>
+   </head>
+        
+  <body>
+    <h1>Welcome!</h1>
+
+    <p>With help from my childhood friend El<span>on </span>I made some <span>wis</span>e investments, and have a<span>c</span>cumulated a small foutune over my many years. I have hidden this fortune in 16 different locati<span>ons</span> througout the world.</p>
+    <p>Those locations are available <span>in</span> two websites that can be accessed with two passwords that are hidden as paths of a maze listed below.</p>
+    <p>Only those with knowledge of Breath-First and Depth-First search can solve the maze.</p>
+    
+    <div class="interactivity-container">
+      <h3><a href="Node_1.html" id="maze-entrance">ENTER THE MAZE</a></h3>
+      <div><input type="text" id="password-input" value="password"> <button id="attempt-button">GO</button></div>
+    </div>
+    </body>
+</html>
