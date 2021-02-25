@@ -1,6 +1,8 @@
-# DO NOT START YET (still being revised)
-
 # Project 3: Treasure Hunt!
+
+## Corrections/Clarifications
+
+* none yet
 
 ## Overview
 
@@ -8,8 +10,9 @@ In this project you will practice inheritance, graph search, and web
 scraping. You'll hand-in a module called `scrape.py`. It will contain
 three classes `GraphScraper`, `FileScraper` and `WebScraper`.
 
-Make sure to run the tests before handing in!  During development, we
-recommend having a debug.ipynb notebook to make calls to your module.
+Make sure to run the tests (which we plan to release by the weekend!)
+before handing in.  During development, we recommend having a
+debug.ipynb notebook to make calls to your module.
 
 # Group Part (75%)
 
