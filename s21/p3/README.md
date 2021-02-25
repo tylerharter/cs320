@@ -127,7 +127,7 @@ fs.dfs_search("1")
 fs.DFSorder
 ```
 
-You should get `['M', 'A', 'D', 'C', 'I', 'T', 'Y']`.
+You should get `['C', 'O', 'V', 'I', 'D', '1', '9']`.
 
 ### Part 2: `WebScraper` class
 
