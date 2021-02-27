@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* [Feb 27] Tester is now added.
 
 ## Overview
 
