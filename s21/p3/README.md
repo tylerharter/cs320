@@ -180,7 +180,7 @@ class WebScraper(GraphScraper):
         pass
 
     # write the code for this one individually
-    def protected_df(self, password):
+    def protected_df(self, url, password):
         pass
 ```
 
