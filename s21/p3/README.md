@@ -1,7 +1,7 @@
 # Project 3: Treasure Hunt!
 
 ## Corrections/Clarifications
-
+* [Feb 27] README updated.
 * [Feb 27] Tester is now added.
 
 ## Overview
