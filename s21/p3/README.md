@@ -1,6 +1,7 @@
 # Project 3: Treasure Hunt!
 
 ## Corrections/Clarifications
+* [Mar 1] FAQ post [here](https://piazza.com/class/kjomvrz8kyl64u?cid=466)
 * [Mar 1] Optional Starter Video: [watch here](https://youtu.be/GuSlUAYvvF8)
 * [Feb 28] Tester updated (Tests for go methods have been added)
 * [Feb 27] README updated.
