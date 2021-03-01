@@ -2,12 +2,9 @@ import re, sys
 from re import template
 import pandas as pd
 from flask import Flask, request, jsonify
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 
 
 application = Flask(__name__)
-limiter = Limiter(application, key_func=get_remote_address, default_limits=["60 per minute"])
 
 
 locationsTypes = {
