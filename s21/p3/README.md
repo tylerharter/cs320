@@ -1,6 +1,7 @@
 # Project 3: Treasure Hunt!
 
 ## Corrections/Clarifications
+* [Feb 28] Tester updated (Tests for go methods have been added)
 * [Feb 27] README updated.
 * [Feb 27] Tester is now added.
 
