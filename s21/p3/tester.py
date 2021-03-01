@@ -22,6 +22,25 @@ pass_dfs_file="COVID19"
 password_bfs = "XÆ_A-12"
 password_dfs = "BleuSus"
 
+def FileScraper_go(fscraper):
+    l1=fscraper.go("1")
+    l4=fscraper.go("4")
+    test=("".join(l1)!= "24") or ("".join(l4)!= "367")
+    if test:
+        print("unexpected go method for file scraper")
+    return not(test)
+def WebScraper_go(scraper):
+    l1=[f"http://localhost:{port}/Node_{index}.html" for index in ["2","4"]]
+    l4=[f"http://localhost:{port}/Node_{index}.html" for index in ["3","6","7"]]
+    l1_exp=scraper.go(f"http://localhost:{port}/Node_1.html")
+    test1=(l1!= l1_exp)
+    l4_exp=scraper.go(f"http://localhost:{port}/Node_4.html")
+    test2=(l4!=l4_exp)
+    test=test1 or test2
+    if test:
+        print("unexpected go method for web scraper")
+    return not(test)
+    
 def dfs_pass_file_test(fscraper):
     fscraper.dfs_search("1")
     rv="".join(fscraper.DFSorder)
@@ -80,7 +99,7 @@ def main():
     
     #tests the revised part
     print("*** Testing GraphScraper and FileScraper ***\n")
-    test_revised=[dfs_pass_file_test, bfs_pass_file_test]
+    test_revised=[dfs_pass_file_test, bfs_pass_file_test,FileScraper_go]
     FScraper = imp.import_module(student_file_name).FileScraper
     
     for test_fn in test_revised:
@@ -107,7 +126,7 @@ def main():
     scraper = Scraper(my_window)
 
 
-    tests= [dfs_pass_test, bfs_pass_test, protected_df_test]
+    tests= [WebScraper_go,dfs_pass_test, bfs_pass_test, protected_df_test,]
 
 
     for test_fn in tests:
