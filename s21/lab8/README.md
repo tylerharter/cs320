@@ -1,4 +1,4 @@
-# Lab 9: Smile!
+# Lab 8: Smile!
 
 You may have heard that [face-recognition
 systems](https://en.wikipedia.org/wiki/Facial_recognition_system) are
