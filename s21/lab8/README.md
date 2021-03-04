@@ -62,7 +62,7 @@ Your job is to improve the regular expression so that you can match
 all the faces!  Use character classes to match different kinds of eyes
 and mouths, and use `?` to make noses optional.  If you need to review
 these features, go back to the regex reading:
-https://www.textbook.ds100.org/ch/08/text_intro.html
+https://www.textbook.ds100.org/ch/12/text_intro.html
 
 Be careful, because many characters used in faces have special meaning
 in regexes.  You might need to escape some of these with `\`.
