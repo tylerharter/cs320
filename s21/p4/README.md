@@ -1,5 +1,11 @@
 # Project 4: Building a Data Website
 
+## Corrections / Clarifications
+
+* [March 8th]: Use `threaded=False` in `app.run`.
+* [March 8th]: FAQ post [here](https://piazza.com/class/kjomvrz8kyl64u?cid=572).
+* [March 7th]: README, tester added.
+
 ## Handin
 
 When you're done, you'll hand in a .zip file containing `main.py`,
@@ -350,8 +356,7 @@ When using query strings, ensure appropriate default values are supplied.
     matplotlib.use('Agg')
     ```
 
-    right after importing matplotlib. Note that the "TkAgg", "macosx", "Qt5agg" aren't thread safe 
-    and will likely fail when GUIs are used from a non-main thread.
+    right after importing matplotlib.
 
 * Ensure that `app.run` is launched with `threaded=False`.
     
