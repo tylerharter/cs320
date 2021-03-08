@@ -268,7 +268,7 @@ The method should return the whole DataFrame, even if getting the
 whole DataFrame involves clicking a button multiple times to load more
 rows.
 
-If `s` is a WebScraper with a driver that has not been closed, this this:
+If `s` is a WebScraper with a driver that has not been closed, then this:
 
 ```python
 url = "http://YOUR_IP_ADDRESS:5000/"
