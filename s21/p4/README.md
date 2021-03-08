@@ -67,7 +67,7 @@ First, install some things:
 pip3 install Flask lxml html5lib beautifulsoup4
 ```
 
-Download `tester.py` (and its dependency `svg2data.py`) -- as always, run it often!  You'll create the rest of the files from scratch.  
+Download `tester.py` -- as always, run it often!  You'll create the rest of the files from scratch.  
 
 **Note:** Running `tester.py` locally can be very helpful and time-saving for you if you haven't already been doing so. For the most part, this will let you know how your code will perform against our tests. While we still may take points off, this is a good way to ensure nothing is very off from what we're expecting. 
 Ensure both `tester.py` and `svg2data.py` are in the same folder.
