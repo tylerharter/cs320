@@ -525,7 +525,7 @@ def dashboard_examples():
         points += 20
     else:
         print(f"Atleast 3 unique SVGs required, only {len(svg_set)} found.")
-        points += 20 * len(svg_set) / 3
+        points += 20 * num_valid_svg / 3
 
     return points
 
