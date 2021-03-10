@@ -251,7 +251,7 @@ def has_pages():
             if page.find_all(re.compile("^h[1-6]$")):
                 points += 1
             else:
-                print("page missing h1 title:", link)
+                print("page missing headers:", link)
         else:
             print("missing page:", link)
 
@@ -261,7 +261,7 @@ def has_pages():
         if status == "200 OK":
             svg_points += 1
 
-    points += max(3, svg_points)
+    points += min(3, svg_points)
 
     status, headers, body = app_req("/missing.html", expect_errors=True)
     if status == "404 NOT FOUND":
