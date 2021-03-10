@@ -243,18 +243,25 @@ def has_pages():
     svg_path_ll = page.find_all("img", src=re.compile("\S+.svg\S*"))
     svg_path_ll = [svg_path["src"] for svg_path in svg_path_ll]
 
-    for link in ["/", "browse.html", "donate.html", *svg_path_ll]:
+    for link in ["/", "browse.html", "donate.html"]:
         status, headers, body = app_req(link)
         if status == "200 OK":
             points += 1
             page = BeautifulSoup(body, "lxml")
-            if not link in svg_path_ll:
-                if page.find_all(re.compile("^h[1-6]$")):
-                    points += 1
-                else:
-                    print("page missing h1 title:", link)
+            if page.find_all(re.compile("^h[1-6]$")):
+                points += 1
+            else:
+                print("page missing h1 title:", link)
         else:
             print("missing page:", link)
+
+    svg_points = 0
+    for link in svg_path_ll:
+        status, headers, body = app_req(link)
+        if status == "200 OK":
+            svg_points += 1
+
+    points += max(3, svg_points)
 
     status, headers, body = app_req("/missing.html", expect_errors=True)
     if status == "404 NOT FOUND":
@@ -519,12 +526,12 @@ def dashboard_examples():
             print(f"{svg_path} doesn't seem to be a SVG.")
             continue
         else:
-            num_valid_svg += 0
+            num_valid_svg += 1
 
     if num_valid_svg >= 3:
         points += 20
     else:
-        print(f"Atleast 3 unique SVGs required, only {len(svg_set)} found.")
+        print(f"Atleast 3 unique SVGs required, only {len(num_valid_svg)} found.")
         points += 20 * num_valid_svg / 3
 
     return points
