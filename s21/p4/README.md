@@ -2,6 +2,7 @@
 
 ## Corrections / Clarifications
 
+* [March 10th]: Fixed SVG counting error.
 * [March 8th]: Use `threaded=False` in `app.run`.
 * [March 8th]: FAQ post [here](https://piazza.com/class/kjomvrz8kyl64u?cid=572).
 * [March 7th]: README, tester added.
