@@ -243,16 +243,16 @@ def has_pages():
     svg_path_ll = page.find_all("img", src=re.compile("\S+.svg\S*"))
     svg_path_ll = [svg_path["src"] for svg_path in svg_path_ll]
 
-    for page in ["/", "browse.html", "donate.html", *svg_path_ll]:
-        status, headers, body = app_req(page)
+    for route in ["/", "browse.html", "donate.html", *svg_path_ll]:
+        status, headers, body = app_req(route)
         if status == "200 OK":
             points += 1
             page = BeautifulSoup(body, "lxml")
-            if not page.find_all("svg"):
+            if not route in svg_path_ll:
                 if page.find_all(re.compile("^h[1-6]$")):
                     points += 1
                 else:
-                    print("page missing h1 title:", page)
+                    print("page missing h1 title:", route)
         else:
             print("missing page:", page)
 
@@ -489,16 +489,20 @@ def dashboard_examples():
     svg_path_ll = [svg_path["src"] for svg_path in svg_path_ll]
     svg_set = set()
 
-    if len(svg_path_ll) != 3:
-        print(f"Expected three SVGs, but found {len(svg_path_ll)} SVGs.")
+    if len(svg_path_ll) < 3:
+        print(f"Expected atleast three SVGs, but found {len(svg_path_ll)} SVGs.")
         return points
 
     svg_route_ll = page.find_all("img", src=re.compile("(\S+?.svg)"))
     svg_route_set = set([route["src"].split("?")[0] for route in svg_route_ll])
-    if len(svg_route_set) != 2:
-        print(f"Expected two unique routes, but found {len(svg_route_set)} routes.")
+
+    if len(svg_route_set) < 2:
+        print(
+            f"Expected atleast two unique routes, but found {len(svg_route_set)} routes."
+        )
         return points
 
+    num_valid_svg = 0
     for e, svg_path in enumerate(svg_path_ll):
         status, headers, body = app_req(svg_path)
 
@@ -514,11 +518,13 @@ def dashboard_examples():
         if "svg" not in doc.tag:
             print(f"{svg_path} doesn't seem to be a SVG.")
             continue
+        else:
+            num_valid_svg += 0
 
-    if len(svg_set) == 3:
+    if num_valid_svg >= 3:
         points += 20
     else:
-        print(f"3 Unique SVGs not found, only {len(svg_set)} found.")
+        print(f"Atleast 3 unique SVGs required, only {len(svg_set)} found.")
         points += 20 * len(svg_set) / 3
 
     return points
