@@ -1,5 +1,12 @@
 # Project 4: Building a Data Website
 
+## Corrections / Clarifications
+
+* [March 10th]: Fixed SVG counting error.
+* [March 8th]: Use `threaded=False` in `app.run`.
+* [March 8th]: FAQ post [here](https://piazza.com/class/kjomvrz8kyl64u?cid=572).
+* [March 7th]: README, tester added.
+
 ## Handin
 
 When you're done, you'll hand in a .zip file containing `main.py`,
@@ -130,7 +137,7 @@ def home():
     return html
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True) # don't change this line!
+    app.run(host="0.0.0.0", debug=True, threaded=False) # don't change this line!
 
 # NOTE: app.run never returns (it runs for ever, unless you kill the process)
 # Thus, don't define any functions after the app.run call, because it will
@@ -350,8 +357,9 @@ When using query strings, ensure appropriate default values are supplied.
     matplotlib.use('Agg')
     ```
 
-    right after importing matplotlib. Note that the "TkAgg", "macosx", "Qt5agg" aren't thread safe 
-    and will likely fail when GUIs are used from a non-main thread.
+    right after importing matplotlib.
+
+* Ensure that `app.run` is launched with `threaded=False`.
     
 * Further, use `fig, ax = plt.subplots()` to create the plots and close the plots after `savefig` with `plt.close(fig)` (otherwise you may run out of memory).
 
