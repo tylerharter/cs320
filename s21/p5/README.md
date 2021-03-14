@@ -206,10 +206,13 @@ like (the `log20170101.zip` would take a long time to download).
 
 ### 1. `sample` Command
 
+`sample` command will do sampling data with specific stride and write another zip file based sampled data.
+
 This one takes three arguments:
-* input zip
-* output zip
-* stride
+
+* input zip (zip1)
+* output zip (zip2)
+* stride (mod)
 
 If stride is 10, then rows 0, 10, 20, 30, etc. will be in the sample.
 If stride is 100, then 0, 100, 200, 300, etc. will be in the sample.
@@ -221,6 +224,10 @@ Python's `csv` module for looping over one row at a time.
 Here's a function that might be useful for pulling in on row at a time:
 
 ```python
+import csv
+from zipfile import ZipFile
+from io import TextIOWrapper
+
 def zip_csv_iter(name):
     with ZipFile(name) as zf:
         with zf.open(name.replace(".zip", ".csv")) as f:
@@ -229,17 +236,22 @@ def zip_csv_iter(name):
                 yield row
 ```
 
+If you are not faimilar with `yield` statement, it would be a good idea to review generator. You can review followings stuff.
+
+* CS220 lecture materials (https://www.msyamkumar.com/cs220/f20/schedule.html) - Oct 28
+* https://realpython.com/introduction-to-python-generators/
+
 Here's an example snippet that might use the above to print off IP addresses:
 
 ```python
 reader = zip_csv_iter("jan1.zip")
-header = next(reader)
+header = next(reader) # the list of all column names
 ip_idx = header.index("ip")
 for row in reader:
     print(row[ip_idx])
 ```
 
-Running the above will give output like this:
+Running the above will give output like this: (Note that it will be a large amount of print lines)
 
 ```
 104.197.32.ihd
@@ -256,6 +268,69 @@ Running the above will give output like this:
 ```
 
 Yes, those aren't quite real IP addresses, as explained in the next section...
+
+Now, you will need to know how to write a zip file. For this, you can modify the following example, which make another zip2 file from the first five rows (+ the row of column names) of zip1 file.
+
+```
+# save 5 rows of zip1 to zip2 
+zip1 = "jan1.zip"
+zip2 = "five_rows.zip"
+
+reader = zip_csv_iter(zip1)
+header = next(reader)
+
+with ZipFile(zip2, "w") as zf:
+    with zf.open(zip2.replace(".zip", ".csv"), "w") as raw:
+        with TextIOWrapper(raw) as f:
+            writer = csv.writer(f, lineterminator='\n')
+            writer.writerow(header) # write the row of column names to zip2
+            line_count = 0
+            for row in reader:
+                writer.writerow(row) # write a row to zip2
+                line_count += 1
+                if line_count == 5: # fifth row
+                    break
+```
+
+After it, you will be able to check the `"five_rows.zip"` by the following codes.
+
+```
+reader = zip_csv_iter(zip2)
+header = next(reader)
+ip_idx = header.index("ip")
+
+for row in reader:
+    print(row[ip_idx])
+```
+
+Expected result for the above codes is
+
+```
+104.197.32.ihd
+208.77.214.jeh
+54.197.228.dbe
+108.39.205.jga
+52.45.218.ihf
+```
+
+After implementing sample, you might want to test your `sample` command with the following command line inputs.
+
+```
+python3 main.py sample jan1.zip sample_test.zip 1000
+unzip -p sample_test.zip sample_test.csv | head -n 5
+```
+
+Expected result is
+
+```
+ip,date,time,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,crawler,browser
+104.197.32.ihd,2017-01-01,00:00:00,0.0,1111711.0,0001193125-12-324016,-index.htm,200.0,7627.0,1.0,0.0,0.0,10.0,0.0,
+54.152.17.ccg,2017-01-01,00:05:57,0.0,948426.0,0001547522-16-000355,-index.htm,200.0,2764.0,1.0,0.0,0.0,10.0,0.0,
+216.244.66.ahb,2017-01-01,00:13:20,0.0,1389170.0,0001209191-14-011469,xslF345X03/doc4.xml,301.0,629.0,0.0,0.0,0.0,10.0,0.0,
+54.75.252.bfc,2017-01-01,00:20:50,0.0,947263.0,0000891092-16-019868,-index.html,200.0,2750.0,1.0,0.0,0.0,10.0,0.0,
+```
+
+
 
 ### 2. `region` Command
 
