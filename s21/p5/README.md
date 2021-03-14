@@ -18,7 +18,7 @@ EDGAR logs are huge.  Logs for *just one day* might be about 250 MB
 compressed as a .zip (or 2 GB uncompressed!).  It will be very useful
 to have command line tools to sample and otherwise process this data.
 Your tool (which will consist of a single `main.py`) will have two
-commands for dealing with these zips: `sample` and `country`.
+commands for dealing with these zips: `sample` and `region`.
 
 Your tool will also provide three commands for visualizing where web
 requests to EDGAR are originating: `geocontinent`, `geohour`, and `video`.
@@ -29,11 +29,30 @@ could generate the following (without filtering):
 
 ## Corrections/Clarifications
 
-* Nov 10: although we have a "country" command and column, it's more accurate to think of this as a region.  There are a number of IP ranges corresponding to a specific region of a country, rather than the country as a whole
-* Nov 8: tester update for geohour
-* Nov 7: Problem with width in analyzing svgs fixed
-* Nov 2: Typo in unzip command fixed
-* Nov 2: Update to tester: please redownload
+* Not yet
+
+## Packages
+
+You'll need to install some packages.  `click` will make it easy to
+build command line tools:
+
+```
+pip3 install click
+```
+
+And as a tool to convert ip address into integer,
+
+```
+pip3 install netaddr
+```
+
+And the followings will help you make maps:
+
+```
+pip3 install geopandas shapely descartes mapclassify
+```
+
+
 
 ## EDGAR Data
 
@@ -60,50 +79,55 @@ unzip -l jan1.zip
 View start of a file inside of a zip file:
 
 ```
-unzip -p jan1.zip jan1.csv | head
+unzip -p jan1.zip jan1.csv | head -n 5
 ```
+
+expected result is
+
+```
+ip,date,time,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,crawler,browser
+104.197.32.ihd,2017-01-01,00:00:00,0.0,1111711.0,0001193125-12-324016,-index.htm,200.0,7627.0,1.0,0.0,0.0,10.0,0.0,
+208.77.214.jeh,2017-01-01,00:00:00,0.0,789019.0,0001193125-06-031505,.txt,200.0,46327.0,0.0,0.0,0.0,10.0,0.0,
+54.197.228.dbe,2017-01-01,00:00:00,0.0,800166.0,0001279569-16-003038,-index.htm,200.0,16414.0,1.0,0.0,0.0,10.0,0.0,
+108.39.205.jga,2017-01-01,00:00:01,0.0,354950.0,0000950123-09-011236,-index.htm,200.0,8718.0,1.0,0.0,0.0,10.0,0.0,
+```
+
+You will be able to interpret the expected result easily. Each columns are separated by comma, and the first row is column names.
 
 Change `head` to `tail` to see the end of the file.  You may want to
 use these to compare the various zip files you produce to the versions
 we've posted to GitHub.
 
-## IP2Location(:tm:) LITE IP-COUNTRY Dataset
+## IP2Location(:tm:) LITE Dataset
 
-You need to associate IP addresses with countries for this project.
+You need to associate IP addresses with regions for this project.
 There's a Creative Commons dataset here we'll use:
-https://lite.ip2location.com/database/ip-country.  We've uploaded a
-copy of this `IP2LOCATION-LITE-DB1.CSV.ZIP` file to GitHub for you to
-manually download.
+https://lite.ip2location.com/database/ip-country.  We've uploaded slightly modified version,  `ip2location` file to GitHub for you to manually download.
 
 Note that although IP2Location calls this their "LITE IP-COUNTRY
 Database", it's more accurately a regional database: there are
-sometimes multiple entries for the same country.
+sometimes multiple entries for the same region.
 
 Another weird thing about this dataset is that regular IP address, like
 `"34.67.75.25"`, get converted to integers, like `574835481`.  Rather
-than dive into the details around this, consider adapting the
-following, with citation, of course!
+than dive into the details around this, consider using `netaddr` module to convert ip from string to integer.
 
-https://stackoverflow.com/questions/9590965/convert-an-ip-string-to-a-number-and-vice-versa
+For example,
+
+```
+import netaddr
+int(netaddr.IPAddress("34.67.75.25"))
+```
+
+will give you `574835481`. For more detail, you can refer to following references.
+
+* https://stackoverflow.com/questions/10283703/conversion-of-ip-address-to-integer
+
+* https://stackoverflow.com/questions/9590965/convert-an-ip-string-to-a-number-and-vice-versa
 
 Other than that, poke around the IP dataset and documentation and see
 if you can figure it out, asking questions on Piazza as necessary.
-Note that IP ranges are ascending (will help you later).
-
-## Packages
-
-You'll need to install some packages.  `click` will make it easy to
-build command line tools:
-
-```
-pip3 install click
-```
-
-And these will help you make maps:
-
-```
-pip3 install geopandas shapely descartes mapclassify
-```
+Note that IP ranges in ip2location.zip are ascending (will help you later).
 
 ## Starter Code
 
@@ -157,7 +181,7 @@ python3 main.py sample samp.zip samp2.zip 10 # click module automatically runs s
 
 ## Data Pipeline Commands
 
-`sample` and `country` are commands that will take a .zip as
+`sample` and `region` are commands that will take a .zip as
 input and produce a new .zip as output.  The zips will contain a
 single .csv by the same name.  It will be possible to chain the
 transformations together into a pipeline, to make a series of changes
@@ -228,9 +252,9 @@ Running the above will give output like this:
 
 Yes, those aren't quite real IP addresses, as explained in the next section...
 
-### 2. `country` Command
+### 2. `region` Command
 
-This command has two parts: sorting and adding a new country column. 
+This command has two parts: sorting and adding a new region column. 
 As explained why later, the sorting will come first. 
 
 It's OK if you read in the complete CSV, then sort,
@@ -274,15 +298,15 @@ by default (although it is possible to make it stable). However, you're encourag
 use csv.reader and csv.writer from Python's csv module instead of Pandas 
 (as noted in section 1). 
     
-Now on to adding a country column. 
+Now on to adding a region column. 
 
 This part uses the IP2Location(:tm:).  The compressed output table
 should be the same as the input, except with an extra column for
-country at the end.
+region at the end.
 
 The fact that both the IP2Location(:tm:) data and the input zip to the
-`country` command are sorted in ascending order by IP means it should
-be possible to implement `country` as an O(N) function, where N is
+`region` command are sorted in ascending order by IP means it should
+be possible to implement `region` as an O(N) function, where N is
 number of rows.  Searching through all the IP2Location(:tm:) data
 again for each row of input data could be pretty slow. 
 (That is to say, write an O(N) implementation.)  
@@ -291,7 +315,7 @@ again for each row of input data could be pretty slow.
 it should help keep the algorithm O(N).  
 
 **Note:** As you may have noticed, it would be reasonable to also split 
-sorting and adding the country column into two separate commands. When you 
+sorting and adding the region column into two separate commands. When you 
 come across dilemmas like in your own work, one question you could ask 
 yourself is "Would I ever want the output of just the first part but not 
 the second?" Taking this command for example, if you'd answer yes to 
@@ -301,15 +325,15 @@ sorted data?
 
 ## Visualization Commands
 
-Once you know have the country data for all the requests, there are a
+Once you know have the region data for all the requests, there are a
 lot of fun ways to visualize the data.  As shown in the following, the
-`geocontinent` and `geohour` commands will produce .svg files, where countries
+`geocontinent` and `geohour` commands will produce .svg files, where regions
 which generate more requests are drawn darker.  The `video` command will
 generate a 24-frame animation, showing where requests are coming
 from, hour-by-hour.
 
 **Note:** Your colors may look different than the images below due to choice 
-of colors and choice of how to assign colors to countries. 
+of colors and choice of how to assign colors to regions. 
 
 <img src="media.png">
 
@@ -329,7 +353,7 @@ The `geohour` command will produce a similar map, with at least three improvemen
 
 1. make it larger
 2. don't show Antarctica -- the penguins probably aren't operating a hedge fund there anyways
-3. countries that sent more traffic to EDGAR should be shaded darker
+3. regions that sent more traffic to EDGAR should be shaded darker
 4. an integer between 0 and 23 is passed in; the rows are filtered on the `time` column
 
 You can otherwise decide the color scheme, and it can be continuous or
@@ -338,19 +362,19 @@ discrete (for example, one color for 1000+, another for 100-999, etc).
 plotting with geopandas.  
 
 `geohour` should also write to a json file called `"top_5_h{}.json".format(hour)` a dict 
-of the top 5 counts at that time (key = country; value = count). Only include counts that 
+of the top 5 counts at that time (key = region; value = count). Only include counts that 
 have been added to the DataFrame and are being displayed in the image. 
 
-Many of the country names are identical in the IP2Location(:tm:) and EDGAR log datasets.  
-In cases where the names are slightly different, you don't need to worry about shading for that country.
+Many of the region names are identical in the IP2Location(:tm:) and EDGAR log datasets.  
+In cases where the names are slightly different, you don't need to worry about shading for that region.
 
 Here's a bit of code for a function that could help out:
 ```python
 def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
-    # count occurences per country
+    # count occurences per region
     reader = zip_csv_iter(zipname)
     header = next(reader)
-    cidx = header.index("country")
+    cidx = header.index("region")
     counts = defaultdict(int)
     w = world()
     
@@ -361,10 +385,10 @@ def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
 	        continue
         counts[row[cidx]] += 1
 	
-    for country, count in counts.items():
-        # sometimes country names in IP dataset don't
+    for region, count in counts.items():
+        # sometimes region names in IP dataset don't
         # match names in naturalearth_lowres -- skip those
-        if not country in w.index:
+        if not region in w.index:
             continue
 
         # add data (either count or a color) to a new column
@@ -378,7 +402,7 @@ def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
 ### 4. `geocontinent` Command
 
 Same as above, but a continent is passed instead of an integer 0-23. 
-Now, only show non-default colors for countries on the continent identified 
+Now, only show non-default colors for regions on the continent identified 
 by the parameter. The helper function above could be helpful here as well; 
 it just needs to be adapted. 
 
@@ -396,9 +420,9 @@ which is why we have `.html` in the video's file name.
 This last part needs a (non-Python) package called `ffmpeg` to convert all the images into a video/animation/html file. Install it like so:
 ```
 sudo apt-get install ffmpeg
-``` 
+```
 
 The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html).  
-  
+
 ## Hand-In
 Your main.py is your deliverable for P5. 
