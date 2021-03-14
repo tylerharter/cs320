@@ -133,31 +133,34 @@ Note that IP ranges in ip2location.zip are ascending (will help you later).
 
 Your tool will be named `main.py`.  It will be possible to run
 `python3 main.py COMMAND ...` where COMMAND will be replaced by
-specific operations, such as `sample` or `sort.
+specific operations, such as `sample` or `region`. For command line implementation, we will use `click` pacakage. You can refer to https://click.palletsprojects.com/en/7.x/quickstart/ as a reference.
 
 Start with this code:
 
 ```python
 import click
 
-@click.command()
-@click.argument('zip1')
-@click.argument('zip2')
-@click.argument('mod', type=click.INT)
+@click.command() # declare the below function is command
+@click.argument('zip1') # parse first argument as zip1 input param
+@click.argument('zip2') # parse second argument as zip2 input param
+@click.argument('mod', type=click.INT) # parse third argument as mod input param
 def sample(zip1, zip2, mod):
     print("zip1:", zip1)
     print("zip2:", zip2)
     print("mod:", mod)
     # TODO: finish this
 
-@click.group()
+@click.group() # make a command group
 def commands():
+  # You don't need to modify this function
     pass
 
-commands.add_command(sample)
+commands.add_command(sample) # add 'sample' command to commands group
+# commands.add_command(region) # add 'region' commnad to commands group
+# ...
 
 if __name__ == "__main__":
-    commands()
+    commands() # it will make you be able to use commands we defined
 ```
 
 Look at every place "sample" appears -- where will you need to make
@@ -176,6 +179,8 @@ python3 main.py sample # shows what arguments sample command needs
 ```sh
 python3 main.py sample samp.zip samp2.zip 10 # click module automatically runs sample(...)
 ```
+
+
 
 # Group Part (75%)
 
