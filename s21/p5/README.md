@@ -20,12 +20,12 @@ to have command line tools to sample and otherwise process this data.
 Your tool (which will consist of a single `main.py`) will have two
 commands for dealing with these zips: `sample` and `region`.
 
-Your tool will also provide three commands for visualizing where web
-requests to EDGAR are originating: `geocontinent`, `geohour`, and `video`.
-These will generate either images or videos.  For example, `geocontinent`
-could generate the following (without filtering):
+Your tool will also provide two commands for visualizing where web
+requests to EDGAR are originating: `geocontinent`, `geohour`.
+These will generate either images to visualize traffics in world map. For example, `geohour`
+could generate the following:
 
-<img src="world.png">
+<img src="noon.svg" width=800>
 
 ## Corrections/Clarifications
 
@@ -98,6 +98,8 @@ Change `head` to `tail` to see the end of the file.  You may want to
 use these to compare the various zip files you produce to the versions
 we've posted to GitHub.
 
+
+
 ## IP2Location(:tm:) LITE Dataset
 
 You need to associate IP addresses with regions for this project.
@@ -128,6 +130,24 @@ will give you `574835481`. For more detail, you can refer to following reference
 Other than that, poke around the IP dataset and documentation and see
 if you can figure it out, asking questions on Piazza as necessary.
 Note that IP ranges in ip2location.zip are ascending (will help you later).
+
+Let's look into ip2location.zip.
+
+```
+unzip -p ip2location.zip ip2location.csv | head -n 5
+```
+
+Which will give you
+
+```
+low,high,code,region
+0,16777215,-,-
+16777216,16777471,US,United States of America
+16777472,16778239,CN,China
+16778240,16779263,AU,Australia
+```
+
+As you can see, this csv includes four columns: `low`, `high`, `code`, `region`. Each row represents the range of ip address and corresponding region code and region. For example, the ip address in between 16777216 ~ 16777471 corresponds to the region United States of America.
 
 ## Starter Code
 
@@ -334,6 +354,15 @@ ip,date,time,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,cra
 
 ### 2. `region` Command
 
+`region` command will add 'region' column by investigating each row's ip address. Note that we can find the region of ip address in ip2location.zip.
+
+`region` command takes two arguments:
+
+* input zip (zip1)
+* output zip (zip2)
+
+`region` command will read data from input zip (zip1), add a column `"region"` using ip2location.zip, and then save the result to the output zip (zip2).
+
 This command has two parts: sorting and adding a new region column. 
 As explained why later, the sorting will come first. 
 
@@ -354,16 +383,15 @@ this so that it can even work on very large input zip files that don't
 fit in memory (like `log20170101.zip` on your virtual machine).
 
 The sorting needs to be done **numerically**, so you'll need to
-convert the IP addresses to integers as [discussed earlier](#ip-data).
+convert the IP addresses to integers as discussed earlier.
 
 One problem: EDGAR tries to anonymize data, so you see IP addresses
 like `104.197.32.ihd`.  "ihd" is replacing what was originally digits.
 
 You should substitute zeros for the anonymizing digits (for example,
-`104.197.32.000`) so that you can convert the IPs to ints with the
-StackOverflow example.  The substitution could be done with `re.sub`,
-among other ways.  The substitution should only occur for sorting, and
-the `104.197.32.ihd` should be what is written to the output zip file.
+`104.197.32.000`) so that you can convert the IPs to ints with `netaddr.IPAddress`.
+
+The substitution could be done with `re.sub`, among other ways.  The substitution should only occur for sorting, and the `104.197.32.ihd` should be what is written to the output zip file.
 
 **Important Note:** Whatever sorting method you choose to use should be **_stable_**. 
 A sorting algorithm is stable if, in the case of ties, it preserves the original 
@@ -403,23 +431,45 @@ the above question, you could think think about which is more inconvenient:
 having an extra command or having to remove a column when you just want 
 sorted data?
 
+
+
+After implementing sample, you might want to test your `region` command with the following command line inputs.
+
+```
+python3 main.py region small.zip small_region_added.zip
+unzip -p small_region_added.zip small_region_added.csv | head -n 5
+```
+
+Expected result is
+
+```
+ip,date,time,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,crawler,browser,region
+1.180.212.jhi,2017-01-01,14:26:43,0.0,1104188.0,0001193125-16-759461,d281471d10q.htm,200.0,111067.0,0.0,0.0,0.0,9.0,0.0,,China
+1.225.86.jdd,2017-01-01,11:35:32,0.0,895419.0,0000895419-16-000197,a10qform1qfy2017.htm,200.0,91276.0,0.0,0.0,0.0,9.0,0.0,,Korea (Republic of)
+5.9.17.hfe,2017-01-01,20:07:08,0.0,1237746.0,0001193125-14-402080,d799788dex42.htm,200.0,404776.0,0.0,0.0,0.0,10.0,0.0,,Germany
+5.9.106.igg,2017-01-01,11:24:20,0.0,1343254.0,0000000000-15-020498,filename1.pdf,200.0,120699.0,0.0,0.0,0.0,10.0,0.0,,Germany
+```
+
+, where you should be able to see the last column `region`.
+
 ## Visualization Commands
 
 Once you know have the region data for all the requests, there are a
 lot of fun ways to visualize the data.  As shown in the following, the
 `geocontinent` and `geohour` commands will produce .svg files, where regions
-which generate more requests are drawn darker.  The `video` command will
-generate a 24-frame animation, showing where requests are coming
-from, hour-by-hour.
-
-**Note:** Your colors may look different than the images below due to choice 
-of colors and choice of how to assign colors to regions. 
-
-<img src="media.png">
+which generate more requests are drawn darker. 
 
 ### 3. `geohour` Command
 
-Give this a try:
+`geohour` takes three arguments
+
+* input zip (zip name)
+* Imgname
+* hour
+
+`geohour` will read data from input zip, make a svg figure that represents traffics of each regions in specified hour, and save the figure to imgname.
+
+First, give this a try:
 
 ```python
 import geopandas
@@ -432,8 +482,8 @@ world.plot()
 The `geohour` command will produce a similar map, with at least three improvements:
 
 1. make it larger
-2. don't show Antarctica -- the penguins probably aren't operating a hedge fund there anyways
-3. regions that sent more traffic to EDGAR should be shaded darker
+2. don't show Antarctica -- the penguins probably aren't operating a hedge fund there anyways (Hint: you can look into `continent` in the below example)
+3. regions that sent more traffic to EDGAR should be shaded darker (Hint: we can count rows for each regions to see traffics)
 4. an integer between 0 and 23 is passed in; the rows are filtered on the `time` column
 
 You can otherwise decide the color scheme, and it can be continuous or
@@ -456,9 +506,9 @@ def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
     header = next(reader)
     cidx = header.index("region")
     counts = defaultdict(int)
-    w = world()
+    w = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
     
-    # populate counts 
+    # traffic counts 
     for row in reader:
         if hour != None:
             if hour != int(row[timeidx].split(":")[0]):
@@ -477,32 +527,52 @@ def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
 	# return it
 ```
 
+After implementation, you might want to test your `geohour` by the following command line.
+
+```
+python3 main.py geohour regions.zip noon.svg 12
+```
+
+, which will generate `noon.svg` file. You can download it and open it with your web browser. It will look like
+
+<img src="noon.svg" width=800>
+
+The color can vary depending on your choice.
+
 # Individual Part (25%)
 
 ### 4. `geocontinent` Command
 
 Same as above, but a continent is passed instead of an integer 0-23. 
 Now, only show non-default colors for regions on the continent identified 
-by the parameter. The helper function above could be helpful here as well; 
+by the parameter. 
+
+In other words, `geocontinent` takes three arguments
+
+* input zip (zip name)
+* Imgname
+* continent
+
+`geocontinent` will read data from input zip, make a svg figure that represents traffics of specified continent, and save the figure to imgname.
+
+The helper function above could be helpful here as well; 
 it just needs to be adapted. 
 
-### 5. `video` Command
+After implementation, you might want to test your `geocontinent` by the following command line.
 
-Imagine running `geohour` for all hours of the day, then combining the
-images to make a video.  That's basically what this command does.
-
-We'll be using
-[FuncAnimation](https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.animation.FuncAnimation.html#matplotlib.animation.FuncAnimation)
-to create the video, then call
-[.to_html5_video(...)](https://matplotlib.org/api/_as_gen/matplotlib.animation.Animation.to_html5_video.html),
-which is why we have `.html` in the video's file name.
-
-This last part needs a (non-Python) package called `ffmpeg` to convert all the images into a video/animation/html file. Install it like so:
 ```
-sudo apt-get install ffmpeg
+python3 main.py geocontinent regions.zip geo.svg europe
 ```
 
-The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html).  
+**Important Note:** continent is case-insensitive. For example, `python3 main.py geocontinent regions.zip geo.svg Europe` and `python3 main.py geocontinent regions.zip geo.svg europe` should give the same output.
+
+The output `geo.svg` will look like
+
+<img src="geo.svg" width=800>
+
+### 5. TBD
+
+
 
 ## Hand-In
 Your main.py is your deliverable for P5. 
