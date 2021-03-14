@@ -125,12 +125,6 @@ def run_all_tests():
     t1 = time.time()
     max_sec = 240
     sec = t1-t0
-    if sec > 90:
-        print("WARNING!  Tests took", sec, "seconds")
-        print("Try to keep test under 90 seconds.")
-        print("Make sure you have an O(N) implementation for region")
-        print("-5 points")
-        total_points -= 5
            
     print("="*40)
     print("Earned {} of {} points across all tests".format(total_points, total_possible))
@@ -262,6 +256,7 @@ def run(*args):
     print("RUN:", " ".join(args))
     subprocess.check_output(
         args, stderr=subprocess.STDOUT,
+        timeout=90, # add time limit
         universal_newlines=True
     )
 
@@ -316,7 +311,7 @@ def big_samp():
         return 0
     return 10
 
-@test(points=10)
+@test(points=15)
 def small_region():
     zname = gen(row_count=50)
     zout = zname.replace(".zip", "_output.zip")
@@ -326,18 +321,24 @@ def small_region():
         print(err)
         return 0
     else:
-        return 10
+        return 15
 
-@test(points=20)
+@test(points=15)
 def big_region():
     zname = "small.zip" 
     zout = "region_output.zip"
-    run("region", zname, zout)
-    err = check_zip(zout)
-    if err:
-        print(err)
+    try:
+        run("region", zname, zout)
+        err = check_zip(zout)
+        if err:
+            print(err)
+            return 0
+        return 15
+    except subprocess.TimeoutExpired as timeout:
+        print(timeout)
+        print("Try to keep test under 90 seconds.")
+        print("Make sure you have an O(N) implementation for region")
         return 0
-    return 20
 
 @test(points=25)
 def geocontinent():
