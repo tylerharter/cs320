@@ -128,7 +128,7 @@ def run_all_tests():
     if sec > 90:
         print("WARNING!  Tests took", sec, "seconds")
         print("Try to keep test under 90 seconds.")
-        print("Make sure you have an O(N) implementation for country")
+        print("Make sure you have an O(N) implementation for region")
         print("-5 points")
         total_points -= 5
            
@@ -317,10 +317,10 @@ def big_samp():
     return 10
 
 @test(points=10)
-def small_country():
+def small_region():
     zname = gen(row_count=50)
     zout = zname.replace(".zip", "_output.zip")
-    run("country", zname, zout)
+    run("region", zname, zout)
     err = check_zip(zout)
     if err:
         print(err)
@@ -329,10 +329,10 @@ def small_country():
         return 10
 
 @test(points=20)
-def big_country():
+def big_region():
     zname = "small.zip" 
-    zout = "country_output.zip"
-    run("country", zname, zout)
+    zout = "region_output.zip"
+    run("region", zname, zout)
     err = check_zip(zout)
     if err:
         print(err)
@@ -341,7 +341,7 @@ def big_country():
 
 @test(points=25)
 def geocontinent():
-    zname = "countries.zip"
+    zname = "regions.zip"
     svg = "geo.svg"
     if os.path.exists(svg):
         os.remove(svg)
@@ -382,7 +382,7 @@ def geocontinent():
 
 @test(points=15)
 def geohour():
-    zname = "countries.zip"
+    zname = "regions.zip"
     avg_colors = set()
     points = 15
     
@@ -403,7 +403,7 @@ def geohour():
         err = is_expected(sorted(top_5.values()), 'geohour_json_{}'.format(hour))
         if err is not None:
             points -= 1
-            print('incorrect top 5 for hour {}'.format(hour))
+            print('incorrect top 5 for hour {}'.format(hour), err)
 
     if len(avg_colors) < 3:
         print("colors don't seem to change much from hour to hour")
@@ -413,7 +413,7 @@ def geohour():
 
 @test(points=10)
 def video():
-    zname = "countries.zip"
+    zname = "regions.zip"
     vid_html = "test-vid.html"
     vid_mp4 = "extract-vid.mp4"
     for p in (vid_html, vid_mp4):
