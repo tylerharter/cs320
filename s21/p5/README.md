@@ -530,10 +530,10 @@ def your_helper_fcn_change_this_name(zipname, ax=None, hour=None):
 After implementation, you might want to test your `geohour` by the following command line.
 
 ```
-python3 main.py geohour regions.zip noon.svg 12
+python3 main.py geohour regions.zip noon_output.svg 12
 ```
 
-, which will generate `noon.svg` file. You can download it and open it with your web browser. It will look like
+, which will generate `noon_output.svg` file. You can download it and open it with your web browser. It will look like
 
 <img src="noon.svg" width=800>
 
@@ -561,12 +561,12 @@ it just needs to be adapted.
 After implementation, you might want to test your `geocontinent` by the following command line.
 
 ```
-python3 main.py geocontinent regions.zip geo.svg europe
+python3 main.py geocontinent regions.zip geo_output.svg europe
 ```
 
-**Important Note:** continent is case-insensitive. For example, `python3 main.py geocontinent regions.zip geo.svg Europe` and `python3 main.py geocontinent regions.zip geo.svg europe` should give the same output.
+**Important Note:** continent is case-insensitive. For example, continent input `Europe` and `europe` should give the same output.
 
-The output `geo.svg` will look like
+The output `geo_output.svg` will look like
 
 <img src="geo.svg" width=800>
 
