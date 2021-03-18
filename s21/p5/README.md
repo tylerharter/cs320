@@ -586,8 +586,6 @@ Here is the starter code. You will need to update the update function, making su
 Make sure to use the function object, we do not call the function. 
 Example: (object: function_example vs calling: function_example() --> (FuncAnimation(…, func_example, …), not FuncAnimation(…, func_example(), …)))
 
-The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html). 
-
 ```@click.command()
    @click.argument('zipname')
    @click.argument('vidname')
@@ -597,8 +595,10 @@ The final thing should look something like [this](https://tyler.caraza-harter.co
            # todo: use plot_hour function to create a graph for a specific hour
        # Use FuncAnimation function to create a video 
        with open(vidname, "w") as f:
-           f.write(your_video_name_here.to_html5_video())```
+           f.write(your_video_name_here.to_html5_video())
+```
 
+The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html). 
 
 ## Hand-In
 Your main.py is your deliverable for P5. 
