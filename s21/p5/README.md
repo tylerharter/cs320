@@ -570,6 +570,8 @@ The output `geo_output.svg` will look like
 
 <img src="geo.svg" width=800>
 
+### 5. `Video` Command
+
 Here we are going to create an animation. 
 
 Imagine running geohour for all hours of the day, then combining the images to make a video. That's basically what this command does.
