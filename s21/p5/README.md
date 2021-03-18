@@ -570,9 +570,35 @@ The output `geo_output.svg` will look like
 
 <img src="geo.svg" width=800>
 
-### 5. TBD
+### 5. `Video` Command
 
+Here we are going to create an animation. 
 
+Imagine running geohour for all hours of the day, then combining the images to make a video. That's basically what this command does.
+
+We'll be using FuncAnimation to create the video, then call .to_html5_video(...), which is why we have .html in the video's file name.
+
+This last part needs a (non-Python) package called ffmpeg to convert all the images into a video/animation/html file. Install it like so:
+
+```sudo apt-get install ffmpeg```
+
+Here is the starter code. You will need to update the update function, making sure to use plot_hour to plot a specific hour. After, you will create a video using the FuncAnimation function. For the func parameter of FuncAnimation, we will use the update function object. 
+Make sure to use the function object, we do not call the function. 
+Example: (object: function_example vs calling: function_example() --> (FuncAnimation(…, func_example, …), not FuncAnimation(…, func_example(), …)))
+
+```@click.command()
+   @click.argument('zipname')
+   @click.argument('vidname')
+   def video(zipname, vidname):
+       fig, ax = plt.subplots()
+       def update(hour):
+           # todo: use plot_hour function to create a graph for a specific hour
+       # Use FuncAnimation function to create a video 
+       with open(vidname, "w") as f:
+           f.write(your_video_name_here.to_html5_video())
+```
+
+The final thing should look something like [this](https://tyler.caraza-harter.com/cs320/s20/materials/p4-vid.html). 
 
 ## Hand-In
 Your main.py is your deliverable for P5. 
