@@ -98,27 +98,35 @@ Your printed output should be a JSON-formatted list of four dicts
 ```
 [
   {
+    "ip": "1.1.1.1",
+    "int_ip": 16843009,
     "region": "United States of America",
-    "ms": 6.119012832641602
+    "ms": 5.023002624511719
   },
   {
+    "ip": "1.1.1.2",
+    "int_ip": 16843010,
     "region": "United States of America",
-    "ms": 0.03409385681152344
+    "ms": 0.04100799560546875
   },
   {
+    "ip": "9.9.9.9",
+    "int_ip": 151587081,
     "region": "United States of America",
-    "ms": 13.61703872680664
+    "ms": 11.50202751159668
   },
   {
+    "ip": "1.1.1.2",
+    "int_ip": 16843010,
     "region": "United States of America",
-    "ms": 13.249874114990234
+    "ms": 11.83176040649414
   }
 ]
 ```
 
-In addition to giving the region, it should give how many milliseconds
-each lookup took.  Look at the measurements above: it took 6.1 ms to
-lookup 1.1.1.1, but it only took 0.03 ms to lookup 1.1.1.2.
+In addition to giving ip, integer value of ip, and the region, it should give how many milliseconds
+each lookup took.  Look at the measurements above: it took 5.02 ms to
+lookup 1.1.1.1, but it only took 0.04 ms to lookup 1.1.1.2.
 
 You aren't expected to have identical times, but you should optimize
 your code so that consecutively looking up multiple IP addresses in
@@ -131,6 +139,8 @@ The reason you need to optimize this is that the next command will
 need to look up countries for a large number of IP addresses that are
 in sorted order, and it will be quite slow overall if you can't do
 similar consecutive lookups efficiently.
+
+Hint: You may refer to wc.py of project 1 to print the a JSON-formatted list of dicts.
 
 ## Part 2: `sample`
 
@@ -165,8 +175,13 @@ ip,date,time,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,cra
 108.39.205.jga,2017-01-01,00:00:01,0.0,354950.0,0000950123-09-011236,-index.htm,200.0,8718.0,1.0,0.0,0.0,10.0,0.0,
 ```
 
-`sample` command will do sampling data at regular intervals give a
-stride stride number, then write another zip file based sampled data.
+`sample` command will do the following data preprocessing.
+
+1) sampling data at regular intervals (the interval is given as input)
+
+2) add a column ('region') at the end that shows the region from which the web request originated
+
+3) write another zip file based on preprocessed data
 
 This one takes three arguments:
 
@@ -178,6 +193,12 @@ If stride is 10, then rows 0, 10, 20, 30, etc. will be in the sample.
 If stride is 100, then 0, 100, 200, 300, etc. will be in the sample.
 Row 0 refers to the first row of actual data, not the header (the
 header always needs to be written to the new file).
+
+To add a column 'region', you can apply a very similar logie with ip_check. However, EDGAR tries to anonymize IP addresses by replacing some digits with letters, as in "157.55.39.eja".  For sorting and lookup purposes, replace letters with zeros (for example, "157.55.39.000").  The unmodified versions of the IP addresses should still appear in the first column of the new file, though.
+
+To write a new zip file, you may refer to [sample code](sample_hints.md) for copying subsets of
+data from one zipped CSV to another (no need to read or follow these
+patterns if you already know how you want to do this).
 
 For example, we can run with a stride of 30000, then check our output:
 
@@ -203,13 +224,7 @@ Additional requirements:
 
 * don't do anything to read the entire data from the large zip to memory (`pd.read_csv` does this, so is not an option).  Looping over a `csv.reader` does not pull all the data into memory.
 * in the new zip file, rows should be sorted asceding by IP (as converted to ints in the previous command), in ascending order.  It's OK to have all the rows in memory at once that are going to be written to the new .zip (this makes sorting easier)
-* add a column at the end that shows the region from which the web request originated
-* EDGAR tries to anonymize IP addresses by replacing some digits with letters, as in "157.55.39.eja".  For sorting and lookup purposes, replace letters with zeros (for example, "157.55.39.000").  The unmodified versions of the IP addresses should still appear in the first column of the new file, though.
 * we recommend using Python's `sort` or `sorted`.  If you want to use something else, you can, but if so, learn about "stable sorting" (https://www.quora.com/What-is-the-difference-between-a-stable-and-unstable-sort/answer/Rahul-Kumar-6717?ch=10&share=2f60372f&srid=2ByvL) and make sure whatever you use is stable, like the built-in Python sorting functions
-
-We have some [sample code](sample_hints.md) for copying subsets of
-data from one zipped CSV to another (no need to read or follow these
-patterns if you already know how you want to do this).
 
 ## Part 3: `world`
 
@@ -220,7 +235,7 @@ like this (check by opening it in your browser):
 <img src="world.svg" width=800>
 
 The title, border, and legend are optional.  Mandatory: Antarctica is
-not shown, color indicates something about the number of web requests
+not shown, color indicates the number of web requests
 originating from a region, and the map is bigger than the default
 created by `GeoDataFrame.plot`.
 
@@ -241,6 +256,10 @@ Many of the region names are identical in the IP2Location(:tm:) and
 `naturalearth_lowres` GeoDataFrame.  In cases where the names are
 slightly different, you don't need to worry about shading for that
 region.
+
+Hint 1. To hide Antartica, you may look into 'continent' column of `world`.
+
+Hint 2. You may want to make a new column to world by counting the value of 'region' column in zip file data.
 
 
 # Individual Part (25%)
@@ -266,6 +285,20 @@ expressions to see how many 10-digit phone numbers (like
 in these files.  Before doing the regex searches, you should read the
 text in of each file directly into a string (even if the file ends
 with ".htm" or similar, don't both using BeautifulSoup).
+
+You can use the following base code.
+
+```
+def phone(zp):
+    rv = []
+    with ZipFile(zp) as zf:
+        for info in zf.infolist():
+            with zf.open(info.filename) as f: # open file in zip
+                t = TextIOWrapper(f)
+                txt = t.read() # read html file as string
+                phones = re.findall(??????, txt) # find all digit phone number
+                rv.extend(phones)
+```
 
 The command is `python3 main.py phone docs.zip`.  Just print each
 phone number on its own line (no duplicates!):
