@@ -20,13 +20,14 @@ Your `main.py` will support four commands:
 
 ## Corrections/Clarifications
 
-* none yet
+* [March 20] Add `pip3 install --upgrade pip` to pacakages
 
 ## Packages
 
 You'll need to install some packages:
 
 ```
+pip3 install --upgrade pip
 pip3 install geopandas shapely descartes geopy mapclassify netaddr
 ```
 
