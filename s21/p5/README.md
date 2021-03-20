@@ -141,7 +141,7 @@ need to look up countries for a large number of IP addresses that are
 in sorted order, and it will be quite slow overall if you can't do
 similar consecutive lookups efficiently.
 
-Hint: You may refer to wc.py of project 1 to print the a JSON-formatted list of dicts.
+Hint: You may refer to wc.py of project 1 to print a JSON-formatted list of dicts.
 
 ## Part 2: `sample`
 
@@ -195,7 +195,7 @@ If stride is 100, then 0, 100, 200, 300, etc. will be in the sample.
 Row 0 refers to the first row of actual data, not the header (the
 header always needs to be written to the new file).
 
-To add a column 'region', you can apply a very similar logie with ip_check. However, EDGAR tries to anonymize IP addresses by replacing some digits with letters, as in "157.55.39.eja".  For sorting and lookup purposes, replace letters with zeros (for example, "157.55.39.000").  The unmodified versions of the IP addresses should still appear in the first column of the new file, though.
+To add a column 'region', you can apply a very similar logic with ip_check. However, EDGAR tries to anonymize IP addresses by replacing some digits with letters, as in "157.55.39.eja".  For sorting and lookup purposes, replace letters with zeros (for example, "157.55.39.000").  The unmodified versions of the IP addresses should still appear in the first column of the new file, though.
 
 To write a new zip file, you may refer to [sample code](sample_hints.md) for copying subsets of
 data from one zipped CSV to another (no need to read or follow these
@@ -287,22 +287,9 @@ in these files.  Before doing the regex searches, you should read the
 text in of each file directly into a string (even if the file ends
 with ".htm" or similar, don't both using BeautifulSoup).
 
-You can use the following base code.
-
-```
-def phone(zp):
-    rv = []
-    with ZipFile(zp) as zf:
-        for info in zf.infolist():
-            with zf.open(info.filename) as f: # open file in zip
-                t = TextIOWrapper(f)
-                txt = t.read() # read html file as string
-                phones = re.findall(??????, txt) # find all digit phone number
-                rv.extend(phones)
-```
-
 The command is `python3 main.py phone docs.zip`.  Just print each
-phone number on its own line (no duplicates!):
+phone number on its own line (the order doesn't matter, but there
+shouldn't be any duplicates!):
 
 ```
 (212) 250-5883
@@ -313,6 +300,11 @@ phone number on its own line (no duplicates!):
 (212) 659-2050
 ...
 ```
+
+Hint. In your `ZippedCSVReader.rows` method of P2, you had to read in
+every file in a zip that ended with .csv.  This is a bit similar,
+except that you'll read every file (regardless of extension), and
+you'll just load them as strings (with a `.read()`).
 
 # Conclusion
 
