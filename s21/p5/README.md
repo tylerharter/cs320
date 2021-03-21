@@ -20,6 +20,7 @@ Your `main.py` will support four commands:
 
 ## Corrections/Clarifications
 
+* [March 21] Add tester.py, expected.json, (sample command) move sorting requirements from additional requirements to main requirements.
 * [March 21] Fix small.zip csv file name (test.csv -> small.csv)
 * [March 20] Add `pip3 install --upgrade pip` to pacakages
 
@@ -181,9 +182,11 @@ ip,date,time,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,cra
 
 1) sampling data at regular intervals (the interval is given as input)
 
-2) add a column ('region') at the end that shows the region from which the web request originated
+2) sort data by IP in ascending order
 
-3) write another zip file based on preprocessed data
+3) add a column ('region') at the end that shows the region from which the web request originated
+
+4) write another zip file based on preprocessed data
 
 This one takes three arguments:
 
@@ -195,6 +198,8 @@ If stride is 10, then rows 0, 10, 20, 30, etc. will be in the sample.
 If stride is 100, then 0, 100, 200, 300, etc. will be in the sample.
 Row 0 refers to the first row of actual data, not the header (the
 header always needs to be written to the new file).
+
+In the new zip file, rows should be sorted ascending by IP (as converted to ints in the previous command), in ascending order.  It's OK to have all the rows in memory at once that are going to be written to the new .zip (this makes sorting easier)
 
 To add a column 'region', you can apply a very similar logic with ip_check. However, EDGAR tries to anonymize IP addresses by replacing some digits with letters, as in "157.55.39.eja".  For sorting and lookup purposes, replace letters with zeros (for example, "157.55.39.000").  The unmodified versions of the IP addresses should still appear in the first column of the new file, though.
 
@@ -225,7 +230,6 @@ ip,date,time,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,cra
 Additional requirements:
 
 * don't do anything to read the entire data from the large zip to memory (`pd.read_csv` does this, so is not an option).  Looping over a `csv.reader` does not pull all the data into memory.
-* in the new zip file, rows should be sorted asceding by IP (as converted to ints in the previous command), in ascending order.  It's OK to have all the rows in memory at once that are going to be written to the new .zip (this makes sorting easier)
 * we recommend using Python's `sort` or `sorted`.  If you want to use something else, you can, but if so, learn about "stable sorting" (https://www.quora.com/What-is-the-difference-between-a-stable-and-unstable-sort/answer/Rahul-Kumar-6717?ch=10&share=2f60372f&srid=2ByvL) and make sure whatever you use is stable, like the built-in Python sorting functions
 
 ## Part 3: `world`
