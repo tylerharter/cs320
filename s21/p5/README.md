@@ -20,6 +20,7 @@ Your `main.py` will support four commands:
 
 ## Corrections/Clarifications
 
+* [March 21] Fix small.zip csv file name (test.csv -> small.csv)
 * [March 20] Add `pip3 install --upgrade pip` to pacakages
 
 ## Packages
