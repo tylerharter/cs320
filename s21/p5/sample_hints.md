@@ -21,7 +21,7 @@ idea to review generator from the lab.
 Here's an example snippet that might use the above to print off IP addresses:
 
 ```python
-reader = zip_csv_iter("jan1.zip")
+reader = zip_csv_iter("large.zip")
 header = next(reader) # the list of all column names
 ip_idx = header.index("ip")
 for row in reader:
@@ -50,7 +50,7 @@ Now, you will need to know how to write a zip file. For this, you can modify the
 
 ```python
 # save 5 rows of zip1 to zip2 
-zip1 = "jan1.zip"
+zip1 = "large.zip"
 zip2 = "five_rows.zip"
 
 reader = zip_csv_iter(zip1)

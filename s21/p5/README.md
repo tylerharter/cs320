@@ -20,6 +20,7 @@ Your `main.py` will support four commands:
 
 ## Corrections/Clarifications
 
+* [March 22] README jan1.zip --> large.zip
 * [March 21] Add tester.py, expected.json, (sample command) move sorting requirements from additional requirements to main requirements.
 * [March 21] Fix small.zip csv file name (test.csv -> small.csv)
 * [March 20] Add `pip3 install --upgrade pip` to pacakages
@@ -151,7 +152,7 @@ Take a look at the list of daily zips and CSV documentation on the EDGAR site:
 * https://www.sec.gov/dera/data/edgar-log-file-data-set.html
 * https://www.sec.gov/files/EDGAR_variables_FINAL.pdf
 
-We have provided a `jan1.zip` file, which is a subset of the records
+We have provided a `large.zip` file, which is a subset of the records
 from `log20170101.zip`.  You'll be creating lots of zip files for this
 projects, so you'll want to know some command line techniques to
 troubleshoot.
@@ -159,13 +160,13 @@ troubleshoot.
 View names of files in a zip file:
 
 ```
-unzip -l jan1.zip
+unzip -l large.zip
 ```
 
 View start of a file inside of a zip file (change "head" to "tail" to see the end):
 
 ```
-unzip -p jan1.zip jan1.csv | head -n 5
+unzip -p large.zip large.csv | head -n 5
 ```
 
 The expected result is:
