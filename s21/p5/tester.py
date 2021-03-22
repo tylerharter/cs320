@@ -377,11 +377,7 @@ def sample():
     for i, row in enumerate(zip_csv_iter(zout)):
         actual_json[f"sample_{i}"] = row
         actual_count += 1
-    
-    # dump in the middle for convenience
-    with open("actual.json", "w", encoding="utf-8") as f:
-        json.dump(actual_json, f, indent=2)
-    
+
     # open expected
     with open("expected.json") as f:
         expected_json = json.load(f)
@@ -398,21 +394,37 @@ def sample():
         print(f"expected {expected_count} rows, found {actual_count} rows.")
         points -= unit_points * abs(expected_count - actual_count)
     
+    incorrect_count = 0
     for i in range(expected_count):
         try: # compare rows
             actual_row = actual_json[f"sample_{i}"]
             expected_row = expected_json[f"sample_{i}"]
             if actual_row != expected_row:
-                print(f"row {i}")
-                print(f"expected row: {expected_row}")
-                print(f"found row: {actual}")
-        except IndexError as e:
-            print(f"missing row {i}: {expected_row}")
+                incorrect_count += 1
+                if incorrect_count < 11:
+                    print(f"---row {i}---")
+                    print(f"expected row: {expected_row}")
+                    print(f"found row: {actual_row}")
+        except KeyError as e:
+            incorrect_count += 1
+            if incorrect_count < 11:
+                    print(f"---row {i}---")
+                    print(f"missed row {i}: {expected_row}")
+            
         except Exception as e:
+            incorrect_count += 1
             print(type(e), e)
+            
+    
+    if incorrect_count > 10:
+        print(f"... [{incorrect_count - 10}] more rows are incorrect or missed.")
+    
+    print(f"Total {incorrect_count} rows are incorrect.")
+    points -= incorrect_count * unit_points
     
     points = max(0, points)
     return points
+
 @test(points=25)
 def world():
     zname = "small.zip"
@@ -450,40 +462,49 @@ def phone():
     actual = run("phone", zname).strip().split("\n")
     actual_json['phone'] = actual
     
-    
-    # open and parse 'phone_expected.txt'
+    # open expected
     with open('expected.json', 'r') as f:
         expected_json = json.load(f)
         expected = set(expected_json['phone'])
-        
+    
+    # no duplicated check
     if len(actual) - len(set(actual)) > 0 :
         print("(-10) There are duplicated phone numbers!")
         print("Duplicated phone numbers and counts")
+        
         # count phone numbers
         wc = defaultdict(int)
         for phone_number in actual:
             wc[phone_number] += 1
             
         # show duplicated phone numbers
+        duplicated_count = 0
         for phone_number in wc:
             if wc[phone_number] > 1:
-                print(phone_number, ":", wc[phone_number])
+                duplicated_count += 1
+                if duplicated_count < 11:
+                    print(phone_number, f", count: {wc[phone_number]}")
+        if duplicated_count > 10:
+            print(f"... [{duplicated_count-10}] more numbers are duplicated.")
         points -= 10
     
+    # missing values check
     actual = set(actual)
-    unexpected = actual - expected
-    missed = expected - actual
+    weight = 20
+    missed = set(expected).difference(set(actual))
+    missed_count = len(missed)
+    points -= missed_count / len(expected) * weight
+    if missed_count > 0:
+        print(f"Total {missed_count} numbers are missed!")
+        
+    for pn in sorted(missed)[:10]:
+        print(f"missed phone number: {pn}")
     
-    unit_points = points / len(expected)
-    
-    for element in unexpected:
-        print(f"unexpected phone number: {element}")
-        points -= unit_points
-    
-    for element in missed:
-        print(f"missed phone number: {element}")
-        points -= unit_points
+    if missed_count > 10:
+        print(f"... [{missed_count-10}] more numbers are missed.")
+        
     points = max(0, points)  
+    
     return points 
 
 ########################################
