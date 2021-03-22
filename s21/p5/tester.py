@@ -338,7 +338,7 @@ def ip_check():
         except Exception as e:
             print(type(e), e)
     
-    # optimize: faster processing on consecutive ones, criteria: < 20% of random access
+    # check optimize: faster processing on consecutive ones, criteria: < 20% of random access
     avg_time_inconsecutive = np.mean([x['ms'] for x in actual[:6]])
     avg_time_consecutive = np.mean([x['ms'] for x in actual[6:]])
     # print('time', avg_time_inconsecutive, avg_time_consecutive)
@@ -365,12 +365,7 @@ def sample():
     except Exception as e:
         print(type(e), e)
         
-    elapsed_time = time.time() - start_time
-    if elapsed_time > 20:
-        print("(-10) sample command can be optimized further. (<= 20secs), elapsed time:", elapsed_time)
-        print("Make sure you have an O(M+N) implementation")
-        points -= 10
-        
+    elapsed_time = time.time() - start_time # check later since sort should be checked first.
     
     # write on actual_json
     actual_count = 0
@@ -389,39 +384,80 @@ def sample():
     
     unit_points = points / expected_count
     
-    # compare the number of rows
-    if expected_count != actual_count:
-        print(f"expected {expected_count} rows, found {actual_count} rows.")
-        points -= unit_points * abs(expected_count - actual_count)
-    
-    incorrect_count = 0
-    for i in range(expected_count):
-        try: # compare rows
-            actual_row = actual_json[f"sample_{i}"]
+    # 'region' column check
+    if 'region' not in actual_json[f"sample_{0}"]:
+        print(f"(-10) 'region' column not found!")
+        points -= 10
+        
+        
+    # 'sort' check, brute force strategy: search all rows to find matched one
+    found_all = True
+    not_sorted = False
+    found_rows = 0
+    if expected_count == actual_count:
+        
+        
+        # compare all examples (175 rows)
+        for i in range(expected_count):
+            found = False
             expected_row = expected_json[f"sample_{i}"]
-            if actual_row != expected_row:
+            
+            # search all actual
+            for j in range(expected_count):
+                actual_row = actual_json[f"sample_{j}"]
+                if expected_row == actual_row:
+                    found = True
+                    found_rows += 1
+                    break
+            
+            # not found    
+            if not found:
+                found_all = False
+            elif i != j: # found in different index
+                not_sorted = True
+         
+        if found_all and not_sorted:
+            print(f"(-10) All rows are found, but the order is incorrect. Make sure your sort.")
+            points -= 10
+    
+    # elapsed time check
+    if elapsed_time > 20:
+        print("(-10) sample command can be optimized further. (<= 20secs), elapsed time:", np.round(elapsed_time, 5))
+        print("Make sure you have an O(M+N) implementation")
+        points -= 10
+    
+    # incorrect rows check - check it only when it is not the matter of 'region' column or sort
+    if ('region' in actual_json[f"sample_{0}"]) and (not (found_all and not_sorted)):
+        print_threshold = 5
+        incorrect_count = 0
+        for i in range(expected_count):
+            try: # compare rows
+                actual_row = actual_json[f"sample_{i}"]
+                expected_row = expected_json[f"sample_{i}"]
+                if actual_row != expected_row:
+                    incorrect_count += 1
+                    if incorrect_count <= print_threshold:
+                        print(f"---row {i}---")
+                        print(f"expected row: {expected_row}")
+                        print(f"found row: {actual_row}")
+            except KeyError as e:
                 incorrect_count += 1
-                if incorrect_count < 11:
-                    print(f"---row {i}---")
-                    print(f"expected row: {expected_row}")
-                    print(f"found row: {actual_row}")
-        except KeyError as e:
-            incorrect_count += 1
-            if incorrect_count < 11:
-                    print(f"---row {i}---")
-                    print(f"missed row {i}: {expected_row}")
-            
-        except Exception as e:
-            incorrect_count += 1
-            print(type(e), e)
-            
-    
-    if incorrect_count > 10:
-        print(f"... [{incorrect_count - 10}] more rows are incorrect or missed.")
-    
-    print(f"Total {incorrect_count} rows are incorrect.")
-    points -= incorrect_count * unit_points
-    
+                if incorrect_count < print_threshold:
+                        print(f"---row {i}---")
+                        print(f"missed row {i}: {expected_row}")
+
+            except Exception as e:
+                incorrect_count += 1
+                print(type(e), e)
+
+
+        if incorrect_count > print_threshold:
+            print(f"... [{incorrect_count - print_threshold}] more rows are incorrect or missed.")
+
+        if incorrect_count > 0:
+            print(f"Total {incorrect_count} rows are incorrect or missed.")
+            points -= incorrect_count * unit_points
+
     points = max(0, points)
     return points
 
@@ -479,18 +515,19 @@ def phone():
             
         # show duplicated phone numbers
         duplicated_count = 0
+        print_threshold = 10
         for phone_number in wc:
             if wc[phone_number] > 1:
                 duplicated_count += 1
-                if duplicated_count < 11:
+                if duplicated_count <= print_threshold:
                     print(phone_number, f", count: {wc[phone_number]}")
-        if duplicated_count > 10:
-            print(f"... [{duplicated_count-10}] more numbers are duplicated.")
+        if duplicated_count > print_threshold:
+            print(f"... [{duplicated_count-print_threshold}] more numbers are duplicated.")
         points -= 10
     
     # missing values check
     actual = set(actual)
-    weight = 20
+    weight = 25
     missed = set(expected).difference(set(actual))
     missed_count = len(missed)
     points -= missed_count / len(expected) * weight
