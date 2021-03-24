@@ -314,6 +314,7 @@ def ip_check():
     # compare length
     if abs(len(actual)-len(expected)):
         print(f"the number of input ips: {len(expected)}, but the number of output: {len(actual)}")
+        points -= abs(len(actual)-len(expected)) * unit_points
     
     # compare contents
     for i in range(len(expected)):
@@ -334,10 +335,6 @@ def ip_check():
                         points -= unit_points
         except IndexError as e:
             print(f"missing: {expected[i]['ip']}")
-            points -= unit_points
-        except Exception as e:
-            print(type(e), e)
-            points -= unit_points
     
     # check optimize: faster processing on consecutive ones, criteria: < 20% of random access
     avg_time_inconsecutive = np.mean([x['ms'] for x in actual[:6]])
@@ -363,8 +360,6 @@ def sample():
     except subprocess.TimeoutExpired:
         print("Execution time for sample should be less than 90 seconds")
         return 0
-    except Exception as e:
-        print(type(e), e)
         
     elapsed_time = time.time() - start_time # check later since sort should be checked first.
     
@@ -446,11 +441,6 @@ def sample():
                 if incorrect_count < print_threshold:
                         print(f"---row {i}---")
                         print(f"missed row {i}: {expected_row}")
-
-            except Exception as e:
-                incorrect_count += 1
-                print(type(e), e)
-
 
         if incorrect_count > print_threshold:
             print(f"... [{incorrect_count - print_threshold}] more rows are incorrect or missed.")
