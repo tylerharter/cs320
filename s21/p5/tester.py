@@ -314,7 +314,6 @@ def ip_check():
     # compare length
     if abs(len(actual)-len(expected)):
         print(f"the number of input ips: {len(expected)}, but the number of output: {len(actual)}")
-        points -= abs(len(actual)-len(expected)) * unit_points
     
     # compare contents
     for i in range(len(expected)):
@@ -335,8 +334,10 @@ def ip_check():
                         points -= unit_points
         except IndexError as e:
             print(f"missing: {expected[i]['ip']}")
+            points -= unit_points
         except Exception as e:
             print(type(e), e)
+            points -= unit_points
     
     # check optimize: faster processing on consecutive ones, criteria: < 20% of random access
     avg_time_inconsecutive = np.mean([x['ms'] for x in actual[:6]])
