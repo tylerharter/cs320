@@ -20,6 +20,8 @@ Your `main.py` will support four commands:
 
 ## Corrections/Clarifications
 
+* [March 24] Update tester (relieve performance check about ip_check, fix a bug where Exception gives score.)
+
 * [March 22] README jan1.zip --> large.zip
 * [March 21] Add tester.py, expected.json, (sample command) move sorting requirements from additional requirements to main requirements.
 * [March 21] Fix small.zip csv file name (test.csv -> small.csv)
@@ -140,11 +142,13 @@ every range every time).  Notice, however, that the second lookup of
 because it is not near the immediately preceding IP of 9.9.9.9.
 
 The reason you need to optimize this is that the next command will
-need to look up countries for a large number of IP addresses that are
+need to look up countries/regions for a large number of IP addresses that are
 in sorted order, and it will be quite slow overall if you can't do
 similar consecutive lookups efficiently.
 
-Hint: You may refer to wc.py of project 1 to print a JSON-formatted list of dicts.
+Hint 1: You may refer to wc.py of project 1 to print a JSON-formatted list of dicts.
+
+Hint 2: Basic strategy is to keep previous index and use it again for the next time so that consecutive ips can be searched very fast. Another strategy is to apply binary search - in this case, execution time will be improved not only for consecutive ips, but for all ips. The tester will compare the execution time with naive linear search.
 
 ## Part 2: `sample`
 

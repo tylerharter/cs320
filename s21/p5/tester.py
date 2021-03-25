@@ -298,7 +298,6 @@ def zip_csv_iter(name):
             for row in reader:
                 yield row
 
-
 @test(points=25)
 def ip_check():
     points = 25
@@ -312,10 +311,9 @@ def ip_check():
         expected = json.load(f)["ip_check"]
     
     # compare length
-    if abs(len(actual)-len(expected)):
+    if abs(len(actual)-len(expected)) > 0:
         print(f"the number of input ips: {len(expected)}, but the number of output: {len(actual)}")
-        points -= abs(len(actual)-len(expected)) * unit_points
-    
+        
     # compare contents
     for i in range(len(expected)):
         try:
@@ -335,18 +333,23 @@ def ip_check():
                         points -= unit_points
         except IndexError as e:
             print(f"missing: {expected[i]['ip']}")
-        except Exception as e:
-            print(type(e), e)
+            points -= unit_points
     
-    # check optimize: faster processing on consecutive ones, criteria: < 20% of random access
-    avg_time_inconsecutive = np.mean([x['ms'] for x in actual[:6]])
-    avg_time_consecutive = np.mean([x['ms'] for x in actual[6:]])
-    # print('time', avg_time_inconsecutive, avg_time_consecutive)
+    ip_table = pd.read_csv("ip2location.csv")
+    linear_search_time = []
+    for i in range(10):
+        start_time = time.time()
+        for _ in range(len(ip_table)):
+            pass
+        linear_search_time.append((time.time() - start_time) * 1e3)
     
-    if (avg_time_inconsecutive / 10) < avg_time_consecutive:
-        print("(-10) Not enough optimized for consecutive ips! Time for consecutive ips can be less than 10% of inconsecutive ones")
-        print(f"average elapsed time for consecutive ips: {avg_time_consecutive}")
-        print(f"average elapsed time for inconsecutive ips: {avg_time_inconsecutive}")
+    avg_time_actual = np.mean([x['ms'] for x in actual[6:]])
+    avg_time_linear = np.mean(linear_search_time)
+    
+    if avg_time_actual > avg_time_linear:
+        print("(-10) Not enough optimized! It should be able to give better solution than naive linear search for consecutive ips")
+        print(f"Average ip_check 'ms': {avg_time_actual}")
+        print(f"Linear search time: {avg_time_linear}")
         points -= 10
     return max(points, 0)
 
@@ -362,8 +365,6 @@ def sample():
     except subprocess.TimeoutExpired:
         print("Execution time for sample should be less than 90 seconds")
         return 0
-    except Exception as e:
-        print(type(e), e)
         
     elapsed_time = time.time() - start_time # check later since sort should be checked first.
     
@@ -445,11 +446,6 @@ def sample():
                 if incorrect_count < print_threshold:
                         print(f"---row {i}---")
                         print(f"missed row {i}: {expected_row}")
-
-            except Exception as e:
-                incorrect_count += 1
-                print(type(e), e)
-
 
         if incorrect_count > print_threshold:
             print(f"... [{incorrect_count - print_threshold}] more rows are incorrect or missed.")
