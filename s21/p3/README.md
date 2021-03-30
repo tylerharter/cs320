@@ -1,6 +1,7 @@
 # Project 3: Treasure Hunt!
 
 ## Corrections/Clarifications
+* [Mar 3] `expandingTable.html` has been updated.
 * [Mar 1] `application.py` has been updated.
 * [Mar 1] FAQ post [here](https://piazza.com/class/kjomvrz8kyl64u?cid=466)
 * [Mar 1] Optional Starter Video: [watch here](https://youtu.be/GuSlUAYvvF8)
@@ -267,7 +268,7 @@ The method should return the whole DataFrame, even if getting the
 whole DataFrame involves clicking a button multiple times to load more
 rows.
 
-If `s` is a WebScraper with a driver that has not been closed, this this:
+If `s` is a WebScraper with a driver that has not been closed, then this:
 
 ```python
 url = "http://YOUR_IP_ADDRESS:5000/"
