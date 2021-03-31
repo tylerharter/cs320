@@ -19,7 +19,6 @@ Your `main.py` will support four commands:
 * `phone`: dump out a list of phone numbers appearing in the docs referenced in the web logs
 
 ## Corrections/Clarifications
-
 * [March 24] Update tester (relieve performance check about ip_check, fix a bug where Exception gives score.)
 
 * [March 22] README jan1.zip --> large.zip
@@ -268,7 +267,7 @@ Many of the region names are identical in the IP2Location(:tm:) and
 slightly different, you don't need to worry about shading for that
 region.
 
-Hint 1. To hide Antartica, you may look into 'continent' column of `world`.
+Hint 1. To hide Antarctica, you may look into 'continent' column of `world`.
 
 Hint 2. You may want to make a new column to world by counting the value of 'region' column in zip file data.
 
