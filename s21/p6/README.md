@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* [April 2nd]: Tester released. Requires `ffmpeg` installed for Q16. Download `expected.json` too.
 
 ## Overview
 
