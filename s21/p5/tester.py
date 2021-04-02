@@ -236,9 +236,10 @@ def svg_analyze(fname):
         }
 
     rgb = [0, 0, 0]
-    
+
     for path in doc.getElementsByTagName('path'):
         style = path.getAttribute('style')
+
         m = re.match(r"fill:\#(\w+)\;", style)
         if m:
             color = m.group(1).lower()
@@ -467,6 +468,8 @@ def world():
         os.remove(svg)
     run("world", zname, svg)
     stats = svg_analyze(svg)
+
+    print(stats)
     
     if stats["paths"] < 270 or stats["paths"] > 300:
         print("%s doesn't look like a world map" % svg)
