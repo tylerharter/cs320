@@ -24,7 +24,6 @@ FAIL_JSON = (
     "Make sure the only print statement is a print(json.dumps...)!"
 )
 EPSILON = 1e-4
-NUMPY_EPSILON = 1e-4
 
 TEXT_FORMAT = "text"
 NUMPY_FORMAT = "np"
@@ -206,7 +205,8 @@ def check_cell_text(qnum: int, cell: Dict, is_numpy_array: bool = False) -> str:
         actual = np.array(actual)
 
         try:
-            if np.linalg.norm(expected - actual) > NUMPY_EPSILON:
+            incorrect_mask = np.abs(expected - actual) > EPSILON
+            if incorrect_mask.any():
                 expected_mismatch = True
 
         except ValueError as e:
