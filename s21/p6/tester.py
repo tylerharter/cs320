@@ -47,7 +47,7 @@ questions = [
     Question(number=10, weight=5, format=TEXT_FORMAT),
     Question(number=11, weight=5, format=TEXT_FORMAT),
     Question(number=12, weight=5, format=HTML_FORMAT),
-    Question(number=13, weight=5, format=TEXT_FORMAT),
+    Question(number=13, weight=5, format=NUMPY_FORMAT),
     Question(number=14, weight=5, format=TEXT_FORMAT),
     Question(number=15, weight=5, format=TEXT_FORMAT),
     Question(number=16, weight=5, format=TEXT_FORMAT),
