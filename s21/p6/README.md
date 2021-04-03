@@ -2,6 +2,8 @@
 
 ## Corrections/Clarifications
 
+* [April 3rd]: Re-run build dataset, refreshed all outputs, plots and expected.json. 
+* [April 3rd]: Revert back to 16 questions, removed repeating Q9. 
 * [April 3rd]: Fixed number of questions, Q9 was repeated (17 questions now). 
 For outputs with floats (including list and tuple), tester has a tolerance.
 * [April 3rd]: Fixed typo in Q9. `area0320.py` -> `area0320.npy`.
@@ -147,7 +149,7 @@ Show the first 5 rows of the test data, with this added column:
 #### Q4: How does the model score when evaluated against the test dataset?
 
 Use the r2_score (remember that this is the default for `.score`).
-Expected: about 0.756.
+Expected: about 0.714.
 
 #### Q5: How do the predictions compare to the actual values? [PLOT]
 
@@ -199,7 +201,7 @@ scoring metric (which again is `r2_score`).
 
 #### Q8: what are the mean (average) scores for simple and complex models, respectively?
 
-Answer with a tuple, like this: `(0.5236988909638027, 0.730661154741614)`
+Answer with a tuple, like this: `(0.6517545836308132, 0.7882683505969759)`
 
 #### Q9: what is the standard deviation of scores for each model?
 
@@ -264,24 +266,22 @@ np.array([
 `forest_ratio` should be 0.25, developed_ratio should be 0.5, and the
 others should be 0.
 
-#### Q10: What is the shape of the numpy array saved in `area0320.npy`?
+#### Q10: How many cells in all of `area1234.npy` contain code 52?
 
-Expected: `(100,100)`
+Expected: `80`.
 
-#### Q11: How many cells in all of `area1234.npy` contain code 52?
-
-Expected: `36`.
-
-#### Q12: What are the **last** 5 rows of the new test dataset?
+#### Q11: What are the **last** 5 rows of the new test dataset?
 
 If you did the new query and split into train/test correctly, you can
 copy your code from Q1 to answer this.
 
-<img src="imgs/q12.png">
+<img src="imgs/q11.png">
 
-#### Q13: what are the mean (average) scores for simple and complex models, respectively, on the larger dataset?
+#### Q12: what are the mean (average) scores for simple and complex models, respectively, on the larger dataset?
 
 You should be able to re-use your code from Q8, running it now on the bigger dataset.
+
+Expected: `(0.7729881088121584, 0.8844524099928219)`.
 
 # Individual Part (25%)
 
@@ -343,19 +343,19 @@ paste that function in your notebook, then pass
 You see Madison doesn't change a lot over this period (it's only a 15
 year interval), but you'll notice the differences upon close inspection.
 
-#### Q14: What is the shape of the 2001 Madison matrix?
+#### Q13: What is the shape of the 2001 Madison matrix?
 
 Expected: `(1200, 1200)`
 
-#### Q15: What portion of the points in Madison changed from 2001 to 2016?
+#### Q14: What portion of the points in Madison changed from 2001 to 2016?
 
 Expected: about 0.06156
 
-#### Q16: What years appear in `madison.zip`?
+#### Q15: What years appear in `madison.zip`?
 
 Expected: `[2001, 2004, 2006, 2008, 2011, 2013, 2016]`
 
-#### Q17: How has Madison evolved over the years? [VIDEO]
+#### Q16: How has Madison evolved over the years? [VIDEO]
 
 Use FuncAnimation to create a video with one frame per year in the
 dataset (there are some gaps in the dataset, but 2001 should be frame
