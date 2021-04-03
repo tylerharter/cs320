@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* [April 3rd]: Fixed typo in Q9. `area0320.py` -> `area0320.npy`.
 * [April 2nd]: Tester released. Requires `ffmpeg` installed for Q16. Download `expected.json` too.
 
 ## Overview
@@ -261,7 +262,7 @@ np.array([
 `forest_ratio` should be 0.25, developed_ratio should be 0.5, and the
 others should be 0.
 
-#### Q9: What is the shape of the numpy array saved in `area0320.py`?
+#### Q9: What is the shape of the numpy array saved in `area0320.npy`?
 
 Expected: `(100,100)`
 
