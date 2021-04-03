@@ -2,6 +2,8 @@
 
 ## Corrections/Clarifications
 
+* [April 3rd]: Fixed number of questions, Q9 was repeated (17 questions now). 
+For outputs with floats (including list and tuple), tester has a tolerance.
 * [April 3rd]: Fixed typo in Q9. `area0320.py` -> `area0320.npy`.
 * [April 2nd]: Tester released. Requires `ffmpeg` installed for Q16. Download `expected.json` too.
 
@@ -262,22 +264,22 @@ np.array([
 `forest_ratio` should be 0.25, developed_ratio should be 0.5, and the
 others should be 0.
 
-#### Q9: What is the shape of the numpy array saved in `area0320.npy`?
+#### Q10: What is the shape of the numpy array saved in `area0320.npy`?
 
 Expected: `(100,100)`
 
-#### Q10: How many cells in all of `area1234.npy` contain code 52?
+#### Q11: How many cells in all of `area1234.npy` contain code 52?
 
 Expected: `36`.
 
-#### Q11: What are the **last** 5 rows of the new test dataset?
+#### Q12: What are the **last** 5 rows of the new test dataset?
 
 If you did the new query and split into train/test correctly, you can
 copy your code from Q1 to answer this.
 
 <img src="imgs/q12.png">
 
-#### Q12: what are the mean (average) scores for simple and complex models, respectively, on the larger dataset?
+#### Q13: what are the mean (average) scores for simple and complex models, respectively, on the larger dataset?
 
 You should be able to re-use your code from Q8, running it now on the bigger dataset.
 
@@ -341,19 +343,19 @@ paste that function in your notebook, then pass
 You see Madison doesn't change a lot over this period (it's only a 15
 year interval), but you'll notice the differences upon close inspection.
 
-#### Q13: What is the shape of the 2001 Madison matrix?
+#### Q14: What is the shape of the 2001 Madison matrix?
 
 Expected: `(1200, 1200)`
 
-#### Q14: What portion of the points in Madison changed from 2001 to 2016?
+#### Q15: What portion of the points in Madison changed from 2001 to 2016?
 
 Expected: about 0.06156
 
-#### Q15: What years appear in `madison.zip`?
+#### Q16: What years appear in `madison.zip`?
 
 Expected: `[2001, 2004, 2006, 2008, 2011, 2013, 2016]`
 
-#### Q16: How has Madison evolved over the years? [VIDEO]
+#### Q17: How has Madison evolved over the years? [VIDEO]
 
 Use FuncAnimation to create a video with one frame per year in the
 dataset (there are some gaps in the dataset, but 2001 should be frame

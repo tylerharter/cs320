@@ -24,7 +24,7 @@ FAIL_JSON = (
     "Make sure the only print statement is a print(json.dumps...)!"
 )
 EPSILON = 1e-4
-NUMPY_EPSILON = 1e-3
+NUMPY_EPSILON = 1e-4
 
 TEXT_FORMAT = "text"
 NUMPY_FORMAT = "np"
@@ -43,15 +43,16 @@ questions = [
     Question(number=5, weight=5, format=PNG_FORMAT),
     Question(number=6, weight=5, format=PNG_FORMAT),
     Question(number=7, weight=5, format=TEXT_FORMAT),
-    Question(number=8, weight=5, format=TEXT_FORMAT),
-    Question(number=9, weight=5, format=TEXT_FORMAT),
+    Question(number=8, weight=5, format=NUMPY_FORMAT),
+    Question(number=9, weight=5, format=NUMPY_FORMAT),
     Question(number=10, weight=5, format=TEXT_FORMAT),
-    Question(number=11, weight=5, format=HTML_FORMAT),
-    Question(number=12, weight=5, format=TEXT_FORMAT),
+    Question(number=11, weight=5, format=TEXT_FORMAT),
+    Question(number=12, weight=5, format=HTML_FORMAT),
     Question(number=13, weight=5, format=TEXT_FORMAT),
     Question(number=14, weight=5, format=TEXT_FORMAT),
     Question(number=15, weight=5, format=TEXT_FORMAT),
-    Question(number=16, weight=5, format=VIDEO_FORMAT),
+    Question(number=16, weight=5, format=TEXT_FORMAT),
+    Question(number=17, weight=5, format=VIDEO_FORMAT),
 ]
 question_nums = [q.number for q in questions]
 
@@ -201,8 +202,19 @@ def check_cell_text(qnum: int, cell: Dict, is_numpy_array: bool = False) -> str:
             expected_mismatch = True
 
     elif is_numpy_array:
-        if np.linalg.norm(np.array(expected) - np.array(actual)) > NUMPY_EPSILON:
-            expected_mismatch = True
+        expected = np.array(expected)
+        actual = np.array(actual)
+
+        try:
+            if np.linalg.norm(expected - actual) > NUMPY_EPSILON:
+                expected_mismatch = True
+
+        except ValueError as e:
+            if expected.shape != actual.shape:
+                # Catch shape errors separately
+                return f"Shape mismatch. Expected shape {expected.shape}, but has shape {actual.shape}."
+            else:
+                return e
 
     elif type(expected) in (list, tuple):
         try:
