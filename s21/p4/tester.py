@@ -418,6 +418,9 @@ def email():
     return points
 
 
+only_varied_query_str = False
+
+
 def ab_test_helper(click_through=[], best=0):
     importlib.reload(main_mod)
     points = 0
@@ -446,14 +449,27 @@ def ab_test_helper(click_through=[], best=0):
                 print("could not visit " + links[0])
                 return 0
 
+    def _transform(html: str):
+        return re.sub('donate.html\?.*"', 'donate.html"', html)
+
     # phase 1: alternate
     for i in range(1, learn):
-        if html[i] == html[i - 1]:
-            print("(a) did not alternate html in first %d visits" % learn)
-            return points
+        # breakpoint()
+        if _transform(html[i]) == _transform(html[i - 1]):
+            if html[i] == html[i - 1]:
+                print("(a) did not alternate html in first %d visits" % learn)
+                return points
+            else:
+
+                global only_varied_query_str
+                only_varied_query_str = True
         if i > 1 and html[i] != html[i - 2]:
             print("(b) did not alternate html in first %d visits" % learn)
             return points
+
+    if only_varied_query_str:
+        print("alternated between versions, but they only differ at the query string.")
+
     points += 1
 
     # phase 2: same
@@ -481,6 +497,9 @@ def ab_test():
     points += ab_test_helper(click_through=[2, 4, 6, 8, 1, 3, 5, 7, 9], best=1)
     points += ab_test_helper(click_through=[2, 4, 6, 8, 5, 7, 9], best=0)
     points += ab_test_helper(click_through=[0, 6, 8, 3, 5, 7, 9], best=1)
+
+    if only_varied_query_str:
+        points -= 2
     return points
 
 
