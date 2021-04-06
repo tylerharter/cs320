@@ -23,7 +23,7 @@ FAIL_JSON = (
     "Expected program to print in json format. "
     "Make sure the only print statement is a print(json.dumps...)!"
 )
-EPSILON = 1e-4
+EPSILON = 1e-3
 
 TEXT_FORMAT = "text"
 NUMPY_FORMAT = "np"

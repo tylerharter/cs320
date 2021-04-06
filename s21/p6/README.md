@@ -2,6 +2,7 @@
 
 ## Corrections/Clarifications
 
+* [April 5th]: Reduce rounding sensitivity
 * [April 3rd]: Re-run build dataset, refreshed all outputs, plots and expected.json. 
 * [April 3rd]: Revert back to 16 questions, removed repeating Q9. 
 * [April 3rd]: Fixed number of questions, Q9 was repeated (17 questions now). 
