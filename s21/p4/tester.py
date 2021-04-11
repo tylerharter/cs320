@@ -450,7 +450,8 @@ def ab_test_helper(click_through=[], best=0):
                 return 0
 
     def _transform(html: str):
-        return re.sub('donate.html\?.*"', 'donate.html"', html)
+        # regex didn't work with one of the submissions that had to be reran
+        return html.replace('donate.html?from=A', '').replace('donate.html?from=B', '') 
 
     # phase 1: alternate
     for i in range(1, learn):
