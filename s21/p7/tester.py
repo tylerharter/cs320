@@ -34,6 +34,7 @@ def main():
     print()
 
     t0 = time.time()
+    print("Fitting+Predicting...")
 
     # step 1: fit
     model = student_module.UserPredictor()
