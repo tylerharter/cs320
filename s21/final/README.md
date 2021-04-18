@@ -13,7 +13,7 @@ as they are not working on the same dataset as you.  Cite anybody
 
 ## Clarifications/Corrections
 
-* none yet
+* Apr 18: add link to upload .ipynb too
 
 ## Specifications
 
@@ -153,6 +153,8 @@ Here are some of the finals from last fall that we especially enjoyed (shared on
 ## Submission and Grading
 
 You can submit your final PDF here: https://canvas.wisc.edu/courses/244425/assignments/1183663
+
+Also submit your accompanying code here: https://canvas.wisc.edu/courses/244425/assignments/1189442
 
 ### Rubric
 
