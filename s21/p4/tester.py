@@ -334,6 +334,20 @@ def browse():
                             " ", ""
                         ):
                             continue
+                    elif isinstance(expected.iat[i], int) and isinstance(
+                        actual.iat[i], str
+                    ):
+                        if (
+                            actual.iat[i].replace(",", "") == expected.iat[i]
+                        ): # handling commas in string representations of integers
+                            continue
+                    elif isinstance(expected.iat[i], str) and isinstance(
+                        actual.iat[i], int
+                    ):
+                        if (
+                            expected.iat[i].replace(",", "") == actual.iat[i]
+                        ): # handling commas in string representations of integers
+                            continue
                     err = "found {} but expected {} at row {} of column {}"
                     err = err.format(actual.iat[i], expected.iat[i], i, col)
                     print(err)
