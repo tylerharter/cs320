@@ -14,6 +14,7 @@ as they are not working on the same dataset as you.  Cite anybody
 ## Clarifications/Corrections
 
 * Apr 18: add link to upload .ipynb too
+* Apr 27: added option 5 for figure 2 below
 
 ## Specifications
 
@@ -75,6 +76,7 @@ results.
 2. line plot, where x-axis is number of clusters and y-axis is inertia (KMeans with any number of dimensions)
 3. scatter plot, where x-axis and y-axis show the first two principal components (PCA that reduces to 2 dimensions)
 4. line plot, where x-axis is number of components and y-axis is cumulative explained variance (PCA with any number of dimensions)
+5. colored geographic map (if you're applying KMeans clustering across regions)
 
 #### Figure 3: supervised ML
 
