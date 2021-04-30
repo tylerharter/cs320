@@ -15,6 +15,7 @@ as they are not working on the same dataset as you.  Cite anybody
 
 * Apr 18: add link to upload .ipynb too
 * Apr 27: added option 5 for figure 2 below
+* Apr 30: clustered box-and-whisker plots (though not covered in 320) can count for figure 1
 
 ## Specifications
 
@@ -54,7 +55,7 @@ data) to communicate something important about the data.
 **Options:**
 
 1. stacked bar plot
-2. clustered bar plot
+2. clustered bar plot (a clustered box-and-whiskers plot, though not taught in 320, can also count)
 3. line plot with multiple lines
 4. scatter plot (a geographic map with points on it counts).  Either shape, size, or color of points must communicate a third dimension of the data beyond what is already communicated by the x-axis and y-axis
 
