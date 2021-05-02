@@ -54,9 +54,10 @@ precipitation data from weather stations in Wisconsin.
 1. go to https://www.ncdc.noaa.gov/data-access
 2. on the left, go to "Land-Based Station", "Datasets", GSOD ("summary of day" statistics)
 3. choose precipitation and average temperaturen under "What"; choose "Wisconin" under "Where", and choose dates from Jan 1st, 2021, to Jan 1st, 2022 under "When"
-4. below there is an option to download data for individual stations in WI.  Instead, click "+ Select All", then click "+Quick Add"
-5. click "Proceed to Cart" (don't worry, you don't need to pay!)
-6. type your email address on the right, then click "Submit"
-7. watch you're inbox.  You'll probably get an email that they're working on it, then another a minute or two later with the actual data CSV
+4. below there is an option to download data for individual stations in WI.  Instead, click "+ Select All", then click "Configure and Add"
+5. set "Include Station Location" and "Include Station Location" to "Yes"
+6. click "Proceed to Cart" (don't worry, you don't need to pay!)
+7. type your email address on the right, then click "Submit"
+8. watch you're inbox.  You'll probably get an email that they're working on it, then another a minute or two later with the actual data CSV
 
 <img src="noaa.png" width=700>
